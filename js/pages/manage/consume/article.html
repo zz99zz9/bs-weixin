@@ -1,0 +1,90 @@
+<div id="pullrefresh" class="mui-scroll-wrapper" ms-controller="article">
+    <div class="mui-scroll">
+        <br>
+        <br>
+        <div class="input-panel">
+            <div class="mui-input-group">
+                <div class="rowHead">
+                    <img src="../img/tag1.jpg" />{{name}}
+                </div>
+            </div>
+            <div class="mui-input-group">
+                <div class="display-flex">
+                    <h5 class="flex0" style="-webkit-box-pack: justify;">理论当月用量</h5>
+                    <h5 class="flex1">{{monthAmount}} 件</h5>
+                </div>
+            </div>
+            <div class="mui-input-group">
+                <div class="display-flex">
+                    <h5 class="flex0" style="-webkit-box-pack: justify;">剩余</h5>
+                    <h5 class="flex1">{{onlineStock}} 件</h5>
+                </div>
+            </div>
+            <div class="mui-input-group">
+                <div class="display-flex">
+                    <h5 class="flex0" style="-webkit-box-pack: justify;">当月盘点</h5>
+                    <h5 class="flex0">
+                <input type="text" ms-duplex="newActualQuantity" style="width:100px;height: 22px;border: solid 1px #ccc;border-radius: 5px;" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" >
+            </h5>
+                    <h5 class="flex1"> 件</h5>
+                    <h5 style="font-size:14px;display: inline-block;text-align: right;" class="flex2">
+                <span ms-click="modify" ms-class="mui-text-gray:isDisabled">修改</span>
+            </h5>
+                </div>
+            </div>
+            <div class="mui-input-group">
+                <div class="display-flex">
+                    <h5 class="flex0" style="-webkit-box-pack: justify;">当月损耗</h5>
+                    <h5 class="flex1">{{onlineStock - newActualQuantity}} 件</h5>
+                </div>
+            </div>
+        </div>
+        <div class="input-panel">
+            <div class="mui-input-group">
+                <div class="rowHead">
+                    <img src="../img/tag1.jpg" />明细
+                </div>
+            </div>
+            <div class="mui-input-group" ms-repeat="list" ms-on-tap="go(el.type)">
+                <div class="list">
+                    {{el.date}} {{el.type == 1?"入库":"出库"}}{{el.quantity}}件
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+mui.init({
+    pullRefresh: {
+        container: '#pullrefresh',
+        up: {
+            contentrefresh: '正在加载...',
+            contentnomore: "没有更多数据了",
+            callback: loadmore
+        }
+    }
+});
+
+function loadmore() {
+    var vm = listData.vm,
+        url = listData.url;
+
+    listData.data.pageNo = vm.pageNo;
+    listData.data.pageSize = vm.pageSize;
+
+    console.log(123);
+    ajaxJsonp({
+        url: url,
+        data: listData.data,
+        successCallback: function(json) {
+            if (json.data.count + json.data.pageSize > (vm.pageNo * json.data.pageSize) && json.data.list.length > 0) {
+                vm.pageNo++;
+                vm.list.push.apply(vmArticle.list, json.data.list);
+                mui("#pullrefresh").pullRefresh().endPullupToRefresh(false);
+            } else {
+                mui("#pullrefresh").pullRefresh().endPullupToRefresh(true);
+            }
+        }
+    });
+}
+</script>

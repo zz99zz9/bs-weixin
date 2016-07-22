@@ -1,0 +1,24 @@
+{
+  "name": "weixin",
+  "version": "1.1.0",
+  "description": "本宿微信端",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "weixin",
+    "bensue"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-connect": "^2.3.1",
+    "gulp-content-includer": "0.0.7",
+    "gulp-minify-css": "^1.2.3",
+    "gulp-regex-replace": "^0.2.3",
+    "gulp-rename": "^1.2.2",
+    "gulp-ruby-sass": "^2.0.6"
+  }
+}

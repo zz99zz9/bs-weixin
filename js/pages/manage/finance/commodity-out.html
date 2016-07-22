@@ -1,0 +1,44 @@
+<div ms-controller="commodity" class="input-panel">
+	<div class="mui-input-group">
+		<div class="display-flex mui-navigate-right">
+			<h5 class="flex0" style="-webkit-box-pack: justify;">日用品</h5>
+			<h5 class="flex1">
+            	<button id='toolPicker' class="mui-btn mui-btn-block" type='button'>{{name}}</button>
+			</h5>
+		</div>
+	</div>
+    <div class="mui-input-group">
+		<div class="display-flex">
+			<h5 class="flex0" style="-webkit-box-pack: justify;">购入单价</h5>
+			<h5 class="flex1">{{unitPrice}} 元/{{unit}}</h5>
+		</div>
+	</div>
+	<div class="mui-input-group">
+		<div class="display-flex">
+			<h5 class="flex0" style="-webkit-box-pack: justify;">数量</h5>
+			<h5 class="flex0">
+				<input type="tel" ms-duplex="count"  onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" />
+			</h5>
+			<h5 class="flex1"> {{unit}}</h5>
+		</div>
+	</div>
+    <div class="mui-input-group">
+        <div class="display-flex">
+            <h5 class="flex0" style="-webkit-box-pack: justify;">总金额</h5>
+            <h5 class="flex1">{{unitPrice*count}} 元</h5>
+        </div>
+    </div>
+    <div class="mui-input-group">
+		<div class="display-flex mui-navigate-right">
+			<h5 class="flex0" style="-webkit-box-pack: justify;">日期</h5>
+			<h5 class="flex1">
+            	<button id="datePicker" data-options='{}' class="mui-btn mui-btn-block">{{date}}</button>
+			</h5>
+		</div>
+	</div>
+</div>
+<nav class="mui-bar mui-bar-tab ini-bar-bottom" ms-controller="commodity">
+    <button type="button" class="mui-btn ini-btn-submit" ms-click="submit" ms-attr-disabled="isDisabled">保存</button>
+
+    <button type="button" class="mui-btn ini-btn-submit" ms-click="cancel">取消</button>
+</nav>

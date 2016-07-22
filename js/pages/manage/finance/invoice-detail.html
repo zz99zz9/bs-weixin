@@ -1,0 +1,64 @@
+
+<div class="input-panel" ms-controller="detail">
+    <div class="mui-input-group">
+        <div class="display-flex">
+            <h5 class="flex0" style="-webkit-box-pack: justify;">姓名</h5>
+            <h5 class="flex1">{{data.user && data.user.name}}</h5>
+        </div>
+    </div>
+    <div class="mui-input-group">
+        <div class="display-flex">
+            <h5 class="flex0" style="-webkit-box-pack: justify;">金额</h5>
+            <h5 class="flex1">{{data.money}} 元</h5>
+        </div>
+    </div>
+    <div class="mui-input-group">
+        <div class="display-flex">
+            <h5 class="flex0" style="-webkit-box-pack: justify;">发票抬头</h5>
+            <h5 class="flex1">{{data.subject}}</h5>
+        </div>
+    </div>
+    <div class="mui-input-group">
+        <div class="display-flex">
+            <h5 class="flex0" style="-webkit-box-pack: justify;">收件地址</h5>
+            <h5 class="flex1">{{data.address}}</h5>
+        </div>
+    </div>
+    <div class="mui-input-group">
+        <div class="display-flex">
+            <h5 class="flex0" style="-webkit-box-pack: justify;">收件人</h5>
+            <h5 class="flex1">{{data.receiver}}</h5>
+        </div>
+    </div>
+    <div class="mui-input-group">
+        <div class="display-flex">
+            <h5 class="flex0" style="-webkit-box-pack: justify;">收件人电话</h5>
+            <h5 class="flex1">{{data.phone}}</h5>
+        </div>
+    </div>
+    <div class="mui-input-group">
+        <div class="display-flex">
+            <h5 class="flex0" style="-webkit-box-pack: justify;">发票状态</h5>
+            <h5 class="flex1">{{data.status==2?'已寄出':'待寄出'}}</h5>
+        </div>
+    </div>
+    <div class="mui-input-group" ms-if="isSended">
+        <div class="display-flex">
+            <h5 class="flex0" style="-webkit-box-pack: justify;">发票代码</h5>
+            <h5 class="flex1">{{data.code}}</h5>
+        </div>
+    </div>
+    <div class="mui-input-group" ms-if="!isSended">
+        <div class="display-flex">
+            <h5 class="flex0" style="-webkit-box-pack: justify;">发票代码</h5>
+            <h5 class="flex1">
+                <input type="text" ms-duplex-string="invoiceId" data-duplex-changed="changed" style="width: 100%;">
+            </h5>
+        </div>
+    </div>
+    <br><br>
+</div>
+
+<nav class="mui-bar mui-bar-tab ini-bar-bottom" ms-controller="detail" ms-if="!isSended">
+    <button type="button" class="mui-btn ini-btn-submit" ms-click="send" ms-attr-disabled="isDisabled">寄出</button>
+</nav>

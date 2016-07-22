@@ -1,0 +1,23 @@
+<div ms-controller="repair" class="input-panel">
+	<div class="mui-input-group">
+		<div class="display-flex">
+			<h5 class="flex0" style="-webkit-box-pack: justify;">损坏物品</h5>
+			<h5 class="flex1">
+				<textarea class="flex1" type="text" rows="5" ms-duplex="tools"></textarea>
+			</h5>
+		</div>
+	</div>
+    <div class="mui-input-group">
+		<div class="display-flex mui-navigate-right">
+			<h5 class="flex0" style="-webkit-box-pack: justify;">日期</h5>
+			<h5 class="flex1">
+        		<button id="datePicker" data-options='{}' class="mui-btn mui-btn-block">{{date}}</button>
+			</h5>
+		</div>
+	</div>
+</div>
+<nav class="mui-bar mui-bar-tab ini-bar-bottom" ms-controller="repair">
+	<button type="button" class="mui-btn ini-btn-submit" ms-click="submit" ms-attr-disabled="isDisabled">确认</button>
+
+    <button type="button" class="mui-btn ini-btn-submit" ms-click="cancel">取消</button>
+</nav>

@@ -1,0 +1,93 @@
+<div ms-controller="allocate" class="input-panel" style="pagesize: 20;">
+    <div class="mui-input-group">
+        <div class="display-flex" ms-if="!isAddShow()">
+            <h5 class="flex0" style="-webkit-box-pack: justify;">调拨单号</h5>
+            <h5 class="flex1">
+                {{data.allotNo}}
+            </h5>
+        </div>
+    </div>
+    <div class="mui-input-group">
+        <div class="display-flex" ms-class="mui-navigate-right:isAddShow()">
+            <h5 class="flex0" style="-webkit-box-pack: justify;">调拨日期</h5>
+            <button id='demo4' class="flex1 mui-btn mui-btn-block" data-options='{"type":"date"}' ms-if="isAddShow()">{{data.allotDate}}</button>
+            <h5 class="flex1" ms-if="!isAddShow()">{{data.allotDate}}</h5>
+        </div>
+    </div>
+    <div class="mui-input-group">
+        <div class="display-flex" ms-class="mui-navigate-right:isAddShow()">
+            <h5 class="flex0">出库仓库</h5>
+            <button class="flex1 mui-btn mui-btn-block" id='showUserPicker1' ms-if="isAddShow()">{{data.outWarehouse && data.outWarehouse.name}}</button>
+            <h5 class="flex1" ms-if="!isAddShow()">{{data.outWarehouse && data.outWarehouse.name}}</h5>
+        </div>
+    </div>
+    <div class="mui-input-group">
+        <div class="display-flex" ms-class="mui-navigate-right:isAddShow()">
+            <h5 class="flex0">入库仓库</h5>
+            <button class="flex1 mui-btn mui-btn-block" id='showUserPicker2' ms-if="isAddShow()">{{data.inWarehouse && data.inWarehouse.name}}</button>
+            <h5 class="flex1" ms-if="!isAddShow()">{{data.inWarehouse && data.inWarehouse.name}}</h5>
+        </div>
+    </div>
+    <div class="mui-input-group">
+        <div class="display-flex" ms-class="mui-navigate-right:isAddShow()">
+            <h5 class="flex0">经办人</h5>
+            <button class="flex1 mui-btn mui-btn-block" id='showUserPicker3' ms-if="isAddShow()">{{data.agent && data.agent.name}}</button>
+            <h5 class="flex1" ms-if="!isAddShow()">{{data.agent && data.agent.name}}</h5>
+        </div>
+    </div>
+    <div class="mui-input-group">
+        <div class="display-flex" ms-class="mui-navigate-right:isAddShow()">
+            <h5 class="flex0">商品名称</h5>
+            <button class="flex1 mui-btn mui-btn-block" id='showUserPicker5' ms-if="isAddShow()">{{data.commodity && data.commodity.name}}</button>
+            <h5 class="flex1" ms-if="!isAddShow()">{{data.commodity && data.commodity.name}}</h5>
+        </div>
+    </div>
+    <div class="mui-input-group">
+        <div class="display-flex">
+            <h5 class="flex0" style="-webkit-box-pack: justify;">商品单价</h5>
+            <h5 class="flex1" ms-if="isAddShow()">
+                {{data.commodity && data.commodity.price}} {{(data.commodity && data.commodity.price)?"元/":""}} {{data.commodity && data.commodity.unit}}
+            </h5>
+            <h5 class="flex1" ms-if="!isAddShow()">
+                {{data.price}} 元/{{data.commodity && data.commodity.unit}}
+            </h5>
+        </div>
+    </div>
+    <div class="mui-input-group">
+        <div class="display-flex">
+            <h5 class="flex0" style="-webkit-box-pack: justify;">商品库存</h5>
+            <h5 class="flex1" ms-if="isAddShow()">
+                {{data.commodity && data.commodity.stock}} {{data.commodity.unit}}
+            </h5>
+            <h5 class="flex1" ms-if="!isAddShow()">
+                {{data.commodity && data.commodity.stock }} {{data.commodity.unit}}
+            </h5>                                             
+        </div>
+    </div>
+    <div class="mui-input-group">
+        <div class="display-flex">
+            <h5 class="flex0" style="-webkit-box-pack: justify;">商品数量</h5>
+            <h5 class="flex1" ms-if="isAddShow()">
+                <input type="text" ms-duplex="data.quantity" data-duplex-changed="changed"  onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" /> {{data.commodity.unit}}
+            </h5>
+            <h5 class="flex1" ms-if="!isAddShow()">{{data.quantity}} {{data.commodity.unit}}</h5>
+        </div>
+    </div>
+    <div class="mui-input-group">
+        <div class="display-flex">
+            <h5 class="flex0" style="-webkit-box-pack: justify;">商品金额</h5>
+            <h5 class="flex1" ms-if="isAddShow()">
+                {{data.commodity.price * data.quantity}} 元
+            </h5>
+            <h5 class="flex1" ms-if="!isAddShow()">
+                {{data.amount}} 元
+            </h5>
+        </div>
+    </div>
+    <br>
+    <br>
+</div>
+<nav ms-controller="allocate" class="mui-bar mui-bar-tab ini-bar-bottom" ms-if="isAddShow()">
+    <button type="button" class="mui-btn ini-btn-submit" ms-click="save" ms-attr-disabled="isDisabled" >保存</button>
+    <button type="button" class="mui-btn ini-btn-submit" ms-click="cancel">取消</button>
+</nav>

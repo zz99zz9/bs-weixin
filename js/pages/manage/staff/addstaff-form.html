@@ -1,0 +1,62 @@
+<div ms-controller="addstaff" class="input-panel">
+	<div class="mui-input-group">
+		<div class="display-flex mui-navigate-right">
+			<h5 class="flex0" style="-webkit-box-pack: justify; margin-top:20px;">头像</h5>
+			<img src="../img/bg.jpg" style="border-radius:50%;width:58px;height:58px">
+		</div>
+	</div>
+	<div class="mui-input-group">
+		<div class="display-flex">
+			<h5 class="flex0" style="-webkit-box-pack: justify;">姓名</h5>
+			<h5 class="flex1">
+				<input type="text" ms-duplex="name" placeholder="请填写姓名" style="width:120px;height: 22px;border: solid 1px #ccc;border-radius: 5px;">
+			</h5>
+		</div>
+	</div>
+    <div class="mui-input-group">
+		<div class="display-flex mui-navigate-right">
+			<h5 class="flex0" style="-webkit-box-pack: justify;">性别</h5>
+            <h5 class="flex1">
+        	    <button id='genderPicker' class="mui-btn mui-btn-block" type='button'>{{sex}}</button>
+            </h5>
+		</div>
+	</div>
+    <div class="mui-input-group">
+		<div class="display-flex">
+			<h5 class="flex0" style="-webkit-box-pack: justify;">手机号</h5>
+			<h5 class="flex1">
+				<input type="text" ms-duplex="mobile" placeholder="请填写手机号"style="width:140px;height: 22px;border: solid 1px #ccc;border-radius: 5px;" ms-attr-disabled="isAdd">
+			</h5>
+		</div>
+	</div>
+    <div class="mui-input-group">
+        <div class="display-flex mui-navigate-right">
+            <h5 class="flex0" style="-webkit-box-pack: justify;">职位</h5>
+			<h5 class="flex1">
+		    <button id='positionPicker' class="mui-btn mui-btn-block" type='button'>{{position}}</button>
+			</h5>
+        </div>
+    </div>
+    <div class="mui-input-group">
+        <div class="display-flex">
+            <h5 class="flex0" style="-webkit-box-pack: justify;">月基本工资</h5>
+            <h5 class="flex0">
+                <input type="text" ms-duplex="basicSalary" style="width:100px;height: 22px;border: solid 1px #ccc;border-radius: 5px;">
+            </h5>
+            <h5 class="flex1"> 元/月</h5>
+        </div>
+    </div>
+    <div class="mui-input-group">
+        <div class="display-flex">
+            <h5 class="flex0" style="-webkit-box-pack: justify;">计件工资</h5>
+            <h5 class="flex0">
+                <input type="text" ms-duplex="countSalary" style="width:100px;height: 22px;border: solid 1px #ccc;border-radius: 5px;">
+            </h5>
+            <h5 class="flex1"> 元/间</h5>
+        </div>
+    </div>
+</div>
+<nav class="mui-bar mui-bar-tab ini-bar-bottom" ms-controller="addstaff">
+    <button type="button" class="mui-btn ini-btn-submit" ms-click="submit" ms-attr-disabled="isDisabled">保存</button>
+    <button type="button" class="mui-btn ini-btn-submit" ms-click="cancel">取消</button>
+</nav>

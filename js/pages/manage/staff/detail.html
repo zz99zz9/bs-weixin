@@ -1,0 +1,194 @@
+<meta name="format-detection" content="telephone=no" />
+<style>
+	.headImg {
+		position: absolute;
+		top: 62px;
+		left: 50%;
+		margin: 0 auto;
+		margin-left: -45px;
+		width: 90px;
+		height: 90px;
+		border-radius: 50%;
+		background-color: gray;
+		background-size: cover;
+	}
+	.shadow {
+		box-shadow: 0 1px 1px 1px #cfcfcf;
+	}
+	.detail {
+		background: #fff;
+		padding: 40px 0 10px 5px;
+		margin: 70px auto 10px auto;
+		width: 95%;
+		box-shadow: 0 1px 1px 1px #cfcfcf;
+	}
+	.detail table {
+		text-align: left;
+		background: #fff;
+		font-size: small;
+		margin: 0 auto;
+	}
+	.detail td {
+		padding: 5px;
+	}
+	.detail-panel {
+		margin: 0 auto 15px auto;
+		width: 95%;
+		clear: both;
+	}
+	.detail-bar {
+		margin: 5px 0;
+	}
+	.detail-bar .detail-bar-title {
+		display: inline-block;
+		padding-top: 6px;
+	}
+	.detail-bar .mui-btn {
+		padding: 3px;
+		font-size: 16px;
+	}
+	.detail-bar .bedge {
+		display: inline-block;
+		border-radius: 50%;
+		width: 12px;
+		height: 12px;
+		margin: 0 2px;
+	}
+	/* 日历 */
+	.calendar {
+		padding-top: 10px;
+	}
+	.calendar a {
+		background-color:#fff;
+		color: #000;
+		height: 30px;
+		line-height: inherit;
+	}
+	.calendar .disabled {
+		background-color:#fff;
+		color: gray;
+		border: none;
+	}
+	.calendar .mui-badge {
+		font-size: inherit;
+		padding: 7px;
+		color: #fff;
+		background-color: #000;
+		border-radius: 50%;
+		width: 30px;
+		height: 30px;
+	}
+	.mui-table-view-cell {
+		padding: 10px 10px;
+	}
+</style>
+<div ms-controller="detail">
+	<div class="headImg" ms-css-background-image="'url('+ urlAPINet+data.headUrl+')'" onerror="../img/default.png"></div>
+	<div class="detail shadow" >
+		<table>
+			<tr>
+				<td style="width:25%;">
+					姓名
+				</td>
+				<td style="width:33%;">
+					{{data.name}}
+				</td>
+				<td style="width:22%;">
+					性别
+				</td>
+				<td style="width:20%;">
+					{{getGender(data.employee && data.employee.gender)}}
+				</td>
+			</tr>
+				<tr>
+				<td>
+					手机号
+				</td>
+				<td>
+					{{data.mobile}}
+				</td>
+				<td>
+					职位
+				</td>
+				<td>
+					{{data.employee && data.employee.position.label}}
+				</td>
+			</tr>
+				<tr>
+				<td>
+					月基本工资
+				</td>
+				<td>
+					{{data.employee && data.employee.monthSalary}} 元/月
+				</td>
+				<td>
+					计件工资
+				</td>
+				<td>
+					{{data.employee && data.employee.pieceSalary}} 元/间
+				</td>
+			</tr>
+		</table>
+	</div>
+
+	<div class="detail-panel">
+		<div class="detail-bar">
+			<div class="detail-bar-title">员工考勤</div>
+			<button class="mui-btn mui-pull-right" type="button" ms-attr-disabled="isChecked" ms-click="addStatus" ms-if="!isLeft">＋添加考勤</button>
+		</div>
+		<div class="calendar shadow" style="background-color:#fff;">
+		    <b>一</b><b>二</b><b>三</b><b>四</b><b>五</b><b>六</b><b>日</b>
+		    <a ms-repeat="calendar" ms-class="disabled:el.isDisabled">
+		    	<!-- <sup ms-if="el.day==1 && todayIndex!=$index"> -->
+		    	<span ms-class="mui-badge:el.status!=1" ms-css-background-color="getStatus(el.status)">{{el.day}}</span>
+		    	<sup style="top:-5px;" ms-if="todayIndex==$index">今天</sup>
+		    </a>
+		</div>
+		<div class="detail-bar" style="font-size: 14px;">
+			请假<span class="bedge" style="background-color:#fb6362;"></span>&nbsp;
+			调休<span class="bedge" style="background-color:#fbd562;"></span>&nbsp;
+			迟到<span class="bedge" style="background-color:#62e0fb;"></span>&nbsp;
+			早退<span class="bedge" style="background-color:#c062fb;"></span>&nbsp;
+			旷工<span class="bedge" style="background-color:#6286fb;"></span>
+		</div>
+	</div>
+
+	<div class="detail-panel">
+		<div class="detail-bar">
+			<div class="detail-bar-title">员工评价</div>
+			<button ms-if="!isLeft" class="mui-btn mui-pull-right" ms-click="addAssess">＋添加评价</button>
+		</div>
+		<div class="mui-table-view shadow" style="font-size: 14px;">
+			<div class="mui-table-view-cell" ms-repeat="assessList">
+				{{el.appraiser && el.appraiser.name}} &emsp; {{el.createTime}}
+				<br>
+				{{el.content}}
+			</div>
+		</div>
+	</div>
+
+	<div id="check" class="mui-popover mui-popover-action mui-popover-bottom">
+		<ul class="mui-table-view">
+			<li class="mui-table-view-cell" ms-repeat="statusList">
+				<a href="#" ms-click="check(el.status,el.text)">
+					{{el.text}}
+				</a>
+			</li>
+		</ul>
+		<ul class="mui-table-view">
+			<li class="mui-table-view-cell">
+				<a href="#check">
+					取消
+				</a>
+			</li>
+		</ul>
+	</div>
+
+	<br><br>
+</div>
+
+<nav class="mui-bar mui-bar-tab ini-bar-bottom" ms-controller="detail" ms-if="!isLeft">
+	<button type="button" class="mui-btn ini-btn-submit" ms-click="edit">修改</button>
+
+	<button type="button" class="mui-btn ini-btn-submit" ms-click="fire" ms-attr-disabled="isDisabled">离职</button>
+</nav>

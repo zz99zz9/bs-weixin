@@ -1,0 +1,59 @@
+<div id="pullrefresh" class="mui-scroll-wrapper" ms-controller="asset">
+    <div class="mui-scroll">
+        <br>
+        <br>
+        <div ms-controller="asset" class="input-panel">
+            <div class="mui-input-group">
+                <div class="rowHead">
+                    <img src="../img/tag1.jpg" />{{name}}
+                </div>
+            </div>
+        </div>
+        <div ms-controller="asset" class="input-panel">
+            <div class="mui-input-group">
+                <div class="rowHead">
+                    <img src="../img/tag1.jpg" />明细
+                </div>
+            </div>
+            <div class="mui-input-group" ms-repeat="list">
+                <div class="list">
+                    {{el.reportTime}} 报修
+                    <br> {{el.repairTime}} 修好
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+mui.init({
+    pullRefresh: {
+        container: '#pullrefresh',
+        up: {
+            contentrefresh: '正在加载...',
+            contentnomore: "没有更多数据了",
+            callback: loadmore
+        }
+    }
+});
+
+function loadmore() {
+    var vm = listData.vm,
+        url = listData.url;
+
+    listData.data.pageNo = vm.pageNo;
+    listData.data.pageSize = vm.pageSize;
+    ajaxJsonp({
+        url: url,
+        data: listData.data,
+        successCallback: function(json) {
+            if (json.data.count + json.data.pageSize > (vm.pageNo * json.data.pageSize) && json.data.list.length > 0) {
+                vm.pageNo++;
+                vm.list.push.apply(vmAsset.list, json.data.list);
+                mui("#pullrefresh").pullRefresh().endPullupToRefresh(false);
+            } else {
+                mui("#pullrefresh").pullRefresh().endPullupToRefresh(true);
+            }
+        }
+    });
+}
+</script>

@@ -1,0 +1,143 @@
+<style>
+	.row {
+		margin: 15px 0 0 15px;
+		display: flex;
+		display: -webkit-box;
+		align-items: center;
+		-webkit-box-align: center;
+		border-bottom: solid 1px #ccc;
+	}
+	.row section {
+		width: 14px;
+		font-size: 14px;
+		line-height: 120%;
+		transform: translateY(-7px);
+		margin:0 8px;
+	}
+	.rowCate {
+		border-bottom: solid 1px #ccc;
+		margin: 15px 0 0 15px;
+		padding: 10px 0;
+	}
+	/*.row section {
+		padding: 20px 0 10px 0;
+		border-top: 1px dotted #E2E1E4;
+		transform: translateY(-1px);
+		font-size: 14px;
+	}
+	.row section i {
+		font-style: normal;
+		border-radius: 14px;
+		/*border: 1px solid #DD524D;*/
+		/*padding: 5px 10px;
+	}*/
+	.row article {
+		height: 105px !important;
+	}
+	.mui-segmented-control.mui-scroll-wrapper .mui-scroll {
+		height: auto;
+	}
+	.mui-segmented-control.mui-segmented-control-inverted .mui-control-item{
+		width: 90px;
+		height: 90px;
+		background-size: cover;
+		background-position: center;
+		border-radius: 50%;
+		border: 1px solid rgba(0,0,0,0.1);
+		padding: 0;
+		font-size: 14px;
+		text-align: center;	
+		margin: 0 10px;	
+		position: relative;
+		overflow: inherit;
+	}
+	.mui-segmented-control.mui-segmented-control-inverted .mui-control-item b{
+		margin: 64px auto 0 auto;
+		padding: 2px 5px;
+		display: inline-block;
+		line-height: 100%;
+		text-align: center;
+		text-overflow: ellipsis;
+		border-radius: 14px;
+		background: white;
+		font-size: 12px;
+	}
+	.mui-segmented-control.mui-segmented-control-inverted .mui-control-item i{
+		position: absolute;
+		right: -5px;
+		font-style: normal;
+		font-size: 14px;
+	    background-color: #dd524d;
+		border: 2px solid white;
+	}
+	.mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active {
+		color: inherit;
+		border-bottom: inherit;
+		background-size: cover;
+		background-position: center;
+	}
+	.mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active:before {
+		content: '\e442';
+		font-family: Muiicons;
+		font-size: 36px;
+		display: inline-block;
+		position: absolute;
+		top: 0px;
+		left: 0px;
+		color: white;
+		width: 100%;
+		height: 100%;
+		border-radius: 50%;
+		background: rgba(0,0,0,0.4);
+		line-height: 90px;
+		text-shadow: 0 0 20px black;
+	}
+	.popover-closeButton {
+		/*border-radius: 50%;*/
+		display: inline-block !important;
+		width: 48px !important;
+		height: 48px !important;
+		padding: 0 !important;
+		color:#FF6600 !important;
+		border:none !important;
+		position: fixed !important;
+		bottom: 0 !important;
+		background: none !important;
+		left: 0 !important;
+		margin-left: 0 !important;
+		font-size: 32px !important;
+		text-align: center;
+		font-family: "Helvetica Neue",Helvetica,"Microsoft Yahei",sans-serif !important;
+	}
+	
+	.popover-closeButton:before {
+		content: '' !important;
+	}
+</style>
+<div ms-controller="articles">
+	<div class="mui-scroll-wrapper" style="top: 44px;">
+		<div>
+			<div class="mui-table-view" ms-repeat="list" data-repeat-rendered="render">
+				<div class="rowCate">{{el.name}}</div>
+				<div class="row" ms-repeat-cl="el.categoryList">
+					<section>{{cl.name}}</section>
+					<article class="mui-scroll-wrapper mui-segmented-control mui-segmented-control-inverted">
+						<div class="mui-scroll">
+							<div ms-css-background-image="'url('+urlAPINet + '/' + gl.thumbUrl+')'" class="mui-control-item" ms-class="mui-active:selectList.indexOf(gl.cid+'_'+gl.id)>-1" ms-repeat-gl="cl.goodsList" ms-on-tap="pop(gl.cid, gl.id, gl.price, gl.number, gl.stock, gl.imgUrl, gl.thumbUrl, gl.name, gl.brief, cl.name, cl.choosable, $event)">
+								<b>{{getPrice(gl.price)}}</b>
+								<i class="mui-badge mui-badge-primary" ms-if="selectList.indexOf(gl.cid+'_'+gl.id)>-1">{{gl.number}}</i>
+							</div>
+							<span style="visibility: hidden;">占位占位</span>
+						</div>
+					</article>
+				</div>
+			</div>
+			<br><br><br>
+		</div>
+	</div>
+
+	<nav class="mui-bar mui-bar-tab mui-text-center" style="padding: 10px;">
+		<h4 class="mui-pull-left" style="margin-top: 8px;">物品金额：{{round(price)}} 元</h4>
+		<button type="button" class="mui-btn mui-btn-danger mui-pull-right" ms-click="goNext()">下一步</button>
+	</nav>
+</div>

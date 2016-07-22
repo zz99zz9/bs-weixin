@@ -1,0 +1,89 @@
+<div id="popModule" style="display: none;" class="hide" ms-controller="aside" >
+    <div class="content">
+        <button id='closebtn' class="closeButton"></button>
+        <div class="mui-content-padded mui-text-center">
+            <div class="circle" style="margin: 10px auto;border: 1px solid lightgray;width: 96px;height: 96px;background-size: cover;background-position: center;position: relative;" ms-css-background-image='url({{headImg}})' ms-on-touchend="changeImg">
+                <img src="../img/icon/edit.png" style="position: absolute;background: #fff;border-radius: 50%;bottom: 2px;left: 72px;width: 18px;"/>
+            </div>
+            
+            <h5 style="font-size: 1rem;color: #000;font-weight: lighter;margin-bottom: 10px;">{{nickName}}</h5>
+        </div>
+        <div style="border-top: 1px solid #666;margin: 0 auto;width: 85%;"></div>
+        <div class="control">
+            <div class="control-item">
+                <div class="grid-img" style="background-color: #eed3cc;">
+                    <img src="../img/icon/open.png" style="" />
+                </div>
+                <div class="grid-text">开门</div>
+            </div>
+            <div class="control-item">
+                <div class="grid-img" style="background-color: #a18f8b;">
+                    <img src="../img/icon/checkOut.png" style="margin-top: 8px;margin-left: 4px;" />
+                </div>
+                <div class="grid-text">退房</div>
+            </div><div class="control-item">
+                <div class="grid-img" style="background-color: #eee3cd;">
+                    <img src="../img/icon/temp.png" style="margin-top: 8px;margin-left: 0px;" />
+                </div>
+                <div class="grid-text">预温</div>
+            </div><div class="control-item">
+                <div class="grid-img" style="background-color: #a19a8a;">
+                    <img src="../img/icon/controller.png" style="margin-top: 8px;margin-left: 1px;" />
+                </div>
+                <div class="grid-text">遥控器</div>
+            </div>
+        </div>
+        <div style="clear: both;"></div>
+        <ul class="mui-table-view mui-grid-view mui-grid-9 icon" style="background-color: #fafafa;">
+            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3" ms-on-tap="clickA(3)" ms-if="!isManage">
+                <a href="javascript:void(0)">
+                    <img src="../img/icon/service.png" class="grid-icon" />
+                    <h5>服务</h5>
+                </a>
+            </li>
+            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3" ms-on-tap="clickA(2)" ms-if="!isManage">
+                <a href="javascript:void(0)">
+                    <img src="../img/icon/order.png" class="grid-icon" />
+                    <h5>订单</h5>
+                </a>
+            </li>
+            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3" ms-on-tap="clickA(1)">
+                <a href="javascript:void(0)">
+                    <img src="../img/icon/info.png" class="grid-icon" />
+                    <h5>个人信息</h5>
+                </a>
+            </li>
+            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3" ms-on-tap="clickA(4)" ms-if="!isManage">
+                <a href="javascript:void(0)">
+                    <img src="../img/icon/fund.png" class="grid-icon" />
+                    <h5>体验基金</h5>
+                </a>
+            </li>
+            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3" ms-on-tap="clickA(8)" ms-if="!isManage">
+                <a href="javascript:void(0)">
+                    <img src="../img/icon/shopping.png" class="grid-icon" />
+                    <h5>购物</h5>
+                </a>
+            </li>
+            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3" ms-on-tap="clickA(5)" ms-if="isAdmin==1&&!isManage">
+                <a href="javascript:void(0)" >
+                    <img src="../img/icon/switch.png" class="grid-icon" />
+                    <h5>管理模式</h5>
+                </a>
+            </li>
+            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3" ms-on-tap="clickA(7)" ms-if="isManage">
+                <a href="javascript:void(0)" >
+                    <img src="../img/iconfont-jiudian.svg" class="grid-icon" />
+                    <h5>更多酒店</h5>
+                </a>
+            </li>
+            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3" ms-on-tap="clickA(6)" ms-if="isManage">
+                <a href="javascript:void(0)" >
+                    <img src="../img/icon/switch.png" class="grid-icon" />
+                    <h5>下单模式</h5>
+                </a>
+            </li>
+        </ul>
+        <div style="height: 8px;"></div>
+    </div>
+</div>

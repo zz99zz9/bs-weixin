@@ -1,0 +1,48 @@
+<style>
+	.article-info {}
+	
+	.article-info h4 {
+		font-weight: 200;
+		margin: 25px 0;
+	}
+	
+	.article-info hgroup {
+		display: table;
+		width: 100%;
+	}
+	
+	.article-info hgroup section {
+		display: table-cell;
+	}
+	.mui-numbox {
+		height: 32px;
+		width: 96px;
+		padding: 0 32px;
+	}
+	.mui-numbox [class*=btn-numbox], .mui-numbox [class*=numbox-btn]{
+		width: 32px;	
+	}
+</style>
+<div ms-controller="aInfo">
+	<img ms-attr-src="goods.imgUrl" width="100%">
+	<div class="article-info">
+		<h4>名称：{{goods.name}}</h4>
+		<hgroup ms-if="!goods.isService">
+			<section>
+				价格：¥{{goods.price}}
+			</section>
+			<section class="mui-text-right">
+				数量:
+				<span ms-if="!(goods.choosable && goods.price>0)">{{goods.number}}</span>
+				<div ms-if="goods.choosable && goods.price>0" class="mui-numbox" data-numbox-min="1" ms-data-numbox-max="goods.stock" style="height:45px;width:130px;">
+					<button class="mui-btn mui-btn-numbox-minus" type="button" style="width:45px;background-color: #ddd;">-</button>
+					<button class="mui-btn mui-btn-numbox" style="left:45px;width:40px;">{{goods.number}}</button>
+					<input class="mui-input-numbox" type="number" value="1" style="display: none;" ms-duplex-number="goods.number"/>
+					<button class="mui-btn mui-btn-numbox-plus" type="button" ms-attr-disabled="goods.number==goods.stock" style="width:45px;background-color: #ddd;">+</button>
+				</div>
+			</section>
+		</hgroup>
+		<br />
+		<p>{{goods.brief}}</p>
+	</div>
+</div>

@@ -1,0 +1,39 @@
+<div ms-controller="tax" class="input-panel">
+	<div class="mui-input-group">
+        <div class="display-flex">
+            <h5 class="flex0" style="-webkit-box-pack: justify;">税务名称</h5>
+            <h5 class="flex1">
+                <input type="text" ms-duplex="name" placeholder="请填写项目" style="width:140px;" />
+            </h5>
+        </div>
+	</div>
+    <div class="mui-input-group">
+        <div class="display-flex mui-navigate-right">
+            <h5 class="flex0" style="-webkit-box-pack: justify;">税务类型</h5>
+			<h5 class="flex1">
+				<button id='taxPicker' class="mui-btn mui-btn-block" style="width:140px; padding-left: 17px;" type='button'>{{typeName}}</button>
+			</h5>
+        </div>
+    </div>
+	<div class="mui-input-group">
+		<div class="display-flex">
+			<h5 class="flex0" style="-webkit-box-pack: justify;">金额</h5>
+			<h5 class="flex0">
+				<input type="tel" ms-duplex="amount" />
+			</h5>
+			<h5 class="flex1"> &nbsp; &nbsp; &nbsp; 元</h5>
+		</div>
+	</div>
+    <div class="mui-input-group">
+		<div class="display-flex mui-navigate-right">
+			<h5 class="flex0" style="-webkit-box-pack: justify;">日期</h5>
+			<h5 class="flex1">
+            	<button id="datePicker" data-options='{}' class="mui-btn mui-btn-block">{{date}}</button>
+			</h5>
+		</div>
+	</div>
+</div>
+<nav class="mui-bar mui-bar-tab ini-bar-bottom" ms-controller="tax">
+    <button type="button" class="mui-btn ini-btn-submit" ms-click="submit" ms-attr-disabled="isDisabled">保存</button>
+    <button type="button" class="mui-btn ini-btn-submit" ms-click="cancel">取消</button>
+</nav>

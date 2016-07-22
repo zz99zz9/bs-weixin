@@ -1,0 +1,92 @@
+<style>
+	.swiper {
+		height: auto !important;
+	}
+	.service {
+		margin: 5px auto !important;
+		color: #fff;
+		text-align: center;
+	}
+	.service-grid {
+	    padding: 40px !important;
+	    height: 90px;
+	    width: 50%;
+	    position: relative;
+	    font-size: 25px !important;
+    	font-weight: lighter;
+	}
+	.mui-toast-container {
+		bottom: 40%;
+	}
+</style>
+<div ms-controller="service">
+	<div class="swiper-container swiper">
+	    <div class="swiper-wrapper">
+	        <div class="swiper-slide" ms-repeat="list" data-repeat-rendered="swiperRender">
+	            <div class="swiper-slide-item" ms-click="pop($index)">
+					 <a href="###">
+						<div ms-css-background-image="url({{el.imgUrl}})"></div>
+					</a>
+					<div class="mui-content-padded mui-text-left">
+						<div style="color:#dd524d;font-size: 20px;font-weight: 200;">¥ {{el.price}}
+							<span class="mui-ellipsis;" style="color: #000;font-size: 14px;">&emsp;{{el.name}}</span>
+						</div>
+					</div>
+				</div>
+	        </div>
+	        <div class="swiper-pagination"></div>
+	    </div>
+	</div>
+
+	<div style="margin-top: 12px;background-color: #fcfcfc;padding: 10px 10px 1px 10px;">店内服务</div>
+	<div class="service-control" style="margin-top: 0;">
+	    <div class="control-item" ms-click="call('breakfast')">
+	        <div class="grid-img" style="background-color: #c3444b;">
+	            <img src="../img/icon/breakfast.png" style="margin-left: 5px;" />
+	        </div>
+	        <div class="grid-text">早餐</div>
+	    </div>
+	    <div class="control-item" ms-click="call('cleaning')">
+	        <div class="grid-img" style="background-color: #792a2f;">
+	            <img src="../img/icon/cleaning.png" style="margin-top: 8px;" />
+	        </div>
+	        <div class="grid-text">清洁</div>
+	    </div>
+	    <div class="control-item" ms-click="call('shuttle')">
+	        <div class="grid-img" style="background-color: #c4a092;">
+	            <img src="../img/icon/shuttle.png" style="margin-top: 8px;margin-left: 0px;" />
+	        </div>
+	        <div class="grid-text">接送</div>
+	    </div>
+	    <div class="control-item" ms-click="call('dryCleaning')">
+	        <div class="grid-img" style="background-color: #79625a;">
+	            <img src="../img/icon/dry-cleaning.png" style="margin-left: 3px;" />
+	        </div>
+	        <div class="grid-text">干洗</div>
+	    </div>
+	    <div class="control-item" ms-click="alarm">
+	        <div class="grid-img" style="background-color: #3b3b3b;">
+	            <img src="../img/icon/alarm.png" style="margin-left: -1px;" />
+	        </div>
+	        <div class="grid-text">报警</div>
+	    </div>
+	</div>
+	
+	<div style="margin: 12px auto;background-color: #fcfcfc;padding: 10px;">
+		社会化服务
+		<div class="mui-table-view mui-grid-view mui-grid-9 service">
+			<div class="mui-table-view-cell mui-col-xs-6 mui-col-sm-3 service-grid" style="background-image: url('../img/food.jpg');background-size: cover;" onclick="javascript:location.href='shop.html#food'">
+				餐饮
+			</div>
+			<div class="mui-table-view-cell mui-col-xs-6 mui-col-sm-3 service-grid" style="background-image: url('../img/tour.jpg');background-size: cover;" onclick="javascript:location.href='shop.html#tour'">
+				旅游
+			</div>
+			<div class="mui-table-view-cell mui-col-xs-6 mui-col-sm-3 service-grid" style="background-image: url('../img/beauty.jpg');background-size: cover;" onclick="javascript:location.href='shop.html#beauty'">
+				美业
+			</div>
+			<div class="mui-table-view-cell mui-col-xs-6 mui-col-sm-3 service-grid" style="background-image: url('../img/fitness.jpg');background-size: cover;" onclick="javascript:location.href='shop.html#fitness'">
+				健康
+			</div>
+		</div>
+	</div>
+</div>

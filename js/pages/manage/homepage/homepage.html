@@ -1,0 +1,166 @@
+<style>
+    .input-panel .mui-control-item:nth-child(2):after {
+        content: '';
+        width: 1px;
+        display: inline-block;
+        position: absolute;
+        top: 50%;
+        right: 0;
+        height: 18px;
+        margin-top: -9px;
+        background: gray;
+    }
+    table {
+        margin: 15px auto;
+        width: 100%;
+        text-align: center;
+        background: #fff;
+        font-size: 14px;
+        font-weight: 200;
+    }
+
+    td {
+        padding: 5px;
+        border: solid 1px #cccccc;
+    }
+
+    td:nth-child(2n) {
+        background-color: #b2b2b2;
+    }
+</style>
+<div id="pullrefresh" class="mui-scroll-wrapper" ms-controller="statistic">
+    <div class="mui-scroll">
+    <br><br>
+    <div class="input-panel">
+        
+        <button id="regionPicker" class="mui-btn mui-btn-block" type="button">地区：{{pickerText}}</button>
+
+        <button id='demo4' data-options='{"type":"date"}' class="btn mui-btn mui-btn-block">{{formatDate}}</button>
+        <div id="segmentedControl" class="mui-segmented-control">
+            <a class="mui-control-item mui-active" href="#item1">
+                收入
+            </a>
+                <a class="mui-control-item" href="#item2">
+                支出
+            </a>
+                <a class="mui-control-item" href="#item3">
+                收益
+            </a>
+        </div>
+
+        <div id="item1" class="mui-control-content mui-active">
+            <table>
+                <tr>
+                    <td>收入</td>
+                    <td>{{pre}}</td>
+                    <td>{{current}}</td>
+                    <td>增减</td>
+                </tr>
+                <tr>
+                    <td>夜房</td>
+                    <td>{{data.in.prevNightAmoun}}</td>
+                    <td>{{data.in.currNightAmoun}}</td>
+                    <td>{{data.in.diffNightAmount}}</td>
+                </tr>
+                <tr>
+                    <td>钟点</td>
+                    <td>{{data.in.prevPartTimeAmount}}</td>
+                    <td>{{data.in.currPartTimeAmount}}</td>
+                    <td>{{data.in.diffPartTimeAmount}}</td>
+                </tr>
+                <tr>
+                    <td>非房</td>
+                    <td>{{data.in.prevGoodsAmount}}</td>
+                    <td>{{data.in.currGoodsAmount}}</td>
+                    <td>{{data.in.diffGoodsAmount}}</td>
+                </tr>
+                <tr>
+                    <td>总计</td>
+                    <td>{{data.in.prevTotalAmount}}</td>
+                    <td>{{data.in.currTotalAmount}}</td>
+                    <td>{{data.in.diffTotalAmount}}</td>
+                </tr>
+            </table>
+        </div>
+        <div id="item2" class="mui-control-content">
+            <table>
+                <tr>
+                    <td>支出</td>
+                    <td>{{pre}}</td>
+                    <td>{{current}}</td>
+                    <td>增减</td>
+                </tr>
+                <tr>
+                    <td>日用品</td>
+                    <td>{{data.out.dailyPrevAmount}}</td>
+                    <td>{{data.out.dailyCurrAmount}}</td>
+                    <td>{{data.out.diffDailyAmount}}</td>
+                </tr>
+                <tr>
+                    <td>物品损坏</td>
+                    <td>{{data.out.damagedPrevAmount}}</td>
+                    <td>{{data.out.damagedCurrAmount}}</td>
+                    <td>{{data.out.diffDamagedAmount}}</td>
+                </tr>
+                <tr>
+                    <td>人员工资</td>
+                    <td>{{data.out.salaryPrevAmount}}</td>
+                    <td>{{data.out.salaryCurrAmount}}</td>
+                    <td>{{data.out.diffSalaryAmount}}</td>
+                </tr>
+                <tr>
+                    <td>能耗</td>
+                    <td>{{data.out.energyPrevAmount}}</td>
+                    <td>{{data.out.energyCurrAmount}}</td>
+                    <td>{{data.out.diffEnergyAmount}}</td>
+                </tr>
+                <tr>
+                    <td>设备</td>
+                    <td>{{data.out.equipmenPrevAmount}}</td>
+                    <td>{{data.out.equipmenCurrAmount}}</td>
+                    <td>{{data.out.diffEquipmenAmount}}</td>
+                </tr>
+                <tr>
+                    <td>税务</td>
+                    <td>{{data.out.taxPrevAmount}}</td>
+                    <td>{{data.out.taxCurrAmount}}</td>
+                    <td>{{data.out.diffTaxAmount}}</td>
+                </tr>
+                <tr>
+                    <td>其它</td>
+                    <td>{{data.out.otherPrevAmount}}</td>
+                    <td>{{data.out.otherCurrAmount}}</td>
+                    <td>{{data.out.diffOtherAmount}}</td>
+                </tr>
+                <tr>
+                    <td>总计</td>
+                    <td>{{data.out.totalPrevAmount}}</td>
+                    <td>{{data.out.totalCurrAmount}}</td>
+                    <td>{{data.out.diffTotalAmount}}</td>
+                </tr>
+            </table>
+        </div>
+        <div id="item3" class="mui-control-content">
+            <table>
+                <tr>
+                    <td>收益</td>
+                    <td>{{pre}}</td>
+                    <td>{{current}}</td>
+                    <td>增减</td>
+                </tr>
+                <tr>
+                    <td>总计</td>
+                    <td>{{round(data.in.prevTotalAmount - data.out.totalPrevAmount,2)}}</td>
+                    <td>{{round(data.in.currTotalAmount - data.out.totalCurrAmount,2)}}</td>
+                    <td>{{round(data.in.diffTotalAmount - data.out.diffTotalAmount,2)}}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="mui-table-view" style="margin: 20px auto;">
+            <div class="mui-table-view-cell" ms-on-tap="go($index)" ms-repeat="hotelList">
+                <img class="rowHeadImg" src="../img/tag1.jpg" />{{el.name}}
+            </div>
+        </div>
+    </div>
+    </div>
+</div>

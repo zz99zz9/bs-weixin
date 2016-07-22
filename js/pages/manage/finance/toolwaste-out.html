@@ -1,0 +1,44 @@
+<div ms-controller="waste" class="input-panel">
+	<div class="mui-input-group">
+        <div class="display-flex mui-navigate-right">
+            <button id='typePicker' class="mui-btn" type='button'>{{typeName}}</button>          
+        </div>
+    </div>
+	<div class="mui-input-group">
+		<div class="display-flex mui-navigate-right">
+			<h5 class="flex0" style="-webkit-box-pack: justify;">名称</h5>
+			<h5 class="flex1">
+				<button id='toolPicker' class="mui-btn" type='button'>{{toolName}}</button>
+			</h5>
+		</div>
+	</div>
+    <div class="mui-input-group" ms-if="typeId==1">
+		<div class="display-flex">
+			<h5 class="flex0" style="-webkit-box-pack: justify;">维修支出</h5>
+			<h5 class="flex0">
+				<input type="tel" ms-duplex="amount"/>
+			</h5>
+            <h5 class="flex1"> 元</h5>
+		</div>
+	</div>
+    <div class="mui-input-group">
+		<div class="display-flex mui-navigate-right">
+			<h5 class="flex0" style="-webkit-box-pack: justify;">{{typeId==1?'报修':'损坏'}}日期</h5>
+			<h5 class="flex1">
+            	<button id="datePicker1" data-options='{}' class="mui-btn mui-btn-block">{{reportTime}}</button>
+             </h5>
+		</div>
+	</div>
+    <div class="mui-input-group" ms-if="typeId==1">
+		<div class="display-flex mui-navigate-right">
+			<h5 class="flex0" style="-webkit-box-pack: justify;">修复日期</h5>
+			<h5 class="flex1">
+            	<button id="datePicker2" data-options='{}' class="mui-btn mui-btn-block">{{repairTime}}</button>
+            </h5>
+	</div>
+</div>
+<nav class="mui-bar mui-bar-tab ini-bar-bottom" ms-controller="waste">
+    <button type="button" class="mui-btn ini-btn-submit" ms-click="submit" ms-attr-disabled="isDisabled">保存</button>
+
+    <button type="button" class="mui-btn ini-btn-submit" ms-click="cancel">取消</button>
+</nav>

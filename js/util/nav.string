@@ -1,0 +1,6 @@
+
+<div class="mui-table-view" ms-controller="nav" style="width: 90%;margin: 20px auto;">
+	<div class="mui-table-view-cell" ms-click="go(el.type)" ms-repeat="list">
+		<img class="rowHeadImg" src="../img/tag1.jpg"/>{{el.name}}
+	</div>
+</div>

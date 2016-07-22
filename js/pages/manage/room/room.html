@@ -1,0 +1,194 @@
+<meta name="format-detection" content="telephone=no" />
+<style>
+.mui-table-view-cell.mui-active {
+	background-color: #fff;
+}
+.input-panel {
+    background: #fff;
+    margin-bottom: 0px;
+    clear: both;
+}
+.input-panel .rowHead {
+	padding: 5px 0;
+	border-bottom: solid 1px #c8c7cc;
+}
+.roomBox {
+    margin: 5px 5px;
+}
+
+.roomBox .roomItem {
+    display: inline-block;
+    width: 25%;
+    text-align: center;
+    vertical-align: top;
+}
+
+.roomBox .roomItem .room {
+	position: relative;
+    padding-top: 7px;
+    height: 34px;
+    margin: 6px 6px 1px 6px;
+    font-size: 16px;
+    background-color: #e7cfe7;
+}
+.roomBox .roomItem .room-time {
+	display: inline-block;
+    font-size: 12px;
+    height: 10px;
+}
+.roomBox .roomItem .room .mask {
+	position: absolute;
+	top: 0px;
+	width: 100%;
+	height: 34px;
+	background-image: url('../img/mask.png');
+	z-index: 1;
+    opacity: 0.6;
+}
+.roomBox .roomItem .room .action {
+	position: absolute;
+	top: 0px;
+	width: 100%;
+	height: 34px;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 28px;
+	z-index: 2;
+}
+
+.iconBox {
+	float: left;
+	width: 41px;
+	vertical-align: top;
+}
+.iconBox .icon {
+	margin: 0 auto;
+	padding-top: 5px;
+	width: 30px;
+	height: 30px;
+}
+.iconBox .status {
+	font-size: 12px;
+}
+.icon-action {
+	background-color: #000;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 24px 24px;
+}
+.partTime {
+	box-shadow: 0 0 0 3px #e37b86;
+}
+</style>
+<div id="pullrefresh" class="mui-scroll-wrapper">
+    <div class="mui-scroll">
+	    <br><br>
+		<div class="input-panel" ms-controller="roomList">
+			<div class="rowHead">
+				<img class="rowHeadImg" src="../img/tag1.jpg">iroom-mini
+			</div>
+		    <div class="roomBox">
+		        <div class="roomItem" ms-repeat="miniList" ms-on-tap="go(el.id)">
+		            <div class="room" ms-css-background-color="statusList[el.status].color" ms-class="partTime:el.isPartTime==1">
+		            	<div class="mask" ms-if="el.actionId>0"></div>
+		            	<div class="action" ms-css-background-image="'url(' + actionImg[el.actionId] + ')'"></div>
+		            	{{el.roomNo}}
+		            </div>
+		            <span class="room-time">{{el.time}}</span>
+		        </div>
+		    </div>
+		</div>
+		<div class="input-panel" ms-controller="roomList">
+			<div class="rowHead">
+				<img class="rowHeadImg" src="../img/tag1.jpg">iroom
+			</div>
+		    <div class="roomBox">
+		        <div class="roomItem" ms-repeat="list" ms-on-tap="go(el.id)">
+		            <div class="room" ms-css-background-color="statusList[el.status].color">
+		            	<div class="mask" ms-if="el.actionId>0"></div>
+		            	<div class="action" ms-css-background-image="'url(' + actionImg[el.actionId] + ')'" ms-class="partTime:el.isPartTime==1"></div>
+		            	{{el.roomNo}}
+		            </div>
+		            <span class="room-time">{{el.time}}</span>
+		        </div>
+		    </div>
+		</div>
+		<div class="input-panel" ms-controller="roomList">
+			<div class="rowHead">
+				<img class="rowHeadImg" src="../img/tag1.jpg">iroom-max
+			</div>
+		    <div class="roomBox">
+		        <div class="roomItem" ms-repeat="maxList" ms-on-tap="go(el.id)">
+		            <div class="room" ms-css-background-color="statusList[el.status].color">
+		            	<div class="mask" ms-if="el.actionId>0"></div>
+		            	<div class="action" ms-css-background-image="'url(' + actionImg[el.actionId] + ')'" ms-class="partTime:el.isPartTime==1"></div>
+		            	{{el.roomNo}}
+		            </div>
+		            <span class="room-time">{{el.time}}</span>
+		        </div>
+		    </div>
+		</div>
+		<div class="input-panel" style="background-color:#efeff4;margin: 10px 10px;height:110px;text-align: center;" ms-controller="roomList">
+			<div class="iconBox" ms-repeat="statusList">
+				<div class="icon" ms-css-background-color="el.color">
+					{{el.count}}
+				</div>
+				<span class="status">{{el.name}}</span>
+			</div>
+
+			<div class="iconBox" style="clear:both;">
+				<div class="icon partTime" style="background-color: #fff;"></div>
+				<span class="status">时租房</span>
+			</div>	
+			<div class="iconBox">
+				<div class="icon icon-action" style="background-image: url('../img/repair.png');"></div>
+				<span class="status">保修</span>
+			</div>	
+			<div class="iconBox">
+				<div class="icon icon-action" style="background-image: url('../img/call.png');"></div>
+				<span class="status">呼叫</span>
+			</div>	
+			<div class="iconBox">
+				<div class="icon icon-action" style="background-image: url('../img/breakfast.png');"></div>
+				<span class="status">早餐</span>
+			</div>	
+			<div class="iconBox">
+				<div class="icon icon-action" style="background-image: url('../img/change.png');"></div>
+				<span class="status">换耗材</span>
+			</div>	
+			<div class="iconBox">
+				<div class="icon icon-action" style="background-image: url('../img/dnd.png');"></div>
+				<span class="status">免打扰</span>
+			</div>
+		</div>
+
+		<div class="input-panel" ms-controller="occupancy">
+		    <div class="mui-table-view">
+		        <div class="mui-table-view-cell mui-collapse">
+		            <a href="###" class="mui-navigate-right" style="padding-left: 0px;">
+		            	<img class="rowHeadImg" src="../img/tag1.jpg">酒店入住率
+		            </a>
+		            <div class="mui-collapse-content">
+		                <div class="mui-table-view-cell" ms-repeat="monthRate">本月 {{el.name||'全部'}}
+							<span class="mui-pull-right">{{round(el.rate*100)}}%</span>
+		                </div>
+		            </div>
+		        </div>
+		    </div>
+		    <div class="mui-table-view">
+		        <div class="mui-table-view-cell mui-collapse">
+				    <a href="###" class="mui-navigate-right" style="padding-left: 0px;">
+						<img class="rowHeadImg" src="../img/tag1.jpg">酒店总入住率
+					</a>
+		            <div class="mui-collapse-content">
+		                <div class="mui-table-view-cell" ms-repeat="allRate">{{el.name||'全部'}} 系列
+							<span class="mui-pull-right">{{round(el.rate*100)}}%</span>
+		                </div>
+		            </div>
+		        </div>
+		    </div>
+		</div>
+
+		<br>
+	</div>
+</div>

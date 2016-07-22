@@ -1,0 +1,33 @@
+<style>
+    .search-panel {
+        color: #000;
+        background-color: #fff;
+        padding: 15px;
+    }
+    #pop-text {
+        height: 85vh;
+    }
+    .amap-sug-result {
+        z-index: 10000;
+        border: none;
+        max-width: 80%;
+        height: 55vh;
+        overflow: hidden;
+    }
+    .amap-sug-result .auto-item {
+        font-size: 16px;
+    }
+</style>
+<article ms-controller="search">
+    <section class="search-panel" ms-click="getCurrentPosition">
+        <div>定位当前位置</div>
+        <span class="mui-icon mui-icon-location"></span>
+        <span>{{currentLocation}}</span>
+    </section>
+    <br>
+    <section class="search-panel" style="height: 70vh;">
+        <div>
+            <input id="tipinput" type="search" ms-attr-placeholder="'搜索' + city + '的街道、地标'">
+        </div>
+    </section>
+</article>

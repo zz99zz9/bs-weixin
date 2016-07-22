@@ -1,0 +1,37 @@
+<style>
+	.designer {
+		list-style: none;
+		padding: 0;
+	}
+	.designer li {
+		margin: 20px 0;
+	}
+	.designer li a {
+		color: #DD524D;
+	}
+</style>
+<div ms-controller="designer">
+    <img ms-attr-src="urlAPINet + designer.imgUrl" style="width: 100%;" alt="设计师展示" >
+    <ul class="designer">
+        <li class="">
+            <h4>{{designer.name}}</h4>
+            <small>{{designer.regionName}}</small>
+        </li>
+        <hr />
+        <li class="">
+            <h4>关于{{designer.name}}</h4>
+            {{designer.about}}
+        </li>
+        <hr />
+        <li class="">
+            <h4>{{designer.name}}的留言</h4>
+            <p>{{designer.message}}</p>
+        </li>
+        <hr />
+        <li class="">
+            <h4>{{designer.name}}的联系方式</h4>
+            Email：<a href="mailto:{{designer.email}}">{{designer.email}}</a> <br>
+            Mobile: <a href="tel:{{designer.mobile}}">{{designer.mobile}}</a>
+        </li> 
+    </ul>
+</div>

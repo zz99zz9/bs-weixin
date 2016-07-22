@@ -1,0 +1,72 @@
+<div class="input-panel" ms-controller="salary">
+    <div id="info">
+        <div class="mui-input-group">
+            <div class="display-flex">
+                <img class="flex0" ms-attr-src="headUrl" style="width:90px;height:90px;border-radius:50%;webkit-box-pack: justify;">
+                <div class="flex1">
+                    <table style="width: 95%;position: relative;top: 20px;left:20px;">
+                        <tr>
+                            <td style="width: 25%;">姓名</td>
+                            <td class="mui-navigate-right" style="position:relative;width: 75%;text-align: center;">
+                                <button id='employeePicker' class="mui-btn mui-btn-block" type='button'>{{name}}</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>职位</td>
+                            <td>{{position}}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h4>应发部分：</h4>
+    <div class="mui-input-group">
+        <div class="display-flex" ms-repeat="grantList">
+            <h5 class="flex0" style="-webkit-box-pack: justify;">{{el.name}}</h5>
+            <h5 class="flex0">
+                <input type="tel" ms-duplex-number="el.amount" data-duplex-changed="change">
+            </h5>
+            <h5 class="flex1"> 元</h5>
+        </div>
+    </div>
+    <div class="mui-input-group">
+        <div class="display-flex">
+            <h5 class="flex0" style="-webkit-box-pack: justify;">合计：</h5>
+            <h5 class="flex0">{{grantAmount}}</h5>
+            <h5 class="flex1"> 元</h5>
+        </div>
+    </div>
+    <h4>应扣部分：</h4>
+    <div class="mui-input-group">
+        <div class="display-flex" ms-repeat="deductList">
+            <h5 class="flex0" style="-webkit-box-pack: justify;">{{el.name}}</h5>
+            <h5 class="flex0">
+                <input type="text" ms-duplex-number="el.amount" data-duplex-changed="change" style="width:100px;height: 22px;border: solid 1px #ccc;border-radius: 5px;">
+            </h5>
+            <h5 class="flex1"> 元</h5>
+        </div>
+    </div>
+    <div class="mui-input-group">
+        <div class="display-flex">
+            <h5 class="flex0" style="-webkit-box-pack: justify;">合计：</h5>
+            <h5 class="flex0">{{deductAmount}}</h5>
+            <h5 class="flex1"> 元</h5>
+        </div>
+    </div>
+    <h4>实发工资：{{actualAmount}}</h4>
+    <div class="mui-input-group">
+        <div class="display-flex">
+            <h5 class="flex0" style="-webkit-box-pack: justify;">日期</h5>
+            <h5 class="flex0">
+                <button id="datePicker" data-options='{}' class="btn mui-btn">{{date}}</button>
+            </h5>
+        </div>
+    </div>
+    <br>
+    <br>
+</div>
+<nav class="mui-bar mui-bar-tab ini-bar-bottom" ms-controller="salary">
+    <button type="button" class="mui-btn ini-btn-submit" ms-click="submit" ms-attr-disabled="isDisabled">保存</button>
+    <button type="button" class="mui-btn ini-btn-submit" ms-click="cancel">取消</button>
+</nav>

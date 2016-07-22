@@ -1,0 +1,65 @@
+<!-- <div class="jiathis_style_32x32">
+    <a class="jiathis_button_qzone" style="margin-top:10px"></a>
+    <a class="jiathis_button_tsina" style="margin-top:10px"></a>
+    <a class="jiathis_button_tqq" style="margin-top:10px"></a>
+    <a class="jiathis_button_renren" style="margin-top:10px"></a>
+</div>
+<span>微信分享请点击右上角分</span>
+<br>
+<span>享至好友或朋友圈</span>
+
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<script>
+//分享代码
+var jiathis_config = {
+    url: urlWeixin + "/register-1.html?code=",
+    title: "欢迎下榻本酒店",
+    summary:"来自未来的酒店，超越五星级的温暖体验"
+}
+</script> -->
+<style>
+#shareIcons{
+    margin-top: 20vh;
+}
+.shareTab{
+    width: 100%;
+}
+.shareTab td{
+    /*vertical-align: top;*/
+    text-align: center;
+}
+.shareTab td a {
+    color: white;
+    font-size: 10px;
+}
+</style>
+<div ms-controller="share" style="text-align:center">
+    <!-- <img src="img/arrow_invite.png"style="top: 10px;right: 16px;position: fixed;">
+    <h4 style="margin-top:120px;">点击右上角<br /><br />分享至微信小伙伴和朋友圈</h4> -->
+    <div id="shareIcons">
+        <table class="shareTab">
+            <tr>
+                <td>
+                    <a ms-attr-href="qzoneUrl">
+                        <img src="img/qzone.svg" style="width:15vw;height:10vh;"><br />QQ空间
+                    </a>
+                </td>
+                <td>
+                    <a ms-attr-href="txweiboUrl">
+                        <img src="img/txweibo.svg" style="width:15vw;height:10vh;"><br />腾讯微博
+                    </a>
+                </td>
+                <td>
+                    <a ms-attr-href="sinaUrl">
+                        <img src="img/sina.svg" style="width:15vw;height:10vh;"><br />新浪微博
+                    </a>
+                </td>
+                <td>
+                    <a ms-attr-href="renrenUrl">
+                        <img src="img/renren.svg" style="width:15vw;height:10vh;"><br />人人网
+                    </a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

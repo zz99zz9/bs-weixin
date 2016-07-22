@@ -1,0 +1,46 @@
+<style>
+    .display-flex .flex0 {
+        width: 70px;
+    }
+    .mui-input-group {
+        background-color: #efeff4;
+    }
+    .mui-input-group:before {
+        background-color: #efeff4;
+    }
+    .mui-input-group:after {
+        background-color: #efeff4;
+    }
+    .mui-input-group textarea {
+        width: 90%;
+        height: 20vh;
+        background-color: #fff;
+    }
+</style>
+<div class="input-panel" ms-controller="form">
+    <div class="mui-input-group">
+        <div class="display-flex">
+            <h5 class="flex0" style="-webkit-box-pack: justify;">评价内容</h5>
+            <textarea class="flex1" ms-duplex-string="content" data-duplex-changed="changed"></textarea>
+        </div>
+    </div>
+    <div class="mui-input-group">
+        <div class="display-flex">
+            <h5 class="flex0" style="-webkit-box-pack: justify;">评价时间</h5>
+            <h5 class="flex1">{{time}}</h5>
+        </div>
+    </div>
+    <div class="mui-input-group">
+        <div class="display-flex">
+            <h5 class="flex0" style="-webkit-box-pack: justify;">评价人</h5>
+            <h5 class="flex1">{{adminName}}</h5>
+        </div>
+    </div>
+    <br><br>
+</div>
+
+<nav class="mui-bar mui-bar-tab ini-bar-bottom" ms-controller="form">
+    <button type="button" class="mui-btn ini-btn-submit" data-duplex-changed="change" ms-click="submit" ms-attr-disabled="isDisabled">保存</button>
+
+    <button type="button" class="mui-btn ini-btn-submit" ms-click="cancel">取消</button>
+</nav>

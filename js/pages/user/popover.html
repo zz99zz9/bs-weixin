@@ -1,0 +1,140 @@
+<style>
+.popover {
+    position: fixed;
+    width: 100vw;
+    height: 101vh;
+    z-index: 9999;
+    background: rgba(0, 0, 0, 0.85);
+    top: 0;
+    left: 0;
+    -webkit-backdrop-filter: blur(20px);
+    /*-webkit-transition-property:background-color;*/
+    -webkit-transition-duration: 3ms;
+    transition-property: opacity;
+    transition-duration: 500ms;
+    overflow: hidden;
+    /*display: -webkit-box;*/
+    /*-webkit-box-align: center;*/
+    opacity: 1;
+}
+
+@supports(-webkit-backdrop-filter:none) {
+    .popover {
+        -webkit-backdrop-filter: blur(20px);
+        transition-property: -webkit-backdrop-filter, opacity;
+        background: rgba(0, 0, 0, 0.65);
+    }
+}
+
+.popover-hide {
+    -webkit-backdrop-filter: blur(0) !important;
+    /*background: rgba(0, 0, 0, 0.0) !important;*/
+    opacity: 0;
+}
+
+.popover-hide .popover-content {
+    transform: translateY(100vh);
+}
+
+.popover-closeButton {
+    /*border-radius: 50%;*/
+    display: block;
+    width: 60px;
+    height: 70px;
+    padding: 0;
+    color: #dd524d;
+    border: none;
+    position: absolute;
+    bottom: 8vh;
+    background: none;
+    left: 50%;
+    margin-left: -30px;
+    font-size: 58px !important;
+    text-align: center;
+    font-family: Muiicons;
+    z-index: 9999;
+}
+
+.popover-closeButton:active {
+    color: white;
+    background: none !important;
+}
+
+.popover-closeButton:before {
+    content: '\e404';
+}
+
+.popover-content {
+    width: 90vw;
+    height: 75vh;
+    margin: 3vh 5vw;
+    margin-bottom: 125px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    color: white;
+    -webkit-overflow-scrolling: touch;
+    -webkit-transition-duration: 5ms;
+    transition: all 500ms;
+    transform: translateY(0);
+}
+
+.popover-content p {
+    color: white;
+}
+
+.popover-content > img {
+    width: 100%;
+}
+</style>
+<script>
+const loadUrl = 1;
+const loadStr = 2;
+const none = 0;
+var popover_ishide = false;
+
+function popover(url, type, callback) {
+    popover_ishide = false;
+    $('.popover').show();
+    switch (type) {
+        case loadUrl:
+            $('#pop-text').load(url, function() {
+            	if (typeof callback == "function") {
+			        callback();
+			    }
+                avalon.scan();
+            });
+            break;
+        case loadStr:
+            $('#pop-text').html(url);
+            avalon.scan();
+            break;
+        default:
+            break;
+    }
+    setTimeout("$('.popover').removeClass('popover-hide')", 10);
+};
+$(function() {
+    // $('.popover-content').height(window.screen.height-185);
+    if (!isios && isweixin) {
+        //$('.popover').css('-webkit-transition-duration','0');
+    }
+    $('.popover').on('webkitTransitionEnd', function() {
+        if (popover_ishide) {
+            $('.popover').hide();
+        }
+    })
+    $('.popover').on('touchmove', function(e) {
+        e.stopPropagation();
+    })
+    $('.popover-closeButton').on('click', function() {
+        $('.popover').addClass('popover-hide');
+        popover_ishide = true;
+    })
+});
+</script>
+<div style="display: none;" class="popover popover-hide">
+    <button class="popover-closeButton"></button>
+    <div class="popover-content" id="pop-text">
+        <!-- info -->等待加载……
+    </div>
+</div>

@@ -1,0 +1,36 @@
+<style>
+	.mui-content {
+		background: none;
+	}
+	a{
+		color: #DD524D;
+	}
+	input{
+		text-align: center;
+		color:white !important;
+		background-color:transparent !important;
+		border: 0px !important;
+		border-bottom:1px solid white !important;
+		/*width:60% !important;*/
+		border-radius: 0 !important;
+		font-size: 36px;
+		height: auto !important;
+		padding: 0 !important;
+		font-weight: 200;
+	}
+	input::-webkit-input-placeholder{
+		color: rgba(255,255,255,0.5);
+		font-size: 24px;
+		line-height: 36px;
+	}
+</style>
+<div style="background: url('img/11111.jpg') center;background-size: cover;height: 100vh;width: 100vw;padding: 50px;">
+	<div class="mui-text-center" style="margin:0 auto;" ms-controller="phone">
+		<br />
+	    <input type="tel" placeholder="输入手机号码" ms-duplex="phone" id="ipt">
+	    <br />
+	    <p class="text-white"><span>我已阅读并同意</span><a href="javascript:void(0)" ms-on-tap="clickA">用户协议</a></p>
+	    <br />
+	    <button class="mui-btn mui-btn-danger mui-btn-block" ms-click="goVertify">下一步</button>
+	</div>
+</div>

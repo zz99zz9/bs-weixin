@@ -1,0 +1,76 @@
+<style>
+	table {
+		margin: 15px auto;
+		width: 95%;
+		text-align: center;
+		background: #fff;
+		font-weight: 200;
+		border-spacing: 0;
+		box-shadow: 0 1px 1px #ccc;
+	}
+	th, td {
+		padding: 5px;
+		border: solid 1px #ccc;
+        word-break: break-word;
+	}
+	.active {
+		color: #fff;
+		background-color: #000 !important;
+	}
+	tr:nth-child(even) {
+		background-color: #efefef;
+	}
+
+</style>
+<div id="pullrefresh" class="mui-scroll-wrapper" ms-controller="table">
+	<div class="mui-scroll">
+		<br><br>
+		<button ms-if="isShowAdd()" ms-click="add" class="ini-btn-add mui-pull-right">添加</button>
+		<table>
+			<tr>
+				<th ms-repeat="data.th">{{el}}</th>
+			</tr>
+			<tr ms-repeat="data.tr" ms-on-tap="go($index)" ms-class="active:$index==index">
+				<td ms-repeat-dl="el">{{dl}}</td>
+			</tr>
+		</table>
+	</div>
+</div>
+
+<script>
+mui.init({
+    pullRefresh: {
+        container: '#pullrefresh',
+        up: {
+            contentrefresh: '正在加载...',
+            contentnomore: "没有更多数据了",
+            callback: loadmore
+        }
+    }
+});
+
+function loadmore() {
+	var vm = tableData.vm,
+		url = tableData.url;
+    
+    tableData.data.pageNo = vm.pageNo;
+    tableData.data.pageSize = vm.pageSize;
+
+    ajaxJsonp({
+        url: url,
+        data: tableData.data,
+        successCallback: function(json) {
+            if (json.data.count + json.data.pageSize > (vm.pageNo * json.data.pageSize) && json.data.ids.length > 0) {
+                vm.pageNo++;
+
+                vm.data.tr.push.apply(vm.data.tr, json.data.lines);
+                vm.data.id.push.apply(vm.data.id, json.data.ids);
+
+                mui("#pullrefresh").pullRefresh().endPullupToRefresh(false);
+            } else {
+                mui("#pullrefresh").pullRefresh().endPullupToRefresh(true);
+            }
+        }
+    });
+}
+</script>

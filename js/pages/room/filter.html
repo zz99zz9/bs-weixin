@@ -1,0 +1,288 @@
+<link rel="stylesheet" href="css/mui.picker.all.css" />
+<style>
+	.title {
+		margin: 20px 15px 10px 15px;
+		color: #6d6d72;
+		font-size: 15px;
+		width: auto;
+	}
+</style>
+<script src="js/lib/mui.picker.all.js"></script>
+<script>
+	(function($, doc) {
+		$.init();
+		$.ready(function() {
+			//普通示例
+			var t,m;
+			var n=1;
+			var select_bar = doc.getElementById('select_bar');
+			select_bar.style.width=document.body.clientWidth-70+'px';
+			var userPicker = new $.PopPicker();
+			var select_text= doc.getElementById('select-text');
+			userPicker.setData([{
+				value: '520',
+				text: '520系列',
+				info: '520系列文字介绍520系列文字介绍520系列文字介绍520系列文字介绍520系列文字介绍520系列文字介绍520系列文字介绍520系列文字介绍'
+			}, {
+				value: '258',
+				text: '258系列',
+				info: '258系列文字介绍258系列文字介绍258系列文字介绍，258系列文字介绍258系列文字介绍258系列文字介绍，258系列文字介绍'
+			}]);
+			var showUserPickerButton = doc.getElementById('showUserPicker');
+			var userResult = doc.getElementById('userResult');
+			var userinfo = doc.getElementById('info');
+			showUserPickerButton.addEventListener('tap', function(event) {
+				userPicker.show(function(items) {
+						//userResult.innerText = JSON.stringify(items[0]);
+					userResult.innerText = JSON.stringify(items[0].text);
+					userinfo.innerText = JSON.stringify(items[0].info);
+						//返回 false 可以阻止选择框的关闭
+						//return false;
+				});
+			}, false);
+			//console.log($("#select_time a"));
+			$("#select_time a").each(function(index,element){
+				//console.log(element);
+				element.addEventListener('tap',function(){
+					//console.log(this);
+					//console.log(this.offsetTop);
+					select_bar.style.top=this.offsetTop+'px';
+					select_bar.style.height='';
+					select_bar.className="bar";
+					n=1;
+					t=parseFloat(this.getAttribute('data-time'));
+					m=(t-Math.floor(t))*60;
+					if(m==0){
+						m='00';
+					}
+					var ttt=Math.floor(t)+':'+m;
+					//lll=Math.floor(select_bar.offsetHeight/84)*2;
+					select_text.innerText='查找 '+ ttt +' - '+(Math.floor(t)+n*2)+':'+m +' 时段';
+					console.log(t);
+				})
+			})
+			doc.getElementById('icon-plus').addEventListener('tap', function(event){
+				var ttt=Math.floor(t)+':'+m;
+				if(t+(n+3)*0.5<20){
+					select_bar.style.height=select_bar.offsetHeight+21+'px';
+					++n;
+					var tt=t+(n+3)*0.5;
+					console.log(tt);
+					var mm=(tt-Math.floor(tt))*60;
+					if(mm==0){
+						mm='00';
+					}
+					select_text.innerText='查找 '+ ttt +' - '+Math.floor(tt)+':'+mm +' 时段';	
+				}
+			})
+			doc.getElementById('icon-minus').addEventListener('tap', function(event){
+				if(select_bar.offsetHeight>85){
+					select_bar.style.height=select_bar.offsetHeight-21+'px';
+					--n;
+					var tt=t+(n+3)*0.5;
+					console.log(tt);
+					var mm=(tt-Math.floor(tt))*60;
+					if(mm==0){
+						mm='00';
+					}
+					var ttt=Math.floor(t)+':'+m;
+					select_text.innerText='查找 '+ ttt +' - '+Math.floor(tt)+':'+mm +' 时段';
+				}else{
+					select_bar.className="mui-hidden bar";
+					n=1;
+				}
+				
+			})
+		});
+	})(mui, document);
+</script>
+
+<div ms-controller="filter">
+	<!--<div class="mui-segmented-control mui-segmented-control-negative  mui-segmented-control-inverted">
+		<a class="mui-control-item mui-active" href="#night" ms-on-touchend="timeSelect(1)">夜房</a>
+		<a class="mui-control-item" href="#day" ms-on-touchend="timeSelect(2)">时租房</a>
+	</div>-->
+	<div class="mui-table-view">
+		<div id="night" class="mui-control-content mui-active">
+			<div class="mui-table-view-cell">
+				<a href="###" id="datepickerStart"> 入住时间：<i class="mui-pull-right">{{startTime|date('yyyy-MM-dd')}}</i></a>
+			</div>
+			<div class="mui-table-view-cell">
+				<a href="###" id="datepickerEnd">退房时间：<i class="mui-pull-right">{{endTime|date('yyyy-MM-dd')}}</i></a>
+			</div>
+			<div class="mui-table-view-divider">选择时段：</div>
+			<div class="calendar" style="border-bottom: 1px solid gainsboro;">
+				<b>一</b><b>二</b><b>三</b><b>四</b><b>五</b><b>六</b><b>日</b>
+			</div>
+			<div class="calendar edit" style="height: 250px;overflow-y: auto;">
+				<a href="###">
+					15
+					<sub>打折</sub>
+				</a><a>
+					16
+				</a><a>
+					17
+				</a><a>
+					18
+				</a><i>
+					<!--<sup>4月</sup>-->
+					19
+				</i><i>
+					20
+				</i><i>
+					21
+				</i><a href="###">
+					22
+				</a><a>
+					23
+				</a><a>
+					24
+				</a><a href="###" class="split-bottom">
+					25
+				</a><a href="###" class="split-bottom">
+					26
+				</a><a href="###" class="split-bottom">
+					27
+				</a><a href="###" class="split-bottom">
+					28
+				</a><a href="###" class="split-bottom">
+					29
+				</a><a href="###" class="split-bottom">
+					30
+				</a><a href="###" class="split-bottom split-right">
+					31
+				</a><a href="###">
+					<sup>4月</sup>
+					1
+				</a><a href="###" class="disabled">
+					2
+				</a><a href="###">
+					3
+				</a><a href="###">
+					4
+				</a><a href="###">
+					5
+				</a><a href="###">
+					6
+				</a><a href="###">
+					7
+				</a><a href="###">
+					8
+				</a><a href="###">
+					9
+				</a><a href="###" class="selected start">
+					10
+				</a><a href="###" class="selected">
+					11
+				</a><a href="###" class="selected">
+					12
+				</a><a href="###" class="selected">
+					13
+				</a><a href="###" class="selected end">
+					14
+				</a><a href="###">
+					15
+				</a><a href="###">
+					16
+				</a><a href="###">
+					17
+				</a><a href="###">
+					18
+				</a><a href="###">
+					19
+				</a><a href="###">
+					20
+				</a><a href="###">
+					21
+				</a><a href="###">
+					22
+				</a><a href="###">
+					23
+				</a><a href="###">
+					24
+				</a><a href="###">
+					25
+				</a><a href="###">
+					26
+				</a><a href="###">
+					27
+				</a><a href="###">
+					28
+				</a><a href="###">
+					29
+				</a><a href="###">
+					30
+				</a>
+
+				<a href="###" ms-repeat="calendar" ms-class-1="disabled: el.disabled" ms-class-2="split-top:(el.day<=7)" ms-class-3="split-left:(el.day==1)">
+					<sup ms-if="el.day==1">{{el.month}}月</sup>
+					{{el.day==0?'&nbsp;':el.day}}
+				</a>
+			</div>
+		</div>
+		<div id="day" class="mui-control-content">
+			<div class="mui-table-view-cell">
+				<a href="###">入住时间：<i class="mui-pull-right">{{startTime|date('yyyy-MM-dd')}}</i></a>
+			</div>
+			<div class="mui-table-view-divider">选择时段：</div>
+			<div class="select-time" id='select_time'>
+				<b>&nbsp;</b>
+				<a data-time="8" href="###" class="dotted"><i>08:00</i></a>
+				<b data-time="8.5" class="select-time-clear"></b>
+				<b data-time="9" class="select-time-disabled"><i>09:00</i></b>
+				<b data-time="9.5" class="select-time-disabled"></b>
+				<b data-time="10" class="select-time-disabled"><i>10:00</i></b>
+				<b data-time="10.5" class="select-time-disabled"></b>
+				<a data-time="11" href="###" class="dotted"><i>11:00</i></a>
+				<a data-time="11.5" href="###"></a>
+				<a data-time="12" href="###" class="dotted"><i>12:00</i></a>
+				<a data-time="12.5" href="###"></a>
+				<a data-time="13" href="###" class="dotted"><i>13:00</i></a>
+				<a data-time="13.5" href="###"></a>
+				<a data-time="14" href="###" class="dotted"><i>14:00</i></a>
+				<a data-time="14.5" href="###"></a>
+				<a data-time="15" href="###" class="dotted"><i>15:00</i></a>
+				<a data-time="15.5" href="###"></a>
+				<a data-time="16" href="###" class="dotted"><i>16:00</i></a>
+				<a data-time="16.5" href="###"></a>
+				<a data-time="17" href="###" class="dotted"><i>17:00</i></a>
+				<a data-time="17.5" href="###"></a>
+				<a data-time="18" href="###" class="dotted"><i>18:00</i></a>
+				<b style="border: none;"><i style="text-align: center;width: 100%;position:relative;left:0;top:21px">18:30之后不再允许订时租房！</i></b>
+				<b style="border: none;"><i>19:00</i></b>
+				<b></b>
+				<b><i>20:00</i></b>
+				<table id="select_bar" class="mui-hidden bar">
+					<tr>
+						<td valign="center">
+							<p class="mui-text-center" style="margin: auto;color:black;" id="select-text">查找 8:00 - 10:00 时段</p>
+						</td>
+					</tr>
+					<tr style="height: 32px;">
+						<td style="text-align: center;border-top: 1px dotted rgba(0,0,0,0.1);vertical-align:middle;height：32px">
+							<button id="icon-minus" style="border-right: 1px dotted rgba(0,0,0,0.2);">－</button>
+							<button id="icon-plus">＋</button>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+
+		<div class="mui-table-view-divider">&nbsp;</div>
+		<div class="mui-table-view-cell">
+			<a href="###" id="showUserPicker">选择系列：<i class="mui-pull-right" id="userResult">"520系列"</i></a>
+		</div>
+		<div class="mui-table-view-cell">
+			<p id='info'>520系列文字介绍520系列文字介绍520系列文字介绍520系列文字介绍520系列文字介绍520系列文字介绍520系列文字介绍520系列文字介绍</p>
+		</div>
+	</div>
+	<br />
+	<br />
+	<br />
+	<br />
+	<br />
+	<br />
+	<div style="padding: 10px;width: 100%;position:fixed;bottom:0;background-color: #F7F7F7;">
+		<button type="button" class="mui-btn mui-btn-danger mui-btn-block" onclick="javascript:window.location.href='rooms.html'">搜索</button>
+	</div>
+</div>

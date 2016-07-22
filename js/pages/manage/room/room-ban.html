@@ -1,0 +1,26 @@
+<div ms-controller="ban" class="input-panel">
+	<div class="mui-input-group">
+		<div class="display-flex">
+			<h5 class="flex0" style="-webkit-box-pack: justify;">停用原因</h5>
+			<h5 class="flex1">
+				<textarea class="flex1" type="text" rows="5" ms-duplex="reason"></textarea>
+			</h5>
+		</div>
+	</div>
+    <div class="mui-input-group">
+		<div class="display-flex mui-navigate-right">
+			<h5 class="flex0" style="-webkit-box-pack: justify;">停用时间</h5>
+			<h5 class="flex1">
+        		<button id="datePicker1" data-options='{}' class="mui-btn mui-btn-block">{{date1}}</button>
+			</h5>
+			<h5 class="flex1">
+        		<button id="datePicker2" data-options='{}' class="mui-btn mui-btn-block">{{date2}}</button>
+			</h5>
+		</div>
+	</div>
+</div>
+<nav class="mui-bar mui-bar-tab ini-bar-bottom" ms-controller="ban">
+	<button type="button" class="mui-btn ini-btn-submit" ms-click="submit" ms-attr-disabled="isDisabled">确认</button>
+
+    <button type="button" class="mui-btn ini-btn-submit" ms-click="cancel">取消</button>
+</nav>

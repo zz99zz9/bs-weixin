@@ -1,0 +1,96 @@
+<style>
+	.mui-content {
+		background: none;
+	}
+	a{
+		color: #DD524D;
+	}
+    .codeButton{
+        border-radius: 100px;
+        /*background:none;*/
+        width: 150px;
+        height: 35px;
+    }
+    .nextButton{
+        color: green;
+        background-color: transparent;
+        width: 150px;
+        height: 40px;
+    }
+    .input1{
+        text-align: center;
+        color: white !important;
+        background-color: transparent !important;
+        border: 0px !important;
+        border-bottom: 1px solid white !important;
+        width: 40% !important;
+        border-radius:0px !important;
+        padding: 2px !important;
+        height: auto !important;
+    }
+    #code{
+    	display: table;
+		width: 100%;
+		border-spacing:8px;
+    }
+    #code b{
+    	display: table-cell;
+    	width: 3.5rem;
+    	height: 4rem;
+    	line-height: 4rem;
+    	text-align: center;
+    	color: white;
+    	border: 1px dotted rgba(255,255,255,0.8);
+    	font-size: 36px;
+    	margin: 0 3px;
+    }
+
+    .active b{
+    	border: 1px solid white !important;
+    }
+    body{
+    	min-height: 450px;
+    }
+</style>
+<div ms-controller="register" style="overflow: hidden;background: url('img/11111.jpg') center;background-size: cover;height: 100vh;width: 100vw;padding:20px 50px;">
+    <div style="margin: 0 auto;text-align: center;">
+        <div id="code" class="active" style="text-align: center;" tabindex="0">
+            <!-- <label style="color:white">验证码：</label> -->
+            <b ms-repeat="verifyCodeArray">{{el.code}}</b>
+            <!-- <input type="number" class="input1" ms-duplex="code"> -->
+        </div><br />
+        <button class="mui-btn mui-btn-yellow mui-btn-outlined codeButton" ms-on-touchend="getCode" ms-attr-disabled="isSuccess">{{codeMsg}}</button>
+        <br /><br />
+        <div ms-if="!isUsed" style="text-align: center;font-size: 14px;">
+            <span style="color:white;">邀请码：</span>
+            <input type="text" class="input1" ms-duplex="inviteCode" onfocus="hidekeyboard()" onblur="showkeyboard()">
+            <span style="color:yellow;">非必填</span>
+        </div>
+        <br />
+        <button class="mui-btn mui-btn-danger mui-btn-block" ms-click="goRegister" ms-attr-disabled="isGoNextDisabled">下一步</button>
+    </div>
+</div>
+<script>
+	mui.init();
+	var code=document.getElementById('code');
+	//console.log(code);
+	//document.getElementById('code').focus();
+	function showkeyboard(){
+		var keyboard=document.getElementById('keyboard');
+		//keyboard.style.display='block';
+		if(isios){
+			keyboard.className='keyboard'
+		}else keyboard.style.display='block';
+		code.className='active';
+	}
+	function hidekeyboard(){
+		var keyboard=document.getElementById('keyboard');
+		//keyboard.style.display='none';
+		if(isios){
+			keyboard.className='keyboard keyboard-hide'
+		}else keyboard.style.display='none';
+		code.className='';
+		// console.log(keyboard);
+	}
+</script>
+<!--include "../pages/register/keyboard.html"-->

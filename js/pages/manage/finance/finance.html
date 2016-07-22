@@ -1,0 +1,61 @@
+<style>
+.input-panel .mui-btn-block {
+    border: none;
+    border-top: solid 1px #dfdfdf;
+    border-bottom: solid 1px #dfdfdf;
+    margin-top: 25px;
+    margin-bottom: 5px;
+    padding: 7px 0;
+}
+
+.mui-segmented-control {
+    border: none;
+}
+
+.mui-segmented-control .mui-control-item.mui-active {
+    background-color: #000;
+}
+
+.mui-segmented-control .mui-control-item {
+    border: none;
+    background: #fff;
+    color: #000;
+}
+</style>
+<div ms-controller="nav" class="input-panel">
+    <ul class="mui-table-view" style="box-shadow: 0 4px 2px -4px;">
+        <li class="mui-table-view-cell" ms-click="jump">
+            <a class="mui-navigate-right">发票管理</a>
+        </li>
+    </ul>
+    <button id='demo4' data-options='{"type":"date"}' class="btn mui-btn mui-btn-block mui-navigate-right">{{date}}</button>
+    <div class="mui-content">
+        <div id="segmentedControl" class="mui-segmented-control">
+            <a ms-class="mui-active:isActive()" class="mui-control-item mui-active" href="#item1">
+            共收入&nbsp;{{data.sumIn}}&nbsp;元
+            </a>
+            <a ms-class="mui-active:!isActive()" class="mui-control-item" href="#item2">
+                共支出&nbsp;{{data.sumOut}}&nbsp;元
+            </a>
+        </div>
+        <div ms-controller="nav">
+            <div id="item1" ms-class="mui-active:isActive()" class="mui-control-content">
+                <ul class="mui-table-view">
+                    <li class="mui-table-view-cell" ms-repeat="data.in" ms-click="go(el.type)">
+                        <span>{{el.text}}</span><span class="mui-pull-right">总收入&nbsp;{{el.value}}&nbsp;元</span>
+                    </li>
+                </ul>
+            </div>
+            <div id="item2" ms-class="mui-active:!isActive()" class="mui-control-content">
+                <ul class="mui-table-view">
+                    <li class="mui-table-view-cell" ms-repeat="data.out" ms-click="go(el.type)">
+                        <span>{{el.text}}</span><span class="mui-pull-right">总支出&nbsp;{{el.value}}&nbsp;元</span>
+                    </li>
+                    <li class="mui-table-view-cell" ms-click="go(11)">
+                        <a class="mui-navigate-right">支出修改明细</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,10 @@
+<div ms-controller="oldInvite">
+    <ul ms-if="count!==0">
+        <li ms-repeat="list" ms-if="count!==0">
+            <p>
+                {{el.description}}
+            </p>
+        </li>
+    </ul>
+    <span ms-if="count===0" style="text-align:center">您还没有邀请小伙伴，赶紧行动吧</span>
+</div>

@@ -1,0 +1,44 @@
+<style>
+    .mui-input-group textarea {
+        width: 70%;
+        background-color: #efeff4;
+    }
+</style>
+<div ms-controller="other" class="input-panel">
+	<div class="mui-input-group">
+        <div class="display-flex">
+            <h5 class="flex0" style="-webkit-box-pack: justify;">支出原因</h5>
+            <textarea class="flex1" type="text" rows="5" ms-duplex="reason"></textarea>
+        </div>
+	</div>
+    <div class="mui-input-group">
+        <div class="display-flex">
+            <h5 class="flex0" style="-webkit-box-pack: justify;">支出金额</h5>
+            <h5 class="flex0">
+                <input type="tel" ms-duplex="amount" />
+            </h5>
+            <h5 class="flex1">元</h5>
+        </div>
+    </div>
+    <div class="mui-input-group">
+        <div class="display-flex mui-navigate-right">
+            <h5 class="flex0" style="-webkit-box-pack: justify;">支付人</h5>
+            <h5 class="flex1">
+            	<button id='employeePicker' class="mui-btn mui-btn-block" type='button'>{{name}}</button>
+            </h5>
+        </div>
+    </div>
+
+    <div class="mui-input-group">
+		<div class="display-flex mui-navigate-right">
+			<h5 class="flex0" style="-webkit-box-pack: justify;">日期</h5>
+			<h5 class="flex1">
+            	<button id="datePicker" data-options='{}' class="mui-btn mui-btn-block">{{date}}</button>
+            </h5>
+		</div>
+	</div>
+</div>
+<nav class="mui-bar mui-bar-tab ini-bar-bottom" ms-controller="other">
+    <button type="button" class="mui-btn ini-btn-submit" ms-click="submit" ms-attr-disabled="isDisabled">保存</button>
+    <button type="button" class="mui-btn ini-btn-submit" ms-click="cancel">取消</button>
+</nav>

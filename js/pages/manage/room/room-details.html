@@ -1,0 +1,97 @@
+<div ms-controller="details" class="input-panel">
+	<div class="mui-input-group">
+		<div class="rowHead">
+			<img src="../img/tag1.jpg"/>{{name}}
+		</div>
+	</div>
+	<div class="mui-input-group">
+		<div class="display-flex">
+			<h5 class="flex0" style="-webkit-box-pack: justify;">价格</h5>
+			<h5 class="flex1">{{nightPrice}} 元/晚 & {{partPrice}} 元/时</h5>
+		</div>
+	</div>
+    <div class="mui-input-group">
+        <div class="display-flex">
+            <h5 class="flex0" style="-webkit-box-pack: justify;">本月夜房入住次数</h5>
+            <h5 class="flex1">{{nightCount}}</h5>
+        </div>
+    </div>
+    <div class="mui-input-group">
+        <div class="display-flex">
+            <h5 class="flex0" style="-webkit-box-pack: justify;">本月时租房入住次数</h5>
+            <h5 class="flex1">{{hourCount}}</h5>
+        </div>
+    </div>
+    <div class="mui-input-group">
+        <div class="display-flex">
+            <h5 class="flex0" style="-webkit-box-pack: justify;">预定状态</h5>
+            <h5 class="flex1">{{bookTimeList}}</h5>
+        </div>
+    </div>
+    <div class="mui-input-group">
+        <div class="display-flex">
+            <h5 class="flex0" style="-webkit-box-pack: justify;">订房时间</h5>
+            <h5 class="flex1">{{currTimeList}}</h5>
+        </div>
+    </div>
+    <div id="dirty" ms-if="roomStatus===5">
+        <div class="mui-input-group">
+            <div class="display-flex">
+                <h5 class="flex0" style="-webkit-box-pack: justify;">添加耗材</h5>
+                <div ms-repeat="comsueList">
+                    <img ms-attr-src="el" style="height:32px;width:32px">
+                </div>
+            </div>
+        </div>
+        <div class="mui-input-group">
+            <div class="rowHead">
+    			<img src="../img/tag1.jpg"/>报损
+    		</div>
+        </div>
+        <div class="mui-input-group">
+            <div class="display-flex">
+                <h5 class="flex0" style="-webkit-box-pack: justify;">物品</h5>
+                <button id='toolPicker' class="mui-btn" type='button'>{{toolName}}</button>
+            </div>
+        </div>
+        <div class="mui-input-group">
+    		<div class="display-flex">
+    			<h5 class="flex0" style="-webkit-box-pack: justify;">日期</h5>
+                <button data-options='{"type":"date"}' class="btn mui-btn">{{date}}</button>
+    		</div>
+    	</div>
+    </div>
+    <div id="repair" ms-if="roomStatus===6">
+        <div class="mui-input-group">
+            <div class="rowHead">
+                <img src="../img/tag1.jpg"/>维修
+            </div>
+        </div>
+        <div class="mui-input-group">
+            <div class="display-flex">
+                <h5 class="flex0" style="-webkit-box-pack: justify;">维修物品</h5>
+                <h5 class="flex1">{{damageTool}}</h5>
+            </div>
+        </div>
+        <div class="mui-input-group">
+            <div class="display-flex">
+                <h5 class="flex0" style="-webkit-box-pack: justify;">维修金额</h5>
+                <h5 class="flex0">
+                    <input type="text" ms-duplex="repairMoney" style="width:100px;height: 22px;border: solid 1px #ccc;border-radius: 5px;">
+                </h5>
+                <h5 class="flex1"> 元</h5>
+            </div>
+        </div>
+    </div>
+</div>
+<br><br>
+<div ms-controller="details">
+    <nav class="mui-bar mui-bar-tab ini-bar-bottom" ms-if="roomStatus===1||roomStatus===2">
+            <button type="button" class="mui-btn ini-btn-submit" ms-click="goRepair">维修</button>
+            <button type="button" class="mui-btn ini-btn-submit" ms-click="goBan">停用</button> 
+    </nav>
+    <nav class="mui-bar mui-bar-tab ini-bar-bottom" ms-if="!(roomStatus===1||roomStatus===2)">
+            <button type="button" class="mui-btn ini-btn-submit" ms-click="submit" ms-attr-disabled="isDisabled">{{options}}</button> 
+    </nav>  
+</div>
+

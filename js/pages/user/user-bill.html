@@ -1,0 +1,35 @@
+<div ms-controller="bill">
+    <div class="mui-input-group">
+        <br />
+        <h4 style="text-align:center">可开发票总额： {{invoiceMoney}}</h4>
+
+        <br />
+        <div class="mui-input-row">
+            <label>开票金额</label>
+            <input type="number" ms-duplex="amount" placeholder="请输入开票金额">
+        </div>
+        <div class="mui-input-row">
+            <label>公司抬头</label>
+            <input type="text" ms-duplex="company" placeholder="请输入公司称谓">
+        </div>
+        <div class="mui-input-row">
+            <label>发票科目</label>
+            <input type="text" ms-duplex="cate" placeholder="请输入科目">
+        </div>
+        <div class="mui-input-row">
+            <label>收件地址</label>
+            <input type="text" ms-duplex="address" placeholder="请输入发票寄送地址">
+        </div>
+        <div class="mui-input-row">
+            <label>收件人</label>
+            <input type="text" ms-duplex="receiver" placeholder="请输入收件人姓名">
+        </div>
+        <div class="mui-input-row">
+            <label>收件人电话</label>
+            <input type="text" ms-duplex="phone" placeholder="请输入收件人联系电话">
+        </div>
+    </div>
+    <div class="mui-content-padded">
+        <button type="button" class="mui-btn mui-btn-block" style="background-color: #dd524d; color: #fff;" ms-on-touchend="confirm">提交</button>
+    </div>
+</div>

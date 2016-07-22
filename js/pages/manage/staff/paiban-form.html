@@ -1,0 +1,88 @@
+<style>
+#positionPicker {
+    display: block;
+    width: 100%;
+    text-align: left;
+}
+.input-panel .mui-btn-block {
+    border: none;
+    border-top: solid 1px #dfdfdf;
+    border-bottom: solid 1px #dfdfdf;
+    margin-top: 25px;
+    margin-bottom: 5px;
+    padding: 7px 0;
+}
+.mui-segmented-control{
+    border: none;
+}
+.mui-segmented-control .mui-control-item.mui-active {
+    background-color: #000;
+}
+.mui-segmented-control .mui-control-item {
+    border: none;
+    background: #fff;
+    color: #000;
+}
+</style>
+<div ms-controller="paiban" class="input-panel">
+    <div class="mui-content" ms-if="isChose">
+        <div class="mui-input-group">
+            <div class="display-flex mui-navigate-right">
+                <button id='positionPicker' class="mui-btn" type='button'>岗位：{{position}}</button>          
+            </div>
+        </div>
+        <br>
+        <div id="segmentedControl" class="mui-segmented-control" style="border-radius:5px">
+            <a class="mui-control-item" href="###" ms-class="mui-active:isMonthShow" ms-on-touchend="change(0)">
+                月排
+            </a>
+            <a class="mui-control-item" href="###" ms-class="mui-active:!isMonthShow" ms-on-touchend="change(1)">
+                周排
+            </a>
+        </div>
+        <div id="item1" class="mui-control-content" ms-class="mui-active:isMonthShow">
+            <button data-options='{"type":"month"}'class="btn mui-btn-block" style="margin-top:12px">{{date}}</button>
+        </div>
+        <div id="item2" class="mui-control-content" ms-class="mui-active:!isMonthShow">
+            <div class="display-flex">
+                <div id="segmentedControl" class="mui-segmented-control">
+                    <a class="mui-control-item" href="###" ms-class="mui-active:isthisWeek" ms-on-touchend="change(1)">
+                        本周
+                    </a>
+                    <a class="mui-control-item" href="###" ms-class="mui-active:!isthisWeek" ms-on-touchend="change(2)">
+                        下周
+                    </a>
+                </div>
+            </div>
+        </div>
+        <ul class="mui-table-view" ms-if="dateType===0">
+            <li class="mui-table-view-cell" ms-repeat="monthList">
+                <a ms-attr-href="'../manage/arrangement-today.html?hid='+el.hid+'&date='+el.workDate+'&type='+el.type" class="mui-navigate-right"><span class="mui-pull-left">{{$index+1}}&nbsp;{{el.weekDay}}&nbsp;</span>{{el.names}}</a>
+            </li>
+        </ul>
+        <ul class="mui-table-view" ms-if="dateType===1">
+            <li class="mui-table-view-cell" ms-repeat="weekList1">
+                <a ms-attr-href="'../manage/arrangement-today.html?hid='+el.hid+'&date='+el.workDate+'&type='+el.type" class="mui-navigate-right"><span class="mui-pull-left">{{el.workDate.slice(5,10)}}&nbsp;{{el.weekDay}}&nbsp;</span>{{el.names}}</a>
+            </li>
+        </ul>
+        <ul class="mui-table-view" ms-if="dateType===2">
+            <li class="mui-table-view-cell" ms-repeat="weekList2">
+                <a ms-attr-href="'../manage/arrangement-today.html?hid='+el.hid+'&date='+el.workDate+'&type='+el.type" class="mui-navigate-right"><span class="mui-pull-left">{{el.workDate.slice(5,10)}}&nbsp;{{el.weekDay}}&nbsp;</span>{{el.names}}</a>
+            </li>
+        </ul>
+    </div>
+    <!--排班表预选-->
+    <div ms-if="!isChose">
+        <ul class="mui-table-view">
+            <li class="mui-table-view-cell">
+                <a href="javascript:void(0)" class="mui-navigate-right" ms-on-touchend="clickA(1)">保洁</a>
+            </li>
+            <li class="mui-table-view-cell">
+                <a href="javascript:void(0)" class="mui-navigate-right" ms-on-touchend="clickA(2)">前台</a>
+            </li>
+            <li class="mui-table-view-cell">
+                <a href="javascript:void(0)" class="mui-navigate-right" ms-on-touchend="clickA(3)">保安</a>
+            </li>
+        </ul>
+    </div>
+</div>

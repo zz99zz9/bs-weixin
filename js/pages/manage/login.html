@@ -1,0 +1,74 @@
+<style>
+	input {
+		width: 200px !important;
+		border: none !important;
+	}
+	button {
+		width: 80px !important;
+	}
+</style>
+<div class="input-panel" ms-controller="login" style="text-align: center;">
+ 	<div class="mui-input-group">
+        <div class="display-flex">
+        	<h5 class="flex1">
+            	<input type="text" placeholder="手机号" ms-duplex="mobile">
+            </h5>
+        </div>
+    </div>
+ 	<div class="mui-input-group">
+        <div class="display-flex">
+            <h5 class="flex1">
+                <input type="password" placeholder="密码" ms-duplex="pwd">
+            </h5>
+        </div>
+    </div>
+    <div class="mui-input-group">
+        <div class="display-flex">
+            <h5 class="flex1">
+                <button class="mui-btn mui-btn-primary" ms-click="submit" ms-attr-disabled="isDisabled">登录</button>
+            </h5>
+        </div>
+    </div>
+</div>
+
+<script>
+	var vmLogin = avalon.define({
+		$id: 'login',
+		mobile: '',
+		pwd: '',
+		isDisabled: false,
+		submit: function() {
+			vmLogin.isDisabled = true;
+        	ajaxJsonp({
+	            url: urlAPI + '/usr/user/loginPwd',
+	            data: {
+	                username: vmLogin.mobile,
+	                password: vmLogin.pwd
+	            },
+	            successCallback: function(json) {
+	                if (json.status !== 1) {
+	                    alert(json.message);
+	                    vmLogin.isDisabled = false;
+	                } else {
+	                    var user = {
+	                        uid: json.data.id,
+	                        mobile: json.data.mobile,
+	                        openId: json.data.openId,
+	                        name: json.data.name,
+	                        nickname: json.data.nickname,
+	                        headImg: json.data.headUrl,
+	                        logState: 1,
+	                        accessToken: json.data.accessToken,
+	                        idUrl: json.data.idUrl,
+	                        idNo: json.data.idNo,
+	                        authStatus: json.data.authStatus,
+	                        invoiceMoney: json.data.invoiceMoney
+	                    };
+	                    Storage.setLocal('user', user);
+	                    location.replace('../index.html');
+	                }
+	            }
+	        });
+	    }
+	})
+</script>

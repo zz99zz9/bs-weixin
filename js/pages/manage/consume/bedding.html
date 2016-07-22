@@ -1,0 +1,94 @@
+<div id="pullrefresh" class="mui-scroll-wrapper" ms-controller="bedding">
+    <div class="mui-scroll">
+        <br>
+        <br>
+        <div ms-controller="bedding" class="input-panel">
+            <div class="mui-input-group">
+                <div class="rowHead">
+                    <img src="../img/tag1.jpg" />{{name}}
+                </div>
+            </div>
+            <div class="mui-input-group">
+                <div class="display-flex">
+                    <h5 class="flex0" style="-webkit-box-pack: justify;">当月损耗</h5>
+                    <h5 class="flex0">
+				<input type="text" ms-duplex="newMonthLoss" style="width:100px;height: 22px;border: solid 1px #ccc;border-radius: 5px;" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">
+			</h5>
+                    <h5 class="flex1"> 件</h5>
+                    <h5 style="font-size:14px;display: inline-block;text-align: right;" class="flex2">
+				<span ms-click="modifyLoss" ms-class="mui-text-gray:isLossDisabled">修改</span>
+			</h5>
+                </div>
+            </div>
+            <div class="mui-input-group">
+                <div class="display-flex">
+                    <h5 class="flex0" style="-webkit-box-pack: justify;">当日送洗</h5>
+                    <h5 class="flex0">
+				<input type="text" ms-duplex="newDayWash" style="width:100px;height: 22px;border: solid 1px #ccc;border-radius: 5px;" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">
+			</h5>
+                    <h5 class="flex1"> 件</h5>
+                    <h5 style="font-size:14px;display: inline-block;text-align: right;" class="flex2">
+				<span ms-click="modifyWash" ms-class="mui-text-gray:isWashDisabled">修改</span>
+			</h5>
+                </div>
+            </div>
+            <div class="mui-input-group">
+                <div class="display-flex">
+                    <h5 class="flex0" style="-webkit-box-pack: justify;">当日清洁</h5>
+                    <h5 class="flex0">
+				<input type="text" ms-duplex="newDayClean" style="width:100px;height: 22px;border: solid 1px #ccc;border-radius: 5px;" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">
+			</h5>
+                    <h5 class="flex1"> 件</h5>
+                    <h5 style="font-size:14px;display: inline-block;text-align: right;" class="flex2">
+				<span ms-click="modifyClean" ms-class="mui-text-gray:isCleanDisabled">修改</span>
+			</h5>
+                </div>
+            </div>
+        </div>
+        <div ms-controller="bedding" class="input-panel">
+            <div class="mui-input-group">
+                <div class="rowHead">
+                    <img src="../img/tag1.jpg" />明细
+                </div>
+            </div>
+            <div class="mui-input-group" ms-repeat="list">
+                <div class="list">
+                    {{el.createTime}} {{el.content}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+mui.init({
+    pullRefresh: {
+        container: '#pullrefresh',
+        up: {
+            contentrefresh: '正在加载...',
+            contentnomore: "没有更多数据了",
+            callback: loadmore
+        }
+    }
+});
+
+function loadmore() {
+    var vm = listData.vm,
+        url = listData.url;
+
+    listData.data.pageNo = vm.pageNo;
+    listData.data.pageSize = vm.pageSize;
+    ajaxJsonp({
+        url: url,
+        data: listData.data,
+        successCallback: function(json) {
+            if (json.data.count + json.data.pageSize > (vm.pageNo * json.data.pageSize) && json.data.list.length > 0) {
+                vm.pageNo++;
+                vm.list.push.apply(vmBedding.list, json.data.list);
+                mui("#pullrefresh").pullRefresh().endPullupToRefresh(false);
+            } else {
+                mui("#pullrefresh").pullRefresh().endPullupToRefresh(true);
+            }
+        }
+    });
+}
+</script>

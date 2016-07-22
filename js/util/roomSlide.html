@@ -1,0 +1,19 @@
+<div class="swiper-slide-item" ms-click="goRoom(el.id)">
+	 <a href="###">
+		<div ms-css-background-image="url({{urlAPINet + el.coverUrl}})">
+			<label>￥{{el.minPrice?el.minPrice:el.dayPrice}}
+				<span>元起</span>
+			</label>
+			<span class="roomtype">{{el.roomType.name}}</span>
+		</div>
+	</a>
+	<div class="mui-content-padded mui-text-left designer-info">
+		<h4>{{el.name}}<span style="color: #cc9966;"> ★★★★★</span></h4>
+		<p class="mui-ellipsis" style="width:60vw;">{{el.introduction}}</p>
+		<div>
+			<i ms-css-background-image="url({{urlAPINet + el.designer.portraitUrl}})"></i>
+			<span class="small mui-text-gray">试睡师</span><br />
+			{{el.designer.name}}
+		</div>
+	</div>
+</div>

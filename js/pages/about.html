@@ -1,0 +1,95 @@
+
+<!-- Demo styles -->
+<style>
+html, body {
+    position: relative;
+    height: 100%;
+}
+body {
+    background: #eee;
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    color:#000;
+    margin: 0;
+    padding: 0;
+}
+.swiper-container {
+    width: 100%;
+    height: 100%;
+}
+.swiper-slide {
+    background-position: center;
+    background-size: cover;
+}
+.mui-content {
+	height: 100%;
+}
+.swiper-wrapper {
+	padding-left: 0;
+}
+.swiper-pagination-bullet {
+	width: 55px;
+	height: 2px;
+	border-radius: inherit;
+}
+</style>
+
+<!-- Swiper -->
+<div class="swiper-container">
+    <div class="swiper-wrapper">
+        <div class="swiper-slide" style="background-image:url(img/about_01.jpg)">
+        	<table style="margin-top: -60vh;">
+        		<tr>
+        			<td>
+        				<div style="color:#fff;">除了五星级酒店，你还可以来这儿
+        				</div>
+        			</td>
+        		</tr>
+        		<tr>
+        			<td>
+        				<div style="color:#fff;font-size: 14px;margin-top: 18px;">超过50%的客房面积用来做豪华浴室，<br>
+        				奢侈超乎你想象！
+    					</div>
+        			</td>
+        		</tr>
+        	</table>
+        </div>
+        <div class="swiper-slide" style="background-image:url(img/about_02.jpg)">
+        	<table style="margin-top: -60vh;">
+        		<tr>
+        			<td>
+        				<div style="color:#fff;margin-left: -40px;">
+        				本酒店，不将就
+        				</div>
+        			</td>
+        		</tr>
+        		<tr>
+        			<td>
+        				<div style="color:#fff;font-size: 15px;margin-top: 18px;margin-left: 50px;text-align: left;">
+        				假如世界上出现这样一家酒店，
+        				<br>那么所有的酒店都会变成将就，
+        				<br>而我不愿将就
+    					</div>
+        			</td>
+        		</tr>
+        	</table>
+        </div>
+    </div>
+    <!-- Add Pagination -->
+    <div class="swiper-pagination swiper-pagination-white"></div>
+    <!-- Add Arrows -->
+    <!-- <div class="swiper-button-next swiper-button-white"></div>
+    <div class="swiper-button-prev swiper-button-white"></div> -->
+</div>
+
+<script src="js/lib/swiper.min.js"></script>
+<script>
+	var swiper = new Swiper('.swiper-container', {
+        pagination: '.swiper-pagination',
+        paginationClickable: true,
+        // nextButton: '.swiper-button-next',
+        // prevButton: '.swiper-button-prev',
+        // spaceBetween: 30,
+        effect: 'fade'
+    });
+</script>

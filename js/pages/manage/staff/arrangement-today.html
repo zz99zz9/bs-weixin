@@ -1,0 +1,54 @@
+<style>
+.btn-add{
+    border-radius: 5px;
+    background-color: black;
+    color: white;
+    height:50px;
+}
+.btn-submit{
+
+}
+.btn-cancel{
+
+}
+</style>
+<div class="input-panel" ms-controller="arrange">
+    <ul class="mui-table-view" ms-repeat="data" style="height:86px;margin-top:5px;">
+        <li class="mui-table-view-cell">
+            <a href="javascript:void(0)" class="mui-navigate-right" ms-on-touchend="change(el.id,el.user.name,el.uid,el.stid,el.turn+'~'+el.startTime+el.endTime)"><span>{{el.user.name}}</span>&emsp;&emsp;{{el.user.mobile}}</a>
+        </li>
+        <li class="mui-table-view-cell">
+            <a href="javascript:void(0)" class="mui-navigate-right" ms-on-touchend="change(el.id,el.user.name,el.uid,el.stid,el.turn+'~'+el.startTime+el.endTime)"><span>班次</span>&emsp;&emsp;&emsp;{{el.turn}}{{el.startTime}}~{{el.endTime}}</a>
+        </li>
+    </ul>
+    <div ms-if="isChose" class="input-panel">
+        <div class="mui-input-group">
+            <div class="display-flex mui-navigate-right">
+                <h5 class="flex0" style="-webkit-box-pack: justify;">姓名</h5>
+                <h5 class="flex1">
+                    <button id='employeePicker' class="mui-btn mui-btn-block" type='button'>{{addName}}</button>
+                </h5>
+            </div>
+        </div>
+        <div class="mui-input-group">
+            <div class="display-flex mui-navigate-right">
+                <h5 class="flex0" style="-webkit-box-pack: justify;">工作时段</h5>
+                <h5 class="flex1">
+                    <button id='timePicker' class="mui-btn mui-btn-block" type='button'>{{addTime}}</button>
+                </h5>
+            </div>
+        </div>
+        <table style="width:100%">
+             <tr>
+                 <td style="border-right: solid 1px;height:45px">
+                     <button type="button" class="mui-btn" ms-click="submit" style="height:45px;width:100%">确认</button>
+                 </td>
+                 <td style="height:45px">
+                     <button type="button" class="mui-btn" ms-click="cancel" style="height:45px;width:100%">取消</button>
+                 </td>
+             </tr>
+         </table>
+    </div>
+    <br>
+    <button class="btn-add mui-btn mui-btn-block" ms-click="add">添加</button>
+</div>

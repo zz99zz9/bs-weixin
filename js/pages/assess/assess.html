@@ -1,0 +1,34 @@
+<style>
+	.isValid {
+		color: #ffa000;
+	}
+	
+	.noValid {
+		color: gray;
+	}
+	.talker{
+		
+	}
+</style>
+
+<div ms-controller="roomassess">
+	<div style="padding: 11px 15px">评价({{count}})</div>
+	<ul class="mui-table-view" style="background: none;">
+		<li class="mui-table-view-cell">
+			<table style="text-align:left;">
+				<tr ms-repeat="scoreList">
+					<td style="padding:5px;width:40vw;">{{el.name}}</td>
+					<td>
+						<span style="font-size: 22px;margin-left:5px;" ms-repeat-cl="el.list" ms-class-1="isValid:el.s>(cl-1)" ms-class-2="noValid:el.s<cl">★</span>
+					</td>
+				</tr>
+			</table>
+		</li>
+		<li class="mui-table-view-cell mui-media" ms-repeat="list">
+			<img class="mui-media-object mui-pull-left circle" width="42px" height="42px" ms-attr-src="urlAPINet + el.user.headUrl">
+			<div class="mui-media-body">
+				<h5>{{el.user.name || el.user.mobile}}</h5> {{el.content}}
+			</div>
+		</li>
+	</ul>
+</div>

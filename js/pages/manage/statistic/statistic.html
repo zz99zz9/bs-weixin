@@ -1,0 +1,124 @@
+<div ms-controller="statistic" class="input-panel">
+    <button id='demo4' data-options='{"type":"date"}' class="btn mui-btn mui-btn-block">{{formatDate}}</button>
+
+    <div id="segmentedControl" class="mui-segmented-control">
+        <a class="mui-control-item mui-active" href="#item1">
+            收入
+        </a>
+            <a class="mui-control-item" href="#item2">
+            支出
+        </a>
+            <a class="mui-control-item" href="#item3">
+            收益
+        </a>
+    </div>
+
+    <div id="item1" class="mui-control-content mui-active">
+        <table>
+            <tr>
+                <td>收入</td>
+                <td>{{pre}}</td>
+                <td>{{current}}</td>
+                <td>增减</td>
+            </tr>
+            <tr>
+                <td>夜房</td>
+                <td>{{data.in.prevNightAmoun}}</td>
+                <td>{{data.in.currNightAmoun}}</td>
+                <td>{{data.in.diffNightAmount}}</td>
+            </tr>
+            <tr>
+                <td>钟点</td>
+                <td>{{data.in.prevPartTimeAmount}}</td>
+                <td>{{data.in.currPartTimeAmount}}</td>
+                <td>{{data.in.diffPartTimeAmount}}</td>
+            </tr>
+            <tr>
+                <td>非房</td>
+                <td>{{data.in.prevGoodsAmount}}</td>
+                <td>{{data.in.currGoodsAmount}}</td>
+                <td>{{data.in.diffGoodsAmount}}</td>
+            </tr>
+            <tr>
+                <td>总计</td>
+                <td>{{data.in.prevTotalAmount}}</td>
+                <td>{{data.in.currTotalAmount}}</td>
+                <td>{{data.in.diffTotalAmount}}</td>
+            </tr>
+        </table>
+    </div>
+    <div id="item2" class="mui-control-content">
+        <table>
+            <tr>
+                <td>支出</td>
+                <td>{{pre}}</td>
+                <td>{{current}}</td>
+                <td>增减</td>
+            </tr>
+            <tr>
+                <td>日用品</td>
+                <td>{{data.out.dailyPrevAmount}}</td>
+                <td>{{data.out.dailyCurrAmount}}</td>
+                <td>{{data.out.diffDailyAmount}}</td>
+            </tr>
+            <tr>
+                <td>物品损坏</td>
+                <td>{{data.out.damagedPrevAmount}}</td>
+                <td>{{data.out.damagedCurrAmount}}</td>
+                <td>{{data.out.diffDamagedAmount}}</td>
+            </tr>
+            <tr>
+                <td>人员工资</td>
+                <td>{{data.out.salaryPrevAmount}}</td>
+                <td>{{data.out.salaryCurrAmount}}</td>
+                <td>{{data.out.diffSalaryAmount}}</td>
+            </tr>
+            <tr>
+                <td>能耗</td>
+                <td>{{data.out.energyPrevAmount}}</td>
+                <td>{{data.out.energyCurrAmount}}</td>
+                <td>{{data.out.diffEnergyAmount}}</td>
+            </tr>
+            <tr>
+                <td>设备</td>
+                <td>{{data.out.equipmenPrevAmount}}</td>
+                <td>{{data.out.equipmenCurrAmount}}</td>
+                <td>{{data.out.diffEquipmenAmount}}</td>
+            </tr>
+            <tr>
+                <td>税务</td>
+                <td>{{data.out.taxPrevAmount}}</td>
+                <td>{{data.out.taxCurrAmount}}</td>
+                <td>{{data.out.diffTaxAmount}}</td>
+            </tr>
+            <tr>
+                <td>其它</td>
+                <td>{{data.out.otherPrevAmount}}</td>
+                <td>{{data.out.otherCurrAmount}}</td>
+                <td>{{data.out.diffOtherAmount}}</td>
+            </tr>
+            <tr>
+                <td>总计</td>
+                <td>{{data.out.totalPrevAmount}}</td>
+                <td>{{data.out.totalCurrAmount}}</td>
+                <td>{{data.out.diffTotalAmount}}</td>
+            </tr>
+        </table>
+    </div>
+    <div id="item3" class="mui-control-content">
+        <table>
+            <tr>
+                <td>收益</td>
+                <td>{{pre}}</td>
+                <td>{{current}}</td>
+                <td>增减</td>
+            </tr>
+            <tr>
+                <td>总计</td>
+                <td>{{round(data.in.prevTotalAmount - data.out.totalPrevAmount,2)}}</td>
+                <td>{{round(data.in.currTotalAmount - data.out.totalCurrAmount,2)}}</td>
+                <td>{{round(data.in.diffTotalAmount - data.out.diffTotalAmount,2)}}</td>
+            </tr>
+        </table>
+    </div>
+</div>

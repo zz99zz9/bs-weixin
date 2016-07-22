@@ -1,0 +1,88 @@
+<div ms-controller="stock" class="input-panel">
+    <div class="mui-input-group">
+        <div class="display-flex" ms-class="mui-navigate-right:isAddShow()">
+            <h5 class="flex0">商品名称</h5>
+            <button id='showUserPicker1' class="flex1 mui-btn mui-btn-block" id='showUserPicker1' ms-if="isAddShow()">{{data.commodity && data.commodity.name}}</button>
+            <h5 class="flex1" ms-if="!isAddShow()">{{data.commodity && data.commodity.name}}</h5>
+        </div>
+    </div>
+    <div class="mui-input-group">
+        <div class="display-flex" ms-class="mui-navigate-right:isAddShow()">
+            <h5 class="flex0" style="-webkit-box-pack: justify;">盘点日期</h5>
+            <button id='demo3' class="flex1 mui-btn mui-btn-block" data-options='{"type":"date"}' ms-if="isAddShow()" ms-attr-disabled="isStartShow">{{data.startTime}}</button>
+            <h5 class="flex1" ms-if="!isAddShow()">{{data.startTime}}</h5>
+        </div>
+    </div>
+    <div class="mui-input-group">
+        <div class="display-flex" ms-class="mui-navigate-right:isAddShow()">
+            <h5 class="flex0" style="-webkit-box-pack: justify;"> &emsp; &emsp;&nbsp; 到</h5>
+            <button id='demo4' class="flex1 mui-btn mui-btn-block" data-options='{"type":"date"}' ms-if="isAddShow()">{{data.endTime}}</button>
+            <h5 class="flex1" ms-if="!isAddShow()">{{data.endTime}}</h5>
+        </div>
+    </div>
+    <div class="mui-input-group">
+        <div class="display-flex">
+            <h5 class="flex0" style="-webkit-box-pack: justify;">初期数量</h5>
+            <h5 class="flex1">{{data.startQuantity}}</h5>
+        </div>
+    </div>
+    <div class="mui-input-group">
+        <div class="display-flex">
+            <h5 class="flex0" style="-webkit-box-pack: justify;">入库数量</h5>
+            <h5 class="flex1">{{data.inQuantity}}</h5>
+        </div>
+    </div>
+    <div class="mui-input-group">
+        <div class="display-flex">
+            <h5 class="flex0" style="-webkit-box-pack: justify;">拨出数量</h5>
+            <h5 class="flex1">{{data.allotQuantity}}</h5>
+        </div>
+    </div>
+    <div class="mui-input-group">
+        <div class="display-flex">
+            <h5 class="flex0" style="-webkit-box-pack: justify;">销售数量</h5>
+            <h5 class="flex1">{{data.saleQuantity}}</h5>
+        </div>
+    </div>
+    <div class="mui-input-group">
+        <div class="display-flex">
+            <h5 class="flex0" style="-webkit-box-pack: justify;">其它出库</h5>
+            <h5 class="flex1">{{data.outQuantity}}</h5>
+        </div>
+    </div>
+    <div class="mui-input-group">
+        <div class="display-flex">
+            <h5 class="flex0" style="-webkit-box-pack: justify;">实物数量</h5>
+            <h5 class="flex1" ms-if="isAddShow()">
+                <input data-duplex-changed="changed" type="text" ms-duplex="actualQuantity" style="width:100px;height: 22px;border: solid 1px #ccc;border-radius: 5px;" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" >
+            </h5>
+            <h5 class="flex1" ms-if="!isAddShow()">{{data.actualQuantity}}</h5>
+        </div>
+    </div>
+    <div class="mui-input-group">
+        <div class="display-flex">
+            <h5 class="flex0" style="-webkit-box-pack: justify;">盘亏盘盈数量</h5>
+            <h5 class="flex1">{{data.differQuantity}}</h5>
+        </div>
+    </div>
+    <div class="mui-input-group">
+        <div class="display-flex">
+            <h5 class="flex0" style="-webkit-box-pack: justify;">盘亏盘盈金额</h5>
+            <h5 class="flex1">{{data.amount}}</h5>
+        </div>
+    </div>
+    <div class="mui-input-group">
+        <div class="display-flex">
+            <h5 class="flex0" style="-webkit-box-pack: justify;">备注</h5>
+            <h5 class="flex1" ms-if="isAddShow()">
+                <input type="text" ms-duplex="data.remarks" data-duplex-changed="changed" />
+            </h5>
+            <h5 class="flex1" ms-if="!isAddShow()"> {{data.remarks}} </h5>
+        </div>
+    </div>
+    <br>
+</div>
+<nav ms-controller="stock" class="mui-bar mui-bar-tab ini-bar-bottom" ms-if="isAddShow()">
+    <button type="button" class="mui-btn ini-btn-submit" ms-click="save" ms-attr-disabled="isDisabled">保存</button>
+    <button type="button" class="mui-btn ini-btn-submit" ms-click="cancel">取消</button>
+</nav>

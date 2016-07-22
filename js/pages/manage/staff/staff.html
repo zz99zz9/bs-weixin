@@ -1,0 +1,55 @@
+<style>
+    .input-panel img {
+        width: 16px;
+        position: relative;
+        top: 2px;
+        left: -4px;
+    }
+    #nav {
+        width: 100%;
+        background-color: #fff;
+    }
+    #nav a {
+        display: inline-block;
+        width: 49%;
+        border: none;
+        padding: 6px;
+        font-size: 17px;
+    }
+    #nav a:nth-child(1):after {
+        content: '';
+        width: 1px;
+        display: inline-block;
+        position: absolute;
+        top: 50%;
+        right: 0;
+        height: 20px;
+        margin-top: -9px;
+        background: gray;
+    }
+</style>
+<div id="pullrefresh" class="mui-scroll-wrapper" ms-controller="staff">
+    <div class="mui-scroll">
+        <br><br>
+        <div class="input-panel">
+            <div id="nav">
+                <a href="javascript:void(0)" class="mui-btn" ms-on-tap="goPaiban">
+                    <img src="../img/iconfont-paiban.svg" alt="打开排班表">排班表
+                </a>
+                <a href="javascript:void(0)" class="mui-btn" ms-on-tap="goAdd">
+                    <img src="../img/iconfont-jiahao.svg" alt="添加员工">添加员工
+                </a>
+            </div>
+
+            <ul class="mui-table-view">
+                <li class="mui-table-view-cell" ms-repeat="data">
+                    <a ms-on-tap="goDetail(el.id)" class="mui-navigate-right">{{el.name}}
+                        <span class="mui-pull-right" style="margin-right: 25px;">{{status[el.employeeCheckingIn.status]}}</span>
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</div>
+

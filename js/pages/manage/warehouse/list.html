@@ -1,0 +1,56 @@
+<div id="pullrefresh" class="mui-scroll-wrapper" ms-controller="list">
+    <div class="mui-scroll">
+        <br>
+        <br>
+        <div>
+            <button ms-on-tap="add" class="ini-btn-add mui-pull-right">添加</button>
+        </div>
+        <div class="input-panel">
+            <div class="mui-input-group" style="clear: both;" ms-repeat="data" ms-on-tap="go(el.id)">
+                <div ms-if="!isStockShow()" class="list mui-navigate-right">
+                    {{num}} {{getNum(el)}} 
+                </div>
+                <div ms-if="isStockShow()" class="list mui-navigate-right">
+                    编码 {{el.id}} &nbsp; &nbsp; &nbsp; 名称 {{el.commodity.name}} 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+mui.init({
+    pullRefresh: {
+        container: '#pullrefresh',
+        up: {
+            contentrefresh: '正在加载...',
+            contentnomore: "没有更多数据了",
+            callback: loadmore
+        }
+    }
+});
+
+function loadmore() {
+    var vm = listData.vm,
+        url = listData.url;
+
+    listData.data.pageNo = vm.pageNo;
+    listData.data.pageSize = vm.pageSize;
+
+    
+    ajaxJsonp({
+        url: url,
+        data: listData.data,
+        successCallback: function(json) {
+            if (json.data.count + json.data.pageSize > (vm.pageNo * json.data.pageSize) && json.data.list.length > 0) {
+                vm.pageNo++;
+                vm.data.push.apply(vmList.data, json.data.list);
+
+                mui("#pullrefresh").pullRefresh().endPullupToRefresh(false);
+            } else {
+                mui("#pullrefresh").pullRefresh().endPullupToRefresh(true);
+            }
+        }
+    });
+}
+</script>
