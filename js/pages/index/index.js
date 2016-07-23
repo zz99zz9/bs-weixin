@@ -1,4 +1,3 @@
-
 mui.init({
     pullRefresh: {
         container: '#pullrefresh',
@@ -11,7 +10,22 @@ mui.init({
 });
 
 var positionInStorage = Storage.getLocal("position"),
-    listData;
+    myMarker,
+    hotelMarkers = [
+        {
+            icon: "http://webapi.amap.com/theme/v1.3/markers/n/mark_b.png",
+            position: [121.601989, 31.204213]
+        }, {
+            icon: "http://webapi.amap.com/theme/v1.3/markers/n/mark_b.png",
+            position: [121.5025, 31.237015]
+        }, {
+            icon: "http://webapi.amap.com/theme/v1.3/markers/n/mark_b.png",
+            position: [121.5625, 31.137015]
+        }, {
+            icon: "http://webapi.amap.com/theme/v1.3/markers/n/mark_b.png",
+            position: [121.3025, 31.187015]
+        }
+    ];
 
 var vmIndex = avalon.define({
     $id: 'index',
@@ -38,17 +52,21 @@ var vmIndex = avalon.define({
     lat: 0,
     position: '正在定位...',
     openLocationSearch: function() {
-        popover('./searchLocation.html', 1, function() {
-            AMap.plugin('AMap.Autocomplete', function() { //回调函数
-                //实例化Autocomplete
-                var autoOptions = {
-                    city: "021", //城市
-                    input: "tipinput" //使用联想输入的input的id
-                };
-                autocomplete = new AMap.Autocomplete(autoOptions);
-                //TODO: 使用autocomplete对象调用相关功能
-                AMap.event.addListener(autocomplete, "select", select); //注册监听，当选中某条记录时会触发
-            })
+        stopSwipeSkip.do(function() {
+            console.log(1);
+            popover('./searchLocation.html', 1, function() {
+                //高德自动提示
+                AMap.plugin('AMap.Autocomplete', function() { //回调函数
+                    //实例化Autocomplete
+                    var autoOptions = {
+                        city: "021", //城市
+                        input: "tipinput" //使用联想输入的input的id
+                    };
+                    autocomplete = new AMap.Autocomplete(autoOptions);
+                    //TODO: 使用autocomplete对象调用相关功能
+                    AMap.event.addListener(autocomplete, "select", select); //注册监听，当选中某条记录时会触发
+                })
+            });
         });
     },
     pageNo: 1,
@@ -57,17 +75,46 @@ var vmIndex = avalon.define({
     getRoomList: function() {
         ajaxJsonp({
             url: urls.getRoomList,
-            data: { 
-                lng: vmIndex.lng, 
-                lat: vmIndex.lat, 
-                sort: vmIndex.sort, 
-                pageNo: vmIndex.pageNo, 
+            data: {
+                lng: vmIndex.lng,
+                lat: vmIndex.lat,
+                sort: vmIndex.sort,
+                pageNo: vmIndex.pageNo,
                 pageSize: vmIndex.pageSize
             },
             successCallback: function(json) {
                 vmIndex.pageNo = 2;
                 vmIndex.roomList = json.data.list;
             }
+        });
+    },
+    isShowMap: false,
+    showMap: function() {
+        vmIndex.isShowMap = true;
+        myMarker.setPosition([vmIndex.lng, vmIndex.lat]);
+
+        //自动调整显示所有的点
+        setTimeout(function() {
+            mapObj.setFitView();
+        }, 500);
+        //marker.setMap(mapObj);
+    },
+    closeMap: function() {
+        vmIndex.isShowMap = false;
+    },
+    goRoom: function(id) {
+        stopSwipeSkip.do(function() {
+            location.href = "room.html?id=" + id;
+        });
+    },
+    swiper1Render: function() {
+        var swiper1 = new Swiper('.swiper1', {
+            slidesPerView: 1,
+            width: window.innerWidth - 40,
+            spaceBetween: 5,
+            freeMode: true,
+            freeModeSticky: true,
+            freeModeMomentumRatio: 0.4
         });
     },
     openNav: function(lat, lng, name, addr) {
@@ -89,19 +136,6 @@ var vmIndex = avalon.define({
     clickA: function(str) {
         var html = "<img src=" + urlAPINet + str.imgUrl + ">" + "<p>" + str.content + "</p>";
         popover(html, 2);
-    },
-    goRoom: function(id) {
-        location.href = "room.html?id=" + id;
-    },
-    swiper1Render: function() {
-        var swiper1 = new Swiper('.swiper1', {
-            slidesPerView: 1,
-            width: window.innerWidth - 40,
-            spaceBetween: 5,
-            freeMode: true,
-            freeModeSticky: true,
-            freeModeMomentumRatio: 0.4
-        });
     },
 });
 var isSuccess = false;
@@ -165,7 +199,10 @@ var vmSearch = avalon.define({
 
 var mapObj, geolocation;
 
-mapObj = new AMap.Map('container');
+mapObj = new AMap.Map('container', {
+    zoom: 13,
+    center: [121.626131, 31.210465]
+});
 mapObj.plugin('AMap.Geolocation', function() {
     geolocation = new AMap.Geolocation({
         enableHighAccuracy: true, //是否使用高精度定位，默认:true
@@ -173,22 +210,41 @@ mapObj.plugin('AMap.Geolocation', function() {
         maximumAge: 0, //定位结果缓存0毫秒，默认：0
         convert: true, //自动偏移坐标，偏移后的坐标为高德坐标，默认：true
         showButton: true, //显示定位按钮，默认：true
-        buttonPosition: 'LB', //定位按钮停靠位置，默认：'LB'，左下角
+        buttonPosition: 'RB', //定位按钮停靠位置，默认：'LB'，左下角
         buttonOffset: new AMap.Pixel(10, 20), //定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)
         showMarker: true, //定位成功后在定位到的位置显示点标记，默认：true
         showCircle: true, //定位成功后用圆圈表示定位精度范围，默认：true
         panToLocation: true, //定位成功后将定位到的位置作为地图中心点，默认：true
-        zoomToAccuracy: true //定位成功后调整地图视野范围使定位位置及精度范围视野内可见，默认：false
+        zoomToAccuracy: false //定位成功后调整地图视野范围使定位位置及精度范围视野内可见，默认：false
     });
-    //mapObj.addControl(geolocation);
-    geolocation.getCurrentPosition();
+    mapObj.addControl(geolocation);
+    //geolocation.getCurrentPosition();
     AMap.event.addListener(geolocation, 'complete', onComplete); //返回定位信息
     AMap.event.addListener(geolocation, 'error', onError); //返回定位出错信息
 });
 
+myMarker = new AMap.Marker({
+    map: mapObj,
+    icon: "http://webapi.amap.com/theme/v1.3/markers/n/mark_r.png",
+    position: [121.626131, 31.210465],
+    offset: new AMap.Pixel(-12, -36)
+});
+hotelMarkers.forEach(function(marker) {
+    new AMap.Marker({
+        map: mapObj,
+        icon: marker.icon,
+        position: [marker.position[0], marker.position[1]],
+        offset: new AMap.Pixel(-12, -36)
+    });
+});
+
 if (verify(positionInStorage)) {
+    //如果本地储存的地址有效，直接使用本地数据更新列表
     updateData();
+} else {
+    geolocation.getCurrentPosition();
 }
+
 
 //解析定位结果，逆向地理编码
 function onComplete(data) {
@@ -250,6 +306,7 @@ var vmBtn = avalon.define({
 function verify(position) {
     if (position) {
         if (position.lng && position.lat) {
+            myMarker.setPosition([position.lng, position.lat]);
             return true;
         } else {
             positionInStorage.lng = 0;
@@ -263,9 +320,12 @@ function verify(position) {
 }
 
 function updateLocal(name, lng, lat) {
+    myMarker.setPosition([lng, lat]);
+
     positionInStorage.name = name;
     positionInStorage.lng = lng;
     positionInStorage.lat = lat;
+
     Storage.setLocal("position", positionInStorage);
 }
 
@@ -283,10 +343,10 @@ function loadmore() {
     ajaxJsonp({
         url: urls.getRoomList,
         data: {
-            lng: vmIndex.lng, 
-            lat: vmIndex.lat, 
-            sort: vmIndex.sort, 
-            pageNo: vmIndex.pageNo, 
+            lng: vmIndex.lng,
+            lat: vmIndex.lat,
+            sort: vmIndex.sort,
+            pageNo: vmIndex.pageNo,
             pageSize: vmIndex.pageSize
         },
         successCallback: function(json) {
