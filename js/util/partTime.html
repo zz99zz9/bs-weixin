@@ -1,0 +1,64 @@
+
+<div class="filter-row mui-control-content mui-active" ms-controller="partTime">
+    <div class="time" ms-on-touchend="partTimeClick" >
+        <a href="###">
+            入住时间<br><small class="mui-text-danger">{{partTimeStart||'选择时间'}}</small>
+        </a>
+        <i>｜</i>
+        <a href="###">
+            退房时间<br><small class="mui-text-danger">{{partTimeEnd||'选择时间'}}</small>
+        </a>
+    </div>
+
+    <div class="mui-table-view" ms-visible="statusControl.isTimeListShow" style="text-align: left;">
+        <div class="select-time" id='select_time'>
+            <b>&nbsp;</b>
+            <div ms-repeat="timeList">
+                <a href="###" ms-if="$index>=minIndex&&$index<=(maxIndex-4)&&$index%2==0&&el.isBook==0&&el.isWait==0" class="dotted" ms-data-time="$index/2" ms-on-tap="selectTime($index)">
+                    <i>
+                        {{($index/2+':00').length==5?($index/2+':00'):('0'+$index/2+':00')}}
+                    </i>
+                    <span class="partTimePrice">{{partTimePriceShow($index,el.node,el.price)}}</span>
+                </a>
+                <a href="###" ms-if="$index>=minIndex&&$index<=(maxIndex-4)&&$index%2==1&&el.isBook==0&&el.isWait==0" ms-data-time="$index/2" ms-on-tap="selectTime($index)"></a>
+                <b ms-if="$index>=minIndex&&$index<=(maxIndex-4)&&$index%2==0&&(el.isBook==1||el.isWait==1)" ms-class="select-time-disabled:el.isBook==1||el.isWait==1">
+                    <i>
+                        {{($index/2+':00').length==5?($index/2+':00'):('0'+$index/2+':00')}}
+                    </i>
+                    <span class="partTimePrice">{{partTimePriceShow($index,el.node,el.price)}}</span>
+                </b>
+                <b ms-if="$index>=minIndex&&$index<=(maxIndex-4)&&$index%2==1&&(el.isBook==1||el.isWait==1)" ms-class="select-time-disabled:el.isBook==1||el.isWait==1"></b>
+            </div>
+            <b style="border: none;">
+                <!-- <i style="text-align: center;width: 100%;position:relative;left:0;top:21px">{{(maxIndex-4)/2}}:30之后不再允许订时租房！</i> -->
+            </b>
+            <b style="border: none;"><i>{{(maxIndex-2)/2}}:00</i></b>
+            <b></b>
+            <b><i>{{maxIndex/2}}:00</i></b>
+            <table id="select_bar" class="mui-hidden bar">
+                <tr>
+                    <td valign="center">
+                        <p class="mui-text-center" style="margin: auto;color:black;" id="select_text">{{partTimeStart}} - {{partTimeEnd}} 时段
+                        
+                        <!-- <span ms-if="pageType == 'order'"><br>价格：{{partTimePay}}元</span>
+                        </p> -->
+                    </td>
+                </tr>
+                <tr style="height: 32px;">
+                    <td style="text-align: center;border-top: 1px dotted rgba(0,0,0,0.1);vertical-align:middle;height：32px">
+                        <button id="icon-minus" style="border-right: 1px dotted rgba(0,0,0,0.2);" ms-on-touchend="minusTime">－</button>
+                        <button id="icon-plus" ms-on-touchend="addTime">＋</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div style="width: 96%;margin: 10px auto;background-color: #fff;color: #000;padding: 10px;">
+        <div>更多筛选</div>
+        <div ms-repeat="filterList" style="display:inline-block;padding: 5px;">
+            <input type="checkbox" ms-attr-value=el.id ms-duplex-number="selectFilter" ms-attr-checked="selectFilter.indexOf(el.id)>-1" />
+            <label>{{el.name}}</label>
+        </div>
+    </div>
+</div>

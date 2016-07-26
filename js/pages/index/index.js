@@ -46,14 +46,15 @@ var vmIndex = avalon.define({
     },
     type: 0, //0 全天房, 1 夜房
     selectType: function(type) {
-        vmIndex.type = type;
+        stopSwipeSkip.do(function() {
+            vmIndex.type = type;
+        });
     },
     lng: 0,
     lat: 0,
     position: '正在定位...',
     openLocationSearch: function() {
         stopSwipeSkip.do(function() {
-            console.log(1);
             popover('./searchLocation.html', 1, function() {
                 //高德自动提示
                 AMap.plugin('AMap.Autocomplete', function() { //回调函数
@@ -67,6 +68,27 @@ var vmIndex = avalon.define({
                     AMap.event.addListener(autocomplete, "select", select); //注册监听，当选中某条记录时会触发
                 })
             });
+        });
+    },
+    openTimePanel: function() {
+        stopSwipeSkip.do(function() {
+            console.log(vmIndex.type);
+            if(vmIndex.type == 0) {
+                popover('./calendar.html', 1, function() {
+                    $('#calendarPanel').height($(window).height() - 300);
+                    //初始状态打开选择入住时间
+                    if(!(vmRooms.statusControl.isEndEdit||vmRooms.statusControl.isStartEdit)) {
+                        vmRooms.startClick();
+                    }
+                });
+            } else {
+                popover('./partTime.html', 1, function(){
+                    $('.select-time').height($(window).height() - 260);
+
+                    select_bar = document.getElementById('select_bar');
+                    select_bar.style.width = $('#select_time').width() + 'px';
+                });
+            }
         });
     },
     pageNo: 1,
@@ -297,6 +319,7 @@ function select(e) {
 var vmBtn = avalon.define({
     $id: 'popoverBtnOK',
     ok: function() {
+        $('#pop-text').empty();
 
         $('.popover').addClass('popover-hide');
         popover_ishide = true;
@@ -360,3 +383,548 @@ function loadmore() {
         }
     });
 }
+
+//日历相关
+var bookDateList = null, tapCount = 0, select_bar;
+var vmRooms = avalon.define({
+    $id: 'rooms',
+    statusControl: {
+        isStartEdit: false, //选择夜房入住日期
+        isEndEdit: false, //选择夜房退房日期
+        isCalendarShow: false, //日历是否显示
+        isCalendarEdit: false, //日历是否可点
+        //isStartTimeShow: false, //选择夜房入住时间段
+        isStartTimeEdit: false, //夜房入住时间修改
+        //isTimeListShow: false, //时租房时间列表是否显示
+        //isTypeShow: false, //房间系列是否显示
+        //isMoreBtnShow: true,
+        //isRoomListShow: true, //房间列表
+    },
+    startClick: function() {
+        vmRooms.statusControl.isCalendarShow = true;
+
+        // if (!vmRooms.statusControl.isStartEdit) {
+        vmRooms.statusControl.isStartEdit = true;
+        vmRooms.statusControl.isEndEdit = false;
+        vmRooms.statusControl.isCalendarEdit = true;
+        // } else {
+        //     //进入非编辑模式
+        //     vmRooms.statusControl.isStartEdit = false;
+        //     vmRooms.statusControl.isCalendarEdit = false;
+        // }
+
+        // vmRooms.statusControl.isTypeShow = false;
+        // vmRooms.statusControl.isMoreBtnShow = false;
+        // vmRooms.statusControl.isRoomListShow = false;
+        // vmRooms.statusControl.isStartTimeShow = true;
+
+        // if (pageType != "order") {
+        //     vmLogo.isClose = true;
+
+        //     //查询搜索时，要显示的酒店夜房优惠价格列表
+        //     ajaxJsonp({
+        //         url: urls.getNightDiscount,
+        //         data: { hid: hotelid, tid: vmRooms.typeid },
+        //         successCallback: function(json) {
+        //             if (json.status === 1) {
+        //                 vmRooms.nightDiscount = json.data;
+        //             }
+        //         }
+        //     });
+        // }
+        // if (pageType == 'order') {
+        //     vmRooms.statusControl.isStartTimeEdit = false;
+        // }
+    },
+    endClick: function() {
+        vmRooms.statusControl.isCalendarShow = true;
+
+        // if (!vmRooms.statusControl.isEndEdit) {
+        vmRooms.statusControl.isStartEdit = false;
+        vmRooms.statusControl.isEndEdit = true;
+        vmRooms.statusControl.isCalendarEdit = true;
+        // } else {
+        //     //进入非编辑模式
+        //     vmRooms.statusControl.isEndEdit = false;
+        //     vmRooms.statusControl.isCalendarEdit = false;
+        // }
+
+        // vmRooms.statusControl.isTypeShow = false;
+        // vmRooms.statusControl.isMoreBtnShow = false;
+        // vmRooms.statusControl.isRoomListShow = false;
+        // vmRooms.statusControl.isStartTimeShow = false
+
+        // if (pageType != "order") {
+        //     vmLogo.isClose = true;
+        //     vmRooms.statusControl.isMoreBtnShow = true;
+        // }
+        // if (pageType == 'order') {
+        //     vmRooms.statusControl.isStartTimeEdit = true;
+        // }
+    },
+    //日历灰掉的逻辑
+    isDisabled: function(index, isStartEdit, isEndEdit, startIndex, endIndex) {
+        var isDisabledByBooked,
+            date = vmRooms.$model.calendar[index],
+            max = -1,
+            min = -1;
+
+        isDisabledByBooked = isStartEdit ? date.inDisabled : date.outDisabled;
+
+        if (bookDateList) {
+            var list = isStartEdit ? bookDateList.inIndex : bookDateList.outIndex,
+                length = list.length;
+
+            //先选入住，再选退房时
+            if (startIndex > -1 && isEndEdit) {
+                for (var i in list) {
+                    max = list[i];
+                    if (list[i] > startIndex) {
+                        break;
+                    }
+                }
+
+                if (index > max && max > startIndex) {
+                    isDisabledByBooked = true;
+                }
+            }
+            //先选退房，在选入住
+            if (endIndex > -1 && isStartEdit) {
+                if(endIndex > list[0]) {
+                    for (var i in list) {
+                        min = list[i-1];
+                        if (list[i] >= endIndex) {
+                            break;
+                        }
+                    }
+                    //如果退房时间在所有预订日期的后面
+                    //要保留可点的入住时间的最小值就是预订日期的最大值的前一天
+                    if (endIndex > list[length - 1]) {
+                        min = list[length - 1];
+                    }
+                }
+
+                //小于最小值的都灰掉
+                if (index < min) {
+                    isDisabledByBooked = true;
+                }
+            }
+        }
+
+        return (isStartEdit && ((endIndex != -1) && (index > endIndex))) 
+        || (isEndEdit && ((startIndex != -1) && (index < startIndex))) 
+        || isDisabledByBooked
+    },
+    isSelected: function(index) {
+        if (vmRooms.startIndex == -1 && vmRooms.endIndex == -1) {
+            return false;
+        }
+        if (vmRooms.startIndex == -1 && vmRooms.endIndex > -1) {
+            return index == vmRooms.endIndex;
+        }
+        if (vmRooms.startIndex > -1 && vmRooms.endIndex == -1) {
+            return index == vmRooms.startIndex;
+        }
+        return (index >= vmRooms.startIndex) && (index <= vmRooms.endIndex);
+    },
+    calendar: [],
+    startIndex: -1,
+    endIndex: -1,
+    todayIndex: 0,
+    clickDate: function(index) {
+        stopSwipeSkip.do(function(){
+            var date = vmRooms.$model.calendar[index];
+
+            //是否是编辑状态
+            if (vmRooms.statusControl.isCalendarEdit) {
+                //是否是编辑入住时间
+                if (vmRooms.statusControl.isStartEdit && !date.inDisabled) {
+                    if ((vmRooms.startIndex != -1) && (vmRooms.startIndex == index)) {
+                        vmRooms.startIndex = -1;
+                        return;
+                    }
+
+                    if (vmRooms.endIndex > vmRooms.startIndex) {
+                        //小于之前的结束时间
+                        if (index < vmRooms.endIndex) {
+                            //判断中间有没有预定掉的日期
+                            if (!bookDateList) {
+                                vmRooms.startIndex = index;
+                            } else {
+                                var count = 0;
+                                for (var i = index; i < vmRooms.endIndex; i++) {
+                                    if (bookDateList.inIndex.indexOf(i) > -1) {
+                                        count = 1;
+                                        break;
+                                    }
+                                }
+                                if (!count) {
+                                    vmRooms.startIndex = index;
+                                }
+                            }
+                        }
+                        //大于之前的结束时间－不响应
+                    } else {
+                        vmRooms.startIndex = index;
+                    }
+
+                    vmRooms.startTimeIndex = -1;
+                    vmRooms.startTime = "";
+                    vmRooms.nightPrice = 0;
+
+                    // //针对安卓微信中 svg 标签不识别 avalon 的 ms-class bug
+                    // $("svg").attr("class", "clock");
+                    // if (vmRooms.todayIndex == index) {
+                    //     $("svg[id^='svg']").each(function(o) {
+                    //         if (parseInt(this.getAttribute("data-hour")) * 2 <= getHourIndex()) {
+                    //             $(this).attr("class", "clock disabled");
+                    //         }
+                    //     })
+                    // }
+
+                    // if (bookDateList && bookDateList.outIndex.indexOf(vmRooms.startIndex) > -1) {
+                    //     $("svg[id^='svg']").each(function(o) {
+                    //         if (parseInt(this.getAttribute("data-hour")) <= 14) {
+                    //             $(this).attr("class", "clock disabled");
+                    //         }
+                    //     })
+                    // }
+                    // //向下滚动显示选择入住时间
+                    // $(window).scrollTop(190);
+                }
+
+                //是否是编辑退房时间
+                if (vmRooms.statusControl.isEndEdit && !date.outDisabled) {
+                    if ((vmRooms.endIndex != -1) && (vmRooms.endIndex == index)) {
+                        vmRooms.endIndex = -1;
+                        return;
+                    }
+
+                    if ((vmRooms.endIndex > vmRooms.startIndex || vmRooms.endIndex == -1) && vmRooms.startIndex > -1) {
+                        //大于之前的起始时间
+                        if (index > vmRooms.startIndex) {
+                            //判断中间有没有预定掉的日期
+                            if (!bookDateList) {
+                                vmRooms.endIndex = index;
+                            } else {
+                                var count = 0;
+                                for (var i = vmRooms.startIndex + 1; i <= index; i++) {
+                                    if (bookDateList.outIndex.indexOf(i) > -1) {
+                                        count = 1;
+                                        break;
+                                    }
+                                }
+                                if (!count) {
+                                    vmRooms.endIndex = index;
+                                }
+                            }
+                        }
+                        //小于之前的起始时间－不响应
+                    } else {
+                        vmRooms.endIndex = index;
+                    }
+                }
+            }
+        });
+    },
+    startTimeIndex: -1, //夜房入住时间段序号
+    startTime: "", //夜房入住时间, 格式: 08:00
+    nightPrice: 0, //根据入住时间确定的夜房价格,
+    filterList: [
+        { "id":1, "name":"浴缸" },
+        { "id":2, "name":"淋浴" },
+        { "id":3, "name":"影院" },
+        { "id":4, "name":"阳光" },
+        { "id":5, "name":"朝南" },
+    ],
+    selectFilter: []
+});
+
+//日历初始化
+function getCalendar() {
+    var d = new Date(),
+        year, month, day,
+        weekday = d.getDay(),
+        temp,
+        list = [],
+        inDisabled, outDisabled;
+
+
+    if (weekday == 0) {
+        weekday = 7;
+    }
+    temp = weekday;
+
+    d.setDate(d.getDate() - (weekday - 1));
+    for (var i = 1; i < temp; i++) {
+        year = d.getFullYear();
+        month = d.getMonth() + 1;
+        day = d.getDate();
+        weekday = d.getDay();
+        list.push({
+            year: year,
+            month: month,
+            day: day,
+            weekday: weekday,
+            inDisabled: true,
+            outDisabled: true,
+            date: year + '-' + (month < 10 ? ('0' + month) : month) + '-' + (day < 10 ? ('0' + day) : day)
+        });
+        d.setDate(d.getDate() + 1);
+    }
+    vmRooms.todayIndex = list.length;
+
+    d = new Date();
+    for (var i = 0; i < 60; i++) {
+        year = d.getFullYear();
+        month = d.getMonth() + 1;
+        day = d.getDate();
+        weekday = d.getDay();
+        date = year + '-' + (month < 10 ? ('0' + month) : month) + '-' + (day < 10 ? ('0' + day) : day);
+
+        //选入住时间时，被灰掉的日期
+        //不包括被预定的退房日(list2)
+        //list1 + list3
+        inDisabled = bookDateList && (bookDateList.inStr.indexOf(date) > -1);
+        if (inDisabled) {
+            bookDateList.inIndex.push(list.length);
+        }
+
+        //选退房时间时，被灰掉的日期
+        //不包括被预定的入住日（14点后入住）(list1)
+        //list2 + list3
+        outDisabled = bookDateList && (bookDateList.outStr.indexOf(date) > -1);
+        if (outDisabled) {
+            bookDateList.outIndex.push(list.length);
+        }
+
+        list.push({
+            year: year,
+            month: month,
+            day: day,
+            weekday: weekday,
+            inDisabled: inDisabled,
+            outDisabled: outDisabled,
+            date: date
+        });
+
+        d.setDate(day + 1);
+    }
+
+    if (weekday == 0) {
+        weekday = 7;
+    }
+    temp = weekday;
+    for (var i = 0; i < 7 - temp; i++) {
+        year = d.getFullYear();
+        month = d.getMonth() + 1;
+        day = d.getDate();
+        weekday = d.getDay();
+        list.push({
+            year: year,
+            month: month,
+            day: day,
+            weekday: weekday,
+            inDisabled: true,
+            outDisabled: true,
+            date: year + '-' + (month < 10 ? ('0' + month) : month) + '-' + (day < 10 ? ('0' + day) : day)
+        });
+        d.setDate(day + 1);
+    }
+
+    vmRooms.calendar = list;
+}
+
+getCalendar();
+
+//时租房时间选择
+var vmPart = avalon.define({
+    $id: "partTime",
+    statusControl: {
+        isTimeListShow: true, //时租房时间列表是否显示
+    },
+    //时间选择
+    partTimeClick: function() {
+        vmPart.statusControl.isTimeListShow = true;
+    },
+    minIndex: 16,
+    maxIndex: 40,
+    partTimeIndex: 0, //时租房开始序号
+    partTimeNumber: 4, //时租房数列（半小时1个单位）
+    partTimeStart: "", //时租房开始时间
+    partTimeEnd: "", //时租房结束时间
+    timeStatus: "000000000000000000000000000000000000000000000000", //默认都可以选
+    timeList: [],
+    partTimePrice: [], //房间时租房时段价格
+    partTimePay: 0, //时租房费用
+    selectTime: function(index) {
+        tapCount++;
+        if (tapCount > 1) {
+            //时租房订房开始时间受当前时间影响
+            var hourIndex = getHourIndex();
+            if (index <= hourIndex)
+                index = hourIndex + 1;
+
+            //时租房订房结束时间不能超过最大值
+            if (index + vmPart.partTimeNumber > vmPart.maxIndex) {
+                vmPart.partTimeNumber = vmPart.maxIndex - index;
+            }
+
+            if (index >= vmPart.minIndex && (index <= (vmPart.maxIndex - 4)) && vmPart.partTimeNumber >= 4) {
+                vmPart.partTimeIndex = index;
+
+                select_bar.style.top = this.offsetTop + 'px';
+
+                select_bar.style.height = '';
+                select_bar.className = "bar";
+
+                var list = vmPart.timeList;
+
+                for (var i = 1; i <= vmPart.partTimeNumber; i++) {
+                    if (list[index + i].isBook || list[index + i].isWait) {
+                        vmPart.partTimeIndex = index - (vmPart.partTimeNumber - i);
+                        select_bar.style.top = this.offsetTop - 21 * (vmPart.partTimeNumber - i) + 'px';
+                        break;
+                    }
+                }
+                setPartTime(vmPart.partTimeIndex, vmPart.partTimeNumber);
+            } else {
+                vmPart.partTimeIndex = 0;
+                vmPart.partTimeNumber = 4;
+                vmPart.partTimeStart = "";
+                vmPart.partTimeEnd = "";
+                vmPart.partTimePay = 0;
+            }
+            tapCount = 0;
+        }
+        setTimeout(function() {
+            tapCount = 0;
+        }, 100)
+    },
+    addTime: function() {
+
+        if ((vmPart.partTimeIndex + vmPart.partTimeNumber) < vmPart.maxIndex && canOrderPartTime()) {
+            vmPart.partTimeNumber++;
+
+            select_bar.style.height = select_bar.offsetHeight + 21 + 'px';
+
+            setPartTime(vmPart.partTimeIndex, vmPart.partTimeNumber);
+        }
+    },
+    minusTime: function() {
+        if (vmPart.partTimeNumber > 4) {
+            vmPart.partTimeNumber--;
+
+            select_bar.style.height = select_bar.offsetHeight - 21 + 'px';
+
+            setPartTime(vmPart.partTimeIndex, vmPart.partTimeNumber);
+        } else {
+            select_bar.className = "mui-hidden bar";
+            vmPart.partTimeStart = "";
+            vmPart.partTimeEnd = "";
+        }
+    },
+    filterList: [
+        { "id":1, "name":"浴缸" },
+        { "id":2, "name":"淋浴" },
+        { "id":3, "name":"影院" },
+        { "id":4, "name":"阳光" },
+        { "id":5, "name":"朝南" },
+    ],
+    selectFilter: []
+})
+
+//获得时租房的入住退房时间，费用
+function setPartTime(index, number) {
+    var startHour = Math.floor(index / 2);
+    var endHour = Math.floor((index + number) / 2);
+    vmPart.partTimeStart = (startHour < 10 ? ('0' + startHour) : startHour) + ":" + (index % 2 ? "30" : "00");
+    vmPart.partTimeEnd = (endHour < 10 ? ('0' + endHour) : endHour) + ":" + ((index + number) % 2 ? "30" : "00");
+
+    vmPart.partTimePay = 0;
+    for (var i = index; i < (index + number); i++) {
+        vmPart.partTimePay += vmPart.partTimePrice[i];
+    }
+}
+
+//房间状态返回时租房时间列表对象
+function getTimeList(status) {
+    var list = status.split(''),
+        olist = [],
+        o = {},
+        count = 0,
+        index = getHourIndex();
+
+    //已过的时间都灰掉
+    for (var i = 0; i < 48; i++) {
+        if (i < index) {
+            list[i] = '1';
+        }
+    }
+    vmPart.timeStatus = list.join('');
+
+    for (var i = 0; i < 48; i++) {
+        if (count > 0) {
+            count++;
+        }
+
+        o = { isBook: 0, isWait: 0, price: 0, node: 0 };
+
+        if (list[i] == 0 && (list[i - 1] == 1)) {
+            o.isWait = 1;
+            count = 1;
+        }
+        if (list[i] == 0 && (list[i + 1] == 1)) {
+            o.isWait = 1;
+        }
+
+        if (list[i] == 1) {
+            o.isBook = 1;
+            //间隔不足5个全部灰掉
+            if (count <= 6 && count > 0) {
+                for (var j = 1; j <= count; j++) {
+                    olist[olist.length - j].isBook = 1;
+                }
+            }
+            count = 0;
+        }
+
+        o.price = vmPart.$model.partTimePrice[i];
+        if (o.price != vmPart.$model.partTimePrice[i - 1]) {
+            o.node = 1;
+        }
+        olist.push(o);
+
+    }
+
+    return olist;
+}
+
+//判断是否能否半个小时能否订时租房
+function canOrderPartTime() {
+    var list = vmPart.timeList;
+    return !(list[vmPart.partTimeIndex + vmPart.partTimeNumber].isBook || list[vmPart.partTimeIndex + vmPart.partTimeNumber].isWait);
+}
+
+//在时租房时间列表上，显示时间段节点价格
+function partTimePriceShow(index, node, price) {
+    if (node) {
+        return " " + index / 2 + "点以后，每半小时 " + price + " 元";
+    } else {
+        return '';
+    }
+}
+
+//获取当前小时序号
+function getHourIndex() {
+    var now = getToday('time').split(':'),
+        index = parseInt(now[0]) * 2;
+
+    if (parseInt(now[1]) >= 30) {
+        index++;
+    }
+
+    return index;
+}
+
+vmPart.timeList = getTimeList(vmPart.timeStatus);

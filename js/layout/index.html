@@ -24,10 +24,10 @@
             <img class="logo" src="img/icon1.jpg" alt="" style="margin-left: 0;">
         </div>
         <div id="segmentedControl" class="mui-segmented-control mui-segmented-control-negative" style="top: 9px;width: 180px;margin: 0;display: inline-table">
-            <a class="mui-control-item" ms-class="mui-active: type==0" href="#night" style="width: 50%;line-height: 24px;" ms-click="selectType(0)">
+            <a class="mui-control-item" ms-class="mui-active: type==0" href="#night" style="width: 50%;line-height: 24px;" ms-on-tap="selectType(0)">
                     全天房
                 </a>
-            <a class="mui-control-item" ms-class="mui-active: type==1" href="#day" style="width: 50%;line-height: 24px;" ms-click="selectType(1)">
+            <a class="mui-control-item" ms-class="mui-active: type==1" href="#day" style="width: 50%;line-height: 24px;" ms-on-tap="selectType(1)">
                     时租房
                 </a>
         </div>
@@ -58,7 +58,7 @@
                     </div>
                 </div>
                 <div style="position: relative;top: -46px;z-index: 10;float: right;padding-right: 10px;">
-                    <button type="button" style="border-radius: 50px;">日历</button>
+                    <button type="button" style="border-radius: 50px;" ms-on-tap="openTimePanel">日历</button>
                     <button type="button" style="border-radius: 50px;" ms-click="showMap">地图</button>
                 </div>
                 <section>

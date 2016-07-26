@@ -85,7 +85,7 @@ button {
 	position: relative;
 	padding-left: 50px;
 	padding-right: 20px;
-	/*padding-bottom: 21px;*/
+    overflow-y: auto;
 }
 
 .select-time a,
@@ -107,6 +107,7 @@ button {
 
 .select-time b i {
 	/*transform: translate(-40px, -10px);*/
+    color: #000;
 	position: relative;
 	top: -10px;
 	left: -40px;
@@ -136,7 +137,7 @@ button {
 	display: inline-block;
 	padding: 0;
 	margin: 0;
-	width: 49%;
+	width: 48%;
 	text-align: center;
 	height: 100%;
 	border-radius: 0;
@@ -794,4 +795,145 @@ hr {
     border-radius: 5px;
     width: 100px;
     height: 22px;
+}
+
+.popover {
+    position: fixed;
+    width: 100vw;
+    height: 101vh;
+    z-index: 9999;
+    background: rgba(0, 0, 0, 0.85);
+    top: 0;
+    left: 0;
+    -webkit-backdrop-filter: blur(20px);
+    /*-webkit-transition-property:background-color;*/
+    -webkit-transition-duration: 3ms;
+    transition-property: opacity;
+    transition-duration: 500ms;
+    overflow: hidden;
+    /*display: -webkit-box;*/
+    /*-webkit-box-align: center;*/
+    opacity: 1;
+}
+
+@supports(-webkit-backdrop-filter:none) {
+    .popover {
+        -webkit-backdrop-filter: blur(20px);
+        transition-property: -webkit-backdrop-filter, opacity;
+        background: rgba(0, 0, 0, 0.65);
+    }
+}
+
+.popover-hide {
+    -webkit-backdrop-filter: blur(0) !important;
+    /*background: rgba(0, 0, 0, 0.0) !important;*/
+    opacity: 0;
+}
+
+.popover-hide .popover-content {
+    transform: translateY(100vh);
+}
+
+.popover-closeButton {
+    /*border-radius: 50%;*/
+    display: block;
+    width: 60px;
+    height: 70px;
+    padding: 0;
+    color: #dd524d;
+    border: none;
+    position: absolute;
+    bottom: 8vh;
+    background: none;
+    left: 50%;
+    margin-left: -30px;
+    font-size: 58px !important;
+    text-align: center;
+    font-family: Muiicons;
+    z-index: 9999;
+}
+
+.popover-closeButton:active {
+    color: white;
+    background: none !important;
+}
+
+.popover-closeButton:before {
+    content: '\e404';
+}
+
+.popover-content {
+    width: 90vw;
+    /*height: 75vh;*/
+    margin: 3vh 5vw;
+    margin-bottom: 125px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    color: white;
+    -webkit-overflow-scrolling: touch;
+    -webkit-transition-duration: 5ms;
+    transition: all 500ms;
+    transform: translateY(0);
+}
+
+.popover-content p {
+    color: white;
+}
+
+.popover-content > img {
+    width: 100%;
+}
+
+.filter-row .time {
+    display: table;
+    width: 100%;
+    overflow: hidden;
+    font-size: 15px;
+    font-weight: 400;
+    background-color: transparent;
+    /*border: 1px solid #dd524d;*/
+    border-radius: 3px;
+    margin: 0 auto;
+}
+
+.filter-row .time a {
+    color: gray;
+    display: table-cell;
+    width: 1%;
+    overflow: hidden;
+    /*line-height: 30px;*/
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    /*border-left: 1px solid #dd524d;*/
+    padding: 0.3rem;
+    background: white;
+    vertical-align: middle;
+    font-size: 14px;
+    /*transition: background-color .1s linear;*/
+}
+
+.filter-row .time i {
+    display: table-cell;
+    width: 0.02%;
+    vertical-align: middle;
+    background: white;
+    color: gainsboro;
+    font-style: normal;
+}
+
+.filter-row .time .selected {
+    color: #fff;
+    background-color: #dd524d;
+}
+
+.time a:first-child {
+    border-left-width: 0;
+}
+
+.partTimePrice {
+    display: block;
+    text-align: center;
+    position: relative;
+    top: -21px;
 }

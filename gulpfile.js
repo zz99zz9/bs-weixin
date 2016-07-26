@@ -1071,6 +1071,8 @@ gulp.task('txt-copy', function() {
     gulp.src('./js/pages/assess/assess.html').pipe(gulp.dest('./dist'));
     gulp.src('./js/pages/designer/designer.html').pipe(gulp.dest('./dist'));
     gulp.src('./js/pages/index/searchLocation.html').pipe(gulp.dest('./dist'));
+    gulp.src('./js/util/calendar.html').pipe(gulp.dest('./dist'));
+    gulp.src('./js/util/partTime.html').pipe(gulp.dest('./dist'));
 })
 
 gulp.task('copy', ['sass', 'minifycss'], function() {
