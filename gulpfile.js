@@ -33,13 +33,7 @@ gulp.task('connect', function() {
 gulp.task('index', function() {
     gulp.src('./js/layout/index.html')
         .pipe(replace({ regex: '<!-- pop -->', replace: '<!--include "../util/pop.html"-->' }))
-        .pipe(contentIncluder({
-            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
-        }))
-        // .pipe(replace({ regex: '<!-- info -->等待加载……', replace: '<!--include "../pages/index/searchLocation.html"-->' }))
-        // .pipe(contentIncluder({
-        //     includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
-        // }))
+        .pipe(replace({ regex: '<!-- roomSlide -->', replace: '<!--include "../util/roomSlide.html"-->' }))
         .pipe(replace({
             regex: '<button class="popover-closeButton"></button>',
             replace: '<!--include "../util/popoverBtnOK.html"-->'

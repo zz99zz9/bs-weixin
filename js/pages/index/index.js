@@ -36,6 +36,16 @@ var vmIndex = avalon.define({
     }, {
         imgUrl: './img/tour3.jpg'
     }, ],
+    swiper1Render: function() {
+        var swiper1 = new Swiper('.swiper1', {
+            slidesPerView: 1,
+            width: window.innerWidth - 40,
+            spaceBetween: 5,
+            freeMode: true,
+            freeModeSticky: true,
+            freeModeMomentumRatio: 0.4
+        });
+    },
     sort: 1, //1 按距离排序, 2按价格排序
     sortBy: function(type) {
         if (vmIndex.sort != type) {
@@ -130,8 +140,28 @@ var vmIndex = avalon.define({
             location.href = "room.html?id=" + id;
         });
     },
-    swiper1Render: function() {
-        var swiper1 = new Swiper('.swiper1', {
+
+    //最近浏览
+    isShow: false,
+    seenList: [],
+    getRecentViewRoomList: function() {
+        ajaxJsonp({
+            url: urls.getRecentViewLog,
+            data: {},
+            successCallback: function(json) {
+                if (json.status !== 0) {
+                    vmIndex.isShow = true;
+                    vmIndex.seenList = json.data.list;
+                } else {
+                    vmIndex.isShow = false;
+                    vmIndex.seenList = [];
+                }
+            }
+        });
+
+    },
+    swiper2Render: function() {
+        var swiper2 = new Swiper('.swiper2', {
             slidesPerView: 1,
             width: window.innerWidth - 40,
             spaceBetween: 5,
@@ -267,7 +297,8 @@ if (verify(positionInStorage)) {
 } else {
     geolocation.getCurrentPosition();
 }
-
+//获取最近浏览数据
+vmIndex.getRecentViewRoomList();
 
 //解析定位结果，逆向地理编码
 function onComplete(data) {
