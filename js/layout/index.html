@@ -23,7 +23,7 @@
     <header class="mui-bar mui-bar-nav mui-text-center">
         <!-- <a id="menu" href="" class="mui-icon mui-action-menu mui-icon-bars mui-pull-left mui-text-danger"></a> -->
         <div id="menu" style="display: inline-block;float: left;">
-            <img class="logo" src="img/icon1.jpg" alt="" style="margin-left: 0;">
+            <img class="headImg" ms-attr-src="headImg" alt="" style="margin-left: 0;">
         </div>
         <div id="segmentedControl" class="mui-segmented-control mui-segmented-control-negative" style="top: 9px;width: 180px;margin: 0;display: inline-table">
             <a class="mui-control-item" ms-class="mui-active: type==0" href="#night" style="width: 50%;line-height: 24px;" ms-on-tap="selectType(0)">
@@ -65,8 +65,8 @@
                     <button type="button" style="border-radius: 50px;" ms-click="showMap">地图</button>
                 </div>
 
-                <h4 class="sub-title" ms-if="isShow">最近浏览过的</h4>
-                <div class="swiper-container swiper2" ms-if="isShow" style="height:auto; margin-bottom:10px;">
+                <h4 class="sub-title" ms-if="isShowSeen">最近浏览过的</h4>
+                <div ms-if="isShowSeen" class="swiper-container swiper2" style="height:auto; margin-bottom:10px;">
                     <div class="swiper-wrapper">
                         <div class="swiper-slide" ms-repeat="seenList" data-repeat-rendered="swiper2Render">
                             <!-- roomSlide -->

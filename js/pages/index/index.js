@@ -1,15 +1,5 @@
-mui.init({
-    pullRefresh: {
-        container: '#pullrefresh',
-        up: {
-            contentrefresh: '正在加载...',
-            contentnomore: "没有更多房间了",
-            callback: loadmore
-        }
-    }
-});
-
 var positionInStorage = Storage.getLocal("position"),
+    user = Storage.getLocal("user"),
     myMarker,
     hotelMarkers = [
         {
@@ -29,6 +19,7 @@ var positionInStorage = Storage.getLocal("position"),
 
 var vmIndex = avalon.define({
     $id: 'index',
+    headImg: 'img/icon1.jpg',
     galleryList: [{
         imgUrl: './img/tour1.jpg'
     }, {
@@ -116,8 +107,10 @@ var vmIndex = avalon.define({
                 pageSize: vmIndex.pageSize
             },
             successCallback: function(json) {
-                vmIndex.pageNo = 2;
-                vmIndex.roomList = json.data.list;
+                if(json.status == 1) {
+                    vmIndex.pageNo = 2;
+                    vmIndex.roomList = json.data.list;
+                }
             }
         });
     },
@@ -140,25 +133,26 @@ var vmIndex = avalon.define({
             location.href = "room.html?id=" + id;
         });
     },
-
     //最近浏览
-    isShow: false,
+    isShowSeen: false,
     seenList: [],
     getRecentViewRoomList: function() {
         ajaxJsonp({
             url: urls.getRecentViewLog,
-            data: {},
+            data: {
+                lng: vmIndex.lng,
+                lat: vmIndex.lat
+            },
             successCallback: function(json) {
-                if (json.status !== 0) {
-                    vmIndex.isShow = true;
+                if (json.status !== 0 && json.data && json.data.count >0) {
+                    vmIndex.isShowSeen = true;
                     vmIndex.seenList = json.data.list;
                 } else {
-                    vmIndex.isShow = false;
+                    vmIndex.isShowSeen = false;
                     vmIndex.seenList = [];
                 }
             }
         });
-
     },
     swiper2Render: function() {
         var swiper2 = new Swiper('.swiper2', {
@@ -170,75 +164,7 @@ var vmIndex = avalon.define({
             freeModeMomentumRatio: 0.4
         });
     },
-    openNav: function(lat, lng, name, addr) {
-        if (isSuccess) {
-            wx.openLocation({
-                latitude: lat, // 纬度，浮点数，范围为90 ~ -90
-                longitude: lng, // 经度，浮点数，范围为180 ~ -180。
-                name: name, // 位置名
-                address: addr, // 地址详情说明
-                scale: 26, // 地图缩放级别,整形值,范围从1~28。默认为最大
-                infoUrl: 'ini.xin' // 在查看位置界面底部显示的超链接,可点击跳转
-            });
-        } else {
-            alert("微信接口配置注册失败，将重新注册");
-            registerWeixinConfig();
-        }
-
-    },
-    clickA: function(str) {
-        var html = "<img src=" + urlAPINet + str.imgUrl + ">" + "<p>" + str.content + "</p>";
-        popover(html, 2);
-    },
 });
-var isSuccess = false;
-
-//注册导航接口
-function registerWeixinConfig() {
-    ajaxJsonp({
-        url: urls.weiXinConfig,
-        data: { url: window.location.href },
-        successCallback: function(json) {
-            if (json.status === 1) {
-                wx.config({
-                    debug: false,
-                    appId: json.data.appId,
-                    timestamp: json.data.timestamp,
-                    nonceStr: json.data.nonceStr,
-                    signature: json.data.signature,
-                    jsApiList: [
-                        'checkJsApi',
-                        'openLocation',
-                        'getLocation',
-                        'checkJsApi'
-                    ],
-                });
-                isSuccess = true;
-                // wx.ready(function (){
-                //   wx.checkJsApi({
-                //      jsApiList: [
-                //      'openLocation',
-                //      'getLocation',
-                //      'checkJsApi',
-                //      'chooseImage',
-                //      'previewImage',
-                //      'uploadImage',
-                //      'downloadImage'
-                //     ], // 需要检测的JS接口列表，所有JS接口列表见附录2,
-                //      success: function(res) {
-                //          alert("注册成功");
-                //          isSuccess = true;
-                //      }
-                //     });
-                // });
-            }
-        }
-    });
-}
-
-//vmIndex.getRecommendList();
-
-registerWeixinConfig();
 
 var vmSearch = avalon.define({
     $id: 'search',
@@ -291,14 +217,52 @@ hotelMarkers.forEach(function(marker) {
     });
 });
 
+//获取地址
 if (verify(positionInStorage)) {
     //如果本地储存的地址有效，直接使用本地数据更新列表
     updateData();
 } else {
     geolocation.getCurrentPosition();
 }
-//获取最近浏览数据
-vmIndex.getRecentViewRoomList();
+
+//更换登录用户头像
+if(user && user.headImg && user.logState) {
+    vmIndex.headImg = urlAPINet + '/' + user.headImg;
+}
+
+mui.init({
+    pullRefresh: {
+        container: '#pullrefresh',
+        up: {
+            contentrefresh: '正在加载...',
+            contentnomore: "没有更多房间了",
+            callback: loadmore
+        }
+    }
+});
+
+//mui 上拉加载
+function loadmore() {
+    ajaxJsonp({
+        url: urls.getRoomList,
+        data: {
+            lng: vmIndex.lng,
+            lat: vmIndex.lat,
+            sort: vmIndex.sort,
+            pageNo: vmIndex.pageNo,
+            pageSize: vmIndex.pageSize
+        },
+        successCallback: function(json) {
+            if (json.data.count + json.data.pageSize > (vmIndex.pageNo * json.data.pageSize) && json.data.list.length > 0) {
+                vmIndex.pageNo++;
+                vmIndex.roomList.push.apply(vmIndex.roomList, json.data.list);
+                mui("#pullrefresh").pullRefresh().endPullupToRefresh(false);
+            } else {
+                mui("#pullrefresh").pullRefresh().endPullupToRefresh(true);
+            }
+        }
+    });
+}
 
 //解析定位结果，逆向地理编码
 function onComplete(data) {
@@ -347,17 +311,6 @@ function select(e) {
     popover_ishide = true;
 }
 
-//弹出框的确定按钮
-var vmBtn = avalon.define({
-    $id: 'popoverBtnOK',
-    ok: function() {
-        $('#pop-text').empty();
-
-        $('.popover').addClass('popover-hide');
-        popover_ishide = true;
-    }
-})
-
 function verify(position) {
     if (position) {
         if (position.lng && position.lat) {
@@ -390,49 +343,55 @@ function updateData() {
     vmIndex.lat = positionInStorage.lat;
     vmIndex.pageNo = 1;
     vmIndex.getRoomList();
+    //获取最近浏览数据
+    vmIndex.getRecentViewRoomList();
 
     vmSearch.currentLocation = vmIndex.position;
 }
 
-//mui 上拉加载
-function loadmore() {
-    ajaxJsonp({
-        url: urls.getRoomList,
-        data: {
-            lng: vmIndex.lng,
-            lat: vmIndex.lat,
-            sort: vmIndex.sort,
-            pageNo: vmIndex.pageNo,
-            pageSize: vmIndex.pageSize
-        },
-        successCallback: function(json) {
-            if (json.data.count + json.data.pageSize > (vmIndex.pageNo * json.data.pageSize) && json.data.list.length > 0) {
-                vmIndex.pageNo++;
-                vmIndex.roomList.push.apply(vmIndex.roomList, json.data.list);
-                mui("#pullrefresh").pullRefresh().endPullupToRefresh(false);
-            } else {
-                mui("#pullrefresh").pullRefresh().endPullupToRefresh(true);
-            }
-        }
-    });
-}
+//弹出框的确定按钮
+var vmBtn = avalon.define({
+    $id: 'popoverBtnOK',
+    ok: function() {
+        $('#pop-text').empty();
+
+        $('.popover').addClass('popover-hide');
+        popover_ishide = true;
+    }
+})
 
 //更多筛选
 var vmFilter = avalon.define({
     $id: 'filter',
     type: 0,
-    dayFilter: [
-        { "id":1, "name":"浴缸" },
-        { "id":2, "name":"淋浴" },
-        { "id":3, "name":"影院" },
-        { "id":4, "name":"阳光" },
-        { "id":5, "name":"朝南" },
-    ],
+    dayFilter: [],
     selectDayFilter: [],
-    partTimeFilter: [
-        { "id":1, "name":"浴缸" },
-        { "id":2, "name":"淋浴" },
-        { "id":3, "name":"影院" },
-    ],
+    partTimeFilter: [],
     selectPartTimeFilter: [],
-}) 
+    getFilter: function() {
+        ajaxJsonp({
+            url: urls.getFilter,
+            data: {
+                isPartTime: 0
+            },
+            successCallback: function(json) {
+                if (json.status !== 0) {
+                    vmFilter.dayFilter = json.data;
+                }
+            }
+        });
+        ajaxJsonp({
+            url: urls.getFilter,
+            data: {
+                isPartTime: 1
+            },
+            successCallback: function(json) {
+                if (json.status !== 0) {
+                    vmFilter.partTimeFilter = json.data;
+                }
+            }
+        });
+    }
+});
+
+vmFilter.getFilter();

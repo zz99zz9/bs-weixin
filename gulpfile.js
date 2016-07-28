@@ -34,6 +34,9 @@ gulp.task('index', function() {
     gulp.src('./js/layout/index.html')
         .pipe(replace({ regex: '<!-- pop -->', replace: '<!--include "../util/pop.html"-->' }))
         .pipe(replace({ regex: '<!-- roomSlide -->', replace: '<!--include "../util/roomSlide.html"-->' }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
         .pipe(replace({
             regex: '<button class="popover-closeButton"></button>',
             replace: '<!--include "../util/popoverBtnOK.html"-->'
@@ -46,39 +49,28 @@ gulp.task('index', function() {
     process.stdout.write('\x07');
 });
 
-//房间列表
-gulp.task('rooms', function() {
-    gulp.src('./js/layout/shell-top.html')
-        .pipe(replace({ regex: '<!-- pop -->', replace: '<!--include "../util/pop.html"-->' }))
-        .pipe(replace({ regex: '<!-- js -->', replace: '<script src="js/pages/room/vmodel-rooms.js"></script>' }))
-        .pipe(replace({ regex: '<!-- content -->', replace: '<!--include "../pages/room/rooms.html"-->' }))
-        .pipe(replace({ regex: '<!-- tab -->', replace: '<!--include "../pages/room/room-type.html"-->' }))
+//酒店页面
+gulp.task('hotel', function() {
+    gulp.src('./js/layout/shell.html')
+        .pipe(replace({ regex: '<!-- css -->', replace: '<link rel="stylesheet" href="css/swiper.min.css">' }))
+        .pipe(replace({ regex: '<!-- content -->', replace: '<!--include "../pages/hotel/hotel.html"-->' }))
+        .pipe(replace({ regex: '<!-- pop -->', replace: '<!--include "../pages/user/popover.html"-->' }))
+        .pipe(replace({ regex: '<!-- js -->', replace: '<script src="js/lib/swiper.min.js"></script>\n<script src="js/pages/hotel/vmodel.js"></script>\n<script src="js/util/calendar.js"></script>\n<script src="js/util/partTime.js"></script>' }))
         .pipe(contentIncluder({
             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
         }))
         .pipe(replace({ regex: '<!-- roomSlide -->', replace: '<!--include "../util/roomSlide.html"-->' }))
+        .pipe(replace({
+            regex: '<button class="popover-closeButton"></button>',
+            replace: '<!--include "../util/popoverBtnOK.html"-->'
+        }))
         .pipe(contentIncluder({
             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
         }))
-        .pipe(rename('rooms.html'))
+        .pipe(rename('hotel.html'))
         .pipe(gulp.dest('./dist'));
     process.stdout.write('\x07');
 });
-
-//筛选页面
-// gulp.task('filter',function() {
-//     gulp.src('./js/layout/shell.html')
-//         .pipe(replace({regex:'<!-- pop -->', replace:'<!--include "../util/pop.html"-->'}))
-//         .pipe(replace({regex:'<!-- js -->', replace:'<script src="js/pages/room/vmodel-filter.js"></script>'}))
-//         .pipe(replace({regex:'<!-- content -->', replace:'<!--include "../pages/room/filter.html"-->'}))
-//         .pipe(replace({regex:'<h1 id="headerReplace" class="mui-title"></h1>', replace:'<!--include "../pages/room/room-type.html"-->'}))
-//         .pipe(contentIncluder({
-//             includerReg:/<!\-\-include\s+"([^"]+)"\-\->/g
-//         }))
-//         .pipe(rename('filter.html'))
-//         .pipe(gulp.dest('./dist'));
-//         process.stdout.write('\x07');
-// });
 
 //房间页面
 gulp.task('room', function() {
@@ -1144,7 +1136,7 @@ gulp.task('manage', [
 
 gulp.task('all', [
     'index',
-    'rooms',
+    'hotel',
     'room',
     'facilities',
     'submitassess',

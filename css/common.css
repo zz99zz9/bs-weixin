@@ -34,6 +34,12 @@ button {
 	height: 33px;
 	margin: 5px;
 }
+.headImg {
+    width: 33px;
+    height: 33px;
+    margin: 5px;
+    border-radius: 50%;
+}
 
 .margin2 {
 	margin: 0 1.5rem;
@@ -937,3 +943,196 @@ hr {
     position: relative;
     top: -21px;
 }
+
+/* 酒店信息展开 开始*/
+.pic-info{
+    overflow: hidden;
+    height: 50px;
+    transition: all 300ms;
+}
+
+.expand {
+    width: 100%;
+    height: 50px;
+    font-size: 14px;
+    text-align: left;
+    display: block;
+}
+
+.expand table {
+    width: 100%;
+    table-layout: fixed;
+}
+
+.expand table td {
+    padding: 0 5px;
+}
+
+.expand span {
+    /*overflow: hidden;*/
+    /*text-overflow: ellipsis;*/
+    /*line-height: 36px;*/
+    /*display: inline-block;*/
+}
+
+.expand i{
+    font-size: 1.25rem;
+    /*font-weight: lighter;*/
+    font-style: normal;
+    display:inline-block;
+    color: black;
+}
+
+.expand i:before {
+    /*content: '';
+    display: inline-block;
+    width: 37px;
+    height: 24px;
+    background: url('../img/no.svg') no-repeat;*/
+}
+
+.expand:active {
+    color: #DD524D !important;
+    background: white !important;
+}
+
+.expand:after {
+    display: inline-block;
+    content: '\e583';
+    font-family: Muiicons;
+    -webkit-transform: rotateZ(0deg);
+    transition: transform 300ms;
+    position: absolute;
+    top: 50%;
+    margin-top: -9px;
+    right: 15px;
+}
+
+.expanded {
+    overflow:visible;
+}
+
+.expanded .expand:after  {
+    -webkit-transform: rotateZ(90deg);
+}
+
+.pic-info .pic{
+    position: relative;
+    color: white;
+    background-size: cover;
+    width: 100%;
+    height: 200px;
+}
+
+.pic-info .pic label {
+    position: absolute;
+    bottom: 20px;
+    display: inline-block;
+    color: white;
+    /*background: rgba(0, 0, 0, 0.5);*/
+    padding: 10px 15px;
+    font-size: 24px;
+    text-align: center;
+    -webkit-backdrop-filter: blur(5px);
+    /*border-radius: 24px;*/
+    /*left: 20px;*/
+}
+.pic-info .pic button{
+    background:white;
+    border: none;
+    position: absolute;
+    bottom: 25px;
+    right: 20px;
+    padding: 0;
+    border-radius: 50%;
+    font-size: 20px;
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+    color: black;
+}
+.pic-info .info {
+    display: table;
+    width: 100%;
+    border-collapse: collapse;
+}
+.pic-info .info div {
+    display: table-cell;
+    text-align: center;
+    /*padding: 5px;*/
+    border:1px solid #c8c7cc;
+    font-size: 12px;
+    border-top: none;
+    border-right: none;
+}
+.pic-info .info div a{
+    width: 100%;
+    padding: 5px;
+    display: block;
+    color: black;
+}
+.pic-info .info div a:active{
+    border-radius: 0;
+    background: #DD524D;
+    color: white !important;
+}
+
+.pic-info .info div a:active h3{
+    color: white;
+}
+.pic-info .info div h3{
+    font-size: 18px;
+    font-weight: normal;
+    color: #DD524D;
+}
+.pic-info .info a {
+    display: table-cell;
+    width: 33.3%;
+    padding: 5px;
+    font-size: 12px;
+    text-align: center;
+    padding: 10px 0;
+    border-radius: 0.5rem;
+}
+.pic-info .info a:active{
+    color: white;
+    background: #007aff;
+}
+.pic-info .info a span{
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 1px dotted #007aff;
+    line-height: 48px;
+}
+.pic-info .info a:active span {
+    border-color: white;
+}
+.text-info {
+    padding: 1rem;
+}
+.text-info p{
+    /*color: black;*/
+}
+.mui-search .mui-placeholder{
+    top: 4px;
+}
+
+.black-block{
+    background: rgba(255, 255, 255, 0.7);
+    display: inline-block;
+    color:black;
+}
+
+.black-block:nth-child(n) {
+    text-shadow: 0 0 10px white;
+}
+
+@supports(-webkit-backdrop-filter:none){
+    .black-block{
+        -webkit-backdrop-filter: blur(10px);
+        transition-property:-webkit-backdrop-filter, background-color;
+        background: rgba(255, 255, 255, 0.6);
+    }
+}
+/* 酒店信息展开 结束*/

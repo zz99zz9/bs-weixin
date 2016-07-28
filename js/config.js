@@ -23,7 +23,10 @@ var urls = {
         getHotelInfoList: urlAPI + '/res/hotel/localList', //根据ID获取酒店信息列表
         getUserFundURL: urlAPI + '/usr/userFund/list',
         getInvitationLogURL: urlAPI + '/usr/invitationLog/list',
-
+        //筛选条件
+        getFilter: urlAPI + '/res/searchCriteriaAmenity/list',
+        //酒店
+        getHotelDetail: urlAPI + '/res/hotel/detail',
         //联系人
         getContactList: urlAPI + '/usr/frequentContact/list', //常用联系人列表
         getContact: urlAPI + '/usr/frequentContact/get', //获取常用联系人信息
