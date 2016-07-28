@@ -1,7 +1,7 @@
 //文档图片目录
 var urlAPINet = "http://img.ini.xin/";
 var urln = {
-    UploadFile: urlAPINet + "/UploadFile.ashx", //上传地址
+    UploadFile: urlAPINet + "/UploadFile.ashx", //上传地址 
 };
 //微信域名
 var urlWeixin = "http://weixin.ini.xin";

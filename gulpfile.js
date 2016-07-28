@@ -1057,6 +1057,20 @@ gulp.task('warehouse-form-stock', function() {
     process.stdout.write('\x07');
 });
 
+//入住人列表页
+gulp.task('frequent-contact-list', function() {
+    gulp.src('./js/layout/shell.html')
+        .pipe(replace({ regex: '<!-- js -->', replace: '<script src="js/pages/user/vmodel-contact.js"></script>' }))
+        .pipe(replace({ regex: '<!-- content -->', replace: '<!--include "../pages/user/frequent-contact-list.html"-->' }))
+        .pipe(replace({ regex: '<h1 id="headerReplace" class="mui-title"></h1>', replace: '<h1 id="headerReplace" class="mui-title">入住人信息管理</h1>' }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('frequent-contact-list.html'))
+        .pipe(gulp.dest('./dist'));
+    process.stdout.write('\x07');
+});
+
 gulp.task('txt-copy', function() {
     gulp.src('./js/pages/invite/rule.html').pipe(gulp.dest('./dist'));
     gulp.src('./js/pages/invite/oldInvite.html').pipe(gulp.dest('./dist'));
@@ -1151,7 +1165,8 @@ gulp.task('all', [
     'shop',
     'manage',
     'txt-copy',
-    'copy'
+    'copy',
+    'frequent-contact-list'
 ]);
 
 gulp.task('watchJS', function() {
