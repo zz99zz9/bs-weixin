@@ -11,14 +11,17 @@
     .mui-popup {
         position: fixed;
     }
+
+    .btn{
+        width:100% !important;
+    }
 </style>
 
-<div ms-controller="contact">
+<div ms-controller="contactList">
     <div class="mui-table-view">
         <div id="OA_task_2">
-            <div class="mui-table-view-cell mui-checkbox mui-right" ms-repeat="list" ms-data-index="$index">
-
-                <input type="checkbox" ms-duplex-number="selectedList" ms-attr-value="$index" class="selected" style="z-index: 1">
+            <div class="mui-table-view-cell mui-checkbox mui-right" ms-repeat="list">
+                <button type="button" class="mui-btn" style="z-index: 1" ms-click="del($index)">删除</button>
                 <div class="mui-slider-right mui-disabled">
                     <a class="mui-btn mui-btn-blue">修改</a>
                     <a class="mui-btn mui-btn-red">删除</a>
@@ -39,14 +42,10 @@
                 </div>
             </div>
         </div>
-
-        <div class="mui-table-view-cell mui-text-center" style="color: #dd524d;" onclick="javascript:window.location.href='contact.html'">
-            <span class="mui-icon mui-icon-plus"></span> 添加入住人
-        </div>
     </div>
     <br><br>
 
     <nav class="mui-bar mui-bar-tab" style="padding: 10px;">
-        <button type="button" class="mui-btn mui-btn-danger mui-pull-right" ms-click="selectDone()">确定</button>
+        <button type="button" class="mui-btn mui-btn-danger mui-pull-right btn" ms-click="add()">添加入住人</button>
     </nav>
 </div>
