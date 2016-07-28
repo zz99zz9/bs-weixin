@@ -1071,8 +1071,18 @@ gulp.task('txt-copy', function() {
     gulp.src('./js/pages/assess/assess.html').pipe(gulp.dest('./dist'));
     gulp.src('./js/pages/designer/designer.html').pipe(gulp.dest('./dist'));
     gulp.src('./js/pages/index/searchLocation.html').pipe(gulp.dest('./dist'));
-    gulp.src('./js/util/calendar.html').pipe(gulp.dest('./dist'));
-    gulp.src('./js/util/partTime.html').pipe(gulp.dest('./dist'));
+    gulp.src('./js/util/calendar.html')
+        .pipe(replace({ regex: '<!-- filter -->', replace: '<!--include "../util/filter.html"-->' }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(gulp.dest('./dist'));
+    gulp.src('./js/util/partTime.html')
+        .pipe(replace({ regex: '<!-- filter -->', replace: '<!--include "../util/filter.html"-->' }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(gulp.dest('./dist'));
 })
 
 gulp.task('copy', ['sass', 'minifycss'], function() {
