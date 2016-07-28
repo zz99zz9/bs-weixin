@@ -1066,9 +1066,17 @@ gulp.task('warehouse-form-stock', function() {
 //入住人列表页
 gulp.task('frequent-contact-list', function() {
     gulp.src('./js/layout/shell.html')
+        .pipe(replace({ regex: '<!-- pop -->', replace: '<!--include "../pages/user/popover.html"-->' }))
         .pipe(replace({ regex: '<!-- js -->', replace: '<script src="js/pages/user/vmodel-contact.js"></script>' }))
         .pipe(replace({ regex: '<!-- content -->', replace: '<!--include "../pages/user/frequent-contact-list.html"-->' }))
         .pipe(replace({ regex: '<h1 id="headerReplace" class="mui-title"></h1>', replace: '<h1 id="headerReplace" class="mui-title">入住人信息管理</h1>' }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(replace({
+            regex: '<button class="popover-closeButton"></button>',
+            replace: '<!--include "../pages/room/pop-btn.html"-->'
+        }))
         .pipe(contentIncluder({
             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
         }))
@@ -1097,6 +1105,7 @@ gulp.task('txt-copy', function() {
             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
         }))
         .pipe(gulp.dest('./dist'));
+    gulp.src('./js/pages/user/frequent-contact-add.html').pipe(gulp.dest('./dist'));
 })
 
 gulp.task('copy', ['sass', 'minifycss'], function() {
