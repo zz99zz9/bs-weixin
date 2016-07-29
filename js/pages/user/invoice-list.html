@@ -1,10 +1,51 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<style>
+    .flex0 {
+        width: 85px;
+    }
+    h5{
+        color: black;
+    }
+    .selected:before {
+        color: #dd524d !important;
+    }
+    .btn{
+        width:100% !important;
+    }
+    .money{
+        color: red;
+    }
+</style>
+<!--下拉刷新容器-->
+<div id="refreshContainer" class="mui-content mui-scroll-wrapper">
+    <div class="mui-scroll">
+        <!--数据列表-->
+        <div ms-controller="invoiceList">
+            <div class="mui-table-view">
+                <div id="OA_task_2">
+                    <div class="mui-table-view-cell mui-checkbox mui-right" ms-repeat="list" ms-data-index="$index">
+                        <input type="checkbox" ms-duplex-number="selectedList" ms-attr-value="$index" class="selected" style="z-index: 1">
+                        <div class="mui-slider-handle">
+                            <div class="display-flex mui-table-cell">
+                                <h5 class="flex0" style="-webkit-box-pack: justify;">订单号</h5>
+                                <h5 class="flex1">{{el.orderNo}}</h5>
+                            </div>
+                            <div class="display-flex mui-table-cellv">
+                                <h5 class="flex0" style="-webkit-box-pack: justify;">酒店名</h5>
+                                <h5 class="flex1">{{el.hotel.name}}</h5>
+                            </div>
+                            <div class="display-flex mui-table-cell">
+                                <h5 class="flex0" style="-webkit-box-pack: justify;">金&emsp;额</h5>
+                                <h5 class="flex1 money">￥{{el.needAmount}}</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+        </div>
+    </div>
+</div>
 
-</body>
-</html>
+<nav class="mui-bar mui-bar-tab" style="padding: 10px;" ms-controller="invoiceList">
+    <button type="button" class="mui-btn mui-btn-danger mui-pull-right btn" ms-click="selectDone()">开具发票</button>
+</nav>
