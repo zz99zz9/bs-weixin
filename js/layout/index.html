@@ -14,14 +14,16 @@
 </head>
 
 <body ms-controller="index">
+    <!-- 地图 -->
     <div id="container" style="z-index:999;" ms-visible="isShowMap">
         <button type="button" style="z-index:9999;float: right;top: 20px;right: 20px;" ms-click="closeMap">关闭</button>
     </div> 
+
     <!--顶部-->
     <header class="mui-bar mui-bar-nav mui-text-center">
         <!-- <a id="menu" href="" class="mui-icon mui-action-menu mui-icon-bars mui-pull-left mui-text-danger"></a> -->
         <div id="menu" style="display: inline-block;float: left;">
-            <img class="logo" src="img/icon1.jpg" alt="" style="margin-left: 0;">
+            <img class="headImg" ms-attr-src="headImg" alt="" style="margin-left: 0;">
         </div>
         <div id="segmentedControl" class="mui-segmented-control mui-segmented-control-negative" style="top: 9px;width: 180px;margin: 0;display: inline-table">
             <a class="mui-control-item" ms-class="mui-active: type==0" href="#night" style="width: 50%;line-height: 24px;" ms-on-tap="selectType(0)">
@@ -38,6 +40,7 @@
             <a href="" class="mui-icon mui-action-menu mui-icon-bars mui-pull-right mui-text-danger"></a>
         </div>
     </header>
+
     <div id="pullrefresh" class="mui-scroll-wrapper">
         <div class="mui-scroll">
             <br>
@@ -61,33 +64,25 @@
                     <button type="button" style="border-radius: 50px;" ms-on-tap="openTimePanel">日历</button>
                     <button type="button" style="border-radius: 50px;" ms-click="showMap">地图</button>
                 </div>
+
+                <h4 class="sub-title" ms-if="isShowSeen">最近浏览过的</h4>
+                <div ms-if="isShowSeen" class="swiper-container swiper2" style="height:auto; margin-bottom:10px;">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide" ms-repeat="seenList" data-repeat-rendered="swiper2Render">
+                            <!-- roomSlide -->
+                        </div>
+                        <div class="swiper-pagination"></div>
+                    </div>
+                </div>
+
                 <section>
                     <div>
                         <button type="button" class="mui-btn" ms-click="sortBy(1)">距离<span class="mui-icon mui-icon-arrowthinup"></span></button>
                         &emsp;
                         <button type="button" class="mui-btn" ms-click="sortBy(2)">价格<span class="mui-icon mui-icon-arrowthinup"></span></button>
                     </div>
-                    <div>
-                        <div class="swiper-slide-item" ms-repeat="roomList" ms-on-tap="goRoom(el.id)">
-                            <div class="distance">{{round(el.distance/1000,1)}}KM</div>
-                            <a href="###">
-                                <div ms-css-background-image="url({{urlAPINet + el.coverUrl}})">
-                                    <label>￥{{el.minPrice?el.minPrice:el.dayPrice}}
-                                        <span>{{type==1?"3小时":"晚起"}}</span>
-                                    </label>
-                                    <span class="roomtype">{{el.roomType.name}}</span>
-                                </div>
-                            </a>
-                            <div class="mui-content-padded mui-text-left designer-info">
-                                <h4>{{el.name}}<span style="color: #cc9966;"> ★★★★★</span></h4>
-                                <p class="mui-ellipsis" style="width:60vw;">{{el.introduction}}</p>
-                                <div>
-                                    <i ms-css-background-image="url({{urlAPINet + el.hotel.logoUrl}})"></i>
-                                    <!-- <span class="small mui-text-gray">试睡师</span><br />-->
-                                    {{el.hotel.name}}
-                                </div>
-                            </div>
-                        </div>
+                    <div ms-repeat="roomList">
+                        <!-- roomSlide -->
                     </div>
                 </section>
             </div>

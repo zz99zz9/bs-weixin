@@ -1,5 +1,5 @@
 <div class="filter-row mui-control-content mui-active" ms-controller="calendar">
-     <div class="time" style="width: 96%;">
+     <div class="time">
         <a id="select_start" href="###" ms-on-touchend="startClick" ms-class="selected: statusControl.isStartEdit">
             入住时间<br><small ms-class="mui-text-danger:!statusControl.isStartEdit">{{startIndex==-1?'选择日期':(calendar[startIndex]?calendar[startIndex].date:'&nbsp;')}}</small>
         </a>
@@ -9,7 +9,7 @@
         </a>
     </div>
 
-    <div style="width: 96%;margin: 0 auto;background: none;" ms-visible="statusControl.isCalendarShow">
+    <div style="margin: 0 auto;background: none;" ms-visible="statusControl.isCalendarShow">
         <div class="calendar" style="border-bottom: 1px solid gainsboro;">
             <b>一</b><b>二</b><b>三</b><b>四</b><b>五</b><b>六</b><b>日</b>
         </div>
