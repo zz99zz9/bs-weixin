@@ -18,15 +18,18 @@ var urls = {
         saveInvoiceLog: urlAPI + '/usr/invoiceLog/save',
         getInviteCode: urlAPI + '/usr/user/invitationCode',
         getHomeBannerList: urlAPI + '/sys/homeBanner/list',
-        getRecentViewLog: urlAPI + '/usr/viewLog/roomList',
+        //首页
+        getCityGallery: urlAPI + '/res/cityImage/list', //城市图片列表
+        getHotelByPosition: urlAPI + '/res/hotel/aroundList', //查找周边酒店列表
+        getRecentViewLog: urlAPI + '/usr/viewLog/roomList', //最近浏览
+        getFilter: urlAPI + '/res/searchCriteriaAmenity/list', //筛选条件
+
         getINIrecommendURL: urlAPI + '/res/room/recommendList',
-        getHotelInfoList: urlAPI + '/res/hotel/localList', //根据ID获取酒店信息列表
-        getUserFundURL: urlAPI + '/usr/userFund/list',
-        getInvitationLogURL: urlAPI + '/usr/invitationLog/list',
-        //筛选条件
-        getFilter: urlAPI + '/res/searchCriteriaAmenity/list',
+        getHotelInfoList: urlAPI + '/res/hotel/localList', //根据地区获取酒店信息列表
+        getUserFundURL: urlAPI + '/usr/userFund/list', //用户基金列表
+        getInvitationLogURL: urlAPI + '/usr/invitationLog/list', //用户邀请列表
         //酒店
-        getHotelDetail: urlAPI + '/res/hotel/detail',
+        getHotelDetail: urlAPI + '/res/hotel/detail',//酒店详细信息
         //联系人
         getContactList: urlAPI + '/usr/frequentContact/list', //常用联系人列表
         getContact: urlAPI + '/usr/frequentContact/get', //获取常用联系人信息
