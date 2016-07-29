@@ -13,6 +13,7 @@ var newOrder = {room: {}, goods: []};
 var vmRoom = avalon.define({
     $id: "room",
     room: {
+        hotel: {name:'',alias:'',address:''},
         roomGalleryList: [],
         designer: {name:'',message:''},
         amenityList: []
@@ -83,20 +84,8 @@ ajaxJsonp({
             newOrder.room.name = json.data.name;
             newOrder.room.dayPrice = json.data.dayPrice;
             // newOrder.room.hourPrice = json.data.hourPrice;
-
             vmAmenity.list = json.data.amenityList;
-
-            //获取设计师信息
-            ajaxJsonp({
-                url: urls.getDesigner,
-                data: {id: vmRoom.room.designer.id},
-                successCallback: function(json) {
-                    if(json.status === 1){
-                        vmDesigner.designer = json.data;
-                    }
-                }
-            });
-
+            vmRoomAssess.designer = json.data.designer;
         }
     }
 });
@@ -112,20 +101,6 @@ ajaxJsonp({
         }
 });
 
-//获取评价
-// ajaxJsonp({
-//     url: urls.getRoomAssess,
-//     data: {rid: roomid, pageSize: 1, pageNo: 1},
-//     successCallback: function(json) {
-//         if(json.status === 1) {
-//             vmRoom.assess.count = json.data.count;
-//             if(json.data.list.length > 0) {
-//                 vmRoom.assess.data = json.data.list[0];
-//             }
-//         }
-//     }
-// });
-
 //更多房间
 ajaxJsonp({
     url: urls.getRoomList,
@@ -139,6 +114,7 @@ ajaxJsonp({
 
 var vmRoomAssess= avalon.define({
     $id: "roomassess",
+    designer: {portraitUrl: '', name: '', message: ''},
     list: [],
     scoreList: [
     {name: '淋浴舒适度', r:1, s:5, list:[1,2,3,4,5]},

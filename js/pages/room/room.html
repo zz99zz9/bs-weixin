@@ -1,302 +1,355 @@
 <style type="text/css">
-	[ms-controller] {
-		display: none;
-	}
+    [ms-controller] {
+        display: none;
+    }
 
-	.mui-preview-image.mui-fullscreen {
-		position: fixed;
-		z-index: 20;
-		background-color: #000;
-	}
+    .mui-preview-image.mui-fullscreen {
+        position: fixed;
+        z-index: 20;
+        background-color: #000;
+    }
 
-	.mui-preview-header,
-	.mui-preview-footer {
-		position: absolute;
-		width: 100%;
-		left: 0;
-		z-index: 10;
-	}
+    .mui-preview-header,
+    .mui-preview-footer {
+        position: absolute;
+        width: 100%;
+        left: 0;
+        z-index: 10;
+    }
 
-	.mui-preview-header {
-		height: 44px;
-		top: 0;
-	}
+    .mui-preview-header {
+        height: 44px;
+        top: 0;
+    }
 
-	.mui-preview-footer {
-		height: 50px;
-		bottom: 0px;
-	}
+    .mui-preview-footer {
+        height: 50px;
+        bottom: 0px;
+    }
 
-	.mui-preview-header .mui-preview-indicator {
-		display: block;
-		line-height: 25px;
-		color: #fff;
-		text-align: center;
-		margin: 15px auto 4;
-		width: 70px;
-		background-color: rgba(0, 0, 0, 0.4);
-		border-radius: 12px;
-		font-size: 16px;
-	}
+    .mui-preview-header .mui-preview-indicator {
+        display: block;
+        line-height: 25px;
+        color: #fff;
+        text-align: center;
+        margin: 15px auto 4;
+        width: 70px;
+        background-color: rgba(0, 0, 0, 0.4);
+        border-radius: 12px;
+        font-size: 16px;
+    }
 
-	.mui-preview-image {
-		display: none;
-		-webkit-animation-duration: 0.5s;
-		animation-duration: 0.5s;
-		-webkit-animation-fill-mode: both;
-		animation-fill-mode: both;
-	}
+    .mui-preview-image {
+        display: none;
+        -webkit-animation-duration: 0.5s;
+        animation-duration: 0.5s;
+        -webkit-animation-fill-mode: both;
+        animation-fill-mode: both;
+    }
 
-	.mui-preview-image.mui-preview-in {
-		-webkit-animation-name: fadeIn;
-		animation-name: fadeIn;
-	}
+    .mui-preview-image.mui-preview-in {
+        -webkit-animation-name: fadeIn;
+        animation-name: fadeIn;
+    }
 
-	.mui-preview-image.mui-preview-out {
-		background: none;
-		-webkit-animation-name: fadeOut;
-		animation-name: fadeOut;
-	}
+    .mui-preview-image.mui-preview-out {
+        background: none;
+        -webkit-animation-name: fadeOut;
+        animation-name: fadeOut;
+    }
 
-	.mui-preview-image.mui-preview-out .mui-preview-header,
-	.mui-preview-image.mui-preview-out .mui-preview-footer {
-		display: none;
-	}
+    .mui-preview-image.mui-preview-out .mui-preview-header,
+    .mui-preview-image.mui-preview-out .mui-preview-footer {
+        display: none;
+    }
 
-	.mui-zoom-scroller {
-		position: absolute;
-		display: -webkit-box;
-		display: -webkit-flex;
-		display: flex;
-		-webkit-box-align: center;
-		-webkit-align-items: center;
-		align-items: center;
-		-webkit-box-pack: center;
-		-webkit-justify-content: center;
-		justify-content: center;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		top: 0;
-		width: 100%;
-		height: 100%;
-		margin: 0;
-		-webkit-backface-visibility: hidden;
-	}
+    .mui-zoom-scroller {
+        position: absolute;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+        -webkit-box-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        -webkit-backface-visibility: hidden;
+    }
 
-	.mui-zoom-scroller p {
-		position: absolute;
-		top: 75%;
-		left: 1%;
-		z-index: -1;
-	}
+    .mui-zoom-scroller p {
+        position: absolute;
+        top: 75%;
+        left: 1%;
+        z-index: -1;
+    }
 
-	.mui-zoom {
-		-webkit-transform-style: preserve-3d;
-		transform-style: preserve-3d;
-	}
+    .mui-zoom {
+        -webkit-transform-style: preserve-3d;
+        transform-style: preserve-3d;
+    }
 
-	.mui-slider .mui-slider-group .mui-slider-item img {
-		/*width: auto;*/
-		height: auto;
-		max-width: 100%;
-		max-height: 100%;
-	}
+    .mui-slider .mui-slider-group .mui-slider-item img {
+        /*width: auto;*/
+        height: auto;
+        max-width: 100%;
+        max-height: 100%;
+    }
 
-	.mui-android-4-1 .mui-slider .mui-slider-group .mui-slider-item img {
-		width: 100%;
-	}
+    .mui-android-4-1 .mui-slider .mui-slider-group .mui-slider-item img {
+        width: 100%;
+    }
 
-	.mui-android-4-1 .mui-slider.mui-preview-image .mui-slider-group .mui-slider-item {
-		display: inline-table;
-	}
+    .mui-android-4-1 .mui-slider.mui-preview-image .mui-slider-group .mui-slider-item {
+        display: inline-table;
+    }
 
-	.mui-android-4-1 .mui-slider.mui-preview-image .mui-zoom-scroller img {
-		display: table-cell;
-		vertical-align: middle;
-	}
+    .mui-android-4-1 .mui-slider.mui-preview-image .mui-zoom-scroller img {
+        display: table-cell;
+        vertical-align: middle;
+    }
 
-	.mui-preview-loading {
-		position: absolute;
-		width: 100%;
-		height: 100%;
-		top: 0;
-		left: 0;
-		display: none;
-	}
+    .mui-preview-loading {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        display: none;
+    }
 
-	.mui-preview-loading.mui-active {
-		display: block;
-	}
+    .mui-preview-loading.mui-active {
+        display: block;
+    }
 
-	.mui-preview-loading .mui-spinner-white {
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		margin-left: -25px;
-		margin-top: -25px;
-		height: 50px;
-		width: 50px;
-	}
+    .mui-preview-loading .mui-spinner-white {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-left: -25px;
+        margin-top: -25px;
+        height: 50px;
+        width: 50px;
+    }
 
-	.mui-preview-image img.mui-transitioning {
-		-webkit-transition: -webkit-transform 0.5s ease, opacity 0.5s ease;
-		transition: transform 0.5s ease, opacity 0.5s ease;
-	}
+    .mui-preview-image img.mui-transitioning {
+        -webkit-transition: -webkit-transform 0.5s ease, opacity 0.5s ease;
+        transition: transform 0.5s ease, opacity 0.5s ease;
+    }
 
-	@-webkit-keyframes fadeIn {
-		0% {
-			opacity: 0;
-		}
-		100% {
-			opacity: 1;
-		}
-	}
+    @-webkit-keyframes fadeIn {
+        0% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
 
-	@keyframes fadeIn {
-		0% {
-			opacity: 0;
-		}
-		100% {
-			opacity: 1;
-		}
-	}
+    @keyframes fadeIn {
+        0% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
 
-	@-webkit-keyframes fadeOut {
-		0% {
-			opacity: 1;
-		}
-		100% {
-			opacity: 0;
-		}
-	}
+    @-webkit-keyframes fadeOut {
+        0% {
+            opacity: 1;
+        }
+        100% {
+            opacity: 0;
+        }
+    }
 
-	@keyframes fadeOut {
-		0% {
-			opacity: 1;
-		}
-		100% {
-			opacity: 0;
-		}
-	}
+    @keyframes fadeOut {
+        0% {
+            opacity: 1;
+        }
+        100% {
+            opacity: 0;
+        }
+    }
 
-	p img {
-		max-width: 100%;
-		height: auto;
-	}
+    p img {
+        max-width: 100%;
+        height: auto;
+    }
 
-	.swiper2 {
-		height: auto !important;
-	}
+    .swiper2 {
+        height: auto !important;
+    }
 
-	.svg-icon {
-		width: 20px;
-		height: 20px;
-		margin: 0;
-	}
+    .svg-icon {
+        width: 20px;
+        height: 20px;
+        margin: 0;
+    }
+
+    section {
+        margin: 0 auto;
+        width: 95%;
+        z-index: 9;
+        background-color: #fff;
+    }
+    .facility {
+        margin: 0 auto;
+        padding: 8px;
+        white-space: nowrap;
+        overflow-x: scroll;
+        background: #aaa;
+    }
+    .facility img {
+        margin-right: 5px;
+        width: 30px;
+        height: 30px;
+    }
+    .hotel {
+        margin: 0 auto;
+        padding: 10px;
+        position: relative;
+        background-color: #fff;
+    }
+    .hotel div {
+        display: inline-block;
+    }
+    .hotel>span {
+        position: relative;
+        top: 10px;
+        float:right;
+    }
+    .time {
+        margin: 18px auto;
+    }
+    .time p, .checkin p {
+        padding: 10px;
+        font-size: 16px;
+    }
+    .time .time-panel {
+        margin-bottom: 20px;
+        padding: 10px;
+    }
+    .time .time-panel div {
+        display: inline-block;
+        line-height: 15px;
+        width: 33%;
+    }
+    .time .time-clock div {
+        margin: 10px auto;
+        text-align: center;
+    }
+    .time .time-clock div div {
+        display: inline-block;
+        width: 23%;
+        font-size: 15px;
+    }
+    .time .time-clock img {
+        border-radius: 50%;
+        width: 20vw;
+        height: 20vw;
+    }
+    .checkin {
+        margin-top: -10px;
+    }
+    .checkin div {
+        padding: 0 0 20px 10px;
+    }
 </style>
 
-<svg style="position: absolute; width: 0; height: 0;" width="0" height="0" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-	<def>
-		<symbol id='icon-wifi'>
-			<title>wifi</title>
-			<path fill='gray' transform="scale(0.5)" d="M19.66,28a3.62,3.62,0,1,0,3.62,3.62A3.62,3.62,0,0,0,19.66,28h0Zm0-7.25A10.84,10.84,0,0,0,11.09,25L13,26.43a8.44,8.44,0,0,1,13.33,0L28.23,25a10.84,10.84,0,0,0-8.57-4.2h0Zm0-7.25a18.06,18.06,0,0,0-14.28,7L7.28,22A15.66,15.66,0,0,1,32,22l1.9-1.48a18.06,18.06,0,0,0-14.28-7h0Zm0-7.25a25.29,25.29,0,0,0-20,9.81l2,1.52a22.83,22.83,0,0,1,36.1,0l2-1.52a25.3,25.3,0,0,0-20-9.8h0Zm0,0" ></path>
-		</symbol>
-		<symbol id='icon-huasa'>
-			<title>huasa</title>
-			<path fill='gray' transform="scale(0.5)"  d="M1.2,17C0.8,17,.81,16.59.85,16.35c0.45-2.82,3.45-5,7.09-5s6.63,2.14,7.09,5a0.51,0.51,0,0,1-.32.65l-0.09,0H1.2v0Zm0,0.09M0.75,21.87,29,4.25V38.94c0,1.14-.76,1.06-0.76,1.06h-1A1.44,1.44,0,0,1,26,39V5.64A2.48,2.48,0,0,0,23.69,3H11A2,2,0,0,0,9,5V8C9,9.32,6,9.33,6,8V4.24C6,0,10.44,0,10.44,0H24.71C29,0,29,4.25,29,4.25h0Zm0.25,0M1.5,19A1.5,1.5,0,1,1,0,20.5,1.5,1.5,0,0,1,1.5,19Zm6,0A1.5,1.5,0,1,1,6,20.5,1.5,1.5,0,0,1,7.5,19Zm6,0A1.5,1.5,0,1,1,12,20.5,1.5,1.5,0,0,1,13.5,19Zm-12,6A1.5,1.5,0,1,1,0,26.5,1.5,1.5,0,0,1,1.5,25Zm6,0A1.5,1.5,0,1,1,6,26.5,1.5,1.5,0,0,1,7.5,25Zm6,0A1.5,1.5,0,1,1,12,26.5,1.5,1.5,0,0,1,13.5,25Zm-12,6A1.5,1.5,0,1,1,0,32.5,1.5,1.5,0,0,1,1.5,31Zm6,0A1.5,1.5,0,1,1,6,32.5,1.5,1.5,0,0,1,7.5,31Zm6,0A1.5,1.5,0,1,1,12,32.5,1.5,1.5,0,0,1,13.5,31Zm-12,6A1.5,1.5,0,1,1,0,38.5,1.5,1.5,0,0,1,1.5,37Zm6,0A1.5,1.5,0,1,1,6,38.5,1.5,1.5,0,0,1,7.5,37Zm6,0A1.5,1.5,0,1,1,12,38.5,1.5,1.5,0,0,1,13.5,37Z" ></path>
-		</symbol>
-		<symbol id='icon-snow'>
-			<title>snow</title>
-			<polygon  fill='gray' transform="scale(0.5)"  points="37.64 23.03 29.7 25.11 26.19 23.13 32.73 21.42 32.36 20.07 24.43 22.14 21.11 20.28 25.55 17.78 32.51 19.6 32.88 18.25 27.31 16.79 30.83 14.81 37.79 16.63 38.16 15.27 32.59 13.82 37.45 11.09 36.43 9.37 30.96 12.45 32.71 6.07 31.32 5.71 29.2 13.44 25.68 15.42 27.43 9.04 26.04 8.68 23.83 16.41 20.42 18.28 20.42 13.28 25.61 8.31 24.55 7.32 20.42 11.3 20.42 7.34 25.61 2.38 24.55 1.38 20.42 5.36 20.42 0 18.42 0 18.42 6.05 13.7 1.38 12.65 2.37 18.42 8.03 18.42 11.99 13.7 7.32 12.65 8.31 18.42 13.97 18.42 18.85 14.4 16.54 12.23 8.44 10.84 8.82 12.67 15.53 9.19 13.57 6.99 5.47 5.57 5.84 7.4 12.56 1.73 9.37 0.71 11.08 5.53 13.79 0 15.25 0.38 16.63 7.32 14.8 10.81 16.77 5.28 18.22 5.66 19.61 12.6 17.77 17.05 20.28 13.96 22.01 5.67 19.82 5.29 21.2 12.18 23.02 8.68 24.98 0.39 22.79 0.01 24.17 6.9 25.99 1.22 29.18 2.24 30.9 7.05 28.19 5.58 33.58 7 33.95 8.84 27.18 12.33 25.21 10.87 30.61 12.28 30.98 14.05 24.21 18.42 21.71 18.42 25.17 12.4 31.08 13.4 32.09 18.42 27.18 18.42 31.11 12.4 37.02 13.4 38.03 18.42 33.13 18.42 40 20.42 40 20.42 34.1 24.57 38.03 25.56 37.02 20.42 32.09 20.42 28.15 24.57 32.09 25.56 31.08 20.42 26.14 20.42 22.28 23.94 24.2 25.85 30.99 27.26 30.62 25.77 25.19 29.3 27.17 31.17 33.95 32.56 33.59 31.07 28.16 35.92 30.9 36.94 29.18 31.46 26.1 38.01 24.39 37.64 23.03" ></polygon>
-		</symbol>
-		<symbol id='icon-screen'>
-			<title>screen</title>
-			<path  fill='gray' transform="scale(0.5)"  d="M20,24a1,1,0,1,1-1,1h0a1,1,0,0,1,1-1h0Zm20,7V0H0V31H19v7H11v2H29V38H21V31H40ZM2,28V3H38V28H2Z"></path>
-		</symbol>
-		<symbol id='icon-add'>
-			<title>add</title>
-			<path fill='black' transform="scale(0.6)" d="M20,0A20,20,0,1,0,40,20,20,20,0,0,0,20,0Zm0,38A18,18,0,1,1,38,20,18,18,0,0,1,20,38Zm1-19h8v2H21v8H19V21H11V19h8V11h2v8Z" ></path>
-		</symbol>
-	</def>
-</svg>
-
 <div ms-controller="room">
-	<div class="swiper-container swiper1">
-		<div class="swiper-wrapper">
-			<div class="swiper-slide" ms-repeat="room.roomGalleryList" data-repeat-rendered="swiper1Render">
-				<div style="width: 100%;height: 100%;background-size: cover;background-position: center;"  ms-css-background-image="'url(' + urlAPINet + el.imgUrl+')'" ms-attr-data-preview-src="urlAPINet + el.imgUrl" data-preview-group="1" ms-data-tag="el.imgDesc">
-					<!--<img style="width: 100%;height: 100%;background-size: cover;background-position: center;"  ms-css-background-image="'url('+urlAPINet + '/' + el.imgUrl+')'" ms-attr-src="urlAPINet + '/' + el.imgUrl" data-preview-src="" data-preview-group="1" ms-data-tag="el.imgDesc" style="width:100vw;height:50vh;">-->
-				</div>
-			</div>
-			<div class="swiper-pagination"></div>
-		</div>
-	</div>
-	<table width="100%" class="mui-text-center" style="height: 45px;">
-		<tr>
-			<td>
-				<svg class="svg-icon">
-					<use xlink:href="#icon-wifi"></use>
-				</svg>
-			</td>
-			<td>
-				<svg class="svg-icon">
-					<use xlink:href="#icon-huasa"></use>
-				</svg>
-			</td>
-			<td>
-				<svg class="svg-icon">
-					<use xlink:href="#icon-snow"></use>
-				</svg>
-			</td>
-			<td>
-				<svg class="svg-icon">
-					<use xlink:href="#icon-screen"></use>
-				</svg>
-			</td>
-			<td onclick="popover('facilities.html',loadUrl)">
-				<svg class="svg-icon" style="width: 24px;height: 24px;">
-					<use xlink:href="#icon-add"></use>
-				</svg>
-			</td>
-		</tr>
-	</table>
-	<div class="mui-text-center" style="background: white;padding: 0 28px;">
-		<br />
+    <div class="swiper-container swiper1" style="z-index: 0;">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide" ms-repeat="room.roomGalleryList" data-repeat-rendered="swiper1Render">
+                <div style="width: 100%;height: 100%;background-size: cover;background-position: center;"  ms-css-background-image="'url(' + urlAPINet + el.imgUrl+')'" ms-attr-data-preview-src="urlAPINet + el.imgUrl" data-preview-group="1" ms-data-tag="el.imgDesc">
+                </div>
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+    </div>
+    <section style="margin: -10px auto;">
+        <div class="hotel">
+            <div>
+                <span style="color:gold; font-size:20px;">{{room.hotel.alias}}</span>
+                <span>{{room.name}}</span><br>
+                <span>{{room.hotel.address}}</span><br>
+            </div>
+            <span class="mui-icon mui-icon-map mui-text-danger" style="font-size: 34px"></span>
+        </div>
+        <div class="facility">
+            <span ms-repeat="room.amenityList">
+                <img ms-attr-src="urlAPINet + el.ico" ms-attr-alt="el.name">{{el.name}}
+            </span>
+        </div>
+        <div class="mui-text-center" style="background: white;padding: 0 28px;">
+            <br />
+            <div class="circle photo" ms-css-background-image="'url('+urlAPINet + room.designer.portraitUrl+')'">
+                &nbsp;
+            </div>
+            <br />
+            <h4 style="display: inline;margin-right: 10px;">{{room.designer.name}}</h4><small style="color:#999;">试睡师</small>
+            <div class="small" style="margin: 20px auto;height: 40px; overflow:hidden;">{{room.designer.message}}</div>
+            <span class="small" style="position: relative;top: -39px;left: 12px;float: right;">...</span>
 
-		<div class="circle photo" ms-css-background-image="'url('+urlAPINet + room.designer.portraitUrl+')'" onclick="popover('designer.html',loadUrl)">
-			&nbsp;
-		</div>
-		<br />
-		<small onclick="popover('designer.html',loadUrl)">试睡师</small>
-		<br />
-		<h4 onclick="popover('designer.html',loadUrl)">{{room.designer.name}}</h4>
+            <button class="mui-btn" style="margin-bottom: 30px;" onclick="popover('assess.html',loadUrl)">更多信息</button>
+        </div>
+    </section>
 
-		<p class="small">{{room.designer.message}}</p>
-		<hr />
-		<h4>{{room.name}}</h4>
-		<p class="mui-text-justify">{{room.introduction}}</p>
-		<br />
-		<hr />
-		<div ms-if="assess.count==0" class="mui-content-padded mui-text-center">
-			暂无评价
-			<br><br>
-		</div>
-		<div ms-if="assess.count>0" >
-			<h4 class="mui-text-danger">{{assess.count}}条评价</h4>
-			<div class="circle photo" ms-css-background-image="'url('+urlAPINet + assess.data.user.headUrl+')'">
-				&nbsp;
-			</div>
-			<h4>{{assess.data.user.name}}</h4>
-			<h4>{{assess.data.content}}</h4>
-			<h5>2016-10-10</h5>
-			<br />
-			<button class="mui-btn mui-btn-danger" onclick="popover('assess.html',loadUrl)">查看所有</button>
-			<br /><br />
-		</div>
-	</div>
-    <div style="padding: 13px 0px;background: #eee;text-align: center;">更多房间</div>
+    <section class="time">
+        <p>入住时间</p>
+        <div class="time-panel">
+            <div style="float: left;">
+                7月12日<br><br>星期四
+            </div>
+            <div style="text-align: center;font-size: 12px;">|<br>两晚<br>|</div>
+            <div style="float: right;text-align: right;">
+                7月14日<br><br>星期六
+            </div>
+        </div>
+        <hr>
+        <div class="time-clock">
+            <span style="color: #fff;background-color: #000;font-size: 12px;padding: 4px;">教你省钱</span>
+            &nbsp;&nbsp;<span style="font-size: 12px;">越晚入住越省钱哦！</span><br>
+            <div>
+                <div>
+                    <img src="./img/icon1.jpg" alt=""><br>
+                    10:00后<br>
+                    ¥ 303
+                </div>
+                <div>
+                    <img src="./img/icon1.jpg" alt=""><br>
+                    10:00后<br>
+                    ¥ 303
+                </div>
+                <div>
+                    <img src="./img/icon1.jpg" alt=""><br>
+                    10:00后<br>
+                    ¥ 303
+                </div>
+                <div>
+                    <img src="./img/icon1.jpg" alt=""><br>
+                    10:00后<br>
+                    ¥ 303
+                </div>
+            </div>
+        </div>
+    </section>
 
+    <section class="checkin">
+        <p>入住人信息</p>
+        <div>
+            尹小冬 
+        <span class="mui-icon mui-icon-compose" style="float: right;"></span></div>
+    </section>
+    <div style="width: 95%;padding: 13px 0px;background: #eee;margin: 0 auto;margin-top:20px;">更多房间</div>
     <div class="swiper-container swiper2">
         <div class="swiper-wrapper">
             <div class="swiper-slide" ms-repeat="list" data-repeat-rendered="swiper2Render">
@@ -305,11 +358,12 @@
             <div class="swiper-pagination"></div>
         </div>
     </div>
-	<br><br><br>
 
-	<nav class="mui-bar mui-bar-tab">
-		<h4 class="mui-pull-left" style="margin: 13px;"><span class="error" style="font-weight: lighter;"><span style="font-size:24px;">{{room.minPrice?room.minPrice:room.dayPrice}}</span> 元起</span></h4>
-		<button type="button" class="mui-btn mui-btn-danger mui-pull-right" ms-click="goNext()" ms-attr-disabled="isGoNext">立即预订</button>
-	</nav>
+    <br><br><br>
+
+    <nav class="mui-bar mui-bar-tab">
+        <h4 class="mui-pull-left" style="margin: 13px;"><span class="error" style="font-weight: lighter;"><span style="font-size:24px;">{{room.minPrice?room.minPrice:room.dayPrice}}</span> 元起</span></h4>
+        <button type="button" class="mui-btn mui-btn-danger mui-pull-right" ms-click="goNext()" ms-attr-disabled="isGoNext">立即预订</button>
+    </nav>
 </div>
 <!--include "../pages/user/popover.html"-->

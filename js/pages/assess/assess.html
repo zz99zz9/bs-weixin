@@ -11,7 +11,16 @@
 	}
 </style>
 
-<div ms-controller="roomassess">
+<div ms-controller="roomassess" style="height:75vh;">
+	<div class="mui-text-center">
+		<br />
+        <div class="circle photo" ms-css-background-image="'url('+urlAPINet + designer.portraitUrl+')'">
+            &nbsp;
+        </div>
+        <br />
+        <h4 style="display: inline;margin-right: 10px;">{{designer.name}}</h4><small style="color:#999;">试睡师</small>
+        <div class="small" style="margin: 20px auto;">{{designer.message}}</div>
+	</div>
 	<div style="padding: 11px 15px">评价({{count}})</div>
 	<ul class="mui-table-view" style="background: none;">
 		<li class="mui-table-view-cell">
