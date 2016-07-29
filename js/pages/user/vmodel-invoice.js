@@ -9,7 +9,7 @@ var vmInvoiceList = avalon.define({
     list: [],
     selectedList: [],
     selectDone: function () {
-        console.log(vmInvoiceList.selectedList);
+        invoice();
     }
 });
 
@@ -83,4 +83,25 @@ function loadMore() {
             }
         }
     });
+}
+
+/**
+ * 开具发票
+ */
+function invoice() {
+    if (vmInvoiceList.selectedList.length == 0) {
+        alert('请选择要开发票的项（可多选）！');
+        return;
+    }
+    var invoiceApply = new Object();
+    invoiceApply.amount = 0;
+    invoiceApply.oids = new Array();
+    vmInvoiceList.selectedList.map(function (i) {
+        invoiceApply.amount += vmInvoiceList.list[i].needAmount;
+        invoiceApply.oids.push(vmInvoiceList.list[i].id);
+    })
+    invoiceApply.amount = round(invoiceApply.amount);
+    console.log(invoiceApply);
+    Storage.set('invoiceApply', invoiceApply);
+    location.href = 'invoice-apply.html';
 }

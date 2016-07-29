@@ -34,6 +34,8 @@ var urls = {
         deleteContact: urlAPI + '/usr/frequentContact/delete', //常用联系人删除
         //发票管理
         getInvoiceList: urlAPI + '/trd/orderInfo/invoiceList', //可以开发票的订单列表
+        //收货地址
+        saveDeliveryAddress: urlAPI + '/usr/deliveryAddress/save', //收货地址增加、修改
         //房间相关
         getRoomTypeList: urlAPI + '/res/roomType/list', //房间类型列表
         getRoomList: urlAPI + '/res/room/list', //房间列表
