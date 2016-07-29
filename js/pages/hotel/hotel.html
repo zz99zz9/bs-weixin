@@ -14,8 +14,12 @@
                 </div>
             </div>
 
-            <div class="pic-info" style="background: white;width: 100%;clear: both;">
-                <button class="expand" id="exp" ms-click="expandBtn">
+            <div class="pic-info" style="background: white;width: 100%;">
+                <button class="expand" id="exp" ms-on-tap="expand">
+                    <!-- <div style="float:left;line-height:40px;font-size:21px;">{{alias}}酒店</div>
+                    <div style="float:left;color: #000;padding-left: 4px;">Internet Hotel<br />
+                    {{name}}</div>
+                    <div style="float:right;line-height: 36px;font-size: 12px;padding-right: 18px;">更多信息</div> -->
                     <table width="100%">
                         <tr>
                             <td width="88px" >
@@ -42,9 +46,11 @@
                 <div class="text-info">
                     <!-- <p style="padding:15px">{{introduction}}</p> -->
                     <ul class="mui-table-view">
-                        <li class="mui-table-view-cell" ms-click="openNav">
-                            <h5><!-- <span style="display: inline-block;width: 18px;height: 11px;background: url('../img/no.svg') no-repeat;"></span> -->{{alias}}酒店：{{address}}</h5>
+                        <li class="mui-table-view-cell" >
+                            <a ms-on-tap="openNav(lat,lng,name,address)">
+                                <h5>{{alias}}酒店：{{address}}</h5>
                             <span class="mui-badge mui-badge-success" style="background-color:black;">&nbsp;跟我走<span class="mui-icon mui-icon-location" style="font-size:20px"></span></span>
+                            </a>
                         </li>
                         <div class="mui-table-view-divider">酒店特色</div>
                         <li class="mui-table-view-cell" ms-repeat="featureList">

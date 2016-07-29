@@ -1,7 +1,8 @@
 var hid, 
     myPosition, myLng, myLat, 
     bensue, roomType = 0,
-    isexpand = false;
+    isexpand = false,
+    isSuccess = false;
 
 hid = getParam("id");
 if(hid != "") {
@@ -23,7 +24,6 @@ if(myPosition) {
 bensue = Storage.get("bensue");
 if(bensue) {
     roomType = bensue.type || 0;
-    vmHotel.type = roomType;
 }
 
 var vmHotel = avalon.define({
@@ -45,6 +45,7 @@ var vmHotel = avalon.define({
                 hid: hid,
                 lng: myLng,
                 lat: myLat,
+                isPartTime: roomType
             },
             successCallback: function(json) {
                 if(json.status == 1) {
@@ -54,7 +55,6 @@ var vmHotel = avalon.define({
                     vmHotel.lng = json.data.lng;
                     vmHotel.lat = json.data.lat;
                     vmHotel.distance = round(json.data.distance/1000, 2);
-
                     //顶部轮播导入图片数据
                     vmHotel.galleryList = json.data.hotelGalleryList;
                     //房型数量
@@ -65,23 +65,37 @@ var vmHotel = avalon.define({
             }
         });
     },
-    expandBtn: function() {
-        var h = ($(this).parent())[0].scrollHeight;
-        event.preventDefault();
-        event.stopPropagation();
-        isexpand = !isexpand;
-        if (isexpand) {
-            $(this).parent().addClass('expanded');
-            $(".tdclass").text("收起");
-            $(this).parent().css('height', h + 'px')
-        } else {
-            $(this).parent().removeClass('expanded');
-            $(".tdclass").text("展开");
-            $(this).parent().css('height', '')
-        }
+    expand: function() {
+        stopSwipeSkip.do(function(){
+            var h = ($(".pic-info"))[0].scrollHeight;
+            isexpand = !isexpand;
+            if (isexpand) {
+                $(".pic-info").addClass('expanded');
+                $(".tdclass").text("收起");
+                $(".pic-info").css('height', h + 'px')
+            } else {
+                $(".pic-info").removeClass('expanded');
+                $(".tdclass").text("展开");
+                $(".pic-info").css('height', '')
+            }
+        });
     },
-    openNav: function() {
-        console.log('打开跟我走');
+    openNav: function(lat, lng, name, addr) {
+        stopSwipeSkip.do(function() {
+            if (isSuccess) {
+                wx.openLocation({
+                    latitude: lat, // 纬度，浮点数，范围为90 ~ -90
+                    longitude: lng, // 经度，浮点数，范围为180 ~ -180。
+                    name: name, // 位置名
+                    address: addr, // 地址详情说明
+                    scale: 26, // 地图缩放级别,整形值,范围从1~28。默认为最大
+                    infoUrl: 'ini.xin' // 在查看位置界面底部显示的超链接,可点击跳转
+                });
+            } else {
+                alert("微信接口配置注册失败，将重新注册");
+                registerWeixinConfig();
+            }
+        });
     },
     openFeature: function(str) {
         stopSwipeSkip.do(function() {
@@ -117,6 +131,7 @@ var vmHotel = avalon.define({
             url: urls.getRoomList,
             data: {
                 hid: hid,
+                isPartTime: roomType,
                 lng: myLng,
                 lat: myLat,
                 pageNo: vmHotel.pageNo,
@@ -140,9 +155,9 @@ var vmHotel = avalon.define({
             freeModeMomentumRatio: 0.4
         });
     },
-    goRoom: function(rid) {
+    goRoom: function(id) {
         stopSwipeSkip.do(function() {
-            console.log(rid);
+            location.href = "room.html?id=" + id;
         });
     }
 })
@@ -158,8 +173,10 @@ var vmBtn = avalon.define({
     }
 })
 
+vmHotel.type = roomType;
 vmHotel.getHotelDetail();
 vmHotel.getRoomList();
+registerWeixinConfig();
 
 mui.init({
     pullRefresh: {
@@ -189,6 +206,32 @@ function loadmore() {
                 mui("#pullrefresh").pullRefresh().endPullupToRefresh(false);
             } else {
                 mui("#pullrefresh").pullRefresh().endPullupToRefresh(true);
+            }
+        }
+    });
+}
+
+//注册导航接口
+function registerWeixinConfig() {
+    ajaxJsonp({
+        url: urls.weiXinConfig,
+        data: { url: window.location.href },
+        successCallback: function(json) {
+            if (json.status === 1) {
+                wx.config({
+                    debug: false,
+                    appId: json.data.appId,
+                    timestamp: json.data.timestamp,
+                    nonceStr: json.data.nonceStr,
+                    signature: json.data.signature,
+                    jsApiList: [
+                        'checkJsApi',
+                        'openLocation',
+                        'getLocation',
+                        'checkJsApi'
+                    ],
+                });
+                isSuccess = true;
             }
         }
     });
