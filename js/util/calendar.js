@@ -186,26 +186,6 @@ var vmCalendar = avalon.define({
                     vmCalendar.startTimeIndex = -1;
                     vmCalendar.startTime = "";
                     vmCalendar.nightPrice = 0;
-
-                    // //针对安卓微信中 svg 标签不识别 avalon 的 ms-class bug
-                    // $("svg").attr("class", "clock");
-                    // if (vmCalendar.todayIndex == index) {
-                    //     $("svg[id^='svg']").each(function(o) {
-                    //         if (parseInt(this.getAttribute("data-hour")) * 2 <= getHourIndex()) {
-                    //             $(this).attr("class", "clock disabled");
-                    //         }
-                    //     })
-                    // }
-
-                    // if (bookDateList && bookDateList.outIndex.indexOf(vmCalendar.startIndex) > -1) {
-                    //     $("svg[id^='svg']").each(function(o) {
-                    //         if (parseInt(this.getAttribute("data-hour")) <= 14) {
-                    //             $(this).attr("class", "clock disabled");
-                    //         }
-                    //     })
-                    // }
-                    // //向下滚动显示选择入住时间
-                    // $(window).scrollTop(190);
                 }
 
                 //是否是编辑退房时间

@@ -53,6 +53,7 @@ var vmIndex = avalon.define({
                             position: [marker.position[0], marker.position[1]],
                             offset: new AMap.Pixel(-12, -36)
                         }).on('click',function() {
+                            Storage.set("bensue", {type: vmIndex.type});
                             location.href = "hotel.html?id=" + this.B.hid;
                         });
                     });
@@ -105,7 +106,6 @@ var vmIndex = avalon.define({
     },
     openTimePanel: function() {
         stopSwipeSkip.do(function() {
-            console.log(vmIndex.type);
             if(vmIndex.type == 0) {
                 popover('./calendar.html', 1, function() {
                     $('#calendarPanel').height($(window).height() - 300);
@@ -179,6 +179,7 @@ var vmIndex = avalon.define({
     },
     goRoom: function(id) {
         stopSwipeSkip.do(function() {
+            Storage.set("bensue", {type: vmIndex.type});
             location.href = "room.html?id=" + id;
         });
     },

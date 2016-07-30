@@ -329,7 +329,7 @@ function getDates(addDayCount) {
 }
 
 function getWeekday(date) {
-    var w_array = new Array("周日", "周一", "周二", "周三", "周四", "周五", "周六")
+    var w_array = new Array("星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六")
     ,d = new Date(date.replace(/-/g, "/"));
     return w_array[d.getDay()];
 }

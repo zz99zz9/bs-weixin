@@ -277,12 +277,12 @@
     </div>
     <section style="margin: -10px auto;">
         <div class="hotel">
-            <div>
+            <div ms-on-tap="goHotel">
                 <span style="color:gold; font-size:20px;">{{room.hotel.alias}}</span>
                 <span>{{room.name}}</span><br>
                 <span>{{room.hotel.address}}</span><br>
             </div>
-            <span class="mui-icon mui-icon-map mui-text-danger" style="font-size: 34px"></span>
+            <span ms-on-tap="openNav()" class="mui-icon mui-icon-map mui-text-danger" style="font-size: 34px"></span>
         </div>
         <div class="facility">
             <span ms-repeat="room.amenityList">
@@ -305,39 +305,24 @@
 
     <section class="time">
         <p>入住时间</p>
-        <div class="time-panel">
+        <div class="time-panel" ms-on-tap="openTimePanel">
             <div style="float: left;">
-                7月12日<br><br>星期四
+                {{start|html}}
             </div>
-            <div style="text-align: center;font-size: 12px;">|<br>两晚<br>|</div>
+            <div style="text-align: center;font-size: 12px;">|<br>{{amount}}<br>|</div>
             <div style="float: right;text-align: right;">
-                7月14日<br><br>星期六
+                {{end|html}}
             </div>
         </div>
         <hr>
-        <div class="time-clock">
+        <div class="time-clock" ms-if="!type">
             <span style="color: #fff;background-color: #000;font-size: 12px;padding: 4px;">教你省钱</span>
             &nbsp;&nbsp;<span style="font-size: 12px;">越晚入住越省钱哦！</span><br>
             <div>
-                <div>
+                <div ms-repeat="roomNightDiscount">
                     <img src="./img/icon1.jpg" alt=""><br>
-                    10:00后<br>
-                    ¥ 303
-                </div>
-                <div>
-                    <img src="./img/icon1.jpg" alt=""><br>
-                    10:00后<br>
-                    ¥ 303
-                </div>
-                <div>
-                    <img src="./img/icon1.jpg" alt=""><br>
-                    10:00后<br>
-                    ¥ 303
-                </div>
-                <div>
-                    <img src="./img/icon1.jpg" alt=""><br>
-                    10:00后<br>
-                    ¥ 303
+                    {{el.startTime}}后<br>
+                    ¥ {{el.discount}}
                 </div>
             </div>
         </div>
@@ -366,4 +351,3 @@
         <button type="button" class="mui-btn mui-btn-danger mui-pull-right" ms-click="goNext()" ms-attr-disabled="isGoNext">立即预订</button>
     </nav>
 </div>
-<!--include "../pages/user/popover.html"-->
