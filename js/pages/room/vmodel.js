@@ -1,5 +1,5 @@
-var roomid, bensue, newOrder, vmRoom, vmBtn, vmRoomAssess, 
-isSuccess = false, newOrder = Storage.get("newOrder");
+var roomid, bensue, newOrder, vmRoom, vmBtn, vmRoomAssess,
+    isSuccess = false;
 
 roomid = getParam("id");
 if (roomid != "") {
@@ -12,15 +12,16 @@ if (roomid != "") {
     location.href = "index.html";
 }
 
+//用pullRefresh防止穿透
 mui.init({
     pullRefresh: {
         container: '#pullrefresh',
         down: {
-            height: 50,//可选,默认50.触发下拉刷新拖动距离,
-            auto: true,//可选,默认false.自动下拉刷新一次
-            contentdown: "下拉可以刷新",//可选，在下拉可刷新状态时，下拉刷新控件上显示的标题内容
-            contentover: "释放立即刷新",//可选，在释放可刷新状态时，下拉刷新控件上显示的标题内容
-            contentrefresh: "正在刷新...",//可选，正在刷新状态时，下拉刷新控件上显示的标题内容
+            height: 50, //可选,默认50.触发下拉刷新拖动距离,
+            auto: true, //可选,默认false.自动下拉刷新一次
+            contentdown: "下拉可以刷新", //可选，在下拉可刷新状态时，下拉刷新控件上显示的标题内容
+            contentover: "释放立即刷新", //可选，在释放可刷新状态时，下拉刷新控件上显示的标题内容
+            contentrefresh: "正在刷新...", //可选，正在刷新状态时，下拉刷新控件上显示的标题内容
             callback: reload //必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
         },
     }
@@ -32,6 +33,8 @@ vmRoom = avalon.define({
     start: '<br>请选择',
     end: '<br>请选择',
     amount: '?',
+    unit: '',
+    price: '',
     room: {
         hotel: { name: '', alias: '', address: '' },
         roomGalleryList: [],
@@ -40,6 +43,7 @@ vmRoom = avalon.define({
     },
     assess: { count: 0, data: {} },
     list: [],
+    discountIndex: 0,
     roomNightDiscount: [],
     checkinList: [],
     goHotel: function() {
@@ -78,10 +82,7 @@ vmRoom = avalon.define({
             } else {
                 vmBtn.type = "partTime";
                 popover('./partTime.html', 1, function() {
-                    $('.select-time').height($(window).height() - 260);
-
-                    select_bar = document.getElementById('select_bar');
-                    select_bar.style.width = $('#select_time').width() + 'px';
+                    loadSessionPartTime();
                 });
             }
         });
@@ -99,6 +100,7 @@ vmRoom = avalon.define({
                         if (json.status === 1) {
                             vmContactList.list = json.data.list;
 
+                            //读取本地保存
                             if (newOrder.hasOwnProperty("contact")) {
                                 vmContactList.selectedList = [];
                                 for (var i in json.data.list) {
@@ -116,6 +118,20 @@ vmRoom = avalon.define({
             });
         });
     },
+    selectDiscount: function(index) {
+        vmRoom.discountIndex = index;
+        vmRoom.price = vmRoom.roomNightDiscount[index].discount;
+        
+        newOrder.date.startTimeIndex = index;
+        Storage.set("newOrder", newOrder);
+    },
+    showTotalPrice: function(price, amount) {
+        if (isNaN(price * amount)) {
+            return '';
+        } else {
+            return price * amount;
+        }
+    },
     goRoom: function(id) {
         stopSwipeSkip.do(function() {
             location.href = "room.html?id=" + id;
@@ -125,7 +141,28 @@ vmRoom = avalon.define({
     goNext: function() {
         vmRoom.isGoNext = true;
         Storage.set("newOrder", newOrder);
-        location.href = "rooms.html?type=order";
+
+        if (vmRoom.type) {
+            if (vmPart.partTimeStart == '' || vmPart.partTimeEnd == '') {
+                mui.toast('请选择时间');
+                vmRoom.isGoNext = false;
+                return;
+            }
+        } else {
+            if (vmCalendar.starIndex == -1 || vmCalendar.endIndex == -1) {
+                mui.toast('请选择时间');
+                vmRoom.isGoNext = false;
+                return;
+            }
+        }
+
+        if (vmRoom.checkinList.length < 1) {
+            mui.toast('请选择入住人');
+            vmRoom.isGoNext = false;
+            return;
+        }
+
+        location.href = "pay.html"
     },
     swiper1Render: function() {
         var swiper1 = new Swiper('.swiper1', {
@@ -148,6 +185,70 @@ vmRoom = avalon.define({
             freeModeSticky: true,
             freeModeMomentumRatio: 0.4
         });
+    },
+    swiper3Render: function() {
+        var swiper2 = new Swiper('.swiper3', {
+            scrollbar: '.swiper-scrollbar',
+            scrollbarHide: true,
+            slidesPerView: 'auto'
+        });
+    },
+    //显示夜房的入住时间
+    showDate: function() {
+        var startObj, endObj, startIndex, endIndex;
+
+        if (vmCalendar.startIndex == -1) {
+            vmRoom.start = '<br>请选择';
+        } else {
+            startObj = vmCalendar.calendar[vmCalendar.startIndex];
+            if (startObj) {
+                startIndex = vmCalendar.startIndex;
+                vmRoom.start = startObj.month + '月' + startObj.day + '日' + '<br><br>' + getWeekday(startObj.date);
+            }
+        }
+
+        if (vmCalendar.endIndex == -1) {
+            vmRoom.end = '<br>请选择';
+        } else {
+            endObj = vmCalendar.calendar[vmCalendar.endIndex];
+            if (endObj) {
+                endIndex = vmCalendar.endIndex;
+                vmRoom.end = endObj.month + '月' + endObj.day + '日' + '<br><br>' + getWeekday(endObj.date);
+            }
+        }
+
+        if (startIndex && endIndex) {
+            vmRoom.amount = (endIndex - startIndex);
+        } else {
+            vmRoom.amount = '?';
+        }
+
+        dateDataToSession();
+    },
+    //显示时租房的入住时间
+    showPartTime: function () {
+        var start = vmPart.partTimeStart,
+            end = vmPart.partTimeEnd;
+
+        if (start) {
+            vmRoom.start = '今日<br><br>' + start;
+        } else {
+            vmRoom.start = '<br>请选择';
+        }
+
+        if (end) {
+            vmRoom.end = '今日<br><br>' + end;
+        } else {
+            vmRoom.end = '<br>请选择';
+        }
+
+        if (start && end) {
+            vmRoom.amount = vmPart.partTimeNumber / 2;
+        } else {
+            vmRoom.amount = '?';
+        }
+
+        dateDataToSession();
     }
 });
 
@@ -156,15 +257,17 @@ vmBtn = avalon.define({
     $id: 'popoverBtnOK',
     type: '', //打开的窗口
     ok: function() {
-        switch(vmBtn.type) {
+        switch (vmBtn.type) {
             case 'date':
-                getDate();
+                vmRoom.showDate();
+                saveStorage();
                 break;
             case 'partTime':
-                getPartTime();
+                vmRoom.showPartTime();
+                saveStorage();
                 break;
             case 'checkin':
-               if(vmContactList.selectDone()) {
+                if (vmContactList.selectDone()) {
                     vmRoom.checkinList = newOrder.contact;
                     break;
                 } else {
@@ -202,10 +305,26 @@ if (bensue) {
     roomType = bensue.type || 0;
 }
 vmRoom.type = roomType;
-newOrder = { room: {}, goods: [] };
+
+newOrder = Storage.get("newOrder");
+if(newOrder) {
+    //显示本地时间数据
+    if(newOrder.date) {
+        sessionToDateData();
+    } 
+
+    if(newOrder.contact && newOrder.contact.length > 0) {
+        vmRoom.checkinList = newOrder.contact;
+    }
+} else {
+    newOrder = { room: {}, hotel: {}, date: {}, contact: {} };
+}
 
 room_init();
 
+/*
+**函数声明
+*/
 function room_init() {
     //获取房间详情
     ajaxJsonp({
@@ -214,27 +333,37 @@ function room_init() {
         successCallback: function(json) {
             if (json.status === 1) {
                 vmRoom.room = json.data;
-                newOrder.room.rid = json.data.id;
-                newOrder.room.hid = json.data.hid;
-                newOrder.room.name = json.data.name;
-                newOrder.room.dayPrice = json.data.dayPrice;
-                // newOrder.room.hourPrice = json.data.hourPrice;
+                $.extend(newOrder, {
+                    room: {
+                        id: json.data.id,
+                        name: json.data.name
+                    },
+                    hotel: {
+                        id: json.data.hotel.id
+                    }
+                });
 
                 vmRoomAssess.designer = json.data.designer;
             }
         }
     });
 
-    if(!roomType) {
-     //查询房间夜房优惠价格
+    if (!roomType) {
+        //查询房间夜房优惠价格
         ajaxJsonp({
             url: urls.getRoomNightDiscount,
             data: { rid: roomid },
             successCallback: function(json) {
                 if (json.status == 1) {
                     vmRoom.roomNightDiscount = json.data;
-                    // if (newOrder.date && newOrder.date.startTimeIndex > -1)
-                    //     vmRooms.startTimeSelect(0, newOrder.date.startTimeIndex);
+
+                    //加载本地保存数据
+                    if (newOrder.date && newOrder.date.startTimeIndex > -1) {
+                        vmRoom.discountIndex = newOrder.date.startTimeIndex;
+                        vmRoom.price = json.data[newOrder.date.startTimeIndex].discount;
+                    } else {
+                        vmRoom.price = json.data[0].discount;
+                    }
                 }
             }
         });
@@ -246,7 +375,18 @@ function room_init() {
         data: { rid: roomid },
         successCallback: function(json) {
             if (json.status == 1) {
-                newOrder.room.hourPrice = json.data;
+                if(newOrder.room) {
+                    $.extend(newOrder.room, {
+                        hourPrice: json.data
+                    });
+                } else {
+                    $.extend(newOrder, {
+                        room: {
+                            hourPrice: json.data
+                        }
+                    });
+                }
+                
             }
         }
     });
@@ -288,60 +428,78 @@ function room_init() {
     registerWeixinConfig();
 }
 
-//显示夜房的入住时间
-function getDate() {
-    var startObj, endObj, startIndex, endIndex;
+function dateDataToSession() {
+    newOrder.date.startShow = vmRoom.start;
+    newOrder.date.endShow = vmRoom.end;
+    newOrder.date.amount = vmRoom.amount;
 
-    if(vmCalendar.startIndex==-1) {
-        vmRoom.start = '<br>请选择';
-    } else {
-        startObj = vmCalendar.calendar[vmCalendar.startIndex];
-        if(startObj) {
-            startIndex = vmCalendar.startIndex;
-            vmRoom.start = startObj.month + '月' + startObj.day + '日'
-                + '<br><br>' + getWeekday(startObj.date);
-        }
+    Storage.set("newOrder", newOrder);
+}
+
+function sessionToDateData() {
+    if(newOrder.date.startShow) {
+        vmRoom.start = newOrder.date.startShow;
+    } 
+    if(newOrder.date.endShow) {
+        vmRoom.end = newOrder.date.endShow;
     }
-
-    if(vmCalendar.endIndex==-1) {
-        vmRoom.end = '<br>请选择';
-    } else {
-        endObj = vmCalendar.calendar[vmCalendar.endIndex];
-        if(endObj) {
-            endIndex = vmCalendar.endIndex;
-            vmRoom.end = endObj.month + '月' + endObj.day + '日'
-                + '<br><br>' + getWeekday(endObj.date);
-        }
-    }
-
-    if(startIndex && endIndex) {
-        vmRoom.amount = (endIndex - startIndex) + '晚';
-    } else {
-        vmRoom.amount = '?';
+    if(newOrder.date.amount) {
+        vmRoom.amount = newOrder.date.amount;
     }
 }
 
-//显示时租房的入住时间
-function getPartTime() {
-    var start = vmPart.partTimeStart,
-        end = vmPart.partTimeEnd;
+//保存到本地
+function saveStorage() {
+    $.extend(newOrder.date, {
+        start: getStartTime(),
+        end: getEndTime(),
+        pay: vmRoom.type ? vmPart.partTimePay : vmRoom.price * (vmCalendar.endIndex - vmCalendar.startIndex),
+        isPartTime: vmRoom.type,
+        partTimeIndex: vmPart.partTimeIndex,
+        partTimeNumber: vmPart.partTimeNumber,
+        nightPrice: vmRoom.price,
+        startTimeIndex: vmRoom.discountIndex,
+    });
 
-    if(start) {
-        vmRoom.start = '<br>' + start;
+    Storage.set("newOrder", newOrder);
+}
+
+//获取入住时间
+function getStartTime() {
+    if (vmRoom.type) {
+        if (vmPart.partTimeStart) {
+            var today = new Date();
+            return today.getFullYear() + "-" + ((today.getMonth() + 1) < 10 ? ('0' + (today.getMonth() + 1)) : (today.getMonth() + 1)) + "-" + today.getDate() + " " + vmPart.partTimeStart;
+        } else {
+            return '';
+        }
     } else {
-        vmRoom.start = '<br>请选择';
+        return getDate(vmCalendar.startIndex);
     }
+}
 
-    if(end) {
-        vmRoom.end = '<br>' + end;
+//获取退房时间
+function getEndTime() {
+    if (vmRoom.type) {
+        if (vmPart.partTimeEnd) {
+            var today = new Date();
+            return today.getFullYear() + "-" + ((today.getMonth() + 1) < 10 ? ('0' + (today.getMonth() + 1)) : (today.getMonth() + 1)) + "-" + today.getDate() + " " + vmPart.partTimeEnd;
+        } else {
+            return '';
+        }
     } else {
-        vmRoom.end = '<br>请选择';
+        return getDate(vmCalendar.endIndex);
     }
+}
 
-    if(start && end) {
-        vmRoom.amount = vmPart.partTimeNumber/2 + '小时';
+//根据日历日期index返回时间字符串
+function getDate(index) {
+    var date;
+    if (index == -1) {
+        return "";
     } else {
-        vmRoom.amount = '?';
+        date = vmCalendar.calendar[index];
+        return date.year + '-' + (date.month < 10 ? ('0' + date.month) : date.month) + '-' + (date.day < 10 ? ('0' + date.day) : date.day);
     }
 }
 
@@ -371,9 +529,7 @@ function registerWeixinConfig() {
     });
 }
 
-/*
- * 下拉刷新
- */
+//下拉刷新
 function reload() {
     room_init();
     mui('#pullrefresh').pullRefresh().endPulldownToRefresh();

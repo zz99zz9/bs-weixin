@@ -1,5 +1,7 @@
 var positionInStorage = Storage.getLocal("position"),
     user = Storage.getLocal("user"),
+    newOrder = Storage.get("newOrder") || {date: {}},
+    bensue = Storage.get("bensue"),
     myMarker;
 
 var vmIndex = avalon.define({
@@ -116,10 +118,7 @@ var vmIndex = avalon.define({
                 });
             } else {
                 popover('./partTime.html', 1, function(){
-                    $('.select-time').height($(window).height() - 260);
-
-                    select_bar = document.getElementById('select_bar');
-                    select_bar.style.width = $('#select_time').width() + 'px';
+                    loadSessionPartTime();
                 });
             }
         });
@@ -215,6 +214,10 @@ var vmSearch = avalon.define({
         geolocation.getCurrentPosition();
     }
 });
+
+if(bensue && bensue.type) {
+    vmIndex.type = bensue.type;
+}
 
 //高德地图
 var mapObj, geolocation;

@@ -200,18 +200,6 @@ section {
     z-index: 9;
     background-color: #fff;
 }
-.facility {
-    margin: 0 auto;
-    padding: 8px;
-    white-space: nowrap;
-    overflow-x: scroll;
-    background: #aaa;
-}
-.facility img {
-    margin-right: 5px;
-    width: 30px;
-    height: 30px;
-}
 .hotel {
     margin: 0 auto;
     padding: 10px;
@@ -261,4 +249,8 @@ section {
 }
 .checkin div {
     padding: 0 0 20px 10px;
+}
+
+.discount-selected {
+    color: red;
 }

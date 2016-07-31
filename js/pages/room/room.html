@@ -1,6 +1,6 @@
-<div id="pullrefresh" class="mui-scroll-wrapper">
-    <div class="mui-scroll">
-        <div ms-controller="room">
+<div ms-controller="room">
+    <div id="pullrefresh" class="mui-scroll-wrapper">
+        <div class="mui-scroll">
             <div class="swiper-container swiper1" style="z-index: 0;">
                 <div class="swiper-wrapper">
                     <div class="swiper-slide" ms-repeat="room.roomGalleryList" data-repeat-rendered="swiper1Render">
@@ -19,11 +19,16 @@
                     </div>
                     <span ms-on-tap="openNav()" class="mui-icon mui-icon-map mui-text-danger" style="font-size: 34px"></span>
                 </div>
-                <div class="facility">
-                    <span ms-repeat="room.amenityList">
-                        <img ms-attr-src="urlAPINet + el.ico" ms-attr-alt="el.name">{{el.name}}
-                    </span>
+
+                <div class="swiper-container swiper3" style="height: 50px;">
+                    <div class="swiper-wrapper" style="padding-left: 0;">
+                        <div class="swiper-slide" ms-repeat="room.amenityList" style="background: #aaa;width: 80px;" data-repeat-rendered="swiper3Render">
+                            <img ms-attr-src="urlAPINet + el.ico" ms-attr-alt="el.name" style="width: 40px;height: 40px;">{{el.name}}
+                        </div>
+                        <div class="swiper-scrollbar"></div>
+                    </div>
                 </div>
+               
                 <div class="mui-text-center" style="background: white;padding: 0 28px;">
                     <br />
                     <div class="circle photo" ms-css-background-image="'url('+urlAPINet + room.designer.portraitUrl+')'">
@@ -44,7 +49,7 @@
                     <div style="float: left;">
                         {{start|html}}
                     </div>
-                    <div style="text-align: center;font-size: 12px;">|<br>{{amount}}<br>|</div>
+                    <div style="text-align: center;font-size: 12px;">|<br>{{amount + (type?'小时':'晚')}}<br>|</div>
                     <div style="float: right;text-align: right;">
                         {{end|html}}
                     </div>
@@ -54,7 +59,7 @@
                     <span style="color: #fff;background-color: #000;font-size: 12px;padding: 4px;">教你省钱</span>
                     &nbsp;&nbsp;<span style="font-size: 12px;">越晚入住越省钱哦！</span><br>
                     <div>
-                        <div ms-repeat="roomNightDiscount">
+                        <div ms-repeat="roomNightDiscount" ms-on-tap="selectDiscount($index)" ms-class="discount-selected:$index == discountIndex">
                             <img src="./img/icon1.jpg" alt=""><br>
                             {{el.startTime}}:00后<br>
                             ¥ {{el.discount}}
@@ -69,6 +74,7 @@
                     {{el.name}}
                 </div>
             </section>
+
             <div style="width: 95%;padding: 13px 0px;background: #eee;margin: 0 auto;margin-top:20px;">更多房间</div>
             <div class="swiper-container swiper2">
                 <div class="swiper-wrapper">
@@ -80,11 +86,13 @@
             </div>
 
             <br><br><br>
-
-            <nav class="mui-bar mui-bar-tab">
-                <h4 class="mui-pull-left" style="margin: 13px;"><span class="error" style="font-weight: lighter;"><span style="font-size:24px;">{{room.minPrice?room.minPrice:room.dayPrice}}</span> 元起</span></h4>
-                <button type="button" class="mui-btn mui-btn-danger mui-pull-right" ms-click="goNext()" ms-attr-disabled="isGoNext">立即预订</button>
-            </nav>
         </div>
     </div>
+
+     <nav class="mui-bar mui-bar-tab">
+        <h4 class="mui-pull-left" style="margin: 13px;">
+            <span class="error" style="font-weight: lighter;"><span style="font-size:24px;">{{showTotalPrice(price, amount)}}</span></span>
+        </h4>
+        <button type="button" class="mui-btn mui-btn-danger mui-pull-right" ms-click="goNext" ms-attr-disabled="isGoNext">立即预订</button>
+    </nav>
 </div>

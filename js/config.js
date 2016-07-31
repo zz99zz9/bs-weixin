@@ -491,3 +491,24 @@ function getDateByDays(date,days){
     if (day < 10) day = "0" + day;
     return year + "-" + month + "-" + day;
 }
+
+function loadSessionPartTime() {
+    var index, number;
+    $('.select-time').height($(window).height() - 260);
+
+    select_bar = document.getElementById('select_bar');
+    select_bar.style.width = $('#select_time').width() + 'px';
+
+    if (newOrder.date.partTimeIndex && newOrder.date.partTimeIndex >= 0) {
+        index = newOrder.date.partTimeIndex;
+        number = newOrder.date.partTimeNumber;
+
+        vmPart.partTimeNumber = number;
+        vmPart.partTimeIndex = index;
+        
+        vmPart.selectTime(newOrder.date.partTimeIndex);
+
+        select_bar.style.top = 21 * (vmPart.partTimeIndex - vmPart.minIndex + 1) + 'px';
+        select_bar.style.height = 21 * vmPart.partTimeNumber + 'px';
+    }
+}
