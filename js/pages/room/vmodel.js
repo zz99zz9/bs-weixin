@@ -1,4 +1,5 @@
-var roomid, bensue, newOrder, vmRoom, vmBtn, vmRoomAssess, isSuccess = false;
+var roomid, bensue, newOrder, vmRoom, vmBtn, vmRoomAssess, 
+isSuccess = false, newOrder = Storage.get("newOrder");
 
 roomid = getParam("id");
 if (roomid != "") {
@@ -10,6 +11,20 @@ if (roomid != "") {
 } else {
     location.href = "index.html";
 }
+
+mui.init({
+    pullRefresh: {
+        container: '#pullrefresh',
+        down: {
+            height: 50,//可选,默认50.触发下拉刷新拖动距离,
+            auto: true,//可选,默认false.自动下拉刷新一次
+            contentdown: "下拉可以刷新",//可选，在下拉可刷新状态时，下拉刷新控件上显示的标题内容
+            contentover: "释放立即刷新",//可选，在释放可刷新状态时，下拉刷新控件上显示的标题内容
+            contentrefresh: "正在刷新...",//可选，正在刷新状态时，下拉刷新控件上显示的标题内容
+            callback: reload //必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
+        },
+    }
+});
 
 vmRoom = avalon.define({
     $id: "room",
@@ -26,14 +41,14 @@ vmRoom = avalon.define({
     assess: { count: 0, data: {} },
     list: [],
     roomNightDiscount: [],
+    checkinList: [],
     goHotel: function() {
         stopSwipeSkip.do(function() {
             location.href = "hotel.html?id=" + vmRoom.room.hotel.id;
         });
     },
-    openNav: function(lat, lng, name, addr) {
+    openNav: function() {
         stopSwipeSkip.do(function() {
-
             if (isSuccess) {
                 wx.openLocation({
                     latitude: vmRoom.room.hotel.lat, // 纬度，浮点数，范围为90 ~ -90
@@ -69,6 +84,36 @@ vmRoom = avalon.define({
                     select_bar.style.width = $('#select_time').width() + 'px';
                 });
             }
+        });
+    },
+    openCheckin: function() {
+        stopSwipeSkip.do(function() {
+            vmBtn.type = "checkin";
+            popover('./contactList.html', 1, function() {
+
+                //获取联系人列表
+                ajaxJsonp({
+                    url: urls.getContactList,
+                    data: { pageSize: 10 },
+                    successCallback: function(json) {
+                        if (json.status === 1) {
+                            vmContactList.list = json.data.list;
+
+                            if (newOrder.hasOwnProperty("contact")) {
+                                vmContactList.selectedList = [];
+                                for (var i in json.data.list) {
+                                    //绑定本地储存已选联系人
+                                    newOrder.contact.map(function(c) {
+                                        if (c.id == json.data.list[i].id) {
+                                            vmContactList.selectedList.push(parseInt(i));
+                                        }
+                                    });
+                                }
+                            }
+                        }
+                    }
+                });
+            });
         });
     },
     goRoom: function(id) {
@@ -118,6 +163,13 @@ vmBtn = avalon.define({
             case 'partTime':
                 getPartTime();
                 break;
+            case 'checkin':
+               if(vmContactList.selectDone()) {
+                    vmRoom.checkinList = newOrder.contact;
+                    break;
+                } else {
+                    return;
+                }
         }
         $('#pop-text').empty();
 
@@ -152,85 +204,89 @@ if (bensue) {
 vmRoom.type = roomType;
 newOrder = { room: {}, goods: [] };
 
-//获取房间详情
-ajaxJsonp({
-    url: urls.getRoomDetail,
-    data: { rid: roomid },
-    successCallback: function(json) {
-        if (json.status === 1) {
-            vmRoom.room = json.data;
-            newOrder.room.rid = json.data.id;
-            newOrder.room.hid = json.data.hid;
-            newOrder.room.name = json.data.name;
-            newOrder.room.dayPrice = json.data.dayPrice;
-            // newOrder.room.hourPrice = json.data.hourPrice;
+room_init();
 
-            vmRoomAssess.designer = json.data.designer;
-        }
-    }
-});
-
-if(!roomType) {
- //查询房间夜房优惠价格
+function room_init() {
+    //获取房间详情
     ajaxJsonp({
-        url: urls.getRoomNightDiscount,
+        url: urls.getRoomDetail,
         data: { rid: roomid },
         successCallback: function(json) {
-            if (json.status == 1) {
-                vmRoom.roomNightDiscount = json.data;
-                // if (newOrder.date && newOrder.date.startTimeIndex > -1)
-                //     vmRooms.startTimeSelect(0, newOrder.date.startTimeIndex);
+            if (json.status === 1) {
+                vmRoom.room = json.data;
+                newOrder.room.rid = json.data.id;
+                newOrder.room.hid = json.data.hid;
+                newOrder.room.name = json.data.name;
+                newOrder.room.dayPrice = json.data.dayPrice;
+                // newOrder.room.hourPrice = json.data.hourPrice;
+
+                vmRoomAssess.designer = json.data.designer;
             }
         }
     });
+
+    if(!roomType) {
+     //查询房间夜房优惠价格
+        ajaxJsonp({
+            url: urls.getRoomNightDiscount,
+            data: { rid: roomid },
+            successCallback: function(json) {
+                if (json.status == 1) {
+                    vmRoom.roomNightDiscount = json.data;
+                    // if (newOrder.date && newOrder.date.startTimeIndex > -1)
+                    //     vmRooms.startTimeSelect(0, newOrder.date.startTimeIndex);
+                }
+            }
+        });
+    }
+
+    //获取房间时租房价格列表
+    ajaxJsonp({
+        url: urls.getRoomPartTimePrice,
+        data: { rid: roomid },
+        successCallback: function(json) {
+            if (json.status == 1) {
+                newOrder.room.hourPrice = json.data;
+            }
+        }
+    });
+
+    //更多房间
+    ajaxJsonp({
+        url: urls.getRoomList,
+        //data: {url:window.location.href},
+        successCallback: function(json) {
+            if (json.status === 1) {
+                vmRoom.list = json.data.list;
+            }
+        }
+    });
+
+    //获取评论
+    ajaxJsonp({
+        url: urls.getRoomAssess,
+        data: { rid: roomid, pageSize: 20 },
+        successCallback: function(json) {
+            if (json.status === 1) {
+                vmRoomAssess.list = json.data.list;
+                vmRoomAssess.count = json.data.count;
+
+                if (json.data.score) {
+                    vmRoomAssess.s1 = json.data.score.score1;
+                    vmRoomAssess.s2 = json.data.score.score2;
+                    vmRoomAssess.s3 = json.data.score.score3;
+                }
+
+                vmRoom.assess.count = json.data.count;
+                if (json.data.list.length > 0) {
+                    vmRoom.assess.data = json.data.list[0];
+                }
+            }
+        }
+    });
+
+    registerWeixinConfig();
 }
-
-//获取房间时租房价格列表
-ajaxJsonp({
-    url: urls.getRoomPartTimePrice,
-    data: { rid: roomid },
-    successCallback: function(json) {
-        if (json.status == 1) {
-            newOrder.room.hourPrice = json.data;
-        }
-    }
-});
-
-//更多房间
-ajaxJsonp({
-    url: urls.getRoomList,
-    //data: {url:window.location.href},
-    successCallback: function(json) {
-        if (json.status === 1) {
-            vmRoom.list = json.data.list;
-        }
-    }
-});
-
-//获取评论
-ajaxJsonp({
-    url: urls.getRoomAssess,
-    data: { rid: roomid, pageSize: 20 },
-    successCallback: function(json) {
-        if (json.status === 1) {
-            vmRoomAssess.list = json.data.list;
-            vmRoomAssess.count = json.data.count;
-
-            if (json.data.score) {
-                vmRoomAssess.s1 = json.data.score.score1;
-                vmRoomAssess.s2 = json.data.score.score2;
-                vmRoomAssess.s3 = json.data.score.score3;
-            }
-
-            vmRoom.assess.count = json.data.count;
-            if (json.data.list.length > 0) {
-                vmRoom.assess.data = json.data.list[0];
-            }
-        }
-    }
-});
-
-registerWeixinConfig();
 
 //显示夜房的入住时间
 function getDate() {
@@ -313,4 +369,13 @@ function registerWeixinConfig() {
             }
         }
     });
+}
+
+/*
+ * 下拉刷新
+ */
+function reload() {
+    room_init();
+    mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+    mui('#pullrefresh').pullRefresh().refresh(true);
 }
