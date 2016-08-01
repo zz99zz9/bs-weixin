@@ -1101,6 +1101,28 @@ gulp.task('invoice-list', function() {
     process.stdout.write('\x07');
 });
 
+//申请发票
+gulp.task('invoice-apply', function() {
+    gulp.src('./js/layout/shell.html')
+        .pipe(replace({ regex: '<!-- pop -->', replace: '<!--include "../pages/user/popover.html"-->' }))
+        .pipe(replace({ regex: '<!-- js -->', replace: '<script src="js/pages/user/vmodel-invoice-apply.js"></script>' }))
+        .pipe(replace({ regex: '<!-- content -->', replace: '<!--include "../pages/user/invoice-apply.html"-->' }))
+        .pipe(replace({ regex: '<h1 id="headerReplace" class="mui-title"></h1>', replace: '<h1 id="headerReplace" class="mui-title">申请发票</h1>' }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(replace({
+            regex: '<button class="popover-closeButton"></button>',
+            replace: '<!--include "../pages/room/pop-btn.html"-->'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('invoice-apply.html'))
+        .pipe(gulp.dest('./dist'));
+    process.stdout.write('\x07');
+});
+
 gulp.task('txt-copy', function() {
     gulp.src('./js/pages/invite/rule.html').pipe(gulp.dest('./dist'));
     gulp.src('./js/pages/invite/oldInvite.html').pipe(gulp.dest('./dist'));
@@ -1123,6 +1145,7 @@ gulp.task('txt-copy', function() {
         .pipe(gulp.dest('./dist'));
     gulp.src('./js/util/contactList.html').pipe(gulp.dest('./dist'));
     gulp.src('./js/pages/user/frequent-contact-add.html').pipe(gulp.dest('./dist'));
+    gulp.src('./js/pages/user/delivery-address-add.html').pipe(gulp.dest('./dist'));
 })
 
 gulp.task('copy', ['sass', 'minifycss'], function() {
@@ -1199,7 +1222,8 @@ gulp.task('all', [
     'txt-copy',
     'copy',
     'frequent-contact-list',
-    'invoice-list'
+    'invoice-list',
+    'invoice-apply'
 ]);
 
 gulp.task('watchJS', function() {

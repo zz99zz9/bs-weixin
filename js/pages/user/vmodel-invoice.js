@@ -9,7 +9,7 @@ var vmInvoiceList = avalon.define({
     list: [],
     selectedList: [],
     selectDone: function () {
-        console.log(vmInvoiceList.selectedList);
+        invoice();
     }
 });
 
@@ -26,7 +26,7 @@ mui.init({
         },
         up: {
             height: 50,//可选.默认50.触发上拉加载拖动距离
-            auto: true,//可选,默认false.自动上拉加载一次
+            auto: false,//可选,默认false.自动上拉加载一次
             contentrefresh: "正在加载...",//可选，正在加载状态时，上拉加载控件上显示的标题内容
             contentnomore: '没有更多数据了',//可选，请求完毕若没有更多数据时显示的提醒内容；
             callback: loadMore //必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
@@ -51,7 +51,12 @@ function reload() {
                 vmInvoiceList.list = json.data.list;
                 vmInvoiceList.selectedList = [];
                 mui('#refreshContainer').pullRefresh().endPulldownToRefresh();
-                mui('#refreshContainer').pullRefresh().refresh(true);
+                if (vmInvoiceList.pageNo > json.data.pageCount) {
+                    mui("#refreshContainer").pullRefresh().endPullupToRefresh(true);
+                } else {
+                    mui("#refreshContainer").pullRefresh().endPullupToRefresh(false);
+                    mui('#refreshContainer').pullRefresh().refresh(true);
+                }
             } else {
                 alert(json.message);
             }
@@ -73,7 +78,7 @@ function loadMore() {
             if (json.status === 1) {
                 vmInvoiceList.pageNo++;
                 vmInvoiceList.list.push.apply(vmInvoiceList.list, json.data.list);
-                if (vmInvoiceList.pageNo >= json.data.pageCount) {
+                if (vmInvoiceList.pageNo > json.data.pageCount) {
                     mui("#refreshContainer").pullRefresh().endPullupToRefresh(true);
                 } else {
                     mui("#refreshContainer").pullRefresh().endPullupToRefresh(false);
@@ -83,4 +88,24 @@ function loadMore() {
             }
         }
     });
+}
+
+/**
+ * 开具发票
+ */
+function invoice() {
+    if (vmInvoiceList.selectedList.length == 0) {
+        alert('请选择要开发票的项（可多选）！');
+        return;
+    }
+    var invoiceApply = {};
+    invoiceApply.amount = 0;
+    invoiceApply.oids = [];
+    vmInvoiceList.selectedList.map(function (i) {
+        invoiceApply.amount += vmInvoiceList.list[i].needAmount;
+        invoiceApply.oids.push(vmInvoiceList.list[i].id);
+    })
+    invoiceApply.amount = round(invoiceApply.amount);
+    Storage.set('invoiceApply', invoiceApply);
+    location.href = 'invoice-apply.html';
 }

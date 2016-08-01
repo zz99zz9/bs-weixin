@@ -1,0 +1,128 @@
+<style>
+    h4 {
+        font-weight: normal;
+    }
+
+    h5 {
+        color: black;
+    }
+
+    .flex0 {
+        width: 88px;
+    }
+
+    .flex0,
+    .flex1 {
+        font-size: 15px;
+        /*color: gray;*/
+    }
+
+    .mui-table-view {
+        width: 90%;
+        margin: auto;
+    }
+    .money{
+        color: red;
+    }
+    .selected:before {
+        color: #dd524d !important;
+    }
+    .radio-row{
+        width: 100%;
+    }
+
+    .btn{
+        width:100% !important;
+    }
+
+    .rowHead-2{
+        margin-top: 0px !important;
+    }
+
+    label{
+        font-size: 15px;
+    }
+</style>
+<div ms-controller="invoiceApply" style="padding-bottom: 55px">
+    <div class="mui-table-view">
+        <div class="rowHead">
+            <img src="img/tag1.jpg"/>发票金额
+        </div>
+        <div class="mui-table-view-cell">
+            <div class="display-flex">
+                <h5 class="flex0" style="-webkit-box-pack: justify;">合计</h5>
+                <h5 class="flex1 money">￥{{amount}}</h5>
+            </div>
+        </div>
+    </div>
+    <div class="mui-table-view">
+        <div class="rowHead rowHead-2">
+            <img src="img/tag1.jpg"/>发票抬头
+        </div>
+        <div class="mui-table-view-cell">
+            <div class="display-flex">
+                <div class="mui-input-row mui-radio">
+                    <input name="invoiceType" type="radio" ms-duplex-string="invoiceType" value="1" class="selected" checked>
+                    <label>个人</label>
+                </div>
+                <div class="mui-input-row mui-radio">
+                    <input name="invoiceType" type="radio" ms-duplex-string="invoiceType" value="2" class="selected">
+                    <label>公司</label>
+                </div>
+            </div>
+            <div ms-if="invoiceType == 2">
+                <input type="text" class="mui-input-clear" placeholder="请输入公司抬头">
+            </div>
+        </div>
+    </div>
+    <div class="mui-table-view">
+        <div class="rowHead">
+            <img src="img/tag1.jpg"/>收件人
+        </div>
+        <div class="mui-table-view-cell">
+            <div class="display-flex">
+                <h5 class="flex0" style="-webkit-box-pack: justify;">{{name}}</h5>
+                <h5 class="flex1">{{mobile}}</h5>
+            </div>
+            <h5 class="flex1">{{fullAddress}}</h5>
+        </div>
+        <div class="mui-table-view-cell mui-text-center">
+            <a href="#" ms-click="openDeliveryAddress()" style="color: #dd524d;"><span class="mui-icon mui-icon-plus"></span> 添加收货地址</a>
+        </div>
+    </div>
+    <div class="mui-table-view">
+        <div class="rowHead rowHead-2">
+            <img src="img/tag1.jpg"/>快递费用
+        </div>
+        <div class="mui-table-view-cell">
+            <div class="display-flex">
+                <h5 class="flex0" style="-webkit-box-pack: justify;">合计</h5>
+                <h5 class="flex1 money">￥10</h5>
+            </div>
+        </div>
+    </div>
+    <div class="mui-table-view">
+        <div class="rowHead">
+            <img src="img/tag1.jpg"/>支付方式
+        </div>
+        <div class="mui-table-view-cell">
+            <div class="display-flex">
+                <div class="mui-input-row mui-radio radio-row">
+                    <input name="payType" type="radio" ms-duplex-string="payType" value="2" class="selected">
+                    <label>微信支付</label>
+                </div>
+            </div>
+        </div>
+        <div class="mui-table-view-cell">
+            <div class="display-flex">
+                <div class="mui-input-row mui-radio radio-row">
+                    <input name="payType" type="radio" ms-duplex-string="payType" value="1" class="selected">
+                    <label>支付宝</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <nav class="mui-bar mui-bar-tab" style="padding: 10px;">
+        <button type="button" class="mui-btn mui-btn-danger mui-pull-right btn" ms-click="toPay()">支付</button>
+    </nav>
+</div>
