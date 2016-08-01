@@ -2,7 +2,7 @@
     <div class="distance">{{round(el.distance/1000,1)}}KM</div>
     <a href="###">
         <div ms-css-background-image="url({{urlAPINet + el.coverUrl}})">
-            <label>￥{{el.minPrice?el.minPrice:el.dayPrice}}
+            <label>￥{{type?(el.minPrice*6):el.minPrice}}
                 <span>{{type==1?"3小时":"晚起"}}</span>
             </label>
             <span class="roomtype">{{el.roomType.name}}</span>

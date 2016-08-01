@@ -183,7 +183,6 @@ var bookDateList,
                             vmCalendar.startIndex = index;
                         }
 
-                        vmCalendar.startTimeIndex = -1;
                         vmCalendar.startTime = "";
                         vmCalendar.nightPrice = 0;
                     }
@@ -222,16 +221,15 @@ var bookDateList,
                 }
             });
         },
-        startTimeIndex: -1, //夜房入住时间段序号
         startTime: "", //夜房入住时间, 格式: 08:00
         nightPrice: 0, //根据入住时间确定的夜房价格
     });
 
 //先读取本地session
-if(newOrder && newOrder.date) {
-    if (newOrder.date.startIndex > -1) {
-        vmCalendar.startIndex = newOrder.date.startIndex;
-        vmCalendar.endIndex = newOrder.date.endIndex;
+if(newOrder && newOrder.day) {
+    if (newOrder.day.startIndex > -1) {
+        vmCalendar.startIndex = newOrder.day.startIndex;
+        vmCalendar.endIndex = newOrder.day.endIndex;
     }
 }
 
@@ -350,7 +348,7 @@ vmCalendar.$watch('startIndex',function(a){
         amount = '?';
     }
 
-    $.extend(newOrder.date, {
+    $.extend(newOrder.day, {
         startIndex: a,
         startShow: startShow,
         amount: amount
@@ -377,7 +375,7 @@ vmCalendar.$watch('endIndex',function(a){
         amount = '?';
     }
 
-    $.extend(newOrder.date, {
+    $.extend(newOrder.day, {
         endIndex: a,
         endShow: endShow,
         amount: amount

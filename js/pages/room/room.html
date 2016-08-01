@@ -37,7 +37,7 @@
                     <br />
                     <h4 style="display: inline;margin-right: 10px;">{{room.designer.name}}</h4><small style="color:#999;">试睡师</small>
                     <div class="small" style="margin: 20px auto;height: 40px; overflow:hidden;">{{room.designer.message}}</div>
-                    <span class="small" style="position: relative;top: -39px;left: 12px;float: right;">...</span>
+                    <span class="small" style="position: relative;top: -38px;left: 8px;float: right;">...</span>
 
                     <button class="mui-btn" style="margin-bottom: 30px;" onclick="popover('assess.html',loadUrl)">更多信息</button>
                 </div>
@@ -59,7 +59,7 @@
                     <span style="color: #fff;background-color: #000;font-size: 12px;padding: 4px;">教你省钱</span>
                     &nbsp;&nbsp;<span style="font-size: 12px;">越晚入住越省钱哦！</span><br>
                     <div>
-                        <div ms-repeat="roomNightDiscount" ms-on-tap="selectDiscount($index)" ms-class="discount-selected:$index == discountIndex">
+                        <div ms-repeat="roomNightDiscount" ms-on-tap="selectDiscount($index)" ms-class="discount-selected:$index == startTimeIndex">
                             <img src="./img/icon1.jpg" alt=""><br>
                             {{el.startTime}}:00后<br>
                             ¥ {{el.discount}}

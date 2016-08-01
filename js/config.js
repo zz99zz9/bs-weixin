@@ -499,16 +499,55 @@ function loadSessionPartTime() {
     select_bar = document.getElementById('select_bar');
     select_bar.style.width = $('#select_time').width() + 'px';
 
-    if (newOrder.date.partTimeIndex && newOrder.date.partTimeIndex >= 0) {
-        index = newOrder.date.partTimeIndex;
-        number = newOrder.date.partTimeNumber;
+    if (newOrder.partTime.partTimeIndex && newOrder.partTime.partTimeIndex >= 0) {
+        index = newOrder.partTime.partTimeIndex;
+        number = newOrder.partTime.partTimeNumber;
 
         vmPart.partTimeNumber = number;
         vmPart.partTimeIndex = index;
         
-        vmPart.selectTime(newOrder.date.partTimeIndex);
+        vmPart.selectTime(newOrder.partTime.partTimeIndex);
 
         select_bar.style.top = 21 * (vmPart.partTimeIndex - vmPart.minIndex + 1) + 'px';
         select_bar.style.height = 21 * vmPart.partTimeNumber + 'px';
+    }
+}
+
+//获取入住时间
+function getStartTime(type) {
+    if (type) {
+        if (vmPart.partTimeStart) {
+            var today = new Date();
+            return today.getFullYear() + "-" + ((today.getMonth() + 1) < 10 ? ('0' + (today.getMonth() + 1)) : (today.getMonth() + 1)) + "-" + today.getDate() + " " + vmPart.partTimeStart;
+        } else {
+            return '';
+        }
+    } else {
+        return getDate(vmCalendar.startIndex);
+    }
+}
+
+//获取退房时间
+function getEndTime(type) {
+    if (type) {
+        if (vmPart.partTimeEnd) {
+            var today = new Date();
+            return today.getFullYear() + "-" + ((today.getMonth() + 1) < 10 ? ('0' + (today.getMonth() + 1)) : (today.getMonth() + 1)) + "-" + today.getDate() + " " + vmPart.partTimeEnd;
+        } else {
+            return '';
+        }
+    } else {
+        return getDate(vmCalendar.endIndex);
+    }
+}
+
+//根据日历日期index返回时间字符串
+function getDate(index) {
+    var date;
+    if (index == -1) {
+        return "";
+    } else {
+        date = vmCalendar.calendar[index];
+        return date.year + '-' + (date.month < 10 ? ('0' + date.month) : date.month) + '-' + (date.day < 10 ? ('0' + date.day) : date.day);
     }
 }
