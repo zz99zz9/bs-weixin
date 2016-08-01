@@ -331,7 +331,7 @@ function getDates(addDayCount) {
 }
 
 function getWeekday(date) {
-    var w_array = new Array("周日", "周一", "周二", "周三", "周四", "周五", "周六")
+    var w_array = new Array("星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六")
     ,d = new Date(date.replace(/-/g, "/"));
     return w_array[d.getDay()];
 }
@@ -492,4 +492,25 @@ function getDateByDays(date,days){
     if (month < 10) month = "0" + month;
     if (day < 10) day = "0" + day;
     return year + "-" + month + "-" + day;
+}
+
+function loadSessionPartTime() {
+    var index, number;
+    $('.select-time').height($(window).height() - 260);
+
+    select_bar = document.getElementById('select_bar');
+    select_bar.style.width = $('#select_time').width() + 'px';
+
+    if (newOrder.date.partTimeIndex && newOrder.date.partTimeIndex >= 0) {
+        index = newOrder.date.partTimeIndex;
+        number = newOrder.date.partTimeNumber;
+
+        vmPart.partTimeNumber = number;
+        vmPart.partTimeIndex = index;
+        
+        vmPart.selectTime(newOrder.date.partTimeIndex);
+
+        select_bar.style.top = 21 * (vmPart.partTimeIndex - vmPart.minIndex + 1) + 'px';
+        select_bar.style.height = 21 * vmPart.partTimeNumber + 'px';
+    }
 }

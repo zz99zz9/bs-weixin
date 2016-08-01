@@ -1,3 +1,4 @@
+var tapCount = 0; 
 //时租房时间选择
 var vmPart = avalon.define({
     $id: "partTime",
@@ -11,7 +12,7 @@ var vmPart = avalon.define({
     minIndex: 16,
     maxIndex: 40,
     partTimeIndex: 0, //时租房开始序号
-    partTimeNumber: 4, //时租房数列（半小时1个单位）
+    partTimeNumber: 6, //时租房数列（半小时1个单位）
     partTimeStart: "", //时租房开始时间
     partTimeEnd: "", //时租房结束时间
     timeStatus: "000000000000000000000000000000000000000000000000", //默认都可以选
@@ -20,7 +21,7 @@ var vmPart = avalon.define({
     partTimePay: 0, //时租房费用
     selectTime: function(index) {
         tapCount++;
-        if (tapCount > 1) {
+        if (tapCount < 2) {
             //时租房订房开始时间受当前时间影响
             var hourIndex = getHourIndex();
             if (index <= hourIndex)
@@ -31,7 +32,7 @@ var vmPart = avalon.define({
                 vmPart.partTimeNumber = vmPart.maxIndex - index;
             }
 
-            if (index >= vmPart.minIndex && (index <= (vmPart.maxIndex - 4)) && vmPart.partTimeNumber >= 4) {
+            if (index >= vmPart.minIndex && (index <= (vmPart.maxIndex - 6)) && vmPart.partTimeNumber >= 6) {
                 vmPart.partTimeIndex = index;
 
                 select_bar.style.top = this.offsetTop + 'px';
@@ -51,7 +52,7 @@ var vmPart = avalon.define({
                 setPartTime(vmPart.partTimeIndex, vmPart.partTimeNumber);
             } else {
                 vmPart.partTimeIndex = 0;
-                vmPart.partTimeNumber = 4;
+                vmPart.partTimeNumber = 6;
                 vmPart.partTimeStart = "";
                 vmPart.partTimeEnd = "";
                 vmPart.partTimePay = 0;
@@ -73,7 +74,7 @@ var vmPart = avalon.define({
         }
     },
     minusTime: function() {
-        if (vmPart.partTimeNumber > 4) {
+        if (vmPart.partTimeNumber > 6) {
             vmPart.partTimeNumber--;
 
             select_bar.style.height = select_bar.offsetHeight - 21 + 'px';
@@ -181,3 +182,69 @@ function getHourIndex() {
 }
 
 vmPart.timeList = getTimeList(vmPart.timeStatus);
+
+vmPart.$watch("partTimeIndex", function(a) {
+    var startShow, endShow, amount,
+        start = vmPart.partTimeStart,
+        end = vmPart.partTimeEnd;
+
+    if (start) {
+        startShow = '今日<br><br>' + start;
+    } else {
+        startShow = '<br>请选择';
+    }
+
+    if (end) {
+        endShow = '今日<br><br>' + end;
+    } else {
+        endShow = '<br>请选择';
+    }
+
+    if (start && end) {
+        amount = vmPart.partTimeNumber / 2;
+    } else {
+        amount = '?';
+    }
+
+    $.extend(newOrder.date, {
+        partTimeIndex: a,
+        partTimeNumber: vmPart.partTimeNumber,
+        startShow: startShow,
+        endShow: endShow,
+        amount: amount
+    });
+    Storage.set("newOrder", newOrder);
+});
+
+vmPart.$watch("partTimeNumber", function(a) {
+    var startShow, endShow, amount,
+        start = vmPart.partTimeStart,
+        end = vmPart.partTimeEnd;
+
+    if (start) {
+        startShow = '今日<br><br>' + start;
+    } else {
+        startShow = '<br>请选择';
+    }
+
+    if (end) {
+        endShow = '今日<br><br>' + end;
+    } else {
+        endShow = '<br>请选择';
+    }
+
+    if (start && end) {
+        amount = vmPart.partTimeNumber / 2;
+    } else {
+        amount = '?';
+    }
+
+    $.extend(newOrder.date, {
+        partTimeIndex: vmPart.partTimeIndex,
+        partTimeNumber: a,
+        startShow: startShow,
+        endShow: endShow,
+        amount: amount
+    });
+    Storage.set("newOrder", newOrder);
+});

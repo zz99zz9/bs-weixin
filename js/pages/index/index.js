@@ -1,5 +1,7 @@
 var positionInStorage = Storage.getLocal("position"),
     user = Storage.getLocal("user"),
+    newOrder = Storage.get("newOrder") || {date: {}},
+    bensue = Storage.get("bensue"),
     myMarker;
 
 var vmIndex = avalon.define({
@@ -53,6 +55,7 @@ var vmIndex = avalon.define({
                             position: [marker.position[0], marker.position[1]],
                             offset: new AMap.Pixel(-12, -36)
                         }).on('click',function() {
+                            Storage.set("bensue", {type: vmIndex.type});
                             location.href = "hotel.html?id=" + this.B.hid;
                         });
                     });
@@ -105,7 +108,6 @@ var vmIndex = avalon.define({
     },
     openTimePanel: function() {
         stopSwipeSkip.do(function() {
-            console.log(vmIndex.type);
             if(vmIndex.type == 0) {
                 popover('./calendar.html', 1, function() {
                     $('#calendarPanel').height($(window).height() - 300);
@@ -116,10 +118,7 @@ var vmIndex = avalon.define({
                 });
             } else {
                 popover('./partTime.html', 1, function(){
-                    $('.select-time').height($(window).height() - 260);
-
-                    select_bar = document.getElementById('select_bar');
-                    select_bar.style.width = $('#select_time').width() + 'px';
+                    loadSessionPartTime();
                 });
             }
         });
@@ -179,6 +178,7 @@ var vmIndex = avalon.define({
     },
     goRoom: function(id) {
         stopSwipeSkip.do(function() {
+            Storage.set("bensue", {type: vmIndex.type});
             location.href = "room.html?id=" + id;
         });
     },
@@ -214,6 +214,10 @@ var vmSearch = avalon.define({
         geolocation.getCurrentPosition();
     }
 });
+
+if(bensue && bensue.type) {
+    vmIndex.type = bensue.type;
+}
 
 //高德地图
 var mapObj, geolocation;

@@ -75,14 +75,20 @@ gulp.task('hotel', function() {
 //房间页面
 gulp.task('room', function() {
     gulp.src('./js/layout/shell.html')
-        .pipe(replace({ regex: '<!-- pop -->', replace: '<!--include "../util/pop.html"-->' }))
-        .pipe(replace({ regex: '<!-- css -->', replace: '<link rel="stylesheet" href="css/swiper.min.css">' }))
-        .pipe(replace({ regex: '<!-- js -->', replace: '<script src="js/lib/mui.zoom.js"></script>\n<script src="js/lib/mui.previewimage.js"></script>\n<script src="js/lib/swiper.min.js"></script>\n<script src="js/pages/room/vmodel.js"></script>' }))
+        .pipe(replace({ regex: '<!-- css -->', replace: '<link rel="stylesheet" href="css/swiper.min.css">\n<link rel="stylesheet" href="css/room.css">' }))
         .pipe(replace({ regex: '<!-- content -->', replace: '<!--include "../pages/room/room.html"-->' }))
+        .pipe(replace({ regex: '<!-- pop -->', replace: '<!--include "../pages/user/popover.html"-->' }))
+        .pipe(replace({ regex: '<!-- js -->', replace: '<script src="js/lib/mui.zoom.js"></script>\n<script src="js/lib/mui.previewimage.js"></script>\n<script src="js/lib/swiper.min.js"></script>\n'
+            + '<script src="js/pages/room/vmodel.js"></script>\n<script src="js/util/calendar.js"></script>\n<script src="js/util/partTime.js"></script>\n'
+            + '<script src="js/util/contactList.js"></script>' }))
         .pipe(contentIncluder({
             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
         }))
         .pipe(replace({ regex: '<!-- roomSlide -->', replace: '<!--include "../util/roomSlide.html"-->' }))
+        .pipe(replace({
+            regex: '<button class="popover-closeButton"></button>',
+            replace: '<!--include "../util/popoverBtnOK.html"-->'
+        }))
         .pipe(contentIncluder({
             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
         }))
@@ -92,11 +98,11 @@ gulp.task('room', function() {
 });
 
 //房间便利设施页面
-gulp.task('facilities', function() {
-    gulp.src('./js/pages/room/facilities.html')
-        .pipe(gulp.dest('./dist'));
-    process.stdout.write('\x07');
-});
+// gulp.task('facilities', function() {
+//     gulp.src('./js/pages/room/facilities.html')
+//         .pipe(gulp.dest('./dist'));
+//     process.stdout.write('\x07');
+// });
 
 //用户提交评论
 gulp.task('submitassess', function() {
@@ -113,29 +119,29 @@ gulp.task('submitassess', function() {
 });
 
 //房间用品
-gulp.task('article', function() {
-    gulp.src('./js/layout/shell.html')
-        .pipe(replace({ regex: '<!-- pop -->', replace: '<!--include "../util/pop.html"--> \n <!--include "../pages/user/popover.html"-->' }))
-        .pipe(replace({ regex: '<!-- js -->', replace: '<script src="js/pages/room/vmodel-article.js"></script>' }))
-        .pipe(replace({ regex: '<!-- content -->', replace: '<!--include "../pages/room/article.html"-->' }))
-        .pipe(contentIncluder({
-            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
-        }))
-        .pipe(replace({ regex: '<!-- info -->等待加载……', replace: '<!--include "../pages/room/article-info.html"-->' }))
-        .pipe(contentIncluder({
-            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
-        }))
-        .pipe(replace({
-            regex: '<button class="popover-closeButton"></button>',
-            replace: '<!--include "../pages/room/pop-btn.html"-->'
-        }))
-        .pipe(contentIncluder({
-            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
-        }))
-        .pipe(rename('article.html'))
-        .pipe(gulp.dest('./dist'));
-    process.stdout.write('\x07');
-});
+// gulp.task('article', function() {
+//     gulp.src('./js/layout/shell.html')
+//         .pipe(replace({ regex: '<!-- pop -->', replace: '<!--include "../util/pop.html"--> \n <!--include "../pages/user/popover.html"-->' }))
+//         .pipe(replace({ regex: '<!-- js -->', replace: '<script src="js/pages/room/vmodel-article.js"></script>' }))
+//         .pipe(replace({ regex: '<!-- content -->', replace: '<!--include "../pages/room/article.html"-->' }))
+//         .pipe(contentIncluder({
+//             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+//         }))
+//         .pipe(replace({ regex: '<!-- info -->等待加载……', replace: '<!--include "../pages/room/article-info.html"-->' }))
+//         .pipe(contentIncluder({
+//             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+//         }))
+//         .pipe(replace({
+//             regex: '<button class="popover-closeButton"></button>',
+//             replace: '<!--include "../pages/room/pop-btn.html"-->'
+//         }))
+//         .pipe(contentIncluder({
+//             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+//         }))
+//         .pipe(rename('article.html'))
+//         .pipe(gulp.dest('./dist'));
+//     process.stdout.write('\x07');
+// });
 
 //下单支付页面
 gulp.task('pay', function() {
@@ -165,35 +171,35 @@ gulp.task('payend', function() {
     process.stdout.write('\x07');
 });
 
-//常用联系人列表页
-gulp.task('contactList', function() {
-    gulp.src('./js/layout/shell.html')
-        .pipe(replace({ regex: '<!-- pop -->', replace: '<!--include "../util/pop.html"-->' }))
-        .pipe(replace({ regex: '<!-- js -->', replace: '<script src="js/pages/contact/vmodel-list.js"></script>' }))
-        .pipe(replace({ regex: '<!-- content -->', replace: '<!--include "../pages/contact/contactList.html"-->' }))
-        .pipe(replace({ regex: '<h1 id="headerReplace" class="mui-title"></h1>', replace: '<h1 id="headerReplace" class="mui-title">我的联系人</h1>' }))
-        .pipe(contentIncluder({
-            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
-        }))
-        .pipe(rename('contactList.html'))
-        .pipe(gulp.dest('./dist'));
-    process.stdout.write('\x07');
-});
+// //常用联系人列表页
+// gulp.task('contactList', function() {
+//     gulp.src('./js/layout/shell.html')
+//         .pipe(replace({ regex: '<!-- pop -->', replace: '<!--include "../util/pop.html"-->' }))
+//         .pipe(replace({ regex: '<!-- js -->', replace: '<script src="js/pages/contact/vmodel-list.js"></script>' }))
+//         .pipe(replace({ regex: '<!-- content -->', replace: '<!--include "../pages/contact/contactList.html"-->' }))
+//         .pipe(replace({ regex: '<h1 id="headerReplace" class="mui-title"></h1>', replace: '<h1 id="headerReplace" class="mui-title">我的联系人</h1>' }))
+//         .pipe(contentIncluder({
+//             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+//         }))
+//         .pipe(rename('contactList.html'))
+//         .pipe(gulp.dest('./dist'));
+//     process.stdout.write('\x07');
+// });
 
-//常用联系人详情页
-gulp.task('contact', function() {
-    gulp.src('./js/layout/shell.html')
-        .pipe(replace({ regex: '<!-- pop -->', replace: '<!--include "../util/pop.html"-->' }))
-        .pipe(replace({ regex: '<!-- js -->', replace: '<script src="js/pages/contact/vmodel.js"></script>' }))
-        .pipe(replace({ regex: '<!-- content -->', replace: '<!--include "../pages/contact/contact.html"-->' }))
-        .pipe(replace({ regex: '<h1 id="headerReplace" class="mui-title"></h1>', replace: '<h1 id="headerReplace" class="mui-title">联系人详情</h1>' }))
-        .pipe(contentIncluder({
-            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
-        }))
-        .pipe(rename('contact.html'))
-        .pipe(gulp.dest('./dist'));
-    process.stdout.write('\x07');
-});
+// //常用联系人详情页
+// gulp.task('contact', function() {
+//     gulp.src('./js/layout/shell.html')
+//         .pipe(replace({ regex: '<!-- pop -->', replace: '<!--include "../util/pop.html"-->' }))
+//         .pipe(replace({ regex: '<!-- js -->', replace: '<script src="js/pages/contact/vmodel.js"></script>' }))
+//         .pipe(replace({ regex: '<!-- content -->', replace: '<!--include "../pages/contact/contact.html"-->' }))
+//         .pipe(replace({ regex: '<h1 id="headerReplace" class="mui-title"></h1>', replace: '<h1 id="headerReplace" class="mui-title">联系人详情</h1>' }))
+//         .pipe(contentIncluder({
+//             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+//         }))
+//         .pipe(rename('contact.html'))
+//         .pipe(gulp.dest('./dist'));
+//     process.stdout.write('\x07');
+// });
 
 //订单列表页
 gulp.task('orderList', function() {
@@ -1135,6 +1141,7 @@ gulp.task('txt-copy', function() {
             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
         }))
         .pipe(gulp.dest('./dist'));
+    gulp.src('./js/util/contactList.html').pipe(gulp.dest('./dist'));
     gulp.src('./js/pages/user/frequent-contact-add.html').pipe(gulp.dest('./dist'));
     gulp.src('./js/pages/user/delivery-address-add.html').pipe(gulp.dest('./dist'));
 })
@@ -1192,13 +1199,13 @@ gulp.task('all', [
     'index',
     'hotel',
     'room',
-    'facilities',
+    //'facilities',
     'submitassess',
-    'article',
+    //'article',
     'pay',
     'payend',
-    'contactList',
-    'contact',
+    // 'contactList',
+    // 'contact',
     'orderList',
     'order',
     'user-info',

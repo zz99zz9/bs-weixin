@@ -1,0 +1,68 @@
+<style>
+    .flex0 {
+        width: 85px;
+    }
+    h5{
+        color: black;
+    }
+    .selected:before {
+        color: #dd524d !important;
+    }
+    .mui-popup {
+        position: fixed;
+    }
+
+    .mui-table-view-divider{
+        position: relative;
+    }
+    @supports(position: -webkit-sticky){
+        .mui-table-view-divider{
+            position: -webkit-sticky;
+            top: 44px;
+            z-index: 9999;  
+        }
+        .divider1 {
+            top: 44px;
+        }
+    }
+</style>
+<div ms-controller="contactList">
+    <div class="mui-table-view" style="height: 55vh;overflow-y: scroll;"> 
+
+        <div class="mui-table-view-cell mui-checkbox mui-right" ms-repeat="list" ms-data-index="$index" style="z-index: 9;">
+
+            <input type="checkbox" ms-duplex-number="selectedList" ms-attr-value="$index" class="selected" style="z-index: 1">
+
+            <div class="mui-slider-handle">
+                <div class="display-flex mui-table-cell">
+                    <h5 class="flex0" style="-webkit-box-pack: justify;">姓&emsp;名</h5>
+                    <h5 class="flex1">{{el.name}}</h5>
+                </div>
+                <div class="display-flex mui-table-cellv">
+                    <h5 class="flex0" style="-webkit-box-pack: justify;">手机号</h5>
+                    <h5 class="flex1">{{el.mobile}}</h5>
+                </div>
+                <div class="display-flex mui-table-cell">
+                    <h5 class="flex0" style="-webkit-box-pack: justify;">身份证号</h5>
+                    <h5 class="flex1">{{el.idNo}}</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+        
+    <div class="mui-table-view mui-input-group" style="margin-top: 10px;color: #000;">
+        <div class="mui-table-view-divider divider1">
+            新增入住人
+            <button type="button" class="mui-btn mui-btn-danger mui-pull-right" style="z-index: 999;" ms-click="save" ms-attr-disabled="disable">保存</button>
+        </div>
+        <div class="mui-input-row">
+            <input type="text" ms-duplex="name" name="name" class="mui-input-clear" placeholder="姓名">
+        </div>
+        <div class="mui-input-row">
+            <input type="tel" ms-duplex="mobile" name="mobile" class="mui-input-clear" placeholder="手机号">
+        </div>
+        <div class="mui-input-row">
+            <input type="text" ms-duplex="idNo" name="ID" class="mui-input-clear" placeholder="身份证号">
+        </div>
+    </div>
+</div>

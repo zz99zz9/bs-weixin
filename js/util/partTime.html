@@ -14,27 +14,29 @@
         <div class="select-time" id='select_time'>
             <b>&nbsp;</b>
             <div ms-repeat="timeList">
-                <a href="###" ms-if="$index>=minIndex&&$index<=(maxIndex-4)&&$index%2==0&&el.isBook==0&&el.isWait==0" class="dotted" ms-data-time="$index/2" ms-on-tap="selectTime($index)">
+                <a href="###" ms-if="$index>=minIndex&&$index<=(maxIndex-6)&&$index%2==0&&el.isBook==0&&el.isWait==0" class="dotted" ms-data-time="$index/2" ms-on-tap="selectTime($index)">
                     <i>
                         {{($index/2+':00').length==5?($index/2+':00'):('0'+$index/2+':00')}}
                     </i>
                     <span class="partTimePrice">{{partTimePriceShow($index,el.node,el.price)}}</span>
                 </a>
-                <a href="###" ms-if="$index>=minIndex&&$index<=(maxIndex-4)&&$index%2==1&&el.isBook==0&&el.isWait==0" ms-data-time="$index/2" ms-on-tap="selectTime($index)"></a>
-                <b ms-if="$index>=minIndex&&$index<=(maxIndex-4)&&$index%2==0&&(el.isBook==1||el.isWait==1)" ms-class="select-time-disabled:el.isBook==1||el.isWait==1">
+                <a href="###" ms-if="$index>=minIndex&&$index<=(maxIndex-6)&&$index%2==1&&el.isBook==0&&el.isWait==0" ms-data-time="$index/2" ms-on-tap="selectTime($index)"></a>
+                <b ms-if="$index>=minIndex&&$index<=(maxIndex-6)&&$index%2==0&&(el.isBook==1||el.isWait==1)" ms-class="select-time-disabled:el.isBook==1||el.isWait==1">
                     <i>
                         {{($index/2+':00').length==5?($index/2+':00'):('0'+$index/2+':00')}}
                     </i>
                     <span class="partTimePrice">{{partTimePriceShow($index,el.node,el.price)}}</span>
                 </b>
-                <b ms-if="$index>=minIndex&&$index<=(maxIndex-4)&&$index%2==1&&(el.isBook==1||el.isWait==1)" ms-class="select-time-disabled:el.isBook==1||el.isWait==1"></b>
+                <b ms-if="$index>=minIndex&&$index<=(maxIndex-6)&&$index%2==1&&(el.isBook==1||el.isWait==1)" ms-class="select-time-disabled:el.isBook==1||el.isWait==1"></b>
             </div>
-            <b style="border: none;">
-                <!-- <i style="text-align: center;width: 100%;position:relative;left:0;top:21px">{{(maxIndex-4)/2}}:30之后不再允许订时租房！</i> -->
+            <b class="select-time-disabled">
+                <!-- <i style="text-align: center;width: 100%;position:relative;left:0;top:21px">{{(maxIndex-6)/2}}:30之后不再允许订时租房！</i> -->
             </b>
-            <b style="border: none;"><i>{{(maxIndex-2)/2}}:00</i></b>
-            <b></b>
-            <b><i>{{maxIndex/2}}:00</i></b>
+            <b class="select-time-disabled"><i>{{(maxIndex-4)/2}}:00</i></b>
+            <b class="select-time-disabled"></b>
+            <b class="select-time-disabled"><i>{{(maxIndex-2)/2}}:00</i></b>
+            <b class="select-time-disabled"></b>
+            <b class="select-time-disabled"><i>{{maxIndex/2}}:00</i></b>
             <table id="select_bar" class="mui-hidden bar">
                 <tr>
                     <td valign="center">
