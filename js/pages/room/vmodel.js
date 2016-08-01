@@ -340,10 +340,12 @@ function room_init() {
                         name: json.data.name
                     },
                     hotel: {
-                        id: json.data.hotel.id
+                        id: json.data.hotel.id,
+                        name: json.data.hotel.name,
+                        address: json.data.hotel.address
                     }
                 });
-
+                Storage.set("newOrder", newOrder);
                 vmRoomAssess.designer = json.data.designer;
                 if (roomType) {
                     //时租房的价格，接口返回的是每半个小时

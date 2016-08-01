@@ -52,7 +52,7 @@ gulp.task('index', function() {
 //酒店页面
 gulp.task('hotel', function() {
     gulp.src('./js/layout/shell.html')
-        .pipe(replace({ regex: '<!-- css -->', replace: '<link rel="stylesheet" href="css/swiper.min.css">' }))
+        .pipe(replace({ regex: '<!-- css -->', replace: '<link rel="stylesheet" href="css/swiper.min.css">\n<link rel="stylesheet" href="css/hotel.css">' }))
         .pipe(replace({ regex: '<!-- content -->', replace: '<!--include "../pages/hotel/hotel.html"-->' }))
         .pipe(replace({ regex: '<!-- pop -->', replace: '<!--include "../pages/user/popover.html"-->' }))
         .pipe(replace({ regex: '<!-- js -->', replace: '<script src="js/lib/swiper.min.js"></script>\n'
@@ -148,7 +148,6 @@ gulp.task('submitassess', function() {
 //下单支付页面
 gulp.task('pay', function() {
     gulp.src('./js/layout/shell.html')
-        .pipe(replace({ regex: '<!-- pop -->', replace: '<!--include "../util/pop.html"-->' }))
         .pipe(replace({ regex: '<!-- js -->', replace: '<script src="js/pages/room/vmodel-pay.js"></script>' }))
         .pipe(replace({ regex: '<!-- content -->', replace: '<!--include "../pages/room/pay.html"-->' }))
         .pipe(contentIncluder({
@@ -206,10 +205,8 @@ gulp.task('payend', function() {
 //订单列表页
 gulp.task('orderList', function() {
     gulp.src('./js/layout/shell.html')
-        .pipe(replace({ regex: '<!-- pop -->', replace: '<!--include "../util/pop.html"-->' }))
         .pipe(replace({ regex: '<!-- js -->', replace: '<script src="js/pages/room/vmodel-orderList.js"></script>' }))
         .pipe(replace({ regex: '<!-- content -->', replace: '<!--include "../pages/room/orderList.html"-->' }))
-        .pipe(replace({ regex: '<h1 id="headerReplace" class="mui-title"></h1>', replace: '<h1 id="headerReplace" class="mui-title">我的订单</h1>' }))
         .pipe(contentIncluder({
             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
         }))
@@ -221,7 +218,6 @@ gulp.task('orderList', function() {
 //订单详情页
 gulp.task('order', function() {
     gulp.src('./js/layout/shell.html')
-        .pipe(replace({ regex: '<!-- pop -->', replace: '<!--include "../util/pop.html"-->' }))
         .pipe(replace({ regex: '<!-- js -->', replace: '<script src="js/pages/room/vmodel-order.js"></script>' }))
         .pipe(replace({ regex: '<!-- content -->', replace: '<!--include "../pages/room/order.html"-->' }))
         .pipe(contentIncluder({

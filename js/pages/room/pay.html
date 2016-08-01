@@ -3,196 +3,203 @@
 <script src="js/lib/mui.picker.js"></script>
 <script src="js/lib/mui.poppicker.js"></script>
 <style>
-	.mui-picker-list,
-	.mui-picker-rule {
-		height: 48px;
-		margin-top: -24px;
-		line-height: 48px;
-	}
-	
-	section {
-		/*background: #dd524d;
-			color: white;
-			margin: 2px;*/
-		font-weight: bold;
-		border-radius: 5px;
-		margin: 0 auto;
-		border: none !important;
-		width: 50%;
-	}
-	
-	.hongbao {
-		background: #dd524d url(img/yuan.svg) no-repeat left center;
-		background-size: 16px;
-		color: white;
-	}
-	
-	h4 {
-		font-weight: normal;
-	}
-	
-	h5 {
-		color: black;
-	}
-	
-	.flex0 {
-		width: 88px;
-	}
-	
-	.flex0,
-	.flex1 {
-		/*font-size: 14px;*/
-		/*color: gray;*/
-	}
-	
-	.mui-toast-container {
-		bottom: 100px;
-	}
-	
-	.mui-toast-message {
-		color: #fff;
-		background-color: #dd524d;
-		padding: 5px;
-	}
-	
-	.mui-table-view {
-		width: 90%;
-		margin: auto;
-	}
+    .mui-picker-list,
+    .mui-picker-rule {
+        height: 48px;
+        margin-top: -24px;
+        line-height: 48px;
+    }
+    
+    section {
+        /*background: #dd524d;
+            color: white;
+            margin: 2px;*/
+        font-weight: bold;
+        border-radius: 5px;
+        margin: 0 auto;
+        border: none !important;
+        width: 50%;
+    }
+    
+    .hongbao {
+        background: #dd524d url(img/yuan.svg) no-repeat left center;
+        background-size: 16px;
+        color: white;
+    }
+    
+    h4 {
+        font-weight: normal;
+    }
+    
+    h5 {
+        color: black;
+    }
+    
+    .flex0 {
+        width: 88px;
+    }
+    
+    .flex0,
+    .flex1 {
+        /*font-size: 14px;*/
+        /*color: gray;*/
+    }
+    
+    .mui-toast-container {
+        bottom: 100px;
+    }
+    
+    .mui-toast-message {
+        color: #fff;
+        background-color: #dd524d;
+        padding: 5px;
+    }
+    
+    .mui-table-view {
+        width: 90%;
+        margin: auto;
+    }
 </style>
-<div ms-controller="order">
-	<div class="mui-table-view">
-		<div class="rowHead">
-			<img src="img/tag1.jpg"/>入住人信息
-		</div>
-		<div id="OA_task_2">
-			<div class="mui-table-view-cell" ms-repeat="contactList" ms-data-index="$index">
-				<div class="mui-slider-right mui-disabled">
-					<a class="mui-btn mui-btn-red">删除</a>
-				</div>
-				<div class="mui-slider-handle">
-					<div class="display-flex">
-						<h5 class="flex0" style="-webkit-box-pack: justify;">姓&emsp;名</h5>
-						<h5 class="flex1">{{el.name}}</h5>
-					</div>
-					<div class="display-flex">
-						<h5 class="flex0" style="-webkit-box-pack: justify;">手机号</h5>
-						<h5 class="flex1">{{el.mobile}}</h5>
-					</div>
-					<div class="display-flex">
-						<h5 class="flex0" style="-webkit-box-pack: justify;">身份证号</h5>
-						<h5 class="flex1">{{el.idNo}}</h5>
-					</div>
-				</div>
-			</div>
-			<div class="mui-table-view-cell mui-text-center">
-				<a href="contactList.html" style="color: #dd524d;"><span class="mui-icon mui-icon-plus"></span> 添加入住人</a>
-			</div>	
-		</div>
-	</div>
-	<div class="mui-table-view">
-		<div class="rowHead">
-			<img src="img/tag1.jpg"/>房间信息
-		</div>
-		<div class="mui-table-view-cell">
-			<div class="display-flex">
-				<h5 class="flex0" style="-webkit-box-pack: justify;">房间名</h5>
-				<h5 class="flex1">{{name}}</h5>
-			</div>
-			<div class="display-flex">
-				<h5 class="flex0" style="-webkit-box-pack: justify;">入住时间</h5>
-				<h5 class="flex1">{{start}}</h5>
-			</div>
-			<div class="display-flex">
-				<h5 class="flex0" style="-webkit-box-pack: justify;">退房时间</h5>
-				<h5 class="flex1">{{end}}</h5>
-			</div>
-			<div class="display-flex">
-				<h5 class="flex0" style="-webkit-box-pack: justify;">{{isPartTime?'小时数':'天数'}}</h5>
-				<h5 class="flex1">{{isPartTime?(number/2):number}}</h5>
-			</div>
-			<div class="display-flex">
-				<h5 class="flex0" style="-webkit-box-pack: justify;">单价</h5>
-				<h5 class="flex1" style="-webkit-box-pack: justify;color: #dd524d;position: relative;">{{isPartTime?(round(price*2) + ' 元/小时'):(round(price) + ' 元/晚')}}</h5>
-				<s style="font-size:14px;display: inline-block;" class="flex0">{{isPartTime?'':(round(dayPrice) + ' 元/晚')}}</s>
-			</div>
-			<div class="display-flex">
-				<h5 class="flex0" style="-webkit-box-pack: justify;">合计</h5>
-				<h5 class="flex1" style="-webkit-box-pack: justify;color: #dd524d;">{{isPartTime?round(price*number):round(price*number)}} 元</h5>
-				<s style="font-size:14px;display: inline-block;"  class="flex0">{{isPartTime?'':(round(dayPrice*number) + ' 元')}}</s>
-			</div>
-		</div>
-	</div>
+<div ms-controller="order" style="margin: 5px auto; width: 95%;">
+    <div class="hotel">
+        <div ms-on-tap="goHotel">
+            <span style="color:gold; font-size:20px;">{{hotel.name}}</span><br>
+            <span>{{hotel.address}}</span><br>
+        </div>
+        <span ms-on-tap="openNav()" class="mui-icon mui-icon-map mui-text-danger" style="font-size: 34px"></span>
+    </div>
+    <div class="mui-table-view">
+        <div class="rowHead">
+            <img src="img/tag1.jpg"/>入住人信息
+        </div>
+        <div id="OA_task_2">
+            <div class="mui-table-view-cell" ms-repeat="contactList" ms-data-index="$index">
+                <div class="mui-slider-right mui-disabled">
+                    <a class="mui-btn mui-btn-red">删除</a>
+                </div>
+                <div class="mui-slider-handle">
+                    <div class="display-flex">
+                        <h5 class="flex0" style="-webkit-box-pack: justify;">姓&emsp;名</h5>
+                        <h5 class="flex1">{{el.name}}</h5>
+                    </div>
+                    <div class="display-flex">
+                        <h5 class="flex0" style="-webkit-box-pack: justify;">手机号</h5>
+                        <h5 class="flex1">{{el.mobile}}</h5>
+                    </div>
+                    <div class="display-flex">
+                        <h5 class="flex0" style="-webkit-box-pack: justify;">身份证号</h5>
+                        <h5 class="flex1">{{el.idNo}}</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="mui-table-view-cell mui-text-center">
+                <a href="contactList.html" style="color: #dd524d;"><span class="mui-icon mui-icon-plus"></span> 添加入住人</a>
+            </div>  
+        </div>
+    </div>
+    <div class="mui-table-view">
+        <div class="rowHead">
+            <img src="img/tag1.jpg"/>房间信息
+        </div>
+        <div class="mui-table-view-cell">
+            <div class="display-flex">
+                <h5 class="flex0" style="-webkit-box-pack: justify;">房间名</h5>
+                <h5 class="flex1">{{name}}</h5>
+            </div>
+            <div class="display-flex">
+                <h5 class="flex0" style="-webkit-box-pack: justify;">入住时间</h5>
+                <h5 class="flex1">{{start}}</h5>
+            </div>
+            <div class="display-flex">
+                <h5 class="flex0" style="-webkit-box-pack: justify;">退房时间</h5>
+                <h5 class="flex1">{{end}}</h5>
+            </div>
+            <div class="display-flex">
+                <h5 class="flex0" style="-webkit-box-pack: justify;">{{isPartTime?'小时数':'天数'}}</h5>
+                <h5 class="flex1">{{isPartTime?(number/2):number}}</h5>
+            </div>
+            <div class="display-flex">
+                <h5 class="flex0" style="-webkit-box-pack: justify;">单价</h5>
+                <h5 class="flex1" style="-webkit-box-pack: justify;color: #dd524d;position: relative;">{{isPartTime?(round(price*2) + ' 元/小时'):(round(price) + ' 元/晚')}}</h5>
+                <s style="font-size:14px;display: inline-block;" class="flex0">{{isPartTime?'':(round(dayPrice) + ' 元/晚')}}</s>
+            </div>
+            <div class="display-flex">
+                <h5 class="flex0" style="-webkit-box-pack: justify;">合计</h5>
+                <h5 class="flex1" style="-webkit-box-pack: justify;color: #dd524d;">{{isPartTime?round(price*number):round(price*number)}} 元</h5>
+                <s style="font-size:14px;display: inline-block;"  class="flex0">{{isPartTime?'':(round(dayPrice*number) + ' 元')}}</s>
+            </div>
+        </div>
+    </div>
 
-	<div class="mui-table-view" ms-if="!isPartTime">
-		<div class="rowHead">
-			<img src="img/tag1.jpg"/>私人订制
-		</div>
+    <div class="mui-table-view" ms-if="!isPartTime">
+        <div class="rowHead">
+            <img src="img/tag1.jpg"/>私人订制
+        </div>
 
-		<div class="mui-table-view-cell" ms-if="!isPartTime" ms-repeat="goodsList" ms-if-loop="el.price>0">
-			<table width="100%" style="table-layout: fixed;">
-				<tr>
-					<td width="50px">
-						<div class="circle" style="border: 1px solid lightgray;width:50px;height: 50px;background-size: cover;background-position: center;" ms-css-background-image="'url('+el.thumbUrl+')'">&nbsp;</div>		
-					</td>
-					<td style="padding: 0 10px;">
-						<h4 class="mui-ellipsis" style="width: 100%;font-weight: 200;width: 100%;">{{el.name}}</h4>
-						<p style="font-weight: 200;">{{el.cate}} × {{el.number}}</p>	
-					</td>
-					<td width="80px" align="right">
-						<h4 style="font-weight: 200;font-size: 18px;">{{el.price==0?'免费使用':(round(el.price*el.number)+'元')}}</h4>
-					</td>
-				</tr>
-			</table>
-		</div>
-		<div class="mui-table-view-cell mui-text-center">
-			<a href="article.html" style="color: #dd524d;">
-				<span class="mui-icon mui-icon-plus"></span> 私人订制
-				<span style="position: absolute;right:14px;top:14px;"><small>合计</small> {{round(goodsPrice)}}元</span>
-			</a>
-		</div>	
-	</div>
+        <div class="mui-table-view-cell" ms-if="!isPartTime" ms-repeat="goodsList" ms-if-loop="el.price>0">
+            <table width="100%" style="table-layout: fixed;">
+                <tr>
+                    <td width="50px">
+                        <div class="circle" style="border: 1px solid lightgray;width:50px;height: 50px;background-size: cover;background-position: center;" ms-css-background-image="'url('+el.thumbUrl+')'">&nbsp;</div>       
+                    </td>
+                    <td style="padding: 0 10px;">
+                        <h4 class="mui-ellipsis" style="width: 100%;font-weight: 200;width: 100%;">{{el.name}}</h4>
+                        <p style="font-weight: 200;">{{el.cate}} × {{el.number}}</p>    
+                    </td>
+                    <td width="80px" align="right">
+                        <h4 style="font-weight: 200;font-size: 18px;">{{el.price==0?'免费使用':(round(el.price*el.number)+'元')}}</h4>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="mui-table-view-cell mui-text-center">
+            <a href="article.html" style="color: #dd524d;">
+                <span class="mui-icon mui-icon-plus"></span> 私人订制
+                <span style="position: absolute;right:14px;top:14px;"><small>合计</small> {{round(goodsPrice)}}元</span>
+            </a>
+        </div>  
+    </div>
 
-	<div class="mui-table-view">
-		<div class="rowHead">
-			<img src="img/tag1.jpg"/>优惠券
-		</div>
-		<div class="mui-table-view-cell display-flex" ms-controller="redpacket" style="padding-right: 0;">
-			<h4 class="flex1" style="-webkit-box-pack: justify;">选择体验基金</h4>
-			<button id='showUserPicker' class="mui-btn mui-btn-danger" style="right:5px;height: 35px;border-radius: 0;">{{redpacketBtnText}}</button>
-		</div>
-	</div>
-	<!--
-	<div class="mui-table-view">
-		<div class="rowHead">
-			<img src="img/tag1.jpg"/>支付方式
-		</div>
-		<div class="mui-table-view-cell">
-			<h4 class="flex0" style="-webkit-box-pack: justify;">微信支付</h4>
-		</div>
-	</div>-->
+    <div class="mui-table-view">
+        <div class="rowHead">
+            <img src="img/tag1.jpg"/>优惠券
+        </div>
+        <div class="mui-table-view-cell display-flex" ms-controller="redpacket" style="padding-right: 0;">
+            <h4 class="flex1" style="-webkit-box-pack: justify;">选择体验基金</h4>
+            <button id='showUserPicker' class="mui-btn mui-btn-danger" style="right:5px;height: 35px;border-radius: 0;">{{redpacketBtnText}}</button>
+        </div>
+    </div>
+    <!--
+    <div class="mui-table-view">
+        <div class="rowHead">
+            <img src="img/tag1.jpg"/>支付方式
+        </div>
+        <div class="mui-table-view-cell">
+            <h4 class="flex0" style="-webkit-box-pack: justify;">微信支付</h4>
+        </div>
+    </div>-->
 
-	<div class="mui-table-view">
-		<div class="rowHead">
-			<img src="img/tag1.jpg"/>合计
-		</div>
-		<div class="mui-table-view-cell">
-			<div class="display-flex">
-				<h5 class="flex0" style="-webkit-box-pack: justify;">总消费</h5>
-				<h5 class="flex1 mui-text-danger">{{round(price*number + goodsPrice)}} 元</h5>
-			</div>
-			<div class="display-flex">
-				<h5 class="flex0" style="-webkit-box-pack: justify;">优惠</h5>
-				<h5 class="flex1 mui-text-danger">{{round(price*number + goodsPrice - payMoney)}} 元</h5>
-			</div>
-		</div>
-	</div>
+    <div class="mui-table-view">
+        <div class="rowHead">
+            <img src="img/tag1.jpg"/>合计
+        </div>
+        <div class="mui-table-view-cell">
+            <div class="display-flex">
+                <h5 class="flex0" style="-webkit-box-pack: justify;">总消费</h5>
+                <h5 class="flex1 mui-text-danger">{{round(price*number + goodsPrice)}} 元</h5>
+            </div>
+            <div class="display-flex">
+                <h5 class="flex0" style="-webkit-box-pack: justify;">优惠</h5>
+                <h5 class="flex1 mui-text-danger">{{round(price*number + goodsPrice - payMoney)}} 元</h5>
+            </div>
+        </div>
+    </div>
 
-	<br />
-	<br />
-	<br />
+    <br />
+    <br />
+    <br />
 </div>
 <nav class="mui-bar mui-bar-tab" style="padding: 10px;" ms-controller="order">
-	<h4 class="mui-pull-left" style="margin-top: 8px;">金额：<span class="mui-text-danger">{{round(payMoney)}}元</span></h4>
-	<button type="button" class="mui-btn mui-btn-danger mui-pull-right" ms-click="submitOrder" ms-attr-disabled="submitDisabled">支 付</button>
+    <h4 class="mui-pull-left" style="margin-top: 8px;">金额：<span class="mui-text-danger">{{round(payMoney)}}元</span></h4>
+    <button type="button" class="mui-btn mui-btn-danger mui-pull-right" ms-click="submitOrder" ms-attr-disabled="submitDisabled">支 付</button>
 </nav>

@@ -290,6 +290,13 @@ var controlCore = {
     }
 }
 
+//传入完整时间，返回 MM月DD日
+function formatDate(str) {
+    var date = new Date(str.replace(/-/g, "/"));
+
+    return (date.getMonth() + 1) + "月" + date.getDay() + "日";
+}
+
 //判断是否是闰年
 function isLeapYear(year) {
     return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);

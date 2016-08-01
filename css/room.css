@@ -200,20 +200,6 @@ section {
     z-index: 9;
     background-color: #fff;
 }
-.hotel {
-    margin: 0 auto;
-    padding: 10px;
-    position: relative;
-    background-color: #fff;
-}
-.hotel div {
-    display: inline-block;
-}
-.hotel>span {
-    position: relative;
-    top: 10px;
-    float:right;
-}
 .time {
     margin: 18px auto;
 }
