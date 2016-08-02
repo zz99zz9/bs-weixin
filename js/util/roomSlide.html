@@ -1,6 +1,6 @@
-<div class="swiper-slide-item" ms-on-tap="goRoom(el.id)">
-    <div class="distance">{{round(el.distance/1000,1)}}KM</div>
-    <a href="###">
+<div class="swiper-slide-item">
+    <div class="distance" ms-on-tap="goRoom(el.id)">{{round(el.distance/1000,1)}}KM</div>
+    <a href="###" ms-on-tap="goRoom(el.id)">
         <div ms-css-background-image="url({{urlAPINet + el.coverUrl}})">
             <label>￥{{type?(el.minPrice*6):el.minPrice}}
                 <span>{{type==1?"3小时":"晚起"}}</span>
@@ -9,9 +9,9 @@
         </div>
     </a>
     <div class="mui-content-padded mui-text-left designer-info">
-        <h4>{{el.name}}<span style="color: #cc9966;"> ★★★★★</span></h4>
-        <p class="mui-ellipsis" style="width:60vw;">{{el.introduction}}</p>
-        <div>
+        <h4 ms-on-tap="goRoom(el.id)">{{el.name}}<span style="color: #cc9966;"> ★★★★★</span></h4>
+        <!-- <p class="mui-ellipsis" style="width:60vw;">{{el.introduction}}</p> -->
+        <div ms-on-tap="goHotelById(el.hotel.id)">
             <i ms-css-background-image="url({{urlAPINet + el.hotel.logoUrl}})"></i>
             <!-- <span class="small mui-text-gray">试睡师</span><br />-->
             {{el.hotel.name}}

@@ -62,7 +62,7 @@
 </style>
 <div ms-controller="order" style="margin: 5px auto; width: 95%;">
     <div class="hotel">
-        <div ms-on-tap="goHotel">
+        <div ms-on-tap="goHotelById(hotel.id)">
             <span style="color:gold; font-size:20px;">{{hotel.name}}</span><br>
             <span>{{hotel.address}}</span><br>
         </div>

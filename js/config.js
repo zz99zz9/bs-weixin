@@ -262,7 +262,7 @@ function ajaxJsonp(param) {
                 data: param.data,
                 success: function(json) {
                     if (json.status === -1) {
-                        window.location.replace("../register-1.html?prePage=" + window.location.pathname);
+                        window.location.replace("../register-1.html?prePage=" + window.location.pathname + window.location.search);
                     } else {
                         if (param.successCallback) {
                             param.successCallback(json);
@@ -546,7 +546,8 @@ function getEndTime(type) {
             return '';
         }
     } else {
-        return getDate(vmCalendar.endIndex);
+        //夜房默认退房时间
+        return getDate(vmCalendar.endIndex) + " 14:00";
     }
 }
 

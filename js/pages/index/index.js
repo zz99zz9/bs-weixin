@@ -179,6 +179,11 @@ var vmIndex = avalon.define({
             vmIndex.getRoomList();
         }
     },
+    goHotelById: function(id) {
+        stopSwipeSkip.do(function() {
+            location.href = "hotel.html?id=" + id;
+        });
+    },
     goRoom: function(id) {
         stopSwipeSkip.do(function() {
             Storage.set("bensue", { type: vmIndex.type });
@@ -288,7 +293,7 @@ mapObj.plugin('AMap.Geolocation', function() {
 myMarker = new AMap.Marker({
     map: mapObj,
     icon: "./img/transparent.png",
-    position: [positionInStorage.lng, positionInStorage.lat],
+    position: [121.626131, 31.210465],
     offset: new AMap.Pixel(-12, -36)
 });
 

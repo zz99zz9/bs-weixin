@@ -135,6 +135,11 @@ var vmHotel = avalon.define({
             freeModeMomentumRatio: 0.4
         });
     },
+    goHotelById: function(id) {
+        stopSwipeSkip.do(function() {
+            location.href = "hotel.html?id=" + id;
+        });
+    },
     goRoom: function(id) {
         stopSwipeSkip.do(function() {
             location.href = "room.html?id=" + id;

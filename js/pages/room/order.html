@@ -23,7 +23,14 @@
 		top: 2px;
 	}
 </style>
-<div ms-controller="order">
+<div ms-controller="order" style="margin: 5px auto; width: 95%;">
+	<div class="hotel">
+        <div ms-on-tap="goHotelById(hotel.id)">
+            <span style="color:gold; font-size:20px;">{{hotel.name}}</span><br>
+            <span>{{hotel.address}}</span><br>
+        </div>
+        <span ms-on-tap="openNav()" class="mui-icon mui-icon-map mui-text-danger" style="font-size: 34px"></span>
+    </div>
 <div class="mui-table-view">
 	<div class="rowHead">
 		<img src="img/tag1.jpg"/>订单

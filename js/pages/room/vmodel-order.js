@@ -174,6 +174,7 @@ function onBridgeReady() {
         callWcpay();
     }
 }
+
 /**
  * 发起微信支付
  */

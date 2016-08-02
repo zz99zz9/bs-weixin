@@ -109,6 +109,8 @@ vmRoom = avalon.define({
         vmRoom.price = vmRoom.roomNightDiscount[index].discount;
 
         newOrder.day.startTimeIndex = index;
+        newOrder.day.start = newOrder.day.start.substring(0,10) + " " + vmRoom.roomNightDiscount[index].startTime + ":00"
+
         Storage.set("newOrder", newOrder);
     },
     showTotalPrice: function(price, amount) {
@@ -123,19 +125,25 @@ vmRoom = avalon.define({
             location.href = "room.html?id=" + id;
         });
     },
+    goHotelById: function(id) {
+        stopSwipeSkip.do(function() {
+            location.href = "hotel.html?id=" + id;
+        });
+    },
     isGoNext: false,
+    //下单
     goNext: function() {
         vmRoom.isGoNext = true;
         Storage.set("newOrder", newOrder);
 
         if (vmRoom.type) {
-            if (vmPart.partTimeStart == '' || vmPart.partTimeEnd == '') {
+            if (newOrder.partTime.start == '' || newOrder.partTime.end == '') {
                 mui.toast('请选择时间');
                 vmRoom.isGoNext = false;
                 return;
             }
         } else {
-            if (vmCalendar.starIndex == -1 || vmCalendar.endIndex == -1) {
+            if (newOrder.day.start == '' || newOrder.day.end == '') {
                 mui.toast('请选择时间');
                 vmRoom.isGoNext = false;
                 return;
@@ -148,7 +156,22 @@ vmRoom = avalon.define({
             return;
         }
 
-        location.href = "pay.html"
+        ajaxJsonp({
+            url: urls.submitOrder,
+            data: {
+                rid: roomid,
+                startTime: vmRoom.type ? newOrder.partTime.start : newOrder.day.start,
+                endTime: vmRoom.type ? newOrder.partTime.end : newOrder.day.end,
+                isPartTime: vmRoom.type,
+                cids: newOrder.contact.map(function(o) { return o.id; }).join(','),
+            },
+            successCallback: function(json){
+                if (json.status == 1) {
+                    vmRoom.isGoNext = false;
+                    location.href = "order.html?id=" + json.data.id; 
+                }
+            }
+        })
     },
     swiper1Render: function() {
         var swiper1 = new Swiper('.swiper1', {
@@ -372,6 +395,7 @@ function room_init() {
                         //默认选择第一个，最高价格
                         vmRoom.price = json.data[0].discount;
                         newOrder.day.startTimeIndex = 0;
+                        newOrder.day.start += " " + json.data[0].startTime + ":00"
                         Storage.set("newOrder", newOrder);
                     }
                 }
