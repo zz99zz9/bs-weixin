@@ -8,11 +8,11 @@ var vmAlipay = avalon.define({
     getPayUrl: function () {
         vmAlipay.payUrl = decodeURIComponent(getParam('payUrl'));
         console.log(vmAlipay.payUrl);
-        if (isweixin) {
+        if (isweixin) {//如果是在微信里打开
             var h = Math.max(document.body.scrollHeight, document.body.clientHeight) - 5;
             var myiframe = document.getElementById('myiframe');
             myiframe.height = h;
-        } else {
+        } else {//在其它浏览器打开
             top.location = vmAlipay.payUrl;
         }
     }

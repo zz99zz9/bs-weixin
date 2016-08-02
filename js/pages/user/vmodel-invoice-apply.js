@@ -157,9 +157,9 @@ var vmInvoiceApply = avalon.define({
                 if (json.status === 1) {
                     vmInvoiceApply.payInfo = json.data;
                     if (vmInvoiceApply.payType == 1) {//支付宝支付-2
-                        if (isweixin) {
+                        if (isweixin) {//如果是在微信里打开
                             location.href = 'alipay-iframe.html?payUrl=' + encodeURIComponent(json.data.payUrl);
-                        } else {
+                        } else {//在其它浏览器打开
                             location.href = json.data.payUrl;
                         }
                     } else if (vmInvoiceApply.payType == 2) {//微信支付-1
