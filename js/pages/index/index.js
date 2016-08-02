@@ -70,8 +70,8 @@ var vmIndex = avalon.define({
             updateData();
         });
     },
-    lng: 0, //用户选择位置的经度
-    lat: 0, //用户选择位置的维度
+    lng: 121.626131, //用户选择位置的经度
+    lat: 31.210465, //用户选择位置的维度
     position: '正在定位...',
     openLocationSearch: function() {
         stopSwipeSkip.do(function() {
@@ -93,6 +93,7 @@ var vmIndex = avalon.define({
     isShowMap: false,
     showMap: function() {
         vmIndex.isShowMap = true;
+        console.log([vmIndex.lng, vmIndex.lat]);
         myMarker.setPosition([vmIndex.lng, vmIndex.lat]);
 
         //自动调整显示所有的点
@@ -306,6 +307,9 @@ if (verify(positionInStorage)) {
 }
 
 vmIndex.getHotelPosition(mapObj);
+//获取最近浏览数据
+vmIndex.getRecentViewRoomList();
+//获取便利设施
 vmFilter.getFilter();
 
 mui.init({
@@ -425,8 +429,6 @@ function updateData() {
     vmIndex.lat = positionInStorage.lat;
     vmIndex.pageNo = 1;
     vmIndex.getRoomList();
-    //获取最近浏览数据
-    vmIndex.getRecentViewRoomList();
 
     vmSearch.currentLocation = vmIndex.position;
 }
