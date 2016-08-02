@@ -1,16 +1,14 @@
-var positionInStorage = Storage.getLocal("position"),
-    user = Storage.getLocal("user"),
-    newOrder = Storage.get("newOrder") || {date: {}},
-    bensue = Storage.get("bensue"),
-    myMarker;
+var newOrder, bensue, myMarker, mapObj, geolocation,
+    positionInStorage = Storage.getLocal("position"),
+    user = Storage.getLocal("user");;
 
 var vmIndex = avalon.define({
     $id: 'index',
-    headImg: 'img/icon1.jpg',//左上角头像
+    headImg: 'img/icon1.jpg', //左上角头像
     galleryList: [
-        {imgUrl: './img/tour1.jpg'}, 
-        {imgUrl: './img/tour2.jpg'}, 
-        {imgUrl: './img/tour3.jpg'}, 
+        { imgUrl: './img/tour1.jpg' },
+        { imgUrl: './img/tour2.jpg' },
+        { imgUrl: './img/tour3.jpg' },
     ],
     getCityGallery: function() {
         ajaxJsonp({
@@ -21,7 +19,7 @@ var vmIndex = avalon.define({
             successCallback: function(json) {
                 if (json.status == 1) {
                     vmIndex.galleryList = json.data;
-                } 
+                }
             }
         });
     },
@@ -33,7 +31,7 @@ var vmIndex = avalon.define({
             data: {
                 lng: vmIndex.lng,
                 lat: vmIndex.lat,
-                distance: 10000000 
+                distance: 10000000
             },
             successCallback: function(json) {
                 if (json.status == 1) {
@@ -54,12 +52,12 @@ var vmIndex = avalon.define({
                             icon: marker.icon,
                             position: [marker.position[0], marker.position[1]],
                             offset: new AMap.Pixel(-12, -36)
-                        }).on('click',function() {
-                            Storage.set("bensue", {type: vmIndex.type});
+                        }).on('click', function() {
+                            Storage.set("bensue", { type: vmIndex.type });
                             location.href = "hotel.html?id=" + this.B.hid;
                         });
                     });
-                } 
+                }
             }
         });
     },
@@ -68,12 +66,12 @@ var vmIndex = avalon.define({
         stopSwipeSkip.do(function() {
             vmIndex.type = type;
             vmFilter.type = type;
-            Storage.set("bensue", {type: type});
+            Storage.set("bensue", { type: type });
             updateData();
         });
     },
-    lng: 0, //用户选择位置的经度
-    lat: 0, //用户选择位置的维度
+    lng: 121.626131, //用户选择位置的经度
+    lat: 31.210465, //用户选择位置的维度
     position: '正在定位...',
     openLocationSearch: function() {
         stopSwipeSkip.do(function() {
@@ -95,6 +93,7 @@ var vmIndex = avalon.define({
     isShowMap: false,
     showMap: function() {
         vmIndex.isShowMap = true;
+        console.log([vmIndex.lng, vmIndex.lat]);
         myMarker.setPosition([vmIndex.lng, vmIndex.lat]);
 
         //自动调整显示所有的点
@@ -108,16 +107,18 @@ var vmIndex = avalon.define({
     },
     openTimePanel: function() {
         stopSwipeSkip.do(function() {
-            if(vmIndex.type == 0) {
+            if (vmIndex.type == 0) {
+                vmBtn.type = 'date';
                 popover('./calendar.html', 1, function() {
                     $('#calendarPanel').height($(window).height() - 300);
                     //初始状态打开选择入住时间
-                    if(!(vmCalendar.statusControl.isEndEdit||vmCalendar.statusControl.isStartEdit)) {
+                    if (!(vmCalendar.statusControl.isEndEdit || vmCalendar.statusControl.isStartEdit)) {
                         vmCalendar.startClick();
                     }
                 });
             } else {
-                popover('./partTime.html', 1, function(){
+                vmBtn.type = 'partTime';
+                popover('./partTime.html', 1, function() {
                     loadSessionPartTime();
                 });
             }
@@ -135,7 +136,7 @@ var vmIndex = avalon.define({
                 isPartTime: vmIndex.type
             },
             successCallback: function(json) {
-                if (json.status !== 0 && json.data && json.data.count >0) {
+                if (json.status !== 0 && json.data && json.data.count > 0) {
                     vmIndex.isShowSeen = true;
                     vmIndex.seenList = json.data.list;
                 } else {
@@ -154,14 +155,17 @@ var vmIndex = avalon.define({
             url: urls.getRoomList,
             data: {
                 isPartTime: vmIndex.type,
+                aids: vmIndex.type ? newOrder.partTime.filter.join(',') : newOrder.day.filter.join(','),
+                startTime: vmIndex.type ? newOrder.partTime.start : newOrder.day.start,
+                endTime: vmIndex.type ? newOrder.partTime.end : newOrder.day.end,
                 lng: vmIndex.lng,
                 lat: vmIndex.lat,
                 sort: vmIndex.sort,
-                pageNo: vmIndex.pageNo,
+                pageNo: 1,
                 pageSize: vmIndex.pageSize
             },
             successCallback: function(json) {
-                if(json.status == 1) {
+                if (json.status == 1) {
                     vmIndex.pageNo = 2;
                     vmIndex.roomList = json.data.list;
                 }
@@ -176,9 +180,14 @@ var vmIndex = avalon.define({
             vmIndex.getRoomList();
         }
     },
+    goHotelById: function(id) {
+        stopSwipeSkip.do(function() {
+            location.href = "hotel.html?id=" + id;
+        });
+    },
     goRoom: function(id) {
         stopSwipeSkip.do(function() {
-            Storage.set("bensue", {type: vmIndex.type});
+            Storage.set("bensue", { type: vmIndex.type });
             location.href = "room.html?id=" + id;
         });
     },
@@ -215,16 +224,50 @@ var vmSearch = avalon.define({
     }
 });
 
-if(bensue && bensue.type) {
+//弹出框的确定按钮
+var vmBtn = avalon.define({
+    $id: 'popoverBtnOK',
+    type: '', //窗口的类型
+    ok: function() {
+        switch (vmBtn.type) {
+            case 'date':
+            case 'partTime':
+                saveStorage();
+                vmIndex.getRoomList();
+                break;
+        }
+
+        $('#pop-text').empty();
+
+        $('.popover').addClass('popover-hide');
+        popover_ishide = true;
+    }
+})
+
+bensue = Storage.get("bensue");
+if (bensue && bensue.type) {
     vmIndex.type = bensue.type;
+    vmFilter.type = bensue.type;
+}
+
+newOrder = Storage.get("newOrder");
+if (!newOrder) {
+    newOrder = {
+        day: { start: '', end: '', filter: [] },
+        partTime: { start: '', end: '', filter: [] }
+    };
+    Storage.set("newOrder", newOrder);
+}
+
+//更换登录用户头像
+if (user && user.headImg && user.logState) {
+    vmIndex.headImg = urlAPINet + '/' + user.headImg;
 }
 
 //高德地图
-var mapObj, geolocation;
-
 mapObj = new AMap.Map('container', {
     zoom: 13,
-    center: [121.626131, 31.210465]//默认地图中心
+    center: [121.626131, 31.210465] //默认地图中心
 });
 mapObj.plugin('AMap.Geolocation', function() {
     geolocation = new AMap.Geolocation({
@@ -251,7 +294,7 @@ mapObj.plugin('AMap.Geolocation', function() {
 myMarker = new AMap.Marker({
     map: mapObj,
     icon: "./img/transparent.png",
-    position: [positionInStorage.lng, positionInStorage.lat],
+    position: [121.626131, 31.210465],
     offset: new AMap.Pixel(-12, -36)
 });
 
@@ -262,12 +305,12 @@ if (verify(positionInStorage)) {
 } else {
     geolocation.getCurrentPosition();
 }
-vmIndex.getHotelPosition(mapObj);
 
-//更换登录用户头像
-if(user && user.headImg && user.logState) {
-    vmIndex.headImg = urlAPINet + '/' + user.headImg;
-}
+vmIndex.getHotelPosition(mapObj);
+//获取最近浏览数据
+vmIndex.getRecentViewRoomList();
+//获取便利设施
+vmFilter.getFilter();
 
 mui.init({
     pullRefresh: {
@@ -285,6 +328,10 @@ function loadmore() {
     ajaxJsonp({
         url: urls.getRoomList,
         data: {
+            isPartTime: vmIndex.type,
+            aids: vmIndex.type ? newOrder.partTime.filter.join(',') : newOrder.day.filter.join(','),
+            startTime: vmIndex.type ? newOrder.partTime.start : newOrder.day.start,
+            endTime: vmIndex.type ? newOrder.partTime.end : newOrder.day.end,
             lng: vmIndex.lng,
             lat: vmIndex.lat,
             sort: vmIndex.sort,
@@ -382,55 +429,25 @@ function updateData() {
     vmIndex.lat = positionInStorage.lat;
     vmIndex.pageNo = 1;
     vmIndex.getRoomList();
-    //获取最近浏览数据
-    vmIndex.getRecentViewRoomList();
 
     vmSearch.currentLocation = vmIndex.position;
 }
 
-//弹出框的确定按钮
-var vmBtn = avalon.define({
-    $id: 'popoverBtnOK',
-    ok: function() {
-        $('#pop-text').empty();
-
-        $('.popover').addClass('popover-hide');
-        popover_ishide = true;
-    }
-})
-
-//更多筛选
-var vmFilter = avalon.define({
-    $id: 'filter',
-    type: 0,
-    dayFilter: [],
-    selectDayFilter: [],
-    partTimeFilter: [],
-    selectPartTimeFilter: [],
-    getFilter: function() {
-        ajaxJsonp({
-            url: urls.getFilter,
-            data: {
-                isPartTime: 0
-            },
-            successCallback: function(json) {
-                if (json.status !== 0) {
-                    vmFilter.dayFilter = json.data;
-                }
-            }
+//保存到本地
+function saveStorage() {
+    if (vmIndex.type) {
+        $.extend(newOrder.partTime, {
+            start: getStartTime(vmIndex.type),
+            end: getEndTime(vmIndex.type),
+            filter: vmFilter.$model.selectPartTimeFilter
         });
-        ajaxJsonp({
-            url: urls.getFilter,
-            data: {
-                isPartTime: 1
-            },
-            successCallback: function(json) {
-                if (json.status !== 0) {
-                    vmFilter.partTimeFilter = json.data;
-                }
-            }
+    } else {
+        $.extend(newOrder.day, {
+            start: getStartTime(vmIndex.type),
+            end: getEndTime(vmIndex.type),
+            filter: vmFilter.$model.selectDayFilter
         });
     }
-});
 
-vmFilter.getFilter();
+    Storage.set("newOrder", newOrder);
+}

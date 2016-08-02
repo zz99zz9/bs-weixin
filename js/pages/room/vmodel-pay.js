@@ -1,6 +1,6 @@
 var newOrder = Storage.get("newOrder");
 if (newOrder) {
-    var roomid = newOrder.room.rid;
+    var roomid = newOrder.room.id;
 
     if (roomid) {
         if (isNaN(roomid)) {
@@ -18,6 +18,7 @@ if (newOrder) {
 var vmOrder = avalon.define({
     $id: 'order',
     isPartTime: 0,
+    hotel: {},
     name: '',
     dayPrice: 0,
     price: 0,
@@ -125,6 +126,7 @@ var vmOrder = avalon.define({
 
 //从本地储存取订单房间数据
 (function() {
+    vmOrder.hotel = newOrder.hotel;
     vmOrder.name = newOrder.room.name;
     vmOrder.isPartTime = newOrder.date.isPartTime;
     if (newOrder.date.isPartTime) {
@@ -150,31 +152,6 @@ var vmOrder = avalon.define({
     vmOrder.contactList = newOrder.contact;
 })();
 
-//移除入住人
-(function($) {
-    var btnArray = ['确认', '取消'];
-    //第二个demo，向左拖拽后显示操作图标，释放后自动触发的业务逻辑
-    $('#OA_task_2').on('slideleft', '.mui-table-view-cell', function(event) {
-        var elem = this;
-        var li = elem;
-
-        mui.confirm('确认删除该入住人吗？', 'INI', btnArray, function(e) {
-            if (e.index == 0) {
-                li.parentNode.removeChild(li);
-
-                //从入住人列表里删除
-                vmOrder.contactList.splice(li.dataset.index, 1);
-                //从本地储存里删除
-                newOrder.contact.splice(li.dataset.index, 1);
-                Storage.set("newOrder", newOrder);
-            } else {
-                setTimeout(function() {
-                    $.swipeoutClose(li);
-                }, 0);
-            }
-        });
-    });
-})(mui);
 
 var vmRedpacket = avalon.define({
     $id: 'redpacket',

@@ -1,30 +1,8 @@
-var hid, 
-    myPosition, myLng, myLat, 
-    bensue, roomType = 0,
+var hid,
+    myPosition, myLng, myLat,
+    bensue, roomType, newOrder,
     isexpand = false,
     isSuccess = false;
-
-hid = getParam("id");
-if(hid != "") {
-    if(isNaN(hid)) {
-        location.href = document.referrer || "index.html";
-    } else {
-        hid = parseInt(hid);
-    }
-} else {
-    location.href = "index.html";
-}
-
-myPosition = Storage.getLocal("position");
-if(myPosition) {
-    myLng = myPosition.lng || "";
-    myLat = myPosition.lat || "";
-}
-
-bensue = Storage.get("bensue");
-if(bensue) {
-    roomType = bensue.type || 0;
-}
 
 var vmHotel = avalon.define({
     $id: 'hotel',
@@ -48,13 +26,13 @@ var vmHotel = avalon.define({
                 isPartTime: roomType
             },
             successCallback: function(json) {
-                if(json.status == 1) {
+                if (json.status == 1) {
                     vmHotel.alias = json.data.alias;
                     vmHotel.name = json.data.name;
                     vmHotel.address = json.data.address;
                     vmHotel.lng = json.data.lng;
                     vmHotel.lat = json.data.lat;
-                    vmHotel.distance = round(json.data.distance/1000, 2);
+                    vmHotel.distance = round(json.data.distance / 1000, 2);
                     //顶部轮播导入图片数据
                     vmHotel.galleryList = json.data.hotelGalleryList;
                     //房型数量
@@ -66,7 +44,7 @@ var vmHotel = avalon.define({
         });
     },
     expand: function() {
-        stopSwipeSkip.do(function(){
+        stopSwipeSkip.do(function() {
             var h = ($(".pic-info"))[0].scrollHeight;
             isexpand = !isexpand;
             if (isexpand) {
@@ -105,20 +83,19 @@ var vmHotel = avalon.define({
     },
     openTimePanel: function() {
         stopSwipeSkip.do(function() {
-            if(roomType == 0) {
+            if (roomType == 0) {
+                vmBtn.type = 'date';
                 popover('./calendar.html', 1, function() {
                     $('#calendarPanel').height($(window).height() - 300);
                     //初始状态打开选择入住时间
-                    if(!(vmCalendar.statusControl.isEndEdit||vmCalendar.statusControl.isStartEdit)) {
+                    if (!(vmCalendar.statusControl.isEndEdit || vmCalendar.statusControl.isStartEdit)) {
                         vmCalendar.startClick();
                     }
                 });
             } else {
-                popover('./partTime.html', 1, function(){
-                    $('.select-time').height($(window).height() - 260);
-
-                    select_bar = document.getElementById('select_bar');
-                    select_bar.style.width = $('#select_time').width() + 'px';
+                vmBtn.type = 'partTime';
+                popover('./partTime.html', 1, function() {
+                    loadSessionPartTime();
                 });
             }
         });
@@ -131,14 +108,17 @@ var vmHotel = avalon.define({
             url: urls.getRoomList,
             data: {
                 hid: hid,
+                aids: roomType.type ? newOrder.partTime.filter.join(',') : newOrder.day.filter.join(','),
+                startTime: roomType ? newOrder.partTime.start : newOrder.day.start,
+                endTime: roomType ? newOrder.partTime.end : newOrder.day.end,
                 isPartTime: roomType,
                 lng: myLng,
                 lat: myLat,
-                pageNo: vmHotel.pageNo,
+                pageNo: 1,
                 pageSize: vmHotel.pageSize
             },
             successCallback: function(json) {
-                if(json.status == 1) {
+                if (json.status == 1) {
                     vmHotel.pageNo = 2;
                     vmHotel.roomList = json.data.list;
                 }
@@ -155,6 +135,11 @@ var vmHotel = avalon.define({
             freeModeMomentumRatio: 0.4
         });
     },
+    goHotelById: function(id) {
+        stopSwipeSkip.do(function() {
+            location.href = "hotel.html?id=" + id;
+        });
+    },
     goRoom: function(id) {
         stopSwipeSkip.do(function() {
             location.href = "room.html?id=" + id;
@@ -165,7 +150,16 @@ var vmHotel = avalon.define({
 //弹出框的确定按钮
 var vmBtn = avalon.define({
     $id: 'popoverBtnOK',
+    type: '', //窗口的类型
     ok: function() {
+        switch (vmBtn.type) {
+            case 'date':
+            case 'partTime':
+                saveStorage();
+                vmHotel.getRoomList();
+                break;
+        }
+
         $('#pop-text').empty();
 
         $('.popover').addClass('popover-hide');
@@ -173,10 +167,42 @@ var vmBtn = avalon.define({
     }
 })
 
+
+hid = getParam("id");
+if (hid != "") {
+    if (isNaN(hid)) {
+        location.href = document.referrer || "index.html";
+    } else {
+        hid = parseInt(hid);
+    }
+} else {
+    location.href = "index.html";
+}
+
+myPosition = Storage.getLocal("position");
+if (myPosition) {
+    myLng = myPosition.lng || "";
+    myLat = myPosition.lat || "";
+}
+
+bensue = Storage.get("bensue");
+if (bensue) {
+    roomType = bensue.type || 0;
+}
+
+newOrder = Storage.get("newOrder");
+if (!newOrder) {
+    newOrder = { day: { filter: [] }, partTime: { filter: [] } };
+    Storage.set("newOrder", newOrder);
+}
+
 vmHotel.type = roomType;
 vmHotel.getHotelDetail();
 vmHotel.getRoomList();
 registerWeixinConfig();
+
+vmFilter.type = roomType;
+vmFilter.getFilter();
 
 mui.init({
     pullRefresh: {
@@ -194,8 +220,13 @@ function loadmore() {
     ajaxJsonp({
         url: urls.getRoomList,
         data: {
-            lng: vmHotel.lng,
-            lat: vmHotel.lat,
+            hid: hid,
+            aids: roomType ? newOrder.partTime.filter.join(',') : newOrder.day.filter.join(','),
+            startTime: roomType ? newOrder.partTime.start : newOrder.day.start,
+            endTime: roomType ? newOrder.partTime.end : newOrder.day.end,
+            isPartTime: roomType,
+            lng: myLng,
+            lat: myLat,
             pageNo: vmHotel.pageNo,
             pageSize: vmHotel.pageSize
         },
@@ -235,4 +266,23 @@ function registerWeixinConfig() {
             }
         }
     });
+}
+
+//保存到本地
+function saveStorage() {
+    if (roomType) {
+        $.extend(newOrder.partTime, {
+            start: getStartTime(roomType),
+            end: getEndTime(roomType),
+            filter: vmFilter.$model.selectPartTimeFilter
+        });
+    } else {
+        $.extend(newOrder.day, {
+            start: getStartTime(roomType),
+            end: getEndTime(roomType),
+            filter: vmFilter.$model.selectDayFilter
+        });
+    }
+
+    Storage.set("newOrder", newOrder);
 }

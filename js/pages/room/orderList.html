@@ -1,100 +1,86 @@
 <style>
-.mui-table-view-cell {
-    font-size: 14px;
-    color: gray;
-    /*font-weight: lighter;*/
+.title {
+    display: inline-block;
+    margin: 10px 0 5px 10px;
+    font-size: 20px;
 }
-.mui-control-item {
-  position: relative;
+.order-list{
+    margin-top: 0;
+    padding-left: 0;
+    list-style-type: none;
 }
-.mui-control-item:after{
-  content: '';
-  width: 1px;
-  display: inline-block;
-  position: absolute;
-  top: 50%;
-  right: 0;
-  height: 18px;
-  margin-top: -9px;
-  background: gray;
+
+.order-list .order-item {
+    display: block;
+    margin: 10px 0;
+    padding: 8px 0 8px 8px;
+    background-color: #fff;
 }
-.mui-text-yellow {
-  color: #cc9966;
+.order-list .order-item .status{
+    font-size: 12px;
+    color: #fff;
+    position: absolute;
+    right: 0px;
 }
+.order-list .order-item h5{
+    margin: 8px 0;
+    line-height: 18px;
+}
+.order-list .order-item button{
+    position: absolute;
+    right: 11px;
+    width: 100px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    margin: -5px;
+}
+#triangle{ 
+    float: right;
+    margin-top: -9px;
+    width: 0; 
+    height: 0; 
+    border-top: 60px solid gold; 
+    border-left: 60px solid transparent; 
+} 
 </style>
 <div ms-controller="orders">
-    <div id="segmentedControl" class="mui-segmented-control mui-segmented-control-negative mui-segmented-control-inverted" style="z-index:9;background-color:#efeff4;">
-      <a class="mui-control-item mui-active" href="#item1">待支付</a>
-      <a class="mui-control-item" href="#item2">待入住</a>
-      <a class="mui-control-item" href="#item3">已入住</a>
-      <a class="mui-control-item" href="#item4">已离店</a>
-  </div>
+    <span class="title">当前订单</span>
+    <ul class="order-list">
+        <li class="order-item" ms-visible="list1.length == 0">暂无订单
+        </li>
+        <li class="order-item" ms-repeat="list1" ms-click="goDetail(el.id)">
+            <span class="status">状态</span>
+            <div id="triangle"></div>
+            <span>{{el.hotel.name}}</span>
+            <h5>
+                {{el.orderRoomList[0].name}}
+                <span ms-if="el.orderRoomList.length>1">等{{el.orderRoomList.length}}间房</span>
+                <br>
+                {{formatDate(el.orderRoomList[0].startTime)}} - {{formatDate(el.orderRoomList[0].endTime)}}
+                &nbsp;共{{el.orderRoomList[0].timeCount}}晚
+            </h5>
+            <span>¥{{el.needAmount}}</</span>
+            <button type="button" ms-click="action">动作</button>
+        </li>
+    </ul>
 
-  <!-- <div id="pullrefresh" class="mui-scroll-wrapper">
-      <div class="mui-scroll">
-          <br><br><br><br> -->
-  <div id="item1" class="mui-control-content mui-active">
-  <ul class="mui-table-view">
-    <li class="mui-table-view-cell" ms-if="list1.length == 0">暂无订单
-    </li>
-  </ul>
-  <ul class="mui-table-view" ms-if="list1.length != 0">
-      <li class="mui-table-view-cell" ms-repeat="list1" ms-click="goDetail(el.id)">
-          <h5><span class="mui-text-yellow">▍</span><span style="color: black;"> 订单编号: {{el.orderNo}}</span></h5>
-          房间名称: {{el.orderRoom.name}}
-        <div style="-webkit-column-count: 2;">
-            <div>房间号: <span class="mui-text-yellow">{{el.orderRoom.roomNo}}</span></div>
-            <div class="mui-text-right">订单金额: <span class="mui-text-yellow">¥{{el.needAmount}}</span></div>
-        </div>
-      </li>
-  </ul>
-  </div>
-  <div id="item2" class="mui-control-content">
-    <ul class="mui-table-view">
-      <li class="mui-table-view-cell" ms-if="list2.length == 0">暂无内容
-      </li>
-    </ul>
-    <ul class="mui-table-view" ms-if="list2.length != 0">
-        <li class="mui-table-view-cell" ms-repeat="list2" ms-click="goDetail(el.id)">
-            <h5><span class="mui-text-yellow">▍</span><span style="color: black;"> 订单编号: {{el.orderNo}}</span></h5>
-            房间名称: {{el.orderRoom.name}}
-          <div style="-webkit-column-count: 2;">
-              <div>房间号: <span class="mui-text-yellow">{{el.orderRoom.roomNo}}</span></div>
-              <div class="mui-text-right">订单金额: <span class="mui-text-yellow">¥{{el.needAmount}}</span></div>
-          </div>
+    <span class="title">历史订单</span>
+    <ul class="order-list">
+        <li class="order-item" ms-if="list2.length == 0">暂无订单
+        </li>
+        <li class="order-item" ms-repeat="list2" ms-if="list2.length != 0" ms-click="goDetail(el.id)">
+            <span class="status">状态</span>
+            <div id="triangle"></div>
+            <span>{{el.hotel.name}}</span>
+            <h5>
+                {{el.orderRoomList[0].name}}
+                <span ms-if="el.orderRoomList.length>1">等{{el.orderRoomList.length}}间房</span>
+                <br>
+                {{formatDate(el.orderRoomList[0].startTime)}} - {{formatDate(el.orderRoomList[0].endTime)}}
+                &nbsp;共{{el.orderRoomList[0].timeCount}}晚
+            </h5>
+            <span>¥{{el.needAmount}}</</span>
+            <button type="button" ms-click="action">动作</button>
         </li>
     </ul>
-  </div>
-  <div id="item3" class="mui-control-content">
-    <ul class="mui-table-view">
-      <li class="mui-table-view-cell" ms-if="list3.length == 0">暂无内容
-      </li>
-    </ul>
-    <ul class="mui-table-view" ms-if="list3.length != 0">
-        <li class="mui-table-view-cell" ms-repeat="list3" ms-click="goDetail(el.id)">
-            <h5><span class="mui-text-yellow">▍</span><span style="color: black;"> 订单编号: {{el.orderNo}}</span></h5>
-            房间名称: {{el.orderRoom.name}}
-          <div style="-webkit-column-count: 2;">
-              <div>房间号: <span class="mui-text-yellow">{{el.orderRoom.roomNo}}</span></div>
-              <div class="mui-text-right">订单金额: <span class="mui-text-yellow">¥{{el.needAmount}}</span></div>
-          </div>
-        </li>
-    </ul>
-  </div>
-  <div id="item4" class="mui-control-content">
-    <ul class="mui-table-view">
-      <li class="mui-table-view-cell" ms-if="list4.length == 0">暂无内容
-      </li>
-    </ul>
-    <ul class="mui-table-view" ms-if="list4.length != 0">
-        <li class="mui-table-view-cell" ms-repeat="list4" ms-click="goDetail(el.id)">
-            <h5><span class="mui-text-yellow">▍</span><span style="color: black;"> 订单编号: {{el.orderNo}}</span></h5>
-            房间名称: {{el.orderRoom.name}}
-          <div style="-webkit-column-count: 2;">
-              <div>房间号: <span class="mui-text-yellow">{{el.orderRoom.roomNo}}</span></div>
-              <div class="mui-text-right">订单金额: <span class="mui-text-yellow">¥{{el.needAmount}}</span></div>
-          </div>
-        </li>
-    </ul>
-  </div>
 </div>

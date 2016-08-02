@@ -206,7 +206,7 @@ vmPart.$watch("partTimeIndex", function(a) {
         amount = '?';
     }
 
-    $.extend(newOrder.date, {
+    $.extend(newOrder.partTime, {
         partTimeIndex: a,
         partTimeNumber: vmPart.partTimeNumber,
         startShow: startShow,
@@ -239,7 +239,7 @@ vmPart.$watch("partTimeNumber", function(a) {
         amount = '?';
     }
 
-    $.extend(newOrder.date, {
+    $.extend(newOrder.partTime, {
         partTimeIndex: vmPart.partTimeIndex,
         partTimeNumber: a,
         startShow: startShow,
