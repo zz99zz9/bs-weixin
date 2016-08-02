@@ -42,6 +42,14 @@
     label{
         font-size: 15px;
     }
+
+    .icon-edit-address{
+        float: right;
+        margin-right: 15px;
+    }
+    .mui-table-view-cell{
+        overflow: visible !important;
+    }
 </style>
 <div ms-controller="invoiceApply" style="padding-bottom: 55px">
     <div class="mui-table-view">
@@ -71,23 +79,22 @@
                 </div>
             </div>
             <div ms-if="invoiceType == 2">
-                <input type="text" class="mui-input-clear" placeholder="请输入公司抬头">
+                <input type="text" ms-duplex="head" class="mui-input-clear" placeholder="请输入公司抬头">
             </div>
         </div>
     </div>
     <div class="mui-table-view">
         <div class="rowHead">
             <img src="img/tag1.jpg"/>收件人
+            <span class="mui-icon mui-icon-compose icon-edit-address"></span>
         </div>
-        <div class="mui-table-view-cell">
+        <div class="mui-table-view-cell" ms-click="openDeliveryAddress()">
             <div class="display-flex">
-                <h5 class="flex0" style="-webkit-box-pack: justify;">{{name}}</h5>
-                <h5 class="flex1">{{mobile}}</h5>
+                <h5 class="flex0" style="-webkit-box-pack: justify;">{{defaultDeliveryAddress.name}}</h5>
+                <h5 class="flex1">{{defaultDeliveryAddress.mobile}}</h5>
             </div>
-            <h5 class="flex1">{{fullAddress}}</h5>
-        </div>
-        <div class="mui-table-view-cell mui-text-center">
-            <a href="#" ms-click="openDeliveryAddress()" style="color: #dd524d;"><span class="mui-icon mui-icon-plus"></span> 添加收货地址</a>
+            <h5 class="flex1">{{defaultDeliveryAddress.fullAddress}}</h5>
+            <h5 class="flex1" ms-if="!defaultDeliveryAddress.id">点击添加收货地址</h5>
         </div>
     </div>
     <div class="mui-table-view">
@@ -97,7 +104,7 @@
         <div class="mui-table-view-cell">
             <div class="display-flex">
                 <h5 class="flex0" style="-webkit-box-pack: justify;">合计</h5>
-                <h5 class="flex1 money">￥10</h5>
+                <h5 class="flex1 money">￥{{invoiceExpressFee}}</h5>
             </div>
         </div>
     </div>
@@ -123,6 +130,6 @@
         </div>
     </div>
     <nav class="mui-bar mui-bar-tab" style="padding: 10px;">
-        <button type="button" class="mui-btn mui-btn-danger mui-pull-right btn" ms-click="toPay()">支付</button>
+        <button type="button" class="mui-btn mui-btn-danger mui-pull-right btn" ms-click="saveInvoice()">支付</button>
     </nav>
 </div>
