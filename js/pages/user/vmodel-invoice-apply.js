@@ -21,6 +21,11 @@ var vmInvoiceApply = avalon.define({
         mobile: '',
         fullAddress: ''
     },
+    payInfo: {},
+    invoiceId: '',
+    /**
+     * 获取快递费用
+     */
     getInvoiceExpressFee: function () {
         ajaxJsonp({
             url: urls.getInvoiceExpressFee,
@@ -33,12 +38,18 @@ var vmInvoiceApply = avalon.define({
             }
         });
     },
+    /**
+     * 打开收货地址编辑框
+     */
     openDeliveryAddress: function () {
         vmInvoiceApply.editDeliveryAddress.name = vmInvoiceApply.defaultDeliveryAddress.name;
         vmInvoiceApply.editDeliveryAddress.mobile = vmInvoiceApply.defaultDeliveryAddress.mobile;
         vmInvoiceApply.editDeliveryAddress.fullAddress = vmInvoiceApply.defaultDeliveryAddress.fullAddress;
         popover('delivery-address-add.html', 1);
     },
+    /**
+     * 获取默认收货地址
+     */
     getDeliveryAddress: function () {
         ajaxJsonp({
             url: urls.getDeliveryAddress,
@@ -53,6 +64,10 @@ var vmInvoiceApply = avalon.define({
             }
         });
     },
+    /**
+     * 保存收货地址
+     * @returns {boolean}
+     */
     saveDeliveryAddress: function () {
         if (vmInvoiceApply.editDeliveryAddress.name == "") {
             alert("收货人姓名不能为空");
@@ -106,6 +121,55 @@ var vmInvoiceApply = avalon.define({
                 }
             }
         });
+    },
+    /**
+     申请发票
+     */
+    saveInvoice: function () {
+        ajaxJsonp({
+            url: urls.saveInvoice,
+            data: {
+                oids: vmInvoiceApply.oids.join(','),
+                head: vmInvoiceApply.defaultDeliveryAddress.title ? vmInvoiceApply.defaultDeliveryAddress.title : '个人',
+                aid: vmInvoiceApply.defaultDeliveryAddress.id
+            },
+            successCallback: function (json) {
+                if (json.status === 1) {
+                    vmInvoiceApply.invoiceId = json.data.id;
+                    vmInvoiceApply.payInvoice();
+                } else {
+                    alert(json.message);
+                }
+            }
+        });
+    },
+    /**
+     * 发起支付
+     */
+    payInvoice: function () {
+        ajaxJsonp({
+            url: urls.payInvoice,
+            data: {
+                id: vmInvoiceApply.invoiceId,
+                payType: vmInvoiceApply.payType
+            },
+            successCallback: function (json) {
+                if (json.status === 1) {
+                    vmInvoiceApply.payInfo = json.data;
+                    if (vmInvoiceApply.payType == 1) {//支付宝支付-2
+                        if (isweixin) {
+                            location.href = 'alipay-iframe.html?payUrl=' + encodeURIComponent(json.data.payUrl);
+                        } else {
+                            location.href = json.data.payUrl;
+                        }
+                    } else if (vmInvoiceApply.payType == 2) {//微信支付-1
+                        onBridgeReady();
+                    }
+                } else {
+                    alert(json.message);
+                }
+            }
+        });
     }
 });
 
@@ -124,6 +188,44 @@ function load() {
     }
     vmInvoiceApply.amount = invoiceApply.amount;
     vmInvoiceApply.oids = invoiceApply.oids;
+}
+
+/**
+ * 准备微信支付
+ */
+function onBridgeReady() {
+    if (typeof WeixinJSBridge == "undefined") {
+        if (document.addEventListener) {
+            document.addEventListener('WeixinJSBridgeReady', callWcpay, false);
+        } else if (document.attachEvent) {
+            document.attachEvent('WeixinJSBridgeReady', callWcpay);
+            document.attachEvent('onWeixinJSBridgeReady', callWcpay);
+        }
+    } else {
+        callWcpay();
+    }
+}
+/**
+ * 发起微信支付
+ */
+function callWcpay() {
+    WeixinJSBridge.invoke('getBrandWCPayRequest', {
+        "appId": vmInvoiceApply.payInfo.appId,
+        "timeStamp": vmInvoiceApply.payInfo.timeStamp,
+        "nonceStr": vmInvoiceApply.payInfo.nonceStr,
+        "package": vmInvoiceApply.payInfo.package,
+        "signType": vmInvoiceApply.payInfo.signType,
+        "paySign": vmInvoiceApply.payInfo.paySign
+    }, function (res) {
+        if (res.err_msg == "get_brand_wcpay_request:ok") {
+            alert("支付成功");
+            location.href = 'payend.html';
+        } else {
+            if (res.err_msg == "get_brand_wcpay_request:fail") {
+                alert("Ooops，出问题了，请重试");
+            }
+        }
+    });
 }
 
 load();

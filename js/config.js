@@ -37,6 +37,8 @@ var urls = {
         deleteContact: urlAPI + '/usr/frequentContact/delete', //常用联系人删除
         //发票管理
         getInvoiceList: urlAPI + '/trd/orderInfo/invoiceList', //可以开发票的订单列表
+        saveInvoice: urlAPI + '/usr/invoiceLog/save', //申请发票
+        payInvoice: urlAPI + '/trd/pay/invoiceExpressFeePay/cashier', //支付发票快递费用
         //收货地址
         saveDeliveryAddress: urlAPI + '/usr/deliveryAddress/save', //收货地址增加、修改getInvoiceExpressFee
         getDeliveryAddress: urlAPI + '/usr/deliveryAddress/get', //获取收货地址
