@@ -8,7 +8,7 @@ var vmInvoiceApply = avalon.define({
     oids: [],
     invoiceType: 1,
     payType: 2,
-    title: '',
+    head: '',
     invoiceExpressFee: 0,
     editDeliveryAddress: {
         name: '',
@@ -126,11 +126,17 @@ var vmInvoiceApply = avalon.define({
      申请发票
      */
     saveInvoice: function () {
+        if (vmInvoiceApply.invoiceType == 2) {
+            if (isEmpty(vmInvoiceApply.head)) {
+                alert('请填写公司抬头');
+                return;
+            }
+        }
         ajaxJsonp({
             url: urls.saveInvoice,
             data: {
                 oids: vmInvoiceApply.oids.join(','),
-                head: vmInvoiceApply.defaultDeliveryAddress.title ? vmInvoiceApply.defaultDeliveryAddress.title : '个人',
+                head: vmInvoiceApply.invoiceType == 1 ? '个人' : vmInvoiceApply.head,
                 aid: vmInvoiceApply.defaultDeliveryAddress.id
             },
             successCallback: function (json) {
@@ -156,13 +162,13 @@ var vmInvoiceApply = avalon.define({
             successCallback: function (json) {
                 if (json.status === 1) {
                     vmInvoiceApply.payInfo = json.data;
-                    if (vmInvoiceApply.payType == 1) {//支付宝支付-2
+                    if (vmInvoiceApply.payType == 1) {//支付宝支付
                         if (isweixin) {//如果是在微信里打开
                             location.href = 'alipay-iframe.html?payUrl=' + encodeURIComponent(json.data.payUrl);
                         } else {//在其它浏览器打开
                             location.href = json.data.payUrl;
                         }
-                    } else if (vmInvoiceApply.payType == 2) {//微信支付-1
+                    } else if (vmInvoiceApply.payType == 2) {//微信支付
                         onBridgeReady();
                     }
                 } else {

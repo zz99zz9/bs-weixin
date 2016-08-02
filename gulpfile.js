@@ -1141,6 +1141,28 @@ gulp.task('alipay-iframe', function() {
     process.stdout.write('\x07');
 });
 
+//支付发票快递费用成功页
+gulp.task('invoice-pay-success', function() {
+    gulp.src('./js/layout/shell.html')
+        .pipe(replace({ regex: '<!-- pop -->', replace: '<!--include "../pages/user/popover.html"-->' }))
+        .pipe(replace({ regex: '<!-- js -->', replace: '<script src="js/pages/user/vmodel-invoice-pay-success.js"></script>' }))
+        .pipe(replace({ regex: '<!-- content -->', replace: '<!--include "../pages/user/invoice-pay-success.html"-->' }))
+        .pipe(replace({ regex: '<h1 id="headerReplace" class="mui-title"></h1>', replace: '<h1 id="headerReplace" class="mui-title">支付成功</h1>' }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(replace({
+            regex: '<button class="popover-closeButton"></button>',
+            replace: '<!--include "../pages/room/pop-btn.html"-->'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('invoice-pay-success.html'))
+        .pipe(gulp.dest('./dist'));
+    process.stdout.write('\x07');
+});
+
 gulp.task('txt-copy', function() {
     gulp.src('./js/pages/invite/rule.html').pipe(gulp.dest('./dist'));
     gulp.src('./js/pages/invite/oldInvite.html').pipe(gulp.dest('./dist'));
@@ -1242,7 +1264,8 @@ gulp.task('all', [
     'frequent-contact-list',
     'invoice-list',
     'invoice-apply',
-    'alipay-iframe'
+    'alipay-iframe',
+    'invoice-pay-success'
 ]);
 
 gulp.task('watchJS', function() {
