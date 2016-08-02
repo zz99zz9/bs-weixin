@@ -38,7 +38,9 @@ var urls = {
         //发票管理
         getInvoiceList: urlAPI + '/trd/orderInfo/invoiceList', //可以开发票的订单列表
         //收货地址
-        saveDeliveryAddress: urlAPI + '/usr/deliveryAddress/save', //收货地址增加、修改
+        saveDeliveryAddress: urlAPI + '/usr/deliveryAddress/save', //收货地址增加、修改getInvoiceExpressFee
+        getDeliveryAddress: urlAPI + '/usr/deliveryAddress/get', //获取收货地址
+        getInvoiceExpressFee: urlAPI + '/usr/invoiceLog/invoiceExpressFee', //获取发票快递费用
         //房间相关
         getRoomTypeList: urlAPI + '/res/roomType/list', //房间类型列表
         getRoomList: urlAPI + '/res/room/list', //房间列表
@@ -445,6 +447,11 @@ function fmoney(value) {
 //判断是否为空
 function isEmpty(obj) {
     return obj === "" || obj == null || obj == undefined;
+}
+
+//判断是否为空
+function isNotEmpty(obj) {
+    return !isEmpty(obj);
 }
 //拼接picker字符串通用方法
 // function mapList(json,key1,key2){
