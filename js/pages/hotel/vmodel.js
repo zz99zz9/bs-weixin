@@ -85,7 +85,7 @@ var vmHotel = avalon.define({
         stopSwipeSkip.do(function() {
             if (roomType == 0) {
                 vmBtn.type = 'date';
-                popover('./calendar.html', 1, function() {
+                popover('./util/calendar.html', 1, function() {
                     $('#calendarPanel').height($(window).height() - 300);
                     //初始状态打开选择入住时间
                     if (!(vmCalendar.statusControl.isEndEdit || vmCalendar.statusControl.isStartEdit)) {
@@ -94,7 +94,7 @@ var vmHotel = avalon.define({
                 });
             } else {
                 vmBtn.type = 'partTime';
-                popover('./partTime.html', 1, function() {
+                popover('./util/partTime.html', 1, function() {
                     loadSessionPartTime();
                 });
             }

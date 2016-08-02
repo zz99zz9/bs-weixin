@@ -75,7 +75,7 @@ var vmIndex = avalon.define({
     position: '正在定位...',
     openLocationSearch: function() {
         stopSwipeSkip.do(function() {
-            popover('./searchLocation.html', 1, function() {
+            popover('./util/searchLocation.html', 1, function() {
                 //高德自动提示
                 AMap.plugin('AMap.Autocomplete', function() { //回调函数
                     //实例化Autocomplete
@@ -109,7 +109,7 @@ var vmIndex = avalon.define({
         stopSwipeSkip.do(function() {
             if (vmIndex.type == 0) {
                 vmBtn.type = 'date';
-                popover('./calendar.html', 1, function() {
+                popover('./util/calendar.html', 1, function() {
                     $('#calendarPanel').height($(window).height() - 300);
                     //初始状态打开选择入住时间
                     if (!(vmCalendar.statusControl.isEndEdit || vmCalendar.statusControl.isStartEdit)) {
@@ -118,7 +118,7 @@ var vmIndex = avalon.define({
                 });
             } else {
                 vmBtn.type = 'partTime';
-                popover('./partTime.html', 1, function() {
+                popover('./util/partTime.html', 1, function() {
                     loadSessionPartTime();
                 });
             }

@@ -6,7 +6,7 @@ var vmContactList = avalon.define({
     $id: 'contactList',
     list: [],
     add: function () {
-        popover('frequent-contact-add.html', 1);
+        popover('./util/frequent-contact-add.html', 1);
     },
     del: function (index) {
         if (confirm('确定要删除吗？')) {

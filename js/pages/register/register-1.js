@@ -14,7 +14,7 @@ var vmPhone = avalon.define({
         }
     },
     clickA: function() {
-        popover('agreement.html', 1);
+        popover('./util/agreement.html', 1);
     }
 });
 //动态加载title

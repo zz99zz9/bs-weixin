@@ -174,25 +174,11 @@ gulp.task('room', function() {
 //     process.stdout.write('\x07');
 // });
 
-//下单成功页面
-gulp.task('payend', function() {
-    gulp.src('./js/layout/shell.html')
-        .pipe(replace({ regex: '<!-- pop -->', replace: '<!--include "../util/pop.html"-->' }))
-        .pipe(replace({ regex: '<!-- js -->', replace: '<script src="js/pages/room/vmodel-payend.js"></script>' }))
-        .pipe(replace({ regex: '<!-- content -->', replace: '<!--include "../pages/room/payend.html"-->' }))
-        .pipe(contentIncluder({
-            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
-        }))
-        .pipe(rename('payend.html'))
-        .pipe(gulp.dest('./dist'));
-    process.stdout.write('\x07');
-});
-
 //订单列表页
 gulp.task('orderList', function() {
     gulp.src('./js/layout/shell.html')
-        .pipe(replace({ regex: '<!-- js -->', replace: '<script src="js/pages/room/vmodel-orderList.js"></script>' }))
-        .pipe(replace({ regex: '<!-- content -->', replace: '<!--include "../pages/room/orderList.html"-->' }))
+        .pipe(replace({ regex: '<!-- js -->', replace: '<script src="js/pages/order/vmodel-orderList.js"></script>' }))
+        .pipe(replace({ regex: '<!-- content -->', replace: '<!--include "../pages/order/orderList.html"-->' }))
         .pipe(contentIncluder({
             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
         }))
@@ -204,12 +190,26 @@ gulp.task('orderList', function() {
 //订单详情页
 gulp.task('order', function() {
     gulp.src('./js/layout/shell.html')
-        .pipe(replace({ regex: '<!-- js -->', replace: '<script src="js/pages/room/vmodel-order.js"></script>' }))
-        .pipe(replace({ regex: '<!-- content -->', replace: '<!--include "../pages/room/order.html"-->' }))
+        .pipe(replace({ regex: '<!-- js -->', replace: '<script src="js/pages/order/vmodel-order.js"></script>' }))
+        .pipe(replace({ regex: '<!-- content -->', replace: '<!--include "../pages/order/order.html"-->' }))
         .pipe(contentIncluder({
             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
         }))
         .pipe(rename('order.html'))
+        .pipe(gulp.dest('./dist'));
+    process.stdout.write('\x07');
+});
+
+//下单成功页面
+gulp.task('payend', function() {
+    gulp.src('./js/layout/shell.html')
+        .pipe(replace({ regex: '<!-- pop -->', replace: '<!--include "../util/pop.html"-->' }))
+        .pipe(replace({ regex: '<!-- js -->', replace: '<script src="js/pages/order/vmodel-payend.js"></script>' }))
+        .pipe(replace({ regex: '<!-- content -->', replace: '<!--include "../pages/order/payend.html"-->' }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('payend.html'))
         .pipe(gulp.dest('./dist'));
     process.stdout.write('\x07');
 });
@@ -1120,28 +1120,28 @@ gulp.task('invoice-apply', function() {
 });
 
 gulp.task('txt-copy', function() {
-    gulp.src('./js/pages/invite/rule.html').pipe(gulp.dest('./dist'));
-    gulp.src('./js/pages/invite/oldInvite.html').pipe(gulp.dest('./dist'));
-    gulp.src('./js/pages/invite/share.html').pipe(gulp.dest('./dist'));
-    gulp.src('./js/pages/register/agreement.html').pipe(gulp.dest('./dist'));
-    gulp.src('./js/pages/assess/assess.html').pipe(gulp.dest('./dist'));
-    gulp.src('./js/pages/designer/designer.html').pipe(gulp.dest('./dist'));
-    gulp.src('./js/pages/index/searchLocation.html').pipe(gulp.dest('./dist'));
+    gulp.src('./js/pages/invite/rule.html').pipe(gulp.dest('./dist/util/'));
+    gulp.src('./js/pages/invite/oldInvite.html').pipe(gulp.dest('./dist/util/'));
+    gulp.src('./js/pages/invite/share.html').pipe(gulp.dest('./dist/util/'));
+    gulp.src('./js/pages/register/agreement.html').pipe(gulp.dest('./dist/util/'));
+    gulp.src('./js/pages/assess/assess.html').pipe(gulp.dest('./dist/util/'));
+    //gulp.src('./js/pages/designer/designer.html').pipe(gulp.dest('./dist/util/'));
+    gulp.src('./js/pages/index/searchLocation.html').pipe(gulp.dest('./dist/util/'));
     gulp.src('./js/util/calendar.html')
         .pipe(replace({ regex: '<!-- filter -->', replace: '<!--include "../util/filter.html"-->' }))
         .pipe(contentIncluder({
             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
         }))
-        .pipe(gulp.dest('./dist'));
+        .pipe(gulp.dest('./dist/util/'));
     gulp.src('./js/util/partTime.html')
         .pipe(replace({ regex: '<!-- filter -->', replace: '<!--include "../util/filter.html"-->' }))
         .pipe(contentIncluder({
             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
         }))
-        .pipe(gulp.dest('./dist'));
-    gulp.src('./js/util/contactList.html').pipe(gulp.dest('./dist'));
-    gulp.src('./js/pages/user/frequent-contact-add.html').pipe(gulp.dest('./dist'));
-    gulp.src('./js/pages/user/delivery-address-add.html').pipe(gulp.dest('./dist'));
+        .pipe(gulp.dest('./dist/util/'));
+    gulp.src('./js/util/contactList.html').pipe(gulp.dest('./dist/util/'));
+    gulp.src('./js/pages/user/frequent-contact-add.html').pipe(gulp.dest('./dist/util/'));
+    gulp.src('./js/pages/user/delivery-address-add.html').pipe(gulp.dest('./dist/util/'));
 })
 
 gulp.task('copy', ['sass', 'minifycss'], function() {

@@ -958,3 +958,47 @@ hr {
     top: 10px;
     float:right;
 }
+
+.order-title {
+    display: inline-block;
+    margin: 10px 0 5px 10px;
+    font-size: 20px;
+}
+.order-list{
+    margin-top: 0;
+    padding-left: 0;
+    list-style-type: none;
+}
+
+.order-list .order-item {
+    display: block;
+    margin: 10px 0;
+    padding: 8px 0 8px 8px;
+    background-color: #fff;
+}
+.order-list .order-item .status{
+    font-size: 12px;
+    color: #fff;
+    position: absolute;
+    right: 0px;
+}
+.order-list .order-item h5{
+    margin: 8px 0;
+    line-height: 18px;
+}
+.order-list .order-item button{
+    position: absolute;
+    right: 11px;
+    width: 100px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    margin: -5px;
+}
+#triangle{ 
+    float: right;
+    margin-top: -9px;
+    width: 0; 
+    height: 0; 
+    border-top: 60px solid gold; 
+    border-left: 60px solid transparent; 
+} 

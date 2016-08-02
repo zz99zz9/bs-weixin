@@ -92,14 +92,14 @@ var vmInvite = avalon.define({
         });
     },
     clickRule: function() {
-        popover('rule.html',1);
+        popover('./util/rule.html',1);
     },
     clickLog: function() {
-        popover('oldInvite.html',1);
+        popover('./util/oldInvite.html',1);
     },
     clickShare: function() {
         getShareConfig(vmInvite.code);
-        popover('share.html',1);
+        popover('./util/share.html',1);
         //jiathis_config.url = urlWeixin + "/register-1.html?code="+vmInvite.code;
     }
     // shareCode: function() {

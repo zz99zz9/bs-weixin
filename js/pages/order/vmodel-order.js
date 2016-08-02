@@ -12,9 +12,30 @@ if (orderid != "") {
 
 var vmOrder = avalon.define({
     $id: "order",
+    payType: 2,
     data: {
-        orderRoom: { orderCustomerList: [] },
-        orderGoodsList: []
+        status: 0,
+        hotel: { name: '', address: '', alias: '' },
+        orderRoomList: [{ 
+            name: '', 
+            startTime: '', 
+            endTime: '', 
+            timeCount: '',
+            orderCustomerList: [{ name: '' }]
+        }]
+    },
+    needAmount: 0, //总价
+    selectedList: [],
+    selectRoom: function(index) {
+        if(vmOrder.data.status == 1) {
+            var i = vmOrder.selectedList.indexOf(index);
+
+            if(i>-1) {
+                vmOrder.selectedList.splice(i,1);
+            } else {
+                vmOrder.selectedList.push(index);
+            }
+        }
     },
     getStatus: function() {
         switch (vmOrder.data.status) {
@@ -32,6 +53,30 @@ var vmOrder = avalon.define({
                 break;
         }
     },
+    goHotelById: function(id) {
+        stopSwipeSkip.do(function() {
+            location.href = "hotel.html?id=" + id;
+        });
+    },
+    fund: 0, //基金优惠金额
+    fundIndex: 0,
+    fundList: [],
+    getFund: function() {
+        ajaxJsonp({
+            url: urls.getUserFundURL,
+            successCallback: function(json) {
+                if(json.status == 1) {
+                    vmOrder.fundList = json.data.list;
+                    vmOrder.fund = json.data.list[0].money;
+                }
+            }
+        })
+    },
+    selectFund: function(index) {
+        vmOrder.fund = vmOrder.fundList[index].money;
+        vmOrder.fundIndex = index;
+    },
+    //左边按钮
     btn1Text: "",
     btn1Disabled: false,
     btn1Click: function() {
@@ -50,6 +95,7 @@ var vmOrder = avalon.define({
         }
     },
     payinfo: {},
+    //右边按钮
     btn2Text: "",
     btn2Disabled: false,
     btn2Click: function() {
@@ -90,6 +136,10 @@ ajaxJsonp({
         if (json.status === 1) {
             vmOrder.data = json.data;
 
+            for(var i = 0; i<json.data.orderRoomList.length; i++) {
+                vmOrder.selectedList.push(i);
+            }
+            
             switch (json.data.status) {
                 case 1: //待付款
                     vmOrder.btn1Text = "撤消订单";
@@ -108,12 +158,10 @@ ajaxJsonp({
                     vmOrder.btn2Text = "评价";
                     break;
             }
-
-        } else {
-            location.href = document.referrer || "index.html";
         }
     }
 });
+vmOrder.getFund();
 
 //取消订单
 function cancelOrder() {
@@ -199,3 +247,10 @@ function callWcpay() {
         }
     });
 }
+
+vmOrder.$watch('selectedList.length', function(a){
+    vmOrder.needAmount = 0;
+    vmOrder.selectedList.map(function(index) {
+        vmOrder.needAmount += vmOrder.data.orderRoomList[index].amount;
+    })
+})

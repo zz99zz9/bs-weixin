@@ -12,7 +12,7 @@ var vmInvoiceApply = avalon.define({
     mobile: '',
     fullAddress: '',
     openDeliveryAddress: function () {
-        popover('delivery-address-add.html', 1);
+        popover('./util/delivery-address-add.html', 1);
     },
     saveDeliveryAddress: function () {
         if (vmInvoiceApply.name == "") {
