@@ -9,7 +9,7 @@ var vmAlipay = avalon.define({
         vmAlipay.payUrl = decodeURIComponent(getParam('payUrl'));
         console.log(vmAlipay.payUrl);
         if (isweixin) {//如果是在微信里打开
-            var h = Math.max(document.body.scrollHeight, document.body.clientHeight) - 5;
+            var h = Math.max(document.body.scrollHeight, document.body.clientHeight) - 6;
             var myiframe = document.getElementById('myiframe');
             myiframe.height = h;
         } else {//在其它浏览器打开
@@ -18,4 +18,5 @@ var vmAlipay = avalon.define({
     }
 });
 
-vmAlipay.getPayUrl();
+vmAlipay.preventPull();
+
