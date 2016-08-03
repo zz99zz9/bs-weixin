@@ -7,6 +7,8 @@ var urln = {
 var urlWeixin = "http://weixin.ini.xin";
 //接口根目录
 var urlAPI = "http://web.api.benjiudian.com/test";
+// var urlAPI = "http://liuyuhua.wicp.net:27450/ini-web";
+
 var urls = {
         //登录注册
         loginURL: urlAPI + '/usr/user/login',

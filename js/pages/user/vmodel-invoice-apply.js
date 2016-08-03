@@ -157,7 +157,8 @@ var vmInvoiceApply = avalon.define({
             url: urls.payInvoice,
             data: {
                 id: vmInvoiceApply.invoiceId,
-                payType: vmInvoiceApply.payType
+                payType: vmInvoiceApply.payType,
+                returnUrl: window.location.origin + '/invoice-pay-success.html'
             },
             successCallback: function (json) {
                 if (json.status === 1) {

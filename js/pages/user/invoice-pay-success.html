@@ -1,4 +1,6 @@
-<div ms-controller="invoicePaySuccess">
+<div ms-controller="invoicePaySuccess" style="margin: 20px">
     <div>支付成功！</div>
+    <div>{{body}}</div>
+    <div>￥{{total_fee}}</div>
     <button type="button" class="mui-btn mui-btn-success" ms-click="payEnd()">确定</button>
 </div>
