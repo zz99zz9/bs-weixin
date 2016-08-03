@@ -300,7 +300,7 @@ var controlCore = {
 function formatDate(str) {
     var date = new Date(str.replace(/-/g, "/"));
 
-    return (date.getMonth() + 1) + "月" + date.getDay() + "日";
+    return (date.getMonth() + 1) + "月" + date.getDate() + "日";
 }
 
 //判断是否是闰年
@@ -355,6 +355,7 @@ function getWeekday(date) {
 //monthFirst yyyy-MM-01
 //yearFirst yyyy-01-01
 //time hh:mm:ss
+//hour h
 //空 yyyy-MM-dd hh:mm:ss
 function getToday(type) {
     var d = new Date(),
@@ -396,6 +397,8 @@ function getToday(type) {
             return year + "-01-01";
         case "time":
             return h + ":" + mins + ":" + s;
+        case "hour":
+            return d.getHours();
         default:
             return year + "-" + month + "-" + day + " " + h + ":" + mins + ":" + s;
     }
@@ -512,6 +515,7 @@ function getDateByDays(date,days){
     return year + "-" + month + "-" + day;
 }
 
+//时租房的本地数据读取呈现
 function loadSessionPartTime() {
     var index, number;
     $('.select-time').height($(window).height() - 260);
@@ -571,4 +575,16 @@ function getDate(index) {
         date = vmCalendar.calendar[index];
         return date.year + '-' + (date.month < 10 ? ('0' + date.month) : date.month) + '-' + (date.day < 10 ? ('0' + date.day) : date.day);
     }
+}
+
+//获取当前小时序号
+function getHourIndex() {
+    var now = getToday('time').split(':'),
+        index = parseInt(now[0]) * 2;
+
+    if (parseInt(now[1]) >= 30) {
+        index++;
+    }
+
+    return index;
 }

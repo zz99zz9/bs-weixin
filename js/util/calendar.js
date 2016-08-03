@@ -185,6 +185,7 @@ var bookDateList,
 
                         vmCalendar.startTime = "";
                         vmCalendar.nightPrice = 0;
+
                     }
 
                     //是否是编辑退房时间

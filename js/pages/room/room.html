@@ -59,7 +59,7 @@
                     <span style="color: #fff;background-color: #000;font-size: 12px;padding: 4px;">教你省钱</span>
                     &nbsp;&nbsp;<span style="font-size: 12px;">越晚入住越省钱哦！</span><br>
                     <div>
-                        <div ms-repeat="roomNightDiscount" ms-on-tap="selectDiscount($index)" ms-class="discount-selected:$index == startTimeIndex">
+                        <div ms-repeat="roomNightDiscount" ms-on-tap="selectDiscount($index)" ms-class-1="discount-disabled:disableCheckinTime(todayIndex, el.startTime)" ms-class-2="discount-selected:$index == startTimeIndex">
                             <img src="./img/icon1.jpg" alt=""><br>
                             {{el.startTime}}:00后<br>
                             ¥ {{el.discount}}
@@ -92,6 +92,7 @@
      <nav class="mui-bar mui-bar-tab">
         <h4 class="mui-pull-left" style="margin: 13px;">
             <span class="error" style="font-weight: lighter;"><span style="font-size:24px;">{{showTotalPrice(price, amount)}}</span></span>
+            <span style="font-weight: 100;" ms-if="!type"><del>{{showTotalPrice(roomNightDiscount[0].discount,amount)}}</del></span>
         </h4>
         <button type="button" class="mui-btn mui-btn-danger mui-pull-right" ms-click="goNext" ms-attr-disabled="isGoNext">立即预订</button>
     </nav>

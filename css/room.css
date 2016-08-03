@@ -240,3 +240,6 @@ section {
 .discount-selected {
     color: red;
 }
+.discount-disabled {
+    color: gray;
+}

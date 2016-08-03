@@ -169,18 +169,6 @@ function partTimePriceShow(index, node, price) {
     }
 }
 
-//获取当前小时序号
-function getHourIndex() {
-    var now = getToday('time').split(':'),
-        index = parseInt(now[0]) * 2;
-
-    if (parseInt(now[1]) >= 30) {
-        index++;
-    }
-
-    return index;
-}
-
 vmPart.timeList = getTimeList(vmPart.timeStatus);
 
 vmPart.$watch("partTimeIndex", function(a) {

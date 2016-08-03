@@ -20,7 +20,7 @@ vmRoom = avalon.define({
     end: '<br>请选择',
     amount: '?',
     unit: '',
-    price: '',
+    price: 0,
     room: {
         hotel: { name: '', alias: '', address: '' },
         roomGalleryList: [],
@@ -30,7 +30,8 @@ vmRoom = avalon.define({
     assess: { count: 0, data: {} },
     list: [],
     startTimeIndex: 0,
-    roomNightDiscount: [],
+    todayIndex: 0,
+    roomNightDiscount: [{discount: 0}],
     checkinList: [],
     goHotel: function() {
         stopSwipeSkip.do(function() {
@@ -69,6 +70,18 @@ vmRoom = avalon.define({
                 vmBtn.type = "partTime";
                 popover('./util/partTime.html', 1, function() {
                     loadSessionPartTime();
+
+
+                    //查询时租房预订时间情况
+                    ajaxJsonp({
+                        url: urls.getRoomStatus,
+                        data: { rid: roomid, roomDate: getToday('date') },
+                        successCallback: function(json) {
+                            if (json.status == 1) {
+                                vmPart.timeList = getTimeList(json.data.status);
+                            }
+                        }
+                    });
                 });
             }
         });
@@ -90,12 +103,14 @@ vmRoom = avalon.define({
                             if (newOrder.hasOwnProperty("contact")) {
                                 vmContactList.selectedList = [];
                                 for (var i in json.data.list) {
-                                    //绑定本地储存已选联系人
-                                    newOrder.contact.map(function(c) {
-                                        if (c.id == json.data.list[i].id) {
-                                            vmContactList.selectedList.push(parseInt(i));
-                                        }
-                                    });
+                                    if(newOrder.contact.length>0){
+                                        //绑定本地储存已选联系人
+                                        newOrder.contact.map(function(c) {
+                                            if (c.id == json.data.list[i].id) {
+                                                vmContactList.selectedList.push(parseInt(i));
+                                            }
+                                        });
+                                    }
                                 }
                             }
                         }
@@ -109,7 +124,7 @@ vmRoom = avalon.define({
         vmRoom.price = vmRoom.roomNightDiscount[index].discount;
 
         newOrder.day.startTimeIndex = index;
-        newOrder.day.start = newOrder.day.start.substring(0,10) + " " + vmRoom.roomNightDiscount[index].startTime + ":00"
+        newOrder.day.startTime = vmRoom.roomNightDiscount[index].startTime;
 
         Storage.set("newOrder", newOrder);
     },
@@ -160,7 +175,7 @@ vmRoom = avalon.define({
             url: urls.submitOrder,
             data: {
                 rid: roomid,
-                startTime: vmRoom.type ? newOrder.partTime.start : newOrder.day.start,
+                startTime: vmRoom.type ? newOrder.partTime.start : (newOrder.day.start + " " + newOrder.day.startTime + ":00"),
                 endTime: vmRoom.type ? newOrder.partTime.end : newOrder.day.end,
                 isPartTime: vmRoom.type,
                 cids: newOrder.contact.map(function(o) { return o.id; }).join(','),
@@ -169,6 +184,8 @@ vmRoom = avalon.define({
                 if (json.status == 1) {
                     vmRoom.isGoNext = false;
                     location.href = "order.html?id=" + json.data.id; 
+                } else {
+                    alert(json.message);
                 }
             }
         })
@@ -270,6 +287,7 @@ vmBtn = avalon.define({
             case 'date':
                 vmRoom.showDate();
                 saveStorage();
+                vmRoom.todayIndex = vmCalendar.todayIndex;
                 break;
             case 'partTime':
                 vmRoom.showPartTime();
@@ -326,7 +344,7 @@ if (newOrder) {
         vmRoom.checkinList = newOrder.contact;
     }
 } else {
-    newOrder = { room: {}, hotel: {}, day: {}, partTime: {}, contact: {} };
+    newOrder = { room: {}, hotel: {}, day: { filter: [] }, partTime: { filter: [] }, contact: {} };
 }
 
 room_init();
@@ -395,7 +413,7 @@ function room_init() {
                         //默认选择第一个，最高价格
                         vmRoom.price = json.data[0].discount;
                         newOrder.day.startTimeIndex = 0;
-                        newOrder.day.start += " " + json.data[0].startTime + ":00"
+                        newOrder.day.startTime = json.data[0].startTime;
                         Storage.set("newOrder", newOrder);
                     }
                 }
@@ -403,23 +421,14 @@ function room_init() {
         });
     }
 
-    //查询时租房预订时间情况
-    ajaxJsonp({
-        url: urls.getRoomStatus,
-        data: { rid: roomid, roomDate: getToday('date') },
-        successCallback: function(json) {
-            if (json.status == 1) {
-                vmPart.timeList = getTimeList(json.data.status);
-            }
-        }
-    });
-
     //更多房间
     ajaxJsonp({
         url: urls.getRoomList,
         data: {
             isPartTime: vmRoom.type,
-            aids: vmRoom.type ? newOrder.partTime.filter.join(',') : newOrder.day.filter.join(','),
+            aids: vmRoom.type ? 
+                (newOrder.partTime.filter.length>0?newOrder.partTime.filter.join(','):'') 
+                : (newOrder.day.filter.length>0?newOrder.day.filter.join(','):''),
             startTime: vmRoom.type ? newOrder.partTime.start : newOrder.day.start,
             endTime: vmRoom.type ? newOrder.partTime.end : newOrder.day.end,
             lng: positionInStorage ? positionInStorage.lng : '',
@@ -430,6 +439,8 @@ function room_init() {
         successCallback: function(json) {
             if (json.status === 1) {
                 vmRoom.list = json.data.list;
+            } else {
+                console.log(json.message);
             }
         }
     });
@@ -458,6 +469,29 @@ function room_init() {
     });
 
     registerWeixinConfig();
+}
+
+//判断夜房的入住时间时钟是否要灰掉
+// @todayIndex: 日历模块中今天的序号
+// @hour: 入住时间，几点
+function disableCheckinTime(todayIndex, hour) {
+    //入住时间选今天以后，要灰掉小于当前时间的表盘
+    if (todayIndex == newOrder.day.startIndex) {
+        if (hour * 2 < getHourIndex()) {
+            return true;
+        } else {
+            return false;
+        }
+    } else if (bookDateList && bookDateList.outIndex.indexOf(todayIndex) > -1) {
+        //14点以前的入住时段要灰掉
+        if (hour <= 14) {
+            return true;
+        } else {
+            return false;
+        }
+    } else {
+        return false;
+    }
 }
 
 function dateDataToSession() {

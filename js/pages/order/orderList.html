@@ -5,7 +5,7 @@
         <li class="order-item" ms-if="list1.length == 0">暂无订单
         </li>
         <li class="order-item" ms-repeat="list1" ms-if="list1.length!=0" ms-click="goDetail(el.id)">
-            <span class="status">状态</span>
+            <span class="status">{{showStatus(el.status)}}</span>
             <div id="triangle"></div>
             <span>{{el.hotel.name}}</span>
             <h5>
@@ -36,7 +36,7 @@
                 &nbsp;共{{el.orderRoomList[0].timeCount}}晚
             </h5>
             <span>¥{{el.needAmount}}</</span>
-            <button type="button" ms-click="goDetail(el.id)">{{showActionText(el.status)}}</button>
+            <button type="button" ms-if="!(el.status==4&&el.iscomment==1)" ms-click="goDetail(el.id)">{{showActionText(el.status)}}</button>
         </li>
     </ul>
 </div>
