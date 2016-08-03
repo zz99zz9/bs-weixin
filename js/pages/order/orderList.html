@@ -2,9 +2,9 @@
 <div ms-controller="orders">
     <span class="order-title">当前订单</span>
     <ul class="order-list">
-        <li class="order-item" ms-visible="list1.length == 0">暂无订单
+        <li class="order-item" ms-if="list1.length == 0">暂无订单
         </li>
-        <li class="order-item" ms-repeat="list1" ms-click="goDetail(el.id)">
+        <li class="order-item" ms-repeat="list1" ms-if="list1.length!=0" ms-click="goDetail(el.id)">
             <span class="status">状态</span>
             <div id="triangle"></div>
             <span>{{el.hotel.name}}</span>
@@ -16,7 +16,7 @@
                 &nbsp;共{{el.orderRoomList[0].timeCount}}晚
             </h5>
             <span>¥{{el.needAmount}}</</span>
-            <button type="button" ms-click="action">动作</button>
+            <button type="button" ms-click="goDetail(el.id)">{{showActionText(el.status)}}</button>
         </li>
     </ul>
 
@@ -24,8 +24,8 @@
     <ul class="order-list">
         <li class="order-item" ms-if="list2.length == 0">暂无订单
         </li>
-        <li class="order-item" ms-repeat="list2" ms-if="list2.length != 0" ms-click="goDetail(el.id)">
-            <span class="status">状态</span>
+        <li class="order-item" ms-repeat="list2" ms-if="list2.length!=0" ms-click="goDetail(el.id)">
+            <span class="status">{{showStatus(el.status)}}</span>
             <div id="triangle"></div>
             <span>{{el.hotel.name}}</span>
             <h5>
@@ -36,7 +36,7 @@
                 &nbsp;共{{el.orderRoomList[0].timeCount}}晚
             </h5>
             <span>¥{{el.needAmount}}</</span>
-            <button type="button" ms-click="action">动作</button>
+            <button type="button" ms-click="goDetail(el.id)">{{showActionText(el.status)}}</button>
         </li>
     </ul>
 </div>

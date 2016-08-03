@@ -60,7 +60,7 @@
         预定更多房间
     </div>
     
-    <div class="order-panel">
+    <div class="order-panel" ms-if="data.status==1">
         <h5 class="order-panel-title">体验基金</h5>
         <div class="order-fundList">
             <div class="order-fund" ms-click="selectFund($index)" ms-repeat="fundList" ms-class="selected: $index == fundIndex" ms-if-loop="el.isValid">
@@ -86,12 +86,14 @@
         </div>
         <div style="clear: both;">
             <span style="float: left;">实付金额：</span>
-            <span style="float: right;">¥{{needAmount-fund}}</span>
+            <span style="float: right;">
+            ¥{{(needAmount-fund)<0?0:(needAmount-fund)}}
+            </span>
         </div>
         <div>&nbsp;</div>
     </div>
     
-    <div class="order-panel">
+    <div class="order-panel" ms-if="data.status==1">
         <h5 class="order-panel-title">支付方式</h5>
         <div class="mui-radio radio-row">
             <input type="radio" ms-duplex-string="payType" value="2" class="selected">

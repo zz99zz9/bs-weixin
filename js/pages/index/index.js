@@ -307,8 +307,6 @@ if (verify(positionInStorage)) {
 }
 
 vmIndex.getHotelPosition(mapObj);
-//获取最近浏览数据
-vmIndex.getRecentViewRoomList();
 //获取便利设施
 vmFilter.getFilter();
 
@@ -429,7 +427,8 @@ function updateData() {
     vmIndex.lat = positionInStorage.lat;
     vmIndex.pageNo = 1;
     vmIndex.getRoomList();
-
+    //获取最近浏览数据
+    vmIndex.getRecentViewRoomList();
     vmSearch.currentLocation = vmIndex.position;
 }
 
