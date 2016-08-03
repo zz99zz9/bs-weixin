@@ -54,7 +54,16 @@ var vmIndex = avalon.define({
                             offset: new AMap.Pixel(-12, -36)
                         }).on('click', function() {
                             Storage.set("bensue", { type: vmIndex.type });
-                            location.href = "hotel.html?id=" + this.B.hid;
+                            for(var i in this){
+                                if( typeof this[i] !== 'function') {
+                                    for(var j in this[i]) {
+                                        if(j=='hid') {
+                                            location.href = "hotel.html?id=" + this[i][j];
+                                            return;
+                                        }
+                                    }
+                                }
+                            }
                         });
                     });
                 }
