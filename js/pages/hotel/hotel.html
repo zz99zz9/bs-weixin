@@ -1,10 +1,12 @@
 <div id="pullrefresh" class="mui-scroll-wrapper">
     <div class="mui-scroll">
         <div ms-controller="hotel">
-            <div style="position: absolute;top: 10px;z-index: 10;right: 0;padding-right: 10px;">
-                <button type="button" style="border-radius: 50px;" ms-on-tap="openTimePanel">日历</button>
+            <div style="position: absolute;top: 245px;z-index: 10;right: 0;padding-right: 10px;">
+                <button type="button" class="calender" style="background-image: url(img/calender.png);" ms-on-tap="openTimePanel">
+                <div style="margin: 7px 1px 0 0">18</div>
+                </button>
             </div>
-            <div class="swiper-container swiper1">
+            <div class="swiper-container swiper1" style="height: 300px;">
                 <div class="swiper-wrapper">
                     <div class="swiper-slide" ms-repeat="galleryList" data-repeat-rendered="swiper1Render">
                         <div style="width: 100%;height: 100%;background-size: cover;background-position: center;" ms-css-background-image="'url(' + urlAPINet + el.imgUrl+')'">
@@ -18,14 +20,14 @@
                 <button class="expand" id="exp" ms-on-tap="expand">
                     <table width="100%">
                         <tr>
-                            <td width="88px" >
-                                <i>{{alias}}酒店</i>
-                            </td>
+                            <!-- <td width="200px">
+                                <i>{{alias}}酒店&nbsp;</i><i>one'own</i>
+                            </td> -->
                             <td class="mui-ellipsis small" valign="top">
-                                Internet Hotel<br />
-                                {{name}}
+                                <i>{{alias}}酒店&nbsp;</i><i>one'own</i><br />
+                                <i style="font-size: 1rem; margin-top: 4px; color: #999;">{{name}}</i>
                             </td>
-                            <td class="tdclass" width="50px">
+                            <td class="tdclass" style="font-size: 1rem; color: #333; width: 60px;">
                                 展开
                             </td>
                         </tr>

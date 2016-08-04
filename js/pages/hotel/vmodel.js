@@ -221,7 +221,8 @@ function loadmore() {
         url: urls.getRoomList,
         data: {
             hid: hid,
-            aids: roomType ? newOrder.partTime.filter.join(',') : newOrder.day.filter.join(','),
+            aids: roomType ? (newOrder.partTime.filter.length>0?newOrder.partTime.filter.join(','):'') 
+                : (newOrder.day.filter.length>0?newOrder.day.filter.join(','):''),
             startTime: roomType ? newOrder.partTime.start : newOrder.day.start,
             endTime: roomType ? newOrder.partTime.end : newOrder.day.end,
             isPartTime: roomType,
