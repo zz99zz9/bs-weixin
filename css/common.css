@@ -229,10 +229,6 @@ button {
 	/*line-height: 100%;*/
 }
 
-.designer-info h4{
-	margin: 10px 0;
-}
-
 .designer-info div i{
 	width: 48px;
 	height: 48px;
@@ -433,7 +429,7 @@ button {
 
 .swiper-slide-item a {
     width: inherit;
-    height: 200px;
+    height: 225px;
     display: block;
 }
 
