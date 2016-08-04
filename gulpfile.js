@@ -11,14 +11,14 @@ var revCollector = require('gulp-rev-collector'); //~ 路径替换
 gulp.task('sass', function() {
     sass('./sass/mui.scss')
         .on('error', sass.logError)
-        .pipe(minifycss())//执行压缩
+        //.pipe(minifycss())//执行压缩
         //.pipe(rename({suffix: '.min'}))
         .pipe(gulp.dest('./dist/css'))
 });
 
 gulp.task('minifycss', function() {
     return gulp.src('./css/**.css') //压缩的文件
-        .pipe(minifycss())   //执行压缩
+        //.pipe(minifycss())   //执行压缩
         // .pipe(rename({suffix: '.min'}))
         .pipe(rev())
         .pipe(gulp.dest('./dist/css'))
