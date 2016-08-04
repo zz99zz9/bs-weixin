@@ -216,30 +216,6 @@ button {
 	margin: 0 0.5rem;
 }
 
-.designer-info {
-	position: relative;
-	height: 55px;
-}
-
-.designer-info div {
-	position: absolute;
-	right: 15px;
-	bottom: 2px;
-	text-align: center;
-	/*line-height: 100%;*/
-}
-
-.designer-info div i{
-	width: 48px;
-	height: 48px;
-	background-size: cover;
-	background-position: center center;
-	display: block;
-	border: 1px solid white;
-	border-radius: 50%;
-	margin: 0 auto 0px auto;
-}
-
 .calendar {
 	width: 100%;
 }
@@ -420,11 +396,13 @@ button {
     display: inline-block;
     background-color: #000;
     color: #fff;
-    padding: 3px;
-    top: 20px;
-    right: 10px;
+    padding: 0 10px;
+    top: 10px;
+    right: 0;
     z-index: 9;
     float: right;
+    font-size: 12px;
+    font-weight: 100;
 }
 
 .swiper-slide-item a {
@@ -440,35 +418,82 @@ button {
     position: relative;
 }
 
+.swiper-slide-item span {
+    display: inline-block;
+}
+
 .swiper-slide-item a div label {
     position: absolute;
-    bottom: 20px;
+    bottom: 27px;
     left: 0px;
     display: inline-block;
     color: white;
     background: black;
-    width: 100px;
-    line-height: 100%;
-    font-size: 20px;
+    line-height: 25px;
     text-align: center;
-    padding: 5px;
+    padding: 6px;
+}
+
+.swiper-slide-item .slide-price{
+    font-weight: 200;
+    font-size: 24px;
 }
 
 .swiper-slide-item a div label span {
 	font-size: small;
+    font-weight: 100;
 }
 
 .swiper-slide-item .roomtype {
-    background: #bd9d74;
+    background: #baa074;
+    width: 100%;
+    line-height: 14px;
+    text-align: center;
     font-size: small;
+    font-weight: 100;
     color: #fff;
     position: absolute;
-    bottom: 10px;
+    bottom: -10px;
     left: 0;
-    display: inline-block;
-    width: 100px;
-    line-height: 100%;
-    text-align: center;
+}
+
+.swiper-slide-item .slide-address {
+    margin: 16px 0 4px 10px;
+    font-size: 16px;
+    font-family: "Microsoft Yahei";
+}
+
+.swiper-slide-item .slide-room {
+    margin: 0 5px 0 10px;
+    font-size: 13px;
+    font-family: "Microsoft Yahei";
+    font-weight: 100;
+    color: rgb(153,153,153);
+}
+
+.slide-info {
+    position: relative;
+    height: 77px;
+    background: #fff;
+}
+
+.slide-info div {
+    position: absolute;
+    right: 10px;
+    bottom: 40px;
+    font-size: 16px;
+    font-family: "Microsoft Yahei";
+}
+
+.slide-info div i{
+    width: 40px;
+    height: 40px;
+    background-size: cover;
+    background-position: center center;
+    display: block;
+    position: absolute;
+    right: 20px;
+    top: -45px;
 }
 
 .text-shadow {
@@ -997,4 +1022,12 @@ hr {
     height: 0; 
     border-top: 60px solid gold; 
     border-left: 60px solid transparent; 
+}
+
+.bs-text-gold {
+    color: #baa071;
+}
+
+.bs-text-yellow {
+    color: #ffbc1b;
 }
