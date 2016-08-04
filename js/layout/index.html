@@ -20,38 +20,29 @@
     </div> 
     
     <!--顶部-->
-    <header class="mui-bar mui-bar-nav mui-text-center">
-        <!-- <a id="menu" href="" class="mui-icon mui-action-menu mui-icon-bars mui-pull-left mui-text-danger"></a> -->
+    <header class="mui-bar mui-bar-nav mui-text-center" style="height: 48px;">
         <div id="menu" style="display: inline-block;float: left;">
             <img class="headImg" ms-attr-src="headImg" alt="" style="margin-left: 0;">
         </div>
-        <div id="segmentedControl" class="mui-segmented-control mui-segmented-control-negative" style="top: 9px;width: 180px;margin: 0;display: inline-table">
-            <a class="mui-control-item" ms-class="mui-active: type==0" href="#night" style="width: 50%;line-height: 24px;" ms-on-tap="selectType(0)">
-                    全天房
-                </a>
-            <a class="mui-control-item" ms-class="mui-active: type==1" href="#day" style="width: 50%;line-height: 24px;" ms-on-tap="selectType(1)">
-                    时租房
-                </a>
+        <div class="bs-type-tab">
+            <a class="bs-type-tab-item" ms-class="bs-text-red: type==0" ms-on-tap="selectType(0)">全天房</a>
+            <span> | </span>
+            <a class="bs-type-tab-item" ms-class="bs-text-red: type==1" ms-on-tap="selectType(1)">时租房</a>
         </div>
         <div style="display: inline-block;float: right;">
-            <!-- <a class="" href="index.html">
-                    <img class="logo" src="img/logo_color_black.jpg" alt="" style="margin-right: 0;">
-                </a> -->
-            <a href="" class="mui-icon mui-action-menu mui-icon-bars mui-pull-right mui-text-danger"></a>
+            <img class="headImg" src="./img/index-btn-rightup.png" alt="" style="margin-right: 0; border-radius: 0;">
         </div>
     </header>
 
     <div id="pullrefresh" class="mui-scroll-wrapper">
         <div class="mui-scroll">
-            <br>
-            <br>
             <div class="mui-content">
                 <!--地址展示-->
-                <div style="width: 95%; margin: 0 auto;z-index: 99;position: relative;top: 10px;background-color: #fff;padding: 5px;" ms-on-tap="openLocationSearch">
+                <div class="bs-position" ms-on-tap="openLocationSearch">
                     <span class="mui-icon mui-icon-search"></span>
                     <span>{{position}}</span>
                 </div>
-                <div class="swiper-container swiper1" style="top: -32px;">
+                <div class="swiper-container swiper1" style="top: 8px;height: 250px;margin-bottom: 15px;">
                     <div class="swiper-wrapper">
                         <div class="swiper-slide" ms-repeat="galleryList" data-repeat-rendered="swiper1Render">
                             <div style="width: 100%;height: 100%;background-size: cover;background-position: center;" ms-css-background-image="'url(' + el.imgUrl+')'">
@@ -65,7 +56,7 @@
                     <button type="button" style="border-radius: 50px;" ms-click="showMap">地图</button>
                 </div>
 
-                <h4 class="sub-title" ms-if="isShowSeen">最近浏览过的</h4>
+                <span class="sub-title bs-text-gold" ms-if="isShowSeen">最近浏览过的</span>
                 <div ms-if="isShowSeen" class="swiper-container swiper2" style="height:auto; margin-bottom:10px;">
                     <div class="swiper-wrapper">
                         <div class="swiper-slide" ms-repeat="seenList" data-repeat-rendered="swiper2Render">
@@ -77,9 +68,12 @@
 
                 <section>
                     <div>
-                        <button type="button" class="mui-btn" ms-click="sortBy(1)">距离<span class="mui-icon mui-icon-arrowthinup"></span></button>
-                        &emsp;
-                        <button type="button" class="mui-btn" ms-click="sortBy(2)">价格<span class="mui-icon mui-icon-arrowthinup"></span></button>
+                        <span class="bs-text-gold bs-btn-sort" ms-if="sort==1" ms-on-tap="sortBy(2)">距离最近
+                            <span class="mui-icon mui-icon-arrowthindown"></span>
+                        </span>
+                        <span class="bs-text-gold bs-btn-sort" ms-if="sort==2" ms-on-tap="sortBy(1)">价格最低
+                            <span class="mui-icon mui-icon-arrowthindown"></span>
+                        </span>
                     </div>
                     <div ms-repeat="roomList">
                         <!-- roomSlide -->

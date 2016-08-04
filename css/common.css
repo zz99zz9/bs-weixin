@@ -1,6 +1,6 @@
 html,
 body {
-	/*height: 100%;*/
+	background-color: #fff !important;
 }
 
 .ms-controller, [ms-controller] {display: none;}
@@ -37,7 +37,7 @@ button {
 .headImg {
     width: 33px;
     height: 33px;
-    margin: 5px;
+    margin: 8px;
     border-radius: 50%;
 }
 
@@ -352,14 +352,11 @@ button {
 	border-left: 1px solid lightgray;
 }
 
-
 .swiper-container {
     width: 100%;
     height: 12rem;
 }
-.swiper-wrapper {
-    padding-left: 20px;
-}
+
 .swiper-slide {
     text-align: center;
     font-size: 18px;
@@ -1025,9 +1022,42 @@ hr {
 }
 
 .bs-text-gold {
-    color: #baa071;
+    color: #baa071 !important;
 }
 
 .bs-text-yellow {
-    color: #ffbc1b;
+    color: #ffbc1b !important;
+}
+
+.bs-text-red {
+    color: #b20e15 !important;
+}
+
+.bs-type-tab {
+    display: inline-table;
+    position: relative;
+    top: 12px;
+    color: #999;
+}
+
+.bs-type-tab-item {
+    padding: 4px;
+    color: #999;
+    line-height: 24px;
+}
+
+.bs-btn-sort {
+    display: inline-block;
+    margin: 0 0 10px 10px;
+}
+
+.bs-position {
+    width: 95%;
+    margin: 0 auto;
+    padding: 5px;
+    z-index: 99;
+    position: relative;
+    top: 68px;
+    line-height:30px;
+    background-color: #fff;
 }

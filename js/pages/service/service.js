@@ -4,7 +4,7 @@ var vmService = avalon.define({
     swiperRender: function() {
         var swiper = new Swiper('.swiper', {
             slidesPerView: 1,
-            width: window.innerWidth - 40,
+            width: window.innerWidth - 20,
             spaceBetween: 5,
             freeMode: true,
             freeModeSticky : true,

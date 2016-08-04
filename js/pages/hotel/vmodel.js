@@ -128,7 +128,7 @@ var vmHotel = avalon.define({
     swiper1Render: function() {
         var swiper1 = new Swiper('.swiper1', {
             slidesPerView: 1,
-            width: window.innerWidth - 40,
+            width: window.innerWidth - 20,
             spaceBetween: 5,
             freeMode: true,
             freeModeSticky: true,

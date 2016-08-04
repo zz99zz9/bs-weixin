@@ -4,7 +4,7 @@ var vmService = avalon.define({
     swiperRender: function() {
         var swiper1 = new Swiper('.foodSwiper', {
             slidesPerView: 1,
-            width: window.innerWidth - 40,
+            width: window.innerWidth - 20,
             spaceBetween: 5,
             freeMode: true,
             freeModeSticky: true,
@@ -13,7 +13,7 @@ var vmService = avalon.define({
 
         var swiper2 = new Swiper('.tourSwiper', {
             slidesPerView: 1,
-            width: window.innerWidth - 40,
+            width: window.innerWidth - 20,
             spaceBetween: 5,
             freeMode: true,
             freeModeSticky: true,
@@ -22,7 +22,7 @@ var vmService = avalon.define({
 
         var swiper3 = new Swiper('.beautySwiper', {
             slidesPerView: 1,
-            width: window.innerWidth - 40,
+            width: window.innerWidth - 20,
             spaceBetween: 5,
             freeMode: true,
             freeModeSticky: true,
@@ -31,7 +31,7 @@ var vmService = avalon.define({
 
         var swiper4 = new Swiper('.fitnessSwiper', {
             slidesPerView: 1,
-            width: window.innerWidth - 40,
+            width: window.innerWidth - 20,
             spaceBetween: 5,
             freeMode: true,
             freeModeSticky: true,

@@ -212,8 +212,7 @@ vmRoom = avalon.define({
     swiper1Render: function() {
         var swiper1 = new Swiper('.swiper1', {
             slidesPerView: 1,
-            width: window.innerWidth - 40,
-            spaceBetween: 5,
+            width: window.innerWidth,
             freeMode: true,
             freeModeSticky: true,
             freeModeMomentumRatio: 0.4
@@ -224,7 +223,7 @@ vmRoom = avalon.define({
     swiper2Render: function() {
         var swiper2 = new Swiper('.swiper2', {
             slidesPerView: 1,
-            width: window.innerWidth - 40,
+            width: window.innerWidth - 20,
             spaceBetween: 5,
             freeMode: true,
             freeModeSticky: true,
@@ -232,7 +231,7 @@ vmRoom = avalon.define({
         });
     },
     swiper3Render: function() {
-        var swiper2 = new Swiper('.swiper3', {
+        var swiper3 = new Swiper('.swiper3', {
             scrollbar: '.swiper-scrollbar',
             scrollbarHide: true,
             slidesPerView: 'auto'
