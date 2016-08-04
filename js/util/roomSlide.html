@@ -1,20 +1,14 @@
 <div class="swiper-slide-item">
-    <div class="distance" ms-on-tap="goRoom(el.id)">{{round(el.distance/1000,1)}}KM</div>
+    <div class="distance" ms-on-tap="goRoom(el.id)">{{round(el.distance/1000,1)}}km</div>
     <a href="###" ms-on-tap="goRoom(el.id)">
         <div ms-css-background-image="url({{urlAPINet + el.coverUrl}})">
-            <label>￥{{type?(el.minPrice*6):el.minPrice}}
-                <span>{{type==1?"3小时":"晚起"}}</span>
+            <label>
+                <span style="position: relative;top: -6px;right: -3px;color: #999;">￥</span>
+                <span class="slide-price">{{type?(el.minPrice*6):el.minPrice}}</span>
+                <span>/{{type==1?"3小时":"晚起"}}</span>
+                <span class="roomtype">{{el.roomType.name}}</span>
             </label>
-            <span class="roomtype">{{el.roomType.name}}</span>
         </div>
     </a>
-    <div class="mui-content-padded mui-text-left designer-info">
-        <span ms-on-tap="goRoom(el.id)">{{el.name}}<span style="color: #cc9966;"> ★★★★★</span></span>
-        <!-- <p class="mui-ellipsis" style="width:60vw;">{{el.introduction}}</p> -->
-        <div ms-on-tap="goHotelById(el.hotel.id)">
-            <i ms-css-background-image="url({{urlAPINet + el.hotel.logoUrl}})"></i>
-            <!-- <span class="small mui-text-gray">试睡师</span><br />-->
-            {{el.hotel.name}}
-        </div>
-    </div>
+    <!-- slide-info -->
 </div>

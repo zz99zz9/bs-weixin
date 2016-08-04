@@ -1,6 +1,6 @@
 
 //日历相关
-var bookDateList,
+var bookDateList = null,
     vmCalendar = avalon.define({
         $id: 'calendar',
         statusControl: {

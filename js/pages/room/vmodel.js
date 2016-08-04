@@ -65,6 +65,25 @@ vmRoom = avalon.define({
                     if (!(vmCalendar.statusControl.isEndEdit || vmCalendar.statusControl.isStartEdit)) {
                         vmCalendar.startClick();
                     }
+                    if(!bookDateList) {
+                        //查询夜房预订日期
+                        ajaxJsonp({
+                            url: urls.getRoomBookDate,
+                            data: { rid: roomid },
+                            successCallback: function(json) {
+                                if (json.status == 1) {
+                                     bookDateList = {
+                                        inIndex: [],
+                                        inStr: json.data.list3.concat(json.data.list1),
+                                        outIndex: [],
+                                        outStr: json.data.list3.concat(json.data.list2),
+                                    };
+
+                                    getCalendar();  
+                                }
+                            }
+                        });
+                    }
                 });
             } else {
                 vmBtn.type = "partTime";
