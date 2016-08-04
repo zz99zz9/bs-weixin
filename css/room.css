@@ -269,3 +269,8 @@ section {
     margin-left: 20px;
     margin-right: 20px
 }
+.room-designer-message{
+    font-size: 13px;
+    margin: 30px auto;
+    overflow:hidden;
+}

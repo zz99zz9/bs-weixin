@@ -36,14 +36,17 @@
                     </div>
                     <br />
                     <h4 style="display: inline;margin-right: 10px;">{{room.designer.name}}</h4><small style="color:#999;">试睡师</small>
-                    <div class="small" style="margin: 30px auto;height: 40px; overflow:hidden;">{{room.designer.message | truncate(100,'...')}}</div>
+                    <div class="room-designer-message">{{room.designer.message | truncate(50,'...')}}</div>
 
                     <button class="mui-btn" style="margin-bottom: 30px;" onclick="popover('./util/assess.html',loadUrl)">更多信息</button>
                 </div>
             </section>
 
             <section class="time">
-                <p>入住时间</p>
+                <div style="padding: 20px 10px 10px 10px;color: #8f8f94">
+                    <span>入住时间</span>
+                    <span style="float: right">退房时间</span>
+                </div>
                 <div class="time-panel" ms-on-tap="openTimePanel">
                     <div style="float: left;">
                         {{start|html}}
