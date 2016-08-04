@@ -18,5 +18,4 @@ var vmAlipay = avalon.define({
     }
 });
 
-vmAlipay.preventPull();
-
+vmAlipay.getPayUrl();

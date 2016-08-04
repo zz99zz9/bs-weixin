@@ -167,7 +167,8 @@ var vmInvoiceApply = avalon.define({
                         if (isweixin) {//如果是在微信里打开
                             location.href = 'alipay-iframe.html?payUrl=' + encodeURIComponent(json.data.payUrl);
                         } else {//在其它浏览器打开
-                            location.href = json.data.payUrl;
+                            // location.href = json.data.payUrl;
+                            location.href = 'alipay-iframe.html?payUrl=' + encodeURIComponent(json.data.payUrl);
                         }
                     } else if (vmInvoiceApply.payType == 2) {//微信支付
                         onBridgeReady();
