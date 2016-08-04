@@ -1,5 +1,5 @@
 <div ms-controller="room">
-    <div id="pullrefresh" class="mui-scroll-wrapper">
+    <div id="pullrefresh" class="mui-scroll-wrapper" style="background-color: #DCD9D5">
         <div class="mui-scroll">
             <div class="swiper-container swiper1" style="z-index: 0;">
                 <div class="swiper-wrapper">
@@ -13,31 +13,30 @@
             <section style="margin: -10px auto;">
                 <div class="hotel">
                     <div ms-on-tap="goHotel">
-                        <span style="color:gold; font-size:20px;">{{room.hotel.alias}}</span>
-                        <span>{{room.name}}</span><br>
-                        <span>{{room.hotel.address}}</span><br>
+                        <span class="hotel-alias">{{room.hotel.alias}}</span>
+                        <span class="room-name">{{room.name}}</span>
+                        <span class="hotel-address">{{room.hotel.address}}</span>
                     </div>
-                    <span ms-on-tap="openNav()" class="mui-icon mui-icon-map mui-text-danger" style="font-size: 34px"></span>
+                    <span ms-on-tap="openNav()" class="mui-icon mui-icon-map mui-text-danger" style="font-size: 32px;top:0;"></span>
                 </div>
 
-                <div class="swiper-container swiper3" style="height: 50px;">
+                <div class="swiper-container swiper3 room-amenity">
                     <div class="swiper-wrapper" style="padding-left: 0;">
-                        <div class="swiper-slide" ms-repeat="room.amenityList" style="background: #aaa;width: 80px;" data-repeat-rendered="swiper3Render">
-                            <img ms-attr-src="urlAPINet + el.ico" ms-attr-alt="el.name" style="width: 40px;height: 40px;">{{el.name}}
+                        <div class="swiper-slide room-amenity-item" ms-repeat="room.amenityList" data-repeat-rendered="swiper3Render">
+                            <img ms-attr-src="urlAPINet + el.ico" ms-attr-alt="el.name" style="width: 28px;height: 28px;margin-left: 10px"/>
+                            <label class="room-amenity-text">{{el.name}}</label>
                         </div>
                         <div class="swiper-scrollbar"></div>
                     </div>
                 </div>
                
-                <div class="mui-text-center" style="background: white;padding: 0 28px;">
-                    <br />
-                    <div class="circle photo" ms-css-background-image="'url('+urlAPINet + room.designer.portraitUrl+')'">
+                <div class="mui-text-center" style="background: white;padding: 0 10px;">
+                    <div style="margin-top: 35px" class="circle photo" ms-css-background-image="'url('+urlAPINet + room.designer.portraitUrl+')'">
                         &nbsp;
                     </div>
                     <br />
                     <h4 style="display: inline;margin-right: 10px;">{{room.designer.name}}</h4><small style="color:#999;">试睡师</small>
-                    <div class="small" style="margin: 20px auto;height: 40px; overflow:hidden;">{{room.designer.message}}</div>
-                    <span class="small" style="position: relative;top: -38px;left: 8px;float: right;">...</span>
+                    <div class="small" style="margin: 30px auto;height: 40px; overflow:hidden;">{{room.designer.message | truncate(100,'...')}}</div>
 
                     <button class="mui-btn" style="margin-bottom: 30px;" onclick="popover('./util/assess.html',loadUrl)">更多信息</button>
                 </div>
@@ -91,8 +90,8 @@
 
      <nav class="mui-bar mui-bar-tab">
         <h4 class="mui-pull-left" style="margin: 13px;">
-            <span class="error" style="font-weight: lighter;"><span style="font-size:24px;">{{showTotalPrice(price, amount)}}</span></span>
-            <span style="font-weight: 100;" ms-if="!type"><del>{{showTotalPrice(roomNightDiscount[0].discount,amount)}}</del></span>
+            <span class="error" style="font-weight: lighter;"><span style="font-size: 12px">￥</span><span style="font-size:24px;">{{showTotalPrice(price, amount)}}</span></span>
+            <span style="font-weight: 100;" ms-if="!type"><span style="font-size: 12px">￥</span><del>{{showTotalPrice(roomNightDiscount[0].discount,amount)}}</del></span>
         </h4>
         <button type="button" class="mui-btn mui-btn-danger mui-pull-right" ms-click="goNext" ms-attr-disabled="isGoNext">立即预订</button>
     </nav>
