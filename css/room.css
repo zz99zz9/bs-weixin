@@ -243,6 +243,16 @@ section {
 .discount-disabled {
     color: gray;
 }
+.discount-time {
+    font-size: small;
+    font-weight: 100;
+}
+.discount-money {
+    display: inline-block;
+    margin-left: -6px;
+    font-size: large;
+    font-weight: 100;
+}
 
 .hotel-alias{
     color:#D69C5B;

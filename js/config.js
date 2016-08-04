@@ -355,6 +355,7 @@ function getWeekday(date) {
 //monthFirst yyyy-MM-01
 //yearFirst yyyy-01-01
 //time hh:mm:ss
+//day d
 //hour h
 //空 yyyy-MM-dd hh:mm:ss
 function getToday(type) {
@@ -397,6 +398,8 @@ function getToday(type) {
             return year + "-01-01";
         case "time":
             return h + ":" + mins + ":" + s;
+        case "day":
+            return d.getDate();
         case "hour":
             return d.getHours();
         default:

@@ -40,9 +40,10 @@
                 <!--地址展示-->
                 <div class="bs-position" ms-on-tap="openLocationSearch">
                     <span class="mui-icon mui-icon-search"></span>
-                    <span>{{position}}</span>
+                    <span class="bs-text-gray">{{position}}</span>
                 </div>
-                <div class="swiper-container swiper1" style="top: 8px;height: 250px;margin-bottom: 15px;">
+                <div class="bs-city">上海</div>
+                <div class="swiper-container swiper1" style="top: 8px;height: 300px;margin-bottom: 15px;">
                     <div class="swiper-wrapper">
                         <div class="swiper-slide" ms-repeat="galleryList" data-repeat-rendered="swiper1Render">
                             <div style="width: 100%;height: 100%;background-size: cover;background-position: center;" ms-css-background-image="'url(' + el.imgUrl+')'">
@@ -51,9 +52,16 @@
                         <div class="swiper-pagination"></div>
                     </div>
                 </div>
-                <div style="position: relative;top: -46px;z-index: 10;float: right;padding-right: 10px;">
-                    <button type="button" style="border-radius: 50px;" ms-on-tap="openTimePanel">日历</button>
-                    <button type="button" style="border-radius: 50px;" ms-click="showMap">地图</button>
+                <!-- 打开日历按钮 -->
+                <div class="bs-btn-icon" style="top: 320px;right: 60px;">
+                    <button type="button" class="calender-icon" style="background-image: url(img/calender.png);" ms-on-tap="openTimePanel">
+                        <div style="margin: 7px 1px 0 0">{{getToday('day')}}</div>
+                    </button>
+                </div>
+                <!-- 打开地图按钮 -->
+                <div class="bs-btn-icon" style="top: 320px;right: 0;">
+                    <button type="button" class="calender-icon" style="background-image: url(img/map.png);" ms-click="showMap">
+                    </button>
                 </div>
 
                 <span class="sub-title bs-text-gold" ms-if="isShowSeen">最近浏览过的</span>

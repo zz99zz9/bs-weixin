@@ -1,7 +1,7 @@
 <div ms-controller="room">
     <div id="pullrefresh" class="mui-scroll-wrapper" style="background-color: #DCD9D5">
         <div class="mui-scroll">
-            <div class="swiper-container swiper1" style="z-index: 0;">
+            <div class="swiper-container swiper1" style="z-index: 0;height: 250px;">
                 <div class="swiper-wrapper">
                     <div class="swiper-slide" ms-repeat="room.roomGalleryList" data-repeat-rendered="swiper1Render">
                         <div style="width: 100%;height: 100%;background-size: cover;background-position: center;"  ms-css-background-image="'url(' + urlAPINet + el.imgUrl+')'" ms-attr-data-preview-src="urlAPINet + el.imgUrl" data-preview-group="1" ms-data-tag="el.imgDesc">
@@ -38,7 +38,7 @@
                     <h4 style="display: inline;margin-right: 10px;">{{room.designer.name}}</h4><small style="color:#999;">试睡师</small>
                     <div class="room-designer-message">{{room.designer.message | truncate(50,'...')}}</div>
 
-                    <button class="mui-btn" style="margin-bottom: 30px;" onclick="popover('./util/assess.html',loadUrl)">更多信息</button>
+                    <button class="mui-btn" style="width: 100px;margin-bottom: 30px;" onclick="popover('./util/assess.html',loadUrl)">更多信息</button>
                 </div>
             </section>
 
@@ -61,10 +61,11 @@
                     <span style="color: #fff;background-color: #000;font-size: 12px;padding: 4px;">教你省钱</span>
                     &nbsp;&nbsp;<span style="font-size: 12px;">越晚入住越省钱哦！</span><br>
                     <div>
-                        <div ms-repeat="roomNightDiscount" ms-on-tap="selectDiscount($index)" ms-class-1="discount-disabled:disableCheckinTime(todayIndex, el.startTime)" ms-class-2="discount-selected:$index == startTimeIndex">
-                            <img src="./img/icon1.jpg" alt=""><br>
-                            {{el.startTime}}:00后<br>
-                            ¥ {{el.discount}}
+                        <div ms-repeat="roomNightDiscount" ms-on-tap="selectDiscount($index, el.startTime)" ms-class-1="discount-disabled:disableCheckinTime(startIndex, el.startTime)" ms-class-2="discount-selected:$index == startTimeIndex">
+                            <img ms-attr-src="getClock($index, startTimeIndex, startIndex, el.startTime)" alt=""><br>
+                            <span class="discount-time">{{el.startTime}}:00后</span>
+                            <br>
+                            <span class="discount-money">¥ {{el.discount}}</span>
                         </div>
                     </div>
                 </div>
@@ -77,7 +78,7 @@
                 </div>
             </section>
 
-            <div style="width: 95%;padding: 13px 0px;background: #eee;margin: 0 auto;margin-top:20px;">更多房间</div>
+            <div style="width: 95%;padding: 13px 0px;margin: 0 auto;margin-top:20px;">更多房间</div>
             <div class="swiper-container swiper2">
                 <div class="swiper-wrapper">
                     <div class="swiper-slide" ms-repeat="list" data-repeat-rendered="swiper2Render">
