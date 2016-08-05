@@ -183,11 +183,13 @@ var vmIndex = avalon.define({
     },
     sort: 1, //1 按距离排序, 2按价格排序
     sortBy: function(type) {
-        if (vmIndex.sort != type) {
-            vmIndex.sort = type;
-            vmIndex.pageNo = 1;
-            vmIndex.getRoomList();
-        }
+        stopSwipeSkip.do(function() {
+            if (vmIndex.sort != type) {
+                vmIndex.sort = type;
+                vmIndex.pageNo = 1;
+                vmIndex.getRoomList();
+            }
+        });
     },
     goHotelById: function(id) {
         stopSwipeSkip.do(function() {
@@ -203,17 +205,18 @@ var vmIndex = avalon.define({
     swiper1Render: function() {
         var swiper1 = new Swiper('.swiper1', {
             slidesPerView: 1,
-            width: window.innerWidth - 40,
-            spaceBetween: 5,
+            width: window.innerWidth,
             freeMode: true,
             freeModeSticky: true,
-            freeModeMomentumRatio: 0.4
+            freeModeMomentumRatio: 0.4,
+            autoplay: 3000,
+            speed: 300
         });
     },
     swiper2Render: function() {
         var swiper2 = new Swiper('.swiper2', {
             slidesPerView: 1,
-            width: window.innerWidth - 40,
+            width: window.innerWidth - 20,
             spaceBetween: 5,
             freeMode: true,
             freeModeSticky: true,

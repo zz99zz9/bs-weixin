@@ -31,6 +31,7 @@ vmRoom = avalon.define({
     list: [],
     startTimeIndex: 0,
     todayIndex: 0,
+    startIndex: -1,
     roomNightDiscount: [{discount: 0}],
     checkinList: [],
     goHotel: function() {
@@ -65,6 +66,8 @@ vmRoom = avalon.define({
                     if (!(vmCalendar.statusControl.isEndEdit || vmCalendar.statusControl.isStartEdit)) {
                         vmCalendar.startClick();
                     }
+                    newOrder.day.todayIndex = vmCalendar.todayIndex;
+                    vmRoom.todayIndex = vmCalendar.todayIndex;
                     if(!bookDateList) {
                         //查询夜房预订日期
                         ajaxJsonp({
@@ -138,14 +141,19 @@ vmRoom = avalon.define({
             });
         });
     },
-    selectDiscount: function(index) {
-        vmRoom.startTimeIndex = index;
-        vmRoom.price = vmRoom.roomNightDiscount[index].discount;
+    selectDiscount: function(index, hour) {
+        stopSwipeSkip.do(function() {
+            var isDisabled = disableCheckinTime(vmRoom.startIndex, hour);
+            console.log(isDisabled);
+            if(!isDisabled) {
+                vmRoom.startTimeIndex = index;
+                
+                newOrder.day.startTimeIndex = index;
+                newOrder.day.startTime = vmRoom.roomNightDiscount[index].startTime;
 
-        newOrder.day.startTimeIndex = index;
-        newOrder.day.startTime = vmRoom.roomNightDiscount[index].startTime;
-
-        Storage.set("newOrder", newOrder);
+                Storage.set("newOrder", newOrder);
+            }
+        })
     },
     showTotalPrice: function(price, amount) {
         if (isNaN(price * amount)) {
@@ -212,11 +220,12 @@ vmRoom = avalon.define({
     swiper1Render: function() {
         var swiper1 = new Swiper('.swiper1', {
             slidesPerView: 1,
-            width: window.innerWidth - 40,
-            spaceBetween: 5,
+            width: window.innerWidth,
             freeMode: true,
             freeModeSticky: true,
-            freeModeMomentumRatio: 0.4
+            freeModeMomentumRatio: 0.4,
+            autoplay: 3000,
+            speed: 300
         });
 
         mui.previewImage();
@@ -224,7 +233,7 @@ vmRoom = avalon.define({
     swiper2Render: function() {
         var swiper2 = new Swiper('.swiper2', {
             slidesPerView: 1,
-            width: window.innerWidth - 40,
+            width: window.innerWidth - 20,
             spaceBetween: 5,
             freeMode: true,
             freeModeSticky: true,
@@ -232,7 +241,7 @@ vmRoom = avalon.define({
         });
     },
     swiper3Render: function() {
-        var swiper2 = new Swiper('.swiper3', {
+        var swiper3 = new Swiper('.swiper3', {
             scrollbar: '.swiper-scrollbar',
             scrollbarHide: true,
             slidesPerView: 'auto'
@@ -306,7 +315,7 @@ vmBtn = avalon.define({
             case 'date':
                 vmRoom.showDate();
                 saveStorage();
-                vmRoom.todayIndex = vmCalendar.todayIndex;
+                vmRoom.startIndex = vmCalendar.startIndex;
                 break;
             case 'partTime':
                 vmRoom.showPartTime();
@@ -493,15 +502,15 @@ function room_init() {
 //判断夜房的入住时间时钟是否要灰掉
 // @todayIndex: 日历模块中今天的序号
 // @hour: 入住时间，几点
-function disableCheckinTime(todayIndex, hour) {
+function disableCheckinTime(startIndex, hour) {
     //入住时间选今天以后，要灰掉小于当前时间的表盘
-    if (todayIndex == newOrder.day.startIndex) {
+    if (vmRoom.todayIndex == startIndex) {
         if (hour * 2 < getHourIndex()) {
             return true;
         } else {
             return false;
         }
-    } else if (bookDateList && bookDateList.outIndex.indexOf(todayIndex) > -1) {
+    } else if (bookDateList && bookDateList.outIndex.indexOf(vmRoom.todayIndex) > -1) {
         //14点以前的入住时段要灰掉
         if (hour <= 14) {
             return true;
@@ -510,6 +519,52 @@ function disableCheckinTime(todayIndex, hour) {
         }
     } else {
         return false;
+    }
+}
+
+function getClock(index, startTimeIndex, startIndex, hour) {
+    var isDisabled = disableCheckinTime(startIndex, hour);
+    switch(index) {
+        case 0:
+            if(isDisabled) {
+                return 'img/clock/morning-dis.png';
+            } else {
+                if(index == startTimeIndex) {
+                    return 'img/clock/morning-sel.png';
+                } else {
+                    return 'img/clock/morning.png';
+                }
+            }
+        case 1:
+            if(isDisabled) {
+                return 'img/clock/noon-dis.png';
+            } else {
+                if(index == startTimeIndex) {
+                    return 'img/clock/noon-sel.png';
+                } else {
+                    return 'img/clock/noon.png';
+                }
+            }
+        case 2:
+            if(isDisabled) {
+                return 'img/clock/afternoon-dis.png';
+            } else {
+                if(index == startTimeIndex) {
+                    return 'img/clock/afternoon-sel.png';
+                } else {
+                    return 'img/clock/afternoon.png';
+                }
+            }
+        case 3:
+            if(isDisabled) {
+                return 'img/clock/night-dis.png';
+            } else {
+                if(index == startTimeIndex) {
+                    return 'img/clock/night-sel.png';
+                } else {
+                    return 'img/clock/night.png';
+                }
+            } 
     }
 }
 
@@ -537,6 +592,12 @@ function sessionToDateData() {
         }
         if (newOrder.day.amount) {
             vmRoom.amount = newOrder.day.amount;
+        }
+        if (newOrder.day.todayIndex) {
+            vmRoom.todayIndex = newOrder.day.todayIndex;
+        }
+        if (newOrder.day.startIndex) {
+            vmRoom.startIndex = newOrder.day.startIndex;
         }
     } else {
         if (newOrder.partTime.startShow) {
@@ -600,3 +661,11 @@ function reload() {
     mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
     mui('#pullrefresh').pullRefresh().refresh(true);
 }
+
+vmRoom.$watch('startTimeIndex',function(a) {
+    if(a>-1) {
+        vmRoom.price = vmRoom.roomNightDiscount[a].discount;
+    } else {
+        vmRoom.price = 0;
+    }
+})
