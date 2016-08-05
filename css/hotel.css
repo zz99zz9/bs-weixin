@@ -7,7 +7,7 @@
 .expand {
     width: 100%;
     height: 75px;
-    font-size: 14px;
+    font-size: 12px;
     text-align: left;
     display: block;
 }
@@ -29,7 +29,6 @@
 }
 
 .expand i {
-    font-size: 1.25rem;
     /*font-weight: lighter;*/
     font-style: normal;
     display: inline-block;

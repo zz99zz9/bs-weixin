@@ -5,11 +5,7 @@ var newOrder, bensue, myMarker, mapObj, geolocation,
 var vmIndex = avalon.define({
     $id: 'index',
     headImg: 'img/icon1.jpg', //左上角头像
-    galleryList: [
-        { imgUrl: './img/tour1.jpg' },
-        { imgUrl: './img/tour2.jpg' },
-        { imgUrl: './img/tour3.jpg' },
-    ],
+    galleryList: [{ imgUrl: '' }],
     getCityGallery: function() {
         ajaxJsonp({
             url: urls.getCityGallery,
@@ -223,6 +219,12 @@ var vmIndex = avalon.define({
             freeModeMomentumRatio: 0.4
         });
     },
+    su: function() {
+        $('header').slideDown();
+    },
+    sd: function() {
+        $('header').slideUp();
+    }
 });
 
 //地址搜索栏
@@ -275,6 +277,8 @@ if (!newOrder) {
 if (user && user.headImg && user.logState) {
     vmIndex.headImg = urlAPINet + '/' + user.headImg;
 }
+
+vmIndex.getCityGallery();
 
 //高德地图
 mapObj = new AMap.Map('container', {

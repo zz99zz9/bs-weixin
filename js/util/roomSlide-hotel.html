@@ -1,8 +1,8 @@
 <div class="mui-text-left slide-info">
-    <span class="slide-address" ms-on-tap="goRoom(el.id)">{{el.hotel.address}}</span><br>
-    <span class="slide-room" ms-on-tap="goRoom(el.id)">{{el.name}}</span>
-    <span class="bs-text-yellow">★★★★★</span>
-    <div ms-on-tap="goHotelById(el.hotel.id)">
+    <span class="slide-address bs-text-large" ms-on-tap="goRoom(el.id)">{{el.hotel.address}}</span><br>
+    <span class="slide-room bs-text-gray bs-text-normal" ms-on-tap="goRoom(el.id)">{{el.name}}</span>
+    <span class="bs-text-yellow bs-text-normal">★★★★★</span>
+    <div class="bs-text-large" ms-on-tap="goHotelById(el.hotel.id)">
         <i ms-css-background-image="url({{urlAPINet + el.hotel.logoUrl}})"></i>
         {{el.hotel.name}}
     </div>

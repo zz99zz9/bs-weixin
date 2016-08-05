@@ -72,12 +72,12 @@ var vmOrder = avalon.define({
         })
     },
     selectFund: function(index) {
-        if(vmOrder.fundIndex != index) {
+        if(vmOrder.fundIndex !== index) {
             vmOrder.fund = vmOrder.fundList[index].money;
             vmOrder.fundIndex = index;
         } else {
             vmOrder.fund = 0;
-            vmOrder.fundIndex = '';
+            vmOrder.fundIndex = -1;
         }
     },
     //左边按钮
@@ -112,7 +112,7 @@ var vmOrder = avalon.define({
                     data: {
                         oid: orderid,
                         payType: vmOrder.payType,
-                        fid: vmOrder.fundList[vmOrder.fundIndex].id,
+                        fid: vmOrder.fundIndex>-1?vmOrder.fundList[vmOrder.fundIndex].id:'',
                         orids: vmOrder.orids.join(','),
                         returnUrl: 'payend.html'
                     },
