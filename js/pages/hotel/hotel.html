@@ -3,7 +3,7 @@
         <div ms-controller="hotel">
             <div style="position: absolute;top: 245px;z-index: 10;right: 0;padding-right: 10px;">
                 <button type="button" class="calender-icon" style="background-image: url(img/calender.png);" ms-on-tap="openTimePanel">
-                <div style="margin: 7px 1px 0 0; color: #b20e15;">18</div>
+                <div class="bs-text-red" style="margin: 7px 1px 0 0;">{{getToday('day')}}</div>
                 </button>
             </div>
             <div class="swiper-container swiper1" style="height: 300px;">
