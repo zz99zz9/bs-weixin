@@ -1060,6 +1060,10 @@ hr {
     border-left: 60px solid transparent; 
 }
 
+.bs-text-small {
+    font-size: 15px;
+}
+
 .bs-text-gold {
     color: #baa071 !important;
 }

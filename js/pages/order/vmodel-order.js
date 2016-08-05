@@ -61,8 +61,9 @@ var vmOrder = avalon.define({
     fundIndex: 0,
     fundList: [],
     getFund: function() {
+        //获取用户可用基金
         ajaxJsonp({
-            url: urls.getUserFundURL,
+            url: urls.getFundAvailable,
             successCallback: function(json) {
                 if(json.status == 1) {
                     vmOrder.fund = json.data.list[0].money;

@@ -20,7 +20,7 @@
     </div> 
     
     <!--顶部-->
-    <header class="mui-bar mui-bar-nav mui-text-center" style="height: 48px;">
+    <header class="mui-bar mui-bar-nav mui-text-center" style="height: 48px;background-color:rgba(255,255,255,0.9)">
         <div id="menu" style="display: inline-block;float: left;">
             <img class="headImg" ms-attr-src="headImg" alt="" style="margin-left: 0;">
         </div>
@@ -40,7 +40,7 @@
                 <!--地址展示-->
                 <div class="bs-position" ms-on-tap="openLocationSearch">
                     <span class="mui-icon mui-icon-search"></span>
-                    <span class="bs-text-gray">{{position}}</span>
+                    <span class="bs-text-gray bs-text-small">{{position}}</span>
                 </div>
                 <div class="bs-city">上海</div>
                 <div class="swiper-container swiper1" style="top: 8px;height: 300px;margin-bottom: 15px;">
@@ -76,10 +76,10 @@
 
                 <section>
                     <div>
-                        <span class="bs-text-gold bs-btn-sort" ms-if="sort==1" ms-on-tap="sortBy(2)">距离最近
+                        <span class="bs-text-small bs-text-gold bs-btn-sort" ms-if="sort==1" ms-on-tap="sortBy(2)">距离最近
                             <span class="mui-icon mui-icon-arrowthindown"></span>
                         </span>
-                        <span class="bs-text-gold bs-btn-sort" ms-if="sort==2" ms-on-tap="sortBy(1)">价格最低
+                        <span class="bs-text-small bs-text-gold bs-btn-sort" ms-if="sort==2" ms-on-tap="sortBy(1)">价格最低
                             <span class="mui-icon mui-icon-arrowthindown"></span>
                         </span>
                     </div>
