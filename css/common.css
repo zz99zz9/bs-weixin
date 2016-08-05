@@ -976,6 +976,45 @@ hr {
     top: 10px;
     float:right;
 }
+.hotel-alias{
+    color:#D69C5B;
+    font-size:20px;
+    font-weight:bold;
+    padding: 0;
+    margin: 0;
+    display: inline;
+}
+.room-name{
+    font-size: 20px;
+    padding: 0;
+    margin: 0;
+    display: inline;
+}
+.hotel-address{
+    color: #9A9691;
+    padding-top: 10px;
+    display: block;
+    padding: 0;
+    margin: 10px 0 0 0;
+    font-size: 17px;
+}
+.room-amenity{
+    height: 75px;
+}
+.room-amenity-item{
+    background: #EEEEEE;
+    width: auto !important;
+}
+.room-amenity-text{
+    color: #D0CCC7;
+    margin-left: 20px;
+    margin-right: 20px
+}
+.room-designer-message{
+    font-size: 13px;
+    margin: 30px auto;
+    overflow:hidden;
+}
 
 .order-title {
     display: inline-block;

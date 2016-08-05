@@ -243,16 +243,49 @@ section {
 .discount-disabled {
     color: gray;
 }
-.discount-time {
-    font-size: small;
+.map {
+    width: 50px;
+    height: 50px;
+    background-size: 25px 25px;
+    background-repeat: no-repeat;
+    font-size: 32px;
+    top: 0;
+}
     font-weight: 100;
 }
-.discount-money {
-    display: inline-block;
-    margin-left: -6px;
-    font-size: large;
-    font-weight: 100;
-}
+<<<<<<< .mine
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=======
 
 .hotel-alias{
     color:#D69C5B;
@@ -284,3 +317,4 @@ section {
     margin: 30px auto;
     overflow:hidden;
 }
+>>>>>>> .theirs

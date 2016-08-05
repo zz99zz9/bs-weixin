@@ -4,7 +4,7 @@
             <div class="swiper-container swiper1" style="z-index: 0;height: 250px;">
                 <div class="swiper-wrapper">
                     <div class="swiper-slide" ms-repeat="room.roomGalleryList" data-repeat-rendered="swiper1Render">
-                        <div style="width: 100%;height: 100%;background-size: cover;background-position: center;"  ms-css-background-image="'url(' + urlAPINet + el.imgUrl+')'" ms-attr-data-preview-src="urlAPINet + el.imgUrl" data-preview-group="1" ms-data-tag="el.imgDesc">
+                        <div style="width: 100%;height: 100%;background-size: cover;background-position: center;" ms-css-background-image="'url(' + urlAPINet + el.imgUrl+')'" ms-attr-data-preview-src="urlAPINet + el.imgUrl" data-preview-group="1" ms-data-tag="el.imgDesc">
                         </div>
                     </div>
                     <div class="swiper-pagination"></div>
@@ -13,23 +13,21 @@
             <section style="margin: -10px auto;">
                 <div class="hotel">
                     <div ms-on-tap="goHotel">
-                        <span class="hotel-alias">{{room.hotel.alias}}</span>
-                        <span class="room-name">{{room.name}}</span>
-                        <span class="hotel-address">{{room.hotel.address}}</span>
+                        <p class="hotel-alias">{{room.hotel.alias}}</p>
+                        <p class="room-name">{{room.name}}</p>
+                        <p class="hotel-address">{{room.hotel.address}}</p>
                     </div>
-                    <span ms-on-tap="openNav()" class="mui-icon mui-icon-map mui-text-danger" style="font-size: 32px;top:0;"></span>
+                    <span ms-on-tap="openNav()" class="map" style="background-image: url(img/map.png); top: 0;"></span>
                 </div>
-
                 <div class="swiper-container swiper3 room-amenity">
                     <div class="swiper-wrapper" style="padding-left: 0;">
                         <div class="swiper-slide room-amenity-item" ms-repeat="room.amenityList" data-repeat-rendered="swiper3Render">
-                            <img ms-attr-src="urlAPINet + el.ico" ms-attr-alt="el.name" style="width: 28px;height: 28px;margin-left: 10px"/>
+                            <img ms-attr-src="urlAPINet + el.ico" ms-attr-alt="el.name" style="width: 28px;height: 28px;margin-left: 10px" />
                             <label class="room-amenity-text">{{el.name}}</label>
                         </div>
                         <div class="swiper-scrollbar"></div>
                     </div>
                 </div>
-               
                 <div class="mui-text-center" style="background: white;padding: 0 10px;">
                     <div style="margin-top: 35px" class="circle photo" ms-css-background-image="'url('+urlAPINet + room.designer.portraitUrl+')'">
                         &nbsp;
@@ -37,11 +35,9 @@
                     <br />
                     <h4 style="display: inline;margin-right: 10px;">{{room.designer.name}}</h4><small style="color:#999;">试睡师</small>
                     <div class="room-designer-message">{{room.designer.message | truncate(50,'...')}}</div>
-
                     <button class="mui-btn" style="width: 100px;margin-bottom: 30px;" onclick="popover('./util/assess.html',loadUrl)">更多信息</button>
                 </div>
             </section>
-
             <section class="time">
                 <div style="padding: 20px 10px 10px 10px;color: #8f8f94">
                     <span>入住时间</span>
@@ -51,15 +47,18 @@
                     <div style="float: left;">
                         {{start|html}}
                     </div>
-                    <div style="text-align: center;font-size: 12px;">|<br>{{amount + (type?'小时':'晚')}}<br>|</div>
+                    <div style="text-align: center;font-size: 12px;">|
+                        <br>{{amount + (type?'小时':'晚')}}
+                        <br>|</div>
                     <div style="float: right;text-align: right;">
                         {{end|html}}
                     </div>
                 </div>
                 <hr>
                 <div class="time-clock" ms-if="!type">
-                    <span style="color: #fff;background-color: #000;font-size: 12px;padding: 4px;">教你省钱</span>
-                    &nbsp;&nbsp;<span style="font-size: 12px;">越晚入住越省钱哦！</span><br>
+                    <span style="color: #fff;background-color: #000;font-size: 12px;padding: 4px;">教你省钱</span> &nbsp;&nbsp;
+                    <span style="font-size: 12px;">越晚入住越省钱哦！</span>
+                    <br>
                     <div>
                         <div ms-repeat="roomNightDiscount" ms-on-tap="selectDiscount($index, el.startTime)" ms-class-1="discount-disabled:disableCheckinTime(startIndex, el.startTime)" ms-class-2="discount-selected:$index == startTimeIndex">
                             <img ms-attr-src="getClock($index, startTimeIndex, startIndex, el.startTime)" alt=""><br>
@@ -70,14 +69,12 @@
                     </div>
                 </div>
             </section>
-
             <section class="checkin" ms-on-tap="openCheckin">
                 <p>入住人信息 <span class="mui-icon mui-icon-compose" style="color: #000;float: right;"></span></p>
                 <div ms-repeat="checkinList">
                     {{el.name}}
                 </div>
             </section>
-
             <div style="width: 95%;padding: 13px 0px;margin: 0 auto;margin-top:20px;">更多房间</div>
             <div class="swiper-container swiper2">
                 <div class="swiper-wrapper">
@@ -87,12 +84,12 @@
                     <div class="swiper-pagination"></div>
                 </div>
             </div>
-
-            <br><br><br>
+            <br>
+            <br>
+            <br>
         </div>
     </div>
-
-     <nav class="mui-bar mui-bar-tab">
+    <nav class="mui-bar mui-bar-tab">
         <h4 class="mui-pull-left" style="margin: 13px;">
             <span class="error" style="font-weight: lighter;"><span style="font-size: 12px">￥</span><span style="font-size:24px;">{{showTotalPrice(price, amount)}}</span></span>
             <span style="font-weight: 100;" ms-if="!type"><span style="font-size: 12px">￥</span><del>{{showTotalPrice(roomNightDiscount[0].discount,amount)}}</del></span>
