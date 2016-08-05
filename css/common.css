@@ -1126,7 +1126,18 @@ hr {
     height: 50px;
     border-radius: 50px;
     opacity: 0.9;
-    background-size: 25px 25px;
+    background-size: 22px 22px;
     background-position: center;
     background-repeat: no-repeat;
+    box-shadow: 0 0 30px -10px;
+    border: none;
+}
+
+.line {
+    width: 60px;
+    height: 60px;
+    background-size: 60px 60px;
+    background-repeat: no-repeat;
+    top: 0;
+    border: none;
 }
