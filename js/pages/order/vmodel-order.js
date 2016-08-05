@@ -66,26 +66,19 @@ var vmOrder = avalon.define({
             url: urls.getFundAvailable,
             successCallback: function(json) {
                 if(json.status == 1) {
-                    vmOrder.fund = json.data.list[0].money;
-
-                    // 如果基金被占用，显示出来并默认选择
-                    if(vmOrder.data.fid>0) {
-                        for(var i = 0; i<json.data.list.length; i++) {
-                            if(json.data.list[i].id == vmOrder.data.fid) {
-                                json.data.list[i].isValid = true;
-                                vmOrder.fundIndex = i;
-                                vmOrder.fund = json.data.list[i].money;
-                            }
-                        }
-                    }
-                    vmOrder.fundList = json.data.list; 
+                    vmOrder.fundList.push.apply(vmOrder.fundList, json.data); 
                 }
             }
         })
     },
     selectFund: function(index) {
-        vmOrder.fund = vmOrder.fundList[index].money;
-        vmOrder.fundIndex = index;
+        if(vmOrder.fundIndex != index) {
+            vmOrder.fund = vmOrder.fundList[index].money;
+            vmOrder.fundIndex = index;
+        } else {
+            vmOrder.fund = 0;
+            vmOrder.fundIndex = '';
+        }
     },
     //左边按钮
     btn1Text: "",
@@ -138,6 +131,7 @@ var vmOrder = avalon.define({
                         } else {
                             //调取后台接口不成功
                             alert(json.message);
+                            vmOrder.btn2Disabled = false;
                         }
                     }
                 });
@@ -158,6 +152,12 @@ ajaxJsonp({
     successCallback: function(json) {
         if (json.status === 1) {
             vmOrder.data = json.data;
+
+            if(json.data.fid > 0) {
+                vmOrder.fundList.push(json.data.userFund);
+                vmOrder.fund = vmOrder.fundList[0].money;
+            }
+
             vmOrder.getFund();
 
             for(var i = 0; i<json.data.orderRoomList.length; i++) {
