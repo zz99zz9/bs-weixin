@@ -1152,11 +1152,23 @@ hr {
 .bs-text-gray {
     color: #999 !important;
 }
+.bs-text-51 {
+    color: #333;
+}
 
+.bs-text-153 {
+    color: #999;
+}
+
+.bs-text-102 {
+    color: #666;
+}
+.bs-text-black {
+    color: #000;
+}
 .bs-bg-gray {
     background-color: #999;
 }
-
 .bs-bg-51 {
     background-color: #333;
 }

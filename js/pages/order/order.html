@@ -6,7 +6,8 @@
 }
 
 .order-panel-title {
-    margin-bottom: 10px;
+    margin-bottom: 20px;
+    display: inline-block;
 }
 
 .order-fundList {
@@ -55,6 +56,14 @@
     position: absolute;
     right: 0;
 }
+.mui-toast-container {
+    bottom: 50px;
+}
+
+.mui-toast-message {
+    color: #fff;
+    background-color: #dd524d;
+}
 
 input[type=checkbox] {
     visibility: hidden;
@@ -64,8 +73,8 @@ input[type=checkbox] {
     <div class="hotel">
         <div ms-on-tap="goHotelById(hotel.id)">
             <p class="hotel-alias bs-text-larger bs-text-gold">{{data.hotel.alias}}酒店</p>&nbsp;
-            <p class="room-name bs-text-larger bs-bg-51">one' own</p>
-            <p class="hotel-address bs-text-normal bs-bg-153">{{data.hotel.address}}</p>
+            <p class="room-name bs-text-larger bs-text-51">one' own</p>
+            <p class="hotel-address bs-text-normal bs-text-153">{{data.hotel.address}}</p>
         </div>
     </div>
     <div ms-on-tap="openNav()" class="line" style="background-image: url(img/line.png); position: absolute; top: 5px;"></div>
@@ -75,36 +84,38 @@ input[type=checkbox] {
                 <input type="checkbox" style="display: none;" ms-duplex-number="selectedList" ms-attr-value="$index" ms-visible="data.status==1" />
                 <div class="check-icon" ms-class-1="unchecked:selectedList.indexOf($index)<0" ms-class-2="checked:selectedList.indexOf($index)>-1" style="position: absolute; right: 5px;"></div>
             </div>
-            <span class="bs-text-large bs-bg-51">{{el.name}}</span>
-            <h5 class="bs-text-small bs-bg-102">
+            <span class="order-panel-title bs-text-large bs-text-51">{{el.name}}</span>
+            <h5 class="bs-text-small bs-text-102" style="margin: 0 0 20px 0;">
                 <span style="margin-bottom: 8px; display: inline-block;">{{formatDate(el.startTime)}} - {{formatDate(el.endTime)}}
                 &nbsp;共{{el.timeCount}}晚</span>
                 <br>
                 <span style=" margin-top: 8px;" ms-repeat-cl="el.orderCustomerList">{{cl.name}}&nbsp;</span>
+                <br>
+                <span class="bs-text-large bs-text-red" style="float: right; margin: 20px 20px 0 0;">¥{{el.amount}}</</span>
             </h5>
-            <span class="bs-text-large bs-text-red" style="position: relative; margin-left: 83%;">¥{{el.amount}}</</span>
+
         </li>
     </ul>
     <div class="bs-text-large" style="text-align: center;margin-top: -14px;background: #fff;height: 40px;padding: 10px;" ms-click="goHotelById(data.hotel.id)" ms-if="data.status==1">
         <span class="mui-icon mui-icon-plusempty"></span> 预定更多房间
     </div>
     <div class="order-panel" ms-if="data.status==1">
-        <h5 class="order-panel-title bs-text-large bs-bg-153" style="margin: 5px 0;">体验基金</h5>
+        <h5 class="order-panel-title bs-text-large bs-text-153" style="margin: 5px 0;">体验基金</h5>
         <div class="order-fundList">
             <div class="order-fund color-red" style="font-size: 15px;" ms-click="selectFund($index)" ms-repeat="fundList" ms-class="selected: $index == fundIndex" ms-if-loop="el.isValid">
                 ¥<span>{{el.money}}</span>
             </div>
         </div>
     </div>
-    <div class="order-panel bs-text-normal bs-bg-102">
-        <h5 class="order-panel-title bs-text-large bs-bg-153">订单信息</h5>
+    <div class="order-panel bs-text-normal bs-text-102">
+        <h5 class="order-panel-title bs-text-large bs-text-153">订单信息</h5>
         <div style="clear: both;">
             <span style="float: left; margin-bottom: 8px;">订单编号：</span>
-            <span class=" bs-bg-black" style="float: right;margin-right: 10px;">{{data.orderNo}}</span>
+            <span class=" bs-text-black" style="float: right;margin-right: 10px;">{{data.orderNo}}</span>
         </div>
         <div style="clear: both;">
             <span style="float: left; margin-bottom: 8px;">订单状态：</span>
-            <span class=" bs-bg-black" style="float: right;margin-right: 10px;">{{getStatus()}}</span>
+            <span class=" bs-text-black" style="float: right;margin-right: 10px;">{{getStatus()}}</span>
         </div>
         <div style="clear: both;">
             <span style="float: left; margin-bottom: 8px;">优惠金额：</span>
@@ -119,18 +130,18 @@ input[type=checkbox] {
         <div>&nbsp;</div>
     </div>
     <div class="order-panel font" ms-if="data.status==1">
-        <h5 class="order-panel-title bs-text-large bs-bg-153">支付方式</h5>
+        <h5 class="order-panel-title bs-text-large bs-text-153">支付方式</h5>
         <div ms-click="newRadio1" style="margin-bottom: 10px;">
             <div class="hiddenbox">
                 <div class="check-icon" ms-class-1="unchecked:payType == 1" ms-class-2="checked:payType == 2" style="position: absolute; right: 5px;"></div>
             </div>
-            <span class="bs-text-normal bs-bg-black">微信支付</span>
+            <span class="bs-text-normal bs-text-black">微信支付</span>
         </div>
         <div ms-click="newRadio2">
             <div class="hiddenbox">
                 <div class="check-icon" ms-class-1="unchecked:payType == 2" ms-class-2="checked:payType == 1" style="position: absolute; right: 5px;"></div>
             </div>
-            <span class="bs-text-normal bs-bg-black">支付宝支付</span>
+            <span class="bs-text-normal bs-text-black">支付宝支付</span>
         </div>
     </div>
     <br>
