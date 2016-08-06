@@ -34,6 +34,7 @@ vmRoom = avalon.define({
     startIndex: -1,
     roomNightDiscount: [{discount: 0}],
     checkinList: [],
+    isAgree: false,
     goHotel: function() {
         stopSwipeSkip.do(function() {
             location.href = "hotel.html?id=" + vmRoom.room.hotel.id;
