@@ -1,4 +1,3 @@
-
 <div ms-controller="orders">
     <div style="padding-left: 10px;background: #fff;">
         <div style="display: inline-block;width: 12px;height: 12px;background-image: url('../img/horn.png');background-size: cover;position: relative;top: 3px;"></div>
@@ -6,29 +5,31 @@
             点击退房之后，才可以开发票哦！
         </span>
     </div>
-    <span class="order-title">当前订单</span>
-    <ul class="order-list">
-        <li class="order-item" ms-if="list1.length == 0">暂无订单
+    <span class="order-title bs-text-large bs-text-153" style="margin-bottom: 0px;">当前订单</span>
+    <ul class="order-list" style="margin-bottom: 0px;">
+        <li class="order-item bs-text-large bs-text-153" ms-if="list1.length == 0">暂无订单
         </li>
         <li class="order-item" ms-repeat="list1" ms-if="list1.length!=0" ms-click="goDetail(el.id)">
             <span class="status bs-text-smaller">{{showStatus(el.status)}}</span>
             <div id="triangle"></div>
-            <span>{{el.hotel.name}}</span>
-            <h5>
+            <span class="bs-text-large bs-text-51">{{el.hotel.name}}</span>
+            <h5 class="bs-text-small bs-text-102" style="margin-top: 10px;">
                 {{el.orderRoomList[0].name}}
                 <span ms-if="el.orderRoomList.length>1">等{{el.orderRoomList.length}}间房</span>
                 <br>
-                {{formatDate(el.orderRoomList[0].startTime)}} - {{formatDate(el.orderRoomList[0].endTime)}}
-                &nbsp;共{{el.orderRoomList[0].timeCount}}晚
+                <span style="display: inline-block; margin-top: 4px;">
+                    {{formatDate(el.orderRoomList[0].startTime)}} - {{formatDate(el.orderRoomList[0].endTime)}}
+                &nbsp;&nbsp;共{{el.orderRoomList[0].timeCount}}晚
+                </span>
             </h5>
-            <button type="button" ms-click="goDetail(el.id)">{{showActionText(el.status)}}</button>
-            <span style="float: right;">¥{{el.needAmount}}</span>
+            <button class=" bs-text-small" type="button" style="margin: 0;" ms-click="goDetail(el.id)">{{showActionText(el.status)}}</button>
+            <span class="bs-text-large bs-text-red" style="float: right; margin: 8px 10px 0 0;">¥{{el.needAmount}}</span>
         </li>
     </ul>
 
-    <span class="title">历史订单</span>
+    <span class="order-title bs-text-large bs-text-153" style="margin: 0 0 0 10px;">历史订单</span>
     <ul class="order-list">
-        <li class="order-item" ms-if="list2.length == 0">暂无订单
+        <li class="order-item bs-text-large bs-text-153" ms-if="list2.length == 0">暂无订单
         </li>
         <li class="order-item" ms-repeat="list2" ms-if="list2.length!=0" ms-click="goDetail(el.id)">
             <span class="status">{{showStatus(el.status)}}</span>
