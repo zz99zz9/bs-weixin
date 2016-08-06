@@ -5,7 +5,12 @@
 var vmContactList = avalon.define({
     $id: 'contactList',
     list: [],
+    selectedIndex: '',
     add: function () {
+        vmContactAdd.id = '';
+        vmContactAdd.name = '';
+        vmContactAdd.mobile = '';
+        vmContactAdd.idNo = '';
         popover('./util/frequent-contact-add.html', 1);
     },
     del: function (index) {
@@ -25,6 +30,14 @@ var vmContactList = avalon.define({
                 }
             });
         }
+    },
+    edit: function (index) {
+        vmContactList.selectedIndex = index;
+        vmContactAdd.id = vmContactList.list[index].id;
+        vmContactAdd.name = vmContactList.list[index].name;
+        vmContactAdd.mobile = vmContactList.list[index].mobile;
+        vmContactAdd.idNo = vmContactList.list[index].idNo;
+        popover('./util/frequent-contact-add.html', 1);
     }
 });
 
@@ -38,6 +51,7 @@ var vmAInfoBtn = avalon.define({
 
 var vmContactAdd = avalon.define({
     $id: 'contactAdd',
+    id: '',
     name: '',
     mobile: '',
     idNo: '',
@@ -74,6 +88,7 @@ var vmContactAdd = avalon.define({
         ajaxJsonp({
             url: urls.saveContact,
             data: {
+                id: vmContactAdd.id,
                 mobile: vmContactAdd.mobile,
                 name: vmContactAdd.name,
                 idNo: vmContactAdd.idNo
@@ -83,7 +98,13 @@ var vmContactAdd = avalon.define({
                     alert(json.message);
                     return;
                 } else {
-                    vmContactList.list.push(json.data);
+                    if (isEmpty(vmContactAdd.id)) {
+                        vmContactList.list.push(json.data);
+                    } else {
+                        vmContactList.list[vmContactList.selectedIndex].name = json.data.name;
+                        vmContactList.list[vmContactList.selectedIndex].mobile = json.data.mobile;
+                        vmContactList.list[vmContactList.selectedIndex].idNo = json.data.idNo;
+                    }
                 }
             }
         });
