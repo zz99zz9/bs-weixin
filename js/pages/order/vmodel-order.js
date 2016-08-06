@@ -33,8 +33,10 @@ var vmOrder = avalon.define({
 
             if(i>-1) {
                 vmOrder.selectedList.splice(i,1);
+                //document.getElementById("aaa_" + index).src = "img/map.png";
             } else {
                 vmOrder.selectedList.push(index);
+                //document.getElementById("aaa_" + index).src = "img/calender.png";
             }
         }
     },

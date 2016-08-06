@@ -17,8 +17,8 @@
                         <p class="room-name">{{room.name}}</p>
                         <p class="hotel-address">{{room.hotel.address}}</p>
                     </div>
-                    <span ms-on-tap="openNav()" class="line" style="background-image: url(img/line.png); top: 0;position: absolute;
-    margin: 0px 5px 0 175px;"></span>
+                    <span ms-on-tap="openNav()" class="line" style="background-image: url(img/line.png); top: 0; position: absolute;
+    "></span>
                 </div>
                 <div class="swiper-container swiper3 room-amenity">
                     <div class="swiper-wrapper" style="padding-left: 0;">
@@ -62,7 +62,8 @@
                     <br>
                     <div>
                         <div ms-repeat="roomNightDiscount" ms-on-tap="selectDiscount($index, el.startTime)" ms-class-1="discount-disabled:disableCheckinTime(startIndex, el.startTime)" ms-class-2="discount-selected:$index == startTimeIndex">
-                            <img ms-attr-src="getClock($index, startTimeIndex, startIndex, el.startTime)" alt=""><br>
+                            <img ms-attr-src="getClock($index, startTimeIndex, startIndex, el.startTime)" alt="">
+                            <br>
                             <span class="discount-time">{{el.startTime}}:00后</span>
                             <br>
                             <span class="discount-money">¥ {{el.discount}}</span>
