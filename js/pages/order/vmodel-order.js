@@ -66,7 +66,7 @@ var vmOrder = avalon.define({
         location.href = "hotel.html?id=" + id;
     },
     fund: 0, //基金优惠金额
-    fundIndex: 0,
+    fundIndex: -1,
     fundList: [],
     getFund: function() {
         //获取用户可用基金
