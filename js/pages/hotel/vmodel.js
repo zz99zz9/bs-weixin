@@ -10,6 +10,7 @@ var vmHotel = avalon.define({
     alias: '',
     name: '',
     address: '',
+    introduction: '',
     lng: '',
     lat: '',
     distance: '',
@@ -30,6 +31,7 @@ var vmHotel = avalon.define({
                     vmHotel.alias = json.data.alias;
                     vmHotel.name = json.data.name;
                     vmHotel.address = json.data.address;
+                    vmHotel.introduction = json.data.introduction;
                     vmHotel.lng = json.data.lng;
                     vmHotel.lat = json.data.lat;
                     vmHotel.distance = round(json.data.distance / 1000, 2);

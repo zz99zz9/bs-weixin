@@ -112,6 +112,7 @@ var vmIndex = avalon.define({
     },
     openTimePanel: function() {
         stopSwipeSkip.do(function() {
+
             if (vmIndex.type == 0) {
                 vmBtn.type = 'date';
                 popover('./util/calendar.html', 1, function() {

@@ -168,9 +168,11 @@
 .text-info ul {
     list-style: none;
     padding-left: 0;
+    margin-top: 0;
 }
 .text-info li {
     position: relative;
+    margin: 10px 0;
 }
 .mui-navigate-right:after {
     top: 10px;
