@@ -1063,7 +1063,6 @@ hr {
 .order-title {
     display: inline-block;
     margin: 10px 0 5px 10px;
-    font-size: 20px;
 }
 
 .order-list {
@@ -1075,12 +1074,11 @@ hr {
 .order-list .order-item {
     display: block;
     margin: 10px 0;
-    padding: 8px 0 8px 8px;
+    padding: 10px 0 10px 10px;
     background-color: #fff;
 }
 
 .order-list .order-item .status {
-    color: #fff;
     position: absolute;
     right: 0px;
 }
