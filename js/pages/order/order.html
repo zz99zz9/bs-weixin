@@ -6,6 +6,7 @@
 }
 
 .order-panel-title {
+    margin-top: 10px;
     margin-bottom: 20px;
     display: inline-block;
 }
@@ -17,17 +18,17 @@
 
 .order-fund {
     display: inline-block;
-    color: gold;
     text-align: center;
-    width: 100px;
-    height: 48px;
-    padding: 13px;
-    border: 1px solid gold;
+    width: 120px;
+    height: 60px;
+    line-height: 60px;
+    margin: 0 2px 10px 0;
+    border: 1px solid #baa071;
 }
 
 .order-fund.selected {
-    background: gold;
-    color: #fff;
+    background: #baa071;
+    color: #fff !important;
 }
 
 .order-fund span {
@@ -68,87 +69,108 @@
 input[type=checkbox] {
     visibility: hidden;
 }
+
+.info-left {
+    float: left;
+    margin-bottom: 8px;
+}
+.info-right {
+     float: right;
+     margin-right: 10px;
+}
+
+.order-btn {
+    width: 50%;
+    border: none;
+    border-radius: 0;
+    height: 50px;
+}
+.width100 {
+    width: 100%;
+}
 </style>
-<div ms-controller="order" style="margin: 5px auto; width: 95%;">
-    <div class="hotel">
-        <div ms-on-tap="goHotelById(hotel.id)">
-            <p class="hotel-alias bs-text-larger bs-text-gold">{{data.hotel.alias}}酒店</p>&nbsp;
-            <p class="room-name bs-text-larger bs-text-51">one' own</p>
-            <p class="hotel-address bs-text-normal bs-text-153">{{data.hotel.address}}</p>
-        </div>
-    </div>
-    <div ms-on-tap="openNav()" class="line" style="background-image: url(img/line.png); position: absolute; top: 5px;"></div>
-    <ul class="order-list">
-        <li class="order-item" ms-repeat="data.orderRoomList" ms-data-index="$index" ms-click="selectRoom($index)" style="padding: 8px 0 8px 10px;">
-            <div class="hiddenbox">
-                <input type="checkbox" style="display: none;" ms-duplex-number="selectedList" ms-attr-value="$index" ms-visible="data.status==1" />
-                <div class="check-icon" ms-class-1="unchecked:selectedList.indexOf($index)<0" ms-class-2="checked:selectedList.indexOf($index)>-1" style="position: absolute; right: 5px;"></div>
-            </div>
-            <span class="order-panel-title bs-text-large bs-text-51">{{el.name}}</span>
-            <h5 class="bs-text-small bs-text-102" style="margin: 0 0 20px 0;">
-                <span style="margin-bottom: 8px; display: inline-block;">{{formatDate(el.startTime)}} - {{formatDate(el.endTime)}}
-                &nbsp;共{{el.timeCount}}晚</span>
-                <br>
-                <span style=" margin-top: 8px;" ms-repeat-cl="el.orderCustomerList">{{cl.name}}&nbsp;</span>
-                <br>
-                <span class="bs-text-large bs-text-red" style="float: right; margin: 20px 15px 0 0;">¥{{el.amount}}</</span>
-            </h5>
-            <span style="clear: both;">&nbsp;</span>
-        </li>
-    </ul>
-    <div class="bs-text-large" style="text-align: center;margin-top: -14px;background: #fff;height: 40px;padding: 10px;" ms-click="goHotelById(data.hotel.id)" ms-if="data.status==1">
-        <span class="mui-icon mui-icon-plusempty"></span> 预定更多房间
-    </div>
-    <div class="order-panel" ms-if="data.status==1">
-        <h5 class="order-panel-title bs-text-large bs-text-153" style="margin: 5px 0;">体验基金</h5>
-        <div class="order-fundList">
-            <div class="order-fund color-red" style="font-size: 15px;" ms-click="selectFund($index)" ms-repeat="fundList" ms-class="selected: $index == fundIndex" ms-if-loop="el.isValid">
-                ¥<span>{{el.money}}</span>
+<div ms-controller="order">
+    <div style="margin: 0 auto;width: 95%;">
+        <div class="hotel">
+            <div ms-on-tap="goHotelById(hotel.id)">
+                <p class="hotel-alias bs-text-larger bs-text-gold">{{data.hotel.alias}}酒店</p>&nbsp;
+                <p class="room-name bs-text-larger bs-text-51">one' own</p>
+                <p class="hotel-address bs-text-normal bs-text-153">{{data.hotel.address}}</p>
             </div>
         </div>
-    </div>
-    <div class="order-panel bs-text-normal bs-text-102">
-        <h5 class="order-panel-title bs-text-large bs-text-153">订单信息</h5>
-        <div style="clear: both;">
-            <span style="float: left; margin-bottom: 8px;">订单编号：</span>
-            <span class=" bs-text-black" style="float: right;margin-right: 10px;">{{data.orderNo}}</span>
+        <div ms-on-tap="openNav()" class="line" style="background-image: url(img/line.png); position: absolute; top: 5px;"></div>
+        <ul class="order-list">
+            <li class="order-item" ms-repeat="data.orderRoomList" ms-data-index="$index" ms-click="selectRoom($index)" style="padding: 8px 0 8px 10px;">
+                <div class="hiddenbox">
+                    <input type="checkbox" style="display: none;" ms-duplex-number="selectedList" ms-attr-value="$index" ms-visible="data.status==1" />
+                    <div class="check-icon" ms-class-1="unchecked:selectedList.indexOf($index)<0" ms-class-2="checked:selectedList.indexOf($index)>-1" style="position: absolute; right: 5px;"></div>
+                </div>
+                <span class="order-panel-title bs-text-large bs-text-51">{{el.name}}</span>
+                <h5 class="bs-text-small bs-text-102" style="margin: 0 0 20px 0;">
+                    <span style="margin-bottom: 8px; display: inline-block;">{{formatDate(el.startTime)}} - {{formatDate(el.endTime)}}
+                    &nbsp;共{{el.timeCount}}晚</span>
+                    <br>
+                    <span style=" margin-top: 8px;" ms-repeat-cl="el.orderCustomerList">{{cl.name}}&nbsp;</span>
+                    <br>
+                    <span class="bs-text-large bs-text-red" style="float: right; margin: 20px 15px 0 0;">¥{{el.amount}}</</span>
+                </h5>
+                <span style="clear: both;">&nbsp;</span>
+            </li>
+        </ul>
+        <div class="bs-text-large" style="text-align: center;margin-top: -14px;background: #fff;height: 40px;line-height: 40px;" ms-click="goHotelById(data.hotel.id)" ms-if="data.status==1">
+            <span class="mui-icon mui-icon-plusempty bs-text-red" style="font-size: 32px;position: relative;top: 3px;"></span>预定更多房间
         </div>
-        <div style="clear: both;">
-            <span style="float: left; margin-bottom: 8px;">订单状态：</span>
-            <span class=" bs-text-black" style="float: right;margin-right: 10px;">{{getStatus()}}</span>
-        </div>
-        <div style="clear: both;">
-            <span style="float: left; margin-bottom: 8px;">优惠金额：</span>
-            <span class="bs-text-red" style="float: right; margin-right: 10px;">¥{{fund}}</span>
-        </div>
-        <div style="clear: both;">
-            <span style="float: left; margin-bottom: 8px;">实付金额：</span>
-            <span class="bs-text-red" style="float:right;margin-right: 10px;">
-            ¥{{(needAmount-fund)<0?0:(needAmount-fund)}}
-            </span>
-        </div>
-        <div>&nbsp;</div>
-    </div>
-    <div class="order-panel font" ms-if="data.status==1">
-        <h5 class="order-panel-title bs-text-large bs-text-153">支付方式</h5>
-        <div ms-click="newRadio1" style="margin-bottom: 10px;">
-            <div class="hiddenbox">
-                <div class="check-icon" ms-class-1="unchecked:payType == 1" ms-class-2="checked:payType == 2" style="position: absolute; right: 5px;"></div>
+        <div class="order-panel" ms-if="data.status==1">
+            <div class="order-panel-title bs-text-large bs-text-153">体验基金</div>
+            <div class="order-fundList">
+                <div class="order-fund bs-text-normal bs-text-gold" ms-click="selectFund($index)" ms-repeat="fundList" ms-class="selected: $index == fundIndex" ms-if-loop="el.isValid">
+                    ¥<span class="bs-text-x-large">{{el.money}}</span>
+                </div>
             </div>
-            <span class="bs-text-normal bs-text-black">微信支付</span>
         </div>
-        <div ms-click="newRadio2">
-            <div class="hiddenbox">
-                <div class="check-icon" ms-class-1="unchecked:payType == 2" ms-class-2="checked:payType == 1" style="position: absolute; right: 5px;"></div>
+        <div class="order-panel bs-text-normal bs-text-102">
+            <div class="order-panel-title bs-text-large bs-text-153">订单信息</div>
+            <div style="clear: both;">
+                <span class="info-left">订单编号：</span>
+                <span class="info-right bs-text-black">{{data.orderNo}}</span>
             </div>
-            <span class="bs-text-normal bs-text-black">支付宝支付</span>
+            <div style="clear: both;">
+                <span class="info-left">订单状态：</span>
+                <span class="info-right bs-text-black">{{getStatus()}}</span>
+            </div>
+            <div style="clear: both;">
+                <span class="info-left">优惠金额：</span>
+                <span class="info-right bs-text-red">¥{{fund}}</span>
+            </div>
+            <div style="clear: both;">
+                <span class="info-left">实付金额：</span>
+                <span class="info-right bs-text-red">
+                ¥{{(needAmount-fund)<0?0:(needAmount-fund)}}
+                </span>
+            </div>
+            <div>&nbsp;</div>
         </div>
+        <div class="order-panel font" ms-if="data.status==1">
+            <div class="order-panel-title bs-text-large bs-text-153">支付方式</div>
+            <div ms-click="newRadio1" style="margin-bottom: 10px;">
+                <div class="hiddenbox">
+                    <div class="check-icon" ms-class-1="unchecked:payType == 1" ms-class-2="checked:payType == 2" style="position: absolute; right: 5px;"></div>
+                </div>
+                <span class="bs-text-normal bs-text-black">微信支付</span>
+            </div>
+            <div ms-click="newRadio2">
+                <div class="hiddenbox">
+                    <div class="check-icon" ms-class-1="unchecked:payType == 2" ms-class-2="checked:payType == 1" style="position: absolute; right: 5px;"></div>
+                </div>
+                <span class="bs-text-normal bs-text-black">支付宝支付</span>
+            </div>
+        </div>
+        <br>
+        <br>
+        <br>
     </div>
-    <br>
-    <br>
-    <br>
+    <nav class="mui-bar mui-bar-tab">
+        <button type="button" class="order-btn bs-text-white" ms-click="btn1Click" ms-if="btn1Text!=''" ms-attr-disabled="btn1Disabled" ms-class-1="bs-bg-gray:data.status==1||data.status==2" ms-class-2="bs-bg-gold:data.status==3||data.staus==4" ms-class-3="width100:data.staus==4">{{btn1Text}}</button>
+        <button type="button" class="order-btn bs-text-white bs-bg-black" ms-click="btn2Click" ms-if="btn2Text!=''" ms-attr-disabled="btn2Disabled">{{btn2Text}}</button>
+    </nav>
 </div>
-<nav class="mui-bar mui-bar-tab" style="padding: 10px;" ms-controller="order">
-    <button type="button" class="mui-btn mui-pull-left" style="top: 0;font-weight: normal" ms-click="btn1Click" ms-if="btn1Text!=''" ms-attr-disabled="btn1Disabled">{{btn1Text}}</button>
-    <button type="button" class="mui-btn mui-btn-danger mui-pull-right" style="top: 0;font-weight: normal" ms-click="btn2Click" ms-if="btn2Text!=''" ms-attr-disabled="btn2Disabled">{{btn2Text}}</button>
-</nav>

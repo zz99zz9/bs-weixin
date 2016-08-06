@@ -164,6 +164,7 @@ ajaxJsonp({
             if(json.data.fid > 0) {
                 vmOrder.fundList.push(json.data.userFund);
                 vmOrder.fund = vmOrder.fundList[0].money;
+                vmOrder.fundList[0].isValid = true;
             }
 
             vmOrder.getFund();
@@ -174,20 +175,20 @@ ajaxJsonp({
             
             switch (json.data.status) {
                 case 1: //待付款
-                    vmOrder.btn1Text = "取消订单";
-                    vmOrder.btn2Text = "支付";
+                    vmOrder.btn1Text = "取消预订";
+                    vmOrder.btn2Text = "立即支付";
                     break;
                 case 2: //未入住
-                    vmOrder.btn1Text = "退订房间";
-                    vmOrder.btn2Text = "";
+                    vmOrder.btn1Text = "取消预订";
+                    vmOrder.btn2Text = "呼叫接送";
                     break;
                 case 3: //已入住
-                    vmOrder.btn1Text = "";
-                    vmOrder.btn2Text = "评价";
+                    vmOrder.btn1Text = "去评价";
+                    vmOrder.btn2Text = "退房";
                     break;
                 case 4: //已离店
-                    vmOrder.btn1Text = "开发票";
-                    vmOrder.btn2Text = "评价";
+                    vmOrder.btn1Text = "去评价";
+                    vmOrder.btn2Text = "";
                     break;
             }
         }
@@ -203,7 +204,7 @@ function cancelOrder() {
             successCallback: function(json) {
                 if (json.status === 1) {
                     alert("订单已取消");
-                    location.href = document.referrer || "index.html";
+                    location.href = "index.html";
                 } else {
                     alert(json.message);
                     vmOrder.btn1Disabled = false;
