@@ -534,62 +534,49 @@ button {
     opacity: 0;
 }
 
-#popModule h5 {
-    margin-top: 1px;
+#popModule .control {
+    height: 100px;
 }
 
-#popModule .control,
-.service-control {
-    margin-top: 12px;
-    text-align: center;
-    background-color: #fcfcfc;
-}
-
-#popModule .control-item,
-.service-control .control-item {
+#popModule .control-item {
     display: inline-block;
-    margin: 5px;
     text-align: center;
+    width: 49%;
+    position: relative;
+    top: 18px;
 }
 
-#popModule .control-item .grid-img,
-.service-control .control-item .grid-img {
-    height: 50px;
-    width: 50px;
-    border-radius: 50%;
-    text-align: center;
+#popModule .control-item img{
+    max-width: 44px;
+    max-height: 44px;
 }
 
-#popModule .control-item .grid-img img,
-.service-control .control-item .grid-img img {
-    width: 36px;
-    margin-top: 6px;
-    margin-left: 3px;
-}
-
-#popModule .control-item .grid-text,
-.service-control .control-item .grid-text {
-    margin: 8px auto;
-    font-size: 0.875rem;
-}
-
-#popModule .grid-icon,
-.service-control .grid-icon {
-    width: 27px;
-    height: 27px;
+#popModule .control-item .grid-text {
     margin: 2px auto;
+}
+
+#popModule .grid-icon {
+    width: 22px;
+    height: 22px;
+    margin-top: 12px;
+}
+
+#popModule li a {
+    padding: 5px 0 10px 0;
+}
+
+#popModule li a div {
+    margin-top: -3px;
 }
 
 .content {
     background-color: #fff;
-    border-radius: 8px;
     margin: auto;
-    padding-top: 5px;
     -webkit-transition-property: margin-top;
     -webkit-transition-duration: 10ms;
     transition-duration: 300ms;
     position: relative;
-    top: -4%;
+    top: -6%;
     width: 80vw;
 }
 
@@ -602,10 +589,9 @@ button {
     width: 60px;
     height: 60px;
     padding: 0;
-    color: #dd524d;
     border: none;
     position: absolute;
-    bottom: -12vh;
+    bottom: -13vh;
     background: url('../img/icon/close.png');
     background-size: cover;
     left: 50%;
@@ -616,11 +602,6 @@ button {
     color: white;
     background: none !important;
 }
-
-
-/*.closeButton:before {
-    content: '\e404';
-}*/
 
 .icon li a h5 {
     color: black;
