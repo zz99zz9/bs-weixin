@@ -54,8 +54,10 @@
 	.mui-page .mui-table-view:last-child {
 		margin-bottom: 30px;
 	}
-	.mui-table-view {
-		margin-top: 20px;
+	.nav-title{
+		display: inline-block;
+		width: 80px;
+		margin: 5px auto;
 	}
 </style>
 <div id="app" class="mui-views">
@@ -68,29 +70,47 @@
 	<div class="mui-page-content">
 		<ul class="mui-table-view">
 			<li class="mui-table-view-cell">
-				<a href="#name" class="mui-navigate-right">姓名<span class="mui-pull-right" style="margin-right: 25px;">{{name}}</span></a>
+				<a href="#name" class="mui-navigate-right">
+					<span class="bs-text-gray nav-title">姓名</span>
+					<span class="" >{{name}}</span>
+				</a>
 			</li>
 			<li class="mui-table-view-cell">
-				<a href="#nick" class="mui-navigate-right">昵称<span class="mui-pull-right" style="margin-right: 25px;">{{nickname}}</span></a>
+				<a href="#nick" class="mui-navigate-right">
+					<span class="bs-text-gray nav-title">昵称</span>
+					<span class="" style="margin-right: 25px;">{{nickname}}</span>
+				</a>
 			</li>
 			<li class="mui-table-view-cell">
-				<a href="#">手机号<span class="mui-pull-right" style="margin-right: 25px;">{{mobile}}</span></a>
+				<a href="#">
+					<span class="bs-text-gray nav-title">手机号</span>
+					<span>{{mobile}}</span>
+				</a>
 			</li>
 		</ul>
-		<br />
-		<ul class="mui-table-view">
+		<ul class="mui-table-view" style="margin-top: 25px">
 			<li class="mui-table-view-cell">
-				<a href="frequent-contact-list.html" class="mui-navigate-right">入住人信息</a>
-			</li>
-			<li class="mui-table-view-cell">
-				<a href="invoice-list.html" class="mui-navigate-right">发票管理</a>
-			</li>
-			<li class="mui-table-view-cell">
-				<a href="about.html" class="mui-navigate-right">关于本酒店</a>
+				<a href="frequent-contact-list.html" class="mui-navigate-right">
+					<span class="bs-text-gray nav-title">入住人信息</span>
+				</a>
 			</li>
 		</ul>
-		<div class="mui-content-padded mui-text-center" style="position: absolute;bottom: 0;width: 95%;padding-left: 0;padding-right: 0;">
-			客服电话：<a href="tel:4000-000-000" style="color: #cc9966;">4000-000-000</a>
+		<ul class="mui-table-view" style="margin-top: 5px">
+			<li class="mui-table-view-cell">
+				<a href="invoice-list.html" class="mui-navigate-right">
+					<span class="bs-text-gray nav-title">发票管理</span>
+				</a>
+			</li>
+		</ul>
+		<ul class="mui-table-view" style="margin-top: 25px">
+			<li class="mui-table-view-cell">
+				<a href="about.html" class="mui-navigate-right">
+					<span class="bs-text-gray nav-title">关于我们</span>
+				</a>
+			</li>
+		</ul>
+		<div class="mui-content-padded mui-text-center" style="margin-top: 25px">
+			客服电话：<a href="tel:4000-000-000">4000-000-000</a>
 		</div>
 	</div>
 </div>

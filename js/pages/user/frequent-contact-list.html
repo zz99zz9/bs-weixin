@@ -5,43 +5,53 @@
     h5{
         color: black;
     }
-    .selected:before {
-        color: #dd524d !important;
-    }
-    .mui-popup {
-        position: fixed;
-    }
-
     .btn{
         width:100% !important;
+        padding: 10px 5px;
+    }
+    .btn-operate{
+        width: 36px;
+        height: 36px;
+        vertical-align: middle;
+        float: right;
+        margin: 0px 5px;
+    }
+    .mui-table-view-cell {
+        background-color: white !important;
+    }
+    html, body{
+        background-color: #efeff4 !important;
     }
 </style>
 
 <div ms-controller="contactList">
-    <div class="mui-table-view">
-        <div id="OA_task_2">
-            <div class="mui-table-view-cell mui-checkbox mui-right" ms-repeat="list">
-                <button type="button" class="mui-btn" style="z-index: 1" ms-click="del($index)">删除</button>
-                <div class="mui-slider-handle">
-                    <div class="display-flex mui-table-cell">
-                        <h5 class="flex0" style="-webkit-box-pack: justify;">姓&emsp;名</h5>
-                        <h5 class="flex1">{{el.name}}</h5>
-                    </div>
-                    <div class="display-flex mui-table-cellv">
-                        <h5 class="flex0" style="-webkit-box-pack: justify;">手机号</h5>
-                        <h5 class="flex1">{{el.mobile}}</h5>
-                    </div>
-                    <div class="display-flex mui-table-cell">
-                        <h5 class="flex0" style="-webkit-box-pack: justify;">身份证号</h5>
-                        <h5 class="flex1">{{el.idNo}}</h5>
-                    </div>
-                </div>
+    <div class="mui-table-view" ms-repeat="list" style="margin-top: 10px">
+        <div class="mui-table-view-cell mui-checkbox mui-right">
+            <div class="display-flex mui-table-cell">
+                <h5 class="flex0 bs-text-gray" style="-webkit-box-pack: justify;">姓名</h5>
+                <h5 class="flex1">{{el.name}}</h5>
+            </div>
+            <div class="display-flex mui-table-cellv" style="margin-top: 8px">
+                <h5 class="flex0 bs-text-gray" style="-webkit-box-pack: justify;">手机号</h5>
+                <h5 class="flex1">{{el.mobile}}</h5>
+            </div>
+            <div class="display-flex mui-table-cell" style="margin-top: 8px">
+                <h5 class="flex0 bs-text-gray" style="-webkit-box-pack: justify;">身份证号</h5>
+                <h5 class="flex1">{{el.idNo}}</h5>
+            </div>
+            <hr style="border: 1px solid #ddd;border-width: 1px 0 0 0">
+            <div>
+                <!--<img src="img/edit.png" class="btn-operate"  ms-click="edit($index)">-->
+                <img src="img/delete.png" class="btn-operate"  ms-click="del($index)">
             </div>
         </div>
     </div>
-    <br><br>
 
-    <nav class="mui-bar mui-bar-tab" style="padding: 10px;">
-        <button type="button" class="mui-btn mui-btn-danger mui-pull-right btn" ms-click="add()">添加入住人</button>
-    </nav>
+    <div class="mui-table-view" style="margin-top: 10px">
+        <div class="mui-table-view-cell" style="text-align: center"  ms-click="add()">
+            <img style="vertical-align: middle;width: 24px;height: 24px" src="img/add.png">
+            <span style="vertical-align: middle">添加入住人</span>
+        </div>
+    </div>
+
 </div>
