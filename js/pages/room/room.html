@@ -79,7 +79,11 @@
                     {{el.name}}
                 </div>
             </section>
-            <div class="bs-text-large" style="width: 95%;padding: 13px 0px;margin: 0 auto;margin-top:20px;">更多房间</div>
+            <div class="bs-text-smaller" style="width: 95%;margin: 10px auto;padding: 10px" ms-on-tap="clickIsAgree">
+                <span class="isAgree" ms-class-1="unchecked: !isAgree" ms-class-2="checked:isAgree"></span>
+                我同意<span class="bs-text-gold" ms-on-tap="openRule">《入住条款》</span>
+            </div>
+            <div class="bs-text-large" style="width: 95%;padding: 10px 0 14px 10px;margin: 0 auto;">更多房间</div>
             <div class="swiper-container swiper2">
                 <div class="swiper-wrapper">
                     <div class="swiper-slide" ms-repeat="list" data-repeat-rendered="swiper2Render">

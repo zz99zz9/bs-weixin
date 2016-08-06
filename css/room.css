@@ -200,41 +200,51 @@ section {
     z-index: 9;
     background-color: #fff;
 }
+
 .time {
     margin: 18px auto;
     padding-top: 10px;
 }
-.time p, .checkin p {
+
+.time p,
+.checkin p {
     padding: 10px;
     font-size: 15px;
 }
+
 .time .time-panel {
     margin-bottom: 20px;
     padding: 0 10px;
     font-size: 13px;
 }
+
 .time .time-panel div {
     display: inline-block;
     line-height: 15px;
     width: 33%;
 }
+
 .time .time-clock div {
     margin: 10px auto;
     text-align: center;
 }
+
 .time .time-clock div div {
     display: inline-block;
     width: 23%;
 }
+
 .time .time-clock img {
     border-radius: 50%;
     width: 20vw;
     height: 20vw;
 }
+
 .checkin {
     padding: 10px 0;
     margin-top: -10px;
 }
+
 .checkin div {
     font-size: 14px;
     padding: 0 0 10px 10px;
@@ -243,6 +253,34 @@ section {
 .discount-selected {
     color: red;
 }
+
 .discount-disabled {
     color: gray;
+}
+
+.isAgree {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    position: relative;
+    top: 1px;
+    margin-right: 10px;
+    background-size: cover;
+}
+
+.unchecked {
+    background-image: url('../img/unchecked.png');
+}
+
+.checked {
+    background-image: url('../img/checked.png');
+}
+
+.mui-toast-container {
+    bottom: 50px;
+}
+
+.mui-toast-message {
+    color: #fff;
+    background-color: #dd524d;
 }
