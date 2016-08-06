@@ -10,6 +10,8 @@
         /*background:none;*/
         width: 150px;
         height: 35px;
+        border: 1px solid #baa071 !important;
+        color: #baa071 !important;
     }
     .nextButton{
         color: green;
@@ -51,6 +53,11 @@
     body{
     	min-height: 450px;
     }
+    .btn-next{
+        margin-top: 30px;
+        background-color: black !important;
+        border: 1px solid black !important;
+    }
 </style>
 <div ms-controller="register" style="overflow: hidden;background: url('img/11111.jpg') center;background-size: cover;height: 100vh;width: 100vw;padding:20px 50px;">
     <div style="margin: 0 auto;text-align: center;">
@@ -64,10 +71,10 @@
         <div ms-if="!isUsed" style="text-align: center;font-size: 14px;">
             <span style="color:white;">邀请码：</span>
             <input type="text" class="input1" ms-duplex="inviteCode" onfocus="hidekeyboard()" onblur="showkeyboard()">
-            <span style="color:yellow;">非必填</span>
+            <span style="color:white;">(非必填)</span>
         </div>
         <br />
-        <button class="mui-btn mui-btn-danger mui-btn-block" ms-click="goRegister" ms-attr-disabled="isGoNextDisabled">下一步</button>
+        <button class="mui-btn mui-btn-danger mui-btn-block btn-next" ms-click="goRegister" ms-attr-disabled="isGoNextDisabled">下一步</button>
     </div>
 </div>
 <script>
