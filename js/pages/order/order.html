@@ -6,7 +6,6 @@
 }
 
 .order-panel-title {
-    font-size: 20px;
     margin-bottom: 10px;
 }
 
@@ -43,26 +42,6 @@
     font-size: 13px;
 }
 
-.color-51 {
-    color: #333;
-}
-
-.color-153 {
-    color: #999;
-}
-
-.color-102 {
-    color: #666;
-}
-
-.color-333 {
-    color: #333;
-}
-
-.color-red {
-    color: #b20e15;
-}
-
 .checked {
     background-image: url(img/checked.png);
 }
@@ -71,51 +50,12 @@
     background-image: url(img/unchecked.png);
 }
 
-.checkboxFive {
-    /*width: 25px;*/
+.hiddenbox {
     margin: 0 20px 0 0;
     position: absolute;
     right: 0;
 }
 
-/*.checkboxFive label {
-    cursor: pointer;
-    position: absolute;
-    width: 25px;
-    height: 25px;
-    top: 0;
-    left: 0;
-    background: #eee;
-    border: 1px solid #ddd;
-}
-
-.checkboxFive label:after {
-    opacity: 0.2;
-    content: '';
-    position: absolute;
-    width: 9px;
-    height: 5px;
-    background: transparent;
-    top: 6px;
-    left: 7px;
-    border: 2px solid #333;
-    border-top: none;
-    border-right: none;
-    -webkit-transform: rotate(-45deg);
-    -moz-transform: rotate(-45deg);
-    -o-transform: rotate(-45deg);
-    -ms-transform: rotate(-45deg);
-    transform: rotate(-45deg);
-}
-
-.checkboxFive label:hover::after {
-    opacity: 0.5;
-}
-
-.checkboxFive input[type=checkbox]:checked + label:after {
-    opacity: 1;
-}
-*/
 input[type=checkbox] {
     visibility: hidden;
 }
@@ -123,78 +63,74 @@ input[type=checkbox] {
 <div ms-controller="order" style="margin: 5px auto; width: 95%;">
     <div class="hotel">
         <div ms-on-tap="goHotelById(hotel.id)">
-            <p class="hotel-alias">{{data.hotel.alias}}酒店</p>&nbsp;
-            <p class="room-name color-51">one' own</p>
-            <p class="hotel-address color-153">{{data.hotel.address}}</p>
+            <p class="hotel-alias bs-text-larger bs-text-gold">{{data.hotel.alias}}酒店</p>&nbsp;
+            <p class="room-name bs-text-larger bs-bg-51">one' own</p>
+            <p class="hotel-address bs-text-normal bs-bg-153">{{data.hotel.address}}</p>
         </div>
     </div>
-    <div ms-on-tap="openNav()" class="line" style="background-image: url(img/line.png); position: absolute; top: 0;"></div>
+    <div ms-on-tap="openNav()" class="line" style="background-image: url(img/line.png); position: absolute; top: 5px;"></div>
     <ul class="order-list">
         <li class="order-item" ms-repeat="data.orderRoomList" ms-data-index="$index" ms-click="selectRoom($index)" style="padding: 8px 0 8px 10px;">
-            <!-- <div class="checkboxFive">
-                <input type="checkbox" style="" ms-duplex-number="selectedList" ms-attr-value="$index" class="selected calender-icon" ms-visible="data.status==1" />
-                <label for="checkboxFiveInput"></label>
-            </div> -->
-            <div class="checkboxFive">
+            <div class="hiddenbox">
                 <input type="checkbox" style="display: none;" ms-duplex-number="selectedList" ms-attr-value="$index" ms-visible="data.status==1" />
-                <div class="calender-icon" ms-class-1="unchecked:selectedList.indexOf($index)<0" ms-class-2="checked:selectedList.indexOf($index)>-1" style="position: absolute; right: 5px;"></div>
-                <!-- <img src="img/calender.png" ms-attr-id="'aaa_' + $index"> -->
-                    <!-- <div class="calender-icon" style="background-image: url(img/calender.png);"></div>
-                    <div class="calender-icon" style="background-image: url(img/maop.png);"></div> -->
-                
+                <div class="check-icon" ms-class-1="unchecked:selectedList.indexOf($index)<0" ms-class-2="checked:selectedList.indexOf($index)>-1" style="position: absolute; right: 5px;"></div>
             </div>
-            <span class="color-51" style="font-size: 15px;">{{el.name}}</span>
-            <h5 class="color-102">
-                {{formatDate(el.startTime)}} - {{formatDate(el.endTime)}}
-                &nbsp;共{{el.timeCount}}晚
+            <span class="bs-text-large bs-bg-51">{{el.name}}</span>
+            <h5 class="bs-text-small bs-bg-102">
+                <span style="margin-bottom: 8px; display: inline-block;">{{formatDate(el.startTime)}} - {{formatDate(el.endTime)}}
+                &nbsp;共{{el.timeCount}}晚</span>
                 <br>
-                <span ms-repeat-cl="el.orderCustomerList">{{cl.name}}&nbsp;</span>
+                <span style=" margin-top: 8px;" ms-repeat-cl="el.orderCustomerList">{{cl.name}}&nbsp;</span>
             </h5>
-            <span style="position: absolute; bottom: 7px; right: 15px;">¥{{el.amount}}</</span>
+            <span class="bs-text-large bs-text-red" style="position: relative; margin-left: 83%;">¥{{el.amount}}</</span>
         </li>
     </ul>
-    <div style="text-align: center;margin-top: -14px;background: #fff;height: 40px;padding: 10px;" ms-click="goHotelById(data.hotel.id)" ms-if="data.status==1">
+    <div class="bs-text-large" style="text-align: center;margin-top: -14px;background: #fff;height: 40px;padding: 10px;" ms-click="goHotelById(data.hotel.id)" ms-if="data.status==1">
         <span class="mui-icon mui-icon-plusempty"></span> 预定更多房间
     </div>
     <div class="order-panel" ms-if="data.status==1">
-        <h5 class="order-panel-title color-153" style="margin: 5px 0;">体验基金</h5>
+        <h5 class="order-panel-title bs-text-large bs-bg-153" style="margin: 5px 0;">体验基金</h5>
         <div class="order-fundList">
             <div class="order-fund color-red" style="font-size: 15px;" ms-click="selectFund($index)" ms-repeat="fundList" ms-class="selected: $index == fundIndex" ms-if-loop="el.isValid">
                 ¥<span>{{el.money}}</span>
             </div>
         </div>
     </div>
-    <div class="order-panel font color-102">
-        <h5 class="order-panel-title color-153">订单信息</h5>
+    <div class="order-panel bs-text-normal bs-bg-102">
+        <h5 class="order-panel-title bs-text-large bs-bg-153">订单信息</h5>
         <div style="clear: both;">
-            <span style="float: left;">订单编号：</span>
-            <span style="float: right;">{{data.orderNo}}</span>
+            <span style="float: left; margin-bottom: 8px;">订单编号：</span>
+            <span class=" bs-bg-black" style="float: right;margin-right: 10px;">{{data.orderNo}}</span>
         </div>
         <div style="clear: both;">
-            <span style="float: left;">订单状态：</span>
-            <span style="float: right;">{{getStatus()}}</span>
+            <span style="float: left; margin-bottom: 8px;">订单状态：</span>
+            <span class=" bs-bg-black" style="float: right;margin-right: 10px;">{{getStatus()}}</span>
         </div>
         <div style="clear: both;">
-            <span style="float: left;">优惠金额：</span>
-            <span style="float: right; color: #b20e15;">¥{{fund}}</span>
+            <span style="float: left; margin-bottom: 8px;">优惠金额：</span>
+            <span class="bs-text-red" style="float: right; margin-right: 10px;">¥{{fund}}</span>
         </div>
         <div style="clear: both;">
-            <span style="float: left;">实付金额：</span>
-            <span style="float: right; color: #b20e15;">
+            <span style="float: left; margin-bottom: 8px;">实付金额：</span>
+            <span class="bs-text-red" style="float:right;margin-right: 10px;">
             ¥{{(needAmount-fund)<0?0:(needAmount-fund)}}
             </span>
         </div>
         <div>&nbsp;</div>
     </div>
     <div class="order-panel font" ms-if="data.status==1">
-        <h5 class="order-panel-title color-153">支付方式</h5>
-        <div class="mui-radio radio-row" style="padding-left: 0px;">
-            <input type="radio" style="font-size: 24px; right: 10px;" ms-duplex-string="payType" value="2" class="selected">
-            <label>微信支付</label>
+        <h5 class="order-panel-title bs-text-large bs-bg-153">支付方式</h5>
+        <div ms-click="newRadio1" style="margin-bottom: 10px;">
+            <div class="hiddenbox">
+                <div class="check-icon" ms-class-1="unchecked:payType == 1" ms-class-2="checked:payType == 2" style="position: absolute; right: 5px;"></div>
+            </div>
+            <span class="bs-text-normal bs-bg-black">微信支付</span>
         </div>
-        <div class="mui-radio radio-row" style="padding-left: 0px;">
-            <input type="radio" style="font-size: 24px; right: 10px;" ms-duplex-string="payType" value="1" class="selected">
-            <label>支付宝</label>
+        <div ms-click="newRadio2">
+            <div class="hiddenbox">
+                <div class="check-icon" ms-class-1="unchecked:payType == 2" ms-class-2="checked:payType == 1" style="position: absolute; right: 5px;"></div>
+            </div>
+            <span class="bs-text-normal bs-bg-black">支付宝支付</span>
         </div>
     </div>
     <br>

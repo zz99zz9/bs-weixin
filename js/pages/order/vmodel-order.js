@@ -26,7 +26,13 @@ var vmOrder = avalon.define({
     },
     needAmount: 0, //总价
     selectedList: [],
-    orids: [], //订单包含的房间业务流水编号
+    orids: [], //订单包含的房间业务流水编号\
+    newRadio1: function() {
+        vmOrder.payType = 2;
+    },
+    newRadio2: function() {
+        vmOrder.payType = 1;
+    },
     selectRoom: function(index) {
         if(vmOrder.data.status == 1) {
             var i = vmOrder.selectedList.indexOf(index);
@@ -284,4 +290,7 @@ vmOrder.$watch('selectedList.length', function(a){
         //记录要支付房间的业务流水号
         vmOrder.orids.push(vmOrder.data.orderRoomList[index].id);
     })
+})
+vmOrder.$watch('payType', function(a){
+    console.log(a);
 })
