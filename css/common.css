@@ -456,16 +456,11 @@ button {
 
 .swiper-slide-item .slide-address {
     margin: 16px 0 4px 10px;
-    font-size: 16px;
-    font-family: "Microsoft Yahei";
 }
 
 .swiper-slide-item .slide-room {
     margin: 0 5px 0 10px;
-    font-size: 13px;
-    font-family: "Microsoft Yahei";
     font-weight: 100;
-    color: rgb(153,153,153);
 }
 
 .slide-info {
@@ -478,8 +473,6 @@ button {
     position: absolute;
     right: 10px;
     bottom: 40px;
-    font-size: 16px;
-    font-family: "Microsoft Yahei";
 }
 
 .slide-info div i{
@@ -682,13 +675,13 @@ button {
 
 .mui-bar-tab .mui-btn.mui-pull-right{
 	margin: 0;
-	height: 52px;
+	height: 49px;
 	border-radius: 0;
 	position: absolute;
 	right: 0;
 	top: -1px;
 	width: 100px;
-	font-size: 17px;
+	border: none;
 }
 .mui-bar-tab .mui-btn.mui-pull-left{
 	margin: 0;
@@ -978,14 +971,12 @@ hr {
 }
 .hotel-alias{
     color:#D69C5B;
-    font-size:20px;
     font-weight:bold;
     padding: 0;
     margin: 0;
     display: inline;
 }
 .room-name{
-    font-size: 20px;
     padding: 0;
     margin: 0;
     display: inline;
@@ -996,7 +987,6 @@ hr {
     display: block;
     padding: 0;
     margin: 10px 0 0 0;
-    font-size: 17px;
 }
 .room-amenity{
     height: 75px;
@@ -1006,7 +996,7 @@ hr {
     width: auto !important;
 }
 .room-amenity-text{
-    color: #D0CCC7;
+    color: #b3b3b3;
     margin-left: 20px;
     margin-right: 20px
 }
@@ -1060,20 +1050,45 @@ hr {
     border-left: 60px solid transparent; 
 }
 
+.bs-text-x-larger {
+    font-size: 24px;
+}
+.bs-text-larger {
+    font-size: 17px;
+}
+.bs-text-large {
+    font-size: 15px;
+}
+.bs-text-normal {
+    font-size: 14px;
+}
+.bs-text-small {
+    font-size: 13px;
+}
+.bs-text-smaller {
+    font-size: 12px;
+}
+
+.bs-text-white {
+    color: #fff !important;
+}
 .bs-text-gold {
     color: #baa071 !important;
 }
-
 .bs-text-yellow {
     color: #ffbc1b !important;
 }
-
 .bs-text-red {
     color: #b20e15 !important;
 }
-
 .bs-text-gray{
-    color: #999;
+    color: #999 !important;
+}
+.bs-bg-gray {
+    background-color: #999;
+}
+.bs-bg-black {
+    background-color: #000;
 }
 
 .bs-type-tab {
@@ -1095,14 +1110,13 @@ hr {
 }
 
 .bs-position {
-    width: 95%;
+    width: 100%;
     margin: 0 auto;
-    padding: 5px;
+    padding: 0 10px;
     z-index: 99;
-    position: relative;
-    top: 68px;
-    line-height:30px;
-    background-color: #fff;
+    position: absolute;
+    top: 20px;
+    line-height: 39px;
 }
 
 .bs-city {
@@ -1126,7 +1140,18 @@ hr {
     height: 50px;
     border-radius: 50px;
     opacity: 0.9;
-    background-size: 25px 25px;
+    background-size: 22px 22px;
     background-position: center;
     background-repeat: no-repeat;
+    box-shadow: 0 0 30px -10px;
+    border: none;
+}
+
+.line {
+    width: 60px;
+    height: 60px;
+    background-size: 60px 60px;
+    background-repeat: no-repeat;
+    top: 0;
+    border: none;
 }

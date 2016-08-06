@@ -209,10 +209,10 @@ vmRoom = avalon.define({
             },
             successCallback: function(json){
                 if (json.status == 1) {
-                    vmRoom.isGoNext = false;
                     location.href = "order.html?id=" + json.data.id; 
                 } else {
                     alert(json.message);
+                    vmRoom.isGoNext = false;
                 }
             }
         })

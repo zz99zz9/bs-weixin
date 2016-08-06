@@ -63,7 +63,7 @@
     <div class="order-panel" ms-if="data.status==1">
         <h5 class="order-panel-title">体验基金</h5>
         <div class="order-fundList">
-            <div class="order-fund" ms-click="selectFund($index)" ms-repeat="fundList" ms-class="selected: $index == fundIndex" ms-if-loop="el.isValid">
+            <div class="order-fund" ms-click="selectFund($index)" ms-repeat="fundList" ms-class="selected: $index === fundIndex">
                 ¥<span>{{el.money}}</span>
             </div>
         </div>
