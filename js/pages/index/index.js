@@ -4,7 +4,7 @@ var newOrder, bensue, myMarker, mapObj, geolocation,
 
 var vmIndex = avalon.define({
     $id: 'index',
-    headImg: 'img/icon1.jpg', //左上角头像
+    headImg: 'img/defaultHeadImg.png', //左上角头像
     galleryList: [{ imgUrl: '' }],
     getCityGallery: function() {
         ajaxJsonp({
@@ -141,7 +141,7 @@ var vmIndex = avalon.define({
                 isPartTime: vmIndex.type
             },
             successCallback: function(json) {
-                if (json.status !== 0 && json.data && json.data.count > 0) {
+                if (json.status == 1 && json.data && json.data.count > 0) {
                     vmIndex.isShowSeen = true;
                     vmIndex.seenList = json.data.list;
                 } else {
@@ -274,11 +274,12 @@ if (!newOrder) {
 }
 
 //更换登录用户头像
-if (user && user.headImg && user.logState) {
+if (user && user.headImg) {
     vmIndex.headImg = urlAPINet + '/' + user.headImg;
 }
 
 vmIndex.getCityGallery();
+vmIndex.getRoomList();
 
 //高德地图
 mapObj = new AMap.Map('container', {

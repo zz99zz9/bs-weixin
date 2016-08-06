@@ -1,11 +1,17 @@
 
 <div ms-controller="orders">
+    <div style="padding-left: 10px;background: #fff;">
+        <div style="display: inline-block;width: 12px;height: 12px;background-image: url('../img/horn.png');background-size: cover;position: relative;top: 3px;"></div>
+        <span class="bs-text-smaller">
+            点击退房之后，才可以开发票哦！
+        </span>
+    </div>
     <span class="order-title">当前订单</span>
     <ul class="order-list">
         <li class="order-item" ms-if="list1.length == 0">暂无订单
         </li>
         <li class="order-item" ms-repeat="list1" ms-if="list1.length!=0" ms-click="goDetail(el.id)">
-            <span class="status">{{showStatus(el.status)}}</span>
+            <span class="status bs-text-smaller">{{showStatus(el.status)}}</span>
             <div id="triangle"></div>
             <span>{{el.hotel.name}}</span>
             <h5>
@@ -15,8 +21,8 @@
                 {{formatDate(el.orderRoomList[0].startTime)}} - {{formatDate(el.orderRoomList[0].endTime)}}
                 &nbsp;共{{el.orderRoomList[0].timeCount}}晚
             </h5>
-            <span>¥{{el.needAmount}}</</span>
             <button type="button" ms-click="goDetail(el.id)">{{showActionText(el.status)}}</button>
+            <span style="float: right;">¥{{el.needAmount}}</span>
         </li>
     </ul>
 
