@@ -156,6 +156,16 @@ vmRoom = avalon.define({
             }
         })
     },
+    clickIsAgree: function() {
+        stopSwipeSkip.do(function() {
+            vmRoom.isAgree = !vmRoom.isAgree;
+        });
+    },
+    openRule: function() {
+        stopSwipeSkip.do(function() {
+            popover('./util/rule.html', 1);
+        })
+    },
     showTotalPrice: function(price, amount) {
         if (isNaN(price * amount)) {
             return '';
@@ -199,6 +209,11 @@ vmRoom = avalon.define({
             return;
         }
 
+        if (!vmRoom.isAgree) {
+            mui.toast('请阅读并同意《入住条款》');
+            vmRoom.isGoNext = false;
+            return;
+        }
         ajaxJsonp({
             url: urls.submitOrder,
             data: {

@@ -16,7 +16,7 @@
                 </div>
             </div>
 
-            <div class="pic-info" style="background: white;width: 100%;">
+            <div class="pic-info">
                 <button class="expand" id="exp" ms-on-tap="expand">
                     <table width="100%">
                         <tr>
@@ -25,7 +25,7 @@
                             </td> -->
                             <td class="mui-ellipsis small" valign="top">
                                 <i class="bs-text-larger">{{alias}}酒店&nbsp;</i><i>one'own</i><br />
-                                <i class="bs-text-large bs-text-gray" style="margin-top: 4px;">{{name}}</i>
+                                <i class="bs-text-large bs-text-gray" style="margin-top: 4px;">{{address}}</i>
                             </td>
                             <td class="tdclass bs-text-smaller" style="color: #333; width: 48px;">
                                 展开
@@ -33,26 +33,29 @@
                         </tr>
                     </table>
                 </button>
-                <div class="info">
+                <div class="info bs-text-small">
                     <div ms-repeat="surplusList">
                         <a href="javascript:void(0);">
-                            <h3>{{el.name}}</h3>
-                            今日剩余{{el.surplus}}间
+                            {{el.name}}<br>
+                            剩余{{el.surplus}}间
                         </a>
                     </div>
                 </div>
                 <div class="text-info">
-                    <!-- <p style="padding:15px">{{introduction}}</p> -->
-                    <ul class="mui-table-view">
-                        <li class="mui-table-view-cell" >
+                    <p style="padding: 15px 10px;">{{introduction| truncate(200,'...')}}</p>
+                    <ul>
+                        <!-- <li>
                             <a ms-on-tap="openNav(lat,lng,name,address)">
-                                <h5>{{alias}}酒店：{{address}}</h5>
-                            <span class="mui-badge mui-badge-success" style="background-color:black;">&nbsp;跟我走<span class="mui-icon mui-icon-location" style="font-size:20px"></span></span>
+                                <h5>{{alias}}酒店：{{address}}</h5> 
+                             <span class="mui-badge mui-badge-success" style="background-color:black;">&nbsp;跟我走<span class="mui-icon mui-icon-location" style="font-size:20px"></span></span>
                             </a>
-                        </li>
-                        <div class="mui-table-view-divider">酒店特色</div>
-                        <li class="mui-table-view-cell" ms-repeat="featureList">
-                            <a ms-on-tap="openFeature(el)" class="mui-navigate-right"><h5 class="mui-ellipsis" style="margin-right:10px">{{el.title}}</h5></a>
+                        </li> -->
+                        <div class="bs-text-gray bs-text-large" style="padding: 10px;">酒店特色</div>
+                        <li class="bs-text-small" ms-repeat="featureList">
+                            <a ms-on-tap="openFeature(el)" class="mui-navigate-right" style="padding: 10px;">
+                                <span style="margin-right:10px">{{el.title}}</span>
+                            </a>
+                            <hr>
                         </li>
                     </ul>
                 </div>

@@ -10,6 +10,7 @@
     font-size: 12px;
     text-align: left;
     display: block;
+    border: none;
 }
 
 .expand table {
@@ -114,18 +115,16 @@
 .pic-info .info div {
     display: table-cell;
     text-align: center;
-    /*padding: 5px;*/
-    border: 1px solid #c8c7cc;
-    font-size: 12px;
-    border-top: none;
-    border-right: none;
+    border: 1px solid #fff;
+    background: #eee;
 }
 
 .pic-info .info div a {
     width: 100%;
-    padding: 5px;
+    line-height: 20px;
     display: block;
     color: black;
+    padding: 15px;
 }
 
 .pic-info .info div a:active {
@@ -142,16 +141,6 @@
     font-size: 18px;
     font-weight: normal;
     color: #DD524D;
-}
-
-.pic-info .info a {
-    display: table-cell;
-    width: 33.3%;
-    padding: 5px;
-    font-size: 12px;
-    text-align: center;
-    padding: 10px 0;
-    border-radius: 0.5rem;
 }
 
 .pic-info .info a:active {
@@ -171,12 +160,21 @@
     border-color: white;
 }
 
-.text-info {
-    padding: 1rem;
+.text-info p {
+    color: black;
+    margin-bottom: 0;
 }
 
-.text-info p {
-    /*color: black;*/
+.text-info ul {
+    list-style: none;
+    padding-left: 0;
+}
+.text-info li {
+    position: relative;
+}
+.mui-navigate-right:after {
+    top: 10px;
+    color: #000;
 }
 
 .mui-search .mui-placeholder {
