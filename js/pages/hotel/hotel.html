@@ -3,7 +3,7 @@
         <div ms-controller="hotel">
             <div style="position: absolute;top: 245px;z-index: 10;right: 0;padding-right: 10px;">
                 <button type="button" class="calender-icon" style="background-image: url(img/calender.png);" ms-on-tap="openTimePanel">
-                <div style="margin: 7px 1px 0 0; color: #b20e15;">18</div>
+                <div class="bs-text-red" style="margin: 7px 1px 0 0;">{{getToday('day')}}</div>
                 </button>
             </div>
             <div class="swiper-container swiper1" style="height: 300px;">
@@ -24,10 +24,10 @@
                                 <i>{{alias}}酒店&nbsp;</i><i>one'own</i>
                             </td> -->
                             <td class="mui-ellipsis small" valign="top">
-                                <i>{{alias}}酒店&nbsp;</i><i>one'own</i><br />
-                                <i style="font-size: 1rem; margin-top: 4px; color: #999;">{{name}}</i>
+                                <i class="bs-text-larger">{{alias}}酒店&nbsp;</i><i>one'own</i><br />
+                                <i class="bs-text-large bs-text-gray" style="margin-top: 4px;">{{name}}</i>
                             </td>
-                            <td class="tdclass" style="font-size: 1rem; color: #333; width: 60px;">
+                            <td class="tdclass bs-text-smaller" style="color: #333; width: 48px;">
                                 展开
                             </td>
                         </tr>

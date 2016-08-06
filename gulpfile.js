@@ -334,7 +334,7 @@ gulp.task('about', function() {
     process.stdout.write('\x07');
 });
 //注册
-gulp.task('register', function() {
+gulp.task('register1', function() {
     return gulp.src('./js/layout/shell-register.html')
         .pipe(replace({ regex: '<!-- js -->', replace: '<script src="js/pages/register/register-1.js"></script>' }))
         .pipe(replace({ regex: '<!-- pop -->', replace: '<!--include "../pages/user/popover.html"-->' }))
@@ -348,6 +348,8 @@ gulp.task('register', function() {
         .pipe(rename('register-1.html'))
         .pipe(gulp.dest('./src'));
     process.stdout.write('\x07');
+});
+gulp.task('register2', function() {
     return gulp.src('./js/layout/shell-register.html')
         .pipe(replace({ regex: '<!-- js -->', replace: '<script src="js/pages/register/register-2.js"></script>' }))
         .pipe(replace({ regex: '<!-- content -->', replace: '<!--include "../pages/register/register-2.html"-->' }))
@@ -428,7 +430,6 @@ gulp.task('login', function() {
         .pipe(gulp.dest('./src/manage'));
     process.stdout.write('\x07');
 });
-
 
 //管理模式欢迎页
 gulp.task('homepage', function() {
@@ -1249,7 +1250,8 @@ gulp.task('rev', [
     'user-invite',
     'wallet',
     'about',
-    'register',
+    'register1',
+    'register2',
     'service',
     'shop',
     'frequent-contact-list',
@@ -1298,7 +1300,7 @@ gulp.task('rev', [
     'warehouse-form-allocate',
     'warehouse-form-stock'
     ], function() {
-    gulp.src(['./rev/**/*.json', './src/*.html'])//- 读取 rev-manifest.json 文件以及需要进行css名替换的文件
+    gulp.src(['./rev/**/*.json', './src/**/*.html'])//- 读取 rev-manifest.json 文件以及需要进行css名替换的文件
         .pipe(revCollector())//- 执行文件内css名的替换
         .pipe(gulp.dest('./dist'));//- 替换后的文件输出的目录
 });

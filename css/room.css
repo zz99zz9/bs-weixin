@@ -202,14 +202,16 @@ section {
 }
 .time {
     margin: 18px auto;
+    padding-top: 10px;
 }
 .time p, .checkin p {
     padding: 10px;
-    font-size: 16px;
+    font-size: 15px;
 }
 .time .time-panel {
     margin-bottom: 20px;
-    padding: 10px;
+    padding: 0 10px;
+    font-size: 13px;
 }
 .time .time-panel div {
     display: inline-block;
@@ -223,7 +225,6 @@ section {
 .time .time-clock div div {
     display: inline-block;
     width: 23%;
-    font-size: 15px;
 }
 .time .time-clock img {
     border-radius: 50%;
@@ -231,10 +232,12 @@ section {
     height: 20vw;
 }
 .checkin {
+    padding: 10px 0;
     margin-top: -10px;
 }
 .checkin div {
-    padding: 0 0 20px 10px;
+    font-size: 14px;
+    padding: 0 0 10px 10px;
 }
 
 .discount-selected {
