@@ -1080,7 +1080,6 @@ hr {
 }
 
 .order-list .order-item .status {
-    font-size: 12px;
     color: #fff;
     position: absolute;
     right: 0px;
@@ -1092,12 +1091,11 @@ hr {
 }
 
 .order-list .order-item button {
-    position: absolute;
-    right: 11px;
     width: 100px;
     padding-top: 2px;
     padding-bottom: 2px;
     margin: -5px;
+    border-radius: 0;
 }
 
 #triangle {
@@ -1105,7 +1103,7 @@ hr {
     margin-top: -9px;
     width: 0;
     height: 0;
-    border-top: 60px solid gold;
+    border-top: 60px solid #baa071;
     border-left: 60px solid transparent;
 }
 
@@ -1151,6 +1149,10 @@ hr {
 
 .bs-text-gray {
     color: #999 !important;
+}
+
+.bs-bg-gold {
+    background-color: #baa071;
 }
 
 .bs-bg-gray {
