@@ -1154,23 +1154,23 @@ hr {
 }
 
 .bs-bg-gray {
-    color: #999;
+    background-color: #999;
 }
 
 .bs-bg-51 {
-    color: #333;
+    background-color: #333;
 }
 
 .bs-bg-153 {
-    color: #999;
+    background-color: #999;
 }
 
 .bs-bg-102 {
-    color: #666;
+    background-color: #666;
 }
 
 .bs-bg-black {
-    color: #000;
+    background-color: #000;
 }
 
 .bs-type-tab {

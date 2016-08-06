@@ -78,12 +78,14 @@
 
                 <section>
                     <div>
-                        <span class="bs-text-large bs-text-gold bs-btn-sort" ms-if="sort==1" ms-on-tap="sortBy(2)">距离最近
-                            <span class="mui-icon mui-icon-arrowthindown"></span>
+                        <span class="bs-text-large bs-text-gold bs-btn-sort" ms-if="sort==1" ms-on-tap="sortBy(2)">
+                            距离最近
                         </span>
-                        <span class="bs-text-large bs-text-gold bs-btn-sort" ms-if="sort==2" ms-on-tap="sortBy(1)">价格最低
-                            <span class="mui-icon mui-icon-arrowthindown"></span>
+                        <span class="bs-text-large bs-text-gold bs-btn-sort" ms-if="sort==2" ms-on-tap="sortBy(1)">
+                            价格最低
+                            <img src="img/sort.png" alt=""/>
                         </span>
+                        <img src="img/sort.png" alt="" style="    width: 22px;height: 22px;position: relative;top: 6px;right: 5px;"/>
                     </div>
                     <div ms-repeat="roomList">
                         <!-- roomSlide -->
