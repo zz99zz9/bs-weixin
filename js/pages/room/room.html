@@ -35,7 +35,7 @@
                     <br />
                     <h4 style="display: inline;margin-right: 10px;">{{room.designer.name}}</h4><small style="color:#999;">试睡师</small>
                     <div class="room-designer-message">{{room.designer.message | truncate(50,'...')}}</div>
-                    <button class="mui-btn" style="width: 100px;margin-bottom: 30px; border-radius: 0;" onclick="popover('./util/assess.html',loadUrl)">更多信息</button>
+                    <button class="mui-btn" style="width: 100px;margin-bottom: 30px; border-radius: 0;" ms-on-tap="openAssess">更多信息</button>
                 </div>
             </section>
             <section class="time">

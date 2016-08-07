@@ -252,6 +252,7 @@ var vmSearch = avalon.define({
 var vmBtn = avalon.define({
     $id: 'popoverBtnOK',
     type: '', //窗口的类型
+    useCheck: 1, //按钮类型 1 check, 0 close
     ok: function() {
         switch (vmBtn.type) {
             case 'date':

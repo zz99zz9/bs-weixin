@@ -568,6 +568,36 @@ button {
     margin-top: -3px;
 }
 
+.service-control {
+    margin-top: 12px;
+    text-align: center;
+    background-color: #fcfcfc;
+}
+.service-control .control-item {
+    display: inline-block;
+    margin: 5px;
+    text-align: center;
+}
+.service-control .control-item .grid-img {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    text-align: center;
+}
+.service-control .control-item .grid-img img {
+    width: 36px;
+    margin-top: 6px;
+    margin-left: 3px;
+}
+.service-control .control-item .grid-text {
+    margin: 8px auto;
+    font-size: 0.875rem;
+}
+.service-control .grid-icon {
+    width: 27px;
+    height: 27px;
+}
+
 .content {
     background-color: #fff;
     margin: auto;
@@ -590,7 +620,7 @@ button {
     padding: 0;
     border: none;
     position: absolute;
-    bottom: -13vh;
+    bottom: -80px;
     background: url('../img/icon/close.png');
     background-size: cover;
     left: 50%;
@@ -598,6 +628,25 @@ button {
 }
 
 .closeButton:active {
+    color: white;
+    background: none !important;
+}
+
+.checkButton {
+    display: block;
+    width: 60px;
+    height: 60px;
+    padding: 0;
+    border: none;
+    position: absolute;
+    bottom: -22px;
+    background: url('../img/icon/check.png');
+    background-size: cover;
+    left: 50%;
+    margin-left: -30px;
+}
+
+.checkButton:active {
     color: white;
     background: none !important;
 }
