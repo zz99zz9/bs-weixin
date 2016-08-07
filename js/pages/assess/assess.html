@@ -1,43 +1,74 @@
 <style>
-	.isValid {
-		color: #ffa000;
-	}
-	
-	.noValid {
-		color: gray;
-	}
-	.talker{
-		
-	}
-</style>
+.isValid {
+    color: #ffa000;
+}
 
-<div ms-controller="roomassess" style="height:75vh;">
-	<div class="mui-text-center">
-		<br />
+.noValid {
+    color: gray;
+}
+
+.talker {}
+
+.mui-table-view:before {
+   background-color: transparent;}
+
+.mui-table-view:after {
+   background-color: transparent;}
+</style>
+<div ms-controller="roomassess" style="height:80vh; background: #fff; overflow: scroll;">
+    <div class="mui-text-center">
+        <br />
         <div class="circle photo" ms-css-background-image="'url('+urlAPINet + designer.portraitUrl+')'">
             &nbsp;
         </div>
         <br />
-        <h4 style="display: inline;margin-right: 10px;">{{designer.name}}</h4><small style="color:#999;">试睡师</small>
-        <div class="small" style="margin: 20px auto;">{{designer.message}}</div>
-	</div>
-	<div style="padding: 11px 15px">评价({{count}})</div>
-	<ul class="mui-table-view" style="background: none;">
-		<li class="mui-table-view-cell">
-			<table style="text-align:left;">
-				<tr ms-repeat="scoreList">
-					<td style="padding:5px;width:40vw;">{{el.name}}</td>
-					<td>
-						<span style="font-size: 22px;margin-left:5px;" ms-repeat-cl="el.list" ms-class-1="isValid:el.s>(cl-1)" ms-class-2="noValid:el.s<cl">★</span>
-					</td>
-				</tr>
-			</table>
-		</li>
-		<li class="mui-table-view-cell mui-media" ms-repeat="list">
-			<img class="mui-media-object mui-pull-left circle" width="42px" height="42px" ms-attr-src="urlAPINet + el.user.headUrl">
-			<div class="mui-media-body">
-				<h5>{{el.user.name || el.user.mobile}}</h5> {{el.content}}
-			</div>
-		</li>
-	</ul>
+        <h4 class="bs-text-black bs-text-large" style="display: inline;margin-right: 10px;">{{designer.name}}</h4>
+        <small style="font-weight: 100; color:#999;">试睡师</small>
+        <div class="small bs-text-black bs-text-small" style="margin: 20px auto; text-align: left; font-weight: 100; font-size: 13px; margin: 20px 15px;">{{designer.message}}</div>
+        <hr style="margin-bottom: 0px;margin-top: 0px;border-top-width: 1px;">
+    </div>
+    <div class="bs-text-black bs-text-large" style="padding: 10px 15px 0px 15px;">评价({{count}})</div>
+<!--     <ul class="mui-table-view" style="background: none;">
+        <li class="mui-table-view-cell">
+            <table style="text-align:left;">
+                <tr ms-repeat="scoreList">
+                    <td class="bs-text-black" style="padding:5px;width:40vw;">{{el.name}}</td>
+                    <td>
+                        <span style="font-size: 22px;margin-left:5px;" ms-repeat-cl="el.list" ms-class-1="isValid:el.s>(cl-1)" ms-class-2="noValid:el.s<cl">★</span>
+                    </td>
+                </tr>
+            </table>
+        </li>
+        <li class="mui-table-view-cell mui-media" ms-repeat="list">
+            <img class="mui-media-object mui-pull-left circle" width="42px" height="42px" ms-attr-src="urlAPINet + el.user.headUrl">
+            <div class="mui-media-body">
+                <h5>{{el.user.name || el.user.mobile}}</h5> {{el.content}}
+            </div>
+        </li>
+    </ul> -->
+    <div class="mui-text-center">
+        <div style="text-align: left;margin: 0 15px;">
+            <br>
+            <h4 class="bs-text-153 bs-text-small" style="text-align: left;font-weight: 300;display: inline;margin-right: 10px;">黄＊＊</h4>
+            <span class="isValid">★</span>
+            <span class="isValid">★</span>
+            <span class="isValid">★</span>
+            <span class="isValid">★</span>
+            <span class="isValid">★</span>
+            <div class="small bs-text-black bs-text-small" style="font-weight: 100;font-size: 13px;margin: 15px 0px;"> 酒店里住宿最让人关注的应该就是床了，羽绒的被子枕头，柔软；坐在床上翻看了一下床上物品的标签，100%纯棉，单纯就手感来说确实是舒服的。</div>
+            <hr style="margin-top: 0px;margin-bottom: 0px;">
+        </div>
+        <div style="text-align: left;margin: 0 15px;">
+            <br>
+            <h4 class="bs-text-153 bs-text-small" style="text-align: left;font-weight: 300;display: inline;margin-right: 10px;">黄＊＊</h4>
+            <span class="isValid">★</span>
+            <span class="isValid">★</span>
+            <span class="isValid">★</span>
+            <span class="isValid">★</span>
+            <span class="isValid">★</span>
+            
+            <div class="small bs-text-black bs-text-small" style="font-weight: 100;font-size: 13px;margin: 15px 0px;"> 浴室里的洗浴用品没有明确的品牌标示，不过味道很清新；浴室里还有一张写明卫生间里的洗漱用品都是环保可再生利用的纸牌，我个人是个环保主义者，所以对这个小细节也尤为关注。 酒店里住宿最让人关注的应该就是床了，羽绒的被子枕头，柔软；坐在床上翻看了一下床上物品的标签，100%纯棉，单纯就手感来说确实是舒服的。</div>
+            <hr>
+        </div>
+    </div>
 </div>
