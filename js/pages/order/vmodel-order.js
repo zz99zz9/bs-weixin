@@ -34,13 +34,16 @@ var vmOrder = avalon.define({
     newRadio2: function() {
         vmOrder.payType = 1;
     },
-    selectRoom: function(index) {
-        var i = vmOrder.selectedList.indexOf(index);
+    //status 房间的状态
+    selectRoom: function(index, status) {
+        if(status <=4) {
+            var i = vmOrder.selectedList.indexOf(index);
 
-        if (i > -1) {
-            vmOrder.selectedList.splice(i, 1);
-        } else {
-            vmOrder.selectedList.push(index);
+            if (i > -1) {
+                vmOrder.selectedList.splice(i, 1);
+            } else {
+                vmOrder.selectedList.push(index);
+            }
         }
     },
     getStatus: function() {
@@ -56,6 +59,12 @@ var vmOrder = avalon.define({
                 break;
             case 4: //已离店
                 return "已离店";
+                break;
+            case 8:
+                return "已退订";
+                break;
+            case 9:
+                return "已取消";
                 break;
         }
     },
