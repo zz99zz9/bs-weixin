@@ -17,10 +17,10 @@ var vmOrder = avalon.define({
         isPartTime: 0,
         status: 0,
         hotel: { name: '', address: '', alias: '' },
-        orderRoomList: [{ 
-            name: '', 
-            startTime: '', 
-            endTime: '', 
+        orderRoomList: [{
+            name: '',
+            startTime: '',
+            endTime: '',
             timeCount: '',
             orderCustomerList: [{ name: '' }]
         }]
@@ -35,16 +35,12 @@ var vmOrder = avalon.define({
         vmOrder.payType = 1;
     },
     selectRoom: function(index) {
-        if(vmOrder.data.status == 1) {
-            var i = vmOrder.selectedList.indexOf(index);
+        var i = vmOrder.selectedList.indexOf(index);
 
-            if(i>-1) {
-                vmOrder.selectedList.splice(i,1);
-                //document.getElementById("aaa_" + index).src = "img/map.png";
-            } else {
-                vmOrder.selectedList.push(index);
-                //document.getElementById("aaa_" + index).src = "img/calender.png";
-            }
+        if (i > -1) {
+            vmOrder.selectedList.splice(i, 1);
+        } else {
+            vmOrder.selectedList.push(index);
         }
     },
     getStatus: function() {
@@ -91,14 +87,14 @@ var vmOrder = avalon.define({
         ajaxJsonp({
             url: urls.getFundAvailable,
             successCallback: function(json) {
-                if(json.status == 1) {
-                    vmOrder.fundList.push.apply(vmOrder.fundList, json.data); 
+                if (json.status == 1) {
+                    vmOrder.fundList.push.apply(vmOrder.fundList, json.data);
                 }
             }
         })
     },
     selectFund: function(index) {
-        if(vmOrder.fundIndex !== index) {
+        if (vmOrder.fundIndex !== index) {
             vmOrder.fund = vmOrder.fundList[index].money;
             vmOrder.fundIndex = index;
         } else {
@@ -152,7 +148,7 @@ ajaxJsonp({
         if (json.status === 1) {
             vmOrder.data = json.data;
 
-            if(json.data.fid > 0) {
+            if (json.data.fid > 0) {
                 vmOrder.fundList.push(json.data.userFund);
                 vmOrder.fund = vmOrder.fundList[0].money;
                 vmOrder.fundList[0].isValid = true;
@@ -160,10 +156,10 @@ ajaxJsonp({
 
             vmOrder.getFund();
 
-            for(var i = 0; i<json.data.orderRoomList.length; i++) {
+            for (var i = 0; i < json.data.orderRoomList.length; i++) {
                 vmOrder.selectedList.push(i);
             }
-            
+
             switch (json.data.status) {
                 case 1: //待付款
                     vmOrder.btn1Text = "取消预订";
@@ -195,20 +191,20 @@ function payOrder() {
         data: {
             oid: orderid,
             payType: vmOrder.payType,
-            fid: vmOrder.fundIndex>-1?vmOrder.fundList[vmOrder.fundIndex].id:'',
+            fid: vmOrder.fundIndex > -1 ? vmOrder.fundList[vmOrder.fundIndex].id : '',
             orids: vmOrder.orids.join(','),
             returnUrl: 'payend.html?id=' + orderid
         },
         successCallback: function(json) {
             if (json.status === 1) {
                 vmOrder.payinfo = json.data;
-                if (vmOrder.payType == 1) {//支付宝支付
-                    if (isweixin) {//如果是在微信里打开
+                if (vmOrder.payType == 1) { //支付宝支付
+                    if (isweixin) { //如果是在微信里打开
                         location.href = 'alipay-iframe.html?payUrl=' + encodeURIComponent(json.data.payUrl);
-                    } else {//在其它浏览器打开
+                    } else { //在其它浏览器打开
                         location.href = json.data.payUrl;
                     }
-                } else if (vmOrder.payType == 2) {//微信支付
+                } else if (vmOrder.payType == 2) { //微信支付
                     onBridgeReady();
                 }
             } else {
@@ -222,37 +218,35 @@ function payOrder() {
 
 //取消订单
 function cancelOrder() {
-    
-        if (confirm("订单取消以后就无法恢复了，确定吗？")) {
-            ajaxJsonp({
-                url: urls.cancelOrder,
-                data: { 
-                    id: orderid,
-                 },
-                successCallback: function(json) {
-                    if (json.status === 1) {
-                        alert("订单已取消");
-                        location.href = "index.html";
-                    } else {
-                        alert(json.message);
-                        vmOrder.btn1Disabled = false;
-                        return;
-                    }
+    if (confirm("订单取消以后就无法恢复了，确定吗？")) {
+        ajaxJsonp({
+            url: urls.cancelOrder,
+            data: {
+                id: orderid,
+            },
+            successCallback: function(json) {
+                if (json.status === 1) {
+                    alert("订单已取消");
+                    location.href = "index.html";
+                } else {
+                    alert(json.message);
+                    vmOrder.btn1Disabled = false;
+                    return;
                 }
-            });
-        } else {
-            vmOrder.btn1Disabled = false;
-        }
-    } 
+            }
+        });
+    } else {
+        vmOrder.btn1Disabled = false;
+    }
 }
 
 //退订
 function UnsubscribeOrder() {
-    if(vmOrder.orids.length > 0) {
-        if (confirm("已付费用将退至付款帐户")) {
+    if (vmOrder.orids.length > 0) {
+        if (confirm("已付费用将退至付款帐户，确定要退订所选房间吗？")) {
             ajaxJsonp({
                 url: urls.UnsubscribeOrder,
-                data: { 
+                data: {
                     oid: orderid,
                     orids: vmOrder.orids.join(','),
                 },
@@ -317,7 +311,7 @@ function callWcpay() {
     });
 }
 
-vmOrder.$watch('selectedList.length', function(a){
+vmOrder.$watch('selectedList.length', function(a) {
     vmOrder.needAmount = 0;
     vmOrder.orids = [];
 

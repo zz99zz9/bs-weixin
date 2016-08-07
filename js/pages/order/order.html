@@ -90,7 +90,7 @@ input[type=checkbox] {
         <ul class="order-list">
             <li class="order-item" ms-repeat="data.orderRoomList" ms-data-index="$index" ms-click="selectRoom($index)" style="padding: 8px 0 8px 10px;">
                 <div class="hiddenbox">
-                    <input type="checkbox" style="display: none;" ms-duplex-number="selectedList" ms-attr-value="$index" />
+                    <input type="checkbox" style="display: none;" ms-duplex-number="selectedList" ms-attr-value="$index" ms-visible="data.status<=4" />
                     <div class="check-icon" ms-class-1="unchecked:selectedList.indexOf($index)<0" ms-class-2="checked:selectedList.indexOf($index)>-1" style="position: absolute; right: 5px;"></div>
                 </div>
                 <span class="order-panel-title bs-text-large bs-text-51">{{el.name}}</span>
