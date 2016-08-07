@@ -593,3 +593,29 @@ function getHourIndex() {
 
     return index;
 }
+
+//注册导航接口
+function registerWeixinConfig() {
+    ajaxJsonp({
+        url: urls.weiXinConfig,
+        data: { url: window.location.href },
+        successCallback: function(json) {
+            if (json.status === 1) {
+                wx.config({
+                    debug: false,
+                    appId: json.data.appId,
+                    timestamp: json.data.timestamp,
+                    nonceStr: json.data.nonceStr,
+                    signature: json.data.signature,
+                    jsApiList: [
+                        'checkJsApi',
+                        'openLocation',
+                        'getLocation',
+                        'checkJsApi'
+                    ],
+                });
+                isSuccess = true;
+            }
+        }
+    });
+}

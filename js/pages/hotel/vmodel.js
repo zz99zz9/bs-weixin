@@ -60,23 +60,6 @@ var vmHotel = avalon.define({
             }
         });
     },
-    openNav: function(lat, lng, name, addr) {
-        stopSwipeSkip.do(function() {
-            if (isSuccess) {
-                wx.openLocation({
-                    latitude: lat, // 纬度，浮点数，范围为90 ~ -90
-                    longitude: lng, // 经度，浮点数，范围为180 ~ -180。
-                    name: name, // 位置名
-                    address: addr, // 地址详情说明
-                    scale: 26, // 地图缩放级别,整形值,范围从1~28。默认为最大
-                    infoUrl: 'ini.xin' // 在查看位置界面底部显示的超链接,可点击跳转
-                });
-            } else {
-                alert("微信接口配置注册失败，将重新注册");
-                registerWeixinConfig();
-            }
-        });
-    },
     openFeature: function(str) {
         stopSwipeSkip.do(function() {
             var html = "<img src=" + urlAPINet + str.imgUrl + ">" + "<p>" + str.content + "</p>";
@@ -202,7 +185,6 @@ if (!newOrder) {
 vmHotel.type = roomType;
 vmHotel.getHotelDetail();
 vmHotel.getRoomList();
-registerWeixinConfig();
 
 vmFilter.type = roomType;
 vmFilter.getFilter();
@@ -241,32 +223,6 @@ function loadmore() {
                 mui("#pullrefresh").pullRefresh().endPullupToRefresh(false);
             } else {
                 mui("#pullrefresh").pullRefresh().endPullupToRefresh(true);
-            }
-        }
-    });
-}
-
-//注册导航接口
-function registerWeixinConfig() {
-    ajaxJsonp({
-        url: urls.weiXinConfig,
-        data: { url: window.location.href },
-        successCallback: function(json) {
-            if (json.status === 1) {
-                wx.config({
-                    debug: false,
-                    appId: json.data.appId,
-                    timestamp: json.data.timestamp,
-                    nonceStr: json.data.nonceStr,
-                    signature: json.data.signature,
-                    jsApiList: [
-                        'checkJsApi',
-                        'openLocation',
-                        'getLocation',
-                        'checkJsApi'
-                    ],
-                });
-                isSuccess = true;
             }
         }
     });
