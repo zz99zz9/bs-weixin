@@ -1191,19 +1191,19 @@ hr {
 }
 
 .bs-text-51 {
-    color: #333;
+    color: #333 !important;
 }
 
 .bs-text-153 {
-    color: #999;
+    color: #999 !important;
 }
 
 .bs-text-102 {
-    color: #666;
+    color: #666 !important;
 }
 
 .bs-text-black {
-    color: #000;
+    color: #000 !important;
 }
 
 .bs-bg-gold {

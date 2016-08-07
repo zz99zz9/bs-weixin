@@ -294,10 +294,17 @@ gulp.task('user-invite', function() {
 //约会基金
 gulp.task('wallet', function() {
     return gulp.src('./js/layout/shell.html')
-        .pipe(replace({ regex: '<!-- pop -->', replace: '<!--include "../util/pop.html"-->' }))
+        .pipe(replace({ regex: '<!-- pop -->', replace: '<!--include "../pages/user/popover.html"-->' }))
         .pipe(replace({ regex: '<!-- js -->', replace: '<script src="js/pages/wallet/wallet.js"></script>' }))
         .pipe(replace({ regex: '<!-- content -->', replace: '<!--include "../pages/wallet/wallet.html"-->' }))
         // .pipe(replace({regex:'<h1 id="headerReplace" class="mui-title"></h1>', replace:'<h1 id="headerReplace" class="mui-title">体验基金</h1>'}))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(replace({
+            regex: '<button class="popover-closeButton"></button>',
+            replace: '<!--include "../util/popoverBtnOK.html"-->'
+        }))
         .pipe(contentIncluder({
             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
         }))
