@@ -1222,6 +1222,7 @@ gulp.task('txt-copy', function() {
     gulp.src('./js/util/contactList.html').pipe(gulp.dest('./dist/util/'));
     gulp.src('./js/pages/user/frequent-contact-add.html').pipe(gulp.dest('./dist/util/'));
     gulp.src('./js/pages/user/delivery-address-add.html').pipe(gulp.dest('./dist/util/'));
+    gulp.src('./js/pages/room/note.html').pipe(gulp.dest('./dist/util/'));
 })
 
 gulp.task('copy', ['sass', 'minifycss'], function() {
