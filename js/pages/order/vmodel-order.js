@@ -292,6 +292,3 @@ vmOrder.$watch('selectedList.length', function(a){
         vmOrder.orids.push(vmOrder.data.orderRoomList[index].id);
     })
 })
-vmOrder.$watch('payType', function(a){
-    console.log(a);
-})

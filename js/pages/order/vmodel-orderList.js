@@ -60,7 +60,7 @@ function show2() {
     ajaxJsonp({
         url: urls.getOrderList,
         data: {
-            statusList: '4,8,9'
+            statusList: '4'
         },
         successCallback: function(json) {
             if (json.status !== 1) {
