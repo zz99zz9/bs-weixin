@@ -173,7 +173,7 @@ vmRoom = avalon.define({
     openRule: function() {
         stopSwipeSkip.do(function() {
             vmBtn.useCheck = 0;
-            popover('./util/rule.html', 1);
+            popover('./util/note.html', 1);
         })
     },
     showTotalPrice: function(price, amount) {

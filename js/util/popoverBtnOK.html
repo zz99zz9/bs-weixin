@@ -11,6 +11,6 @@
     }
 </style>
 <div style="position: fixed;bottom: 5vh;width: 100%;z-index:999;" class="mui-text-center" ms-controller="popoverBtnOK">
-    <button class="checkButton" ms-class="room-Button:location.pathname.indexOf('room')>-1" ms-click="ok" ms-if="useCheck"></button>
-    <button class="closeButton" ms-class="room-Button:location.pathname.indexOf('room')>-1" ms-click="ok" ms-if="!useCheck"></button>
+    <button class="checkButton" ms-class="room-Button:location.pathname.indexOf('room')>-1||location.pathname.indexOf('wallet')>-1||location.pathname.indexOf('invite')>-1" ms-click="ok" ms-if="useCheck"></button>
+    <button class="closeButton" ms-class="room-Button:location.pathname.indexOf('room')>-1||location.pathname.indexOf('wallet')>-1||location.pathname.indexOf('invite')>-1" ms-click="ok" ms-if="!useCheck"></button>
 </div>
