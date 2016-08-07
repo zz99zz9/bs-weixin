@@ -1,12 +1,28 @@
-<div class="mui-table-view" ms-controller="payend">
-	<div class="mui-table-view-cell" style="margin-top: 0;">
-		<h3>下单成功</h3>
-		订单编号：{{data.orderNo}}
-		<br>
-		订单金额：¥{{data.needAmount}}
-		<div class="mui-text-center" style="margin-top:10px;">
-			<button type="button" class="mui-btn mui-btn-danger" ms-click="goOrder()">查看详情</button>
-		</div>
+<div style="margin: 0 auto;width: 95%;" ms-controller="payend">
+
+	<div class="hotel">
+            <div ms-on-tap="goHotelById(hotel.id)">
+                <p class="hotel-alias bs-text-larger bs-text-gold">{{data.hotel.alias}}酒店</p>&nbsp;
+                <p class="room-name bs-text-larger bs-text-51">one' own</p>
+                <p class="hotel-address bs-text-normal bs-text-153">{{data.hotel.address}}</p>
+            </div>
+        </div>
+        <div ms-on-tap="openNav(data.hotel.lat,data.hotel.lng,data.hotel.name,data.hotel.address)" class="line" style="background-image: url(img/line.png); position: absolute; top: 5px;"></div>
+
+        <ul class="order-list" ms-click="goOrder">
+            <li class="order-item" ms-repeat="data.orderRoomList" style="padding: 8px 0 8px 10px;">
+                <span class="order-panel-title bs-text-large bs-text-51">{{el.name}}</span>
+                <h5 class="bs-text-small bs-text-102" style="margin: 0 0 20px 0;">
+                    <span style="margin-bottom: 8px; display: inline-block;">{{formatDate(el.startTime)}} - {{formatDate(el.endTime)}}
+                    &nbsp;共{{el.timeCount}}{{data.isPartTime?'小时':'晚'}}</span>
+                    <br>
+                    <span style=" margin-top: 8px;" ms-repeat-cl="el.orderCustomerList">{{cl.name}}&nbsp;</span>
+                    <br>
+                    <span class="bs-text-large bs-text-red" style="float: right; margin: 20px 15px 0 0;">¥{{el.amount}}</</span>
+                </h5>
+                <span style="clear: both;">&nbsp;</span>
+            </li>
+        </ul>
 	</div>
 
 	<!-- <div class="mui-table-view-cell">
