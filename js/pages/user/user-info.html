@@ -1,5 +1,4 @@
 <style>
-
 	.mui-views,
 	.mui-view,
 	.mui-pages,
@@ -12,6 +11,8 @@
 		bottom: 0;
 		width: 100%;
 		height: 100%;
+		font-weight: 300;
+		padding-top: 10px;
 		background-color: #efeff4;
 	}
 	.mui-pages {
@@ -49,7 +50,8 @@
 		display: block;
 	}
 	.mui-page .mui-table-view:first-child {
-		margin-top: 15px;
+		 margin-bottom: 50px;
+		 border: 0;
 	}
 	.mui-page .mui-table-view:last-child {
 		margin-bottom: 30px;
@@ -59,6 +61,16 @@
 		width: 80px;
 		margin: 5px auto;
 	}
+	.mui-table-view:before {
+   		background-color: transparent;
+   	}
+
+	.mui-table-view:after {
+   		background-color: transparent;
+   	}
+   	div ul li {
+   		padding: 9px 15px;;
+   	}
 </style>
 <div id="app" class="mui-views">
 	<div class="mui-view">
@@ -67,18 +79,12 @@
 	</div>
 </div>
 <div id="infoPage" class="mui-page" ms-controller="info">
-	<div class="mui-page-content">
+	<div class="mui-page-content bs-text-small">
 		<ul class="mui-table-view">
-			<li class="mui-table-view-cell">
-				<a href="#name" class="mui-navigate-right">
-					<span class="bs-text-gray nav-title">姓名</span>
-					<span class="" >{{name}}</span>
-				</a>
-			</li>
 			<li class="mui-table-view-cell">
 				<a href="#nick" class="mui-navigate-right">
 					<span class="bs-text-gray nav-title">昵称</span>
-					<span class="" style="margin-right: 25px;">{{nickname}}</span>
+					<span style="margin-right: 25px;">{{nickname}}</span>
 				</a>
 			</li>
 			<li class="mui-table-view-cell">
@@ -88,7 +94,7 @@
 				</a>
 			</li>
 		</ul>
-		<ul class="mui-table-view" style="margin-top: 25px">
+		<ul class="mui-table-view">
 			<li class="mui-table-view-cell">
 				<a href="frequent-contact-list.html" class="mui-navigate-right">
 					<span class="bs-text-gray nav-title">入住人信息</span>
@@ -102,7 +108,7 @@
 				</a>
 			</li>
 		</ul>
-		<ul class="mui-table-view" style="margin-top: 25px">
+		<ul class="mui-table-view" style="margin-top: 50px">
 			<li class="mui-table-view-cell">
 				<a href="about.html" class="mui-navigate-right">
 					<span class="bs-text-gray nav-title">关于我们</span>

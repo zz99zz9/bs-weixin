@@ -13,6 +13,19 @@
 .order-ud {
     margin: 20px 0 0 10px;
 }
+
+.order-message{
+    display: inline-block; 
+    margin-top: 8px;
+}
+
+.order-money {
+    float: right; 
+    margin: 3px 10px 0 0;
+}
+.order-list .order-item button {
+    margin: 0;
+}
 </style>
 <div ms-controller="orders">
     <div style="padding-left: 10px;background: #fff;">
@@ -38,16 +51,16 @@
                 &nbsp;&nbsp;共{{el.orderRoomList[0].timeCount}}晚
                 </span>
             </h5>
-            <button class="bs-text-small" type="button" style="margin: 0;" ms-click="goDetail(el.id)">{{showActionText(el.status)}}</button>
-            <span class="bs-text-large bs-text-red" style="float: right; margin: 3px 10px 0 0;">¥{{el.needAmount}}</span>
+            <button class="bs-text-small" type="button" ms-click="goDetail(el.id)">{{showActionText(el.status)}}</button>
+            <span class="bs-text-large bs-text-red order-money">¥{{el.needAmount}}</span>
         </li>
     </ul>
-    <span class="order-title bs-text-large bs-text-153" style="margin: 10px 0 20px 10px;">历史订单</span>
+    <span class="order-title bs-text-large bs-text-153" style="margin: 10px 0 0px 10px;">历史订单</span>
     <ul class="order-list" style="margin-bottom: 0px;">
-        <li class="order-item bs-text-large bs-text-153" style="margin-top: 0px; padding-top: 20px;" ms-if="list2.length == 0">暂无订单
+        <li class="order-item bs-text-large bs-text-153" style="margin-top: 10px; padding-top: 20px;" ms-if="list2.length == 0">暂无订单
         </li>
         <li class="order-item" style="padding-bottom: 15px;" ms-repeat="list2" ms-if="list2.length!=0" ms-click="goDetail(el.id)">
-            <span class="status bs-text-smaller">{{showStatus(el.status)}}</span>
+            <span class="status bs-text-smaller bs-text-white">{{showStatus(el.status)}}</span>
             <div id="triangle"></div>
             <span class="bs-text-large bs-text-51" style="display: inline-block; margin: 10px 0 20px 0;">{{el.hotel.name}}</span>
             <h5 class="bs-text-small bs-text-102" style="margin: 0 0 14px 0;">
@@ -59,8 +72,8 @@
                 &nbsp;&nbsp;共{{el.orderRoomList[0].timeCount}}晚
                 </span>
             </h5>
-            <button class="bs-text-small" type="button" style="margin: 0;" ms-if="!(el.status==4&&el.iscomment==1)" ms-click="goDetail(el.id)">{{showActionText(el.status)}}</button>
-            <span class="bs-text-large bs-text-red" style="float: right; margin: 3px 10px 0 0;">¥{{el.needAmount}}</</span>
+            <button class="bs-text-small" type="button" ms-if="!(el.status==4&&el.iscomment==1)" ms-click="goDetail(el.id)">{{showActionText(el.status)}}</button>
+            <span class="bs-text-large bs-text-red order-money">¥{{el.needAmount}}</</span>
         </li>
     </ul>
 </div>

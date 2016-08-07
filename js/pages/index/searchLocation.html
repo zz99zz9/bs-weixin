@@ -1,33 +1,66 @@
 <style>
-    .search-panel {
-        color: #000;
-        background-color: #fff;
-        padding: 15px;
-    }
-    #pop-text {
-        height: 85vh;
-    }
-    .amap-sug-result {
-        z-index: 10000;
-        border: none;
-        max-width: 80%;
-        height: 55vh;
-        overflow: hidden;
-    }
-    .amap-sug-result .auto-item {
-        font-size: 16px;
-    }
+.search-panel {
+    color: #000;
+    background-color: #fff;
+    padding: 10px 12.5px 10px 12.5px;
+}
+
+input[type="search"] {
+     height: 40px;
+     font-weight: 300; 
+     border-radius: 0; 
+     margin-bottom: 0; 
+     padding: 14px 0 14px 49px; 
+     text-align: left;
+}
+
+hr {
+    margin: 0;
+}
+
+.search-location {
+    color: #000;
+    background-color: #fff;
+    padding: 30px 0 20px 0;
+}
+
+#pop-text {
+    height: 85vh;
+}
+
+.amap-sug-result {
+    z-index: 10000;
+    border: none;
+    max-width: 80%;
+    height: 55vh;
+    overflow: hidden;
+}
+
+.amap-sug-result .auto-item {
+    font-size: 16px;
+}
 </style>
 <article ms-controller="search">
-    <section class="search-panel" ms-click="getCurrentPosition">
-        <div>定位当前位置</div>
-        <span class="mui-icon mui-icon-location"></span>
-        <span>{{currentLocation}}</span>
-    </section>
     <br>
     <section class="search-panel" style="height: 70vh;">
-        <div>
-            <input id="tipinput" type="search" ms-attr-placeholder="'搜索' + city + '的街道、地标'">
+        <div style="height: 40px;">
+            <span class="mui-icon mui-icon-search" style="position: absolute; margin: 8.5px 12.5px;"></span>
+            <input type="search" ms-attr-placeholder="'搜索' + city + '的街道、地标'">
         </div>
+        <section class="search-location" ms-click="getCurrentPosition">
+            <span class="mui-icon mui-icon-location"></span>&nbsp;
+            <span class="bs-text-small bs-text-153" style="display: inline-block;">定位当前位置</span>
+            <div class="bs-text-small bs-text-black" style="margin: 15px 0 0 32.5px;">
+                {{currentLocation}}
+            </div>
+        </section>
+        <hr>
+        <section class="search-panel" style="padding: 20px 0 0;">
+            <span class="bs-text-small bs-text-153">酒店推荐</span>
+            <div class="bs-text-small bs-text-black" style="margin: 15px 0 0 32.5px;">
+                上海迪斯尼店
+            </div>
+            <div class="bs-text-small bs-text-black" style="margin: 12px 0 0 32.5px;">惠南店</div>
+        </section>
     </section>
 </article>

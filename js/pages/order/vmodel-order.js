@@ -320,7 +320,6 @@ function callWcpay() {
     });
 }
 
-vmOrder.$watch('selectedList.length', function(a) {
     vmOrder.needAmount = 0;
     vmOrder.orids = [];
 
@@ -331,4 +330,5 @@ vmOrder.$watch('selectedList.length', function(a) {
         //记录要支付房间的业务流水号
         vmOrder.orids.push(vmOrder.data.orderRoomList[index].id);
     })
+})
 })
