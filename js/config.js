@@ -523,7 +523,6 @@ function getDateByDays(date,days){
 //时租房的本地数据读取呈现
 function loadSessionPartTime() {
     var index, number;
-    $('.select-time').height($(window).height() - 260);
 
     select_bar = document.getElementById('select_bar');
     select_bar.style.width = $('#select_time').width() + 'px';

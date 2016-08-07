@@ -62,7 +62,7 @@ vmRoom = avalon.define({
             if (vmRoom.type == 0) {
                 vmBtn.type = "date";
                 popover('./util/calendar.html', 1, function() {
-                    $('#calendarPanel').height($(window).height() - 300);
+                    $('#calendarPanel').height($(window).height() - 200);
                     //初始状态打开选择入住时间
                     if (!(vmCalendar.statusControl.isEndEdit || vmCalendar.statusControl.isStartEdit)) {
                         vmCalendar.startClick();
@@ -92,8 +92,8 @@ vmRoom = avalon.define({
             } else {
                 vmBtn.type = "partTime";
                 popover('./util/partTime.html', 1, function() {
+                    $('#select_time').height($(window).height() - 150);
                     loadSessionPartTime();
-
 
                     //查询时租房预订时间情况
                     ajaxJsonp({

@@ -266,9 +266,8 @@ button {
 }
 
 .calendar a {
-    /*color: #DD524D;*/
     color: gray;
-    background: #EFEFF4;
+    background: #fff;
 }
 
 .calendar a sup,

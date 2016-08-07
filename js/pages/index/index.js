@@ -125,6 +125,7 @@ var vmIndex = avalon.define({
             } else {
                 vmBtn.type = 'partTime';
                 popover('./util/partTime.html', 1, function() {
+                    $('.select-time').height($(window).height() - 270);
                     loadSessionPartTime();
                 });
             }
