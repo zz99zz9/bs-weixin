@@ -61,8 +61,9 @@ vmRoom = avalon.define({
         stopSwipeSkip.do(function() {
             if (vmRoom.type == 0) {
                 vmBtn.type = "date";
+                vmBtn.useCheck = 1;
                 popover('./util/calendar.html', 1, function() {
-                    $('#calendarPanel').height($(window).height() - 300);
+                    $('#calendarPanel').height($(window).height() - 200);
                     //初始状态打开选择入住时间
                     if (!(vmCalendar.statusControl.isEndEdit || vmCalendar.statusControl.isStartEdit)) {
                         vmCalendar.startClick();
@@ -91,9 +92,10 @@ vmRoom = avalon.define({
                 });
             } else {
                 vmBtn.type = "partTime";
+                vmBtn.useCheck = 1;
                 popover('./util/partTime.html', 1, function() {
+                    $('#select_time').height($(window).height() - 150);
                     loadSessionPartTime();
-
 
                     //查询时租房预订时间情况
                     ajaxJsonp({
@@ -109,9 +111,16 @@ vmRoom = avalon.define({
             }
         });
     },
+    openAssess: function() {
+        stopSwipeSkip.do(function() {
+            vmBtn.useCheck = 0;
+            popover('./util/assess.html',1);
+        });
+    },
     openCheckin: function() {
         stopSwipeSkip.do(function() {
             vmBtn.type = "checkin";
+            vmBtn.useCheck = 1;
             popover('./util/contactList.html', 1, function() {
 
                 //获取联系人列表
@@ -163,6 +172,7 @@ vmRoom = avalon.define({
     },
     openRule: function() {
         stopSwipeSkip.do(function() {
+            vmBtn.useCheck = 0;
             popover('./util/rule.html', 1);
         })
     },
@@ -326,6 +336,7 @@ vmRoom = avalon.define({
 vmBtn = avalon.define({
     $id: 'popoverBtnOK',
     type: '', //打开的窗口类型
+    useCheck: 1, //1 checkButton, 0 closeButton
     ok: function() {
         switch (vmBtn.type) {
             case 'date':

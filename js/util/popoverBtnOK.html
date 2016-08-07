@@ -5,9 +5,12 @@
         width: 40%;
         -webkit-touch-callout:none;
     }
+    .room-Button {
+        position: fixed;
+        bottom: 15px;
+    }
 </style>
 <div style="position: fixed;bottom: 5vh;width: 100%;z-index:999;" class="mui-text-center" ms-controller="popoverBtnOK">
-    <button class="popover-Button mui-btn mui-btn-outlined" ms-click="ok">
-        确定
-    </button>
+    <button class="checkButton" ms-class="room-Button:location.pathname.indexOf('room')>-1" ms-click="ok" ms-if="useCheck"></button>
+    <button class="closeButton" ms-class="room-Button:location.pathname.indexOf('room')>-1" ms-click="ok" ms-if="!useCheck"></button>
 </div>

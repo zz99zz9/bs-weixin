@@ -1,11 +1,11 @@
-<div ms-controller="filter" style="margin: 10px auto;background-color: #fff;color: #000;padding: 10px;">
-    <div>更多筛选</div>
-    <div ms-repeat="dayFilter" style="display:inline-block;padding: 5px;" ms-if-loop="type==0">
+<div id="filterPanel" ms-controller="filter" style="margin: 10px auto;background-color: #fff;color: #000;padding: 10px;height: 125px;overflow-y: scroll;">
+    <div class="bs-text-normal bs-text-gray" style="margin:10px 0 10px 2px;">更多筛选</div>
+    <div ms-repeat="dayFilter" style="display:inline-block;padding: 5px;width: 32%;" ms-if-loop="type==0">
         <input type="checkbox" ms-attr-value=el.id ms-duplex-number="selectDayFilter" ms-attr-checked="selectDayFilter.indexOf(el.id)>-1" />
-        <label>{{el.name}}</label>
+        <label class="bs-text-smaller">{{el.name}}</label>
     </div>
-    <div ms-repeat="partTimeFilter" style="display:inline-block;padding: 5px;" ms-if-loop="type==1">
+    <div ms-repeat="partTimeFilter" style="display:inline-block;padding: 5px;width: 32%;" ms-if-loop="type==1">
         <input type="checkbox" ms-attr-value=el.id ms-duplex-number="selectPartTimeFilter" ms-attr-checked="selectPartTimeFilter.indexOf(el.id)>-1" />
-        <label>{{el.name}}</label>
+        <label class="bs-text-smaller">{{el.name}}</label>
     </div>
 </div>

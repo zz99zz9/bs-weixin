@@ -125,6 +125,7 @@ var vmIndex = avalon.define({
             } else {
                 vmBtn.type = 'partTime';
                 popover('./util/partTime.html', 1, function() {
+                    $('.select-time').height($(window).height() - 270);
                     loadSessionPartTime();
                 });
             }
@@ -251,6 +252,7 @@ var vmSearch = avalon.define({
 var vmBtn = avalon.define({
     $id: 'popoverBtnOK',
     type: '', //窗口的类型
+    useCheck: 1, //按钮类型 1 check, 0 close
     ok: function() {
         switch (vmBtn.type) {
             case 'date':

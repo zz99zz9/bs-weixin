@@ -137,6 +137,7 @@ var vmHotel = avalon.define({
 var vmBtn = avalon.define({
     $id: 'popoverBtnOK',
     type: '', //窗口的类型
+    useCheck: 1,
     ok: function() {
         switch (vmBtn.type) {
             case 'date':
