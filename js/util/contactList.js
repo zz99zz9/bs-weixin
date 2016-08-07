@@ -68,10 +68,9 @@ var vmContactList = avalon.define({
     }
 });
 
-function reverseArray(iniArr) {
-    var arr = [];
-    for(var i=iniArr.length-1;i>=0;i--) {
-        arr.push(iniArr[i]);
+vmContactList.$watch('selectedList.length',function(l){
+    if(l > 2 ) {
+        alert("入住人员请不要多于两位");
+        vmContactList.selectedList.pop();
     }
-    return arr;
-}
+});
