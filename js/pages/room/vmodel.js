@@ -196,7 +196,7 @@ vmRoom = avalon.define({
                 return;
             }
         } else {
-            if (newOrder.day.start == '' || newOrder.day.end == '') {
+            if (newOrder.day.start == '' || newOrder.day.end == ' 14:00') {
                 mui.toast('请选择时间');
                 vmRoom.isGoNext = false;
                 return;

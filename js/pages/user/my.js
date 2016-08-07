@@ -5,11 +5,31 @@ var isManageMode = false;
 var localpath = location.pathname;
 isManageMode = localpath.indexOf('manage') > 0 ? true : false;
 
+var authCode=getParam("authCode");//微信登录授权码
 var openId = getParam("openId"),
     user = Storage.getLocal('user') || {};
 if (openId) {
     user.openId = openId;
     Storage.setLocal('user', user);
+}
+
+//授权微信获取信息
+if (openId && authCode) {
+    ajaxJsonp({
+        url: urls.authWeixin,
+        data: {
+            authCode: authCode,
+            openId: openId
+        },
+        successCallback: function (json) {
+            if (json.status === 1) {
+                user.accessToken = json.data.accessToken;
+                Storage.setLocal('user', user);
+            } else {
+                console.log(json.message);
+            }
+        }
+    });
 }
 
 $(function() {

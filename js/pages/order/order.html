@@ -1,16 +1,4 @@
 <style>
-.order-panel {
-    background: #fff;
-    padding: 10px;
-    margin: 10px 0;
-}
-
-.order-panel-title {
-    margin-top: 10px;
-    margin-bottom: 20px;
-    display: inline-block;
-}
-
 .order-fundList {
     white-space: nowrap;
     overflow-x: scroll;
@@ -98,17 +86,17 @@ input[type=checkbox] {
                 <p class="hotel-address bs-text-normal bs-text-153">{{data.hotel.address}}</p>
             </div>
         </div>
-        <div ms-on-tap="openNav()" class="line" style="background-image: url(img/line.png); position: absolute; top: 5px;"></div>
+        <div ms-on-tap="openNav(data.hotel.lat,data.hotel.lng,data.hotel.name,data.hotel.address)" class="line" style="background-image: url(img/line.png); position: absolute; top: 5px;"></div>
         <ul class="order-list">
-            <li class="order-item" ms-repeat="data.orderRoomList" ms-data-index="$index" ms-click="selectRoom($index)" style="padding: 8px 0 8px 10px;">
+            <li class="order-item" ms-repeat="data.orderRoomList" ms-data-index="$index" ms-click="selectRoom($index, el.status)" style="padding: 8px 0 8px 10px;">
                 <div class="hiddenbox">
-                    <input type="checkbox" style="display: none;" ms-duplex-number="selectedList" ms-attr-value="$index" ms-visible="data.status==1" />
-                    <div class="check-icon" ms-class-1="unchecked:selectedList.indexOf($index)<0" ms-class-2="checked:selectedList.indexOf($index)>-1" style="position: absolute; right: 5px;"></div>
+                    <input type="checkbox" style="display: none;" ms-duplex-number="selectedList" ms-attr-value="$index" />
+                    <div ms-visible="el.status<=4" class="check-icon" ms-class-1="unchecked:selectedList.indexOf($index)<0" ms-class-2="checked:selectedList.indexOf($index)>-1" style="position: absolute; right: 5px;"></div>
                 </div>
                 <span class="order-panel-title bs-text-large bs-text-51">{{el.name}}</span>
                 <h5 class="bs-text-small bs-text-102" style="margin: 0 0 20px 0;">
                     <span style="margin-bottom: 8px; display: inline-block;">{{formatDate(el.startTime)}} - {{formatDate(el.endTime)}}
-                    &nbsp;共{{el.timeCount}}晚</span>
+                    &nbsp;共{{el.timeCount}}{{data.isPartTime?'小时':'晚'}}</span>
                     <br>
                     <span style=" margin-top: 8px;" ms-repeat-cl="el.orderCustomerList">{{cl.name}}&nbsp;</span>
                     <br>
