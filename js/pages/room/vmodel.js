@@ -32,7 +32,7 @@ vmRoom = avalon.define({
     startTimeIndex: 0,
     todayIndex: 0,
     startIndex: -1,
-    roomNightDiscount: [{discount: 0}],
+    roomNightDiscount: [{ discount: 0 }],
     checkinList: [],
     isAgree: false,
     goHotel: function() {
@@ -70,21 +70,21 @@ vmRoom = avalon.define({
                     }
                     newOrder.day.todayIndex = vmCalendar.todayIndex;
                     vmRoom.todayIndex = vmCalendar.todayIndex;
-                    if(!bookDateList) {
+                    if (!bookDateList) {
                         //查询夜房预订日期
                         ajaxJsonp({
                             url: urls.getRoomBookDate,
                             data: { rid: roomid },
                             successCallback: function(json) {
                                 if (json.status == 1) {
-                                     bookDateList = {
+                                    bookDateList = {
                                         inIndex: [],
                                         inStr: json.data.list3.concat(json.data.list1),
                                         outIndex: [],
                                         outStr: json.data.list3.concat(json.data.list2),
                                     };
 
-                                    getCalendar();  
+                                    getCalendar();
                                 }
                             }
                         });
@@ -114,7 +114,7 @@ vmRoom = avalon.define({
     openAssess: function() {
         stopSwipeSkip.do(function() {
             vmBtn.useCheck = 0;
-            popover('./util/assess.html',1);
+            popover('./util/assess.html', 1);
         });
     },
     openCheckin: function() {
@@ -135,7 +135,7 @@ vmRoom = avalon.define({
                             if (newOrder.hasOwnProperty("contact")) {
                                 vmContactList.selectedList = [];
                                 for (var i in json.data.list) {
-                                    if(newOrder.contact.length>0){
+                                    if (newOrder.contact.length > 0) {
                                         //绑定本地储存已选联系人
                                         newOrder.contact.map(function(c) {
                                             if (c.id == json.data.list[i].id) {
@@ -155,9 +155,9 @@ vmRoom = avalon.define({
         stopSwipeSkip.do(function() {
             var isDisabled = disableCheckinTime(vmRoom.startIndex, hour);
             console.log(isDisabled);
-            if(!isDisabled) {
+            if (!isDisabled) {
                 vmRoom.startTimeIndex = index;
-                
+
                 newOrder.day.startTimeIndex = index;
                 newOrder.day.startTime = vmRoom.roomNightDiscount[index].startTime;
 
@@ -231,11 +231,12 @@ vmRoom = avalon.define({
                 startTime: vmRoom.type ? newOrder.partTime.start : (newOrder.day.start + " " + newOrder.day.startTime + ":00"),
                 endTime: vmRoom.type ? newOrder.partTime.end : newOrder.day.end,
                 isPartTime: vmRoom.type,
-                cids: newOrder.contact.map(function(o) { return o.id; }).join(','),
+                cids: newOrder.contact.map(function(o) {
+                    return o.id; }).join(','),
             },
-            successCallback: function(json){
+            successCallback: function(json) {
                 if (json.status == 1) {
-                    location.href = "order.html?id=" + json.data.id; 
+                    location.href = "order.html?id=" + json.data.id;
                 } else {
                     alert(json.message);
                     vmRoom.isGoNext = false;
@@ -367,19 +368,10 @@ vmRoomAssess = avalon.define({
     $id: "roomassess",
     designer: { portraitUrl: '', name: '', message: '' },
     list: [],
-    scoreList: [
-        { name: '淋浴舒适度', r: 1, s: 5, list: [1, 2, 3, 4, 5] },
-        { name: '浴舒适度', r: 2, s: 5, list: [1, 2, 3, 4, 5] },
-        { name: '清洁度', r: 3, s: 5, list: [1, 2, 3, 4, 5] },
-    ],
-    pageNo: 1,
     count: 0,
-    s1: 5,
-    s2: 5,
-    s3: 5,
-    r: 0,
-    s: 0,
-    pageSize: 20
+    sum: function(s1, s2, s3) {
+        return parseInt(parseInt(s1) / 3 + parseInt(s2) / 3 + parseInt(s3) / 3);
+    }
 });
 
 bensue = Storage.get("bensue");
@@ -481,9 +473,8 @@ function room_init() {
         url: urls.getRoomList,
         data: {
             isPartTime: vmRoom.type,
-            aids: vmRoom.type ? 
-                (newOrder.partTime.filter.length>0?newOrder.partTime.filter.join(','):'') 
-                : (newOrder.day.filter.length>0?newOrder.day.filter.join(','):''),
+            aids: vmRoom.type ?
+                (newOrder.partTime.filter.length > 0 ? newOrder.partTime.filter.join(',') : '') : (newOrder.day.filter.length > 0 ? newOrder.day.filter.join(',') : ''),
             startTime: vmRoom.type ? newOrder.partTime.start : newOrder.day.start,
             endTime: vmRoom.type ? newOrder.partTime.end : newOrder.day.end,
             lng: positionInStorage ? positionInStorage.lng : '',
@@ -506,19 +497,11 @@ function room_init() {
         data: { rid: roomid, pageSize: 20 },
         successCallback: function(json) {
             if (json.status === 1) {
+                json.data.list.map(function(o) {
+                    o.s = vmRoomAssess.sum(o.score1, o.score2, o.score3);
+                })
                 vmRoomAssess.list = json.data.list;
                 vmRoomAssess.count = json.data.count;
-
-                if (json.data.score) {
-                    vmRoomAssess.s1 = json.data.score.score1;
-                    vmRoomAssess.s2 = json.data.score.score2;
-                    vmRoomAssess.s3 = json.data.score.score3;
-                }
-
-                vmRoom.assess.count = json.data.count;
-                if (json.data.list.length > 0) {
-                    vmRoom.assess.data = json.data.list[0];
-                }
             }
         }
     });
@@ -551,47 +534,47 @@ function disableCheckinTime(startIndex, hour) {
 
 function getClock(index, startTimeIndex, startIndex, hour) {
     var isDisabled = disableCheckinTime(startIndex, hour);
-    switch(index) {
+    switch (index) {
         case 0:
-            if(isDisabled) {
+            if (isDisabled) {
                 return 'img/clock/morning-dis.png';
             } else {
-                if(index == startTimeIndex) {
+                if (index == startTimeIndex) {
                     return 'img/clock/morning-sel.png';
                 } else {
                     return 'img/clock/morning.png';
                 }
             }
         case 1:
-            if(isDisabled) {
+            if (isDisabled) {
                 return 'img/clock/noon-dis.png';
             } else {
-                if(index == startTimeIndex) {
+                if (index == startTimeIndex) {
                     return 'img/clock/noon-sel.png';
                 } else {
                     return 'img/clock/noon.png';
                 }
             }
         case 2:
-            if(isDisabled) {
+            if (isDisabled) {
                 return 'img/clock/afternoon-dis.png';
             } else {
-                if(index == startTimeIndex) {
+                if (index == startTimeIndex) {
                     return 'img/clock/afternoon-sel.png';
                 } else {
                     return 'img/clock/afternoon.png';
                 }
             }
         case 3:
-            if(isDisabled) {
+            if (isDisabled) {
                 return 'img/clock/night-dis.png';
             } else {
-                if(index == startTimeIndex) {
+                if (index == startTimeIndex) {
                     return 'img/clock/night-sel.png';
                 } else {
                     return 'img/clock/night.png';
                 }
-            } 
+            }
     }
 }
 
@@ -684,13 +667,13 @@ function registerWeixinConfig() {
 
 //下拉刷新
 function reload() {
-    room_init();
+    //room_init();
     mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
     mui('#pullrefresh').pullRefresh().refresh(true);
 }
 
-vmRoom.$watch('startTimeIndex',function(a) {
-    if(a>-1) {
+vmRoom.$watch('startTimeIndex', function(a) {
+    if (a > -1) {
         vmRoom.price = vmRoom.roomNightDiscount[a].discount;
     } else {
         vmRoom.price = 0;
