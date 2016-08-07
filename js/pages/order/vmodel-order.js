@@ -202,7 +202,7 @@ function payOrder() {
             payType: vmOrder.payType,
             fid: vmOrder.fundIndex > -1 ? vmOrder.fundList[vmOrder.fundIndex].id : '',
             orids: vmOrder.orids.join(','),
-            returnUrl: 'payend.html?id=' + orderid
+            returnUrl: window.location.origin + '/payend.html?id=' + orderid
         },
         successCallback: function(json) {
             if (json.status === 1) {
@@ -320,6 +320,7 @@ function callWcpay() {
     });
 }
 
+vmOrder.$watch('selectedList.length', function(a) {
     vmOrder.needAmount = 0;
     vmOrder.orids = [];
 
@@ -330,5 +331,4 @@ function callWcpay() {
         //记录要支付房间的业务流水号
         vmOrder.orids.push(vmOrder.data.orderRoomList[index].id);
     })
-})
 })

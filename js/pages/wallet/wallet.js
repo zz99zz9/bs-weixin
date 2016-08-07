@@ -25,7 +25,6 @@ var vmMoney = avalon.define({
     }
 });
 
-
 //弹出框的确定按钮
 vmBtn = avalon.define({
     $id: 'popoverBtnOK',

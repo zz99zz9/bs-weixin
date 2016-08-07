@@ -1,10 +1,10 @@
 <style>
     .banner {
-        font-size: 20px;
-        color: #fff;
+        width: 100vw;
         text-align: center;
-        background-color: #DD524D;
-        padding: 30px 0;
+        padding: 14px 0;
+        position: fixed;
+        bottom: 0;
     }
     .banner:after {
         display: inline-block;
@@ -27,7 +27,6 @@
         width: 35%;
         display: table-cell;
         vertical-align: middle;
-        color: #DD524D;
     }
     .item .left sub {
         font-size: 30px;
@@ -59,14 +58,11 @@
     }
 </style>
 
-<div ms-controller="fund">
-    <br />
-
-    <div class="banner" ms-click="goInvite">获得约会基金</div>
+<div ms-controller="fund" style="height: 100vh;">
     <div class="item" ms-repeat="fundList">
-        <div class="left">
-            <sub>￥</sub>
-            <span>{{el.money}}</span>
+        <div class="left class="bs-text-gold"">
+            <sub class="bs-text-gold">￥</sub>
+            <span class="bs-text-gold">{{el.money}}</span>
         </div>
         <div class="right">
             <div style="margin: -15px 0 0 17px;">
@@ -77,8 +73,10 @@
         </div>
     </div>
 
-    <div style="padding:5px;text-align:center;font-size: 14px;position: fixed;bottom: 0;width: 100%;background-color: #efeff4;">
+    <div class="bs-text-gold" style="padding:5px;text-align:center;font-size: 14px;width: 100%;background-color: #efeff4;">
         <a id="rulePop" ms-click="openRule" style="display: block; color: #cc9966;">使用说明</a>
     </div>
+
+    <div class="banner bs-text-white bs-bg-black bs-text-large" ms-click="goInvite">获得约会基金</div>
 </div>
 
