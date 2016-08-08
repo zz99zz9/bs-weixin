@@ -223,17 +223,18 @@ var vmIndex = avalon.define({
     },
     su: function() {
         //页面向上滑动
-        $('header').slideDown();
+        $('header').slideUp();
     },
     sd: function() {
+        $('header').slideDown();
         //页面向下滑动，滚动顶部再隐藏导航栏
-        var top;
-        setTimeout(function(){
-            top= document.getElementsByClassName('bs-city')[0].getBoundingClientRect().top;
-            if(top > 150){
-                $('header').slideUp();
-            }
-        }, 500);
+        // var top;
+        // setTimeout(function(){
+        //     top= document.getElementsByClassName('bs-city')[0].getBoundingClientRect().top;
+        //     if(top > 150){
+        //         $('header').slideDown();
+        //     }
+        // }, 500);
     }
 });
 
