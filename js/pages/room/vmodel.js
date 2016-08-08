@@ -537,42 +537,42 @@ function getClock(index, startTimeIndex, startIndex, hour) {
     switch (index) {
         case 0:
             if (isDisabled) {
-                return 'img/clock/morning-dis.png';
+                return 'img/clock/13-dis.png';
             } else {
                 if (index == startTimeIndex) {
-                    return 'img/clock/morning-sel.png';
+                    return 'img/clock/13-sel.png';
                 } else {
-                    return 'img/clock/morning.png';
+                    return 'img/clock/13.png';
                 }
             }
         case 1:
             if (isDisabled) {
-                return 'img/clock/noon-dis.png';
+                return 'img/clock/16-dis.png';
             } else {
                 if (index == startTimeIndex) {
-                    return 'img/clock/noon-sel.png';
+                    return 'img/clock/16-sel.png';
                 } else {
-                    return 'img/clock/noon.png';
+                    return 'img/clock/16.png';
                 }
             }
         case 2:
             if (isDisabled) {
-                return 'img/clock/afternoon-dis.png';
+                return 'img/clock/19-dis.png';
             } else {
                 if (index == startTimeIndex) {
-                    return 'img/clock/afternoon-sel.png';
+                    return 'img/clock/19-sel.png';
                 } else {
-                    return 'img/clock/afternoon.png';
+                    return 'img/clock/19.png';
                 }
             }
         case 3:
             if (isDisabled) {
-                return 'img/clock/night-dis.png';
+                return 'img/clock/21-dis.png';
             } else {
                 if (index == startTimeIndex) {
-                    return 'img/clock/night-sel.png';
+                    return 'img/clock/21-sel.png';
                 } else {
-                    return 'img/clock/night.png';
+                    return 'img/clock/21.png';
                 }
             }
     }

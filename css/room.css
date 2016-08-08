@@ -201,40 +201,40 @@ section {
     background-color: #fff;
 }
 
-.time {
+.room-time {
     margin: 18px auto;
     padding-top: 10px;
 }
 
-.time p,
+.room-time p,
 .checkin p {
     padding: 10px;
     font-size: 15px;
 }
 
-.time .time-panel {
+.room-time .time-panel {
     margin-bottom: 20px;
     padding: 0 10px;
     font-size: 13px;
 }
 
-.time .time-panel div {
+.room-time .time-panel div {
     display: inline-block;
     line-height: 15px;
     width: 33%;
 }
 
-.time .time-clock div {
+.room-time .time-clock div {
     margin: 10px auto;
     text-align: center;
 }
 
-.time .time-clock div div {
+.room-time .time-clock div div {
     display: inline-block;
     width: 23%;
 }
 
-.time .time-clock img {
+.room-time .time-clock img {
     border-radius: 50%;
     width: 20vw;
     height: 20vw;

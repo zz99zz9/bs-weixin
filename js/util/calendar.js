@@ -156,6 +156,12 @@ var bookDateList = null,
                     if (vmCalendar.statusControl.isStartEdit && !date.inDisabled) {
                         if ((vmCalendar.startIndex != -1) && (vmCalendar.startIndex == index)) {
                             vmCalendar.startIndex = -1;
+                            //如果还有结束时间，变成开始时间
+                            // if(vmCalendar.endIndex != -1){
+                            //     vmCalendar.startIndex = vmCalendar.endIndex;
+                            //     vmCalendar.endIndex = -1;
+                            //     vmCalendar.endClick();
+                            // }
                             return;
                         }
 
@@ -185,13 +191,21 @@ var bookDateList = null,
 
                         vmCalendar.startTime = "";
                         vmCalendar.nightPrice = 0;
-
+                        if(vmCalendar.startIndex == index) {
+                            vmCalendar.endClick();
+                        }
                     }
 
                     //是否是编辑退房时间
                     if (vmCalendar.statusControl.isEndEdit && !date.outDisabled) {
                         if ((vmCalendar.endIndex != -1) && (vmCalendar.endIndex == index)) {
                             vmCalendar.endIndex = -1;
+                            //如果还有开始时间，变成结束时间
+                            // if(vmCalendar.startIndex != -1){
+                            //     vmCalendar.endIndex = vmCalendar.startIndex;
+                            //     vmCalendar.startIndex = -1;
+                            //     vmCalendar.startClick();
+                            // }
                             return;
                         }
 
@@ -217,6 +231,9 @@ var bookDateList = null,
                             //小于之前的起始时间－不响应
                         } else {
                             vmCalendar.endIndex = index;
+                        }
+                        if(vmCalendar.endIndex == index) {
+                            vmCalendar.startClick();
                         }
                     }
                 }

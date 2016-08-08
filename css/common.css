@@ -112,7 +112,7 @@ button {
 }
 
 .select-time a {
-    color: #cc9966;
+    color: #000;
 }
 
 .dotted {
@@ -121,7 +121,7 @@ button {
 
 .select-time b i {
     /*transform: translate(-40px, -10px);*/
-    color: #000;
+    color: #999;
     position: relative;
     top: -10px;
     left: -40px;
@@ -139,11 +139,11 @@ button {
     height: 127px;
     box-sizing: border-box;
     /*border: 1px solid #f0ad4e;*/
-    border-left: 4px solid #f0ad4e;
+    /*border-left: 4px solid #f0ad4e;*/
     /*border-bottom: 1px solid #dd524d;*/
     -webkit-transform: translateY(-1px);
     -webkit-transition: all 0.2s;
-    background: #fffeda;
+    background: #baa071;
 }
 
 .select-time .bar button {
@@ -159,10 +159,11 @@ button {
     font-weight: lighter;
     background: none;
     transition: none;
+    color: #fff;
 }
 
 .select-time .bar button:active {
-    color: #DD524D;
+    color: #999;
     font-weight: bold;
 }
 
@@ -298,7 +299,7 @@ button {
 .calendar a:active {}
 
 .calendar .selected {
-    background: #DD524D;
+    background: #baa071;
     color: white;
 }
 
@@ -310,11 +311,11 @@ button {
 
 .edit a:active,
 .edit .selected {
-    background: #FDF2E3;
-    color: #f0ad4e;
+    background: #baa071;
+    color: #fff;
 }
 
-.edit .start:before {
+/*.edit .start:before {
     content: "";
     width: 3px;
     height: 100%;
@@ -334,7 +335,7 @@ button {
     right: 0;
     top: 0;
     background: #f0ad4e;
-}
+}*/
 
 .edit a:active sup,
 .edit a:active sub,
@@ -448,7 +449,7 @@ button {
 }
 
 .swiper-slide-item .roomtype {
-    background: #baa074;
+    background: #baa071;
     width: 100%;
     line-height: 14px;
     text-align: center;
@@ -1017,7 +1018,7 @@ hr {
 
 .filter-row .time .selected {
     color: #fff;
-    background-color: #dd524d;
+    background-color: #baa071;
 }
 
 .time a:first-child {
