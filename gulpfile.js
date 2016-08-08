@@ -1213,6 +1213,20 @@ gulp.task('invoice-pay-success', function() {
     process.stdout.write('\x07');
 });
 
+//微信自动登录处理页面
+gulp.task('weixin', function() {
+    return gulp.src('./js/layout/shell.html')
+        .pipe(replace({ regex: '<!-- js -->', replace: '<script src="js/pages/proxy/vmodel-weixin.js"></script>' }))
+        .pipe(replace({ regex: '<!-- content -->', replace: '<!--include "../pages/proxy/weixin.html"-->' }))
+        .pipe(replace({ regex: '<h1 id="headerReplace" class="mui-title"></h1>', replace: '<h1 id="headerReplace" class="mui-title">加载中</h1>' }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('weixin.html'))
+        .pipe(gulp.dest('./src'));
+    process.stdout.write('\x07');
+});
+
 gulp.task('txt-copy', function() {
     gulp.src('./js/pages/invite/rule.html').pipe(gulp.dest('./dist/util/'));
     gulp.src('./js/pages/invite/oldInvite.html').pipe(gulp.dest('./dist/util/'));
@@ -1274,6 +1288,7 @@ gulp.task('rev', [
     'invoice-apply',
     'alipay-iframe',
     'invoice-pay-success',
+    'weixin',
     /*
     ** pms的页面
     */
