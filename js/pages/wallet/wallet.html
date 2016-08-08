@@ -1,4 +1,43 @@
 <style>
+    .item {
+        width: 95%;
+        height: 60px;
+        display: table;
+        margin: 15px auto;
+        font-weight: 100;
+    }
+    .item .left {
+        width: 35%;
+        display: table-cell;
+        vertical-align: middle;
+        text-align: center;
+        position: relative;
+        background: url('../img/big-dot.png') repeat-y;
+        background-color: #baa071;
+        background-position-x: 101%;
+    }
+    .item .left sub {
+        font-size: 18px;
+        position: absolute;
+        top: 35px;
+        left: 21px;
+    }
+    .item .left span {
+        font-size: 30px;
+        line-height: 60px;
+    }
+    .item .right {
+        width: 60%;
+        display: table-cell;
+        vertical-align: middle;
+        text-align: right;
+        padding: 9px;
+    }
+    
+    .item .right span{
+        font-size: 12px;
+    }
+
     .banner {
         width: 100vw;
         text-align: center;
@@ -6,7 +45,9 @@
         position: fixed;
         bottom: 0;
     }
-    .banner:after {
+    
+    /*箭头*/ 
+    /*.banner:after {
         display: inline-block;
         content: '\e583';
         font-family: Muiicons;
@@ -15,68 +56,29 @@
         position: relative;
         color: #fff;
         left: 20%;
-    }
-    .item {
-        width: 90%;
-        display: table;
-        margin: 15px auto;
-        background-color: #fff;
-        font-weight: 200;
-    }
-    .item .left {
-        width: 35%;
-        display: table-cell;
-        vertical-align: middle;
-    }
-    .item .left sub {
-        font-size: 30px;
-        position: relative;
-        top: 1px;
-        right: -7px;
-    }
-    .item .left span {
-        font-size: 50px;
-        line-height: 95px;
-    }
-    .item .right {
-        width: 60%;
-        display: table-cell;
-        vertical-align: middle;
-    }
-    .item .right:before {
-        content: '';
-        width: 1px;
-        display: inline-block;
-        height: 60px;
-        background: #cfcfcf;
-        margin-right: 5px;
-        margin-bottom: -51px;
-    }
-    .item .right span{
-        font-size: 12px;
-        color: gray;
-    }
+    }*/
 </style>
 
 <div ms-controller="fund" style="height: 100vh;">
+    <div style="height: 0;">&nbsp;</div>
     <div class="item" ms-repeat="fundList">
-        <div class="left class="bs-text-gold"">
-            <sub class="bs-text-gold">￥</sub>
-            <span class="bs-text-gold">{{el.money}}</span>
+        <div class="left bs-text-white">
+            <sub>￥</sub>
+            <span>{{el.money}}</span>
         </div>
-        <div class="right">
-            <div style="margin: -15px 0 0 17px;">
-                {{el.name}}<br>
-                <span>满¥{{el.miniAmount}}可用</span><br>
-                <span>有效期 {{el.useEndTime.substring(0,9)}} 之前</span>
+        <div class="right bs-bg-white">
+            <div class="bs-text-smaller">
+                {{el.name}}
+                <c ms-if="el.minAmount!=0">满{{el.minAmount}}减{{el.money}}</c><br>
+                <span class="bs-text-gray">有效期：{{el.useEndTime.substring(0,10)}} 之前</span>
             </div>
         </div>
     </div>
 
     <div class="bs-text-gold" style="padding:5px;text-align:center;font-size: 14px;width: 100%;background-color: #efeff4;">
-        <a id="rulePop" ms-click="openRule" style="display: block; color: #cc9966;">使用说明</a>
+        <a id="rulePop" class="bs-text-gold" ms-click="openRule" style="display: block;">使用说明</a>
     </div>
 
-    <div class="banner bs-text-white bs-bg-black bs-text-large" ms-click="goInvite">获得约会基金</div>
+    <div class="banner bs-text-white bs-bg-black bs-text-large" ms-click="goInvite">获得体验基金</div>
 </div>
 

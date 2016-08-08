@@ -620,7 +620,7 @@ button {
     padding: 0;
     border: none;
     position: absolute;
-    bottom: -80px;
+    bottom: -12vh;
     background: url('../img/icon/close.png');
     background-size: cover;
     left: 50%;
@@ -1228,6 +1228,10 @@ hr {
 
 .bs-bg-black {
     background-color: #000;
+}
+
+.bs-bg-white {
+    background-color: #fff;
 }
 
 .bs-type-tab {
