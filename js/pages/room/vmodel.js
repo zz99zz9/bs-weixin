@@ -154,7 +154,7 @@ vmRoom = avalon.define({
     selectDiscount: function(index, hour) {
         stopSwipeSkip.do(function() {
             var isDisabled = disableCheckinTime(vmRoom.startIndex, hour);
-            console.log(isDisabled);
+
             if (!isDisabled) {
                 vmRoom.startTimeIndex = index;
 
