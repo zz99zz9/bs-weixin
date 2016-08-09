@@ -314,6 +314,15 @@ mapObj.plugin('AMap.Geolocation', function() {
     });
     mapObj.addControl(geolocation);
     //geolocation.getCurrentPosition();
+    
+    //获取地址
+    if (verify(positionInStorage)) {
+        //如果本地储存的地址有效，直接使用本地数据更新列表
+        updateData();
+    } else {
+        geolocation.getCurrentPosition();
+    }
+
     AMap.event.addListener(geolocation, 'complete', onComplete); //返回定位信息
     AMap.event.addListener(geolocation, 'error', onError); //返回定位出错信息
 });
@@ -326,14 +335,6 @@ myMarker = new AMap.Marker({
     position: [121.626131, 31.210465],
     offset: new AMap.Pixel(-12, -36)
 });
-
-//获取地址
-if (verify(positionInStorage)) {
-    //如果本地储存的地址有效，直接使用本地数据更新列表
-    updateData();
-} else {
-    geolocation.getCurrentPosition();
-}
 
 vmIndex.getHotelPosition(mapObj);
 //获取便利设施
