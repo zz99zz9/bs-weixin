@@ -130,17 +130,17 @@
     <div class="bs-text-large bs-text-153" style="margin: 10px auto;background-color: #fcfcfc;padding: 15px 20px;">
         社会化服务
         <div class="mui-table-view mui-grid-view mui-grid-9 service" style="border: 0; height: 335px; width: 335px;">
-            <div class="mui-table-view-cell mui-col-xs-6 mui-col-sm-3 service-grid" style="margin: 10px 5px 5px 0; background-image: url('../img/food.jpg');background-size: cover;" onclick="javascript:location.href='shop.html#food'">
-                餐饮
+            <div class="mui-table-view-cell mui-col-xs-6 mui-col-sm-3 service-grid" style="margin: 10px 5px 5px 0; background-size: cover;"  ms-css-background-image="'url(' + urlAPINet + socialList[0].picUrl+')'" onclick="javascript:location.href='shop.html#food'">
+                {{socialList[0].name}}
             </div>
-            <div class="mui-table-view-cell mui-col-xs-6 mui-col-sm-3 service-grid" style="margin: 10px 0 5px 0;background-image: url('../img/tour.jpg');background-size: cover;" onclick="javascript:location.href='shop.html#tour'">
-                旅游
+            <div class="mui-table-view-cell mui-col-xs-6 mui-col-sm-3 service-grid" style="margin: 10px 0 5px 0; background-size: cover;"  ms-css-background-image="'url(' + urlAPINet + socialList[1].picUrl+')'" onclick="javascript:location.href='shop.html#tour'">
+                {{socialList[1].name}}
             </div>
-            <div class="mui-table-view-cell mui-col-xs-6 mui-col-sm-3 service-grid" style="margin: 0 5px 0 0;background-image: url('../img/beauty.jpg');background-size: cover;" onclick="javascript:location.href='shop.html#beauty'">
-                美业
+            <div class="mui-table-view-cell mui-col-xs-6 mui-col-sm-3 service-grid" style="margin: 0 5px 0 0; background-size: cover;"  ms-css-background-image="'url(' + urlAPINet + socialList[2].picUrl+')'" onclick="javascript:location.href='shop.html#beauty'">
+                {{socialList[2].name}}
             </div>
-            <div class="mui-table-view-cell mui-col-xs-6 mui-col-sm-3 service-grid" style="margin: 0;background-image: url('../img/fitness.jpg');background-size: cover;" onclick="javascript:location.href='shop.html#fitness'">
-                健康
+            <div class="mui-table-view-cell mui-col-xs-6 mui-col-sm-3 service-grid" style="margin: 0; background-size: cover;"  ms-css-background-image="'url(' + urlAPINet + socialList[3].picUrl+')'" onclick="javascript:location.href='shop.html#fitness'">
+                {{socialList[3].name}}
             </div>
         </div>
     </div>

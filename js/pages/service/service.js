@@ -16,6 +16,7 @@
 var vmService = avalon.define({
     $id: "service",
     list: [],
+    socialList: [],
     swiperRender: function() {
         var swiper = new Swiper('.swiper', {
             slidesPerView: 1,
@@ -82,10 +83,22 @@ var vmService = avalon.define({
             }
         });
     },
+    picture: function() {
+        ajaxJsonp({
+            url: urls.socialService,
+            data: {},
+            successCallback: function(json) {
+                if (json.status === 1) {
+                    vmService.socialList = json.data;
+                }
+            }
+        });
+    },
 })
 
 
 vmService.goods();
+vmService.picture();
 
 // vmService.list = [
 //     { id: 1, number: 1, stock: 10, price: 10, imgUrl: '../img/coffee.jpg', name: '精品马合木咖啡 店长推荐', brief: '本酒店自主研发咖啡。', choosable: true },
