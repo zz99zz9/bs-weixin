@@ -142,6 +142,8 @@ var vmBtn = avalon.define({
         switch (vmBtn.type) {
             case 'date':
             case 'partTime':
+                mui('#pullrefresh').pullRefresh().refresh(true);
+
                 saveStorage();
                 vmHotel.getRoomList();
                 break;
@@ -218,12 +220,16 @@ function loadmore() {
             pageSize: vmHotel.pageSize
         },
         successCallback: function(json) {
-            if (json.data.count + json.data.pageSize > (vmHotel.pageNo * json.data.pageSize) && json.data.list.length > 0) {
+            if(json.status == 1) {
                 vmHotel.pageNo++;
                 vmHotel.roomList.push.apply(vmHotel.roomList, json.data.list);
-                mui("#pullrefresh").pullRefresh().endPullupToRefresh(false);
+                if (vmHotel.pageNo > json.data.pageCount) {
+                    mui("#pullrefresh").pullRefresh().endPullupToRefresh(false);
+                } else {
+                    mui("#pullrefresh").pullRefresh().endPullupToRefresh(true);
+                }
             } else {
-                mui("#pullrefresh").pullRefresh().endPullupToRefresh(true);
+                console.log(json.message);
             }
         }
     });

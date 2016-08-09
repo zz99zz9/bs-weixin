@@ -34,7 +34,7 @@ vmRoom = avalon.define({
     startIndex: -1,
     roomNightDiscount: [{ discount: 0 }],
     checkinList: [],
-    isAgree: false,
+    isAgree: true,
     goHotel: function() {
         stopSwipeSkip.do(function() {
             location.href = "hotel.html?id=" + vmRoom.room.hotel.id;
@@ -177,8 +177,8 @@ vmRoom = avalon.define({
         })
     },
     showTotalPrice: function(price, amount) {
-        if (isNaN(price * amount)) {
-            return '';
+        if (isNaN(amount)) {
+            return price;
         } else {
             return price * amount;
         }

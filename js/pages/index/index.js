@@ -73,6 +73,7 @@ var vmIndex = avalon.define({
             vmFilter.type = type;
             Storage.set("bensue", { type: type });
             updateData();
+            mui('#pullrefresh').pullRefresh().refresh(true);
         });
     },
     lng: 121.626131, //用户选择位置的经度
@@ -186,6 +187,7 @@ var vmIndex = avalon.define({
                 vmIndex.sort = type;
                 vmIndex.pageNo = 1;
                 vmIndex.getRoomList();
+                mui('#pullrefresh').pullRefresh().refresh(true);
             }
         });
     },
@@ -202,13 +204,9 @@ var vmIndex = avalon.define({
     },
     swiper1Render: function() {
         var swiper1 = new Swiper('.swiper1', {
-            slidesPerView: 1,
+            loop: true,
             width: window.innerWidth,
-            freeMode: true,
-            freeModeSticky: true,
-            freeModeMomentumRatio: 0.4,
             autoplay: 3000,
-            speed: 300
         });
     },
     swiper2Render: function() {
@@ -260,6 +258,7 @@ var vmBtn = avalon.define({
             case 'partTime':
                 saveStorage();
                 vmIndex.getRoomList();
+                mui('#pullrefresh').pullRefresh().refresh(true);
                 break;
         }
 
@@ -313,8 +312,7 @@ mapObj.plugin('AMap.Geolocation', function() {
         zoomToAccuracy: false //定位成功后调整地图视野范围使定位位置及精度范围视野内可见，默认：false
     });
     mapObj.addControl(geolocation);
-    //geolocation.getCurrentPosition();
-    
+
     //获取地址
     if (verify(positionInStorage)) {
         //如果本地储存的地址有效，直接使用本地数据更新列表
@@ -367,12 +365,17 @@ function loadmore() {
             pageSize: vmIndex.pageSize
         },
         successCallback: function(json) {
-            if (json.data.count + json.data.pageSize > (vmIndex.pageNo * json.data.pageSize) && json.data.list.length > 0) {
+            if(json.status == 1) {
                 vmIndex.pageNo++;
                 vmIndex.roomList.push.apply(vmIndex.roomList, json.data.list);
-                mui("#pullrefresh").pullRefresh().endPullupToRefresh(false);
+                    
+                if (vmIndex.pageNo > json.data.pageCount) {
+                    mui("#pullrefresh").pullRefresh().endPullupToRefresh(false);
+                } else {
+                    mui("#pullrefresh").pullRefresh().endPullupToRefresh(true);
+                }
             } else {
-                mui("#pullrefresh").pullRefresh().endPullupToRefresh(true);
+                console.log(json.message);
             }
         }
     });
@@ -380,7 +383,7 @@ function loadmore() {
 
 //解析定位结果，逆向地理编码
 function onComplete(data) {
-
+    console.log(data);
     positionInStorage.lng = data.position.getLng();
     positionInStorage.lat = data.position.getLat();
 

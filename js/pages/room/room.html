@@ -101,7 +101,10 @@
         <div style="margin: 14px 0 0 10px;">
             <span class="bs-text-smaller">￥</span>
             <span class="bs-text-x-large">{{showTotalPrice(price, amount)}}</span>
-            <span style="font-weight: 100;" ms-if="!type"><span class="bs-text-smaller">￥</span><del class="bs-text-small">{{showTotalPrice(roomNightDiscount[0].discount,amount)}}</del></span>
+            <span style="font-weight: 100;" ms-if="!type">
+                <span class="bs-text-smaller">￥</span>
+                <del class="bs-text-small">{{showTotalPrice(roomNightDiscount[0].discount,amount)}}</del>
+            </span>
         </div>
         <button type="button" class="mui-btn mui-pull-right bs-text-large bs-text-white bs-bg-black" ms-click="goNext" ms-attr-disabled="isGoNext">立即预订</button>
     </nav>
