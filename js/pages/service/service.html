@@ -1,92 +1,147 @@
 <style>
-	.swiper {
-		height: auto !important;
-	}
-	.service {
-		margin: 5px auto !important;
-		color: #fff;
-		text-align: center;
-	}
-	.service-grid {
-	    padding: 40px !important;
-	    height: 90px;
-	    width: 50%;
-	    position: relative;
-	    font-size: 25px !important;
-    	font-weight: lighter;
-	}
-	.mui-toast-container {
-		bottom: 40%;
-	}
+.swiper {
+    /*height: auto !important;*/
+    height: 264px;
+    padding: 5px 0 10px 0;
+}
+
+.service {
+    margin: 5px auto !important;
+    color: #fff;
+    text-align: center;
+}
+
+.service-grid {
+    padding: 40px !important;
+    height: 165px;
+    width: 165px;
+    position: relative;
+    font-size: 22px !important;
+    font-weight: lighter;
+    line-height: 82.5px;
+    background-repeat: no-repeat;
+}
+
+.swiper-slide-size {
+    margin-right: 5px;
+    padding: 5px 5px 0;
+}
+
+.mui-toast-container {
+    bottom: 40%;
+}
+
+.swiper-slide-item a {
+    width: inherit;
+    height: 205px;
+    display: block;
+}
+
+
+/*.swiper-slide-price {
+		
+	}*/
+
+.service-ctrl {
+    margin-top: 0px;
+    background-color: #fcfcfc;
+    padding: 0;
+    text-align: center;
+}
+
+.service-ctrl .control-item {
+    display: inline-block;
+    margin-right: 10px;
+    text-align: center;
+}
+.service-ctrl .control-item:last-child {
+    display: inline-block;
+    margin-right: 0;
+    text-align: center;
+}
+
+.service-ctrl .control-item .grid-img {
+    height: 65px;
+    width: 65px;
+    border-radius: 50%;
+    text-align: center;
+    background-color: #eee;
+}
+
+.service-ctrl .control-item .grid-img img {
+    width: 30px;
+    margin: 17.5px;
+}
+
+.service-ctrl .control-item .grid-text {
+    margin: 7.5px 0 25px 0;
+    font-size: 13px;
+}
+
+.service-ctrl .grid-icon {
+    width: 27px;
+    height: 27px;
+}
 </style>
 <div ms-controller="service">
-	<div class="swiper-container swiper">
-	    <div class="swiper-wrapper">
-	        <div class="swiper-slide" ms-repeat="list" data-repeat-rendered="swiperRender">
-	            <div class="swiper-slide-item" ms-click="pop($index)">
-					 <a href="###">
-						<div ms-css-background-image="url({{el.imgUrl}})"></div>
-					</a>
-					<div class="mui-content-padded mui-text-left">
-						<div style="color:#dd524d;font-size: 20px;font-weight: 200;">¥ {{el.price}}
-							<span class="mui-ellipsis;" style="color: #000;font-size: 14px;">&emsp;{{el.name}}</span>
-						</div>
-					</div>
-				</div>
-	        </div>
-	        <div class="swiper-pagination"></div>
-	    </div>
-	</div>
-
-	<div style="margin-top: 12px;background-color: #fcfcfc;padding: 10px 10px 1px 10px;">店内服务</div>
-	<div class="service-control" style="margin-top: 0;">
-	    <div class="control-item" ms-click="call('breakfast')">
-	        <div class="grid-img" style="background-color: #c3444b;">
-	            <img src="../img/icon/breakfast.png" style="margin-left: 5px;" />
-	        </div>
-	        <div class="grid-text">早餐</div>
-	    </div>
-	    <div class="control-item" ms-click="call('cleaning')">
-	        <div class="grid-img" style="background-color: #792a2f;">
-	            <img src="../img/icon/cleaning.png" style="margin-top: 8px;" />
-	        </div>
-	        <div class="grid-text">清洁</div>
-	    </div>
-	    <div class="control-item" ms-click="call('shuttle')">
-	        <div class="grid-img" style="background-color: #c4a092;">
-	            <img src="../img/icon/shuttle.png" style="margin-top: 8px;margin-left: 0px;" />
-	        </div>
-	        <div class="grid-text">接送</div>
-	    </div>
-	    <div class="control-item" ms-click="call('dryCleaning')">
-	        <div class="grid-img" style="background-color: #79625a;">
-	            <img src="../img/icon/dry-cleaning.png" style="margin-left: 3px;" />
-	        </div>
-	        <div class="grid-text">干洗</div>
-	    </div>
-	    <div class="control-item" ms-click="alarm">
-	        <div class="grid-img" style="background-color: #3b3b3b;">
-	            <img src="../img/icon/alarm.png" style="margin-left: -1px;" />
-	        </div>
-	        <div class="grid-text">报警</div>
-	    </div>
-	</div>
-	
-	<div style="margin: 12px auto;background-color: #fcfcfc;padding: 10px;">
-		社会化服务
-		<div class="mui-table-view mui-grid-view mui-grid-9 service">
-			<div class="mui-table-view-cell mui-col-xs-6 mui-col-sm-3 service-grid" style="background-image: url('../img/food.jpg');background-size: cover;" onclick="javascript:location.href='shop.html#food'">
-				餐饮
-			</div>
-			<div class="mui-table-view-cell mui-col-xs-6 mui-col-sm-3 service-grid" style="background-image: url('../img/tour.jpg');background-size: cover;" onclick="javascript:location.href='shop.html#tour'">
-				旅游
-			</div>
-			<div class="mui-table-view-cell mui-col-xs-6 mui-col-sm-3 service-grid" style="background-image: url('../img/beauty.jpg');background-size: cover;" onclick="javascript:location.href='shop.html#beauty'">
-				美业
-			</div>
-			<div class="mui-table-view-cell mui-col-xs-6 mui-col-sm-3 service-grid" style="background-image: url('../img/fitness.jpg');background-size: cover;" onclick="javascript:location.href='shop.html#fitness'">
-				健康
-			</div>
-		</div>
-	</div>
+    <div class="swiper-container swiper">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide swiper-slide-size" ms-repeat="list" data-repeat-rendered="swiperRender">
+                <div class="swiper-slide-item" style="width: 325px;" ms-click="pop($index)">
+                    <a href="###">
+                        <div ms-css-background-image="'url(' + urlAPINet + el.imgUrl+')'" ms-attr-data-preview-src="urlAPINet + el.imgUrl" data-preview-group="1" ms-data-tag="el.imgDesc"></div>
+                    </a>
+                    <div class="mui-text-left" style="padding: 12.5px 0;">
+                        <span class="bs-text-larger bs-text-red">&emsp;¥ {{el.inStoreSalePrice}}</span>
+                        <span class="bs-text-normal bs-text-black">&emsp;{{el.name}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+    </div>
+    <div class="bs-text-large bs-text-153" style="background-color: #fcfcfc;padding: 15px 10px 30px 20px;">店内服务</div>
+    <div class="service-ctrl">
+        <div class="control-item" ms-click="call('breakfast')">
+            <div class="grid-img">
+                <img src="../img/icon/breakfast.png" />
+            </div>
+            <div class="grid-text">早餐</div>
+        </div>
+        <div class="control-item" ms-click="call('cleaning')">
+            <div class="grid-img">
+                <img src="../img/icon/cleaning.png" />
+            </div>
+            <div class="grid-text">清洁</div>
+        </div>
+        <div class="control-item" ms-click="call('shuttle')">
+            <div class="grid-img">
+                <img src="../img/icon/shuttle.png" />
+            </div>
+            <div class="grid-text">接送</div>
+        </div>
+        <div class="control-item" ms-click="call('dryCleaning')">
+            <div class="grid-img">
+                <img src="../img/icon/dry-cleaning.png" />
+            </div>
+            <div class="grid-text">干洗</div>
+        </div>
+    </div>
+    <div class="bs-text-large bs-text-153" style="margin: 10px auto;background-color: #fcfcfc;padding: 15px 20px;">
+        社会化服务
+        <div class="mui-table-view mui-grid-view mui-grid-9 service" style="border: 0; height: 335px; width: 335px;">
+            <div class="mui-table-view-cell mui-col-xs-6 mui-col-sm-3 service-grid" style="margin: 10px 5px 5px 0; background-size: cover;"  ms-css-background-image="'url(' + urlAPINet + socialList[0].picUrl+')'" onclick="javascript:location.href='shop.html#food'">
+                {{socialList[0].name}}
+            </div>
+            <div class="mui-table-view-cell mui-col-xs-6 mui-col-sm-3 service-grid" style="margin: 10px 0 5px 0; background-size: cover;"  ms-css-background-image="'url(' + urlAPINet + socialList[1].picUrl+')'" onclick="javascript:location.href='shop.html#tour'">
+                {{socialList[1].name}}
+            </div>
+            <div class="mui-table-view-cell mui-col-xs-6 mui-col-sm-3 service-grid" style="margin: 0 5px 0 0; background-size: cover;"  ms-css-background-image="'url(' + urlAPINet + socialList[2].picUrl+')'" onclick="javascript:location.href='shop.html#beauty'">
+                {{socialList[2].name}}
+            </div>
+            <div class="mui-table-view-cell mui-col-xs-6 mui-col-sm-3 service-grid" style="margin: 0; background-size: cover;"  ms-css-background-image="'url(' + urlAPINet + socialList[3].picUrl+')'" onclick="javascript:location.href='shop.html#fitness'">
+                {{socialList[3].name}}
+            </div>
+        </div>
+    </div>
 </div>
