@@ -2,14 +2,16 @@
 <div class="filter-row mui-control-content mui-active" ms-controller="partTime">
     <div class="time" ms-on-touchend="partTimeClick" >
         <a href="###">
-            入住时间<br><small class="mui-text-danger">{{partTimeStart||'选择时间'}}</small>
+            入住时间<br><small class="bs-text-black">{{partTimeStart||'选择时间'}}</small>
         </a>
-        <i>｜</i>
+        <i></i>
         <a href="###">
-            退房时间<br><small class="mui-text-danger">{{partTimeEnd||'选择时间'}}</small>
+            退房时间<br><small class="bs-text-black">{{partTimeEnd||'选择时间'}}</small>
         </a>
     </div>
-
+    <div style="position: absolute;width: 100%;top: 0;text-align: center;">  
+        <span style="display: inline-block;background: white;color: #000;font-size: 12px;line-height: 51px;">{{partTimeIndex>0?(partTimeNumber/2):'?'}}小时</span>
+    </div>
     <div id="partTimePanel" class="mui-table-view" ms-visible="statusControl.isTimeListShow" style="text-align: left;">
         <div class="select-time" id='select_time'>
             <b>&nbsp;</b>
@@ -40,15 +42,15 @@
             <table id="select_bar" class="mui-hidden bar">
                 <tr>
                     <td valign="center">
-                        <p class="mui-text-center" style="margin: auto;color:black;" id="select_text">{{partTimeStart}} - {{partTimeEnd}} 时段
+                        <p class="mui-text-center bs-text-white" style="margin: auto;" id="select_text">{{partTimeStart}} - {{partTimeEnd}} 时段
                         
                         <!-- <span ms-if="pageType == 'order'"><br>价格：{{partTimePay}}元</span>
                         </p> -->
                     </td>
                 </tr>
                 <tr style="height: 32px;">
-                    <td style="text-align: center;border-top: 1px dotted rgba(0,0,0,0.1);vertical-align:middle;height：32px">
-                        <button id="icon-minus" style="border-right: 1px dotted rgba(0,0,0,0.2);" ms-on-touchend="minusTime">－</button>
+                    <td style="text-align: center;border-top: 1px solid white;vertical-align:middle;height：32px">
+                        <button id="icon-minus" style="border-right: 1px solid white;" ms-on-touchend="minusTime">－</button>
                         <button id="icon-plus" ms-on-touchend="addTime">＋</button>
                     </td>
                 </tr>

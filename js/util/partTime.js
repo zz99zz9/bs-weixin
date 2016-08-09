@@ -84,6 +84,7 @@ var vmPart = avalon.define({
             select_bar.className = "mui-hidden bar";
             vmPart.partTimeStart = "";
             vmPart.partTimeEnd = "";
+            vmPart.partTimeIndex = 0;
         }
     },
 })
