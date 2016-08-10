@@ -618,3 +618,16 @@ function registerWeixinConfig() {
         }
     });
 }
+
+//验证url的数字传参
+function verifyIntParam(p) {
+    if(p != "") {
+        if(isNaN(p)) {
+            location.href = document.referrer || "index.html";
+        } else {
+            return parseInt(p);
+        }
+    } else {
+        location.href = "index.html";
+    }
+}
