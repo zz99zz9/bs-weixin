@@ -147,6 +147,29 @@ var vmOrder = avalon.define({
                 break;
         }
     },
+    showActionText: function(status) {
+        switch (status) {
+            case 2: //2未入住－可以退订
+                return '退订';
+                break;
+            case 3: //3已入住－评价
+            case 4: //4已离店－评价
+                return '评价';
+                break;
+        }
+    },
+    orderRoomAction: function(status, orid) {
+        switch (status) {
+            case 2: //2未入住－可以退订
+                UnsubscribeOrder(orid);
+                break;
+            case 3: //3已入住－评价
+            case 4: //4已离店－评价
+                location.href = "submitassess.html?oid=" + orderid + "&orid=" + orid
+                        +"&room=" + getRoom(orid) + "&time=" + getTime(orid);
+                break;
+        }
+    },
     isShowSheet: function(status, isComment) {
         switch (vmOrder.data.status) {
             case 2: //订单未入住－房间2未入住＋8已退订
