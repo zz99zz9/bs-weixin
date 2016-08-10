@@ -36,7 +36,7 @@ var vmOrder = avalon.define({
     },
     //status 房间的状态
     selectRoom: function(index, status) {
-        if(status <=4) {
+        if (status == 1) {
             var i = vmOrder.selectedList.indexOf(index);
 
             if (i > -1) {
@@ -46,8 +46,8 @@ var vmOrder = avalon.define({
             }
         }
     },
-    getStatus: function() {
-        switch (vmOrder.data.status) {
+    getStatus: function(status) {
+        switch (status) {
             case 1: //待付款
                 return "待支付";
                 break;
@@ -120,12 +120,11 @@ var vmOrder = avalon.define({
             case 1: //待付款
                 cancelOrder();
                 break;
-            case 2: //未入住
-                //退订
-                UnsubscribeOrder();
-                break;
-            case 4: //已离店
-                //开发票
+            case 2: //已付款－退订房间
+            case 3: //已入住－评价房间
+            case 4: //已离店－评价房间
+                mui('#roomSheet').popover('toggle');
+                vmOrder.btn1Disabled = false;
                 break;
         }
     },
@@ -141,12 +140,70 @@ var vmOrder = avalon.define({
                 payOrder();
                 break;
             case 2: //未入住
-                //退订
+                //呼叫接送
                 break;
-            case 4: //已离店
-                //开发票
+            case 3: //已入住
+                //退房
                 break;
         }
+    },
+    showActionText: function(status) {
+        switch (status) {
+            case 2: //2未入住－可以退订
+                return '退订';
+                break;
+            case 3: //3已入住－评价
+            case 4: //4已离店－评价
+                return '评价';
+                break;
+        }
+    },
+    orderRoomAction: function(status, orid) {
+        switch (status) {
+            case 2: //2未入住－可以退订
+                UnsubscribeOrder(orid);
+                break;
+            case 3: //3已入住－评价
+            case 4: //4已离店－评价
+                location.href = "submitassess.html?oid=" + orderid + "&orid=" + orid
+                        +"&room=" + getRoom(orid) + "&time=" + getTime(orid);
+                break;
+        }
+    },
+    isShowSheet: function(status, isComment) {
+        switch (vmOrder.data.status) {
+            case 2: //订单未入住－房间2未入住＋8已退订
+                //可以退订的房间
+                return status == 2;
+                break;
+            case 3: //订单已入住－房间2未入住＋3已入住＋4已离店＋8已退订
+                //评价的房间
+                return (status == 3 || status == 4) && !isComment;
+                break;
+            case 4: //订单已离店－房间4已离店+8已退订
+                //评价的房间
+                return status == 4 && !isComment;
+                break;
+        }
+    },
+    sheetClick: function(orid) {
+        stopSwipeSkip.do(function() {
+            //未入住、已入住、已离店的状态
+            //会调出操作面板
+            switch (vmOrder.data.status) {
+                case 2: //未入住-退订
+                    UnsubscribeOrder(orid);
+                    break;
+                case 3: //已入住-评价选择的房间
+                    location.href = "submitassess.html?oid=" + orderid + "&orid=" + orid
+                        +"&room=" + getRoom(orid) + "&time=" + getTime(orid);
+                    break;
+                case 4: //已离店-评价选择的房间
+                    location.href = "submitassess.html?oid=" + orderid + "&orid=" + orid
+                        +"&room=" + getRoom(orid) + "&time=" + getTime(orid);
+                    break;
+            }
+        })
     }
 });
 
@@ -159,7 +216,7 @@ ajaxJsonp({
 
             if (json.data.fid > 0) {
                 vmOrder.fundList.push(json.data.userFund);
-                vmOrder.fund = vmOrder.fundList[0].money;
+                vmOrder.fund = 0;
                 vmOrder.fundList[0].isValid = true;
             }
 
@@ -195,6 +252,12 @@ registerWeixinConfig();
 
 //支付订单
 function payOrder() {
+    if(vmOrder.orids.length == 0) {
+        mui.toast('请选择房间');
+        vmOrder.btn2Disabled = false;
+        return;
+    }
+
     ajaxJsonp({
         url: urls.payOrder,
         data: {
@@ -249,34 +312,43 @@ function cancelOrder() {
     }
 }
 
-//退订
-function UnsubscribeOrder() {
-    if (vmOrder.orids.length > 0) {
-        if (confirm("已付费用将退至付款帐户，确定要退订所选房间吗？")) {
-            ajaxJsonp({
-                url: urls.UnsubscribeOrder,
-                data: {
-                    oid: orderid,
-                    orids: vmOrder.orids.join(','),
-                },
-                successCallback: function(json) {
-                    if (json.status === 1) {
-                        alert("退订成功");
-                        location.href = document.referrer || "index.html";
-                    } else {
-                        alert(json.message);
-                        vmOrder.btn1Disabled = false;
-                        return;
-                    }
+//退订所选房间
+function UnsubscribeOrder(orid) {
+    if (confirm("该房间的房费将退至付款帐户，确定要退订所选房间吗？")) {
+        ajaxJsonp({
+            url: urls.UnsubscribeOrder,
+            data: {
+                oid: orderid,
+                orids: orid,
+            },
+            successCallback: function(json) {
+                if (json.status === 1) {
+                    alert("退订房间成功");
+                    location.href = document.referrer || "index.html";
+                } else {
+                    alert(json.message);
+                    vmOrder.btn1Disabled = false;
+                    return;
                 }
-            });
-        } else {
-            vmOrder.btn1Disabled = false;
-        }
-    } else {
-        alert('请选择要退订的房间');
-        vmOrder.btn1Disabled = false;
+            }
+        });
     }
+}
+
+function getRoom(orid) {
+    return vmOrder.$model.data.orderRoomList.map(function(or) {
+        if(or.id == orid) {
+            return or.name;
+        }
+    })[0];
+}
+
+function getTime(orid) {
+    return vmOrder.$model.data.orderRoomList.map(function(or) {
+        if(or.id == orid) {
+            return formatDate(or.startTime) + " - " + formatDate(or.endTime);
+        }
+    })[0];
 }
 
 /**
@@ -325,8 +397,11 @@ vmOrder.$watch('selectedList.length', function(a) {
     vmOrder.orids = [];
 
     vmOrder.selectedList.map(function(index) {
-        //计算选择要支付房间的总价
-        vmOrder.needAmount += vmOrder.data.orderRoomList[index].amount;
+        if (vmOrder.data.orderRoomList[index].status <= vmOrder.data.status) {
+            //计算选择要支付房间的总价
+            //不含已退订的房间
+            vmOrder.needAmount += vmOrder.data.orderRoomList[index].amount;
+        }
 
         //记录要支付房间的业务流水号
         vmOrder.orids.push(vmOrder.data.orderRoomList[index].id);

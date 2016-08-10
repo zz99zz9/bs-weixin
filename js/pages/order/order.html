@@ -91,8 +91,11 @@ input[type=checkbox] {
             <li class="order-item" ms-repeat="data.orderRoomList" ms-data-index="$index" ms-click="selectRoom($index, el.status)" style="padding: 8px 0 8px 10px;">
                 <div class="hiddenbox">
                     <input type="checkbox" style="display: none;" ms-duplex-number="selectedList" ms-attr-value="$index" />
-                    <div ms-visible="el.status<=4" class="check-icon" ms-class-1="unchecked:selectedList.indexOf($index)<0" ms-class-2="checked:selectedList.indexOf($index)>-1" style="position: absolute; right: 5px;"></div>
+                    <div ms-visible="el.status<=1" class="check-icon" ms-class-1="unchecked:selectedList.indexOf($index)<0" ms-class-2="checked:selectedList.indexOf($index)>-1" style="position: absolute; right: 5px;"></div>
                 </div>
+                <!-- 右上角房间状态 -->
+                <span class="status bs-text-smaller bs-text-white" ms-if="data.status>1" style="right: 9px;">{{getStatus(el.status)}}</span>
+                <div id="triangle" ms-if="data.status>1"></div>
                 <span class="order-panel-title bs-text-large bs-text-51">{{el.name}}</span>
                 <h5 class="bs-text-small bs-text-102" style="margin: 0 0 20px 0;">
                     <span style="margin-bottom: 8px; display: inline-block;">{{formatDate(el.startTime)}} - {{formatDate(el.endTime)}}
@@ -100,6 +103,11 @@ input[type=checkbox] {
                     <br>
                     <span style=" margin-top: 8px;" ms-repeat-cl="el.orderCustomerList">{{cl.name}}&nbsp;</span>
                     <br>
+                    <!-- 是否评论 -->
+                    <span class="bs-text-large bs-text-black" style="float: left; margin-top: 20px;" ms-if="(el.status==3||el.status==4)&&(el.isComment)">已评价</span>
+                    <!-- 操作按钮 -->
+                    <button class="bs-text-small" type="button" ms-on-tap="orderRoomAction(el.status, el.id)" ms-if="el.status>=2&&el.status<=4&&!el.isComment" style="float: left;margin: 0px;margin-top: 12px;">{{showActionText(el.status)}}</button>
+                    <!-- 房间价格 -->
                     <span class="bs-text-large bs-text-red" style="float: right; margin: 20px 15px 0 0;">¥{{el.amount}}</</span>
                 </h5>
                 <span style="clear: both;">&nbsp;</span>
@@ -124,7 +132,7 @@ input[type=checkbox] {
             </div>
             <div style="clear: both;">
                 <span class="info-left">订单状态：</span>
-                <span class="info-right bs-text-black">{{getStatus()}}</span>
+                <span class="info-right bs-text-black">{{getStatus(data.status)}}</span>
             </div>
             <div style="clear: both;">
                 <span class="info-left">优惠金额：</span>
@@ -157,6 +165,23 @@ input[type=checkbox] {
         <br>
         <br>
     </div>
+
+    <!-- 操作面板 -->
+    <div id="roomSheet" class="mui-popover mui-popover-bottom mui-popover-action bs-text-large" style="right: 0;">
+        <!-- 可选择菜单 -->
+        <ul class="mui-table-view">
+          <li class="mui-table-view-cell" ms-repeat="data.orderRoomList" ms-if-loop="isShowSheet(el.status, el.isComment)" ms-on-tap="sheetClick(el.id)">
+            <a href="#">{{el.name}}</a>
+          </li>
+        </ul>
+        <!-- 取消菜单 -->
+        <ul class="mui-table-view">
+          <li class="mui-table-view-cell">
+            <a href="#roomSheet"><b>取消</b></a>
+          </li>
+        </ul>
+    </div>
+
     <nav class="mui-bar mui-bar-tab">
         <button type="button" class="order-btn bs-text-white" ms-click="btn1Click" ms-if="btn1Text!=''" ms-attr-disabled="btn1Disabled" ms-class-1="bs-bg-gray:data.status==1||data.status==2" ms-class-2="bs-bg-gold:data.status==3||data.staus==4" ms-class-3="width100:data.staus==4">{{btn1Text}}</button>
         <button type="button" class="order-btn bs-text-white bs-bg-black" ms-click="btn2Click" ms-if="btn2Text!=''" ms-attr-disabled="btn2Disabled">{{btn2Text}}</button>

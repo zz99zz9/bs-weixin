@@ -290,10 +290,12 @@ select {
     content: "\e441";
 }
 .#{$namespace}checkbox input[type="checkbox"]:before{
-    content: "\e411";
+    content: "\e413";
+    color: #000;
+    font-size: 16px;
 }
 .#{$namespace}checkbox input[type="checkbox"]:checked:before{
-    content: "\e442";
+    content: "\e443";
 }
 
 

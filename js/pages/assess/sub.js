@@ -1,13 +1,9 @@
-// var orderid = getParam("oid");
-// if(orderid != "") {
-//     if(isNaN(orderid)) {
-//         location.href = document.referrer || "index.html";
-//     } else {
-//         orderid = parseInt(orderid);
-//     }
-// } else {
-//     location.href = "index.html";
-// }
+var assess_oid = getParam("oid"), assess_orid = getParam("orid"),
+    assess_room = getParam("room"), assess_time = getParam("time");
+
+assess_oid = verifyIntParam(assess_oid);
+assess_orid = verifyIntParam(assess_orid);
+
 var vmSub = avalon.define({
     $id: "sub",
     scoreList: [
@@ -20,23 +16,23 @@ var vmSub = avalon.define({
         post: '上海南汇迪斯尼店店长',
         name: '唐朝李白',
         message: '君不见黄河之水天上来，奔流到海不复回。君不见高堂明镜悲白发，朝如青丝暮成雪。',
-        inHome: '上海迪斯尼店 MAX-031',
-        inTime: '2016.8.31——2016.9.31',
+        inHome: '',
+        inTime: '',
     },
     isDisabled: false,
     // changed: function() {
-    //     if (vmSub.content.length > 200 ) {
+    //     if (vmSub.data.content.length > 200 ) {
     //         vmSub.isDisabled = true;
     //         return;
     //     }
-    //     console.log(vmSub.content.length);
+    //     console.log(vmSub.data.content.length);
     //     vmSub.isDisabled = false;
     // },
     click: function(r, s) {
         vmSub.scoreList[r - 1].s = s;
     },
     save: function() {
-        if (vmSub.content.length >= 200) {
+        if (vmSub.data.content.length >= 200) {
             alert("内容请少于200字哦！");
             return false;
         }
@@ -45,21 +41,24 @@ var vmSub = avalon.define({
         ajaxJsonp({
             url: urls.saveSub,
             data: {
-                oid: 1,
-                content: vmSub.content,
+                oid: assess_oid,
+                orid: assess_orid,
+                content: vmSub.data.content,
                 score1: vmSub.scoreList[0].s,
                 score2: vmSub.scoreList[1].s,
                 score3: vmSub.scoreList[2].s
             },
             successCallback: function(json) {
-                if (json.status != 1) {
+                if (json.status == 1) {
+                    location.href = document.referrer || "index.html";
+                } else {
                     alert(json.message);
                     vmSub.isDisabled = false;
-                } else if (json.status == 1) {
-                    location.href = document.referrer || "index.html";
                 }
             }
         });
     }
 });
 
+vmSub.data.inHome = assess_room;
+vmSub.data.inTime = assess_time;
