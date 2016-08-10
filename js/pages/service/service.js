@@ -15,12 +15,13 @@
 
 var vmService = avalon.define({
     $id: "service",
+    data: [],
     list: [],
     socialList: [],
     swiperRender: function() {
         var swiper = new Swiper('.swiper', {
             slidesPerView: 1,
-            width: window.innerWidth - 40,
+            width: window.innerWidth - 20,
             spaceBetween: 5,
             freeMode: true,
             freeModeSticky: true,
@@ -68,17 +69,6 @@ var vmService = avalon.define({
             successCallback: function(json) {
                 if (json.status === 1) {
                     vmService.list = json.data.list;
-                    // $.extend(newOrder, {
-                    //     room: {
-                    //         id: json.data.id,
-                    //         name: json.data.name
-                    //     },
-                    //     hotel: {
-                    //         id: json.data.hotel.id,
-                    //         name: json.data.hotel.name,
-                    //         address: json.data.hotel.address
-                    //     }
-                    // });
                 }
             }
         });
@@ -94,20 +84,23 @@ var vmService = avalon.define({
             }
         });
     },
+    hotelService: function() {
+        ajaxJsonp({
+            url: urls.hotelService,
+            data: { hid: 1 },
+            successCallback: function(json) {
+                if (json.status === 1) {
+                    vmService.data = json.data;
+                }
+            }
+        });
+    },
 })
 
 
 vmService.goods();
 vmService.picture();
-
-// vmService.list = [
-//     { id: 1, number: 1, stock: 10, price: 10, imgUrl: '../img/coffee.jpg', name: '精品马合木咖啡 店长推荐', brief: '本酒店自主研发咖啡。', choosable: true },
-//     { id: 2, number: 1, stock: 20, price: 20, imgUrl: '../img/chess.jpg', name: '国际象棋 店长推荐', brief: '英伦风格的国际象棋。', choosable: true },
-//     { id: 3, number: 1, stock: 30, price: 30, imgUrl: '../img/tea.jpg', name: '铁观音 店长推荐', brief: '本酒店自主研发茶叶。', choosable: true },
-//     { id: 4, number: 1, stock: 40, price: 40, imgUrl: '../img/coffee.jpg', name: '精品马合木咖啡 店长推荐', brief: '本酒店自主研发咖啡。', choosable: true },
-//     { id: 5, number: 1, stock: 50, price: 50, imgUrl: '../img/chess.jpg', name: '国际象棋 店长推荐', brief: '英伦风格的国际象棋。', choosable: true },
-// ];
-
+vmService.hotelService();
 
 var vmAInfo = avalon.define({
 

@@ -1,57 +1,76 @@
 <style>
-    .swiper-head {
-        padding: 8px 20px;
-        background-color: #fff;
-        margin-top: 10px;
-        color: #dd524d;
-    }
-    .foodSwiper, .tourSwiper, .beautySwiper, .fitnessSwiper {
-        height: auto !important;
-    }
-    .expand:after {
-        display: inline-block;
-        content: '\e583';
-        font-family: Muiicons;
-        -webkit-transform: rotateZ(0deg);
-        transition: transform 300ms;
-        position: relative;
-        color: #dd524d;
-    }
-    .expanded .expand:after  {
-        -webkit-transform: rotateZ(90deg);
-    }
-    .text-info {
-        text-align: left;
-        border-top: 1px solid #c8c7cc;
-    }
-    .text-info div {
-        margin: 15px;
-    }
+.swiper-head {
+    padding: 8px 20px;
+    margin-top: 10px;
+}
+
+.foodSwiper,
+.tourSwiper,
+.beautySwiper,
+.fitnessSwiper {
+    height: auto !important;
+}
+
+.expand:after {
+    display: inline-block;
+    content: '\e583';
+    font-family: Muiicons;
+    -webkit-transform: rotateZ(0deg);
+    transition: transform 300ms;
+    position: relative;
+    color: #dd524d;
+}
+
+.expanded .expand:after {
+    -webkit-transform: rotateZ(90deg);
+}
+
+.text-info {
+    text-align: left;
+    border-top: 1px solid #c8c7cc;
+}
+
+.text-info div {
+    margin: 15px;
+}
+
+.line {
+    width: 40px;
+    height: 40px;
+    background-size: 40px 40px;
+    box-shadow: none;
+    position: absolute;
+    right: 18px;
+}
+.intro {
+    padding-left: 8px;
+}
 </style>
-<div ms-controller="shop">
+<div ms-controller="shop" style="background-color: #efeff4;">
     <div ms-repeat="list" data-repeat-rendered="swiperRender">
-        <a name="el.type"></a>
-        <div class="swiper-head">{{el.name}}</div>
+        <a name="el.name"></a>
+        <div class="swiper-head bs-text-larger">{{el.name}}</div>
         <div class="swiper-container foodSwiper">
             <div class="swiper-wrapper">
-                <div class="swiper-slide" ms-repeat-dl="el.list">
-                    <div class="swiper-slide-item" ms-class="expanded:el.isExpand" ms-click="expand(el.type)">
-                         <a href="###">
-                            <div ms-css-background-image="url({{dl.coverUrl}})"></div>
-                        </a>
-                        <div class="mui-content-padded mui-text-left expand">
-                            <div style="font-size: 16px;font-weight: 200; color: #dd524d;width: 92%;display: inline-block;">{{dl.name}}
+                <div class="swiper-slide" ms-repeat-dl="el.socialStoreList">
+                    <div class="swiper-slide-item">
+                        <div ms-class="expanded:isExpand" ms-click="expand(isExpand)">
+                            <a href="###">
+                                <div ms-css-background-image="'url(' + urlAPINet + dl.picUrl+')'"></div>
+                            </a>
+                            <div class="mui-content-padded mui-text-left expand bs-text-normal" style="margin: 15px; padding-left: 8px;">
+                                <div style="width: 89%; display: inline-block;">{{dl.name}}
+                                </div>
                             </div>
                         </div>
-                        <div class="text-info" ms-if="el.isExpand">
-                            <div>{{dl.introduction}}</div>
+                        <div class="text-info" ms-if="isExpand">
                             <ul class="mui-table-view">
-                                <li class="mui-table-view-cell" ms-click="openNav(dl.lat,dl.lng,dl.name,dl.address)">
-                                    {{dl.addtress}}
-                                    <span class="mui-badge mui-badge-success" style="background-color:black;">&nbsp;跟我走<span class="mui-icon mui-icon-location" style="font-size:20px"></span>
-                                    </span>
+                                <li class="mui-table-view-cell bs-text-small" style="padding-left: 23px;" ms-click="openNav(dl.lat,dl.lng,dl.name,dl.address)">
+                                    {{dl.address}}
+                                    <button type="button" class="line" style="background-image: url(img/line.png);">
                                 </li>
                             </ul>
+                            <div class="bs-text-small bs-text-153 intro">{{dl.intro}}</div>
                         </div>
                     </div>
                 </div>
@@ -59,6 +78,5 @@
             </div>
         </div>
     </div>
-
     <br>
 </div>

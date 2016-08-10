@@ -75,6 +75,7 @@ var urls = {
         inStoreGoods: urlAPI + '/svr/inStoreGoods/list',//店内商品列表
         hotelService: urlAPI + '/svr/hotelService/list',//店内服务列表
         socialService: urlAPI + '/svr/socialServiceCategory/list',//社会化服务列表
+        socialList: urlAPI + '/svr/hotelSocialStore/list',//社会化商铺列表
 
         //管理
         //欢迎页
