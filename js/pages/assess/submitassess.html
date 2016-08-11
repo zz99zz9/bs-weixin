@@ -5,12 +5,12 @@ h5 {
 
 .flex0 {
     width: 100px;
-    padding-left: 10px;
     width: 31vw;
 }
 
 .flex1 {
-    margin-left: 2vw;
+    right: 20px;
+    position: absolute;
 }
  
 .isValid {
@@ -22,21 +22,21 @@ h5 {
 }
 
 .left {
-    width: 35vw;
+    width: 30vw;
     float: left;
 }
 
 .right {
-    width: 65vw;
+    width: 70vw;
     float: left;
 }
 
 .photo {
-    width: 12vh;
-    height: 12vh;
+    width: 50px;
+    height: 50px;
     background-size: cover;
     background-position: center;
-    margin: 10px 0 0 10px;
+    margin: 0;
 }
 
 .circle {
@@ -44,59 +44,87 @@ h5 {
 }
 
 .flex1-space {
-    padding: 1vh 2vh 1vh;
+    padding: 12.5px 20px;
 }
 
 .bubble {
-    width: 55vw;
+    height: 80px;
+    margin-right: 20px;
     background-color: #9cec69;
     position: relative;
     border-radius: 10px;
-    margin: 1vh 0 0;
     padding: 10px;
 }
 
 .bubble:before {
     content: "";
     position: absolute;
-    right: 100%;
-    top: 35px;
-    border-top: 5px solid transparent;
-    border-right: 20px solid #9cec69;
-    border-bottom: 10px solid transparent;
+    right: 97%;
+    top: 10px;
+    border-top: 15px solid transparent;
+    border-right: 16px solid #9cec69;
+    border-bottom: 15px solid transparent;
 }
 
 .comment {
     font-size: 0.875rem;
-    height: 110px;
-    padding: 10px;
+    height: 205px;
+    padding: 0;
     border: 0px;
     margin-bottom: 0px;
 } 
 
 .space {
-    margin-top: 2vh; 
-    background-color: #fff
+    margin-top: 10px; 
+    background-color: #fff !important;
+    padding-bottom: 0;
+}
+.message {
+    display: flex;
+    justify-content: initial;
+    align-items: center;
+}
+.message1 {
+    overflow: auto;
+    height: 70px;
+    display: flex;
+}
+.li {
+    padding: 14px 20px 0.5px;
+}
+.button {
+    position: absolute;
+    right: 20px;
+    width: 100px;
+    height: 30px;
+    padding: 0;
+    border: 1px solid black;
+    border-radius: 0;
+    line-height: 30px;
+    text-align: center;
+}
+.mui-table-view-cell.mui-active {
+    background-color: #fff;
 }
 </style>
 <div ms-controller="sub" class="mui-content" style="background-color: #eee">
-    <div class="space">
+    <div class="space" style="padding-bottom: 10px;">
         <div class="left">
-            <div style="padding: 2vh 0 0 2vh;">
+            <div style="text-align: center; margin-bottom: 7px;">
                 <img class="circle photo" src="http://img.ini.xin/uploadsImg/20160331/img/d708d83c-3835-443e-ae94-02c639509127100.jpg" />
             </div>
-            <div style="padding-top: 1vh;">
-                <h5 style="margin: 0 0 0 10px;padding: 0 10px 0 2vh;">{{data.post}}</h5>
+            <div>
+                <div class="bs-text-smaller bs-text-153" style="text-align: center;">{{data.post}}</div>
             </div>
-            <div style="padding-top: 1vh;">
-                <h5 style="margin: 0 10px 10px 10px;padding-left: 2vh;">{{data.name}}</h5>
+            <div>
+                <div class="bs-text-smaller" style="text-align: center;">{{data.name}}</div>
             </div>
         </div>
         <div class="right">
-            <div style="padding-top: 4vh; margin-left: 2vw;">
-                <h5 class="bubble" style="color: #000; margin-bottom: 0px;">
-                    {{data.message}}
-                </h5>
+            <div style="">
+                <div class="bubble bs-text-small bs-text-black message" style="">
+                    <div class="message1">{{data.message}}</div> 
+                </div>
             </div>
         </div>
         <div style="clear: both;"></div>
@@ -104,23 +132,23 @@ h5 {
     <div class="mui-content space">
         <div class="mui-input-group">
             <div class="display-flex flex1-space">
-                <h5 class="flex0">入住房间</h5>
-                <h5 class="flex1">{{data.inHome}}</h5>
+                <div class="flex0 bs-text-small bs-text-153">入住房间</div>
+                <div class="flex1 bs-text-small bs-text-black">{{data.inHome}}</div>
             </div>
         </div>
         <div class="mui-input-group">
             <div class="display-flex flex1-space">
-                <h5 class="flex0">入住时间</h5>
-                <h5 class="flex1">{{data.inTime}}</h5>
+                <div class="flex0 bs-text-small bs-text-153">入住时间</div>
+                <div class="flex1 bs-text-small bs-text-black">{{data.inTime}}</div>
             </div>
         </div>
     </div>
     <ul class="mui-table-view space">
-        <li class="mui-table-view-cell" style="background-color: #fff!important; padding: 2vh;">
+        <li class="mui-table-view-cell li">
             <table>
                 <tr ms-repeat="scoreList">
-                    <td style="width: 40vw;padding: 5px 0 5px 10px;border-bottom-width: 110px;">{{el.name}}</td>
-                    <td>
+                    <td class="flex0 bs-text-small bs-text-153" style="padding: 0 0 13.5px 0;">{{el.name}}</td>
+                    <td style="position: absolute; right: 20px;">
                         <span style="font-size: 22px;margin-left:5px;" ms-repeat-cl="el.list" ms-class-1="isValid:el.s>(cl-1)" ms-class-2="noValid:el.s<cl" ms-click="click(el.r,cl)">★</span>
                     </td>
                 </tr>
@@ -128,18 +156,13 @@ h5 {
         </li>
     </ul>
     <div class="space">
-        <div style="padding: 2vh">
+        <div style="padding: 20px; height: 270px;">
             <textarea class="comment" placeholder="亲，记录下享受体验吧！" ms-duplex="data.content" data-duplex-changed="changed">{{data.content}}</textarea>
+            <button type="button" class="mui-btn mui-pull-right bs-text-small bs-text-black button" ms-click="save" ms-attr-disabled="isDisabled">发布</button>
         </div>
     </div>
-    <div class=" mui-text-center" style="margin: 2vh; color: #dd524d;">
+    <div class=" mui-text-center bs-text-smaller" style="margin-top: 6vh;">
         客服热线 400 2222 2222
     </div>
     <br>
-    <br>
-    <br>
-    <nav class="mui-bar mui-bar-tab" style="padding: 10px;">
-        <button type="button" class="mui-btn mui-btn-danger mui-pull-right" ms-click="save" ms-attr-disabled="isDisabled">确定</button>
-    </nav>
-    </nav>
 </div>
