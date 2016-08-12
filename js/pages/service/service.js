@@ -29,84 +29,142 @@ var vmService = avalon.define({
         });
     },
     pop: function(index) {
+        vmAInfo.type = 1;
         vmAInfo.goods = vmService.$model.list[index];
-
         vmAInfoBtn.selectText = '购买';
         popover('', none);
     },
-    call: function(service) {
-        var o = {
-            breakfast: { imgUrl: '../img/food2.jpg', name: '西式早餐', brief: '面包、牛奶\n呼叫后，服务人员将会送到房间内。', isService: true },
-            cleaning: { imgUrl: '../img/cleaning.jpg', name: '房间清洁', brief: '呼叫后，服务人员将会清洁房间并更换洗护用品。', isService: true },
-            shuttle: { imgUrl: '../img/shuttle.jpg', name: '接送', brief: '本酒店提供专车接送，呼叫后客服人员将会联系你。', isService: true },
-            dryCleaning: { imgUrl: '../img/dryCleaning.jpg', number: 1, stock: 999, price: 25, name: '干洗', brief: '快速干洗，每件25元，24小时内送回。', choosable: true }
-        };
-        switch (service) {
-            case "breakfast":
-                vmAInfo.goods = o.breakfast;
-                break;
-            case "cleaning":
-                vmAInfo.goods = o.cleaning;
-                break;
-            case "shuttle":
-                vmAInfo.goods = o.shuttle;
-                break;
-            case "dryCleaning":
-                vmAInfo.goods = o.dryCleaning;
-                break;
-        }
+    call: function(a) {
         vmAInfoBtn.selectText = '呼叫';
         popover('', none);
+        switch (a) {
+            case 0:
+                vmAInfo.type = 2;
+                vmAInfo.goods = vmService.$model.data[0];
+                break;
+            case 1:
+                vmAInfo.type = 2;
+                vmAInfo.goods = vmService.$model.data[1];
+                break;
+            case 2:
+                vmAInfo.type = 3;
+                vmAInfo.goods = vmService.$model.data[2];
+                break;
+            case 3:
+                vmAInfo.type = 2;
+                vmAInfo.goods = vmService.$model.data[3];
+                break;
+        }
     },
     alarm: function() {
         mui.toast("安保人员正在火速前往中");
     },
     goods: function() {
-        //获取房间详情
-        ajaxJsonp({
-            url: urls.inStoreGoods,
-            data: { hid: 1 },
-            successCallback: function(json) {
-                if (json.status === 1) {
-                    vmService.list = json.data.list;
+        stopSwipeSkip.do(function() {
+            //获取房间详情
+            ajaxJsonp({
+                url: urls.inStoreGoods,
+                data: { hid: 1 },
+                successCallback: function(json) {
+                    if (json.status === 1) {
+                        json.data.list.map(function(a) {
+                            a.number = 1;
+                        });
+                        vmService.list = json.data.list;
+                    }
                 }
-            }
+            });
         });
     },
     picture: function() {
-        ajaxJsonp({
-            url: urls.socialService,
-            data: {},
-            successCallback: function(json) {
-                if (json.status === 1) {
-                    vmService.socialList = json.data;
+        stopSwipeSkip.do(function() {
+            ajaxJsonp({
+                url: urls.socialService,
+                data: {},
+                successCallback: function(json) {
+                    if (json.status === 1) {
+                        vmService.socialList = json.data;
+                    }
                 }
-            }
+            });
         });
     },
     hotelService: function() {
-        ajaxJsonp({
-            url: urls.hotelService,
-            data: { hid: 1 },
-            successCallback: function(json) {
-                if (json.status === 1) {
-                    vmService.data = json.data;
+        stopSwipeSkip.do(function() {
+            ajaxJsonp({
+                url: urls.hotelService,
+                data: { hid: 1 },
+                successCallback: function(json) {
+                    if (json.status === 1) {
+                        json.data.map(function(a) {
+                            a.number = 1;
+                        });
+                        vmService.data = json.data;
+                    }
                 }
-            }
+            });
         });
+    },
+    social: function(a) {
+        switch (a) {
+            case 0:
+                location.href = 'shop.html#food';
+                break;
+            case 1:
+                location.href = 'shop.html#tour';
+                break;
+            case 2:
+                location.href = 'shop.html#beauty';
+                break;
+            case 3:
+                location.href = 'shop.html#fitness';
+                break;
+        }
+    },
+    all: function() {
+        vmService.goods();
+        vmService.picture();
+        vmService.hotelService();
     },
 })
 
-
 vmService.goods();
-vmService.picture();
-vmService.hotelService();
+
+
+//用pullRefresh防止穿透
+mui.init({
+    pullRefresh: {
+        container: '#pullrefresh',
+        down: {
+            height: 50, //可选,默认50.触发下拉刷新拖动距离,
+            auto: true, //可选,默认false.自动下拉刷新一次
+            contentdown: "下拉可以刷新", //可选，在下拉可刷新状态时，下拉刷新控件上显示的标题内容
+            contentover: "释放立即刷新", //可选，在释放可刷新状态时，下拉刷新控件上显示的标题内容
+            contentrefresh: "正在刷新...", //可选，正在刷新状态时，下拉刷新控件上显示的标题内容
+            callback: reload //必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
+        },
+    }
+});
+
+//下拉刷新
+function reload() {
+    vmService.all();
+    mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+    mui('#pullrefresh').pullRefresh().refresh(true);
+}
 
 var vmAInfo = avalon.define({
-
     $id: 'aInfo',
-    goods: {}
+    goods: {},
+    type: '',   //1商品，2服务（不含干洗），3干洗
+    payType: 2, //1支付宝，2微信支付
     // goods: {cid: 0, gid: 0, price: 0, number: 1, imgUrl:'', name:'', brief:'', cate:''}
+    newRadio1: function() {
+        vmAInfo.payType = 2;
+    },
+    newRadio2: function() {
+        vmAInfo.payType = 1;
+    },
 });
 
 

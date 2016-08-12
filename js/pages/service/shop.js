@@ -1,9 +1,7 @@
 var vmService = avalon.define({
     $id: "shop",
-    data: [],
     list: [],
     isExpand: false,
-    c: '',
     swiperRender: function() {
         var swiper1 = new Swiper('.foodSwiper', {
             slidesPerView: 1,
@@ -42,16 +40,6 @@ var vmService = avalon.define({
         });
     },
     expand: function(isExpand) {
-        // for (var i = 0; i < vmService.$model.list.length; i++) {
-        //     if (b != vmService.$model.list[a].id) {
-        //         vmService.isExpand = false;
-        //     } else {
-        //         vmService.isExpand = true;
-        //     }
-        // }
-        // $(function() {
-        //     $( "#accordion" ).accordion();
-        // });
         if (isExpand == false) {
             vmService.isExpand = true;
         } else {
@@ -74,9 +62,6 @@ var vmService = avalon.define({
 })
 
 vmService.picture();
- $(function() {
-   $( "#accordion" ).accordion();
- });
 // vmService.list = [{
 //     type: 'food',
 //     name: '餐饮',

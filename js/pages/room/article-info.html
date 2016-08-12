@@ -1,48 +1,87 @@
 <style>
-	.article-info {}
-	
-	.article-info h4 {
-		font-weight: 200;
-		margin: 25px 0;
-	}
-	
-	.article-info hgroup {
-		display: table;
-		width: 100%;
-	}
-	
-	.article-info hgroup section {
-		display: table-cell;
-	}
-	.mui-numbox {
-		height: 32px;
-		width: 96px;
-		padding: 0 32px;
-	}
-	.mui-numbox [class*=btn-numbox], .mui-numbox [class*=numbox-btn]{
-		width: 32px;	
-	}
+.article-info {}
+
+.article-info h4 {
+    font-weight: 200;
+    margin: 25px 0;
+}
+
+.article-info hgroup {
+    display: table;
+    width: 100%;
+}
+
+.article-info hgroup section {
+    display: table-cell;
+}
+
+.mui-numbox {
+    height: 32px;
+    width: 96px;
+    padding: 0 32px;
+}
+
+.mui-numbox [class*=btn-numbox],
+.mui-numbox [class*=numbox-btn] {
+    width: 32px;
+}
+.hiddenbox {
+    margin: 0 20px 0 0;
+    position: absolute;
+    right: 0;
+}
+.checked {
+    background-image: url(img/checked-w.png);
+}
+
+.unchecked {
+    background-image: url(img/unchecked-w.png);
+}
+.pay {
+	display: flex;
+	justify-content: space-between;
+}
 </style>
-<div ms-controller="aInfo">
-	<img ms-attr-src="goods.imgUrl" width="100%">
-	<div class="article-info">
-		<h4>名称：{{goods.name}}</h4>
-		<hgroup ms-if="!goods.isService">
-			<section>
-				价格：¥{{goods.price}}
-			</section>
-			<section class="mui-text-right">
-				数量:
-				<span ms-if="!(goods.choosable && goods.price>0)">{{goods.number}}</span>
-				<div ms-if="goods.choosable && goods.price>0" class="mui-numbox" data-numbox-min="1" ms-data-numbox-max="goods.stock" style="height:45px;width:130px;">
-					<button class="mui-btn mui-btn-numbox-minus" type="button" style="width:45px;background-color: #ddd;">-</button>
-					<button class="mui-btn mui-btn-numbox" style="left:45px;width:40px;">{{goods.number}}</button>
-					<input class="mui-input-numbox" type="number" value="1" style="display: none;" ms-duplex-number="goods.number"/>
-					<button class="mui-btn mui-btn-numbox-plus" type="button" ms-attr-disabled="goods.number==goods.stock" style="width:45px;background-color: #ddd;">+</button>
-				</div>
-			</section>
-		</hgroup>
-		<br />
-		<p>{{goods.brief}}</p>
-	</div>
+<div ms-controller="aInfo" style="margin: 0 9px 0 9px;/* overflow-y: scroll;*/ height: 80vh;">
+    <img ms-if="type == 1"  ms-attr-src="urlAPINet + goods.imgUrl" style="height: 220px;" width="100%"><!-- 店内商品 --> 
+    <img ms-if="!(type == 1)" ms-attr-src="urlAPINet + goods.picUrl" style="height: 220px;" width="100%"> <!-- 店内服务 --> 
+    <div class="article-info" style="margin: 7px 11px 0;">
+        <div class="bs-text-normal bs-text-white">{{goods.name}}</div>
+        <p class="bs-text-small bs-text-white" style="margin: 15px 0 32.5px;">{{goods.brief}}</p>
+        <hgroup ms-if="!(type == 2)">
+            <div style="margin-bottom: 30px;">
+                <section ms-if="!goods.choosable" class="bs-text-small">
+                    ¥{{goods.inStoreSalePrice}}
+                </section>
+                <section ms-if="goods.choosable" class="bs-text-small">
+                    ¥{{goods.price}}
+                </section>
+                <section class="mui-text-right">
+                    <!-- <span ms-if="!(goods.choosable && goods.price>0)">数量:{{goods.number}}</span> -->
+                    <div class="mui-numbox" data-numbox-min="1" ms-data-numbox-max="goods.stock" style="height:30px;width:110px;position: relative; float: right; left: 42vw;">
+                        <button class="mui-btn mui-btn-numbox-minus" type="button" style="width:30px;background-color: #ddd;">-</button>
+                        <button class="mui-btn mui-btn-numbox bs-text-small bs-text-black" style="left:30px;width:50px; background-color: #eee;">{{goods.number}}</button>
+                        <input class="mui-input-numbox" type="number" value="1" style="display: none;" ms-duplex-number="goods.number" />
+                        <button class="mui-btn mui-btn-numbox-plus" type="button" ms-attr-disabled="goods.number==goods.stock" style="width:30px;background-color: #ddd;">+</button>
+                    </div>
+                </section>
+            </div>
+            <hr style="margin: 0" />
+            <div class="" style="margin-top: 5px;">
+                <div class="order-panel-title bs-text-large bs-text-white">支付方式</div>
+                <div class="pay" ms-click="newRadio1" style="margin-bottom: 15px;">
+                	<div class="bs-text-normal bs-text-white">微信支付</div>
+                	<div class="hiddenbox">
+                		<div class="check-icon" ms-class-1="unchecked:payType == 1" ms-class-2="checked:payType == 2" style="position: absolute; right: 5px;"></div>
+                	</div>
+                </div>
+                <div class="pay" ms-click="newRadio2">
+                    <div class="bs-text-normal bs-text-white">支付宝支付</div>
+                    <div class="hiddenbox">
+                        <div class="check-icon" ms-class-1="unchecked:payType == 2" ms-class-2="checked:payType == 1" style="position: absolute; right: 5px;"></div>
+                    </div>
+                </div>
+            </div>
+        </hgroup>
+    </div>
 </div>
