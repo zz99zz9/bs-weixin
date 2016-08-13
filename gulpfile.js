@@ -462,11 +462,29 @@ function shop() {
         .pipe(gulp.dest('./src'));
 }
 
-/*
-    =======================================================
-                        管理模块相关页面
-    =======================================================
-*/
+/**
+ *   =======================================================
+ *                       加盟商相关页面
+ *   =======================================================
+ */
+function franchisee() {
+    return gulp.src('./js/layout/shell-av2.html')
+        .pipe(replace({ regex: '<!-- css -->', replace: '<link rel="stylesheet" href="css/swiper.min.css">\n<link rel="stylesheet" href="css/franchisee.css">' }))
+        .pipe(replace({ regex: '<!-- content -->', replace: '<!--include "../pages/franchisee/index.html"-->' }))
+        .pipe(replace({ regex: '<!-- js -->', replace: '<script src="js/lib/swiper.min.js"></script>\n'
+                + '<script src="js/pages/franchisee/index.js"></script>\n<script src="js/lib/echarts.simple.min.js"></script>' }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('franchisee.html'))
+        .pipe(gulp.dest('./src'));
+}
+
+/**
+ *   =======================================================
+ *                       管理模块相关页面
+ *   =======================================================
+ */
 //管理登录
 function login() {
     return gulp.src('./js/layout/shell-register.html')
@@ -1170,6 +1188,7 @@ gulp.task('html', gulp.parallel(
     alipayIframe,
     invoicePaySuccess,
     weixin,
+    franchisee,
     login,
     homepage,
     nav,
@@ -1220,6 +1239,7 @@ function watchForReload() {
     gulp.watch('img/**', copyImg);
     gulp.watch("dist/**/*").on('change', function(file) {
         gulp.src('dist/')
+            .pipe(connect.reload())
             .pipe(connect.reload());
     });
 }

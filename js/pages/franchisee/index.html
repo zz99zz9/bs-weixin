@@ -1,0 +1,67 @@
+<div ms-controller="graph">
+<div class="swiper-container swiper">
+    <div class="swiper-wrapper">
+        <!-- 今日 -->
+        <div class="swiper-slide">
+            <div class="bs-text-xxx-larger fr-head">
+                <canvas id="circle" style="position: fixed;z-index: -1;right: 0;top: 0;"></canvas>
+                {{@todaySale}}
+                <span class="bs-text-large bs-text-white"><br>今日销售额</span>
+            </div>
+            <div class="bs-text-larger fr-content">
+                {{@todayCheckIn}}
+                <span class="bs-text-small bs-text-white">
+                <br>今日入住人数</span>
+            </div>
+            <div class="bs-text-smaller fr-link">今日详情</div>
+        </div>
+
+        <!-- 上月 -->
+        <div class="swiper-slide">
+            <div class="bs-text-xxx-larger fr-head" style="margin-left: 45px;">
+                {{@lastMonthIncome}}
+                <span class="bs-text-large bs-text-white"><br>上月分佣</span>
+            </div>
+            <div class="bs-text-larger fr-content-left">
+                {{@lastMonthSale}}
+                <span class="bs-text-small bs-text-white">
+                <br>上月销售额</span>
+            </div>
+            <div class="bs-text-larger fr-content-right">
+                {{@lastMonthCheckIn}}
+                <span class="bs-text-small bs-text-white">
+                <br>上月入住人数</span>
+            </div>
+            <div class="bs-text-smaller fr-link" style="width: 60px;margin-left: -130px;">上月详情</div>
+        </div>
+
+        <!-- 累计 -->
+        <div class="swiper-slide">
+            <div class="bs-text-xxx-larger fr-head" style="margin-left: -70px;">
+                {{@totalIncome}}
+                <span class="bs-text-large bs-text-white"><br>累计分佣</span>
+            </div>
+            <div id="chart" style="width: 80vw;height: 55vh;    position: fixed;top: 25vh;margin-left: -42vw;"></div>
+            <div class="bs-text-smaller fr-link" style="width: 60px;margin-left: -25px;">查看详情</div>
+        </div>
+
+        <!-- 提现 -->
+        <div class="swiper-slide">
+            <div class="bs-text-xxx-larger fr-head" style="margin-left: 20px;">
+                {{@balance}}
+                <span class="bs-text-large bs-text-white"><br>账户余额</span>
+            </div>
+            <div class="bs-text-larger fr-content">
+                 <span class="bs-text-small bs-text-white">可提现金额</span>&nbsp;&nbsp;
+                 <span>¥{{@withdrawCash}}</span>
+                 <br>
+                 <input type="tel" style="width: 140px;display: block;margin-top: 30px;margin-bottom: -15px;background: #23262a;border: none;" placeholder="输入提现金额">
+                 <hr style="color: #999;">
+                 <button class="withdrawBtn" type="button">提现</button>
+            </div>
+            <div class="bs-text-smaller fr-link" style="width: 60px;margin-left: -100px;">交易记录</div>
+        </div>
+        <div class="swiper-pagination"></div>
+    </div>
+</div>
+</div>
