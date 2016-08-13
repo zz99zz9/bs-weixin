@@ -3,10 +3,17 @@ var sass = require('gulp-ruby-sass');
 var minifycss = require('gulp-minify-css');
 var rename = require('gulp-rename');
 var connect = require('gulp-connect');
-var replace = require('gulp-regex-replace'),
-    contentIncluder = require('gulp-content-includer');
+var replace = require('gulp-regex-replace');
+var contentIncluder = require('gulp-content-includer');
 var rev = require('gulp-rev'); //~ 对文件名加 MD5 后缀
 var revCollector = require('gulp-rev-collector'); //~ 路径替换
+var del = require('del');
+
+
+function clean(done) {
+  del.sync('dist/');
+  done();
+}
 
 function openConnect() {
     connect.server({
@@ -25,7 +32,7 @@ function sassCompile(callback) {
         .on('finish', callback)
 }
 
-/*
+/**
  * 给js文件加 md5
  */
 function md5JS(){
@@ -36,7 +43,7 @@ function md5JS(){
         .pipe(gulp.dest('./rev/js'));
 }
 
-/*
+/**
  * 给css文件加 md5
  */
 function md5CSS() {
@@ -47,7 +54,7 @@ function md5CSS() {
         .pipe(gulp.dest('./rev/css')); //输出文件夹
 }
 
-/*
+/**
  * 将文件里js、css改为带MD5的新名字，并输出
  */
 function md5Rev() {
@@ -1176,7 +1183,7 @@ function warehouseFormStock() {
 }
 
 
-/*
+/**
  * 输出弹框相关页面
  */
 function popHtml() {
@@ -1194,7 +1201,7 @@ function popHtml() {
         .pipe(gulp.dest('./dist/util/'));
 }
 
-/*
+/**
  * 输出时间弹框相关页面
  */
 function timeHtml() {
@@ -1206,89 +1213,21 @@ function timeHtml() {
         .pipe(gulp.dest('./dist/util/'));
 }
 
-/*
+/**
  * 输出图片
  */
 function copyImg() {
     return gulp.src('img/**/*').pipe(gulp.dest('./dist/img/'));
 }
 
-/*
+/**
  * 输出字体
  */
 function copyFonts() {
     return gulp.src('fonts/*').pipe(gulp.dest('./dist/fonts/'));
 }
 
-gulp.task(openConnect);
-gulp.task(sassCompile);
-gulp.task(md5JS);
-gulp.task(md5CSS);
-gulp.task(md5Rev);
-gulp.task(index);
-gulp.task(hotel);
-gulp.task(room);
-gulp.task(orderList);
-gulp.task(order);
-gulp.task(payend);
-gulp.task(submitassess);
-gulp.task(userInfo);
-gulp.task(userInvite);
-gulp.task(wallet);
-gulp.task(about);
-gulp.task(frequentContactList);
-gulp.task(invoiceList);
-gulp.task(invoiceApply);
-gulp.task(alipayIframe);
-gulp.task(invoicePaySuccess);
-gulp.task(weixin);
-gulp.task(register1);
-gulp.task(register2);
-gulp.task(service);
-gulp.task(shop);
-gulp.task(login);
-gulp.task(homepage);
-gulp.task(nav);
-gulp.task(roomList);
-gulp.task(roomDetails);
-gulp.task(roomRepair);
-gulp.task(roomBan);
-gulp.task(consume);
-gulp.task(consumeTable);
-gulp.task(consumeArticle);
-gulp.task(consumeBedding);
-gulp.task(consumeAsset);
-gulp.task(finance);
-gulp.task(invoice);
-gulp.task(invoiceDetail);
-gulp.task(financeTable);
-gulp.task(commodityOut);
-gulp.task(toolwasteOut);
-gulp.task(salaryOut);
-gulp.task(energyOut);
-gulp.task(deviceOut);
-gulp.task(taxOut);
-gulp.task(otherOut);
-gulp.task(detailOut);
-gulp.task(staff);
-gulp.task(paibanForm);
-gulp.task(addstaffForm);
-gulp.task(arrangementToday);
-gulp.task(statistic);
-gulp.task(staffDetail);
-gulp.task(assessForm);
-gulp.task(warehouse);
-gulp.task(warehouseList);
-gulp.task(warehouseFormIn);
-gulp.task(warehouseFormOut);
-gulp.task(warehouseFormAllocate);
-gulp.task(warehouseFormStock);
-gulp.task(popHtml);
-gulp.task(timeHtml);
-gulp.task(copyImg);
-gulp.task(copyFonts);
-
-/*
+/**
  * 拼接html源文件
  */
 gulp.task('html', gulp.parallel(
@@ -1352,34 +1291,34 @@ gulp.task('html', gulp.parallel(
     warehouseFormStock
 ));
 
-/*
- * 加MD5，替换html里面的js、css文件名，并输出
- */
-gulp.task('dist', gulp.series(
-    sassCompile,
-    gulp.parallel(
-        md5CSS,
-        md5JS,
-        popHtml,
-        timeHtml,
-        copyImg,
-        copyFonts
-    ),
-    'html',
-    md5Rev
-));
-
-function reload() {
-    return gulp.src('dist/**/*')
-        .pipe(connect.reload());
-}
-gulp.task(reload);
-
 function watchForReload() {
-    gulp.watch(['js/**/*','sass/**','css/**','img/**'], 
-        gulp.series('dist', reload)
-    );
+    gulp.watch('js/**/*', gulp.series(
+        gulp.parallel(md5JS, popHtml, timeHtml),
+        'html',
+        md5Rev
+    ));
+    gulp.watch('sass/**', sassCompile);
+    gulp.watch('css/**', gulp.series(md5CSS, 'html', md5Rev));
+    gulp.watch('img/**', copyImg);
+    gulp.watch("dist/**/*").on('change', function(file) {
+        gulp.src('dist/')
+            .pipe(connect.reload());
+    });
 }
 gulp.task(watchForReload);
 
+/**
+ * 开发使用
+ */
 gulp.task('default', gulp.parallel(openConnect, watchForReload));
+
+/**
+ * producttion build，加MD5，替换html里面的js、css文件名，并输出
+ */
+gulp.task('build', gulp.series(
+    clean,
+    sassCompile,
+    gulp.parallel(md5CSS, md5JS, popHtml, timeHtml, copyImg, copyFonts),
+    'html',
+    md5Rev
+));
