@@ -1177,6 +1177,34 @@ function warehouseFormStock() {
         .pipe(gulp.dest('./src/manage'));
 }
 
+//发现页面
+function discover() {
+    return gulp.src('./js/layout/shell.html')
+        //.pipe(replace({ regex: '<!-- pop -->', replace: '<!--include "../util/pop.html"-->' }))
+        .pipe(replace({ regex: '<!-- js -->', replace: '<script src="js/lib/mui.view.js"></script> \n <script src="js/pages/discover/discover.js"></script>' }))
+        .pipe(replace({ regex: '<!-- content -->', replace: '<!--include "../pages/discover/discover.html"-->' }))
+        // .pipe(replace({regex:'<h1 id="headerReplace" class="mui-title"></h1>', replace:'<h1 id="headerReplace" class="mui-title">个人信息</h1>'}))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('discover.html'))
+        .pipe(gulp.dest('./src'));
+}
+
+//午夜特价房
+function special() {
+    return gulp.src('./js/layout/shell.html')
+        .pipe(replace({ regex: '<!-- css -->', replace: '<link rel="stylesheet" href="css/swiper.min.css">' }))
+        //.pipe(replace({ regex: '<!-- pop -->', replace: '<!--include "../util/pop.html"-->' }))
+        .pipe(replace({ regex: '<!-- content -->', replace: '<!--include "../pages/discover/special.html"-->' }))
+        // .pipe(replace({regex:'<h1 id="headerReplace" class="mui-title"></h1>', replace:'<h1 id="headerReplace" class="mui-title">关于因爱</h1>'}))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('special.html'))
+        .pipe(gulp.dest('./src'));
+}
+
 
 /**
  * 输出弹框相关页面
@@ -1289,7 +1317,9 @@ gulp.task('html', gulp.parallel(
     warehouseFormIn,
     warehouseFormOut,
     warehouseFormAllocate,
-    warehouseFormStock
+    warehouseFormStock,
+    discover,
+    special
 ));
 
 function watchForReload() {
