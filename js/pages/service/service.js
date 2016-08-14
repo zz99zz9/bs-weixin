@@ -29,32 +29,36 @@ var vmService = avalon.define({
         });
     },
     pop: function(index) {
-        vmAInfo.type = 1;
-        vmAInfo.goods = vmService.$model.list[index];
-        vmAInfoBtn.selectText = '购买';
-        popover('', none);
+        stopSwipeSkip.do(function() {
+            vmAInfo.type = 1;
+            vmAInfo.goods = vmService.$model.list[index];
+            vmAInfoBtn.selectText = '购买';
+            popover('', none);
+        });
     },
     call: function(a) {
-        vmAInfoBtn.selectText = '呼叫';
-        popover('', none);
-        switch (a) {
-            case 0:
-                vmAInfo.type = 2;
-                vmAInfo.goods = vmService.$model.data[0];
-                break;
-            case 1:
-                vmAInfo.type = 2;
-                vmAInfo.goods = vmService.$model.data[1];
-                break;
-            case 2:
-                vmAInfo.type = 3;
-                vmAInfo.goods = vmService.$model.data[2];
-                break;
-            case 3:
-                vmAInfo.type = 2;
-                vmAInfo.goods = vmService.$model.data[3];
-                break;
-        }
+        stopSwipeSkip.do(function() {
+            vmAInfoBtn.selectText = '呼叫';
+            popover('', none);
+            switch (a) {
+                case 0:
+                    vmAInfo.type = 2;
+                    vmAInfo.goods = vmService.$model.data[0];
+                    break;
+                case 1:
+                    vmAInfo.type = 2;
+                    vmAInfo.goods = vmService.$model.data[1];
+                    break;
+                case 2:
+                    vmAInfo.type = 3;
+                    vmAInfo.goods = vmService.$model.data[2];
+                    break;
+                case 3:
+                    vmAInfo.type = 2;
+                    vmAInfo.goods = vmService.$model.data[3];
+                    break;
+            }
+        });
     },
     alarm: function() {
         mui.toast("安保人员正在火速前往中");
@@ -106,20 +110,22 @@ var vmService = avalon.define({
         });
     },
     social: function(a) {
-        switch (a) {
-            case 0:
-                location.href = 'shop.html#food';
-                break;
-            case 1:
-                location.href = 'shop.html#tour';
-                break;
-            case 2:
-                location.href = 'shop.html#beauty';
-                break;
-            case 3:
-                location.href = 'shop.html#fitness';
-                break;
-        }
+        stopSwipeSkip.do(function() {
+            switch (a) {
+                case 0:
+                    location.href = 'shop.html#food';
+                    break;
+                case 1:
+                    location.href = 'shop.html#tour';
+                    break;
+                case 2:
+                    location.href = 'shop.html#beauty';
+                    break;
+                case 3:
+                    location.href = 'shop.html#fitness';
+                    break;
+            }
+        });
     },
     all: function() {
         vmService.goods();
@@ -156,7 +162,7 @@ function reload() {
 var vmAInfo = avalon.define({
     $id: 'aInfo',
     goods: {},
-    type: '',   //1商品，2服务（不含干洗），3干洗
+    type: '', //1商品，2服务（不含干洗），3干洗
     payType: 2, //1支付宝，2微信支付
     // goods: {cid: 0, gid: 0, price: 0, number: 1, imgUrl:'', name:'', brief:'', cate:''}
     newRadio1: function() {
