@@ -7,7 +7,15 @@ var vmGraph = avalon.define({
     lastMonthCheckIn: 1562,
     totalIncome: 1280966,
     balance: 84500,
-    withdrawCash: 54500
+    withdrawCash: 54500,
+    isVerifyShow: false,
+    withdrawClick: function() {
+        if(vmGraph.isVerifyShow){
+            vmGraph.isVerifyShow = false;
+        } else {
+            vmGraph.isVerifyShow = true;
+        }
+    }
 })
 
 var swiper = new Swiper('.swiper', {
