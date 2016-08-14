@@ -1237,13 +1237,14 @@ function watchForReload() {
     gulp.watch('sass/**', sassCompile);
     gulp.watch('css/**', gulp.series(md5CSS, 'html', md5Rev));
     gulp.watch('img/**', copyImg);
+
     gulp.watch("dist/**/*").on('change', function(file) {
         gulp.src('dist/')
             .pipe(connect.reload())
             .pipe(connect.reload());
     });
 }
-gulp.task(watchForReload);
+
 
 /**
  * 开发使用

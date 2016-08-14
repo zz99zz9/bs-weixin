@@ -20,16 +20,18 @@
     text-align: center;
 }
 
-.swiper-slide .fr-content-left{
+.swiper-slide .fr-content-left {
     position: relative;
     top: 10vh;
     margin-right: 30px;
 }
-.swiper-slide .fr-content-right{
+
+.swiper-slide .fr-content-right {
     position: relative;
     top: 10vh;
     margin-left: 30px;
 }
+
 .swiper-slide .fr-link {
     color: #e54c4c;
     position: fixed;
@@ -46,4 +48,18 @@
     border-color: #baa071;
     padding: 8px;
     font-weight: 100;
+}
+
+.verifyInput {
+
+}
+
+.sendBtn {
+    color: #999;
+    background: #23262a;
+    border-radius: 0;
+    border-color: #999;
+    font-size: 12px;
+    font-weight: 100;
+    display: inline-block;
 }
