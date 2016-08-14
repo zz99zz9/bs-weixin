@@ -19,7 +19,7 @@ function openConnect() {
     connect.server({
         root: './dist',
         livereload: true,
-        port: 8010
+        port: 8008
     });
 }
 
@@ -480,6 +480,65 @@ function franchisee() {
         .pipe(gulp.dest('./src'));
 }
 
+function franchiseeNote() {
+    return gulp.src('./js/layout/shell-av2.html')
+        .pipe(replace({ regex: '<!-- css -->', replace: '<link rel="stylesheet" href="css/franchisee.css">' }))
+        .pipe(replace({ regex: '<!-- content -->', replace: '<!--include "../pages/franchisee/note.html"-->' }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('franchisee-note.html'))
+        .pipe(gulp.dest('./src'));
+}
+
+function franchiseeToday() {
+    return gulp.src('./js/layout/shell-av2.html')
+        .pipe(replace({ regex: '<!-- css -->', replace: '<link rel="stylesheet" href="css/franchisee.css">' }))
+        .pipe(replace({ regex: '<!-- content -->', replace: '<!--include "../pages/franchisee/today.html"-->' }))
+        .pipe(replace({ regex: '<!-- js -->', replace: '<script src="js/lib/swiper.min.js"></script>\n'
+                + '<script src="js/pages/franchisee/today.js"></script>' }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('franchisee-today.html'))
+        .pipe(gulp.dest('./src'));
+}
+
+function franchiseeLastMonth() {
+    return gulp.src('./js/layout/shell-av2.html')
+        .pipe(replace({ regex: '<!-- css -->', replace: '<link rel="stylesheet" href="css/franchisee.css">' }))
+        .pipe(replace({ regex: '<!-- content -->', replace: '<!--include "../pages/franchisee/lastMonth.html"-->' }))
+        .pipe(replace({ regex: '<!-- js -->', replace: '<script src="js/pages/franchisee/lastMonth.js"></script>' }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('franchisee-lastMonth.html'))
+        .pipe(gulp.dest('./src'));
+}
+
+function franchiseeIncome() {
+    return gulp.src('./js/layout/shell-av2.html')
+        .pipe(replace({ regex: '<!-- css -->', replace: '<link rel="stylesheet" href="css/franchisee.css">' }))
+        .pipe(replace({ regex: '<!-- content -->', replace: '<!--include "../pages/franchisee/income.html"-->' }))
+        .pipe(replace({ regex: '<!-- js -->', replace: '<script src="js/pages/franchisee/income.js"></script>' }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('franchisee-income.html'))
+        .pipe(gulp.dest('./src'));
+}
+
+function franchiseeRecord() {
+    return gulp.src('./js/layout/shell-av2.html')
+        .pipe(replace({ regex: '<!-- css -->', replace: '<link rel="stylesheet" href="css/franchisee.css">' }))
+        .pipe(replace({ regex: '<!-- content -->', replace: '<!--include "../pages/franchisee/record.html"-->' }))
+        .pipe(replace({ regex: '<!-- js -->', replace: '<script src="js/pages/franchisee/record.js"></script>' }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('franchisee-record.html'))
+        .pipe(gulp.dest('./src'));
+}
 /**
  *   =======================================================
  *                       管理模块相关页面
@@ -1189,6 +1248,11 @@ gulp.task('html', gulp.parallel(
     invoicePaySuccess,
     weixin,
     franchisee,
+    franchiseeNote,
+    franchiseeToday,
+    franchiseeLastMonth,
+    franchiseeIncome,
+    franchiseeRecord,
     login,
     homepage,
     nav,
@@ -1232,19 +1296,18 @@ function watchForReload() {
     gulp.watch('js/**/*', gulp.series(
         gulp.parallel(md5JS, popHtml, timeHtml),
         'html',
-        md5Rev
+        md5Rev,
+        reload
     ));
-    gulp.watch('sass/**', sassCompile);
-    gulp.watch('css/**', gulp.series(md5CSS, 'html', md5Rev));
-    gulp.watch('img/**', copyImg);
-
-    gulp.watch("dist/**/*").on('change', function(file) {
-        gulp.src('dist/')
-            .pipe(connect.reload())
-            .pipe(connect.reload());
-    });
+    gulp.watch('sass/**', gulp.series(sassCompile, reload));
+    gulp.watch('css/**', gulp.series(md5CSS, 'html', md5Rev, reload));
+    gulp.watch('img/**', gulp.series(copyImg, reload));
 }
 
+function reload() {
+    return gulp.src('dist/')
+            .pipe(connect.reload());
+}
 
 /**
  * 开发使用
