@@ -1,9 +1,20 @@
+var frData = Storage.get('frData');
+
+if(!frData) {
+    frData = { index: 0 };
+} else {
+    if(!frData.index) {
+        frData.index = 0;
+    }
+}
+console.log(frData);
+
 var vmGraph = avalon.define({
     $id: 'graph',
     todaySale: 5621,
     todayCheckIn: 88,
-    lastMonthIncome: 180000,
-    lastMonthSale: 80000,
+    lastMonthIncome: 80000,
+    lastMonthSale: 180000,
     lastMonthCheckIn: 1562,
     totalIncome: 1280966,
     balance: 84500,
@@ -15,16 +26,36 @@ var vmGraph = avalon.define({
         } else {
             vmGraph.isVerifyShow = true;
         }
+    },
+    goToday: function()  {
+        location.href = "franchisee-today.html";
+    },
+    goMonth: function() {
+        location.href = "franchisee-month.html";
+    },
+    goIncome: function() {
+        location.href = "franchisee-income.html";
+    },
+    goRecord: function() {
+        location.href = "franchisee-record.html";
+    },
+    goNote: function() {
+        //location.href = "franchisee-note.html";
     }
 })
 
 var swiper = new Swiper('.swiper', {
+    initialSlide: frData.index,
     slidesPerView: 1,
     width: window.innerWidth - 20,
     spaceBetween: 5,
     freeMode: true,
     freeModeSticky: true,
     freeModeMomentumRatio: 0.4,
+    onSlideChangeEnd: function(swiper) {
+        frData.index = swiper.activeIndex;
+        Storage.set('frData', frData);
+    }
 });
 
 /**

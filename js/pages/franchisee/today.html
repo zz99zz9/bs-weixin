@@ -1,0 +1,24 @@
+<header class="bs-bg-dark fr-flex" ms-controller="header">
+    <div class="fr-padding-20 bs-text-gray">
+        <span class="bs-text-normal">{{@date}}详情</span>
+        <br>
+        <span class="bs-text-smaller">入住人数 {{@number}}</span>
+    </div>
+    <div class="fr-padding-20" style="text-align: center;">
+        <span class="bs-text-x-larger bs-text-gold">{{@sale}}</span>
+        <br>
+        <span class="bs-text-smaller bs-text-white">销售总额</span>
+    </div>
+</header>
+<section class="bs-bg-white bs-text-large" ms-controller="chart">
+    <div class="fr-flex" style="border-bottom: 1px solid #ddd;" ms-for="el in @list">
+        <div class="today-list-item">
+            {{el.type}} 入住{{el.number}}人
+            <br>
+            <span class="bs-text-smaller bs-text-gray">{{el.start}}</span>
+        </div>
+        <div class="today-list-item" style="line-height: 43px;">
+            {{el.price}}
+        </div>
+    </div>
+</section>

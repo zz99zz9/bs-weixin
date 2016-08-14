@@ -13,7 +13,7 @@
                     <span class="bs-text-small bs-text-white">
                 <br>今日入住人数</span>
                 </div>
-                <div class="bs-text-smaller fr-link">今日详情</div>
+                <div class="bs-text-smaller fr-link" ms-click="@goToday">今日详情</div>
             </div>
             <!-- 上月 -->
             <div class="swiper-slide">
@@ -31,7 +31,7 @@
                     <span class="bs-text-small bs-text-white">
                 <br>上月入住人数</span>
                 </div>
-                <div class="bs-text-smaller fr-link" style="width: 60px;margin-left: -130px;">上月详情</div>
+                <div class="bs-text-smaller fr-link" style="width: 60px;margin-left: -130px;" ms-click="@goMonth">上月详情</div>
             </div>
             <!-- 累计 -->
             <div class="swiper-slide">
@@ -40,7 +40,7 @@
                     <span class="bs-text-large bs-text-white"><br>累计分佣</span>
                 </div>
                 <div id="chart" style="width: 80vw;height: 55vh;    position: fixed;top: 25vh;margin-left: -42vw;"></div>
-                <div class="bs-text-smaller fr-link" style="width: 60px;margin-left: -25px;">查看详情</div>
+                <div class="bs-text-smaller fr-link" style="width: 60px;margin-left: -25px;" ms-click="@goIncome">查看详情</div>
             </div>
             <!-- 提现 -->
             <div class="swiper-slide">
@@ -48,7 +48,7 @@
                 <div class="bs-text-xxx-larger fr-head" style="margin-left: 45px;">
                     {{@balance}}
                     <span class="bs-text-large bs-text-white"><br>账户余额</span>
-                    <img src="img/icon/question.png" alt="" style="position: absolute;top: -7px;right: -33px;width: 18px;">
+                    <img src="img/icon/question.png" alt="" style="position: absolute;top: -7px;right: -33px;width: 18px;" ms-click="@goNote">
                 </div>
                 <div class="bs-text-larger fr-content">
                     <div ms-visible="!@isVerifyShow">
@@ -65,7 +65,7 @@
                     </div>
                     <button class="withdrawBtn" type="button" ms-click="@withdrawClick">提现</button>
                 </div>
-                <div class="bs-text-smaller fr-link" style="width: 60px;margin-left: -120px;">交易记录</div>
+                <div class="bs-text-smaller fr-link" style="width: 60px;margin-left: -120px;" ms-click="@goRecord">交易记录</div>
             </div>
             <div class="swiper-pagination"></div>
         </div>

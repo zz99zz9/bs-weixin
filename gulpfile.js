@@ -19,7 +19,7 @@ function openConnect() {
     connect.server({
         root: './dist',
         livereload: true,
-        port: 8008
+        port: 8010
     });
 }
 
@@ -504,15 +504,15 @@ function franchiseeToday() {
         .pipe(gulp.dest('./src'));
 }
 
-function franchiseeLastMonth() {
+function franchiseeMonth() {
     return gulp.src('./js/layout/shell-av2.html')
         .pipe(replace({ regex: '<!-- css -->', replace: '<link rel="stylesheet" href="css/franchisee.css">' }))
-        .pipe(replace({ regex: '<!-- content -->', replace: '<!--include "../pages/franchisee/lastMonth.html"-->' }))
-        .pipe(replace({ regex: '<!-- js -->', replace: '<script src="js/pages/franchisee/lastMonth.js"></script>' }))
+        .pipe(replace({ regex: '<!-- content -->', replace: '<!--include "../pages/franchisee/month.html"-->' }))
+        .pipe(replace({ regex: '<!-- js -->', replace: '<script src="js/pages/franchisee/month.js"></script>' }))
         .pipe(contentIncluder({
             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
         }))
-        .pipe(rename('franchisee-lastMonth.html'))
+        .pipe(rename('franchisee-month.html'))
         .pipe(gulp.dest('./src'));
 }
 
@@ -1250,7 +1250,7 @@ gulp.task('html', gulp.parallel(
     franchisee,
     franchiseeNote,
     franchiseeToday,
-    franchiseeLastMonth,
+    franchiseeMonth,
     franchiseeIncome,
     franchiseeRecord,
     login,

@@ -1,9 +1,9 @@
 html,
 body {
-    background-color: #fff !important;
+    /*background-color: #fff !important;*/
 }
 
-.ms-controller [ms-controller]{
+.ms-controller {
     display: none;
 }
 
@@ -1242,6 +1242,10 @@ hr {
     background-color: #fff;
 }
 
+.bs-bg-dark {
+    background-color: #23262a;
+}
+
 .bs-type-tab {
     display: inline-table;
     position: relative;
@@ -1319,3 +1323,9 @@ hr {
     top: 0;
 }
 
+.center-nav-item {
+    padding: 10px;
+    width: 33%;
+    border-left: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+}

@@ -1,0 +1,13 @@
+<div class="bs-bg-white bs-text-larger fr-padding-20">交易记录</div>
+<div class="bs-bg-white bs-text-large" ms-controller="chart">
+    <div class="fr-flex" style="border-bottom: 1px solid #ddd;" ms-for="el in @list">
+        <div class="today-list-item">
+            {{el.content}}
+            <br>
+            <span class="bs-text-smaller bs-text-gray">{{el.start}}</span>
+        </div>
+        <div class="today-list-item" style="line-height: 43px;">
+            {{(el.type?'+':'-') + ' ' + el.change}}
+        </div>
+    </div>
+</div>
