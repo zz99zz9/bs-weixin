@@ -40,62 +40,68 @@
             </div> 
         </div>
 
-        <ul class="mui-table-view mui-grid-view mui-grid-9 icon bs-bg-white">
-            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3" ms-on-tap="clickA(3)" ms-visible="!isManage">
+        <div class="bs-bg-white" style="display: flex; justify-content: space-around; flex-wrap: wrap;">
+            <div class="center-nav-item" ms-on-tap="clickA(3)" ms-visible="!isManage">
                 <a href="javascript:void(0)">
                     <img src="../img/icon/service.png" class="grid-icon" />
                     <div class="bs-text-smaller bs-text-black">服务</div>
                 </a>
-            </li>
-            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3" ms-on-tap="clickA(2)" ms-visible="!isManage">
+            </div>
+            <div class="center-nav-item" ms-on-tap="clickA(2)" ms-visible="!isManage">
                 <a href="javascript:void(0)">
                     <img src="../img/icon/order.png" class="grid-icon" />
                     <div class="bs-text-smaller bs-text-black">订单</div>
                 </a>
-            </li>
-            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3" ms-on-tap="clickA(1)">
+            </div>
+            <div class="center-nav-item" ms-on-tap="clickA(1)">
                 <a href="javascript:void(0)">
                     <img src="../img/icon/info.png" class="grid-icon" />
                     <div class="bs-text-smaller bs-text-black">个人信息</div>
                 </a>
-            </li>
-            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3" ms-on-tap="clickA(4)" ms-visible="!isManage">
+            </div>
+            <div class="center-nav-item" ms-on-tap="clickA(4)" ms-visible="!isManage">
                 <a href="javascript:void(0)">
                     <img src="../img/icon/fund.png" class="grid-icon" />
                     <div class="bs-text-smaller bs-text-black">体验基金</div>
                 </a>
-            </li>
-            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3" ms-on-tap="clickA(8)" ms-visible="!isManage">
+            </div>
+            <div class="center-nav-item" ms-on-tap="clickA(8)" ms-visible="!isManage">
                 <a href="javascript:void(0)">
                     <img src="../img/icon/shopping.png" class="grid-icon" />
                     <div class="bs-text-smaller bs-text-black">购物</div>
                 </a>
-            </li>
-            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3" ms-on-tap="clickA(5)" ms-visible="isAdmin==1&&!isManage">
+            </div>
+            <div class="center-nav-item" ms-on-tap="clickA(8)" ms-visible="isAdmin!=1">
+                <a href="javascript:void(0)" >
+                    <img src="../img/icon/switch.png" class="grid-icon" />
+                    <div class="bs-text-smaller bs-text-black">店主模式</div>
+                </a>
+            </div>
+            <div class="center-nav-item" ms-on-tap="clickA(5)" ms-visible="isAdmin==1&&!isManage">
                 <a href="javascript:void(0)" >
                     <img src="../img/icon/switch.png" class="grid-icon" />
                     <div class="bs-text-smaller bs-text-black">管理模式</div>
                 </a>
-            </li>
-            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3" ms-visible="isAdmin!=1&&!isManage">
+            </div>
+            <!-- <div class="center-nav-item" ms-visible="isAdmin!=1&&!isManage">
                 <a href="javascript:void(0)" style="display: none;">
                     <img src="../img/icon/switch.png" class="grid-icon" />
                     <div class="bs-text-smaller bs-text-black">管理模式</div>
                 </a>
-            </li>
-            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3" ms-on-tap="clickA(7)" ms-visible="isManage">
+            </div> -->
+            <div class="center-nav-item" ms-on-tap="clickA(7)" ms-visible="isManage">
                 <a href="javascript:void(0)" >
                     <img src="../img/iconfont-jiudian.svg" class="grid-icon" />
                     <div class="bs-text-smaller bs-text-black">更多酒店</div>
                 </a>
-            </li>
-            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3" ms-on-tap="clickA(6)" ms-visible="isManage">
+            </div>
+            <div class="center-nav-item" ms-on-tap="clickA(6)" ms-visible="isManage">
                 <a href="javascript:void(0)" >
                     <img src="../img/icon/switch.png" class="grid-icon" />
                     <div class="bs-text-smaller bs-text-black">下单模式</div>
                 </a>
-            </li>
-        </ul>
+            </div>
+        </div>
         
         <button id='closebtn' class="closeButton"></button>
     </div>

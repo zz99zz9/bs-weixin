@@ -164,7 +164,7 @@ var vmSide = avalon.define({
                     location.href = "../manage/homepage.html";
                     break;
                 case 8:
-                    // location.href = "";
+                    location.href = "../franchisee.html";
                     break;
             }
         });
