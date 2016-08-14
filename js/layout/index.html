@@ -29,7 +29,7 @@
             <span> | </span>
             <a class="bs-type-tab-item" ms-class="bs-text-red: type==1" ms-on-tap="selectType(1)">时租房</a>
         </div>
-        <div style="display: inline-block;float: right;">
+        <div style="display: inline-block;float: right;" ms-on-tap="goDiscover">
             <img class="headImg" src="./img/index-btn-rightup.png" alt="" style="margin-right: 0; border-radius: 0;">
         </div>
     </header>
@@ -67,9 +67,9 @@
                     <button type="button" class="calender-icon" style="background-image: url(img/map.png);top: 20px;" ms-click="showMap">
                     </button>
                 </div>
-                <div>
-                    <div style="height: 90px;margin: 45px 10px 0 10px; background-position-x: -24px;background-image: url(img/night_room_banner.jpg); background-size: cover;"></div>
-                </div>
+                <!-- 广告位 -->
+                <div style="height: 90px;margin: 45px 10px 0 10px; background-position-x: -24px;background-image: url(img/night_room_banner.jpg); background-size: cover;" ms-on-tap="goMidnight"></div>
+
                 <span class="sub-title bs-text-gold" ms-if="isShowSeen">最近浏览过的</span>
                 <div ms-if="isShowSeen" class="swiper-container swiper2" style="height:auto; margin-bottom:10px;">
                     <div class="swiper-wrapper">

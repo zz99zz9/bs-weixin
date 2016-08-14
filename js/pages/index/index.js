@@ -202,6 +202,16 @@ var vmIndex = avalon.define({
             location.href = "room.html?id=" + id;
         });
     },
+    goMidnight: function() {
+        stopSwipeSkip.do(function() {
+            location.href = "special.html";
+        });
+    },
+    goDiscover: function() {
+        stopSwipeSkip.do(function() {
+            location.href = "discover.html";
+        });
+    },
     swiper1Render: function() {
         var swiper1 = new Swiper('.swiper1', {
             loop: true,
