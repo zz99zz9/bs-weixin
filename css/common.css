@@ -3,7 +3,7 @@ body {
     /*background-color: #fff !important;*/
 }
 
-.ms-controller {
+.ms-controller, [ms-controller] {
     display: none;
 }
 

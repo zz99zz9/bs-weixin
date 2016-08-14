@@ -1,6 +1,9 @@
 .ms-controller {
     visibility: hidden;
 }
+[ms-controller] {
+    display: initial;
+}
 
 .swiper {
     background-color: #000;

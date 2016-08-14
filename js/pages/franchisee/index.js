@@ -67,7 +67,7 @@ $circle.attr("width", window.innerWidth);
 $circle.attr("height", window.innerHeight);
 
 context.beginPath();
-context.arc((window.innerWidth)/2,
+context.arc((window.innerWidth)/2 - 20,
     window.innerHeight*0.23,
     75,getRadians(135),getRadians(45),false);
 context.lineWidth = 7;
