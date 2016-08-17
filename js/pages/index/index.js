@@ -50,10 +50,10 @@ var vmIndex = avalon.define({
                             offset: new AMap.Pixel(-12, -36)
                         }).on('click', function() {
                             Storage.set("bensue", { type: vmIndex.type });
-                            for(var i in this){
-                                if( typeof this[i] !== 'function') {
-                                    for(var j in this[i]) {
-                                        if(j=='hid') {
+                            for (var i in this) {
+                                if (typeof this[i] !== 'function') {
+                                    for (var j in this[i]) {
+                                        if (j == 'hid') {
                                             location.href = "hotel.html?id=" + this[i][j];
                                             return;
                                         }
@@ -99,7 +99,7 @@ var vmIndex = avalon.define({
     isShowMap: false,
     showMap: function() {
         vmIndex.isShowMap = true;
-        console.log([vmIndex.lng, vmIndex.lat]);
+
         myMarker.setPosition([vmIndex.lng, vmIndex.lat]);
 
         //自动调整显示所有的点
@@ -323,8 +323,9 @@ mapObj.plugin('AMap.Geolocation', function() {
     });
     mapObj.addControl(geolocation);
 
+    var isLocated = verify(positionInStorage);
     //获取地址
-    if (verify(positionInStorage)) {
+    if (isLocated) {
         //如果本地储存的地址有效，直接使用本地数据更新列表
         updateData();
     } else {
@@ -375,10 +376,10 @@ function loadmore() {
             pageSize: vmIndex.pageSize
         },
         successCallback: function(json) {
-            if(json.status == 1) {
+            if (json.status == 1) {
                 vmIndex.pageNo++;
                 vmIndex.roomList.push.apply(vmIndex.roomList, json.data.list);
-                    
+
                 if (vmIndex.pageNo > json.data.pageCount) {
                     mui("#pullrefresh").pullRefresh().endPullupToRefresh(false);
                 } else {
@@ -393,7 +394,7 @@ function loadmore() {
 
 //解析定位结果，逆向地理编码
 function onComplete(data) {
-    console.log(data);
+
     positionInStorage.lng = data.position.getLng();
     positionInStorage.lat = data.position.getLat();
 
@@ -439,10 +440,22 @@ function select(e) {
 }
 
 function verify(position) {
+    console.log(position);
     if (position) {
         if (position.lng && position.lat) {
-            myMarker.setPosition([position.lng, position.lat]);
-            return true;
+
+            if(myMarker) {
+                myMarker.setPosition([position.lng, position.lat]);
+            } else {
+                myMarker = new AMap.Marker({
+                    map: mapObj,
+                    icon: "./img/transparent.png",
+                    position: [121.626131, 31.210465],
+                    offset: new AMap.Pixel(-12, -36)
+                });
+                myMarker.setPosition([position.lng, position.lat]);
+             }
+             return true;
         } else {
             positionInStorage.lng = 0;
             positionInStorage.lat = 0;
