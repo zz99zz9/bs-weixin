@@ -5,11 +5,14 @@
 var vmWeixin = avalon.define({
     $id: 'weixin',
     authWeixin: function () {
-        console.log("ok");
         var authCode = getParam("authCode");
         var openId = getParam("openId");
         var url = getParam("url");
-        if (openId && authCode) {
+        if (openId && authCode) {	
+			var user = Storage.getLocal('user') || {};
+			user.openId = openId;
+			Storage.setLocal('user',user);
+			
             ajaxJsonp({
                 url: urls.authWeixin,
                 data: {
