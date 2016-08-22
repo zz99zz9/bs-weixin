@@ -91,7 +91,7 @@ input[type=checkbox] {
             <li class="order-item" ms-repeat="data.orderRoomList" ms-data-index="$index" ms-click="selectRoom($index, el.status)" style="padding: 8px 0 8px 10px;">
                 <div class="hiddenbox">
                     <input type="checkbox" style="display: none;" ms-duplex-number="selectedList" ms-attr-value="$index" />
-                    <div ms-visible="el.status<=1" class="check-icon" ms-class-1="unchecked:selectedList.indexOf($index)<0" ms-class-2="checked:selectedList.indexOf($index)>-1" style="position: absolute; right: 5px;"></div>
+                    <div ms-visible="data.status==1" class="check-icon" ms-class-1="unchecked:selectedList.indexOf($index)<0" ms-class-2="checked:selectedList.indexOf($index)>-1" style="position: absolute; right: 5px;"></div>
                 </div>
                 <!-- 右上角房间状态 -->
                 <span class="status bs-text-smaller bs-text-white" ms-if="data.status>1" style="right: 9px;">{{getStatus(el.status)}}</span>

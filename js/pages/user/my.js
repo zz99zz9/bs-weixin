@@ -30,6 +30,7 @@ $(function() {
         ishide = true;
     })
 });
+
 var vmSide = avalon.define({
     $id: 'aside',
     headImg: defaultHeadImg,
@@ -92,8 +93,9 @@ var vmSide = avalon.define({
             url: urls.userInfotUrl,
             data: {},
             successCallback: function(json) {
-                if (json.status == 1) //已登录
-                {
+                if (json.status == 1) { //已登录
+
+                    //通过config接口注入权限验证配置
                     ajaxJsonp({
                         url: urls.weiXinConfig,
                         data: {
@@ -107,34 +109,30 @@ var vmSide = avalon.define({
                                     timestamp: json.data.timestamp,
                                     nonceStr: json.data.nonceStr,
                                     signature: json.data.signature,
-                                    jsApiList: [
-                                        'checkJsApi',
-                                        'chooseImage',
-                                        'previewImage',
-                                        'uploadImage',
-                                        'downloadImage'
-                                    ]
+                                    jsApiList: ['chooseImage','uploadImage']
                                 });
-                                wx.chooseImage({
-                                    count: 1, // 默认9
-                                    sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
-                                    sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-                                    success: function(res) {
-                                        wx.uploadImage({
-                                            localId: res.localIds[0], // 需要上传的图片的本地ID，由chooseImage接口获得
-                                            isShowProgressTips: 0, // 默认为1，显示进度提示
-                                            success: function(res1) {
-                                                //alert(res1.serverId);
-                                                savePic(res1.serverId);
-                                                // console.log(res1.serverId);
-                                            }
-                                        });
-                                    }
-                                });
+
+                                wx.ready(function() {
+                                    wx.chooseImage({
+                                        count: 1, // 默认9
+                                        sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+                                        sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+                                        success: function(res) {
+                                            wx.uploadImage({
+                                                localId: res.localIds[0], // 需要上传的图片的本地ID，由chooseImage接口获得
+                                                isShowProgressTips: 0, // 默认为1，显示进度提示
+                                                success: function(res1) {
+                                                    //alert(res1.serverId);
+                                                    savePic(res1.serverId);
+                                                    // console.log(res1.serverId);
+                                                }
+                                            });
+                                        }
+                                    });
+                                })
                             }
                         }
                     });
-
                 }
             }
         });

@@ -10,11 +10,14 @@ var vmIndex = avalon.define({
         ajaxJsonp({
             url: urls.getCityGallery,
             data: {
-                cityCode: '021' //默认上海
+                cityCode: '021', //默认上海
+                isPartTime: vmIndex.type
             },
             successCallback: function(json) {
                 if (json.status == 1) {
-                    vmIndex.galleryList = json.data;
+                    if (json.data.length > 1) {
+                        vmIndex.galleryList = json.data;
+                    }
                 }
             }
         });
@@ -73,6 +76,8 @@ var vmIndex = avalon.define({
             vmFilter.type = type;
             Storage.set("bensue", { type: type });
             updateData();
+            vmIndex.getCityGallery();
+
             mui('#pullrefresh').pullRefresh().refresh(true);
         });
     },
@@ -440,7 +445,7 @@ function select(e) {
 }
 
 function verify(position) {
-    console.log(position);
+
     if (position) {
         if (position.lng && position.lat) {
 

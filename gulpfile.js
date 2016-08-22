@@ -253,6 +253,18 @@ function wallet() {
 }
 
 //关于
+function share() {
+    return gulp.src('./js/layout/shell.html')
+        .pipe(replace({ regex: '<!-- content -->', replace: '<!--include "../pages/share/share.html"-->' }))
+        .pipe(replace({ regex: '<!-- js -->', replace: '<script src="js/pages/share/share.js"></script>' }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('share.html'))
+        .pipe(gulp.dest('./src'));
+}
+
+//关于
 function about() {
     return gulp.src('./js/layout/shell.html')
         .pipe(replace({ regex: '<!-- css -->', replace: '<link rel="stylesheet" href="css/swiper.min.css">' }))
@@ -1264,6 +1276,7 @@ gulp.task('html', gulp.parallel(
     userInfo,
     userInvite,
     wallet,
+    share,
     about,
     register1,
     register2,

@@ -58,8 +58,8 @@
                 </div>
                 <!-- 打开日历按钮 -->
                 <div class="bs-btn-icon" style="top: 100vw;right: 60px;">
-                    <button type="button" class="calender-icon" style="background-image: url(img/calender.png);top: 20px;" ms-on-tap="openTimePanel">
-                        <div class="bs-text-red" style="margin: 8px 1px 0 0">{{getToday('day')}}</div>
+                    <button type="button" class="calender-icon" ms-css-background-image="type?'url(img/clock.png)':'url(img/calender.png)'" style="top: 20px;" ms-on-tap="openTimePanel">
+                        <div class="bs-text-red" ms-if="!type" style="margin: 8px 1px 0 0">{{getToday('day')}}</div>
                     </button>
                 </div>
                 <!-- 打开地图按钮 -->

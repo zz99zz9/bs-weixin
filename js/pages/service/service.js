@@ -36,28 +36,13 @@ var vmService = avalon.define({
             popover('', none);
         });
     },
-    call: function(a) {
+    call: function(s) {
         stopSwipeSkip.do(function() {
             vmAInfoBtn.selectText = '呼叫';
             popover('', none);
-            switch (a) {
-                case 0:
-                    vmAInfo.type = 2;
-                    vmAInfo.goods = vmService.$model.data[0];
-                    break;
-                case 1:
-                    vmAInfo.type = 2;
-                    vmAInfo.goods = vmService.$model.data[1];
-                    break;
-                case 2:
-                    vmAInfo.type = 3;
-                    vmAInfo.goods = vmService.$model.data[2];
-                    break;
-                case 3:
-                    vmAInfo.type = 2;
-                    vmAInfo.goods = vmService.$model.data[3];
-                    break;
-            }
+
+            vmAInfo.type = s.name.indexOf('干洗')>-1?3:2;
+            vmAInfo.goods = s;
         });
     },
     alarm: function() {
