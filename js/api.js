@@ -12,6 +12,9 @@ var urls = {
     saveInvoiceLog: urlAPI + '/usr/invoiceLog/save',
     getInviteCode: urlAPI + '/usr/user/invitationCode',
     getHomeBannerList: urlAPI + '/sys/homeBanner/list',
+    getRedPacketUrl: urlAPI + '/wx/wechat/getRedPacketUrl',//获取基金分享地址
+    openRedPacket: urlAPI + '/wx/redPacket/open', //打开邀请基金
+
     //授权微信获取信息
     authWeixin: urlAPI + '/usr/user/authWeixin',
     //首页
