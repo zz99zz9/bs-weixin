@@ -57,7 +57,7 @@ var vmInvite = avalon.define({
                                                 wx.onMenuShareTimeline({
                                                     title: '住本宿，不将就', // 分享标题
                                                     link: vmInvite.url, // 分享链接
-                                                    imgUrl: urlWeixin + '/logo.jpg', // 分享图标
+                                                    imgUrl: urlWeixin + '/img/logo.jpg', // 分享图标
                                                     success: function() {
                                                         // 用户确认分享后执行的回调函数
                                                     },
@@ -70,7 +70,7 @@ var vmInvite = avalon.define({
                                                     title: '本宿', // 分享标题
                                                     desc: '住本宿，不将就', // 分享描述
                                                     link: vmInvite.url, // 分享链接
-                                                    imgUrl: urlWeixin + '/logo.jpg', // 分享图标
+                                                    imgUrl: urlWeixin + '/img/logo.jpg', // 分享图标
                                                     type: '', // 分享类型,music、video或link，不填默认为link
                                                     dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
                                                     success: function() {
@@ -139,89 +139,6 @@ var vmOldInvite = avalon.define({
                 if (json.status === 1) {
                     vmOldInvite.list = json.data.list;
                     vmOldInvite.count = json.data.count;
-                    vmOldInvite.list.push.apply(vmOldInvite.list, [
-                        {
-                            createTime: "2016-03-22 11:25:17",
-                            description: "17181571914接受你￥36的约会基金优惠券",
-                            id: 15,
-                            invitee: 23,
-                            inviteeFid: 15,
-                            inviter: 22,
-                            inviterFid: 16,
-                        },
-                        {
-                            createTime: "2016-03-22 11:25:17",
-                            description: "17181571914接受你￥36的约会基金优惠券",
-                            id: 15,
-                            invitee: 23,
-                            inviteeFid: 15,
-                            inviter: 22,
-                            inviterFid: 16,
-                        },
-                        {
-                            createTime: "2016-03-22 11:25:17",
-                            description: "17181571914接受你￥36的约会基金优惠券",
-                            id: 15,
-                            invitee: 23,
-                            inviteeFid: 15,
-                            inviter: 22,
-                            inviterFid: 16,
-                        },
-                        {
-                            createTime: "2016-03-22 11:25:17",
-                            description: "17181571914接受你￥36的约会基金优惠券",
-                            id: 15,
-                            invitee: 23,
-                            inviteeFid: 15,
-                            inviter: 22,
-                            inviterFid: 16,
-                        },
-                        {
-                            createTime: "2016-03-22 11:25:17",
-                            description: "17181571914接受你￥36的约会基金优惠券",
-                            id: 15,
-                            invitee: 23,
-                            inviteeFid: 15,
-                            inviter: 22,
-                            inviterFid: 16,
-                        },
-                        {
-                            createTime: "2016-03-22 11:25:17",
-                            description: "17181571914接受你￥36的约会基金优惠券",
-                            id: 15,
-                            invitee: 23,
-                            inviteeFid: 15,
-                            inviter: 22,
-                            inviterFid: 16,
-                        },
-                        {
-                            createTime: "2016-03-22 11:25:17",
-                            description: "17181571914接受你￥36的约会基金优惠券",
-                            id: 15,
-                            invitee: 23,
-                            inviteeFid: 15,
-                            inviter: 22,
-                            inviterFid: 16,
-                        },
-                        {
-                            createTime: "2016-03-22 11:25:17",
-                            description: "17181571914接受你￥36的约会基金优惠券",
-                            id: 15,
-                            invitee: 23,
-                            inviteeFid: 15,
-                            inviter: 22,
-                            inviterFid: 16,
-                        },
-                        {
-                            createTime: "2016-03-22 11:25:17",
-                            description: "17181571914接受你￥36的约会基金优惠券",
-                            id: 15,
-                            invitee: 23,
-                            inviteeFid: 15,
-                            inviter: 22,
-                            inviterFid: 16,
-                        }
-                    ])
                 }
             }
         });
