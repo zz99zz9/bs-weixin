@@ -424,6 +424,9 @@ function register2() {
         .pipe(contentIncluder({
             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
         }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
         .pipe(rename('register-2.html'))
         .pipe(gulp.dest('./src'));
 }
