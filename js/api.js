@@ -74,6 +74,7 @@ var urls = {
 
     //管理
     //欢迎页
+    getManager: urlAPI + '/mgr/hotelManagerNote/getByHid',//店长寄语
     regionList: urlAPI + '/sys/area/getMyList',//用户拥有的区域列表
     hotelList: urlAPI + '/mgr/hotelManage/myHotelList',//用户拥有的酒店列表
     menuList: urlAPI + '/usr/menu/list',//用户拥有的菜单列表

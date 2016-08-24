@@ -11,7 +11,7 @@
 }
 
 .order-ud {
-    margin: 20px 0 0 10px;
+    margin: 20px 0 10px 10px;
 }
 
 .order-message{
@@ -36,7 +36,7 @@
     </div>
     <span class="order-title order-ud bs-text-large bs-text-153">当前订单</span>
     <ul class="order-list" style="margin-bottom: 0px;">
-        <li class="order-item bs-text-large bs-text-153" style="margin-top: 0px; padding-top: 20px;" ms-if="list1.length == 0">暂无订单
+        <li class="order-item bs-text-large bs-text-153" style="margin-top: 0px;" ms-if="list1.length == 0">暂无订单
         </li>
         <li class="order-item" style="padding-bottom: 15px;" ms-repeat="list1" ms-if="list1.length!=0" ms-click="goDetail(el.id)">
             <span class="status bs-text-smaller bs-text-white">{{showStatus(el.status)}}</span>
@@ -57,7 +57,7 @@
     </ul>
     <span class="order-title bs-text-large bs-text-153" style="margin: 10px 0 0px 10px;">历史订单</span>
     <ul class="order-list" style="margin-bottom: 0px;">
-        <li class="order-item bs-text-large bs-text-153" style="margin-top: 10px; padding-top: 20px;" ms-if="list2.length == 0">暂无订单
+        <li class="order-item bs-text-large bs-text-153" style="margin-top: 10px;" ms-if="list2.length == 0">暂无订单
         </li>
         <li class="order-item" style="padding-bottom: 15px;" ms-repeat="list2" ms-if="list2.length!=0" ms-click="goDetail(el.id)">
             <span class="status bs-text-smaller bs-text-white">{{showStatus(el.status)}}</span>

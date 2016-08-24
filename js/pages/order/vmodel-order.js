@@ -166,7 +166,7 @@ var vmOrder = avalon.define({
             case 3: //3已入住－评价
             case 4: //4已离店－评价
                 location.href = "submitassess.html?oid=" + orderid + "&orid=" + orid
-                        +"&room=" + getRoom(orid) + "&time=" + getTime(orid);
+                        +"&room=" + getRoom(orid) + "&time=" + getTime(orid) + "&hid=" + vmOrder.data.hotel.id;
                 break;
         }
     },
@@ -190,19 +190,7 @@ var vmOrder = avalon.define({
         stopSwipeSkip.do(function() {
             //未入住、已入住、已离店的状态
             //会调出操作面板
-            switch (vmOrder.data.status) {
-                case 2: //未入住-退订
-                    UnsubscribeOrder(orid);
-                    break;
-                case 3: //已入住-评价选择的房间
-                    location.href = "submitassess.html?oid=" + orderid + "&orid=" + orid
-                        +"&room=" + getRoom(orid) + "&time=" + getTime(orid);
-                    break;
-                case 4: //已离店-评价选择的房间
-                    location.href = "submitassess.html?oid=" + orderid + "&orid=" + orid
-                        +"&room=" + getRoom(orid) + "&time=" + getTime(orid);
-                    break;
-            }
+            vmOrder.orderRoomAction(vmOrder.data.status, orid);
         })
     }
 });
