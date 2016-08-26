@@ -177,6 +177,9 @@ if (myPosition) {
 bensue = Storage.get("bensue");
 if (bensue) {
     roomType = bensue.type || 0;
+} else {
+    roomType = 0;
+    Storage.set("bensue", {type: 0});
 }
 
 newOrder = Storage.get("newOrder");

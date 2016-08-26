@@ -288,6 +288,10 @@ bensue = Storage.get("bensue");
 if (bensue && bensue.type) {
     vmIndex.type = bensue.type;
     vmFilter.type = bensue.type;
+} else {
+
+    bensue = { type: 0 };
+    Storage.set("bensue", bensue);
 }
 
 newOrder = Storage.get("newOrder");
