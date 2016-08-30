@@ -118,10 +118,10 @@ var vmShare = avalon.define({
     sinaUrl: '',
     qzoneUrl: '',
     initUrl: function() {
-        vmShare.renrenUrl = 'http://www.jiathis.com/send/?webid=renren&url=http://weixin.benjiudian.com/index.html' + vmInvite.code + '&title=住本宿,不将就';
-        vmShare.sinaUrl = 'http://www.jiathis.com/send/?webid=tsina&url=http://weixin.benjiudian.com/index.html' + vmInvite.code + '&title=住本宿,不将就';
-        vmShare.txweiboUrl = 'http://www.jiathis.com/send/?webid=tqq&url=http://weixin.benjiudian.com/index.html' + vmInvite.code + '&title=住本宿,不将就';
-        vmShare.qzoneUrl = 'http://www.jiathis.com/send/?webid=qzone&url=http://weixin.benjiudian.com/register-1.html?code=' + vmInvite.code + '&title=住本宿,不将就';
+        vmShare.renrenUrl = 'http://www.jiathis.com/send/?webid=renren&url=http://weixin.bensue.com/index.html' + vmInvite.code + '&title=住本宿,不将就';
+        vmShare.sinaUrl = 'http://www.jiathis.com/send/?webid=tsina&url=http://weixin.bensue.com/index.html' + vmInvite.code + '&title=住本宿,不将就';
+        vmShare.txweiboUrl = 'http://www.jiathis.com/send/?webid=tqq&url=http://weixin.bensue.com/index.html' + vmInvite.code + '&title=住本宿,不将就';
+        vmShare.qzoneUrl = 'http://www.jiathis.com/send/?webid=qzone&url=http://weixin.bensue.com/register-1.html?code=' + vmInvite.code + '&title=住本宿,不将就';
     }
 
 });

@@ -17,7 +17,7 @@ var vmSub = avalon.define({
         content: '',
         post: '迪斯尼店店长',
         name: 'joanna',
-        headImg: 'http://img.benjiudian.com/uploadsImg/20160331/img/d708d83c-3835-443e-ae94-02c639509127100.jpg',
+        headImg: 'http://img.bensue.com/uploadsImg/20160331/img/d708d83c-3835-443e-ae94-02c639509127100.jpg',
         message: '君不见黄河之水天上来，奔流到海不复回。君不见高堂明镜悲白发，朝如青丝暮成雪。君不见黄河之水天上来，奔流到海不复回。君不见高堂明镜悲白发，朝如青丝暮成雪。',
         inHome: '',
         inTime: '',
