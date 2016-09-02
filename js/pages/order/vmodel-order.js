@@ -69,7 +69,8 @@ var vmOrder = avalon.define({
         }
     },
     goHotelById: function(id) {
-        location.href = "hotel.html?id=" + id;
+        //location.href = "hotel.html?id=" + id;
+        location.href = "index.html";
     },
     openNav: function(lat, lng, name, addr) {
         stopSwipeSkip.do(function() {

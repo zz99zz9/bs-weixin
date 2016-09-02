@@ -14,7 +14,8 @@ var vmPayend = avalon.define({
 	$id: "payend",
 	data: {},
     goHotelById: function(id) {
-        location.href = "hotel.html?id=" + id;
+        location.href = "index.html";
+        // location.href = "hotel.html?id=" + id;
     },
     openNav: function(lat, lng, name, addr) {
         stopSwipeSkip.do(function() {

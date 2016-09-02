@@ -37,7 +37,8 @@ vmRoom = avalon.define({
     isAgree: true,
     goHotel: function() {
         stopSwipeSkip.do(function() {
-            location.href = "hotel.html?id=" + vmRoom.room.hotel.id;
+            location.href = "index.html";
+            // location.href = "hotel.html?id=" + vmRoom.room.hotel.id;
         });
     },
     openNav: function() {
@@ -196,7 +197,8 @@ vmRoom = avalon.define({
     },
     goHotelById: function(id) {
         stopSwipeSkip.do(function() {
-            location.href = "hotel.html?id=" + id;
+            location.href = "index.html";
+            // location.href = "hotel.html?id=" + id;
         });
     },
     isGoNext: false,
