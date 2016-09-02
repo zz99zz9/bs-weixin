@@ -1,0 +1,33 @@
+<style>
+    .hotel-introduction section {
+        margin: 20px 0;
+        font-size: 15px;
+    }
+    .hotel-introduction section div {
+        margin: 10px 0;
+        font-size: 13px;
+    }
+</style>
+<div ms-controller="hotel" class="bs-bg-white bs-text-black hotel-introduction" style="padding: 15px;height: 80vh;overflow: scroll;">
+    <div class="bs-text-larger">{{name}}</div>
+    <section>
+        联系电话
+        <div>
+            <a class="bs-text-gold" ms-attr-href="'tel:' + tel">{{tel}} 联系店家</a>
+        </div>
+    </section>
+
+    <section>
+        酒店介绍
+        <div>
+            {{introduction}}
+        </div>
+    </section>
+
+    <section>
+        周围交通
+        <div>
+            {{circTraffic}}
+        </div>
+    </section>
+</div>
