@@ -347,26 +347,6 @@ hid = 1; //目前只有1家店
 //     myLat = myPosition.lat || "";
 // }
 
-registerWeixinConfig();
-//获得用户的位置
-wx.ready(function(){
-    wx.getLocation({
-        type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
-        success: function (res) {
-
-            console.log(res);
-
-            myLat = res.latitude; // 纬度，浮点数，范围为90 ~ -90
-            myLng = res.longitude; // 经度，浮点数，范围为180 ~ -180。
-
-            Storage.setLocal("position", {
-                lat: mylat,
-                lng: myLng
-            });
-        }
-    });
-});
-
 bensue = Storage.get("bensue");
 if (bensue) {
     roomType = bensue.type || 0;
@@ -401,7 +381,30 @@ if (user && user.headImg) {
 
 vmHotel.type = roomType;
 
-vmHotel.getHotelDetail();
+registerWeixinConfig();
+
+//获得用户的位置
+wx.ready(function(){
+    wx.getLocation({
+        type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
+        success: function (res) {
+            console.log(res);
+            myLat = res.latitude; // 纬度，浮点数，范围为90 ~ -90
+            myLng = res.longitude; // 经度，浮点数，范围为180 ~ -180。
+            vmHotel.getHotelDetail();
+
+            Storage.setLocal("position", {
+                lat: mylat,
+                lng: myLng
+            });
+        }
+    });
+});
+wx.error(function(res){
+    console.log(res);
+    vmHotel.getHotelDetail();
+});
+
 vmHotel.getServiceList();
 vmHotel.getAssess();
 vmHotel.getRoomType();
