@@ -1,4 +1,8 @@
 <style>
+.hotel-assess table tr {
+    height: 30px;
+}
+
 .isValid {
     color: #ffa000;
 }
@@ -7,38 +11,82 @@
     color: gray;
 }
 
-.talker {}
-
 .mui-table-view:before {
-   background-color: transparent;}
+   background-color: transparent;
+}
 
 .mui-table-view:after {
-   background-color: transparent;}
+   background-color: transparent;
+}
 </style>
-<div ms-controller="roomassess" style="height:80vh; background: #fff; overflow: scroll;">
-    <div class="mui-text-center">
-        <br />
-        <div class="circle photo" ms-css-background-image="'url('+urlAPINet + designer.portraitUrl+')'">
-            &nbsp;
+<div ms-controller="hotel" class="hotel-assess" style="height:80vh; background: #fff; overflow: scroll;">
+    <section class="bs-text-black" style="padding: 15px;">
+        <table>
+            <tr class="bs-text-larger">
+                <td style="width: 100px;height: 40px;">
+                    总评分
+                </td>
+                <td class="isValid">
+                    {{score.totalScore}} 分
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    洗浴舒适度
+                </td>
+                <td>
+                    <span ms-class-1="isValid:score.score1>=1" ms-class-2="noValid:score.score1<1">★</span>
+                    <span ms-class-1="isValid:score.score1>=2" ms-class-2="noValid:score.score1<2">★</span>
+                    <span ms-class-1="isValid:score.score1>=3" ms-class-2="noValid:score.score1<3">★</span>
+                    <span ms-class-1="isValid:score.score1>=4" ms-class-2="noValid:score.score1<4">★</span>
+                    <span ms-class-1="isValid:score.score1>=5" ms-class-2="noValid:score.score1<5">★</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    睡眠舒适度
+                </td>
+                <td>
+                    <span ms-class-1="isValid:score.score2>=1" ms-class-2="noValid:score.score2<1">★</span>
+                    <span ms-class-1="isValid:score.score2>=2" ms-class-2="noValid:score.score2<2">★</span>
+                    <span ms-class-1="isValid:score.score2>=3" ms-class-2="noValid:score.score2<3">★</span>
+                    <span ms-class-1="isValid:score.score2>=4" ms-class-2="noValid:score.score2<4">★</span>
+                    <span ms-class-1="isValid:score.score2>=5" ms-class-2="noValid:score.score2<5">★</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    服务满意度
+                </td>
+                <td>
+                    <span ms-class-1="isValid:score.score3>=1" ms-class-2="noValid:score.score3<1">★</span>
+                    <span ms-class-1="isValid:score.score3>=2" ms-class-2="noValid:score.score3<2">★</span>
+                    <span ms-class-1="isValid:score.score3>=3" ms-class-2="noValid:score.score3<3">★</span>
+                    <span ms-class-1="isValid:score.score3>=4" ms-class-2="noValid:score.score3<4">★</span>
+                    <span ms-class-1="isValid:score.score3>=5" ms-class-2="noValid:score.score3<5">★</span>
+                </td>
+            </tr>
+        </table>
+    </section>
+    <section>
+        <div class="bs-text-black bs-text-larger" style="padding: 10px 15px 0px 15px;">评价 共{{assessCount}}条</div>
+        <div class="mui-text-center bs-text-smaller" ms-repeat="assessList">
+            <div style="text-align: left;margin: 0 15px;">
+                <br>
+                <div class="bs-text-153" style="text-align: left;font-weight: 300;display: inline;margin-right: 10px;">
+                    {{el.user.name || el.user.mobile}}
+                </div>
+                <span ms-class-1="isValid:el.s>=1" ms-class-2="noValid:el.s<1">★</span>
+                <span ms-class-1="isValid:el.s>=2" ms-class-2="noValid:el.s<2">★</span>
+                <span ms-class-1="isValid:el.s>=3" ms-class-2="noValid:el.s<3">★</span>
+                <span ms-class-1="isValid:el.s>=4" ms-class-2="noValid:el.s<4">★</span>
+                <span ms-class-1="isValid:el.s>=5" ms-class-2="noValid:el.s<5">★</span>
+                <span class="bs-text-black" style="float: right;">{{el.createTime.slice(0,10)}}</span>
+                <div class="small bs-text-black bs-text-small" style="font-weight: 100;font-size: 13px;margin: 15px 0px;"> {{el.content}}</div>
+                <hr style="margin-top: 0px;margin-bottom: 0px;">
+            </div>
         </div>
-        <br />
-        <h4 class="bs-text-black bs-text-large" style="display: inline;margin-right: 10px;">{{designer.name}}</h4>
-        <small style="font-weight: 100; color:#999;">试睡师</small>
-        <div class="small bs-text-black bs-text-small" style="margin: 20px auto; text-align: left; font-weight: 100; font-size: 13px; margin: 20px 15px;">{{designer.message}}</div>
-        <hr style="margin-bottom: 0px;margin-top: 0px;border-top-width: 1px;">
-    </div>
-    <div class="bs-text-black bs-text-large" style="padding: 10px 15px 0px 15px;">评价({{count}})</div>
-    <div class="mui-text-center" ms-repeat="list">
-        <div style="text-align: left;margin: 0 15px;">
-            <br>
-            <h4 class="bs-text-153 bs-text-small" style="text-align: left;font-weight: 300;display: inline;margin-right: 10px;">{{el.user.name || el.user.mobile}}</h4>
-            <span ms-class-1="isValid:el.s>=1" ms-class-2="noValid:el.s<1">★</span>
-            <span ms-class-1="isValid:el.s>=2" ms-class-2="noValid:el.s<2">★</span>
-            <span ms-class-1="isValid:el.s>=3" ms-class-2="noValid:el.s<3">★</span>
-            <span ms-class-1="isValid:el.s>=4" ms-class-2="noValid:el.s<4">★</span>
-            <span ms-class-1="isValid:el.s>=5" ms-class-2="noValid:el.s<5">★</span>
-            <div class="small bs-text-black bs-text-small" style="font-weight: 100;font-size: 13px;margin: 15px 0px;"> {{el.content}}</div>
-            <hr style="margin-top: 0px;margin-bottom: 0px;">
-        </div>
-    </div>
+        <br>
+        <button class="mui-btn mui-btn-block bs-bg-black bs-text-white" style="padding: 5px 0;" ms-if="isShowLoadMoreAssessBtn" ms-on-tap="loadMoreAssess">加载更多</button>
+    </section>
 </div>

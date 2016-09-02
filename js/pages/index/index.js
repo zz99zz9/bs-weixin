@@ -1,6 +1,6 @@
 var newOrder, bensue, myMarker, mapObj, geolocation,
     positionInStorage = Storage.getLocal("position"),
-    user = Storage.getLocal("user");;
+    user = Storage.getLocal("user");
 
 var vmIndex = avalon.define({
     $id: 'index',

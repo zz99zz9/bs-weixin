@@ -443,16 +443,16 @@ button {
 }
 
 .swiper-slide-item a div label span {
-    font-size: small;
+    font-size: 12px;
     font-weight: 100;
 }
 
 .swiper-slide-item .roomtype {
     background: #baa071;
     width: 100%;
-    line-height: 14px;
+    line-height: 16px;
     text-align: center;
-    font-size: small;
+    font-size: 12px;
     font-weight: 100;
     color: #fff;
     position: absolute;

@@ -93,7 +93,7 @@ function index() {
 
 //酒店页面
 function hotel() {
-    return gulp.src('./js/layout/shell.html')
+    return gulp.src('./js/layout/shell-index.html')
         .pipe(replace({
             regex: '<!-- css -->',
             replace: '<link rel="stylesheet" href="css/swiper.min.css">\n<link rel="stylesheet" href="css/hotel.css">'
@@ -104,7 +104,7 @@ function hotel() {
         }))
         .pipe(replace({
             regex: '<!-- pop -->',
-            replace: '<!--include "../pages/user/popover.html"-->'
+            replace: '<!--include "../util/pop.html"--><!--include "../pages/user/popover.html"-->'
         }))
         .pipe(replace({
             regex: '<!-- js -->',
@@ -115,14 +115,10 @@ function hotel() {
         }))
         .pipe(replace({
             regex: '<!-- roomSlide -->',
-            replace: '<!--include "../util/roomSlide.html"-->'
+            replace: '<!--include "../util/roomSlide-room.html"-->'
         }))
         .pipe(contentIncluder({
             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
-        }))
-        .pipe(replace({
-            regex: '<!-- slide-info -->',
-            replace: '<!--include "../util/roomSlide-room.html"-->'
         }))
         .pipe(replace({
             regex: '<button class="popover-closeButton"></button>',
@@ -1887,6 +1883,8 @@ function special() {
  */
 function popHtml() {
     return gulp.src([
+            './js/pages/hotel/hotelIntroduction.html',
+            './js/pages/hotel/hotelFeature.html',
             './js/pages/invite/rule.html',
             './js/pages/invite/oldInvite.html',
             './js/pages/invite/share.html',
@@ -1896,7 +1894,8 @@ function popHtml() {
             './js/util/contactList.html',
             './js/pages/user/frequent-contact-add.html',
             './js/pages/user/delivery-address-add.html',
-            './js/pages/room/note.html'
+            './js/pages/room/note.html',
+            './js/pages/room/designer.html'
         ])
         .pipe(gulp.dest('./dist/util/'));
 }

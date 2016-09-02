@@ -1,10 +1,34 @@
 <style>
-    .middle {
-        position: relative;
-        top: 25%;
+    .room-amenity {
+        height: 40px;
+    }
+    .room-amenity-item {
+        background: #efeff4;
+    }
+    .room-amenity-text {
+        color: black;
+        margin-left: 8px;
+        margin-right: 8px;
     }
 </style>
-<div class="mui-text-right" style="height: 45px;">
-    <span class="slide-room middle bs-text-normal" ms-on-tap="goRoom(el.id)">{{el.name}}</span>
-    <span class="bs-text-yellow bs-text-normal middle" style="margin-right: 13px; letter-spacing: 3px;">★★★★★</span>
+<div class="swiper-slide-item">
+    <a href="###" ms-on-tap="goRoom(el.id)">
+        <div ms-css-background-image="url({{urlAPINet + el.coverUrl}})">
+            <label style="display: inline-block;width: 115px;">
+                <span style="position: relative;top: -6px;right: -3px;color: #999;">￥</span>
+                <span class="slide-price">{{type?(el.minPrice*6):el.minPrice}}</span>
+                <span>/{{type==1?"3小时":"晚起"}}</span>
+                <span class="roomtype">{{el.roomType.name}}&nbsp;&nbsp;{{el.name.indexOf('NO')>-1?el.name.slice(3):el.name}}</span>
+            </label>
+        </div>
+    </a>
+    <div class="swiper-container swiper3 room-amenity">
+        <div class="swiper-wrapper" style="padding-left: 0;background: black;">
+            <div class="swiper-slide room-amenity-item" ms-repeat-cl="el.amenityList" data-repeat-rendered="swiper3Render">
+                <img ms-attr-src="urlAPINet + cl.ico" ms-attr-alt="cl.name" style="width: 20px;height: 20px;margin-left: 5px" />
+                <label class="bs-text-small room-amenity-text">{{cl.name}}</label>
+            </div>
+            <div class="swiper-scrollbar"></div>
+        </div>
+    </div>
 </div>
