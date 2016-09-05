@@ -5,7 +5,7 @@ var vmContactList = avalon.define({
     selectedList: [],
     selectDone: function() {
         if (vmContactList.$model.selectedList.length > 2) {
-            alert("入住人员请不要多于两位");
+            mui.toast("入住人员请不要多于两位");
             return false;
         } else {
             newOrder.contact = [];
@@ -22,28 +22,28 @@ var vmContactList = avalon.define({
     disable: false,
     save: function() {
         if (vmContactList.name == "") {
-            alert("姓名不能为空");
+            mui.toast("姓名不能为空");
             return false;
         }
         if (vmContactList.mobile == "") {
-            alert("手机号不能为空");
+            mui.toast("手机号不能为空");
             return false;
         }
         if (vmContactList.idNo == "") {
-            alert("身份证号不能为空");
+            mui.toast("身份证号不能为空");
             return false;
         }
         if (vmContactList.name.length > 20) {
-            alert("姓名格式不正确");
+            mui.toast("姓名格式不正确");
             return false;
         }
         if (vmContactList.mobile.length !== 11) {
-            alert("手机号格式不正确");
+            mui.toast("手机号格式不正确");
             return false;
         }
 
         if (vmContactList.idNo.length !== 18) {
-            alert("身份证号格式不正确");
+            mui.toast("身份证号格式不正确");
             return false;
         }
 
@@ -57,8 +57,9 @@ var vmContactList = avalon.define({
             },
             successCallback: function(json) {
                 if (json.status == 1) {
-                    vmContactList.name == "";
-                    vmContactList.mobile == ""
+                    vmContactList.name = "";
+                    vmContactList.mobile = "";
+                    vmContactList.idNo = "";
                     vmContactList.list.push(json.data);
                     vmContactList.selectedList.push(vmContactList.list.length-1);
                 }
@@ -70,7 +71,8 @@ var vmContactList = avalon.define({
 
 vmContactList.$watch('selectedList.length',function(l){
     if(l > 2 ) {
-        alert("入住人员请不要多于两位");
-        vmContactList.selectedList.pop();
+        mui.toast("入住人员请不要多于两位");
+        // vmContactList.selectedList = vmContactList.$model.selectedList.slice(0, 2);
+        // 自动移除，只能生效一次
     }
 });

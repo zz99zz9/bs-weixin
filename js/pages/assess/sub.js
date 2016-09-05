@@ -1,8 +1,10 @@
 var assess_oid = getParam("oid"), assess_orid = getParam("orid"),
-    assess_room = getParam("room"), assess_time = getParam("time");
+    assess_room = getParam("room"), assess_time = getParam("time"),
+    assess_hid = getParam("hid");
 
 assess_oid = verifyIntParam(assess_oid);
 assess_orid = verifyIntParam(assess_orid);
+assess_hid = verifyIntParam(assess_hid);
 
 var vmSub = avalon.define({
     $id: "sub",
@@ -15,6 +17,7 @@ var vmSub = avalon.define({
         content: '',
         post: '迪斯尼店店长',
         name: 'joanna',
+        headImg: 'http://img.bensue.com/uploadsImg/20160331/img/d708d83c-3835-443e-ae94-02c639509127100.jpg',
         message: '君不见黄河之水天上来，奔流到海不复回。君不见高堂明镜悲白发，朝如青丝暮成雪。君不见黄河之水天上来，奔流到海不复回。君不见高堂明镜悲白发，朝如青丝暮成雪。',
         inHome: '',
         inTime: '',
@@ -62,3 +65,18 @@ var vmSub = avalon.define({
 
 vmSub.data.inHome = assess_room;
 vmSub.data.inTime = assess_time;
+
+ajaxJsonp({
+    url: urls.getManager,
+    data: {
+        hid: assess_hid
+    },
+    successCallback: function(json) {
+        if (json.status == 1) {
+            vmSub.data.headImg = json.data.headUrl;
+            vmSub.data.name = json.data.name;
+            vmSub.data.message = json.data.note;
+            vmSub.data.post = json.data.position;
+        }
+    }
+});

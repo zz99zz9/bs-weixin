@@ -58,8 +58,8 @@
                 </div>
                 <!-- 打开日历按钮 -->
                 <div class="bs-btn-icon" style="top: 100vw;right: 60px;">
-                    <button type="button" class="calender-icon" style="background-image: url(img/calender.png);top: 20px;" ms-on-tap="openTimePanel">
-                        <div class="bs-text-red" style="margin: 8px 1px 0 0">{{getToday('day')}}</div>
+                    <button type="button" class="calender-icon" ms-css-background-image="type?'url(img/clock.png)':'url(img/calender.png)'" style="top: 20px;" ms-on-tap="openTimePanel">
+                        <div class="bs-text-red" ms-if="!type" style="margin: 8px 1px 0 0">{{getToday('day')}}</div>
                     </button>
                 </div>
                 <!-- 打开地图按钮 -->
@@ -68,7 +68,7 @@
                     </button>
                 </div>
                 <!-- 广告位 -->
-                <div style="height: 90px;margin: 45px 10px 0 10px; background-position-x: -24px;background-image: url(img/night_room_banner.jpg); background-size: cover;" ms-on-tap="goMidnight"></div>
+                <div style="height: 90px;margin: 45px 10px 6px 10px; background-position-x: -24px;background-image: url(img/night_room_banner.jpg); background-size: cover;" ms-on-tap="goMidnight"></div>
 
                 <span class="sub-title bs-text-gold" ms-if="isShowSeen">最近浏览过的</span>
                 <div ms-if="isShowSeen" class="swiper-container swiper2" style="height:auto; margin-bottom:10px;">

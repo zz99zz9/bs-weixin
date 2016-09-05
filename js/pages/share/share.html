@@ -1,0 +1,20 @@
+<div ms-controller="share" class='bs-bg-white' style="text-align: center; padding: 10px;">
+    <section ms-if="message==''">
+        <div class="bs-text-normal" style="margin-top: 20px;">
+            你会获得¥{{userFundInvitee.money}}体验基金，<br>{{inviter.name}}也会获得¥{{userFundInviter.money}}体验基金。
+        </div>
+        <div class="bs-bg-gold bs-text-white" style="width: 70vw;margin: 10px auto;font-weight: lighter;">
+            ¥<span class="bs-text-xxx-larger" style="line-height: 70px;">{{userFundInvitee.money}}</span>
+        </div>
+        <div class="bs-text-smaller">
+            有效期：{{userFundInvitee.useEndTime}}之前
+        </div>
+    </section>
+    <div class="bs-text-normal" style="margin-top: 20px;" ms-if="message!=''">
+        {{message}}
+    </div>
+    <img src="img/qr.jpg" alt="bensue2016" style="width: 40vw;margin-top: 10px;">
+    <div class="bs-text-normal" style="margin: 10px 0;"  ms-if="message==''">
+        长按图片，关注本宿即可领取
+    </div>
+</div>

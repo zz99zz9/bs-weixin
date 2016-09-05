@@ -69,7 +69,8 @@ var vmOrder = avalon.define({
         }
     },
     goHotelById: function(id) {
-        location.href = "hotel.html?id=" + id;
+        //location.href = "hotel.html?id=" + id;
+        location.href = "index.html";
     },
     openNav: function(lat, lng, name, addr) {
         stopSwipeSkip.do(function() {
@@ -80,7 +81,7 @@ var vmOrder = avalon.define({
                     name: name, // 位置名
                     address: addr, // 地址详情说明
                     scale: 26, // 地图缩放级别,整形值,范围从1~28。默认为最大
-                    infoUrl: 'ini.xin' // 在查看位置界面底部显示的超链接,可点击跳转
+                    infoUrl: 'bensue.com' // 在查看位置界面底部显示的超链接,可点击跳转
                 });
             } else {
                 alert("微信接口配置注册失败，将重新注册");
@@ -166,7 +167,7 @@ var vmOrder = avalon.define({
             case 3: //3已入住－评价
             case 4: //4已离店－评价
                 location.href = "submitassess.html?oid=" + orderid + "&orid=" + orid
-                        +"&room=" + getRoom(orid) + "&time=" + getTime(orid);
+                        +"&room=" + getRoom(orid) + "&time=" + getTime(orid) + "&hid=" + vmOrder.data.hotel.id;
                 break;
         }
     },
@@ -190,19 +191,7 @@ var vmOrder = avalon.define({
         stopSwipeSkip.do(function() {
             //未入住、已入住、已离店的状态
             //会调出操作面板
-            switch (vmOrder.data.status) {
-                case 2: //未入住-退订
-                    UnsubscribeOrder(orid);
-                    break;
-                case 3: //已入住-评价选择的房间
-                    location.href = "submitassess.html?oid=" + orderid + "&orid=" + orid
-                        +"&room=" + getRoom(orid) + "&time=" + getTime(orid);
-                    break;
-                case 4: //已离店-评价选择的房间
-                    location.href = "submitassess.html?oid=" + orderid + "&orid=" + orid
-                        +"&room=" + getRoom(orid) + "&time=" + getTime(orid);
-                    break;
-            }
+            vmOrder.orderRoomAction(vmOrder.data.status, orid);
         })
     }
 });
@@ -281,7 +270,7 @@ function payOrder() {
                 }
             } else {
                 //调取后台接口不成功
-                alert(json.message);
+                mui.toast(json.message);
                 vmOrder.btn2Disabled = false;
             }
         }

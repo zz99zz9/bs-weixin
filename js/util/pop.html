@@ -55,12 +55,6 @@
                     <div class="bs-text-smaller bs-text-black">体验基金</div>
                 </a>
             </div>
-            <div class="center-nav-item" ms-on-tap="clickA(8)" ms-visible="!isManage">
-                <a href="javascript:void(0)">
-                    <img src="../img/icon/shopping.png" class="grid-icon" />
-                    <div class="bs-text-smaller bs-text-black">购物</div>
-                </a>
-            </div>
             <div class="center-nav-item" ms-on-tap="clickA(8)" ms-visible="isAdmin!=1">
                 <a href="javascript:void(0)" >
                     <img src="../img/icon/switch.png" class="grid-icon" />
@@ -73,6 +67,12 @@
                     <div class="bs-text-smaller bs-text-black">管理模式</div>
                 </a>
             </div>
+            <div class="center-nav-item" ms-visible="!isManage">
+                <!-- <a href="javascript:void(0)">
+                    <img src="../img/icon/shopping.png" class="grid-icon" />
+                    <div class="bs-text-smaller bs-text-black">购物</div>
+                </a>-->
+            </div> 
             <!-- <div class="center-nav-item" ms-visible="isAdmin!=1&&!isManage">
                 <a href="javascript:void(0)" style="display: none;">
                     <img src="../img/icon/switch.png" class="grid-icon" />

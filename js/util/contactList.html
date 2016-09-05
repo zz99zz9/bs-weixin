@@ -43,10 +43,9 @@
     </div>
 
     <div style="height: 55vh;overflow-y: scroll;margin-top: 10px;">
-        <div class="mui-table-view" ms-repeat="list">
-            <div class="mui-table-view-cell mui-checkbox mui-right" ms-data-index="$index" style="z-index: 9;">
-                <input type="checkbox" ms-duplex-number="selectedList" ms-attr-value="$index" class="selected"
-                       style="z-index: 1; top: 12px;">
+        <div class="mui-table-view">
+            <div class="mui-table-view-cell mui-checkbox mui-right" ms-repeat="list" ms-data-index="$index" style="z-index: 9;">
+                <input type="checkbox" ms-duplex-number="selectedList" ms-attr-value="$index" style="z-index: 1; top: 12px;">
                 <div class="mui-slider-handle">
                     <div class="display-flex mui-table-cell">
                         <h5 class="flex1 bs-text-smaller">{{el.name}}</h5>

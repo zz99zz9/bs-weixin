@@ -1,4 +1,4 @@
-var roomid, bensue, newOrder, vmRoom, vmBtn, vmRoomAssess,
+var roomid, bensue, newOrder, vmRoom, vmBtn, vmDesigner,
     isSuccess = false,
     positionInStorage = Storage.getLocal("position");
 
@@ -37,7 +37,8 @@ vmRoom = avalon.define({
     isAgree: true,
     goHotel: function() {
         stopSwipeSkip.do(function() {
-            location.href = "hotel.html?id=" + vmRoom.room.hotel.id;
+            location.href = "index.html";
+            // location.href = "hotel.html?id=" + vmRoom.room.hotel.id;
         });
     },
     openNav: function() {
@@ -49,7 +50,7 @@ vmRoom = avalon.define({
                     name: vmRoom.room.hotel.name, // 位置名
                     address: vmRoom.room.hotel.address, // 地址详情说明
                     scale: 26, // 地图缩放级别,整形值,范围从1~28。默认为最大
-                    infoUrl: 'ini.xin' // 在查看位置界面底部显示的超链接,可点击跳转
+                    infoUrl: '' // 在查看位置界面底部显示的超链接,可点击跳转
                 });
             } else {
                 alert("微信接口配置注册失败，将重新注册");
@@ -111,12 +112,18 @@ vmRoom = avalon.define({
             }
         });
     },
-    openAssess: function() {
+    openDesigner: function() {
         stopSwipeSkip.do(function() {
             vmBtn.useCheck = 0;
-            popover('./util/assess.html', 1);
+            popover('./util/designer.html', 1);
         });
     },
+    // openAssess: function() {
+    //     stopSwipeSkip.do(function() {
+    //         vmBtn.useCheck = 0;
+    //         popover('./util/assess.html', 1);
+    //     });
+    // },
     openCheckin: function() {
         stopSwipeSkip.do(function() {
             vmBtn.type = "checkin";
@@ -190,7 +197,8 @@ vmRoom = avalon.define({
     },
     goHotelById: function(id) {
         stopSwipeSkip.do(function() {
-            location.href = "hotel.html?id=" + id;
+            location.href = "index.html";
+            // location.href = "hotel.html?id=" + id;
         });
     },
     isGoNext: false,
@@ -364,14 +372,18 @@ vmBtn = avalon.define({
     }
 })
 
-vmRoomAssess = avalon.define({
-    $id: "roomassess",
-    designer: { portraitUrl: '', name: '', message: '' },
-    list: [],
-    count: 0,
-    sum: function(s1, s2, s3) {
-        return parseInt(parseInt(s1) / 3 + parseInt(s2) / 3 + parseInt(s3) / 3);
-    }
+// vmRoomAssess = avalon.define({
+//     $id: "roomassess",
+//     designer: { portraitUrl: '', name: '', message: '' },
+//     list: [],
+//     count: 0,
+//     sum: function(s1, s2, s3) {
+//         return parseInt(parseInt(s1) / 3 + parseInt(s2) / 3 + parseInt(s3) / 3);
+//     }
+// });
+vmDesigner = avalon.define({
+    $id: "designer",
+    designer: { portraitUrl: '', name: '', message: '' }
 });
 
 bensue = Storage.get("bensue");
@@ -434,7 +446,7 @@ function room_init() {
                     }
                 });
                 Storage.set("newOrder", newOrder);
-                vmRoomAssess.designer = json.data.designer;
+                vmDesigner.designer = json.data.designer;
                 if (roomType) {
                     //时租房的价格，接口返回的是每半个小时
                     vmRoom.price = vmRoom.room.minPrice * 2;
@@ -492,19 +504,19 @@ function room_init() {
     });
 
     //获取评论
-    ajaxJsonp({
-        url: urls.getRoomAssess,
-        data: { rid: roomid, pageSize: 20 },
-        successCallback: function(json) {
-            if (json.status === 1) {
-                json.data.list.map(function(o) {
-                    o.s = vmRoomAssess.sum(o.score1, o.score2, o.score3);
-                })
-                vmRoomAssess.list = json.data.list;
-                vmRoomAssess.count = json.data.count;
-            }
-        }
-    });
+    // ajaxJsonp({
+    //     url: urls.getRoomAssess,
+    //     data: { rid: roomid, pageSize: 20 },
+    //     successCallback: function(json) {
+    //         if (json.status === 1) {
+    //             json.data.list.map(function(o) {
+    //                 o.s = vmRoomAssess.sum(o.score1, o.score2, o.score3);
+    //             })
+    //             vmRoomAssess.list = json.data.list;
+    //             vmRoomAssess.count = json.data.count;
+    //         }
+    //     }
+    // });
 
     registerWeixinConfig();
 }

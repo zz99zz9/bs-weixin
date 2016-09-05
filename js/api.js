@@ -12,6 +12,9 @@ var urls = {
     saveInvoiceLog: urlAPI + '/usr/invoiceLog/save',
     getInviteCode: urlAPI + '/usr/user/invitationCode',
     getHomeBannerList: urlAPI + '/sys/homeBanner/list',
+    getRedPacketUrl: urlAPI + '/wx/wechat/getRedPacketUrl',//获取基金分享地址
+    openRedPacket: urlAPI + '/wx/redPacket/open', //打开邀请基金
+
     //授权微信获取信息
     authWeixin: urlAPI + '/usr/user/authWeixin',
     //首页
@@ -71,6 +74,7 @@ var urls = {
 
     //管理
     //欢迎页
+    getManager: urlAPI + '/mgr/hotelManagerNote/getByHid',//店长寄语
     regionList: urlAPI + '/sys/area/getMyList',//用户拥有的区域列表
     hotelList: urlAPI + '/mgr/hotelManage/myHotelList',//用户拥有的酒店列表
     menuList: urlAPI + '/usr/menu/list',//用户拥有的菜单列表

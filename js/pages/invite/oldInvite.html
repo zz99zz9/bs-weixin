@@ -1,10 +1,9 @@
-<div ms-controller="oldInvite">
-    <ul ms-if="count!==0">
-        <li ms-repeat="list" ms-if="count!==0">
-            <p>
-                {{el.description}}
-            </p>
-        </li>
-    </ul>
-    <span ms-if="count===0" style="text-align:center">您还没有邀请小伙伴，赶紧行动吧</span>
+<div ms-controller="oldInvite" class="bs-bg-white bs-text-black" style="padding: 15px;height: 80vh;overflow: scroll;">
+    <div class="bs-text-large" ms-if="count!==0" style="margin-bottom: 15px;">邀请记录</div>
+    <div class="bs-text-small" ms-repeat="list" ms-if="count!==0" style="margin: 10px 0;">
+        {{el.description}}
+    </div>
+    <div ms-if="count===0" style="text-align:center" class="bs-text-large">
+        您还没有邀请小伙伴，赶紧行动吧
+    </div>
 </div>

@@ -1,0 +1,42 @@
+<style>
+    .hotel-feature section {
+        margin: 10px 0;
+        font-size: 17px;
+    }
+    .hotel-feature section>div {
+        margin: 15px 0;
+        font-size: 15px;
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+    }
+    .hotel-feature .item{
+        text-align: center;
+        margin: 10px 0;
+    }
+    .hotel-feature img {
+        width: 36px;
+        height: 36px;
+    }
+</style>
+<div ms-controller="hotel" class="bs-bg-white bs-text-black hotel-feature" style="padding: 15px;height: 80vh;overflow: scroll;">
+    <section>
+        酒店服务
+        <div>
+            <div class="item" ms-repeat="serviceList">
+                <img ms-attr-src="urlAPINet + el.logoUrl" alt="" />
+                <div>{{el.name}}</div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        酒店设施
+        <div>
+            <div class="item" ms-repeat="featureList">
+                <img ms-attr-src="urlAPINet + el.imgUrl" alt="" />
+                <div>{{el.title}}</div>
+            </div>
+        </div>
+    </section>
+</div>

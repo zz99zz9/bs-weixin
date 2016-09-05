@@ -108,10 +108,10 @@ h5 {
 }
 </style>
 <div ms-controller="sub" class="mui-content" style="background-color: #eee">
-    <div class="space" style="padding-bottom: 10px;">
+    <div class="space" style="padding: 10px 0;">
         <div class="left">
             <div style="text-align: center; margin-bottom: 7px;">
-                <img class="circle photo" src="http://img.ini.xin/uploadsImg/20160331/img/d708d83c-3835-443e-ae94-02c639509127100.jpg" />
+                <img class="circle photo" ms-attr-src="data.headImg" onerror="javascript:this.src='img/avatar.jpg'" />
             </div>
             <div>
                 <div class="bs-text-smaller bs-text-153" style="text-align: center;">{{data.post}}</div>

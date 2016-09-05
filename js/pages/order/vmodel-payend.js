@@ -14,7 +14,8 @@ var vmPayend = avalon.define({
 	$id: "payend",
 	data: {},
     goHotelById: function(id) {
-        location.href = "hotel.html?id=" + id;
+        location.href = "index.html";
+        // location.href = "hotel.html?id=" + id;
     },
     openNav: function(lat, lng, name, addr) {
         stopSwipeSkip.do(function() {
@@ -25,7 +26,7 @@ var vmPayend = avalon.define({
                     name: name, // 位置名
                     address: addr, // 地址详情说明
                     scale: 26, // 地图缩放级别,整形值,范围从1~28。默认为最大
-                    infoUrl: 'ini.xin' // 在查看位置界面底部显示的超链接,可点击跳转
+                    infoUrl: 'bensue.com' // 在查看位置界面底部显示的超链接,可点击跳转
                 });
             } else {
                 alert("微信接口配置注册失败，将重新注册");
