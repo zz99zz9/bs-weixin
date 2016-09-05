@@ -32,7 +32,7 @@ var vmBan = avalon.define({
             },
             successCallback: function(json) {
                 if (json.status === 1) {
-                    document.referrer ? history.go(-1) : location.replace('../manage/room-details.html?id='+rid);
+                    document.referrer ? history.go(-1) : location.replace('../manage/room.html');
                 } else {
                     vmBan.isDisabled = false;
                 }

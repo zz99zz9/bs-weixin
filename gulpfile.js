@@ -652,7 +652,7 @@ function roomBan() {
             replace: '<h1 id="headerReplace" class="mui-title"></h1>'
         }))
         .pipe(replace({ regex: '<!-- css -->', replace: '<link href="../css/mui.picker.all.css" rel="stylesheet" />' }))
-        .pipe(replace({ regex: '<!-- content -->', replace: '<!--include "../pages/manage/room/room-details.html"-->' }))
+        .pipe(replace({ regex: '<!-- content -->', replace: '<!--include "../pages/manage/room/room-ban.html"-->' }))
         .pipe(replace({ regex: '<!-- js -->', replace: '<script src="../js/pages/manage/room/room-ban.js"></script>\n<script src="../js/lib/mui.picker.all.js"></script>' }))
         .pipe(replace({ regex: '<!-- pop -->', replace: '<!--include "../util/pop.html"-->' }))
         .pipe(contentIncluder({
