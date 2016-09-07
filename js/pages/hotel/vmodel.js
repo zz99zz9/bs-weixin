@@ -104,7 +104,10 @@ var vmHotel = avalon.define({
                     vmHotel.circTraffic = json.data.circTraffic;
                     vmHotel.lng = json.data.lng;
                     vmHotel.lat = json.data.lat;
-                    vmHotel.distance = round(json.data.distance / 1000, 2);
+
+                    if(json.data.distance > 0) {
+                        vmHotel.distance = round(json.data.distance / 1000, 1);
+                    }
                     //顶部轮播导入图片数据
                     vmHotel.galleryList = json.data.hotelGalleryList;
                     //房型数量
@@ -160,25 +163,37 @@ var vmHotel = avalon.define({
             popover('./util/hotelFeature.html', 1);
         });
     },
+    /*
+     * 评价相关
+     */
     assessCount: 0,
-    score: {totalScore: 5},
+    score: { score1: 5, score2: 5, score3: 5, totalScore: 5 },
     assessList: [],
     assessPageNo: 1,
     assessPageSize: 12,
     getAssess: function() {
         ajaxJsonp({
             url: urls.getRoomAssess,
-            data: { hid: 1, pageNo: vmHotel.assessPageNo, pageSize: vmHotel.assessPageSize },
+            data: { 
+                hid: 1, 
+                pageNo: vmHotel.assessPageNo, 
+                pageSize: vmHotel.assessPageSize 
+            },
             successCallback: function(json) {
                 if (json.status === 1) {
-                    json.data.list.map(function(o) {
-                        o.s = round((o.score1 + o.score2 + o.score3)/3, 1);
-                    });
+                    if(json.data.list.length > 1) {
+                        if( json.data.pageCount > 1) { 
+                            vmHotel.isShowLoadMoreAssessBtn = true;
+                        }
+                        json.data.list.map(function(o) {
+                            o.s = round((o.score1 + o.score2 + o.score3)/3, 1);
+                        });
 
-                    vmHotel.score = json.data.score;
-                    vmHotel.assessCount = json.data.count;
-                    vmHotel.assessList = json.data.list;
-                    vmHotel.assessPageNo = 2;
+                        vmHotel.score = json.data.score;
+                        vmHotel.assessCount = json.data.count;
+                        vmHotel.assessList = json.data.list;
+                        vmHotel.assessPageNo = 2;
+                    }
                 }
             }
         });
@@ -189,7 +204,7 @@ var vmHotel = avalon.define({
             popover('./util/assess.html', 1);
         });
     },
-    isShowLoadMoreAssessBtn: true,
+    isShowLoadMoreAssessBtn: false,
     loadMoreAssess: function() {
         stopSwipeSkip.do(function() {
             ajaxJsonp({
@@ -228,7 +243,7 @@ var vmHotel = avalon.define({
                     infoUrl: '' // 在查看位置界面底部显示的超链接,可点击跳转
                 });
             } else {
-                alert("微信接口配置注册失败，将重新注册");
+                console.log("微信接口配置注册失败，将重新注册");
                 registerWeixinConfig();
             }
         });
@@ -394,17 +409,14 @@ wx.ready(function(){
             vmHotel.getHotelDetail();
 
             Storage.setLocal("position", {
-                lat: mylat,
+                lat: myLat,
                 lng: myLng
             });
         }
     });
 });
-wx.error(function(res){
-    console.log(res);
-    vmHotel.getHotelDetail();
-});
 
+vmHotel.getHotelDetail();
 vmHotel.getServiceList();
 vmHotel.getAssess();
 vmHotel.getRoomType();

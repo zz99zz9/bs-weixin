@@ -440,8 +440,7 @@ function registerWeixinConfig() {
                     jsApiList: [
                         'checkJsApi',
                         'openLocation',
-                        'getLocation',
-                        'checkJsApi'
+                        'getLocation'
                     ],
                 });
                 isSuccess = true;

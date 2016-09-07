@@ -10,6 +10,7 @@ var revCollector = require('gulp-rev-collector'); //~ 路径替换
 var del = require('del');
 
 function clean(done) {
+    del.sync('src/');
     del.sync('dist/');
     done();
 }
@@ -127,7 +128,7 @@ function hotel() {
         .pipe(contentIncluder({
             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
         }))
-        .pipe(rename('hotel.html'))
+        .pipe(rename('index.html'))
         .pipe(gulp.dest('./src'));
 }
 
@@ -1921,7 +1922,7 @@ function copyFonts() {
  * 拼接html源文件
  */
 gulp.task('html', gulp.parallel(
-    index,
+    // index,
     hotel,
     room,
     payend,

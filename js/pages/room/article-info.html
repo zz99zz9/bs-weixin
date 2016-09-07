@@ -42,7 +42,7 @@
 	justify-content: space-between;
 }
 </style>
-<div ms-controller="aInfo" style="margin: 0 9px 0 9px;/* overflow-y: scroll;*/ height: 80vh;">
+<div ms-controller="aInfo" style="margin: 0 9px 0 9px;/* overflow-y: auto;*/ height: 80vh;">
     <img ms-if="type == 1"  ms-attr-src="urlAPINet + goods.imgUrl" style="height: 220px;" width="100%"><!-- 店内商品 --> 
     <img ms-if="!(type == 1)" ms-attr-src="urlAPINet + goods.picUrl" style="height: 220px;" width="100%"> <!-- 店内服务 --> 
     <div class="article-info" style="margin: 7px 11px 0;">
