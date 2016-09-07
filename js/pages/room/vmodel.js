@@ -224,7 +224,8 @@ vmRoom = avalon.define({
     //下单
     goNext: function() {
         vmRoom.isGoNext = true;
-        Storage.set("newOrder", newOrder);
+        // Storage.set("newOrder", newOrder);
+        Storage.delete("newOrder");
 
         if (vmRoom.type) {
             if (newOrder.partTime.start == '' || newOrder.partTime.end == '') {
