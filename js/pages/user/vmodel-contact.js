@@ -1,26 +1,61 @@
 /**
  * Created by lyh on 2016/7/28/028.
+ * Edited by Michael on 2016/9/7
  */
 
 var vmContactList = avalon.define({
     $id: 'contactList',
     list: [],
     selectedIndex: '',
-    add: function () {
+    defaultList: [],
+    setDefault: function(index) {
+        // vmContactList.list[index].isDefault = !vmContactList.list[index].isDefault;
+        var indexInDefaultList = vmContactList.$model.defaultList.indexOf(index);
+
+        if (indexInDefaultList == -1) { //设为默认
+            vmContactList.defaultList.push(index);
+            vmContactList.setDefaultInAPI(vmContactList.list[index].id, 1);
+
+            if (vmContactList.$model.defaultList.length > 2) { //超过2个自动删除第一个
+                vmContactList.defaultList = vmContactList.$model.defaultList.slice(1);
+            vmContactList.setDefaultInAPI(vmContactList.list[vmContactList.$model.defaultList[0]].id, 0);
+
+            }
+        } else { //取消默认
+            vmContactList.defaultList.splice(indexInDefaultList, 1)
+            vmContactList.setDefaultInAPI(vmContactList.list[index].id, 0);
+        }
+    },
+    setDefaultInAPI: function(id, isDefault) {
+        ajaxJsonp({
+            url: urls.setDefaultContact,
+            data: {
+                id: id,
+                isDefault: isDefault
+            },
+            successCallback: function(json) {
+                if (json.status !== 1) {
+                    alert(json.message);
+                    return;
+                }
+            }
+        });
+    },
+    add: function() {
         vmContactAdd.id = '';
         vmContactAdd.name = '';
         vmContactAdd.mobile = '';
         vmContactAdd.idNo = '';
         popover('./util/frequent-contact-add.html', 1);
     },
-    del: function (index) {
+    del: function(index) {
         if (confirm('确定要删除吗？')) {
             ajaxJsonp({
                 url: urls.deleteContact,
                 data: {
                     id: vmContactList.list[index].id
                 },
-                successCallback: function (json) {
+                successCallback: function(json) {
                     if (json.status !== 1) {
                         alert(json.message);
                         return;
@@ -31,7 +66,7 @@ var vmContactList = avalon.define({
             });
         }
     },
-    edit: function (index) {
+    edit: function(index) {
         vmContactList.selectedIndex = index;
         vmContactAdd.id = vmContactList.list[index].id;
         vmContactAdd.name = vmContactList.list[index].name;
@@ -44,7 +79,7 @@ var vmContactList = avalon.define({
 var vmAInfoBtn = avalon.define({
     $id: 'aInfoBtn',
     selectText: '确定',
-    select: function () {
+    select: function() {
         vmContactAdd.save();
     }
 });
@@ -55,7 +90,7 @@ var vmContactAdd = avalon.define({
     name: '',
     mobile: '',
     idNo: '',
-    save: function () {
+    save: function() {
         if (vmContactAdd.name == "") {
             alert("姓名不能为空");
             return false;
@@ -93,7 +128,7 @@ var vmContactAdd = avalon.define({
                 name: vmContactAdd.name,
                 idNo: vmContactAdd.idNo
             },
-            successCallback: function (json) {
+            successCallback: function(json) {
                 if (json.status !== 1) {
                     alert(json.message);
                     return;
@@ -118,10 +153,17 @@ var vmContactAdd = avalon.define({
 //获取联系人详情
 ajaxJsonp({
     url: urls.getContactList,
-    data: {pageSize: 20},
-    successCallback: function (json) {
+    data: {
+        pageSize: 20
+    },
+    successCallback: function(json) {
         if (json.status === 1) {
             vmContactList.list = json.data.list;
+            for (var i = 0; i < json.data.list.length; i++) {
+                if (json.data.list[i].isDefault) {
+                    vmContactList.defaultList.push(i);
+                }
+            }
         }
     }
 });

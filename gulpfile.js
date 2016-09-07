@@ -332,7 +332,7 @@ function wallet() {
         .pipe(gulp.dest('./src'));
 }
 
-//关于
+//邀请
 function share() {
     return gulp.src('./js/layout/shell.html')
         .pipe(replace({
@@ -979,10 +979,22 @@ function roomBan() {
             regex: '<h1 id="headerReplace" class="mui-title">标题</h1>',
             replace: '<h1 id="headerReplace" class="mui-title"></h1>'
         }))
-        .pipe(replace({ regex: '<!-- css -->', replace: '<link href="../css/mui.picker.all.css" rel="stylesheet" />' }))
-        .pipe(replace({ regex: '<!-- content -->', replace: '<!--include "../pages/manage/room/room-ban.html"-->' }))
-        .pipe(replace({ regex: '<!-- js -->', replace: '<script src="../js/pages/manage/room/room-ban.js"></script>\n<script src="../js/lib/mui.picker.all.js"></script>' }))
-        .pipe(replace({ regex: '<!-- pop -->', replace: '<!--include "../util/pop.html"-->' }))
+        .pipe(replace({
+            regex: '<!-- css -->',
+            replace: '<link href="../css/mui.picker.all.css" rel="stylesheet" />'
+        }))
+        .pipe(replace({
+            regex: '<!-- content -->',
+            replace: '<!--include "../pages/manage/room/room-ban.html"-->'
+        }))
+        .pipe(replace({
+            regex: '<!-- js -->',
+            replace: '<script src="../js/pages/manage/room/room-ban.js"></script>\n<script src="../js/lib/mui.picker.all.js"></script>'
+        }))
+        .pipe(replace({
+            regex: '<!-- pop -->',
+            replace: '<!--include "../util/pop.html"-->'
+        }))
         .pipe(contentIncluder({
             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
         }))

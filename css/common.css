@@ -1329,3 +1329,12 @@ hr {
     border-left: 1px solid #ddd;
     border-bottom: 1px solid #ddd;
 }
+
+.bs-btn-loadmore {
+    display: block;
+    padding: 5px 0;
+    margin: 15px auto;
+    width: 90%;
+    background: black;
+    color: white;
+}

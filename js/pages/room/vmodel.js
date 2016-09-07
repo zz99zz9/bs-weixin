@@ -22,17 +22,29 @@ vmRoom = avalon.define({
     unit: '',
     price: 0,
     room: {
-        hotel: { name: '', alias: '', address: '' },
+        hotel: {
+            name: '',
+            alias: '',
+            address: ''
+        },
         roomGalleryList: [],
-        designer: { name: '', message: '' },
+        designer: {
+            name: '',
+            message: ''
+        },
         amenityList: []
     },
-    assess: { count: 0, data: {} },
+    assess: {
+        count: 0,
+        data: {}
+    },
     list: [],
     startTimeIndex: 0,
     todayIndex: 0,
     startIndex: -1,
-    roomNightDiscount: [{ discount: 0 }],
+    roomNightDiscount: [{
+        discount: 0
+    }],
     checkinList: [],
     isAgree: true,
     goHotel: function() {
@@ -75,7 +87,9 @@ vmRoom = avalon.define({
                         //查询夜房预订日期
                         ajaxJsonp({
                             url: urls.getRoomBookDate,
-                            data: { rid: roomid },
+                            data: {
+                                rid: roomid
+                            },
                             successCallback: function(json) {
                                 if (json.status == 1) {
                                     bookDateList = {
@@ -101,7 +115,10 @@ vmRoom = avalon.define({
                     //查询时租房预订时间情况
                     ajaxJsonp({
                         url: urls.getRoomStatus,
-                        data: { rid: roomid, roomDate: getToday('date') },
+                        data: {
+                            rid: roomid,
+                            roomDate: getToday('date')
+                        },
                         successCallback: function(json) {
                             if (json.status == 1) {
                                 vmPart.timeList = getTimeList(json.data.status);
@@ -133,7 +150,9 @@ vmRoom = avalon.define({
                 //获取联系人列表
                 ajaxJsonp({
                     url: urls.getContactList,
-                    data: { pageSize: 10 },
+                    data: {
+                        pageSize: 30 //因为要维护选中状态，没有用loadmore按钮
+                    }, 
                     successCallback: function(json) {
                         if (json.status === 1) {
                             vmContactList.list = json.data.list;
@@ -240,7 +259,8 @@ vmRoom = avalon.define({
                 endTime: vmRoom.type ? newOrder.partTime.end : newOrder.day.end,
                 isPartTime: vmRoom.type,
                 cids: newOrder.contact.map(function(o) {
-                    return o.id; }).join(','),
+                    return o.id;
+                }).join(','),
             },
             successCallback: function(json) {
                 if (json.status == 1) {
@@ -383,7 +403,11 @@ vmBtn = avalon.define({
 // });
 vmDesigner = avalon.define({
     $id: "designer",
-    designer: { portraitUrl: '', name: '', message: '' }
+    designer: {
+        portraitUrl: '',
+        name: '',
+        message: ''
+    }
 });
 
 bensue = Storage.get("bensue");
@@ -399,11 +423,25 @@ if (newOrder) {
         sessionToDateData();
     }
 
+    //本地有入住人信息优先使用本地数据
+    //没有的话就读接口查询是否设置过默认入住人
     if (newOrder.contact && newOrder.contact.length > 0) {
         vmRoom.checkinList = newOrder.contact;
+    } else {
+        newOrder.contact = [];
     }
 } else {
-    newOrder = { room: {}, hotel: {}, day: { filter: [] }, partTime: { filter: [] }, contact: {} };
+    newOrder = {
+        room: {},
+        hotel: {},
+        day: {
+            filter: []
+        },
+        partTime: {
+            filter: []
+        },
+        contact: []
+    };
 }
 
 room_init();
@@ -430,7 +468,10 @@ function room_init() {
     //获取房间详情
     ajaxJsonp({
         url: urls.getRoomDetail,
-        data: { rid: roomid, isPartTime: roomType },
+        data: {
+            rid: roomid,
+            isPartTime: roomType
+        },
         successCallback: function(json) {
             if (json.status === 1) {
                 vmRoom.room = json.data;
@@ -459,7 +500,9 @@ function room_init() {
         //查询房间夜房优惠价格
         ajaxJsonp({
             url: urls.getRoomNightDiscount,
-            data: { rid: roomid },
+            data: {
+                rid: roomid
+            },
             successCallback: function(json) {
                 if (json.status == 1) {
                     vmRoom.roomNightDiscount = json.data;
@@ -517,6 +560,26 @@ function room_init() {
     //         }
     //     }
     // });
+
+    //获取默认联系人
+    ajaxJsonp({
+        url: urls.getContactList,
+        successCallback: function(json) {
+            var defaultList = [];
+            if (json.status === 1) {
+                json.data.list.map(function(o) {
+                    if (o.isDefault) {
+                        defaultList.push(o);
+                    }
+                });
+                //如果有默认入住人，就覆盖本地数据
+                if (defaultList.length > 0) {
+                    newOrder.contact = defaultList;
+                    vmRoom.checkinList = defaultList;
+                }
+            }
+        }
+    });
 
     registerWeixinConfig();
 }
@@ -655,7 +718,9 @@ function saveStorage() {
 function registerWeixinConfig() {
     ajaxJsonp({
         url: urls.weiXinConfig,
-        data: { url: window.location.href },
+        data: {
+            url: window.location.href
+        },
         successCallback: function(json) {
             if (json.status === 1) {
                 wx.config({
@@ -667,8 +732,7 @@ function registerWeixinConfig() {
                     jsApiList: [
                         'checkJsApi',
                         'openLocation',
-                        'getLocation',
-                        'checkJsApi'
+                        'getLocation'
                     ],
                 });
                 isSuccess = true;

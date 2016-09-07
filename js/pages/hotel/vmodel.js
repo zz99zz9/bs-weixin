@@ -170,7 +170,7 @@ var vmHotel = avalon.define({
     score: { score1: 5, score2: 5, score3: 5, totalScore: 5 },
     assessList: [],
     assessPageNo: 1,
-    assessPageSize: 12,
+    assessPageSize: 8,
     getAssess: function() {
         ajaxJsonp({
             url: urls.getRoomAssess,
@@ -183,7 +183,7 @@ var vmHotel = avalon.define({
                 if (json.status === 1) {
                     if(json.data.list.length > 1) {
                         if( json.data.pageCount > 1) { 
-                            vmHotel.isShowLoadMoreAssessBtn = true;
+                            vmHotel.isShowLoadMoreBtn = true;
                         }
                         json.data.list.map(function(o) {
                             o.s = round((o.score1 + o.score2 + o.score3)/3, 1);
@@ -204,8 +204,8 @@ var vmHotel = avalon.define({
             popover('./util/assess.html', 1);
         });
     },
-    isShowLoadMoreAssessBtn: false,
-    loadMoreAssess: function() {
+    isShowLoadMoreBtn: false,
+    loadMore: function() {
         stopSwipeSkip.do(function() {
             ajaxJsonp({
                 url: urls.getRoomAssess,
@@ -219,7 +219,7 @@ var vmHotel = avalon.define({
 
                         vmHotel.assessList.push.apply(vmHotel.assessList, json.data.list);
                         if(vmHotel.assessPageNo > json.data.pageCount) {
-                            vmHotel.isShowLoadMoreAssessBtn = false;
+                            vmHotel.isShowLoadMoreBtn = false;
                         }
                     }
                 }
