@@ -29,6 +29,7 @@ var urls = {
     getInvitationLogURL: urlAPI + '/usr/invitationLog/list', //用户邀请列表
     //酒店
     getHotelDetail: urlAPI + '/res/hotel/detail',//酒店详细信息
+    getHotelFilter: urlAPI + '/res/hotelAmenity/searchCriteria', //酒店的筛选条件
     //联系人
     getContactList: urlAPI + '/usr/frequentContact/list', //常用联系人列表
     getContact: urlAPI + '/usr/frequentContact/get', //获取常用联系人信息

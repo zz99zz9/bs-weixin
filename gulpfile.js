@@ -109,7 +109,7 @@ function hotel() {
         }))
         .pipe(replace({
             regex: '<!-- js -->',
-            replace: '<script src="js/lib/swiper.min.js"></script>\n' + '<script src="js/util/filter.js"></script>\n<script src="js/pages/hotel/vmodel.js"></script>\n' + '<script src="js/util/calendar.js"></script>\n<script src="js/util/partTime.js"></script>'
+            replace: '<script src="js/lib/swiper.min.js"></script>\n' + '<script src="js/pages/hotel/vmodel.js"></script>\n' + '<script src="js/util/calendar.js"></script>\n<script src="js/util/partTime.js"></script>'
         }))
         .pipe(contentIncluder({
             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
