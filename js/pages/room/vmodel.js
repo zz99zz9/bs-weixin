@@ -204,9 +204,9 @@ vmRoom = avalon.define({
     },
     showTotalPrice: function(price, amount) {
         if (isNaN(amount)) {
-            return price;
+            return round(price);
         } else {
-            return price * amount;
+            return round(price * amount);
         }
     },
     goRoom: function(id) {
