@@ -141,7 +141,7 @@ input[type=checkbox] {
             <div style="clear: both;">
                 <span class="info-left">实付金额：</span>
                 <span class="info-right bs-text-red">
-                ¥{{(needAmount-fund)<0?0:(needAmount-fund)}}
+                ¥{{round(needAmount-fund)<0?0:round(needAmount-fund)}}
                 </span>
             </div>
             <div>&nbsp;</div>

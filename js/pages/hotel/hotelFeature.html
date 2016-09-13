@@ -20,11 +20,11 @@
     }
 </style>
 <div ms-controller="hotel" class="bs-bg-white bs-text-black hotel-feature" style="padding: 15px;height: 80vh;overflow-y: auto;">
-    <section style="display: none;">
+    <section>
         酒店服务
         <div>
             <div class="item" ms-repeat="serviceList">
-                <img ms-attr-src="urlAPINet + el.logoUrl" alt="" />
+                <img ms-attr-src="urlAPINet + el.ico" alt="" />
                 <div>{{el.name}}</div>
             </div>
         </div>
@@ -33,9 +33,9 @@
     <section>
         酒店设施
         <div>
-            <div class="item" ms-repeat="featureList">
-                <img ms-attr-src="urlAPINet + el.imgUrl" alt="" />
-                <div>{{el.title}}</div>
+            <div class="item" ms-repeat="amenityList">
+                <img ms-attr-src="urlAPINet + el.ico" alt="" />
+                <div>{{el.name}}</div>
             </div>
         </div>
     </section>

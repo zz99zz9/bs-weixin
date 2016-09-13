@@ -63,7 +63,9 @@ var vmHotel = avalon.define({
     distance: '',
     surplusList: [],
     galleryList: [],
-    featureList: [],
+    // featureList: [],
+    serviceList: [],
+    amenityList: [],
     openTimePanel: function() {
         stopSwipeSkip.do(function() {
             vmBtn.useCheck = 1;
@@ -112,8 +114,10 @@ var vmHotel = avalon.define({
                     vmHotel.galleryList = json.data.hotelGalleryList;
                     //房型数量
                     vmHotel.surplusList = json.data.surplusList;
-                    //酒店特色
-                    vmHotel.featureList = json.data.featureList;
+                    // //酒店特色
+                    // vmHotel.featureList = json.data.featureList;
+                    vmHotel.serviceList = json.data.serviceList;
+                    vmHotel.amenityList = json.data.amenityList;
                 }
             }
         });
@@ -143,18 +147,6 @@ var vmHotel = avalon.define({
         stopSwipeSkip.do(function() {
             vmBtn.useCheck = 0;
             popover('./util/hotelIntroduction.html', 1);
-        });
-    },
-    serviceList: [],
-    getServiceList: function() {
-        ajaxJsonp({
-            url: urls.hotelService,
-            data: { hid: 1 },
-            successCallback: function(json) {
-                if (json.status === 1) {
-                    vmHotel.serviceList = json.data;
-                }
-            }
         });
     },
     openFeature: function() {
@@ -344,6 +336,49 @@ var vmBtn = avalon.define({
     }
 })
 
+var vmFilter = avalon.define({
+    $id: 'filter',
+    type: 0,
+    dayFilter: [],
+    selectDayFilter: [],
+    partTimeFilter: [],
+    selectPartTimeFilter: [],
+    getFilter: function() {
+        ajaxJsonp({
+            url: urls.getHotelFilter,
+            data: {
+                isPartTime: 0
+            },
+            successCallback: function(json) {
+                if (json.status !== 0) {
+                    vmFilter.dayFilter = json.data;
+
+                    //读取本地数据
+                    if(newOrder.day.filter) {
+                        vmFilter.selectDayFilter = newOrder.day.filter;
+                    }
+                }
+            }
+        });
+        ajaxJsonp({
+            url: urls.getHotelFilter,
+            data: {
+                isPartTime: 1
+            },
+            successCallback: function(json) {
+                if (json.status !== 0) {
+                    vmFilter.partTimeFilter = json.data;
+
+                    //读取本地数据
+                    if(newOrder.partTime.filter) {
+                        vmFilter.selectPartTimeFilter = newOrder.partTime.filter;
+                    }
+                }
+            }
+        });
+    }
+});
+
 hid = 1; //目前只有1家店
 // hid = getParam("id");
 // if (hid != "") {
@@ -417,7 +452,6 @@ wx.ready(function(){
 });
 
 vmHotel.getHotelDetail();
-vmHotel.getServiceList();
 vmHotel.getAssess();
 vmHotel.getRoomType();
 vmHotel.getRoomList();
