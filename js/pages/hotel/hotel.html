@@ -6,7 +6,7 @@
             <div class="bs-text-red" ms-if="!type" style="margin: 7px 1px 0 0;">{{getToday('day')}}</div>
             </button>
         </div>
-        <div class="bs-bg-black bs-text-white bs-text-smaller" style="position: fixed;padding: 0 10px;top: 300px;left: 0;z-index: 9;">{{round(distance/1000,1)}} km</div>
+        <div class="bs-bg-black bs-text-white bs-text-smaller" style="position: fixed;padding: 0 10px;top: 300px;left: 0;z-index: 9;">{{distance}} km</div>
         <div class="swiper-container swiper1" style="height: 300px;">
             <div class="swiper-wrapper">
                 <div class="swiper-slide" ms-repeat="galleryList" data-repeat-rendered="swiper1Render">

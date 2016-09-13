@@ -19,7 +19,7 @@
    background-color: transparent;
 }
 </style>
-<div ms-controller="hotel" class="hotel-assess" style="height:80vh; background: #fff; overflow: scroll;">
+<div ms-controller="hotel" class="hotel-assess" style="height:80vh; background: #fff; overflow-y: auto;">
     <section class="bs-text-black" style="padding: 15px;">
         <table>
             <tr class="bs-text-larger">
@@ -87,6 +87,6 @@
             </div>
         </div>
         <br>
-        <button class="mui-btn mui-btn-block bs-bg-black bs-text-white" style="padding: 5px 0;" ms-if="isShowLoadMoreAssessBtn" ms-on-tap="loadMoreAssess">加载更多</button>
+        <button class="bs-btn-loadmore" ms-if="isShowLoadMoreBtn" ms-on-tap="loadMore">加载更多</button>
     </section>
 </div>

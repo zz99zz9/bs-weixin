@@ -34,6 +34,7 @@ var urls = {
     getContact: urlAPI + '/usr/frequentContact/get', //获取常用联系人信息
     saveContact: urlAPI + '/usr/frequentContact/save', //常用联系人增加、修改
     deleteContact: urlAPI + '/usr/frequentContact/delete', //常用联系人删除
+    setDefaultContact: urlAPI + '/usr/frequentContact/updateById', //设置默认入住人
     //发票管理
     getInvoiceList: urlAPI + '/trd/orderInfo/invoiceList', //可以开发票的订单列表
     saveInvoice: urlAPI + '/usr/invoiceLog/save', //申请发票

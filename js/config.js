@@ -428,7 +428,7 @@ function getHourIndex() {
 function registerWeixinConfig() {
     ajaxJsonp({
         url: urls.weiXinConfig,
-        data: { url: window.location.href },
+        data: { url: window.location.href},
         successCallback: function(json) {
             if (json.status === 1) {
                 wx.config({
@@ -440,8 +440,7 @@ function registerWeixinConfig() {
                     jsApiList: [
                         'checkJsApi',
                         'openLocation',
-                        'getLocation',
-                        'checkJsApi'
+                        'getLocation'
                     ],
                 });
                 isSuccess = true;

@@ -1068,17 +1068,34 @@ hr {
     margin: 10px 0 0 0;
 }
 
+/**
+ * 酒店页面的房间模块设施slide
+ */
+.hotel-room-amenity {
+    height: 40px;
+}
+.hotel-room-amenity-item {
+    background: #efeff4;
+    width: auto !important;
+}
+.hotel-room-amenity-text {
+    color: black;
+    margin-left: 8px;
+    margin-right: 8px;
+}
+
 .room-amenity {
     height: 75px;
 }
 
 .room-amenity-item {
-    background: #EEEEEE;
+    background: #efeff4;
     width: auto !important;
 }
 
 .room-amenity-text {
-    color: #b3b3b3;
+    /*color: #b3b3b3;*/
+    color: black;
     margin-left: 20px;
     margin-right: 20px
 }
@@ -1328,4 +1345,13 @@ hr {
     width: 33%;
     border-left: 1px solid #ddd;
     border-bottom: 1px solid #ddd;
+}
+
+.bs-btn-loadmore {
+    display: block;
+    padding: 5px 0;
+    margin: 15px auto;
+    width: 90%;
+    background: black;
+    color: white;
 }
