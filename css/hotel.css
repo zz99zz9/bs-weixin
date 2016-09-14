@@ -1,4 +1,11 @@
+#pullrefresh {
+    background: white;
+}
+
 .pic-info {
+    margin: 0 auto;
+    margin-top: 18px;
+    width: 90%;
     overflow: hidden;
     height: 75px;
     transition: all 300ms;
@@ -16,10 +23,11 @@
 .expand table {
     width: 100%;
     table-layout: fixed;
+    margin-bottom: 15px;
 }
 
 .expand table td {
-    padding: 0 5px;
+    /*padding: 0 5px;*/
 }
 
 .expand span {
@@ -57,8 +65,9 @@
     transition: transform 300ms;
     position: absolute;
     top: 50%;
-    margin-top: -9px;
-    right: 15px;
+    margin-top: -19px;
+    right: 3px;
+    font-size: 15px;
 }
 
 .expanded {
@@ -200,31 +209,40 @@
 }
 
 .typeFilter {
+    width: 90%;
+    margin: 0 auto;
+    margin-bottom: 5px;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
+    border-top: 1px solid #ccc;
 }
 
 .typeFilter-item {
     margin: 15px 0px 10px 0px;
+    font-weight: bolder;
 }
 
 .typeFilter-item.active {
     color: #b20e15;
-    border-bottom: 1px solid #b20e15;
 }
 
 .pic-info .info {
     display: flex;
     justify-content: space-around;
-    padding: 15px 0px;
-    border-top: 1px solid black;
+    padding: 25px 0px;
+    border-top: 1px solid #ccc;
 }
 
 .pic-info .info div {
-    border: 2px solid black;
+    /*border: 2px solid black;
     border-radius: 50%;
     height: 17vw;
     width: 17vw;
-    line-height: 16.5vw;
+    line-height: 16.5vw;*/
     text-align: center;
+}
+
+.pic-info .info img {
+    width: 22px;
+    margin-bottom: 3px;
 }

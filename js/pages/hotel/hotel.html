@@ -6,8 +6,7 @@
             <div class="bs-text-red" ms-if="!type" style="margin: 7px 1px 0 0;">{{getToday('day')}}</div>
             </button>
         </div>
-        <div class="bs-bg-black bs-text-white bs-text-smaller" style="position: fixed;padding: 0 10px;top: 300px;left: 0;z-index: 9;">{{distance}} km</div>
-        <div class="swiper-container swiper1" style="height: 300px;">
+        <div class="swiper-container swiper1" style="height: 280px;">
             <div class="swiper-wrapper">
                 <div class="swiper-slide" ms-repeat="galleryList" data-repeat-rendered="swiper1Render">
                     <div style="width: 100%;height: 100%;background-size: cover;background-position: center;" ms-css-background-image="'url(' + urlAPINet + el.imgUrl+')'">
@@ -18,31 +17,45 @@
         </div>
 
         <div class="pic-info">
-            <button class="expand" id="exp" ms-on-tap="expand">
+            <button class="expand" id="exp" ms-on-tap="expand" style="padding: 0;">
                 <table width="100%">
                     <tr>
                         <!-- <td width="200px">
                             <i>{{alias}}酒店&nbsp;</i><i>one'own</i>
                         </td> -->
                         <td class="mui-ellipsis small" valign="top">
-                            <i class="bs-text-larger">{{alias}}酒店&nbsp;</i><i>one'own</i><br />
-                            <i class="bs-text-large bs-text-gray" style="margin-top: 4px;">{{address}}</i>
+                            <i class="bs-text-x-larger" style="font-weight: 900;">{{alias}}酒店&nbsp;</i><i class="bs-text-larger" style="font-weight: 100;">One's Own</i><br />
+                            <i class="bs-text-normal" style="margin-top: 4px;color: #bcad85;" ms-on-tap="openNav">
+                                <img src="img/icon/position.png" alt="" style="width: 17px;position: relative;top: 2px;">
+                            {{address}} {{distance?distance+'km':''}}
+                            </i>
                         </td>
-                        <td class="tdclass bs-text-smaller" style="color: #333; width: 48px;">
+                        <td class="tdclass bs-text-small" style="color: #333; width: 48px;">
                             展开
                         </td>
                     </tr>
                 </table>
             </button>
             <div class="bs-bg-white bs-text-small info">
-                <div ms-on-tap="openIntroduction">介绍</div>
-                <div ms-on-tap="openFeature">特色</div>
-                <div style="position: relative;" ms-on-tap="openAssess">
-                    <span style="position: relative;top: -10px;display: inline-block;color: #ffa000;">{{score.totalScore}}星</span>
-                    <span class="bs-text-smaller" style="float: left;position: relative;top: -8vh;display: inline-block;width: 16vw;">{{assessCount}}评价</span>
+                <div ms-on-tap="openIntroduction">
+                    <img src="img/icon/intro.png" alt="">
+                    <br>酒店介绍
                 </div>
-                <div ms-on-tap="goShop">周边</div>
-                <div ms-on-tap="openNav">地图</div>
+                <div ms-on-tap="openFeature">
+                    <img src="img/icon/amenity.png" alt="">
+                    <br>酒店特色
+                </div>
+                <div style="position: relative;" ms-on-tap="openAssess">
+                    <!-- <span style="position: relative;top: -10px;display: inline-block;color: #ffa000;">{{score.totalScore}}星</span> 
+                    <span class="bs-text-smaller" style="float: left;position: relative;top: -8vh;display: inline-block;width: 16vw;"></span>
+                    -->
+                    <img src="img/icon/assess.png" alt="">
+                    <br>{{assessCount}}评价
+                </div>
+                <div ms-on-tap="goShop">
+                    <img src="img/icon/around.png" alt="">
+                    <br>酒店周边
+                </div>
             </div>
             <!-- 老的酒店展开面板-->
             <!-- <div class="info bs-text-small">
@@ -78,9 +91,11 @@
             <div class="typeFilter-item" ms-class="active:tid==''" ms-on-tap="selectRoomType('')">all</div>
             <div class="typeFilter-item" ms-class="active:tid==el.id" ms-repeat="roomTypeList" ms-on-tap="selectRoomType(el.id)" data-repeat-rendered="showRoomTypeFilter">{{el.name}}</div>
         </div>
-
-        <div ms-repeat="roomList">
-            <!-- roomSlide -->
+        
+        <div style="width: 90%;margin: 0 auto;">
+            <div ms-repeat="roomList">
+                <!-- roomSlide -->
+            </div>
         </div>
     </div>
 </div>

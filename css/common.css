@@ -1075,7 +1075,7 @@ hr {
     height: 40px;
 }
 .hotel-room-amenity-item {
-    background: #efeff4;
+    /*background: #efeff4;*/
     width: auto !important;
 }
 .hotel-room-amenity-text {
