@@ -599,13 +599,11 @@ button {
 }
 
 .content {
-    background-color: #fff;
     margin: auto;
     -webkit-transition-property: margin-top;
     -webkit-transition-duration: 10ms;
     transition-duration: 300ms;
     position: relative;
-    top: -6%;
     width: 80vw;
 }
 
@@ -613,42 +611,27 @@ button {
     margin-top: 100vh !important;
 }
 
-.closeButton {
+.popover-Button {
     display: block;
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
     padding: 0;
     border: none;
-    position: absolute;
-    bottom: -12vh;
+    left: 50%;
+    margin-top: 20px;
+    margin-left: -25px;
+}
+.popover-Button:active {
+    color: white;
+    background: none !important;
+}
+.popover-Button-close {
     background: url('../img/icon/close.png');
     background-size: cover;
-    left: 50%;
-    margin-left: -30px;
 }
-
-.closeButton:active {
-    color: white;
-    background: none !important;
-}
-
-.checkButton {
-    display: block;
-    width: 60px;
-    height: 60px;
-    padding: 0;
-    border: none;
-    position: absolute;
-    bottom: -22px;
+.popover-Button-check {
     background: url('../img/icon/check.png');
     background-size: cover;
-    left: 50%;
-    margin-left: -30px;
-}
-
-.checkButton:active {
-    color: white;
-    background: none !important;
 }
 
 .icon li a h5 {
@@ -1075,7 +1058,7 @@ hr {
     height: 40px;
 }
 .hotel-room-amenity-item {
-    background: #efeff4;
+    /*background: #efeff4;*/
     width: auto !important;
 }
 .hotel-room-amenity-text {
@@ -1086,6 +1069,7 @@ hr {
 
 .room-amenity {
     height: 75px;
+    background: #efeff4;
 }
 
 .room-amenity-item {

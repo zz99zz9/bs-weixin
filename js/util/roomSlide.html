@@ -4,7 +4,7 @@
         <div ms-css-background-image="url({{urlAPINet + el.coverUrl}})">
             <label>
                 <span style="position: relative;top: -6px;right: -3px;color: #999;">￥</span>
-                <span class="slide-price">{{type?(el.minPrice*6):el.minPrice}}</span>
+                <span class="slide-price">{{type?round(el.minPrice*6):el.minPrice}}</span>
                 <span>/{{type==1?"3小时":"晚起"}}</span>
                 <span class="roomtype">{{el.roomType.name}}</span>
             </label>

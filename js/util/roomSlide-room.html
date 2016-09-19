@@ -3,7 +3,7 @@
         <div ms-css-background-image="url({{urlAPINet + el.coverUrl}})">
             <label style="display: inline-block;width: 115px;">
                 <span style="position: relative;top: -6px;right: -3px;color: #999;">￥</span>
-                <span class="slide-price">{{type?(el.minPrice*6):el.minPrice}}</span>
+                <span class="slide-price">{{type?round(el.minPrice*6):el.minPrice}}</span>
                 <span>/{{type==1?"3小时":"晚起"}}</span>
                 <span class="roomtype">{{el.roomType.name}}&nbsp;&nbsp;{{el.name.indexOf('NO')>-1?el.name.slice(3):el.name}}</span>
             </label>
@@ -12,8 +12,8 @@
     <div class="swiper-container swiper3 hotel-room-amenity">
         <div class="swiper-wrapper" style="padding-left: 0;">
             <div class="swiper-slide hotel-room-amenity-item" ms-repeat-cl="el.amenityList" data-repeat-rendered="swiper3Render">
-                <img ms-attr-src="urlAPINet + cl.ico" ms-attr-alt="cl.name" style="width: 20px;height: 20px;margin-left: 5px" />
-                <label class="bs-text-small hotel-room-amenity-text">{{cl.name}}</label>
+                <img ms-attr-src="urlAPINet + cl.ico" ms-attr-alt="cl.name" style="width: 22px;height: 22px;margin-left: 5px" />
+                <label class="bs-text-smaller hotel-room-amenity-text">{{cl.name}}</label>
             </div>
             <div class="swiper-scrollbar"></div>
         </div>

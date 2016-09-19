@@ -39,7 +39,7 @@ vmRoom = avalon.define({
         data: {}
     },
     list: [],
-    startTimeIndex: 0,
+    startTimeIndex: 1,
     todayIndex: 0,
     startIndex: -1,
     roomNightDiscount: [{
@@ -197,8 +197,10 @@ vmRoom = avalon.define({
         });
     },
     openRule: function() {
+        event.stopPropagation();
         stopSwipeSkip.do(function() {
-            vmBtn.useCheck = 0;
+            vmBtn.type = "rule";
+            vmBtn.useCheck = 1;
             popover('./util/note.html', 1);
         })
     },
@@ -223,55 +225,77 @@ vmRoom = avalon.define({
     isGoNext: false,
     //下单
     goNext: function() {
+        var popCase = '';
         vmRoom.isGoNext = true;
         // Storage.set("newOrder", newOrder);
-        Storage.delete("newOrder");
 
         if (vmRoom.type) {
-            if (newOrder.partTime.start == '' || newOrder.partTime.end == '') {
-                mui.toast('请选择时间');
+            if (!newOrder.partTime.start || !newOrder.partTime.end || newOrder.partTime.start == '' || newOrder.partTime.end == '') {
+                // mui.toast('请选择时间');
+                popCase = 'time';
                 vmRoom.isGoNext = false;
-                return;
             }
         } else {
-            if (newOrder.day.start == '' || newOrder.day.end == ' 14:00') {
-                mui.toast('请选择时间');
+            if (!newOrder.day.start || !newOrder.day.end || newOrder.day.start == '' || newOrder.day.end == ' 14:00') {
+                // mui.toast('请选择时间');
+                popCase = 'time';
                 vmRoom.isGoNext = false;
-                return;
             }
         }
 
-        if (vmRoom.checkinList.length < 1) {
-            mui.toast('请选择入住人');
+        if (vmRoom.isGoNext && vmRoom.checkinList.length < 1) {
+            // mui.toast('请选择入住人');
             vmRoom.isGoNext = false;
-            return;
+            popCase = 'checkin';
         }
 
-        if (!vmRoom.isAgree) {
-            mui.toast('请阅读并同意《入住条款》');
+        if (vmRoom.isGoNext && !vmRoom.isAgree) {
+            // mui.toast('请阅读并同意《入住条款》');
             vmRoom.isGoNext = false;
-            return;
+            popCase = 'rule';
         }
-        ajaxJsonp({
-            url: urls.submitOrder,
-            data: {
-                rid: roomid,
-                startTime: vmRoom.type ? newOrder.partTime.start : (newOrder.day.start + " " + newOrder.day.startTime + ":00"),
-                endTime: vmRoom.type ? newOrder.partTime.end : newOrder.day.end,
-                isPartTime: vmRoom.type,
-                cids: newOrder.contact.map(function(o) {
-                    return o.id;
-                }).join(','),
-            },
-            successCallback: function(json) {
-                if (json.status == 1) {
-                    location.href = "order.html?id=" + json.data.id;
-                } else {
-                    alert(json.message);
-                    vmRoom.isGoNext = false;
+
+        if(vmRoom.isGoNext) {
+            ajaxJsonp({
+                url: urls.submitOrder,
+                data: {
+                    rid: roomid,
+                    startTime: vmRoom.type ? newOrder.partTime.start : (newOrder.day.start + " " + newOrder.day.startTime + ":00"),
+                    endTime: vmRoom.type ? newOrder.partTime.end : newOrder.day.end,
+                    isPartTime: vmRoom.type,
+                    cids: newOrder.contact.map(function(o) {
+                        return o.id;
+                    }).join(','),
+                },
+                successCallback: function(json) {
+                    if (json.status == 1) {
+                        Storage.delete("newOrder");
+
+                        location.href = "order.html?id=" + json.data.id;
+                    } else {
+                        alert(json.message);
+                        vmRoom.isGoNext = false;
+                    }
                 }
+            })
+        } else {
+            switch(popCase) {
+                case 'time':
+                    vmRoom.openTimePanel();
+                    vmRoom.openTimePanel();
+                    break;
+                case 'checkin':
+                    vmRoom.openCheckin();
+                    vmRoom.openCheckin();
+                    break;
+                case 'rule':
+                    vmRoom.openRule();
+                    vmRoom.openRule();
+                    break;
+                default:
+                    break;
             }
-        })
+        }
     },
     swiper1Render: function() {
         var swiper1 = new Swiper('.swiper1', {
@@ -385,6 +409,9 @@ vmBtn = avalon.define({
                 } else {
                     return;
                 }
+            case 'rule':
+                vmRoom.isAgree = true;
+                break;
         }
         $('#pop-text').empty();
 
@@ -513,9 +540,9 @@ function room_init() {
                         vmRoom.startTimeIndex = newOrder.day.startTimeIndex;
                         vmRoom.price = json.data[newOrder.day.startTimeIndex].discount;
                     } else {
-                        //默认选择第一个，最高价格
+                        //默认选择第二个时间
                         vmRoom.price = json.data[0].discount;
-                        newOrder.day.startTimeIndex = 0;
+                        newOrder.day.startTimeIndex = 1;
                         newOrder.day.startTime = json.data[0].startTime;
                         Storage.set("newOrder", newOrder);
                     }

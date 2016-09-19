@@ -9,29 +9,27 @@
     <link rel="stylesheet" href="css/common.css">
     <!-- css -->
     <!-- <link href="css/font.css" rel="stylesheet"/>  -->
-    <script src="js/lib/mui.min.js"></script>
-    <script src="js/lib/jquery.min.js"></script>
 </head>
 
 <body class="mui-ios mui-ios-8 mui-ios-8-0">
 
     <!--顶部-->
-    <header ms-controller="hotel" class="mui-bar mui-bar-nav mui-text-center" style="height: 48px;background-color:rgba(255,255,255,0.9);">
+    <header class="mui-bar mui-bar-nav mui-text-center" style="height: 48px;background-color:rgba(255,255,255,0.9);">
         <div id="menu" style="display: inline-block;float: left;">
-            <img class="headImg" ms-attr-src="headImg" alt="" style="margin-left: 0;">
+            <img ms-controller="hotel" class="headImg" ms-attr-src="headImg" alt="" style="margin-left: 0;">
         </div>
-        <div class="bs-type-tab">
+        <div class="bs-type-tab" ms-controller="hotel">
             <a class="bs-type-tab-item" ms-class="bs-text-red: type==0" ms-on-tap="selectType(0)">全天房</a>
             <span> | </span>
             <a class="bs-type-tab-item" ms-class="bs-text-red: type==1" ms-on-tap="selectType(1)">时租房</a>
         </div>
-        <div style="display: inline-block;float: right;" ms-on-tap="goDiscover">
+        <div ms-controller="hotel" style="display: inline-block;float: right;" ms-on-tap="goDiscover">
             <img class="headImg" src="./img/index-btn-rightup.png" alt="" style="margin-right: 0; border-radius: 0;">
         </div>
 
-        <div id="midnight" class="bs-bg-black bs-text-white" style="position: fixed;z-index: 3;top: 48px;right: 0px;width: 100vw;text-align: center;line-height: 32px;" ms-on-tap="goMidnight">
-            <img src="img/midnight.svg" alt="" style="width: 27px;float: left;margin: 2px 0 0 8px;">
-            午夜特价房震撼来袭！！<span class="mui-icon mui-icon-closeempty" style="float: right;font-size: 32px;padding: 0px;margin: 0px;" ms-on-tap="closeMidnight"></span>
+        <div id="midnight" ms-controller="hotel" class="bs-bg-black bs-text-white" style="position: fixed;z-index: 3;top: 48px;right: 0px;width: 100vw;text-align: left;line-height: 32px;" ms-on-tap="goMidnight">
+            <img src="img/midnight.svg" alt="" style="width: 24px;float: left;margin: 4px 0 0 8px;">
+            &nbsp;<strong>午夜特价房</strong> 震撼来袭！！！<span class="mui-icon mui-icon-closeempty" style="float: right;font-size: 32px;padding: 0px;margin: 0px;" ms-on-tap="closeMidnight"></span>
         </div>
     </header>
 
@@ -40,11 +38,14 @@
     </div>
         <!-- pop -->
     <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script src="js/lib/jquery.min.js"></script>
     <script src="js/lib/avalon.mobile.shim.min.js"></script>
+    <script src="js/lib/mui.min.js"></script>
     <script src="js/lib/os.js" ></script>
     <script src="js/domainName.js"></script>
     <script src="js/api.js"></script>
     <script src="js/config.js"></script>
+    <script src="js/util/popOver.js"></script>
     <script src="js/pages/user/my.js"></script>
     <!-- js -->
 </body>

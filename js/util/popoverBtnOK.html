@@ -1,16 +1,4 @@
-<style>
-    .popover-Button {
-        color: #fff;
-        background-color: #000;
-        width: 40%;
-        -webkit-touch-callout:none;
-    }
-    .room-Button {
-        position: fixed;
-        bottom: 10px;
-    }
-</style>
-<div style="position: fixed;bottom: 5vh;width: 100%;z-index:999;" class="mui-text-center" ms-controller="popoverBtnOK">
-    <button class="checkButton room-Button" ms-click="ok" ms-if="useCheck"></button>
-    <button class="closeButton room-Button" ms-click="ok" ms-if="!useCheck"></button>
+<div ms-controller="popoverBtnOK">
+    <button class="popover-Button popover-Button-check" ms-click="ok" ms-if="useCheck"></button>
+    <button class="popover-Button popover-Button-close" ms-click="ok" ms-if="!useCheck"></button>
 </div>

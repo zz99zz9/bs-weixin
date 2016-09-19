@@ -1,4 +1,3 @@
-
 var vmContactList = avalon.define({
     $id: "contactList",
     list: [],
@@ -61,7 +60,9 @@ var vmContactList = avalon.define({
                     vmContactList.mobile = "";
                     vmContactList.idNo = "";
                     vmContactList.list.push(json.data);
-                    vmContactList.selectedList.push(vmContactList.list.length-1);
+                    if (vmContactList.selectedList.length < 2) {
+                        vmContactList.selectedList.push(vmContactList.list.length - 1);
+                    }
                 }
                 vmContactList.disable = false;
             }
@@ -69,8 +70,8 @@ var vmContactList = avalon.define({
     }
 });
 
-vmContactList.$watch('selectedList.length',function(l){
-    if(l > 2 ) {
+vmContactList.$watch('selectedList.length', function(l) {
+    if (l > 2) {
         mui.toast("入住人员请不要多于两位");
         // vmContactList.selectedList = vmContactList.$model.selectedList.slice(0, 2);
         // 自动移除，只能生效一次

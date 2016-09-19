@@ -7,7 +7,7 @@ isManageMode = localpath.indexOf('manage') > 0 ? true : false;
 
 $(function() {
     if (!isios && isweixin) {
-        $('#popModule').css('-webkit-transition-duration', '0');
+        // $('#popModule').css('-webkit-transition-duration', '0');
     }
     $('#menu').on('tap', function(event) {
 
@@ -20,7 +20,6 @@ $(function() {
         //$('#popModule').removeClass('hide');
     });
     $('#popModule').on('webkitTransitionEnd', function() {
-        //          $.get('http://192.168.99.168:1234?'+'end')
         if (ishide) {
             $('#popModule').hide();
         }
