@@ -180,5 +180,3 @@ function savePic(serverId) {
         }
     });
 }
-
-vmSide.getUserInfo();
