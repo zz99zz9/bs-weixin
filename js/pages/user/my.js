@@ -39,54 +39,50 @@ var vmSide = avalon.define({
     isAdmin: 0,
     isManage: isManageMode,
     getUserInfo: function() {
-        var userInfo = Storage.getLocal('user');
-        if (userInfo) {
-            var token = userInfo.accessToken || '';
-            var openid = userInfo.openId || '';
+        var userInfo = Storage.getLocal('user') || {};
+		var token = userInfo.accessToken || '';
+		var openid = userInfo.openId || '';
 
-            $.ajax({
-                type: "get",
-                async: true,
-                url: urls.userInfotUrl + "?accessToken=" + token + "&openId=" + openid,
-                dataType: "jsonp",
-                jsonp: "jsonpcallback",
-                success: function(json) {
-                    if (json.status === -1) {
-                        vmSide.nickName = ' 未登录 ';
-                    } else {
-                        if (json.data.headUrl === '') {
-                            vmSide.headImg = defaultHeadImg;
-                        } else {
-                            vmSide.headImg = urlAPINet + json.data.headUrl;
-                        }
-                        vmSide.nickName = json.data.nickname;
-                        vmSide.isAdmin = json.data.isAdmin;
+		$.ajax({
+			type: "get",
+			async: true,
+			url: urls.userInfotUrl + "?accessToken=" + token + "&openId=" + openid,
+			dataType: "jsonp",
+			jsonp: "jsonpcallback",
+			success: function(json) {
+				if (json.status === -1) {
+					vmSide.nickName = ' 未登录 ';
+				} else {
+					if (json.data.headUrl === '') {
+						vmSide.headImg = defaultHeadImg;
+					} else {
+						vmSide.headImg = urlAPINet + json.data.headUrl;
+					}
+					vmSide.nickName = json.data.nickname;
+					vmSide.isAdmin = json.data.isAdmin;
 
-                        var user = {
-                            uid: json.data.id,
-                            mobile: json.data.mobile,
-                            openId: json.data.openId,
-                            name: json.data.name,
-                            nickname: json.data.nickname,
-                            headImg: json.data.headUrl,
-                            logState: 1,
-                            idUrl: json.data.idUrl,
-                            idNo: json.data.idNo,
-                            authStatus: json.data.authStatus,
-                            invoiceMoney: json.data.invoiceMoney,
-                            isAdmin: json.data.isAdmin
-                        };
-                        Storage.setLocal('user', user);
-                    }
-                },
-                error: function(XMLHttpRequest, type, errorThrown) {
-                    console.log(XMLHttpRequest.responseText + "\n" + type + "\n" + errorThrown);
-                }
-            });
-        } else {
-            vmSide.nickName = ' 未登录 ';
-            return;
-        }
+					var user = {
+						uid: json.data.id,
+						mobile: json.data.mobile,
+						openId: json.data.openId,
+						name: json.data.name,
+						nickname: json.data.nickname,
+						headImg: json.data.headUrl,
+						logState: 1,
+						idUrl: json.data.idUrl,
+						idNo: json.data.idNo,
+						authStatus: json.data.authStatus,
+						invoiceMoney: json.data.invoiceMoney,
+						isAdmin: json.data.isAdmin,
+						accessToken: json.data.accessToken
+					};
+					Storage.setLocal('user', user);
+				}
+			},
+			error: function(XMLHttpRequest, type, errorThrown) {
+				console.log(XMLHttpRequest.responseText + "\n" + type + "\n" + errorThrown);
+			}
+		});
     },
     changeImg: function() {
         ajaxJsonp({
@@ -185,3 +181,5 @@ function savePic(serverId) {
         }
     });
 }
+
+vmSide.getUserInfo();
