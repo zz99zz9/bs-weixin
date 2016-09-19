@@ -520,3 +520,7 @@ function saveStorage() {
 
     Storage.set("newOrder", newOrder);
 }
+
+avalon.ready(function() {
+    $('#container').hide();
+});
