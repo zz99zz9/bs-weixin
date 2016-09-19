@@ -1,19 +1,20 @@
 <style>
     .hotel-introduction section {
-        margin: 20px 0;
+        margin: 25px 0;
         font-size: 15px;
     }
     .hotel-introduction section div {
-        margin: 10px 0;
+        margin: 15px 0;
         font-size: 13px;
+        font-size: 12px;
     }
 </style>
-<div ms-controller="hotel" class="bs-bg-white bs-text-black hotel-introduction" style="padding: 15px;height: 80vh;overflow-y: auto;">
-    <div class="bs-text-larger">{{name}}</div>
+<div ms-controller="hotel" class="bs-bg-white bs-text-black bs-text-large hotel-introduction" style="padding: 20px;height: 80vh;overflow-y: auto;">
+    <div class="bs-text-x-larger">{{name}}</div>
     <section>
-        联系电话
         <div>
-            <a class="bs-text-gold" ms-attr-href="'tel:' + tel">{{tel}} 联系店家</a>
+            <img src="img/icon/tel.png" alt="" style="width: 22px;position: relative;top: 3px;">&nbsp;
+            <a class="bs-text-gold bs-text-large" ms-attr-href="'tel:' + tel">{{tel}}</a>
         </div>
     </section>
 

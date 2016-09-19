@@ -4,7 +4,7 @@
 }
 
 .isValid {
-    color: #ffa000;
+    color: #FFC539;
 }
 
 .noValid {
@@ -20,26 +20,32 @@
 }
 </style>
 <div ms-controller="hotel" class="hotel-assess" style="height:80vh; background: #fff; overflow-y: auto;">
-    <section class="bs-text-black" style="padding: 15px;">
-        <table>
-            <tr class="bs-text-larger">
-                <td style="width: 100px;height: 40px;">
-                    总评分
+    <section class="bs-text-black" style="padding: 20px;padding-bottom: 15px;">
+        <table style="width: 100%;" class="bs-text-smaller">
+            <tr>
+                <td class="bs-text-x-larger" style="width: 100px;height: 40px;" colspan="2">
+                    {{assessCount}}条评论
+                    <span class="isValid bs-text-larger">{{score.totalScore}} 分</span>
                 </td>
-                <td class="isValid">
-                    {{score.totalScore}} 分
+            </tr>
+            <tr>
+                <td>
+                    <hr style="position: relative;width: 60px;float: left;top: -2px;">
                 </td>
+                <td></td>
             </tr>
             <tr>
                 <td>
                     洗浴舒适度
                 </td>
                 <td>
-                    <span ms-class-1="isValid:score.score1>=1" ms-class-2="noValid:score.score1<1">★</span>
-                    <span ms-class-1="isValid:score.score1>=2" ms-class-2="noValid:score.score1<2">★</span>
-                    <span ms-class-1="isValid:score.score1>=3" ms-class-2="noValid:score.score1<3">★</span>
-                    <span ms-class-1="isValid:score.score1>=4" ms-class-2="noValid:score.score1<4">★</span>
-                    <span ms-class-1="isValid:score.score1>=5" ms-class-2="noValid:score.score1<5">★</span>
+                    <div style="float: right;">
+                        <span ms-class-1="isValid:score.score1>=1" ms-class-2="noValid:score.score1<1">★</span>
+                        <span ms-class-1="isValid:score.score1>=2" ms-class-2="noValid:score.score1<2">★</span>
+                        <span ms-class-1="isValid:score.score1>=3" ms-class-2="noValid:score.score1<3">★</span>
+                        <span ms-class-1="isValid:score.score1>=4" ms-class-2="noValid:score.score1<4">★</span>
+                        <span ms-class-1="isValid:score.score1>=5" ms-class-2="noValid:score.score1<5">★</span>
+                    </div>
                 </td>
             </tr>
             <tr>
@@ -47,11 +53,13 @@
                     睡眠舒适度
                 </td>
                 <td>
-                    <span ms-class-1="isValid:score.score2>=1" ms-class-2="noValid:score.score2<1">★</span>
-                    <span ms-class-1="isValid:score.score2>=2" ms-class-2="noValid:score.score2<2">★</span>
-                    <span ms-class-1="isValid:score.score2>=3" ms-class-2="noValid:score.score2<3">★</span>
-                    <span ms-class-1="isValid:score.score2>=4" ms-class-2="noValid:score.score2<4">★</span>
-                    <span ms-class-1="isValid:score.score2>=5" ms-class-2="noValid:score.score2<5">★</span>
+                    <div style="float: right;">
+                        <span ms-class-1="isValid:score.score2>=1" ms-class-2="noValid:score.score2<1">★</span>
+                        <span ms-class-1="isValid:score.score2>=2" ms-class-2="noValid:score.score2<2">★</span>
+                        <span ms-class-1="isValid:score.score2>=3" ms-class-2="noValid:score.score2<3">★</span>
+                        <span ms-class-1="isValid:score.score2>=4" ms-class-2="noValid:score.score2<4">★</span>
+                        <span ms-class-1="isValid:score.score2>=5" ms-class-2="noValid:score.score2<5">★</span>
+                    </div>
                 </td>
             </tr>
             <tr>
@@ -59,19 +67,23 @@
                     服务满意度
                 </td>
                 <td>
-                    <span ms-class-1="isValid:score.score3>=1" ms-class-2="noValid:score.score3<1">★</span>
-                    <span ms-class-1="isValid:score.score3>=2" ms-class-2="noValid:score.score3<2">★</span>
-                    <span ms-class-1="isValid:score.score3>=3" ms-class-2="noValid:score.score3<3">★</span>
-                    <span ms-class-1="isValid:score.score3>=4" ms-class-2="noValid:score.score3<4">★</span>
-                    <span ms-class-1="isValid:score.score3>=5" ms-class-2="noValid:score.score3<5">★</span>
+                    <div style="float: right;">
+                        <span ms-class-1="isValid:score.score3>=1" ms-class-2="noValid:score.score3<1">★</span>
+                        <span ms-class-1="isValid:score.score3>=2" ms-class-2="noValid:score.score3<2">★</span>
+                        <span ms-class-1="isValid:score.score3>=3" ms-class-2="noValid:score.score3<3">★</span>
+                        <span ms-class-1="isValid:score.score3>=4" ms-class-2="noValid:score.score3<4">★</span>
+                        <span ms-class-1="isValid:score.score3>=5" ms-class-2="noValid:score.score3<5">★</span>
+                    </div>
                 </td>
             </tr>
         </table>
     </section>
     <section>
-        <div class="bs-text-black bs-text-larger" style="padding: 10px 15px 0px 15px;">评价 共{{assessCount}}条</div>
+        <div style="text-align: left;margin: 0 20px;">
+            <hr style="margin-top: 0px;margin-bottom: 0px;">
+        </div>
         <div class="mui-text-center bs-text-smaller" ms-repeat="assessList">
-            <div style="text-align: left;margin: 0 15px;">
+            <div style="text-align: left;margin: 0 20px;">
                 <br>
                 <div class="bs-text-153" style="text-align: left;font-weight: 300;display: inline;margin-right: 10px;">
                     {{el.user.name || el.user.mobile}}
