@@ -27,23 +27,24 @@
 </style>
 <div ms-controller="contactList">
     <div class="mui-table-view mui-input-group" style="margin-top: 10px;color: #000;">
-        <div class="mui-table-view-divider bs-text-normal">
-            添加入住人
-            <img src="img/circlePlus.png" class="img-save" ms-click="save">
+        <div class="mui-input-row">
+            <input type="text" ms-duplex="name" class="bs-text-black bs-text-smaller" placeholder="填写姓名">
         </div>
         <div class="mui-input-row">
-            <input type="text" ms-duplex="name" name="name" class="bs-text-black bs-text-smaller" placeholder="填写姓名">
+            <input type="tel" ms-duplex="mobile" class="bs-text-black bs-text-smaller" placeholder="填写手机号">
         </div>
         <div class="mui-input-row">
-            <input type="tel" ms-duplex="mobile" name="mobile" class="bs-text-black bs-text-smaller" placeholder="填写手机号">
+            <input type="text" ms-duplex="idNo" class="bs-text-black bs-text-smaller" placeholder="填写身份证号">
         </div>
-        <div class="mui-input-row">
-            <input type="text" ms-duplex="idNo" name="ID" class="bs-text-black bs-text-smaller" placeholder="填写身份证号">
+        <div class="mui-table-view-divider bs-text-normal" style="text-align: right;">
+            <button style="background: #baa071;color: white;margin-right: 5px;" ms-click="save">添加入住人</button>
+            <!-- <img src="img/circlePlus.png" class="img-save" ms-click="save"> -->
         </div>
     </div>
 
-    <div style="height: 50vh;overflow-y: auto;margin-top: 10px;">
+    <div style="height: 45vh;overflow-y: auto;margin-top: 10px;">
         <div class="mui-table-view contact-list">
+            <div class="mui-table-view-cell bs-text-black bs-text-smaller" ms-if="list.length==0">请先添加入住人</div>
             <div class="mui-table-view-cell mui-checkbox mui-right" ms-repeat="list" ms-data-index="$index" style="z-index: 9;">
                 <input type="checkbox" ms-duplex-number="selectedList" ms-attr-value="$index" style="z-index: 1; top: 12px;">
                 <div class="mui-slider-handle">

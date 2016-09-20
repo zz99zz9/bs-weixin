@@ -541,9 +541,9 @@ function room_init() {
                         vmRoom.price = json.data[newOrder.day.startTimeIndex].discount;
                     } else {
                         //默认选择第二个时间
-                        vmRoom.price = json.data[0].discount;
+                        vmRoom.price = json.data[1].discount;
                         newOrder.day.startTimeIndex = 1;
-                        newOrder.day.startTime = json.data[0].startTime;
+                        newOrder.day.startTime = json.data[1].startTime;
                         Storage.set("newOrder", newOrder);
                     }
                 }

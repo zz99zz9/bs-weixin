@@ -118,6 +118,9 @@ var vmHotel = avalon.define({
                     // vmHotel.featureList = json.data.featureList;
                     vmHotel.serviceList = json.data.serviceList;
                     vmHotel.amenityList = json.data.amenityList;
+
+                    //隐藏loading页面
+                    $('#container').hide();
                 }
             }
         });
@@ -521,6 +524,3 @@ function saveStorage() {
     Storage.set("newOrder", newOrder);
 }
 
-avalon.ready(function() {
-    $('#container').hide();
-});

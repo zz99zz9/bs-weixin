@@ -263,6 +263,7 @@ function payOrder() {
                     if (isweixin) { //如果是在微信里打开
                         // location.href = 'alipay-iframe.html?payUrl=' + encodeURIComponent(json.data.payUrl);
                         alert('请点击微信右上角菜单中的“在浏览器中打开”选项，在外部浏览器使用支付宝支付');
+                        vmOrder.btn2Disabled = false;
                     } else { //在其它浏览器打开
                         location.href = json.data.payUrl;
                     }

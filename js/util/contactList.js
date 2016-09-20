@@ -3,8 +3,16 @@ var vmContactList = avalon.define({
     list: [],
     selectedList: [],
     selectDone: function() {
+        if (vmContactList.$model.list.length == 0) {
+            mui.toast("请先添加入住人");
+            return false;
+        }
+
         if (vmContactList.$model.selectedList.length > 2) {
-            mui.toast("入住人员请不要多于两位");
+            mui.toast("入住人请不要多于两位");
+            return false;
+        } else if (vmContactList.$model.selectedList.length == 0) {
+            mui.toast("请选择入住人");
             return false;
         } else {
             newOrder.contact = [];
