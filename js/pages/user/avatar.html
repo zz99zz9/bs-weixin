@@ -1,0 +1,107 @@
+<style>
+body {
+    background: black;
+}
+.cropper-bg {
+    background: black;
+}
+.avatar-view {
+    position: absolute;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+.avatar-view img{
+    width: 100vw;
+    align-items: center;
+}
+.avatar-view button {
+    border-radius: 0;
+    border-color: #999;
+    background-color: #333;
+    margin-top: 20px;
+    width: 120px;
+}
+
+.bottom {
+    text-align: center;
+}
+.bottom button {
+    border-radius: 0;
+    border-color: #999;
+    background-color: #333;
+    margin-top: 5px;
+    width: 120px;
+    margin-right: -5px;
+}
+
+.avatar-alert {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.avatar-wrapper {
+    height: 90vh;
+    width: 100%;
+}
+
+.avatar-wrapper img {
+    display: block;
+    height: auto;
+    max-width: 100%;
+}
+
+.loading {
+    display: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: #fff url("../img/upload.gif") no-repeat center center;
+    opacity: .75;
+    filter: alpha(opacity=75);
+    z-index: 20140628;
+}
+</style>
+<div class="avatar bs-bg-black" ms-controller='avatar'>
+    <!-- Current avatar -->
+    <div class="avatar-view" ms-if="!isEdit">
+        <img ms-attr-src="urlAPINet + headImg" alt="Avatar">
+
+        <button type="button" class="bs-text-small bs-text-white bs-bg-black" ms-on-tap="pickImg">更改头像</button>
+    </div>
+
+    <div class="container" id="crop-avatar" ms-if="isEdit">
+        <form class="avatar-form" action="" enctype="multipart/form-data" method="post">
+            <div class="avatar-body">
+                <!-- Upload image and data -->
+                <div class="avatar-upload" style="display: none;">
+                    <input type="hidden" class="avatar-src" name="avatar_src">
+                    <input type="hidden" class="avatar-data" name="avatar_data">
+                    <!-- <label for="avatarInput">Local upload</label> -->
+                    <input type="file" class="avatar-input" id="avatarInput" name="avatar_file">
+                </div>
+                <!-- Crop and preview -->
+                 <div class="avatar-wrapper">
+                     
+                 </div>
+
+                <!-- <div class="avatar-btns">
+                    <button type="submit" class="avatar-save">Done</button> 
+                </div>-->
+            </div>
+        </form>
+    
+        <!-- Loading state -->
+        <div class="loading" aria-label="Loading" role="img" tabindex="-1"></div>
+
+        <div class="bottom">
+            <button type="button" class="bs-text-small bs-text-white" ms-on-tap="cancelEdit">取消</button>
+            <button id="submitDataURL" type="button" class="bs-text-small bs-text-white" ms-on-tap="upload" ms-attr-disabled="isUpload">确定</button>
+        </div>
+    </div>
+
+</div>

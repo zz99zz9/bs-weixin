@@ -2,6 +2,7 @@
 var urlAPINet = "http://img.bensue.com/";
 var urln = {
     UploadFile: urlAPINet + "/UploadFile.ashx", //上传地址 
+    UploadFileFromBase64: urlAPINet + "UploadFileFromBase64.ashx",//头像上传地址
 };
 
 //测试环境

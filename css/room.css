@@ -213,8 +213,7 @@ section {
 }
 
 .room-time .time-panel {
-    margin-bottom: 20px;
-    padding: 0 10px;
+    padding: 0 10px 20px 10px;
     font-size: 13px;
 }
 

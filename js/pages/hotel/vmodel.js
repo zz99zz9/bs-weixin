@@ -523,4 +523,3 @@ function saveStorage() {
 
     Storage.set("newOrder", newOrder);
 }
-

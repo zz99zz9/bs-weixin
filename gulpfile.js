@@ -250,6 +250,27 @@ function submitassess() {
         .pipe(gulp.dest('./src'));
 }
 
+//头像编辑页面
+function avatar() {
+    return gulp.src('./js/layout/shell.html')
+        .pipe(replace({
+                regex: '<!-- css -->',
+                replace: '<link rel="stylesheet" href="css/cropper.min.css">'
+            }))
+        .pipe(replace({
+            regex: '<!-- js -->',
+            replace: '<script src="js/lib/cropper.min.js"></script>\n<script src="js/pages/user/avatar.js"></script>'
+        }))
+        .pipe(replace({
+            regex: '<!-- content -->',
+            replace: '<!--include "../pages/user/avatar.html"-->'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('avatar.html'))
+        .pipe(gulp.dest('./src'));
+}
 //个人信息
 function userInfo() {
     return gulp.src('./js/layout/shell.html')
@@ -1941,6 +1962,7 @@ gulp.task('html', gulp.parallel(
     orderList,
     order,
     submitassess,
+    avatar,
     userInfo,
     userInvite,
     wallet,
