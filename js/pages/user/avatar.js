@@ -377,7 +377,7 @@ var vmAvatar = avalon.define({
                             bs_cropper.submitEnd();
 
                             if (json.status === 1) {
-
+                                vmAvatar.isUpload = false;
                                 //切换到头像展示模式，显示 zip 格式图
                                 vmAvatar.headImg = data.Data.zipUrl;
                                 vmAvatar.isEdit = false;
@@ -387,6 +387,7 @@ var vmAvatar = avalon.define({
                                 vmSide.getUserInfo();
                             } else {
                                 alert(json.message);
+                                vmAvatar.isUpload = false;
                             }
                         }
                     });

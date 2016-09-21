@@ -71,7 +71,7 @@ body {
     <div class="avatar-view" ms-if="!isEdit">
         <img ms-attr-src="urlAPINet + headImg" alt="Avatar">
 
-        <button type="button" class="bs-text-small bs-text-white bs-bg-black" ms-on-tap="pickImg">更改头像</button>
+        <button type="button" class="bs-text-small bs-text-white bs-bg-black" ms-click="pickImg">更改头像</button>
     </div>
 
     <div class="container" id="crop-avatar" ms-if="isEdit">
@@ -99,9 +99,8 @@ body {
         <div class="loading" aria-label="Loading" role="img" tabindex="-1"></div>
 
         <div class="bottom">
-            <button type="button" class="bs-text-small bs-text-white" ms-on-tap="cancelEdit">取消</button>
-            <button id="submitDataURL" type="button" class="bs-text-small bs-text-white" ms-on-tap="upload" ms-attr-disabled="isUpload">确定</button>
+            <button type="button" class="bs-text-small bs-text-white" ms-click="cancelEdit">取消</button>
+            <button id="submitDataURL" type="button" class="bs-text-small bs-text-white" ms-click="upload" ms-attr-disabled="isUpload">确定</button>
         </div>
     </div>
-
 </div>
