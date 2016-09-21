@@ -37,6 +37,10 @@ var vmSide = avalon.define({
         $('#popModule').show();
         setTimeout("$('#popModule').removeClass('hide')", 10);
         //$('#popModule').removeClass('hide');
+        var user = {
+            openUserInfo: 0
+        };
+        Storage.setLocal('user', user);
     },
     getUserInfo: function() {
         var userInfo = Storage.getLocal('user') || {};

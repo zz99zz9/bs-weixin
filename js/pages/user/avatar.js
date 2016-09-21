@@ -335,6 +335,10 @@ CropAvatar.prototype = {
 // });
 
 var bs_cropper;
+var user = {
+  openUserInfo: 1
+};
+Storage.setLocal('user', user);
 
 var vmAvatar = avalon.define({
     $id: 'avatar',
@@ -348,8 +352,9 @@ var vmAvatar = avalon.define({
         }
     },
     cancelEdit: function() {
-        vmAvatar.isEdit = false;
-        bs_cropper.stopCropper();
+        // vmAvatar.isEdit = false;
+        // bs_cropper.stopCropper();
+        location.href = "index.html";
     },
     isUpload: false,
     upload: function() {
@@ -377,14 +382,22 @@ var vmAvatar = avalon.define({
                             bs_cropper.submitEnd();
 
                             if (json.status === 1) {
-                                vmAvatar.isUpload = false;
-                                //切换到头像展示模式，显示 zip 格式图
-                                vmAvatar.headImg = data.Data.zipUrl;
-                                vmAvatar.isEdit = false;
-                                bs_cropper.stopCropper();
+                                // vmAvatar.isUpload = false;
+                                // //切换到头像展示模式，显示 zip 格式图
+                                // vmAvatar.headImg = data.Data.zipUrl;
+                                // vmAvatar.isEdit = false;
+                                // bs_cropper.stopCropper();
 
-                                //my.js 读下接口，更新本底数据
-                                vmSide.getUserInfo();
+                                // //my.js 读下接口，更新本底数据
+                                // vmSide.getUserInfo();
+
+                                //更新本地头像数据
+                                var user = {
+                                  headImg: data.Data.thuUrl,
+                                };
+                                Storage.setLocal('user', user);
+
+                                location.href = "index.html";
                             } else {
                                 alert(json.message);
                                 vmAvatar.isUpload = false;

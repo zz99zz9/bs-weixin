@@ -3,7 +3,56 @@ var hid,
     bensue, roomType, newOrder,
     isexpand = false,
     isSuccess = false,
-    user = Storage.getLocal("user");
+    user;
+
+hid = 1; //目前只有1家店
+// hid = getParam("id");
+// if (hid != "") {
+//     if (isNaN(hid)) {
+//         location.href = document.referrer || "index.html";
+//     } else {
+//         hid = parseInt(hid);
+//     }
+// } else {
+//     location.href = "index.html";
+// }
+
+// myPosition = Storage.getLocal("position");
+// if (myPosition) {
+//     myLng = myPosition.lng || "";
+//     myLat = myPosition.lat || "";
+// }
+
+bensue = Storage.get("bensue");
+if (bensue) {
+    roomType = bensue.type || 0;
+
+    //session有数据说明不是第一次加载，上来就隐藏
+    //隐藏loading页面
+    $('#container').hide();
+} else {
+    roomType = 0;
+    Storage.set("bensue", {
+        type: 0
+    });
+}
+
+newOrder = Storage.get("newOrder");
+if (!newOrder) {
+    newOrder = {
+        day: {
+            start: '',
+            end: '',
+            filter: []
+        },
+        partTime: {
+            start: '',
+            end: '',
+            filter: []
+        }
+    };
+    Storage.set("newOrder", newOrder);
+}
 
 var vmHotel = avalon.define({
     $id: 'hotel',
@@ -382,54 +431,14 @@ var vmFilter = avalon.define({
     }
 });
 
-hid = 1; //目前只有1家店
-// hid = getParam("id");
-// if (hid != "") {
-//     if (isNaN(hid)) {
-//         location.href = document.referrer || "index.html";
-//     } else {
-//         hid = parseInt(hid);
-//     }
-// } else {
-//     location.href = "index.html";
-// }
-
-// myPosition = Storage.getLocal("position");
-// if (myPosition) {
-//     myLng = myPosition.lng || "";
-//     myLat = myPosition.lat || "";
-// }
-
-bensue = Storage.get("bensue");
-if (bensue) {
-    roomType = bensue.type || 0;
-} else {
-    roomType = 0;
-    Storage.set("bensue", {
-        type: 0
-    });
-}
-
-newOrder = Storage.get("newOrder");
-if (!newOrder) {
-    newOrder = {
-        day: {
-            start: '',
-            end: '',
-            filter: []
-        },
-        partTime: {
-            start: '',
-            end: '',
-            filter: []
-        }
-    };
-    Storage.set("newOrder", newOrder);
-}
-
+user = Storage.getLocal("user");
 //更换登录用户头像
 if (user && user.headImg) {
-    vmHotel.headImg = urlAPINet + '/' + user.headImg;
+    vmHotel.headImg = urlAPINet + user.headImg;
+
+    if(user.openUserInfo) {
+        vmSide.show();
+    }
 }
 
 vmHotel.type = roomType;
