@@ -29,7 +29,7 @@ if (bensue) {
 
     //session有数据说明不是第一次加载，上来就隐藏
     //隐藏loading页面
-    //$('#container').hide();
+    $('#container').hide();
 } else {
     roomType = 0;
     Storage.set("bensue", {
@@ -169,7 +169,7 @@ var vmHotel = avalon.define({
                     vmHotel.amenityList = json.data.amenityList;
 
                     //隐藏loading页面
-                    //$('#container').hide();
+                    $('#container').hide();
                 }
             }
         });
