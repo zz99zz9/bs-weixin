@@ -3,6 +3,7 @@ var hid,
     bensue, roomType, newOrder,
     isexpand = false,
     isSuccess = false,
+    isOk = 0,
     user;
 
 hid = 1; //目前只有1家店
@@ -29,12 +30,19 @@ if (bensue) {
 
     //session有数据说明不是第一次加载，上来就隐藏
     //隐藏loading页面
+    isOk = 1;
     $('#container').hide();
-} else {
+} else { //第一次加载
     roomType = 0;
     Storage.set("bensue", {
         type: 0
     });
+    isOk = 1;
+    setTimeout(function() {
+        if (isOk) {
+            $('#container').hide();
+        }
+    }, 2000);
 }
 
 newOrder = Storage.get("newOrder");
@@ -57,8 +65,18 @@ if (!newOrder) {
 var vmHotel = avalon.define({
     $id: 'hotel',
     type: 0, //0 全天房, 1 夜房
+    isOk: 0,
     //导航相关
     headImg: 'img/defaultHeadImg.png', //左上角头像
+    judgeOk: function() {
+        setTimeout(function() {
+            if (isOk) {
+                $('#container').hide();
+            } else {
+                vmHotel.judgeOk();
+            }
+        }, 2000);
+    },
     selectType: function(type) {
         stopSwipeSkip.do(function() {
             roomType = type;
@@ -75,7 +93,7 @@ var vmHotel = avalon.define({
             vmHotel.tid = id;
             vmHotel.getRoomList();
             mui('#pullrefresh').pullRefresh().refresh(true);
-        });  
+        });
     },
     goDiscover: function() {
         stopSwipeSkip.do(function() {
@@ -156,7 +174,7 @@ var vmHotel = avalon.define({
                     vmHotel.lng = json.data.lng;
                     vmHotel.lat = json.data.lat;
 
-                    if(json.data.distance > 0) {
+                    if (json.data.distance > 0) {
                         vmHotel.distance = round(json.data.distance / 1000, 1);
                     }
                     //顶部轮播导入图片数据
@@ -169,7 +187,7 @@ var vmHotel = avalon.define({
                     vmHotel.amenityList = json.data.amenityList;
 
                     //隐藏loading页面
-                    $('#container').hide();
+                    isOk = 1;
                 }
             }
         });
@@ -218,19 +236,19 @@ var vmHotel = avalon.define({
     getAssess: function() {
         ajaxJsonp({
             url: urls.getRoomAssess,
-            data: { 
-                hid: 1, 
-                pageNo: vmHotel.assessPageNo, 
-                pageSize: vmHotel.assessPageSize 
+            data: {
+                hid: 1,
+                pageNo: vmHotel.assessPageNo,
+                pageSize: vmHotel.assessPageSize
             },
             successCallback: function(json) {
                 if (json.status === 1) {
-                    if(json.data.list.length > 1) {
-                        if( json.data.pageCount > 1) { 
+                    if (json.data.list.length > 1) {
+                        if (json.data.pageCount > 1) {
                             vmHotel.isShowLoadMoreBtn = true;
                         }
                         json.data.list.map(function(o) {
-                            o.s = round((o.score1 + o.score2 + o.score3)/3, 1);
+                            o.s = round((o.score1 + o.score2 + o.score3) / 3, 1);
                         });
 
                         vmHotel.score = json.data.score;
@@ -256,13 +274,13 @@ var vmHotel = avalon.define({
                 data: { hid: 1, pageNo: vmHotel.assessPageNo, pageSize: vmHotel.assessPageSize },
                 successCallback: function(json) {
                     if (json.status === 1) {
-                        vmHotel.assessPageNo ++;
+                        vmHotel.assessPageNo++;
                         json.data.list.map(function(o) {
-                            o.s = round((o.score1 + o.score2 + o.score3)/3, 1);
+                            o.s = round((o.score1 + o.score2 + o.score3) / 3, 1);
                         });
 
                         vmHotel.assessList.push.apply(vmHotel.assessList, json.data.list);
-                        if(vmHotel.assessPageNo > json.data.pageCount) {
+                        if (vmHotel.assessPageNo > json.data.pageCount) {
                             vmHotel.isShowLoadMoreBtn = false;
                         }
                     }
@@ -294,7 +312,7 @@ var vmHotel = avalon.define({
     },
     roomTypeList: [],
     tid: '', //房间类型，默认为全部
-    getRoomType: function(){
+    getRoomType: function() {
         ajaxJsonp({
             url: urls.getRoomTypeList,
             successCallback: function(json) {
@@ -406,7 +424,7 @@ var vmFilter = avalon.define({
                     vmFilter.dayFilter = json.data;
 
                     //读取本地数据
-                    if(newOrder.day.filter) {
+                    if (newOrder.day.filter) {
                         vmFilter.selectDayFilter = newOrder.day.filter;
                     }
                 }
@@ -422,7 +440,7 @@ var vmFilter = avalon.define({
                     vmFilter.partTimeFilter = json.data;
 
                     //读取本地数据
-                    if(newOrder.partTime.filter) {
+                    if (newOrder.partTime.filter) {
                         vmFilter.selectPartTimeFilter = newOrder.partTime.filter;
                     }
                 }
@@ -436,7 +454,7 @@ user = Storage.getLocal("user");
 if (user && user.headImg) {
     vmHotel.headImg = urlAPINet + user.headImg;
 
-    if(user.openUserInfo) {
+    if (user.openUserInfo) {
         vmSide.show();
     }
 }
@@ -446,10 +464,10 @@ vmHotel.type = roomType;
 registerWeixinConfig();
 
 //获得用户的位置
-wx.ready(function(){
+wx.ready(function() {
     wx.getLocation({
         type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
-        success: function (res) {
+        success: function(res) {
             console.log(res);
             myLat = res.latitude; // 纬度，浮点数，范围为90 ~ -90
             myLng = res.longitude; // 经度，浮点数，范围为180 ~ -180。
@@ -481,7 +499,7 @@ mui.init({
         }
     }
 });
-
+vmHotel.judgeOk();
 //mui 上拉加载
 function loadmore() {
     ajaxJsonp({
