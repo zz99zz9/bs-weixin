@@ -1,8 +1,8 @@
-var ishide = false;
+var ishide = false, 
+    isManageMode = false, 
+    localpath = location.pathname;
 
 //判断是否为管理模式
-var isManageMode = false;
-var localpath = location.pathname;
 isManageMode = localpath.indexOf('manage') > 0 ? true : false;
 
 $(function() {
@@ -30,6 +30,7 @@ var vmSide = avalon.define({
     name: '',
     nickName: '',
     isAdmin: 0,
+    isAlliance: 0,
     isManage: isManageMode,
     show: function() {
         vmSide.getUserInfo();
@@ -64,7 +65,8 @@ var vmSide = avalon.define({
 					}
 					vmSide.nickName = json.data.nickname;
 					vmSide.isAdmin = json.data.isAdmin;
-
+                    vmSide.isAlliance = json.data.isAlliance;
+                    
 					var user = {
 						uid: json.data.id,
 						mobile: json.data.mobile,
@@ -78,6 +80,7 @@ var vmSide = avalon.define({
 						authStatus: json.data.authStatus,
 						invoiceMoney: json.data.invoiceMoney,
 						isAdmin: json.data.isAdmin,
+                        isAlliance: json.data.isAlliance,
 						accessToken: json.data.accessToken
 					};
 					Storage.setLocal('user', user);
