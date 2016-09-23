@@ -1,8 +1,9 @@
-<header class="bs-bg-dark fr-flex" ms-controller="header">
+
+<header class="bs-bg-dark fr-flex mui-scroll-wrapper" style="z-index: 5;bottom: inherit;" ms-controller="header">
     <div class="fr-padding-20 bs-text-gray">
         <span class="bs-text-normal">{{@date}}详情</span>
         <br>
-        <span class="bs-text-smaller">入住人数 {{@number}}</span>
+        <span class="bs-text-smaller">入住人数 {{@checkin}}</span>
     </div>
     <div class="fr-padding-20" style="text-align: center;">
         <span class="bs-text-x-larger bs-text-gold">{{@sale}}</span>
@@ -10,15 +11,24 @@
         <span class="bs-text-smaller bs-text-white">销售总额</span>
     </div>
 </header>
-<section class="bs-bg-white bs-text-large" ms-controller="chart">
-    <div class="fr-flex" style="border-bottom: 1px solid #ddd;" ms-for="el in @list">
-        <div class="today-list-item">
-            {{el.type}} 入住{{el.number}}人
-            <br>
-            <span class="bs-text-smaller bs-text-gray">{{el.start}}</span>
-        </div>
-        <div class="today-list-item" style="line-height: 43px;">
-            {{el.price}}
-        </div>
+<div id="pullrefresh" class="mui-scroll-wrapper" style="top: 87px;">
+    <div class="mui-scroll">
+        <section class="bs-bg-white bs-text-large" ms-controller="chart">
+            <!-- <div class="fr-flex" style="border-bottom: 1px solid #ddd;">
+                <div class="today-list-item">
+                    暂无数据
+                </div>
+            </div> -->
+            <div class="fr-flex" style="border-bottom: 1px solid #ddd;" ms-for="el in @list">
+                <div class="today-list-item">
+                    {{el.type?DAYROOM:HOURROOM}} 入住{{el.number}}人
+                    <br>
+                    <span class="bs-text-smaller bs-text-gray">{{el.checkinTime}}</span>
+                </div>
+                <div class="today-list-item" style="line-height: 43px;">
+                    {{el.currentPrice}}
+                </div>
+            </div>
+        </section>
     </div>
-</section>
+</div>

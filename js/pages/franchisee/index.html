@@ -4,7 +4,7 @@
             <!-- 今日 -->
             <div class="swiper-slide">
                 <div class="bs-text-xxx-larger fr-head">
-                    <canvas id="circle" style="position: fixed;z-index: -1;left: 0;top: 0;"></canvas>
+                    <canvas id="circle" style="position: fixed;z-index: 1;left: 0;top: 0;"></canvas>
                     {{@todaySale}}
                     <span class="bs-text-large bs-text-white"><br>今日销售额</span>
                 </div>
@@ -13,44 +13,47 @@
                     <span class="bs-text-small bs-text-white">
                 <br>今日入住人数</span>
                 </div>
-                <div class="bs-text-smaller fr-link" ms-click="@goToday">今日详情</div>
+                <div class="bs-text-smaller fr-link" style="z-index: 10;" ms-click="@goToday">今日详情</div>
             </div>
             <!-- 上月 -->
             <div class="swiper-slide">
-                <div class="bs-text-xxx-larger fr-head" style="margin-left: 45px;">
+                <div class="bs-text-xxx-larger fr-head" style="width: 100px;">
                     {{@lastMonthIncome}}
                     <span class="bs-text-large bs-text-white"><br>上月分佣</span>
                 </div>
-                <div class="bs-text-larger fr-content-left">
-                    {{@lastMonthSale}}
-                    <span class="bs-text-small bs-text-white">
-                <br>上月销售额</span>
+                <div style="display: flex;">
+                    <div class="bs-text-larger fr-content-left">
+                        {{@lastMonthSale}}
+                        <span class="bs-text-small bs-text-white">
+                    <br>上月销售额</span>
+                    </div>
+                    <div class="bs-text-larger fr-content-right">
+                        {{@lastMonthCheckIn}}
+                        <span class="bs-text-small bs-text-white">
+                    <br>上月入住人数</span>
+                    </div>
                 </div>
-                <div class="bs-text-larger fr-content-right">
-                    {{@lastMonthCheckIn}}
-                    <span class="bs-text-small bs-text-white">
-                <br>上月入住人数</span>
-                </div>
-                <div class="bs-text-smaller fr-link" style="width: 60px;margin-left: -130px;" ms-click="@goMonth">上月详情</div>
+                <div class="bs-text-smaller fr-link" style="width: 60px;" ms-click="@goMonth">上月详情</div>
             </div>
             <!-- 累计 -->
             <div class="swiper-slide">
-                <div class="bs-text-xxx-larger fr-head" style="margin-left: -70px;">
+                <div class="bs-text-xxx-larger fr-head" style="width: 100px;">
                     {{@totalIncome}}
                     <span class="bs-text-large bs-text-white"><br>累计分佣</span>
                 </div>
-                <div id="chart" style="width: 80vw;height: 55vh;    position: fixed;top: 25vh;margin-left: -42vw;"></div>
-                <div class="bs-text-smaller fr-link" style="width: 60px;margin-left: -25px;" ms-click="@goIncome">查看详情</div>
+                <div style="height: 46px;">&nbsp;</div>
+                <div id="chart" style="width: 80vw;height: 55vh;position: fixed;top: 25vh;"></div>
+                <div class="bs-text-smaller fr-link" style="width: 60px;" ms-click="@goIncome">查看详情</div>
             </div>
             <!-- 提现 -->
             <div class="swiper-slide">
                 
-                <div class="bs-text-xxx-larger fr-head" style="margin-left: 45px;">
+                <div class="bs-text-xxx-larger fr-head" style="width: 150px;">
                     {{@balance}}
                     <span class="bs-text-large bs-text-white"><br>账户余额</span>
                     <img src="img/icon/question.png" alt="" style="position: absolute;top: -7px;right: -33px;width: 18px;" ms-click="@goNote">
                 </div>
-                <div class="bs-text-larger fr-content">
+                <div class="bs-text-larger fr-content" style="height: 46px;position: relative;top: -5vh;">
                     <div ms-visible="!@isVerifyShow">
                         <span class="bs-text-small bs-text-white">可提现金额</span>&nbsp;&nbsp;
                         <span>¥{{@withdrawCash}}</span>
@@ -58,14 +61,15 @@
                         <input type="tel" style="width: 180px;display: block;margin-top: 30px;margin-bottom: -15px;background: #23262a;border: none;text-align: center;" placeholder="输入提现金额" >
                         <hr style="color: #999;">
                     </div>
-                    <div ms-visible="@isVerifyShow">
-                        <input class="verifyInput" style="width: 180px;display: block;margin-top: 30px;margin-bottom: -15px;background: #23262a;border: none;text-align: center;" type="tel" placeholder="输入验证码" >
+                    <div ms-visible="@isVerifyShow"><br>&nbsp;</div>
+                    <div ms-visible="@isVerifyShow" style="display: flex;align-items: center;">
+                        <input class="verifyInput" style="    width: 120px;background: #23262a;border: none;border-bottom: solid 1px #999;text-align: center;margin-right: 10px;" type="tel" placeholder="输入验证码" >
                         <hr style="color: #999;">
                         <button class="sendBtn">重发验证码</button>
                     </div>
                     <button class="withdrawBtn" type="button" ms-click="@withdrawClick">提现</button>
                 </div>
-                <div class="bs-text-smaller fr-link" style="width: 60px;margin-left: -120px;" ms-click="@goRecord">交易记录</div>
+                <div class="bs-text-smaller fr-link" style="width: 60px;" ms-click="@goRecord">交易记录</div>
             </div>
             <div class="swiper-pagination"></div>
         </div>

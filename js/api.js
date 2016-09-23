@@ -166,4 +166,15 @@ var urls = {
     //统计报表
     reportIn: urlAPI + '/mgr/reportManage/income',//收入统计
     reportOut: urlAPI + '/mgr/reportManage/outlay',//支出统计
+
+    //加盟商
+    saleRangeStatistics: urlAPI + '/trd/roomIncomeDaily/saleRangeStatistics', //销售数据统计
+    commissionRangeStatistics: urlAPI + '/acc/hotelCommissionLog/commissionRangeStatistics', //分佣数据统计
+    fraMonthlyList: urlAPI + '/acc/hotelCommissionLog/monthlyList', //每月分佣数据列表
+    fraAccount: urlAPI + '/acc/allianceBusinessAccount/account', //加盟商账户数据
+    fraSaleDailyList: urlAPI + '/trd/roomIncomeDaily/saleDailyList', //每日销售数据列表
+    fraSaleMonthlyList: urlAPI + '/trd/roomIncomeDaily/saleMonthlyList', //每月销售数据列表
+    fraLogList: urlAPI + '/acc/hotelCapitalLog/list', //操作记录
+    fraSms: urlAPI + '/usr/sms/applyCash', //申请提现验证码
+    fraCash: urlAPI + '/acc/applyCash/apply', //申请提现
 }

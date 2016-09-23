@@ -389,7 +389,7 @@ function loadmore() {
                 vmIndex.pageNo++;
                 vmIndex.roomList.push.apply(vmIndex.roomList, json.data.list);
 
-                if (vmIndex.pageNo > json.data.pageCount) {
+                if (vmIndex.pageNo <= json.data.pageCount) {
                     mui("#pullrefresh").pullRefresh().endPullupToRefresh(false);
                 } else {
                     mui("#pullrefresh").pullRefresh().endPullupToRefresh(true);

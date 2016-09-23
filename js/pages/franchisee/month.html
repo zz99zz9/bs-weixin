@@ -1,5 +1,5 @@
-<header class="bs-bg-dark" ms-controller="header">
-    <div class="bs-text-normal bs-text-gray fr-padding-20">{{@date}}详情</div>
+<header class="bs-bg-dark mui-scroll-wrapper" style="z-index: 5;bottom: inherit;" ms-controller="header">
+    <div class="bs-text-normal bs-text-gray fr-padding-20">{{@year}}年{{@month}}月详情</div>
     <div class="header-middle">
         <div class="fr-padding-20">
             <span class="bs-text-x-larger bs-text-gold">{{@sale}}</span>
@@ -12,24 +12,29 @@
             <span class="bs-text-smaller bs-text-white">店主分佣</span>
         </div>
     </div>
-    <div class="bs-text-normal bs-text-gray header-bottom">入住人次 {{@number}}</div>
+    <div class="bs-text-normal bs-text-gray header-bottom">入住人次 {{@checkin}}</div>
 </header>
-<section class="bs-bg-white bs-text-large" ms-controller="chart">
-    <div style="border-bottom: 1px solid #ddd;" ms-for="el in @list">
-        <div class="fr-flex bs-text-normal">
-            <div style="padding: 15px 0 0 20px;">{{el.date}}</div>
-            <div style="margin: 11px 20px 10px 0;">
-                <button type="button" style="border-radius: 0;border-color: #000;padding: 3px 9px;" ms-click="@goToday">查看详情</button>
+<div id="pullrefresh" class="mui-scroll-wrapper" style="top: 209px;">
+    <div class="mui-scroll">
+        <section class="bs-bg-white bs-text-large" ms-controller="chart">
+            <div style="border-bottom: 1px solid #ddd;" ms-for="el in @list">
+                <div class="fr-flex bs-text-normal">
+                    <div style="padding: 15px 0 0 20px;">{{formatDate(el.date)}}</div>
+                    <div style="margin: 11px 20px 10px 0;">
+                        <button type="button" style="border-radius: 0;border-color: #000;padding: 3px 9px;" ms-click="@goToday(el.date)">查看详情</button>
+                    </div>
+                </div>
+                <div class="fr-flex">
+                    <div class="bs-text-smaller bs-text-gray" style="    margin: 0 0 15px 20px;">
+                        <span>{{DAYROOM}} 入住{{el.dayNumber}}人 <br></span>
+                        <span>{{HOURROOM}} 入住{{el.hourNumber}}人 <br></span>
+                    </div>    
+                    <div style="margin: 20px 20px 0 0;">
+                        <span class="bs-text-smaller bs-text-gray">销售金额</span>&nbsp;
+                        <span class="bs-text-large">{{el.amount}}</span>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="fr-flex">
-            <div class="bs-text-smaller bs-text-gray" style="    margin: 0 0 15px 20px;">
-                <span ms-for="cl in el.room">{{cl.type}} 入住{{cl.checkin}}人 <br></span>
-            </div>    
-            <div style="margin: 20px 20px 0 0;">
-                <span class="bs-text-smaller bs-text-gray">销售金额</span>&nbsp;
-                <span class="bs-text-large">{{el.sale}}</span>
-            </div>
-        </div>
+        </section>
     </div>
-</section>
+</div>

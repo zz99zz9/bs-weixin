@@ -502,7 +502,7 @@ function loadmore() {
             if (json.status == 1) {
                 vmHotel.pageNo++;
                 vmHotel.roomList.push.apply(vmHotel.roomList, json.data.list);
-                if (vmHotel.pageNo > json.data.pageCount) {
+                if (vmHotel.pageNo <= json.data.pageCount) {
                     mui("#pullrefresh").pullRefresh().endPullupToRefresh(false);
                 } else {
                     mui("#pullrefresh").pullRefresh().endPullupToRefresh(true);

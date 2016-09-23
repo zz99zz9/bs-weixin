@@ -1,4 +1,4 @@
-<header class="bs-bg-dark" ms-controller="header">
+<header class="bs-bg-dark mui-scroll-wrapper" style="z-index: 5;bottom: inherit;" ms-controller="header">
     <div class="bs-text-normal bs-text-gray header-up">累计详情</div>
     <div class="header-middle">
         <div class="fr-padding-20">
@@ -12,23 +12,27 @@
             <span class="bs-text-smaller bs-text-white">累计分佣</span>
         </div>
     </div>
-    <div class="bs-text-normal bs-text-gray header-bottom">入住人次 {{@number}}</div>
+    <div class="bs-text-normal bs-text-gray header-bottom">入住人次 {{@checkin}}</div>
 </header>
-<section class="bs-bg-white bs-text-large" ms-controller="chart">
-    <div style="border-bottom: 1px solid #ddd;" ms-for="el in @list">
-        <div class="fr-flex bs-text-normal">
-            <div style="padding: 15px 0 0 20px;">{{el.date}}</div>
-            <div style="margin: 11px 20px 10px 0;">
-                <button type="button" style="border-radius: 0;border-color: #000;padding: 3px 9px;" ms-click="@goMonth">查看详情</button>
+<div id="pullrefresh" class="mui-scroll-wrapper" style="top: 209px;">
+    <div class="mui-scroll">
+        <section class="bs-bg-white bs-text-large" ms-controller="chart">
+            <div style="border-bottom: 1px solid #ddd;" ms-for="el in @list">
+                <div class="fr-flex bs-text-normal">
+                    <div style="padding: 15px 0 0 20px;">{{el.yearPart}}年{{el.monthPart}}月</div>
+                    <div style="margin: 11px 20px 10px 0;">
+                        <button type="button" style="border-radius: 0;border-color: #000;padding: 3px 9px;" ms-click="@goMonth(el.yearPart, el.monthPart)">查看详情</button>
+                    </div>
+                </div>
+                <div class="fr-flex">
+                    <div class="bs-text-smaller bs-text-gray" style="    margin: 0 0 15px 20px;">
+                        <span>销售总额&nbsp;</span>&nbsp;
+                        <span class="bs-text-black">{{el.roomAmount}}<br></span>
+                        <span>店主分佣</span>&nbsp;&nbsp;
+                        <span class="bs-text-black">{{el.hotelAmount}}</span>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="fr-flex">
-            <div class="bs-text-smaller bs-text-gray" style="    margin: 0 0 15px 20px;">
-                <span>销售总额</span>&nbsp;
-                <span class="bs-text-black">{{el.sale}}<br></span>
-                <span>店主分佣</span>&nbsp;
-                <span class="bs-text-black">{{el.income}}</span>
-            </div>
-        </div>
+        </section>
     </div>
-</section>
+</div>

@@ -78,7 +78,7 @@ function loadMore() {
             if (json.status === 1) {
                 vmInvoiceList.pageNo++;
                 vmInvoiceList.list.push.apply(vmInvoiceList.list, json.data.list);
-                if (vmInvoiceList.pageNo > json.data.pageCount) {
+                if (vmInvoiceList.pageNo <= json.data.pageCount) {
                     mui("#refreshContainer").pullRefresh().endPullupToRefresh(true);
                 } else {
                     mui("#refreshContainer").pullRefresh().endPullupToRefresh(false);

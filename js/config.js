@@ -1,4 +1,6 @@
 
+const DAYROOM = '全天房', HOURROOM = '时租房';
+
 //默认图片
 var defaultHeadImg = '../img/iconfont-yonghu.svg';
 //本地储存
@@ -237,6 +239,30 @@ function getToday(type) {
             return d.getHours();
         default:
             return year + "-" + month + "-" + day + " " + h + ":" + mins + ":" + s;
+    }
+}
+
+//返回上月第一天和最后一天的字符串 2016-2-1, 2016-2-29
+//type: start, end
+function getLastMonth(type) {
+     var d = new Date(),
+        year = d.getFullYear(),
+        month = d.getMonth() + 1;
+
+    if(month == 1) {
+        year = year - 1;
+        if(type == 'start') {
+           return year + "-12-1";
+        } else if (type == 'end') {
+            return year + "-12-31";
+        }
+     } else {
+        month = month - 1;
+        if (type == 'start') {
+            return year + "-" + month + "-1";
+        } else if (type == 'end') {
+            return year + "-" + month + "-" + getDayNum(year, month);
+        }
     }
 }
 

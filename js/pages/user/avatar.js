@@ -358,8 +358,6 @@ var vmAvatar = avalon.define({
     },
     isUpload: false,
     upload: function() {
-        //显示loading遮罩
-        bs_cropper.submitStart();
         vmAvatar.isUpload = true;
         
         var dataURL = encodeURI(bs_cropper.getCanvasDataURL());
@@ -369,6 +367,10 @@ var vmAvatar = avalon.define({
             url: urln.UploadFileFromBase64,
             data: { "data": dataURL },
             dataType: "json",
+            beforeSend: function() {
+                //显示loading遮罩
+                bs_cropper.submitStart();
+            },
             success: function(data) {
                 console.log(data.Message);
                 if (data.Status == 1) {

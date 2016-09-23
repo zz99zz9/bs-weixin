@@ -7,18 +7,170 @@ if(!frData) {
         frData.index = 0;
     }
 }
-console.log(frData);
 
 var vmGraph = avalon.define({
     $id: 'graph',
-    todaySale: 5621,
-    todayCheckIn: 88,
-    lastMonthIncome: 80000,
-    lastMonthSale: 180000,
-    lastMonthCheckIn: 1562,
-    totalIncome: 1280966,
-    balance: 84500,
-    withdrawCash: 54500,
+    todaySale: 0,
+    todayCheckIn: 0,
+    getToday: function() {
+        ajaxJsonp({
+            url: urls.saleRangeStatistics,
+            data: { 
+                startTime: getToday('date'),
+                endTime: getToday('date')
+            },
+            successCallback: function(json) {
+                if (json.status === 1) {
+                    vmGraph.todaySale = json.data.amount;
+                    vmGraph.todayCheckIn = json.data.number;
+                }
+            }
+        });
+    },
+    lastMonthIncome: 0,
+    getLastMonthIncome: function() {
+        ajaxJsonp({
+            url: urls.commissionRangeStatistics,
+            data: { 
+                startTime: getLastMonth('start'),
+                endTime: getLastMonth('end')
+            },
+            successCallback: function(json) {
+                if (json.status === 1) {
+                    vmGraph.lastMonthIncome = json.data.hotelAmount;
+                }
+            }
+        });
+    },
+    lastMonthSale: 0,
+    lastMonthCheckIn: 0,
+    getLastMonth: function() {
+        ajaxJsonp({
+            url: urls.saleRangeStatistics,
+            data: { 
+                startTime: getLastMonth('start'),
+                endTime: getLastMonth('end')
+            },
+            successCallback: function(json) {
+                if (json.status === 1) {
+                    vmGraph.lastMonthSale = json.data.amount;
+                    vmGraph.lastMonthCheckIn = json.data.number;
+                }
+            }
+        });
+    },
+    totalIncome: 0,
+    getLastYearIncome: function() {
+        ajaxJsonp({
+            url: urls.commissionRangeStatistics,
+            data: { 
+                startTime: getDates(-365),
+                endTime: getLastMonth('end')
+            },
+            successCallback: function(json) {
+                if (json.status === 1) {
+                    vmGraph.totalIncome = json.data.hotelAmount;
+                }
+            }
+        });
+
+        var monthList = [], monthIncomeList = [];
+        ajaxJsonp({
+            url: urls.fraMonthlyList,
+            data: { 
+                startTime: getDates(-365),
+                endTime: getLastMonth('end')
+            },
+            successCallback: function(json) {
+                if (json.status === 1) {
+
+                    json.data.list.map(function(o){
+                        monthList.push(o.monthPart);
+                        monthIncomeList.push(round((o.hotelAmount/1000),0));
+                    });
+
+                    //渲染表格
+                    var myChart = echarts.init(document.getElementById('chart'));
+
+                    var option = {
+                        color: ['#baa071'],
+                        tooltip : {
+                            trigger: 'axis',
+                            axisPointer : { // 坐标轴指示器，坐标轴触发有效
+                                type : 'shadow' // 默认为直线，可选为：'line' | 'shadow'
+                            }
+                        },
+                        textStyle: {
+                            color: '#999'
+                        },
+                        grid: {
+                            left: '1%',
+                            right: '1%',
+                            bottom: '3%',
+                            containLabel: true
+                        },
+                        xAxis : [
+                            {
+                                type : 'category',
+                                data : monthList,
+                                axisLine: {
+                                    lineStyle: {
+                                        color: '#999'
+                                    }
+                                },
+                                axisTick: {
+                                    alignWithLabel: true
+                                }
+                            }
+                        ],
+                        yAxis : [
+                            {
+                                type : 'value',
+                                axisLine: { //坐标轴
+                                    show: false
+                                },
+                                splitLine: { //分割线
+                                    show: false
+                                },
+                                axisLabel: { //坐标轴刻度标签
+                                    show: false
+                                }
+                            }
+                        ],
+                        series : [
+                            {
+                                name: '分佣',
+                                type: 'bar',
+                                barWidth: '60%',
+                                label: {
+                                    normal: {
+                                        show: true,
+                                        position: 'top',
+                                        formatter: '{c}k'
+                                    }
+                                },
+                                data: monthIncomeList
+                            }
+                        ]
+                    };
+                    myChart.setOption(option);
+                }
+            }
+        });
+    },
+    balance: 0,
+    withdrawCash: 0,
+    getAccount: function() {
+        ajaxJsonp({
+            url: urls.fraAccount,
+            successCallback: function(json) {
+                if (json.status === 1) {
+                    vmGraph.withdrawCash = json.data.cashAmount;
+                    vmGraph.balance = json.data.cashAmount + json.data.rentAmount;
+                }
+            }
+        });
+    },
     isVerifyShow: false,
     withdrawClick: function() {
         if(vmGraph.isVerifyShow){
@@ -58,6 +210,12 @@ var swiper = new Swiper('.swiper', {
     }
 });
 
+vmGraph.getToday();
+vmGraph.getLastMonth();
+vmGraph.getLastMonthIncome();
+vmGraph.getLastYearIncome();
+vmGraph.getAccount();
+
 /**
  * canvas画圆形
  */
@@ -68,78 +226,11 @@ $circle.attr("height", window.innerHeight);
 
 context.beginPath();
 context.arc((window.innerWidth)/2 - 20,
-    window.innerHeight*0.23,
+    window.innerHeight*0.18,
     75,getRadians(135),getRadians(45),false);
 context.lineWidth = 7;
 context.strokeStyle = "rgb(186,160,113)";
 context.stroke();
-
-$(function() {
-    var myChart = echarts.init(document.getElementById('chart'));
-
-    var option = {
-        color: ['#baa071'],
-        tooltip : {
-            trigger: 'axis',
-            axisPointer : {            // 坐标轴指示器，坐标轴触发有效
-                type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
-            }
-        },
-        textStyle: {
-            color: '#999'
-        },
-        grid: {
-            left: '1%',
-            right: '1%',
-            bottom: '3%',
-            containLabel: true
-        },
-        xAxis : [
-            {
-                type : 'category',
-                data : ['8', '9', '10', '11', '12', '1', '2', '3', '4', '5', '6', '7'],
-                axisLine: {
-                    lineStyle: {
-                        color: '#999'
-                    }
-                },
-                axisTick: {
-                    alignWithLabel: true
-                }
-            }
-        ],
-        yAxis : [
-            {
-                type : 'value',
-                axisLine: { //坐标轴
-                    show: false
-                },
-                splitLine: { //分割线
-                    show: false
-                },
-                axisLabel: { //坐标轴刻度标签
-                    show: false
-                }
-            }
-        ],
-        series : [
-            {
-                name:'分佣',
-                type:'bar',
-                barWidth: '60%',
-                label: {
-                    normal: {
-                        show: true,
-                        position: 'top',
-                        formatter: '{c}k'
-                    }
-                },
-                data:[17, 16, 15, 13, 12, 14, 12, 13, 14, 15, 18, 18]
-            }
-        ]
-    };
-    myChart.setOption(option);
-});
 
 function getRadians(degrees) {
     return degrees*(Math.PI/180);

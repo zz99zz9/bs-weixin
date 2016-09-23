@@ -8,36 +8,30 @@
 
 .swiper-slide {
     background-color: #23262a;
+    flex-direction: column;
+    justify-content: space-around;
 }
 
 .swiper-slide .fr-head {
-    position: fixed;
-    top: 20vh;
+    position: relative;
+    top: 3vh;
 }
 
 .swiper-slide .fr-content {
-    position: relative;
-    top: 10vh;
-    text-align: center;
 }
 
 .swiper-slide .fr-content-left {
-    position: relative;
-    top: 10vh;
     margin-right: 30px;
 }
 
 .swiper-slide .fr-content-right {
-    position: relative;
-    top: 10vh;
     margin-left: 30px;
 }
 
 .swiper-slide .fr-link {
     color: #e54c4c;
-    position: fixed;
-    bottom: 20px;
-    margin-left: -60px;
+    position: relative;
+    top: 8vh;
 }
 
 .withdrawBtn {
@@ -64,7 +58,7 @@
 }
 
 .fr-flex {
-    display: flex;
+    display: flex !important;
     justify-content: space-between;
 }
 
