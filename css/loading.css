@@ -7,13 +7,13 @@
 }
 
 #test {
-    height: 30px;
-    width: 30px;
+    height: 27px;
+    width: 27px;
     position: absolute;
     background-color: #b20e15;
     border-radius: 50%;
     top: 0px;
-    margin: 8px;
+    margin: 10px;
 }
 
 #rond {
@@ -22,24 +22,24 @@
     border-radius: 50%;
     position: absolute;
     top: 0px;
-    animation: rond 3s infinite;
-    -webkit-animation: rond 3s infinite;
+    animation: rond 5s infinite;
+    -webkit-animation: rond 5s infinite;
 }
 
 @keyframes rond {
     0% {
-        transform: rotate(0deg);
+        transform: rotate(180deg);
     }
     100% {
-        transform: rotate(360deg);
+        transform: rotate(540deg);
     }
 }
 
 @-webkit-keyframes rond {
     0% {
-        -webkit-transform: rotate(0deg);
+        -webkit-transform: rotate(180deg);
     }
     100% {
-        -webkit-transform: rotate(360deg);
+        -webkit-transform: rotate(540deg);
     }
 }
