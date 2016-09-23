@@ -31,8 +31,10 @@ if (bensue) {
     //session有数据说明不是第一次加载，上来就隐藏
     //隐藏loading页面
     isOk = 1;
+    //window.history.go(-1);
     $('#container').hide();
-} else { //第一次加载
+} else { 
+    //第一次加载
     roomType = 0;
     Storage.set("bensue", {
         type: 0
@@ -65,7 +67,6 @@ if (!newOrder) {
 var vmHotel = avalon.define({
     $id: 'hotel',
     type: 0, //0 全天房, 1 夜房
-    isOk: 0,
     //导航相关
     headImg: 'img/defaultHeadImg.png', //左上角头像
     judgeOk: function() {
