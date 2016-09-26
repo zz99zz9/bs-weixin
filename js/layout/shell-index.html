@@ -29,23 +29,27 @@
     </div> 
 
     <!--顶部-->
-    <header ms-controller="hotel"  class="mui-bar mui-bar-nav mui-text-center" style="height: 48px;background-color:rgba(255,255,255,0.9);">
-        <div id="menu" style="display: inline-block;float: left;">
-            <img class="headImg" ms-attr-src="headImg" alt="" style="margin-left: 0;">
-        </div>
-        <div class="bs-type-tab" ms-controller="hotel">
-            <a class="bs-type-tab-item" ms-class="bs-text-red: type==0" ms-on-tap="selectType(0)">全天房</a>
-            <span> | </span>
-            <a class="bs-type-tab-item" ms-class="bs-text-red: type==1" ms-on-tap="selectType(1)">时租房</a>
-        </div>
-        <div style="display: inline-block;float: right;" ms-on-tap="goDiscover">
-            <img class="headImg" src="./img/index-btn-rightup.png" alt="" style="margin-right: 0; border-radius: 0;">
-        </div>
+    <header id="header-nav" ms-controller="hotel"  class="mui-bar mui-bar-nav mui-text-center" style="height: 80px;background-color:rgba(0,0,0,0.5);padding: 0;">
 
-        <div id="midnight" class="bs-bg-black bs-text-white" style="position: fixed;z-index: 3;top: 48px;right: 0px;width: 100vw;text-align: left;line-height: 32px;" ms-on-tap="goMidnight">
-            <img src="img/midnight.svg" alt="" style="width: 24px;float: left;margin: 4px 0 0 8px;">
+        <div id="midnight" class="bs-bg-black bs-text-white" style="z-index: 3;width: 100vw;text-align: left;line-height: 32px;" ms-on-tap="goMidnight">
+            <img src="img/midnight.png" alt="" style="width: 24px;float: left;margin: 4px 0 0 8px;">
             &nbsp;<strong>午夜特价房</strong> 震撼来袭！！！<span class="mui-icon mui-icon-closeempty" style="float: right;font-size: 32px;padding: 0px;margin: 0px;" ms-on-tap="closeMidnight"></span>
         </div>
+
+        <div style="padding: 0 10px;">
+            <div id="menu" style="display: inline-block;float: left;">
+                <img class="headImg" ms-attr-src="headImg" alt="" style="margin-left: 0;">
+            </div>
+            <div class="bs-type-tab" ms-controller="hotel">
+                <a class="bs-type-tab-item" ms-class="bs-text-white: type==0" ms-on-tap="selectType(0)">全天房</a>
+                <span> | </span>
+                <a class="bs-type-tab-item" ms-class="bs-text-white: type==1" ms-on-tap="selectType(1)">时租房</a>
+            </div>
+            <div style="display: inline-block;float: right;" ms-on-tap="goDiscover">
+                <img src="./img/index-btn-rightup.png" alt="" style="    margin-top: 11px;width: 24px;">
+            </div>
+        </div>
+        
     </header>
 
     <div class="mui-content">

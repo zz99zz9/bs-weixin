@@ -89,13 +89,6 @@ var vmHotel = avalon.define({
             mui('#pullrefresh').pullRefresh().refresh(true);
         });
     },
-    selectRoomType: function(id) {
-        stopSwipeSkip.do(function() {
-            vmHotel.tid = id;
-            vmHotel.getRoomList();
-            mui('#pullrefresh').pullRefresh().refresh(true);
-        });
-    },
     goDiscover: function() {
         stopSwipeSkip.do(function() {
             location.href = "discover.html";
@@ -109,7 +102,10 @@ var vmHotel = avalon.define({
     closeMidnight: function() {
         event.stopPropagation();
         stopSwipeSkip.do(function() {
+            //隐藏广告栏
             $('#midnight').hide();
+            //调整顶部导航的高度
+            $('#header-nav').css('height', '48px');
         });
     },
     su: function() {
@@ -311,6 +307,26 @@ var vmHotel = avalon.define({
             }
         });
     },
+    roomTypeSelectList: [],
+    openRoomFilter: function() {
+        stopSwipeSkip.do(function() {
+            vmBtn.useCheck = 1;
+            vmBtn.type = 'roomType';
+            popover('./util/roomFilter.html', 1);
+        });
+    },
+    selectRoomType: function(id) {
+        stopSwipeSkip.do(function() {
+            var i = vmHotel.roomTypeSelectList.indexOf(id);
+            if (i == -1) {
+                vmHotel.roomTypeSelectList.push(id);
+            } else {
+                vmHotel.roomTypeSelectList.splice(i, 1);
+            }
+
+            vmHotel.tid = vmHotel.roomTypeSelectList.join(',');
+        });
+    },
     roomTypeList: [],
     tid: '', //房间类型，默认为全部
     getRoomType: function() {
@@ -322,10 +338,6 @@ var vmHotel = avalon.define({
                 }
             }
         });
-    },
-    isShowRoomTypeFilter: false,
-    showRoomTypeFilter: function() {
-        vmHotel.isShowRoomTypeFilter = true;
     },
     pageNo: 1,
     pageSize: 6,
@@ -396,6 +408,10 @@ var vmBtn = avalon.define({
                 mui('#pullrefresh').pullRefresh().refresh(true);
 
                 saveStorage();
+                vmHotel.getRoomList();
+                break;
+            case 'roomType': 
+                mui('#pullrefresh').pullRefresh().refresh(true);
                 vmHotel.getRoomList();
                 break;
         }
