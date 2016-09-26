@@ -202,7 +202,7 @@ section {
 }
 
 .room-time {
-    margin: 18px auto;
+    margin: 15px auto;
     padding-top: 10px;
 }
 
@@ -240,13 +240,19 @@ section {
 }
 
 .checkin {
-    padding: 10px 0;
+    padding: 20px 0;
     margin-top: -10px;
 }
 
 .checkin div {
-    font-size: 14px;
-    padding: 0 0 10px 10px;
+    display: inline-block;
+    padding-left: 10px;
+}
+.checkin div img {
+    width: 15px;
+    float: right;
+    right: 10px;
+    position: relative;
 }
 
 .discount-selected {
@@ -282,4 +288,10 @@ section {
 .mui-toast-message {
     color: #fff;
     background-color: #dd524d;
+}
+
+#only {
+    width: 95%;
+    height: 49px;
+    margin: 0 2.5vw;
 }

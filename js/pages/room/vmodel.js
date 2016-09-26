@@ -16,9 +16,9 @@ if (roomid != "") {
 vmRoom = avalon.define({
     $id: "room",
     type: 0, //0 夜房，1 时租房
-    start: '<br>请选择',
-    end: '<br>请选择',
-    amount: '?',
+    start: '请选择',
+    end: '请选择',
+    amount: '0',
     unit: '',
     price: 0,
     room: {
@@ -332,29 +332,29 @@ vmRoom = avalon.define({
         var startObj, endObj, startIndex, endIndex;
 
         if (vmCalendar.startIndex == -1) {
-            vmRoom.start = '<br>请选择';
+            vmRoom.start = '请选择';
         } else {
             startObj = vmCalendar.calendar[vmCalendar.startIndex];
             if (startObj) {
                 startIndex = vmCalendar.startIndex;
-                vmRoom.start = startObj.month + '月' + startObj.day + '日' + '<br><br>' + getWeekday(startObj.date);
+                vmRoom.start = startObj.month + '月' + startObj.day + '日' + '<br>' + getWeekday(startObj.date);
             }
         }
 
         if (vmCalendar.endIndex == -1) {
-            vmRoom.end = '<br>请选择';
+            vmRoom.end = '请选择';
         } else {
             endObj = vmCalendar.calendar[vmCalendar.endIndex];
             if (endObj) {
                 endIndex = vmCalendar.endIndex;
-                vmRoom.end = endObj.month + '月' + endObj.day + '日' + '<br><br>' + getWeekday(endObj.date);
+                vmRoom.end = endObj.month + '月' + endObj.day + '日' + '<br>' + getWeekday(endObj.date);
             }
         }
 
         if (startIndex && endIndex) {
             vmRoom.amount = (endIndex - startIndex);
         } else {
-            vmRoom.amount = '?';
+            vmRoom.amount = '0';
         }
 
         dateDataToSession();
@@ -365,21 +365,21 @@ vmRoom = avalon.define({
             end = vmPart.partTimeEnd;
 
         if (start) {
-            vmRoom.start = '今日<br><br>' + start;
+            vmRoom.start = '今日<br>' + start;
         } else {
-            vmRoom.start = '<br>请选择';
+            vmRoom.start = '请选择';
         }
 
         if (end) {
-            vmRoom.end = '今日<br><br>' + end;
+            vmRoom.end = '今日<br>' + end;
         } else {
-            vmRoom.end = '<br>请选择';
+            vmRoom.end = '请选择';
         }
 
         if (start && end) {
             vmRoom.amount = vmPart.partTimeNumber / 2;
         } else {
-            vmRoom.amount = '?';
+            vmRoom.amount = '0';
         }
 
         dateDataToSession();
