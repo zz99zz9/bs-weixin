@@ -1907,6 +1907,7 @@ function popHtml() {
     return gulp.src([
             './js/pages/hotel/hotelIntroduction.html',
             './js/pages/hotel/hotelFeature.html',
+            './js/pages/hotel/roomFilter.html',
             './js/pages/invite/rule.html',
             './js/pages/invite/oldInvite.html',
             './js/pages/invite/share.html',

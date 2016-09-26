@@ -40,10 +40,11 @@ button {
 }
 
 .headImg {
-    width: 33px;
-    height: 33px;
-    margin: 8px;
+    width: 36px;
+    height: 36px;
+    margin: 6px;
     border-radius: 50%;
+    border: 3px solid white;
 }
 
 .margin2 {
@@ -1220,6 +1221,10 @@ hr {
     background-color: #baa071;
 }
 
+.bs-bg-red {
+    background-color: #e93b39;
+}
+
 .bs-bg-gray {
     background-color: #999;
 }
@@ -1252,12 +1257,12 @@ hr {
     display: inline-table;
     position: relative;
     top: 12px;
-    color: #999;
+    color: #bbb;
 }
 
 .bs-type-tab-item {
     padding: 4px;
-    color: #999;
+    color: #bbb;
     line-height: 24px;
 }
 
