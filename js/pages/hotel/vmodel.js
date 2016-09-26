@@ -1,4 +1,4 @@
-var hid,
+var hid, actionType,
     myPosition, myLng, myLat,
     bensue, roomType, newOrder,
     isexpand = false,
@@ -466,10 +466,18 @@ var vmFilter = avalon.define({
     }
 });
 
+//开门或者退房操作，打开面板
+actionType = getParam('type');
+if(actionType) {
+    vmSide.show();
+}
+
 user = Storage.getLocal("user");
 //更换登录用户头像
-if (user && user.headImg) {
-    vmHotel.headImg = urlAPINet + user.headImg;
+if (user) {
+    if(user.headImg) {
+        vmHotel.headImg = urlAPINet + user.headImg;
+    }
 
     if (user.openUserInfo) {
         vmSide.show();

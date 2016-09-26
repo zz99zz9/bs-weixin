@@ -8,6 +8,12 @@ $('.cancelBtn').on('tap', function() {
     vmUser.getUserInfo();
     viewApi.back();
 });
+
+var user = {
+  openUserInfo: 1
+};
+Storage.setLocal('user', user);
+
 var vmUser = avalon.define({
     $id: 'info',
     headImg: defaultHeadImg,
