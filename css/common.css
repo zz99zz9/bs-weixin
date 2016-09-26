@@ -1192,7 +1192,8 @@ hr {
 }
 
 .bs-text-red {
-    color: #b20e15 !important;
+    /*color: #b20e15 !important;*/
+    color: #e93b39 !important;
 }
 
 .bs-text-gray {
