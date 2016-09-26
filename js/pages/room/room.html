@@ -1,7 +1,7 @@
 <div ms-controller="room">
-    <div id="pullrefresh" class="mui-scroll-wrapper" style="background-color: #DCD9D5">
+    <div id="pullrefresh" class="mui-scroll-wrapper" style="background-color: #ccc">
         <div class="mui-scroll">
-            <div class="swiper-container swiper1" style="z-index: 0;height: 300px;">
+            <div class="swiper-container swiper1" style="z-index: 0;height: 275px;">
                 <div class="swiper-wrapper">
                     <div class="swiper-slide" ms-repeat="room.roomGalleryList" data-repeat-rendered="swiper1Render">
                         <div style="width: 100%;height: 100%;background-size: cover;background-position: center;" ms-css-background-image="'url(' + urlAPINet + el.imgUrl+')'" ms-attr-data-preview-src="urlAPINet + el.imgUrl" data-preview-group="1" ms-data-tag="el.imgDesc">
@@ -10,17 +10,19 @@
                     <div class="swiper-pagination"></div>
                 </div>
             </div>
-            <section style="margin: -10px auto;">
+            <section style="margin: -10px auto; margin-top: -14px;">
                 <div class="hotel">
-                    <div ms-on-tap="goHotel">
-                        <span class="hotel-alias bs-text-larger">{{room.hotel.alias}}</span>
-                        <span class="room-name bs-text-larger">{{room.name}}</span>
-                        <p class="hotel-address bs-text-large">{{room.hotel.address}}</p>
+                    <div ms-on-tap="openNav">
+                        <span class="hotel-alias bs-text-x-larger bs-text-51">{{room.hotel.alias}}</span>
+                        <span class="room-name bs-text-x-larger bs-text-51"> {{room.name}}</span>
+                        <p class="bs-text-small bs-text-gold" style="max-width: 90%;margin: 8px 0 0;white-space: normal;">
+                            <img src="img/icon/position.png" alt="" style="width: 17px;position: relative;top: 2px;"> {{room.hotel.address}}
+                        </p>
                     </div>
-                    <span ms-on-tap="openNav()" class="line" style="background-image: url(img/line.png); top: 0; position: absolute;"></span>
                 </div>
-                <div class="swiper-container swiper3 room-amenity">
-                    <div class="swiper-wrapper" style="padding-left: 0;">
+                <hr ms-if="!type" style="width: 95%;margin-top: 0px;margin-bottom: 0;">
+                <div class="swiper-container swiper3 room-amenity" style="padding: 0 10px;">
+                    <div class="swiper-wrapper">
                         <div class="swiper-slide room-amenity-item" ms-repeat="room.amenityList" data-repeat-rendered="swiper3Render">
                             <img ms-attr-src="urlAPINet + el.ico" ms-attr-alt="el.name" style="width: 28px;height: 28px;margin-left: 10px" />
                             <label class="bs-text-small room-amenity-text">{{el.name}}</label>
@@ -28,6 +30,7 @@
                         <div class="swiper-scrollbar"></div>
                     </div>
                 </div>
+                <div style="height: 5px;background-color: #ccc;"></div>
                 <div class="mui-text-center" style="background: white;padding: 0 10px;" ms-if="!type">
                     <div style="margin-top: 35px" class="circle photo" ms-css-background-image="'url('+urlAPINet + room.designer.portraitUrl+')'">
                         &nbsp;
@@ -35,30 +38,31 @@
                     <br />
                     <h4 style="display: inline;margin-right: 10px;">{{room.designer.name}}</h4><small style="color:#999;">试睡师</small>
                     <div class="room-designer-message">{{room.designer.message | truncate(50,'...')}}</div>
-                    <button class="mui-btn" style="width: 100px;margin-bottom: 30px; border-radius: 0;" ms-on-tap="openDesigner">更多信息</button>
+                    <button class="mui-btn" style="width: 120px;height: 40px;margin-bottom: 30px; border-radius: 0;" ms-on-tap="openDesigner">阅读全部</button>
                 </div>
             </section>
             <section class="room-time">
-                <p>
-                    <span>入住时间</span>
-                    <span style="float: right">退房时间</span>
+                <p style="margin-bottom: 0;">
+                    <span class="bs-text-large bs-text-51">入住时间</span>
+                    <span class="bs-text-large bs-text-51" style="float: right">退房时间</span>
                 </p>
-                <div class="time-panel" ms-on-tap="openTimePanel">
-                    <div style="float: left;">
+                <div class="" style="padding: 0 10px 20px; display: flex; justify-content: space-between;align-items: center;" ms-on-tap="openTimePanel">
+                    <div class="bs-text-large bs-text-red" style="">
                         {{start|html}}
                     </div>
-                    <div style="text-align: center;font-size: 12px;">|
-                        <br>{{amount + (type?'小时':'晚')}}
-                        <br>|</div>
-                    <div style="float: right;text-align: right;">
+                    <div style="text-align: center;font-size: 12px;">
+                        <div>|</div>
+                        <span class="bs-text-large bs-text-red">{{amount + (type?'小时':'晚')}}</span>
+                        <br>
+                        <div>|</div>
+                    </div>
+                    <div class="bs-text-large bs-text-red" style="text-align: right;">
                         {{end|html}}
                     </div>
                 </div>
-
-                <hr ms-if="!type" style="margin-top: 0px;margin-bottom: 20px;">
-
+                <hr ms-if="!type" style="width: 95%;margin-top: 0px;margin-bottom: 20px;">
                 <div class="time-clock" ms-if="!type">
-                    <span class="bs-text-smaller" style="color: #fff;background-color: #000;    display: inline-block;width: 61px;text-align: center;margin-right: 10px;">教你省钱</span>
+                    <span class="bs-text-smaller" style="color: #fff;background-color: #000;    display: inline-block;width: 61px;text-align: center;margin: 0 10px;">教你省钱</span>
                     <span class="bs-text-small">越晚入住越省钱哦！</span>
                     <br>
                     <div>
@@ -72,19 +76,32 @@
                     </div>
                 </div>
             </section>
-            <section class="checkin" ms-on-tap="openCheckin">
-                <p>
-                    入住人信息 
-                    <img src="img/edit.png" alt="" style="width: 22px;float: right;"/>
-                </p>
-                <div ms-repeat="checkinList">
+            <section class="checkin" style="display: flex;align-items: center;" ms-on-tap="openCheckin">
+                <div class="bs-text-large bs-text-51" style="display: inline;">
+                    入住人信息：
+                </div>
+                <div class="bs-text-large bs-text-gold" ms-repeat="checkinList">
                     {{el.name}}
+                </div>
+                <div style="position: absolute;right: 10px;">
+                    <img src="img/icon/edit_red.png" alt="" />
+                </div>
+            </section>
+            <div style="height: 5px;"></div>
+            <section>
+                <div style="padding: 20px 10px 22px 10px;">
+                    <span class="bs-text-large bs-text-51">合计金额</span>
+                    <span class="bs-text-x-larger" style="float: right;">￥ {{showTotalPrice(price, amount)}}</span>
+                    <span style="font-weight: 100;float: right;margin-right: 15px;" ms-if="!type">
+                        <del class="bs-text-small bs-text-51">￥ {{showTotalPrice(roomNightDiscount[0].discount,amount)}}</del>
+                    </span>
                 </div>
             </section>
             <div class="bs-text-smaller" style="width: 95%;margin: 10px auto;padding: 10px" ms-on-tap="clickIsAgree">
-                <span class="isAgree" ms-class-1="unchecked: !isAgree" ms-class-2="checked:isAgree"></span>
-                我同意<span class="bs-text-gold" ms-on-tap="openRule">《入住条款》</span>
+                <span class="isAgree" ms-class-1="unchecked: !isAgree" ms-class-2="checked:isAgree"></span> 我同意
+                <span class="bs-text-gold" ms-on-tap="openRule">《入住条款》</span>
             </div>
+            <button id="only" type="button" class="mui-btn mui-pull-right bs-text-large bs-text-white bs-bg-black" style="font-weight: bold;margin-bottom: 3vh;" ms-click="goNext" ms-attr-disabled="isGoNext">立即预订</button>
             <div class="bs-text-large" style="width: 95%;padding: 10px 0 14px 10px;margin: 0 auto;">更多房间</div>
             <div class="swiper-container swiper2">
                 <div class="swiper-wrapper">
@@ -99,15 +116,4 @@
             <br>
         </div>
     </div>
-    <nav class="mui-bar mui-bar-tab bs-bg-gray bs-text-white">
-        <div style="margin: 14px 0 0 10px;">
-            <span class="bs-text-smaller">￥</span>
-            <span class="bs-text-x-large">{{showTotalPrice(price, amount)}}</span>
-            <span style="font-weight: 100;" ms-if="!type">
-                <span class="bs-text-smaller">￥</span>
-                <del class="bs-text-small">{{showTotalPrice(roomNightDiscount[0].discount,amount)}}</del>
-            </span>
-        </div>
-        <button type="button" class="mui-btn mui-pull-right bs-text-large bs-text-white bs-bg-black" ms-click="goNext" ms-attr-disabled="isGoNext">立即预订</button>
-    </nav>
 </div>
