@@ -98,8 +98,14 @@ input[type=checkbox] {
                 <div id="triangle" ms-if="data.status>1"></div>
                 <span class="order-panel-title bs-text-large bs-text-51">{{el.name}}</span>
                 <h5 class="bs-text-small bs-text-102" style="margin: 0 0 20px 0;">
-                    <span style="margin-bottom: 8px; display: inline-block;">{{formatDate(el.startTime)}} - {{formatDate(el.endTime)}}
-                    &nbsp;共{{el.timeCount}}{{data.isPartTime?'小时':'晚'}}</span>
+                    <span style="margin-bottom: 8px; display: inline-block;">
+                        <!-- 全天房 -->
+                        <span ms-if="!data.isPartTime">{{formatDate(el.startTime)}} - {{formatDate(el.endTime)}} &nbsp;共 {{el.timeCount}} 晚 {{getHourTime(el.startTime)}} 开始入住
+                        </span>
+                        <!-- 时租房 -->
+                        <span ms-if="data.isPartTime">{{formatDate(el.startTime)}} {{getHourTime(el.startTime)}} - {{getHourTime(el.endTime)}} &nbsp;共 {{el.timeCount}} 小时
+                        </span>
+                    </span>
                     <br>
                     <span style=" margin-top: 8px;" ms-repeat-cl="el.orderCustomerList">{{cl.name}}&nbsp;</span>
                     <br>
