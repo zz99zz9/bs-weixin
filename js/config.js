@@ -138,6 +138,11 @@ function formatDate(str) {
     return (date.getMonth() + 1) + "月" + date.getDate() + "日";
 }
 
+//传入完整时间，返回 hh:mm
+function getHourTime(date) {
+    return date.slice(11, 16);
+}
+
 //判断是否是闰年
 function isLeapYear(year) {
     return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);

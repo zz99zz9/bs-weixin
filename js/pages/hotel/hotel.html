@@ -5,7 +5,7 @@
             <div class="bs-text-white bs-text-smaller" ms-if="!type" style="margin: 9px 1px 0 0;">{{getToday('day')}}</div>
             </button>
         </div>
-        <div class="bs-text-white bs-text-smaller" style="position: fixed;padding: 0 12px;top: 39vh;left: 0;z-index: 9;background: rgba(0,0,0,0.5);">距离 <span style="position: relative;top: 1px;">{{round(distance/1000,1)}} km</span></div>
+        <div class="bs-text-white bs-text-smaller" style="position: fixed;padding: 0 12px;top: 39vh;left: 0;z-index: 9;background: rgba(0,0,0,0.5);">距离 <span style="position: relative;top: 1px;">{{distance?distance:'...'}} km</span></div>
         <div class="swiper-container swiper1" style="height: 45vh;">
             <div class="swiper-wrapper">
                 <div class="swiper-slide" ms-repeat="galleryList" data-repeat-rendered="swiper1Render">
@@ -27,7 +27,7 @@
                             <i class="bs-text-x-larger" style="font-weight: 900;">{{name}}&nbsp;</i><i class="bs-text-larger" style="font-weight: 100;">{{alias}}</i><br />
                             <i class="bs-text-small bs-text-gold" style="max-width: 90%;margin-top: 4px;white-space: normal;" ms-on-tap="openNav">
                                 <img src="img/icon/position.png" alt="" style="width: 17px;position: relative;top: 2px;">
-                            {{address}} {{distance?distance+'km':''}}
+                            {{address}}
                             </i>
                         </td>
                         <td class="tdclass bs-text-small" style="color: #333; width: 48px;">
