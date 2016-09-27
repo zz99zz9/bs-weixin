@@ -327,6 +327,13 @@ vmRoom = avalon.define({
             slidesPerView: 'auto'
         });
     },
+    swiper4Render: function() {
+        var swiper4 = new Swiper('.swiper4', {
+            scrollbar: '.swiper-scrollbar',
+            scrollbarHide: true,
+            slidesPerView: 'auto'
+        });
+    },
     //显示夜房的入住时间
     showDate: function() {
         var startObj, endObj, startIndex, endIndex;

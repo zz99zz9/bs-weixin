@@ -15,15 +15,15 @@
                     <div ms-on-tap="openNav">
                         <span class="hotel-alias bs-text-x-larger bs-text-51">{{room.hotel.alias}}</span>
                         <span class="room-name bs-text-x-larger bs-text-51"> {{room.name}}</span>
-                        <p class="bs-text-small bs-text-gold" style="max-width: 90%;margin: 8px 0 0;white-space: normal;">
+                        <p class="bs-text-small bs-text-gold" style="margin: 8px 0 0;white-space: normal;">
                             <img src="img/icon/position.png" alt="" style="width: 17px;position: relative;top: 2px;"> {{room.hotel.address}}
                         </p>
                     </div>
                 </div>
                 <hr ms-if="!type" style="width: 95%;margin-top: 0px;margin-bottom: 0;">
-                <div class="swiper-container swiper3 room-amenity" style="padding: 0 10px;">
+                <div class="swiper-container swiper4 room-amenity" style="padding: 0 10px;">
                     <div class="swiper-wrapper">
-                        <div class="swiper-slide room-amenity-item" ms-repeat="room.amenityList" data-repeat-rendered="swiper3Render">
+                        <div class="swiper-slide room-amenity-item" ms-repeat="room.amenityList" data-repeat-rendered="swiper4Render">
                             <img ms-attr-src="urlAPINet + el.ico" ms-attr-alt="el.name" style="width: 28px;height: 28px;margin-left: 10px" />
                             <label class="bs-text-small room-amenity-text">{{el.name}}</label>
                         </div>

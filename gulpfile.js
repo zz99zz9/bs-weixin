@@ -156,14 +156,7 @@ function room() {
         }))
         .pipe(replace({
             regex: '<!-- roomSlide -->',
-            replace: '<!--include "../util/roomSlide.html"-->'
-        }))
-        .pipe(contentIncluder({
-            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
-        }))
-        .pipe(replace({
-            regex: '<!-- slide-info -->',
-            replace: '<!--include "../util/roomSlide-hotel.html"-->'
+            replace: '<!--include "../util/roomSlide-room.html"-->'
         }))
         .pipe(replace({
             regex: '<button class="popover-closeButton"></button>',
