@@ -299,7 +299,7 @@ var vmHotel = avalon.define({
                     name: vmHotel.name, // 位置名
                     address: vmHotel.address, // 地址详情说明
                     scale: 26, // 地图缩放级别,整形值,范围从1~28。默认为最大
-                    infoUrl: '' // 在查看位置界面底部显示的超链接,可点击跳转
+                    infoUrl: 'bensue.com' // 在查看位置界面底部显示的超链接,可点击跳转
                 });
             } else {
                 console.log("微信接口配置注册失败，将重新注册");

@@ -87,7 +87,7 @@ var vmOrder = avalon.define({
                     infoUrl: 'bensue.com' // 在查看位置界面底部显示的超链接,可点击跳转
                 });
             } else {
-                alert("微信接口配置注册失败，将重新注册");
+                console.log("微信接口配置注册失败，将重新注册");
                 registerWeixinConfig();
             }
         });

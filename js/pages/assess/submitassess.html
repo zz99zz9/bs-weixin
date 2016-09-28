@@ -75,6 +75,7 @@ h5 {
 } 
 
 .space {
+    position: relative;
     margin-top: 10px; 
     background-color: #fff !important;
     padding-bottom: 0;
@@ -92,9 +93,10 @@ h5 {
 .li {
     padding: 14px 20px 0.5px;
 }
-.button {
+.sub-button {
     position: absolute;
     right: 20px;
+    bottom: 15px;
     width: 100px;
     height: 30px;
     padding: 0;
@@ -158,10 +160,10 @@ h5 {
     <div class="space">
         <div style="padding: 20px; height: 270px;">
             <textarea class="comment" placeholder="亲，记录下享受体验吧！" ms-duplex="data.content" data-duplex-changed="changed">{{data.content}}</textarea>
-            <button type="button" class="mui-btn mui-pull-right bs-text-small bs-text-black button" ms-click="save" ms-attr-disabled="isDisabled">发布</button>
+            <button type="button" class="mui-btnbs-text-small bs-text-black sub-button" ms-click="save" ms-attr-disabled="isDisabled">发布</button>
         </div>
     </div>
-    <div class=" mui-text-center bs-text-smaller" style="margin-top: 6vh;">
+    <div class="mui-text-center bs-text-smaller" style="margin-top: 6vh;">
         客服热线 400 2222 2222
     </div>
     <br>
