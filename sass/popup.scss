@@ -14,12 +14,12 @@
 }
 .#{$namespace}popup{
     width: 270px;
-    position: absolute;
+    position: fixed;
     z-index: z("max");
     left: 50%;
     top: 50%;
     text-align: center;
-    border-radius: 13px;
+    //border-radius: 13px;
     overflow: hidden;
     opacity: 0;
     @include transform(translate3d(-50%,-50%,0) scale(1.185));
@@ -42,7 +42,7 @@
 }
 .#{$namespace}popup-inner {
     padding: 15px;
-    border-radius: 13px 13px 0 0;
+    //border-radius: 13px 13px 0 0;
     position: relative;
     background: rgba(255,255,255,.95);
     &:after {
@@ -90,7 +90,7 @@
     font-size: 17px;
     line-height: 44px;
     text-align: center;
-    color: #007aff;
+    //color: #007aff;
     display: block;
     position: relative;
     white-space: nowrap;
@@ -118,13 +118,13 @@
         transform: scaleX(.5)
     }
     &:first-child {
-        border-radius: 0 0 0 13px;
+        //border-radius: 0 0 0 13px;
         &:last-child {
-            border-radius: 0 0 13px 13px
+            //border-radius: 0 0 13px 13px
         }
     }
     &:last-child {
-        border-radius: 0 0 13px 0;
+        //border-radius: 0 0 13px 0;
         &:after {
             display: none
         }
