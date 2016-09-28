@@ -12,7 +12,18 @@ if (orderid != "") {
 
 var vmPayend = avalon.define({
 	$id: "payend",
-	data: {},
+	data: {
+        isPartTime: 0,
+        status: 0,
+        hotel: { name: '', address: '', alias: '' },
+        orderRoomList: [{
+            name: '',
+            startTime: '',
+            endTime: '',
+            timeCount: '',
+            orderCustomerList: [{ name: '' }]
+        }]
+    },
     goHotelById: function(id) {
         location.href = "index.html";
         // location.href = "hotel.html?id=" + id;

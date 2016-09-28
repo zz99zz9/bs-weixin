@@ -26,30 +26,10 @@
     margin-bottom: 15px;
 }
 
-.expand table td {
-    /*padding: 0 5px;*/
-}
-
-.expand span {
-    /*overflow: hidden;*/
-    /*text-overflow: ellipsis;*/
-    /*line-height: 36px;*/
-    /*display: inline-block;*/
-}
-
 .expand i {
-    /*font-weight: lighter;*/
     font-style: normal;
     display: inline-block;
     color: black;
-}
-
-.expand i:before {
-    /*content: '';
-    display: inline-block;
-    width: 37px;
-    height: 24px;
-    background: url('../img/no.svg') no-repeat;*/
 }
 
 .expand:active {
@@ -74,109 +54,6 @@
 .expanded .tdclass:after {
     -webkit-transform: rotateZ(90deg);
 }
-
-/*.pic-info .pic {
-    position: relative;
-    color: white;
-    background-size: cover;
-    width: 100%;
-    height: 200px;
-}
-
-.pic-info .pic label {
-    position: absolute;
-    bottom: 20px;
-    display: inline-block;
-    color: white;
-    padding: 10px 15px;
-    font-size: 24px;
-    text-align: center;
-    -webkit-backdrop-filter: blur(5px);
-}
-
-.pic-info .pic button {
-    background: white;
-    border: none;
-    position: absolute;
-    bottom: 25px;
-    right: 20px;
-    padding: 0;
-    border-radius: 50%;
-    font-size: 20px;
-    width: 24px;
-    height: 24px;
-    line-height: 24px;
-    color: black;
-}
-
-.pic-info .info {
-    display: table;
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.pic-info .info div {
-    display: table-cell;
-    text-align: center;
-    border: 1px solid #fff;
-    background: #eee;
-}
-
-.pic-info .info div a {
-    width: 100%;
-    line-height: 20px;
-    display: block;
-    color: black;
-    padding: 15px;
-}
-
-.pic-info .info div a:active {
-    border-radius: 0;
-    background: #DD524D;
-    color: white !important;
-}
-
-.pic-info .info div a:active h3 {
-    color: white;
-}
-
-.pic-info .info div h3 {
-    font-size: 18px;
-    font-weight: normal;
-    color: #DD524D;
-}
-
-.pic-info .info a:active {
-    color: white;
-    background: #007aff;
-}
-
-.pic-info .info a span {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    border: 1px dotted #007aff;
-    line-height: 48px;
-}
-
-.pic-info .info a:active span {
-    border-color: white;
-}
-
-.text-info p {
-    color: black;
-    margin-bottom: 0;
-}
-
-.text-info ul {
-    list-style: none;
-    padding-left: 0;
-    margin-top: 0;
-}
-.text-info li {
-    position: relative;
-    margin: 10px 0;
-}*/
 
 .mui-navigate-right:after {
     top: 10px;
@@ -210,7 +87,6 @@
     margin: 0 auto;
     margin-bottom: 5px;
     display: flex;
-    /*justify-content: space-between;*/
     border-top: 1px solid #ccc;
     font-weight: bolder;
 }

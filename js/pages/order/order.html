@@ -76,17 +76,23 @@ input[type=checkbox] {
 .width100 {
     width: 100%;
 }
+.visible-hidden {
+    visibility: hidden;
+}
 </style>
 <div ms-controller="order">
     <div style="margin: 0 auto;width: 95%;">
         <div class="hotel">
-            <div ms-on-tap="goHotelById(hotel.id)">
-                <p class="hotel-alias bs-text-larger bs-text-gold">{{data.hotel.alias}}酒店</p>&nbsp;
-                <p class="room-name bs-text-larger bs-text-51">one' own</p>
-                <p class="hotel-address bs-text-normal bs-text-153">{{data.hotel.address}}</p>
+            <!-- <div ms-on-tap="goHotelById(hotel.id)"> -->
+            <div>
+                <p class="hotel-alias bs-text-larger bs-text-black">{{data.hotel.name}}</p>&nbsp;
+                <p class="room-name bs-text-larger bs-text-51">{{data.hotel.alias}}</p>
+                <p class="hotel-address bs-text-normal bs-text-gold" ms-on-tap="openNav(data.hotel.lat,data.hotel.lng,data.hotel.name,data.hotel.address)">
+                    <img src="img/icon/position.png" alt="" style="width: 17px;position: relative;top: 2px;">{{data.hotel.address}}
+                </p>
             </div>
         </div>
-        <div ms-on-tap="openNav(data.hotel.lat,data.hotel.lng,data.hotel.name,data.hotel.address)" class="line" style="background-image: url(img/line.png); position: absolute; top: 5px;"></div>
+
         <ul class="order-list">
             <li class="order-item" ms-repeat="data.orderRoomList" ms-data-index="$index" ms-click="selectRoom($index, el.status)" style="padding: 8px 0 8px 10px;">
                 <div class="hiddenbox">
@@ -112,7 +118,7 @@ input[type=checkbox] {
                     <!-- 是否评论 -->
                     <span class="bs-text-large bs-text-black" style="float: left; margin-top: 20px;" ms-if="(el.status==3||el.status==4)&&(el.isComment)">已评价</span>
                     <!-- 操作按钮 -->
-                    <button class="bs-text-small" type="button" ms-on-tap="orderRoomAction(el.status, el.id)" ms-if="el.status>=2&&el.status<=4&&!el.isComment" style="float: left;margin: 0px;margin-top: 12px;">{{showActionText(el.status)}}</button>
+                    <button class="bs-text-small" type="button" ms-on-tap="orderRoomAction(el.id, el.status)" ms-if="el.status>=3&&el.status<=4&&!el.isComment" style="float: left;margin: 0px;margin-top: 12px;">{{showActionText(el.status)}}</button>
                     <!-- 房间价格 -->
                     <span class="bs-text-large bs-text-red" style="float: right; margin: 20px 15px 0 0;">¥{{el.amount}}</</span>
                 </h5>
@@ -176,8 +182,14 @@ input[type=checkbox] {
     <div id="roomSheet" class="mui-popover mui-popover-bottom mui-popover-action bs-text-large" style="right: 0;">
         <!-- 可选择菜单 -->
         <ul class="mui-table-view">
-          <li class="mui-table-view-cell" ms-repeat="data.orderRoomList" ms-if-loop="isShowSheet(el.status, el.isComment)" ms-on-tap="sheetClick(el.id)">
-            <a href="#">{{el.name}}</a>
+          <li class="mui-table-view-cell" ms-repeat="data.orderRoomList" ms-on-tap="sheetClick(el.id, el.status)" ms-visible="isShowSheet(el.status, sheetType)">
+            <a href="#">{{el.name}}<!-- 全天房 -->
+                <span ms-if="!data.isPartTime">{{formatDate(el.startTime)}} - {{formatDate(el.endTime)}}
+                </span>
+                <!-- 时租房 -->
+                <span ms-if="data.isPartTime">{{getHourTime(el.startTime)}} - {{getHourTime(el.endTime)}} 
+                </span>
+            </a>
           </li>
         </ul>
         <!-- 取消菜单 -->
@@ -188,8 +200,8 @@ input[type=checkbox] {
         </ul>
     </div>
 
-    <nav class="mui-bar mui-bar-tab">
-        <button type="button" class="order-btn bs-text-white" ms-click="btn1Click" ms-if="btn1Text!=''" ms-attr-disabled="btn1Disabled" ms-class-1="bs-bg-gray:data.status==1||data.status==2" ms-class-2="bs-bg-gold:data.status==3||data.staus==4" ms-class-3="width100:data.staus==4">{{btn1Text}}</button>
-        <button type="button" class="order-btn bs-text-white bs-bg-black" ms-click="btn2Click" ms-if="btn2Text!=''" ms-attr-disabled="btn2Disabled">{{btn2Text}}</button>
+    <nav class="mui-bar mui-bar-tab" ms-if="btn1Text!=''||btn2Text!=''">
+        <button type="button" class="order-btn bs-text-white" ms-click="btn1Click" ms-class="visible-hidden:btn1Text==''" ms-attr-disabled="btn1Disabled" ms-class-1="bs-bg-gray:data.status==1||data.status==2" ms-class-2="bs-bg-gold:data.status==3||data.staus==4" ms-class-3="width100:data.staus==4">{{btn1Text}}</button>
+        <button type="button" class="order-btn bs-text-white bs-bg-black" ms-click="btn2Click" ms-class="visible-hidden:btn2Text==''" ms-attr-disabled="btn2Disabled">{{btn2Text}}</button>
     </nav>
 </div>

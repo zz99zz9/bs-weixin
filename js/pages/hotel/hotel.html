@@ -20,9 +20,6 @@
             <button class="expand" id="exp" ms-on-tap="expand" style="padding: 0;">
                 <table width="100%">
                     <tr>
-                        <!-- <td width="200px">
-                            <i>{{alias}}酒店&nbsp;</i><i>one'own</i>
-                        </td> -->
                         <td class="mui-ellipsis small" valign="top">
                             <i class="bs-text-x-larger" style="font-weight: 900;">{{name}}&nbsp;</i><i class="bs-text-larger" style="font-weight: 100;">{{alias}}</i><br />
                             <i class="bs-text-small bs-text-gold" style="max-width: 90%;margin-top: 4px;white-space: normal;" ms-on-tap="openNav">
@@ -46,9 +43,6 @@
                     <br>酒店特色
                 </div>
                 <div style="position: relative;" ms-on-tap="openAssess">
-                    <!-- <span style="position: relative;top: -10px;display: inline-block;color: #ffa000;">{{score.totalScore}}星</span> 
-                    <span class="bs-text-smaller" style="float: left;position: relative;top: -8vh;display: inline-block;width: 16vw;"></span>
-                    -->
                     <img src="img/icon/assess.png" alt="">
                     <br>{{assessCount}}评价
                 </div>
@@ -61,8 +55,6 @@
         
         <!-- 房型筛选 -->
         <div class="typeFilter bs-text-large" ms-on-tap="openRoomFilter()">
-           <!-- <div class="typeFilter-item" ms-class="active:tid==''" ms-on-tap="selectRoomType('')">all</div>
-            <div class="typeFilter-item" ms-class="active:tid==el.id" ms-repeat="roomTypeList" ms-on-tap="selectRoomType(el.id)" data-repeat-rendered="showRoomTypeFilter">{{el.name}}</div> -->
             <div class="typeFilter-item">
                 <img src="img/icon/filter.svg" alt="" style="width: 32px;">
             </div>
