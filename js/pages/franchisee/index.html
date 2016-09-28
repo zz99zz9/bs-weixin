@@ -54,20 +54,22 @@
                     <img src="img/icon/question.png" alt="" style="position: absolute;top: -7px;right: -33px;width: 18px;" ms-click="@goNote">
                 </div>
                 <div class="bs-text-larger fr-content" style="height: 46px;position: relative;top: -5vh;">
-                    <div ms-visible="!@isVerifyShow">
+                    <div ms-visible="@isShow">
                         <span class="bs-text-small bs-text-white">可提现金额</span>&nbsp;&nbsp;
                         <span>¥{{@withdrawCash}}</span>
                         <br>
-                        <input type="tel" ms-duplex="@amount" style="width: 180px;display: block;margin-top: 30px;margin-bottom: -15px;background: #23262a;border: none;text-align: center;" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" placeholder="输入提现金额" >
+                        <input type="tel" ms-duplex="@amount" data-duplex-changed="@changed1" style="width: 180px;display: block;margin-top: 30px;margin-bottom: -15px;background: #23262a;border: none;text-align: center;" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" placeholder="输入提现金额" >
                         <hr style="color: #999;">
                     </div>
-                    <div ms-visible="@isVerifyShow"><br>&nbsp;</div>
-                    <div ms-visible="@isVerifyShow" style="display: flex;align-items: center;">
-                        <input class="verifyInput" ms-duplex="@code" style="width: 120px;background: #23262a;border: none;border-bottom: solid 1px #999;text-align: center;margin-right: 10px;" type="tel" placeholder="输入验证码" >
+                    <div ms-visible="!@isShow"><br>&nbsp;</div>
+                    <div ms-visible="!@isShow" style="display: flex;align-items: center;">
+                        <input class="verifyInput" ms-duplex="@code" data-duplex-changed="@changed2" style="width: 120px;background: #23262a;border: none;border-bottom: solid 1px #999;text-align: center;margin-right: 10px;" type="tel" placeholder="输入验证码" >
                         <hr style="color: #999;">
-                        <button class="mui-btn mui-btn-yellow mui-btn-outlined codeButton sendBtn" ms-click="@getCode" ms-attr-disabled="isSuccess">{{@codeMsg}}</button>
+                        <button class="mui-btn mui-btn-yellow mui-btn-outlined codeButton sendBtn" ms-click="@getCode" ms-attr="{disabled:@isSuccess}">{{@codeMsg}}</button>
                     </div>
-                    <button class="withdrawBtn" type="button" ms-click="@withdrawClick" ms-attr-disabled="@isDisabled">提现</button>
+                    <button ms-visible="@isShow" class="withdrawBtn" type="button" ms-click="@withdrawClick" ms-attr="{disabled:@isDisabled1}">提现</button>
+                    <button ms-visible="!@isShow" class="withdrawBtn" type="button" ms-click="@confirm" ms-attr="{disabled:@isDisabled2}">确定</button>
+                    <button ms-visible="!@isShow" class="withdrawBtn" type="button" ms-click="@cancel">取消</button>
                 </div>
                 <div class="bs-text-smaller fr-link" style="width: 60px;" ms-click="@goRecord">交易记录</div>
             </div>

@@ -170,15 +170,33 @@ var vmGraph = avalon.define({
             }
         });
     },
-    isVerifyShow: false,
+    // isVerifyShow: false,
+    // withdrawClick: function() {
+    //     if (vmGraph.isVerifyShow) {
+    //         vmGraph.isVerifyShow = false;
+    //         vmGraph.submit();
+    //     } else {
+    //         vmGraph.getCode();
+    //         vmGraph.isVerifyShow = true;
+    //     }
+    // },
+    isShow: true,
     withdrawClick: function() {
-        if (vmGraph.isVerifyShow) {
-            vmGraph.isVerifyShow = false;
-            vmGraph.submit();
-        } else {
-            vmGraph.isVerifyShow = true;
-        }
+        vmGraph.getCode();
+        vmGraph.isShow = false;
+        vmGraph.isDisabled2 = true;
+        vmGraph.code = '';
     },
+    confirm: function() {
+        vmGraph.submit();
+        vmGraph.isShow = true;
+        vmGraph.isDisabled1 = true;
+        vmGraph.amount = '';
+    },
+    cancel: function() {
+        vmGraph.isShow = true;
+        vmGraph.isDisabled1 = false;
+    }, 
     goToday: function() {
         location.href = "franchisee-today.html";
     },
@@ -195,16 +213,15 @@ var vmGraph = avalon.define({
         //location.href = "franchisee-note.html";
     },
     codeMsg: '发送验证码',
-    amount: '',    //提现金额
+    amount: '', //提现金额
     code: '', //输入的验证码
     isSuccess: false,
-    isDisabled: true,
+    isDisabled1: true,
+    isDisabled2: false,
     getCode: function() {
         ajaxJsonp({
-            url: urls.getCodeURL,
-            data: {
-                mobile: mobile
-            },
+            url: urls.fraSms,
+            data: {},
             successCallback: function(json) {
                 if (json.status !== 1) {
                     alert(json.message);
@@ -225,8 +242,8 @@ var vmGraph = avalon.define({
             },
             successCallback: function(json) {
                 if (json.status === 1) {
-                    alert("提交成功");
                     vmGraph.getAccount();
+                    vmGraph.amount = ''; 
                 } else {
                     vmGraph.isDisabled = false;
                     alert(json.massage);
@@ -234,14 +251,30 @@ var vmGraph = avalon.define({
             }
         });
     },
+    //提现按钮变化
+    changed1: function() {
+        if (vmGraph.amount.length > 0 && vmGraph.amount.length < 10) {
+            vmGraph.isDisabled1 = false;
+        } else {
+            vmGraph.isDisabled1 = true;
+        }
+    },
+    //确定按钮变化
+    changed2: function() {
+        if (vmGraph.code.length > 0 && vmGraph.code.length < 10) {
+            vmGraph.isDisabled2 = false;
+        } else {
+            vmGraph.isDisabled2 = true;
+        }
+    },
 })
-vmGraph.$watch("code", function(a) {
-    if (a.length > 0 && a.length < 10) {
-        vmGraph.isDisabled = false;
-    } else {
-        vmGraph.isDisabled = true;
-    }
-});
+// vmGraph.$watch("code", function(a) {
+//     if (a.length > 0 && a.length < 10) {
+//         vmGraph.isDisabled = false;
+//     } else {
+//         vmGraph.isDisabled = true;
+//     }
+// });
 
 
 var swiper = new Swiper('.swiper', {
@@ -257,7 +290,6 @@ var swiper = new Swiper('.swiper', {
         Storage.set('frData', frData);
     }
 });
-vmGraph.getCode();
 vmGraph.getToday();
 vmGraph.getLastMonth();
 vmGraph.getLastMonthIncome();
