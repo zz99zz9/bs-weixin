@@ -133,7 +133,7 @@ var vmOrder = avalon.define({
                 vmOrder.btn1Disabled = false;
             } else if (showCancelBtn == 1) {
                 //已付款-退订
-                unsubscribeOrder(vmOrder.mayCancelRoomList[0]);
+                unsubscribeOrder(vmOrder.mayCancelRoomList[0].id, vmOrder.mayCancelRoomList[0].name);
             }
         }
     },
@@ -155,7 +155,7 @@ var vmOrder = avalon.define({
                 vmOrder.btn2Disabled = false;
             } else if (showCheckoutBtn == 1) {
                 //已付款-退订
-                checkout(vmOrder.mayCheckoutRoomList[0]);
+                checkout(vmOrder.mayCheckoutRoomList[0].id, vmOrder.mayCheckoutRoomList[0].name);
             }
         }
     },
@@ -192,17 +192,17 @@ var vmOrder = avalon.define({
                 return true;
         }
     },
-    sheetClick: function(orid, status) {
+    sheetClick: function(orid, status, name) {
         stopSwipeSkip.do(function() {
             //未入住、已入住的状态会调出操作面板
             switch(status) {
                 case 2: 
                     //已付款-退订
-                    unsubscribeOrder(orid);
+                    unsubscribeOrder(orid, name);
                     break;
                 case 3: 
                     //已入住-退房
-                    checkout(orid);
+                    checkout(orid, name);
                     break;
                 default:
                     break;
@@ -241,13 +241,19 @@ function iniOrder() {
                     if(json.data.orderRoomList[i].status == 2) {
                         //可以退订房间列表
                         showCancelBtn ++;
-                        vmOrder.mayCancelRoomList.push(json.data.orderRoomList[i].id);
+                        vmOrder.mayCancelRoomList.push({
+                            id: json.data.orderRoomList[i].id,
+                            name: json.data.orderRoomList[i].name
+                        });
                     }
 
                     if(json.data.orderRoomList[i].status == 3) {
                         //可以退房房间列表
                         showCheckoutBtn ++;
-                        vmOrder.mayCheckoutRoomList.push(json.data.orderRoomList[i].id);
+                        vmOrder.mayCheckoutRoomList.push({
+                            id: json.data.orderRoomList[i].id,
+                            name: json.data.orderRoomList[i].name
+                        });
                     }
                 }
 
@@ -258,9 +264,13 @@ function iniOrder() {
                 } else {
                     if(showCancelBtn > 0) {
                         vmOrder.btn1Text = "退订";
+                    } else {
+                        vmOrder.btn1Text = "";
                     }
                     if(showCheckoutBtn > 0) {
                         vmOrder.btn2Text = "退房";
+                    } else {
+                        vmOrder.btn2Text = "";
                     }
                 }
             }
@@ -291,7 +301,7 @@ function payOrder() {
                 if (vmOrder.payType == 1) { //支付宝支付
                     if (isweixin) { //如果是在微信里打开
                         // location.href = 'alipay-iframe.html?payUrl=' + encodeURIComponent(json.data.payUrl);
-                        alert('请点击微信右上角菜单中的“在浏览器中打开”选项，在外部浏览器使用支付宝支付');
+                        mui.alert("请点击微信右上角菜单中的\"在浏览器中打开\"选项，在外部浏览器中使用支付宝支付", "支付订单");
                         vmOrder.btn2Disabled = false;
                     } else { //在其它浏览器打开
                         location.href = json.data.payUrl;
@@ -301,7 +311,7 @@ function payOrder() {
                 }
             } else {
                 //调取后台接口不成功
-                mui.toast(json.message);
+                mui.alert(json.message, "支付订单");
                 vmOrder.btn2Disabled = false;
             }
         }
@@ -310,81 +320,106 @@ function payOrder() {
 
 //取消订单
 function cancelOrder() {
-    if (confirm("订单取消以后就无法恢复了，确定吗？")) {
-        ajaxJsonp({
-            url: urls.cancelOrder,
-            data: {
-                id: orderid,
-            },
-            successCallback: function(json) {
-                if (json.status === 1) {
-                    alert("订单已取消");
-                    location.href = "index.html";
-                } else {
-                    alert(json.message);
-                    vmOrder.btn1Disabled = false;
-                    return;
-                }
+    mui.confirm(
+        "订单取消以后就无法恢复了，要取消该订单吗？",
+        "取消订单",
+        ['否', '是'],
+        function(e) {
+            if(e.index == 1) {
+                ajaxJsonp({
+                    url: urls.cancelOrder,
+                    data: {
+                        id: orderid,
+                    },
+                    successCallback: function(json) {
+                        if (json.status === 1) {
+                            mui.alert("订单已取消", "取消订单");
+                            location.href = "index.html";
+                        } else {
+                            mui.alert(json.message, "取消订单");
+                            vmOrder.btn1Disabled = false;
+                            return;
+                        }
+                    }
+                });
+            } else {
+                vmOrder.btn1Disabled = false;
             }
         });
-    } else {
-        vmOrder.btn1Disabled = false;
-    }
 }
 
 //退订所选房间
-function unsubscribeOrder(orid) {
-    if (confirm("该房间的房费将退至付款帐户，确定要退订所选房间吗？")) {
-        ajaxJsonp({
-            url: urls.unsubscribeOrder,
-            data: {
-                oid: orderid,
-                orids: orid,
-            },
-            successCallback: function(json) {
-                if (json.status === 1) {
-                    alert("退订房间成功");
-                    if(vmOrder.sheetType) {
-                        mui('#roomSheet').popover('toggle');
-                        vmOrder.sheetType = 0;
+function unsubscribeOrder(orid, roomName) {
+    if(vmOrder.sheetType) {
+        mui('#roomSheet').popover('toggle');
+        vmOrder.sheetType = 0;
+    }
+
+    mui.confirm(
+        "房费将退至付款帐户，确定要退订吗？",
+        "退订房间: " + roomName,
+        ['否', '是'],
+        function(e) {
+            if(e.index == 1) {
+                ajaxJsonp({
+                    url: urls.unsubscribeOrder,
+                    data: {
+                        oid: orderid,
+                        orids: orid,
+                    },
+                    successCallback: function(json) {
+                        if (json.status === 1) {
+                            mui.alert("退订房间成功", "退订房间: " + roomName);
+                            
+                            iniOrder(); 
+                        } else {
+                            mui.alert(json.message, "退订房间: " + roomName);
+                            vmOrder.btn1Disabled = false;
+                            return;
+                        }
                     }
-                    iniOrder(); 
-                } else {
-                    alert(json.message);
-                    vmOrder.btn1Disabled = false;
-                    return;
-                }
+                });
+            } else {
+                vmOrder.btn1Disabled = false;
             }
         });
-    } else {
-        vmOrder.btn1Disabled = false;
-    }
 }
 
 //退房
-function checkout(orid) {
-    if (confirm("退房后将无法再通过微信开门，确定要退所选房间吗？")) {
-        ajaxJsonp({
-            url: urls.checkout,
-            data: {
-                orid: orid,
-            },
-            successCallback: function(json) {
-                if (json.status === 1) {
-                    alert("退房成功");
-                    location.href = "submitassess.html?oid=" + orderid + "&orid=" + orid
-                        +"&room=" + getRoom(orid) + "&time=" + getTime(orid) + "&hid=" + vmOrder.data.hotel.id;
-                   
-                } else {
-                    alert(json.message);
-                    vmOrder.btn2Disabled = false;
-                    return;
-                }
+function checkout(orid, roomName) {
+    if(vmOrder.sheetType) {
+        mui('#roomSheet').popover('toggle');
+        vmOrder.sheetType = 0;
+    }
+
+    mui.confirm(
+        "退房后将无法再使用微信开门，确定要退房吗？",
+        "退房: " + roomName,
+        ['否', '是'],
+        function(e) {
+            if (e.index == 1) {
+                ajaxJsonp({
+                    url: urls.checkout,
+                    data: {
+                        orid: orid,
+                    },
+                    successCallback: function(json) {
+                        if (json.status === 1) {
+                            mui.alert("退房成功", "退房: " + roomName);
+                            location.href = "submitassess.html?oid=" + orderid + "&orid=" + orid
+                                +"&room=" + getRoom(orid) + "&time=" + getTime(orid) + "&hid=" + vmOrder.data.hotel.id;
+                           
+                        } else {
+                            mui.alert(json.message, "退房: " + roomName);
+                            vmOrder.btn2Disabled = false;
+                            return;
+                        }
+                    }
+                });
+            } else {
+                vmOrder.btn2Disabled = false;
             }
         });
-    } else {
-        vmOrder.btn2Disabled = false;
-    }
 }
 
 function getRoom(orid) {
@@ -436,13 +471,11 @@ function callWcpay() {
         "paySign": vmOrder.payinfo.paySign
     }, function(res) {
         if (res.err_msg == "get_brand_wcpay_request:ok") {
-            alert("支付成功");
-
             location.href = 'payend.html?id=' + orderid;
         } else {
             vmOrder.btn2Disabled = false;
             if (res.err_msg == "get_brand_wcpay_request:fail") {
-                alert("Ooops，出问题了，请重试");
+                mui.alert("Ooops，出问题了，请重试", "支付订单");
             }
         }
     });

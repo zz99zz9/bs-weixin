@@ -182,7 +182,7 @@ input[type=checkbox] {
     <div id="roomSheet" class="mui-popover mui-popover-bottom mui-popover-action bs-text-large" style="right: 0;">
         <!-- 可选择菜单 -->
         <ul class="mui-table-view">
-          <li class="mui-table-view-cell" ms-repeat="data.orderRoomList" ms-on-tap="sheetClick(el.id, el.status)" ms-visible="isShowSheet(el.status, sheetType)">
+          <li class="mui-table-view-cell" ms-repeat="data.orderRoomList" ms-on-tap="sheetClick(el.id, el.status, el.name)" ms-visible="isShowSheet(el.status, sheetType)">
             <a href="#">{{el.name}}<!-- 全天房 -->
                 <span ms-if="!data.isPartTime">{{formatDate(el.startTime)}} - {{formatDate(el.endTime)}}
                 </span>
