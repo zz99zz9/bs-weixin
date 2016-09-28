@@ -44,7 +44,16 @@
     padding: 8px;
     font-weight: 100;
 }
-
+.confirmBtn {
+    color: #fff;
+    background: #23262a;
+    width: 80px;
+    margin-top: 30px;
+    border-radius: 0;
+    border-color: #baa071;
+    padding: 8px;
+    font-weight: 100;
+}
 .verifyInput {}
 
 .sendBtn {

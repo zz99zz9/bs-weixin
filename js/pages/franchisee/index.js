@@ -2,7 +2,6 @@ var frData = Storage.get('frData'),
     user = Storage.getLocal('user'),
     mobile = user.mobile,
     wait = 60;
-console.log(mobile);
 
 if (!frData) {
     frData = { index: 0 };
@@ -170,33 +169,6 @@ var vmGraph = avalon.define({
             }
         });
     },
-    // isVerifyShow: false,
-    // withdrawClick: function() {
-    //     if (vmGraph.isVerifyShow) {
-    //         vmGraph.isVerifyShow = false;
-    //         vmGraph.submit();
-    //     } else {
-    //         vmGraph.getCode();
-    //         vmGraph.isVerifyShow = true;
-    //     }
-    // },
-    isShow: true,
-    withdrawClick: function() {
-        vmGraph.getCode();
-        vmGraph.isShow = false;
-        vmGraph.isDisabled2 = true;
-        vmGraph.code = '';
-    },
-    confirm: function() {
-        vmGraph.submit();
-        vmGraph.isShow = true;
-        vmGraph.isDisabled1 = true;
-        vmGraph.amount = '';
-    },
-    cancel: function() {
-        vmGraph.isShow = true;
-        vmGraph.isDisabled1 = false;
-    }, 
     goToday: function() {
         location.href = "franchisee-today.html";
     },
@@ -218,6 +190,23 @@ var vmGraph = avalon.define({
     isSuccess: false,
     isDisabled1: true,
     isDisabled2: false,
+    isShow: true,
+    withdrawClick: function() {
+        vmGraph.getCode();
+        vmGraph.isShow = false;
+        vmGraph.isDisabled2 = true;
+        vmGraph.code = '';
+    },
+    confirm: function() {
+        vmGraph.submit();
+        vmGraph.isShow = true;
+        vmGraph.isDisabled1 = true;
+        vmGraph.amount = '';
+    },
+    cancel: function() {
+        vmGraph.isShow = true;
+        vmGraph.isDisabled1 = false;
+    }, 
     getCode: function() {
         ajaxJsonp({
             url: urls.fraSms,
@@ -244,6 +233,7 @@ var vmGraph = avalon.define({
                 if (json.status === 1) {
                     vmGraph.getAccount();
                     vmGraph.amount = ''; 
+                    mui.alert("提现成功","余额提现");
                 } else {
                     vmGraph.isDisabled = false;
                     alert(json.massage);
@@ -253,7 +243,7 @@ var vmGraph = avalon.define({
     },
     //提现按钮变化
     changed1: function() {
-        if (vmGraph.amount.length > 0 && vmGraph.amount.length < 10) {
+        if (vmGraph.amount <= vmGraph.balance && vmGraph.amount.length > 0 && vmGraph.amount.length < 10) {
             vmGraph.isDisabled1 = false;
         } else {
             vmGraph.isDisabled1 = true;

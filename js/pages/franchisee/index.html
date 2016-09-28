@@ -68,8 +68,12 @@
                         <button class="mui-btn mui-btn-yellow mui-btn-outlined codeButton sendBtn" ms-click="@getCode" ms-attr="{disabled:@isSuccess}">{{@codeMsg}}</button>
                     </div>
                     <button ms-visible="@isShow" class="withdrawBtn" type="button" ms-click="@withdrawClick" ms-attr="{disabled:@isDisabled1}">提现</button>
-                    <button ms-visible="!@isShow" class="withdrawBtn" type="button" ms-click="@confirm" ms-attr="{disabled:@isDisabled2}">确定</button>
-                    <button ms-visible="!@isShow" class="withdrawBtn" type="button" ms-click="@cancel">取消</button>
+                    <button ms-visible="!@isShow" class="confirmBtn" type="button" ms-click="@cancel">
+                        <span class="bs-text-small">取消</span>
+                    </button>
+                    <button ms-visible="!@isShow" class="confirmBtn" type="button" ms-click="@confirm" ms-attr="{disabled:@isDisabled2}">
+                        <span class="bs-text-small">确定</span>
+                    </button>
                 </div>
                 <div class="bs-text-smaller fr-link" style="width: 60px;" ms-click="@goRecord">交易记录</div>
             </div>
