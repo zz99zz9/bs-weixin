@@ -46,7 +46,7 @@
                 <div class="bs-text-smaller fr-link" style="width: 60px;" ms-click="@goIncome">查看详情</div>
             </div>
             <!-- 提现 -->
-            <div class="swiper-slide">
+            <div class="swiper-slide" ms-controller="graph">
                 
                 <div class="bs-text-xxx-larger fr-head" style="width: 150px;">
                     {{@balance}}
@@ -58,16 +58,16 @@
                         <span class="bs-text-small bs-text-white">可提现金额</span>&nbsp;&nbsp;
                         <span>¥{{@withdrawCash}}</span>
                         <br>
-                        <input type="tel" style="width: 180px;display: block;margin-top: 30px;margin-bottom: -15px;background: #23262a;border: none;text-align: center;" placeholder="输入提现金额" >
+                        <input type="tel" ms-duplex="@amount" style="width: 180px;display: block;margin-top: 30px;margin-bottom: -15px;background: #23262a;border: none;text-align: center;" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" placeholder="输入提现金额" >
                         <hr style="color: #999;">
                     </div>
                     <div ms-visible="@isVerifyShow"><br>&nbsp;</div>
                     <div ms-visible="@isVerifyShow" style="display: flex;align-items: center;">
-                        <input class="verifyInput" style="    width: 120px;background: #23262a;border: none;border-bottom: solid 1px #999;text-align: center;margin-right: 10px;" type="tel" placeholder="输入验证码" >
+                        <input class="verifyInput" ms-duplex="@code" style="width: 120px;background: #23262a;border: none;border-bottom: solid 1px #999;text-align: center;margin-right: 10px;" type="tel" placeholder="输入验证码" >
                         <hr style="color: #999;">
-                        <button class="sendBtn">重发验证码</button>
+                        <button class="mui-btn mui-btn-yellow mui-btn-outlined codeButton sendBtn" ms-click="@getCode" ms-attr-disabled="isSuccess">{{@codeMsg}}</button>
                     </div>
-                    <button class="withdrawBtn" type="button" ms-click="@withdrawClick">提现</button>
+                    <button class="withdrawBtn" type="button" ms-click="@withdrawClick" ms-attr-disabled="@isDisabled">提现</button>
                 </div>
                 <div class="bs-text-smaller fr-link" style="width: 60px;" ms-click="@goRecord">交易记录</div>
             </div>
@@ -75,3 +75,4 @@
         </div>
     </div>
 </div>
+

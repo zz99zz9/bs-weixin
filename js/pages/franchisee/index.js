@@ -1,9 +1,13 @@
-var frData = Storage.get('frData');
+var frData = Storage.get('frData'),
+    user = Storage.getLocal('user'),
+    mobile = user.mobile,
+    wait = 60;
+console.log(mobile);
 
-if(!frData) {
+if (!frData) {
     frData = { index: 0 };
 } else {
-    if(!frData.index) {
+    if (!frData.index) {
         frData.index = 0;
     }
 }
@@ -15,7 +19,7 @@ var vmGraph = avalon.define({
     getToday: function() {
         ajaxJsonp({
             url: urls.saleRangeStatistics,
-            data: { 
+            data: {
                 startTime: getToday('date'),
                 endTime: getToday('date')
             },
@@ -31,7 +35,7 @@ var vmGraph = avalon.define({
     getLastMonthIncome: function() {
         ajaxJsonp({
             url: urls.commissionRangeStatistics,
-            data: { 
+            data: {
                 startTime: getLastMonth('start'),
                 endTime: getLastMonth('end')
             },
@@ -47,7 +51,7 @@ var vmGraph = avalon.define({
     getLastMonth: function() {
         ajaxJsonp({
             url: urls.saleRangeStatistics,
-            data: { 
+            data: {
                 startTime: getLastMonth('start'),
                 endTime: getLastMonth('end')
             },
@@ -63,7 +67,7 @@ var vmGraph = avalon.define({
     getLastYearIncome: function() {
         ajaxJsonp({
             url: urls.commissionRangeStatistics,
-            data: { 
+            data: {
                 startTime: getDates(-365),
                 endTime: getLastMonth('end')
             },
@@ -74,19 +78,20 @@ var vmGraph = avalon.define({
             }
         });
 
-        var monthList = [], monthIncomeList = [];
+        var monthList = [],
+            monthIncomeList = [];
         ajaxJsonp({
             url: urls.fraMonthlyList,
-            data: { 
+            data: {
                 startTime: getDates(-365),
                 endTime: getLastMonth('end')
             },
             successCallback: function(json) {
                 if (json.status === 1) {
 
-                    json.data.list.map(function(o){
+                    json.data.list.map(function(o) {
                         monthList.push(o.monthPart);
-                        monthIncomeList.push(round((o.hotelAmount/1000),0));
+                        monthIncomeList.push(round((o.hotelAmount / 1000), 0));
                     });
 
                     //渲染表格
@@ -94,10 +99,10 @@ var vmGraph = avalon.define({
 
                     var option = {
                         color: ['#baa071'],
-                        tooltip : {
+                        tooltip: {
                             trigger: 'axis',
-                            axisPointer : { // 坐标轴指示器，坐标轴触发有效
-                                type : 'shadow' // 默认为直线，可选为：'line' | 'shadow'
+                            axisPointer: { // 坐标轴指示器，坐标轴触发有效
+                                type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
                             }
                         },
                         textStyle: {
@@ -109,49 +114,43 @@ var vmGraph = avalon.define({
                             bottom: '3%',
                             containLabel: true
                         },
-                        xAxis : [
-                            {
-                                type : 'category',
-                                data : monthList,
-                                axisLine: {
-                                    lineStyle: {
-                                        color: '#999'
-                                    }
-                                },
-                                axisTick: {
-                                    alignWithLabel: true
+                        xAxis: [{
+                            type: 'category',
+                            data: monthList,
+                            axisLine: {
+                                lineStyle: {
+                                    color: '#999'
                                 }
+                            },
+                            axisTick: {
+                                alignWithLabel: true
                             }
-                        ],
-                        yAxis : [
-                            {
-                                type : 'value',
-                                axisLine: { //坐标轴
-                                    show: false
-                                },
-                                splitLine: { //分割线
-                                    show: false
-                                },
-                                axisLabel: { //坐标轴刻度标签
-                                    show: false
+                        }],
+                        yAxis: [{
+                            type: 'value',
+                            axisLine: { //坐标轴
+                                show: false
+                            },
+                            splitLine: { //分割线
+                                show: false
+                            },
+                            axisLabel: { //坐标轴刻度标签
+                                show: false
+                            }
+                        }],
+                        series: [{
+                            name: '分佣',
+                            type: 'bar',
+                            barWidth: '60%',
+                            label: {
+                                normal: {
+                                    show: true,
+                                    position: 'top',
+                                    formatter: '{c}k'
                                 }
-                            }
-                        ],
-                        series : [
-                            {
-                                name: '分佣',
-                                type: 'bar',
-                                barWidth: '60%',
-                                label: {
-                                    normal: {
-                                        show: true,
-                                        position: 'top',
-                                        formatter: '{c}k'
-                                    }
-                                },
-                                data: monthIncomeList
-                            }
-                        ]
+                            },
+                            data: monthIncomeList
+                        }]
                     };
                     myChart.setOption(option);
                 }
@@ -173,13 +172,14 @@ var vmGraph = avalon.define({
     },
     isVerifyShow: false,
     withdrawClick: function() {
-        if(vmGraph.isVerifyShow){
+        if (vmGraph.isVerifyShow) {
             vmGraph.isVerifyShow = false;
+            vmGraph.submit();
         } else {
             vmGraph.isVerifyShow = true;
         }
     },
-    goToday: function()  {
+    goToday: function() {
         location.href = "franchisee-today.html";
     },
     goMonth: function() {
@@ -193,8 +193,56 @@ var vmGraph = avalon.define({
     },
     goNote: function() {
         //location.href = "franchisee-note.html";
-    }
+    },
+    codeMsg: '发送验证码',
+    amount: '',    //提现金额
+    code: '', //输入的验证码
+    isSuccess: false,
+    isDisabled: true,
+    getCode: function() {
+        ajaxJsonp({
+            url: urls.getCodeURL,
+            data: {
+                mobile: mobile
+            },
+            successCallback: function(json) {
+                if (json.status !== 1) {
+                    alert(json.message);
+                    return;
+                } else {
+                    wait = 60;
+                    countSecond();
+                }
+            }
+        });
+    },
+    submit: function() {
+        ajaxJsonp({
+            url: urls.fraCash,
+            data: {
+                code: vmGraph.code,
+                amount: vmGraph.amount,
+            },
+            successCallback: function(json) {
+                if (json.status === 1) {
+                    alert("提交成功");
+                    vmGraph.getAccount();
+                } else {
+                    vmGraph.isDisabled = false;
+                    alert(json.massage);
+                }
+            }
+        });
+    },
 })
+vmGraph.$watch("code", function(a) {
+    if (a.length > 0 && a.length < 10) {
+        vmGraph.isDisabled = false;
+    } else {
+        vmGraph.isDisabled = true;
+    }
+});
+
 
 var swiper = new Swiper('.swiper', {
     initialSlide: frData.index,
@@ -209,7 +257,7 @@ var swiper = new Swiper('.swiper', {
         Storage.set('frData', frData);
     }
 });
-
+vmGraph.getCode();
 vmGraph.getToday();
 vmGraph.getLastMonth();
 vmGraph.getLastMonthIncome();
@@ -225,13 +273,40 @@ $circle.attr("width", window.innerWidth);
 $circle.attr("height", window.innerHeight);
 
 context.beginPath();
-context.arc((window.innerWidth)/2 - 20,
-    window.innerHeight*0.18,
-    75,getRadians(135),getRadians(45),false);
+context.arc((window.innerWidth) / 2 - 20,
+    window.innerHeight * 0.18,
+    75, getRadians(135), getRadians(45), false);
 context.lineWidth = 7;
 context.strokeStyle = "rgb(186,160,113)";
 context.stroke();
 
 function getRadians(degrees) {
-    return degrees*(Math.PI/180);
+    return degrees * (Math.PI / 180);
 }
+//倒计时
+function countSecond() {
+    if (wait === 0) {
+        vmGraph.isSuccess = false;
+        vmGraph.codeMsg = '发送验证码';
+        wait = 60;
+    } else {
+        vmGraph.codeMsg = wait + '秒后可重新获取';
+        vmGraph.isSuccess = true;
+        wait--;
+        setTimeout(countSecond, 1000);
+    }
+
+}
+
+//是否已注册
+ajaxJsonp({
+    url: urls.getRegisterLogURL,
+    data: {
+        mobile: mobile
+    },
+    successCallback: function(json) {
+        if (json.status === 1) {
+            vmGraph.isUsed = json.data;
+        }
+    }
+});

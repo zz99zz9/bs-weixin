@@ -17,7 +17,6 @@ var vmReg = avalon.define({
         code: ''
     }],
     codeInput: function(value) {
-
         vmReg.code = value;
         for (var i = 0; i < 4; i++) {
             if (i < value.length) {
