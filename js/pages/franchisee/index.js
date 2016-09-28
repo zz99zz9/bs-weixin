@@ -192,16 +192,13 @@ var vmGraph = avalon.define({
     isDisabled2: false,
     isShow: true,
     withdrawClick: function() {
-        vmGraph.getCode();
+        //vmGraph.getCode();
         vmGraph.isShow = false;
         vmGraph.isDisabled2 = true;
         vmGraph.code = '';
     },
     confirm: function() {
         vmGraph.submit();
-        vmGraph.isShow = true;
-        vmGraph.isDisabled1 = true;
-        vmGraph.amount = '';
     },
     cancel: function() {
         vmGraph.isShow = true;
@@ -213,7 +210,7 @@ var vmGraph = avalon.define({
             data: {},
             successCallback: function(json) {
                 if (json.status !== 1) {
-                    alert(json.message);
+                    mui.alert(json.message);
                     return;
                 } else {
                     wait = 60;
@@ -232,11 +229,14 @@ var vmGraph = avalon.define({
             successCallback: function(json) {
                 if (json.status === 1) {
                     vmGraph.getAccount();
-                    vmGraph.amount = ''; 
-                    mui.alert("提现成功","余额提现");
+                    mui.alert("已提交申请","申请提现");
+                    vmGraph.isShow = true;
+                    vmGraph.isDisabled1 = true;
+                    vmGraph.amount = '';
                 } else {
-                    vmGraph.isDisabled = false;
-                    alert(json.massage);
+                    vmGraph.code = '';
+                    vmGraph.isDisabled2 = true;
+                    mui.alert("验证码错误","申请提现");
                 }
             }
         });
@@ -258,14 +258,6 @@ var vmGraph = avalon.define({
         }
     },
 })
-// vmGraph.$watch("code", function(a) {
-//     if (a.length > 0 && a.length < 10) {
-//         vmGraph.isDisabled = false;
-//     } else {
-//         vmGraph.isDisabled = true;
-//     }
-// });
-
 
 var swiper = new Swiper('.swiper', {
     initialSlide: frData.index,
@@ -312,23 +304,10 @@ function countSecond() {
         vmGraph.codeMsg = '发送验证码';
         wait = 60;
     } else {
-        vmGraph.codeMsg = wait + '秒后可重新获取';
+        vmGraph.codeMsg = wait + '秒';
         vmGraph.isSuccess = true;
         wait--;
         setTimeout(countSecond, 1000);
     }
 
 }
-
-//是否已注册
-ajaxJsonp({
-    url: urls.getRegisterLogURL,
-    data: {
-        mobile: mobile
-    },
-    successCallback: function(json) {
-        if (json.status === 1) {
-            vmGraph.isUsed = json.data;
-        }
-    }
-});
