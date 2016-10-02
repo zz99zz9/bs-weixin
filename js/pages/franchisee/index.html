@@ -17,7 +17,7 @@
             </div>
             <!-- 上月 -->
             <div class="swiper-slide">
-                <div class="bs-text-xxx-larger fr-head" style="width: 100px;">
+                <div class="bs-text-xxx-larger fr-head" style="width: 200px;">
                     {{@lastMonthIncome}}
                     <span class="bs-text-large bs-text-white"><br>上月分佣</span>
                 </div>
@@ -37,7 +37,7 @@
             </div>
             <!-- 累计 -->
             <div class="swiper-slide">
-                <div class="bs-text-xxx-larger fr-head" style="width: 100px;">
+                <div class="bs-text-xxx-larger fr-head" style="width: 200px;">
                     {{@totalIncome}}
                     <span class="bs-text-large bs-text-white"><br>累计分佣</span>
                 </div>
@@ -48,10 +48,10 @@
             <!-- 提现 -->
             <div class="swiper-slide" ms-controller="graph">
                 
-                <div class="bs-text-xxx-larger fr-head" style="width: 150px;">
+                <div class="bs-text-xxx-larger fr-head" style="width: 200px;">
                     {{@balance}}
                     <span class="bs-text-large bs-text-white"><br>账户余额</span>
-                    <img src="img/icon/question.png" alt="" style="position: absolute;top: -7px;right: -33px;width: 18px;" ms-click="@goNote">
+                    <img src="img/icon/question.png" alt="" style="position: absolute;top: -7px;right: -20px;width: 18px;" ms-click="@goNote">
                 </div>
                 <div class="bs-text-larger fr-content" style="height: 46px;position: relative;top: -5vh;">
                     <div ms-visible="@isShow">

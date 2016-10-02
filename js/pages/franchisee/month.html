@@ -1,4 +1,4 @@
-<header class="bs-bg-dark mui-scroll-wrapper" style="z-index: 5;bottom: inherit;" ms-controller="header">
+<header class="bs-bg-dark mui-scroll-wrapper ms-controller" style="z-index: 5;bottom: inherit;" ms-controller="header">
     <div class="bs-text-normal bs-text-gray fr-padding-20">{{@year}}年{{@month}}月详情</div>
     <div class="header-middle">
         <div class="fr-padding-20">
@@ -16,7 +16,7 @@
 </header>
 <div id="pullrefresh" class="mui-scroll-wrapper" style="top: 209px;">
     <div class="mui-scroll">
-        <section class="bs-bg-white bs-text-large" ms-controller="chart">
+        <section class="bs-bg-white bs-text-large ms-controller" ms-controller="chart">
             <div style="border-bottom: 1px solid #ddd;" ms-for="el in @list">
                 <div class="fr-flex bs-text-normal">
                     <div style="padding: 15px 0 0 20px;">{{formatDate(el.date)}}</div>

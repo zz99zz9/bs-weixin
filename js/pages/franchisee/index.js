@@ -294,9 +294,6 @@ context.lineWidth = 7;
 context.strokeStyle = "rgb(186,160,113)";
 context.stroke();
 
-function getRadians(degrees) {
-    return degrees * (Math.PI / 180);
-}
 //倒计时
 function countSecond() {
     if (wait === 0) {

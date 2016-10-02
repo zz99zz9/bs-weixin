@@ -1,4 +1,4 @@
-<header class="bs-bg-dark mui-scroll-wrapper" style="z-index: 5;bottom: inherit;" ms-controller="header">
+<header class="bs-bg-dark mui-scroll-wrapper ms-controller" style="z-index: 5;bottom: inherit;" ms-controller="header">
     <div class="bs-text-normal bs-text-gray header-up">累计详情</div>
     <div class="header-middle">
         <div class="fr-padding-20">
@@ -16,7 +16,7 @@
 </header>
 <div id="pullrefresh" class="mui-scroll-wrapper" style="top: 209px;">
     <div class="mui-scroll">
-        <section class="bs-bg-white bs-text-large" ms-controller="chart">
+        <section class="bs-bg-white bs-text-large ms-controller" ms-controller="chart">
             <div style="border-bottom: 1px solid #ddd;" ms-for="el in @list">
                 <div class="fr-flex bs-text-normal">
                     <div style="padding: 15px 0 0 20px;">{{el.yearPart}}年{{el.monthPart}}月</div>
@@ -25,7 +25,7 @@
                     </div>
                 </div>
                 <div class="fr-flex">
-                    <div class="bs-text-smaller bs-text-gray" style="    margin: 0 0 15px 20px;">
+                    <div class="bs-text-smaller bs-text-gray" style="margin: 0 0 15px 20px;">
                         <span>销售总额&nbsp;</span>&nbsp;
                         <span class="bs-text-black">{{el.roomAmount}}<br></span>
                         <span>店主分佣</span>&nbsp;&nbsp;

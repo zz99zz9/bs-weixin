@@ -12,18 +12,19 @@ function popover(url, type, callback) {
                 if (typeof callback == "function") {
                     callback();
                 }
-                avalon.scan();
+                avalon.scan(document.getElementsByClassName('popover')[0]);
             });
             break;
         case loadStr:
             $('#pop-text').html(url);
-            avalon.scan();
+            avalon.scan(document.getElementsByClassName('popover')[0]);
             break;
         default:
             break;
     }
     setTimeout("$('.popover').removeClass('popover-hide')", 10);
 };
+
 $(function() {
     // $('.popover-content').height(window.screen.height-185);
     if (!isios && isweixin) {

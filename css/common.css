@@ -44,7 +44,7 @@ button {
     height: 36px;
     margin: 6px;
     border-radius: 50%;
-    border: 3px solid white;
+    border: 2px solid white;
 }
 
 .margin2 {
@@ -1180,6 +1180,14 @@ hr {
     font-size: 12px;
 }
 
+.bs-text-bolder {
+    font-weight: bolder;
+}
+
+.bs-text-lighter {
+    font-weight: lighter;
+}
+
 .bs-text-white {
     color: #fff !important;
 }
@@ -1344,4 +1352,22 @@ hr {
     width: 90%;
     background: black;
     color: white;
+}
+
+.isAgree {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    position: relative;
+    top: 1px;
+    margin-right: 10px;
+    background-size: cover;
+}
+
+.unchecked {
+    background-image: url('../img/unchecked.png');
+}
+
+.checked {
+    background-image: url('../img/checked.png');
 }

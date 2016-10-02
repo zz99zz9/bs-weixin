@@ -1,0 +1,22 @@
+<div style="display: flex;flex-direction: column; justify-content: space-between;height: 100vh;" class="ms-controller" :controller="apply">
+    <section style="width: 100vw; height: 225px;background-image: url(img/promote_head.jpg);background-size: cover;background-position: center center;">
+        <div class="bs-text-x-larger bs-text-white" style="font-weight: bolder;padding: 25px 20px;">本宿推广大使计划</div>
+    </section>
+
+    <section class="bs-bg-white" style="flex-grow: 1;padding: 0 20px;display: flex;flex-direction: column; justify-content: space-between;">
+        <div>
+            <div class="bs-text-x-larger" style="padding: 30px 0 40px  0;">
+                住本宿也能赚钱
+            </div>
+            <div class="bs-text-larger" style="line-height: 24px;">
+                成为本宿推广大使，与朋友分享你在本宿的难忘体验，即可获得本宿推广现金奖励。
+            </div>
+        </div>
+        <div class="bs-text-normal" style="padding: 25px 0;" :on-tap="@clickIsAgree">
+            <span :class="['isAgree', @isAgree?'checked':'unchecked']"></span> 我同意
+            <span class="bs-text-gold" :on-tap="@openRule">本宿推广大使条例</span>
+        </div>
+    </section>
+
+    <button class="bs-text-bolder bs-text-white bs-bg-black" style="font-size: 18px;width: 100vw;border: none;border-radius: 0;height: 50px;" :click="@goDetail">申请加入</button>
+</div>

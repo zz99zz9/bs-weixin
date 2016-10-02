@@ -207,7 +207,11 @@ function getToday(type) {
         h = d.getHours(),
         mins = d.getMinutes(),
         s = d.getSeconds();
-    if (month < 10) month = "0" + month;
+    if (month < 10) {
+        month = "0" + month;
+    } else {
+        month = month + '';
+    }
     if (day < 10) day = "0" + day;
     if (h < 10) h = "0" + h;
     if (mins < 10) mins = "0" + mins;
@@ -490,5 +494,32 @@ function verifyIntParam(p) {
         }
     } else {
         location.href = "index.html";
+    }
+}
+
+function getRadians(degrees) {
+    return degrees * (Math.PI / 180);
+}
+
+function numToHan(num) {
+    switch(num) {
+        case 1:
+            return '一';
+        case 2:
+            return '二';
+        case 3:
+            return '三';
+        case 4:
+            return '四';
+        case 5:
+            return '五';
+        case 6:
+            return '六';
+        case 7:
+            return '七';
+        case 8:
+            return '八';
+        case 9:
+            return '九';
     }
 }

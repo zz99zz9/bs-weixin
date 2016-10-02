@@ -821,6 +821,77 @@ function franchiseeRecord() {
         .pipe(rename('franchisee-record.html'))
         .pipe(gulp.dest('./src'));
 }
+
+/**
+ *   =======================================================
+ *                       会员卡相关页面
+ *   =======================================================
+ */
+
+ function promotionApply() {
+    return gulp.src('./js/layout/shell-av2.html')
+        .pipe(replace({
+            regex: '<!-- css -->',
+            replace: '<link rel="stylesheet" href="css/promotion.css">'
+        }))
+        .pipe(replace({
+            regex: '<!-- content -->',
+            replace: '<!--include "../pages/promotion/apply.html"-->'
+        }))
+        .pipe(replace({
+            regex: '<!-- js -->',
+            replace: '<script src="js/pages/promotion/apply.js"></script>'
+        }))
+        .pipe(replace({
+            regex: '<!-- pop -->',
+            replace: '<!--include "../pages/user/popover.html"-->'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(replace({
+            regex: '<button class="popover-closeButton"></button>',
+            replace: '<!--include "../util/popoverBtnOK-av2.html"-->'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('promotion-apply.html'))
+        .pipe(gulp.dest('./src'));
+}
+
+function promotionDetail() {
+    return gulp.src('./js/layout/shell-av2.html')
+        .pipe(replace({
+            regex: '<!-- css -->',
+            replace: '<link rel="stylesheet" href="css/swiper.min.css">\n<link rel="stylesheet" href="css/promotion.css">'
+        }))
+        .pipe(replace({
+            regex: '<!-- content -->',
+            replace: '<!--include "../pages/promotion/detail.html"-->'
+        }))
+        .pipe(replace({
+            regex: '<!-- js -->',
+            replace: '<script src="js/lib/swiper.min.js"></script>\n' + '<script src="js/pages/promotion/detail.js"></script>'
+        }))
+        .pipe(replace({
+            regex: '<!-- pop -->',
+            replace: '<!--include "../pages/user/popover.html"-->'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(replace({
+            regex: '<button class="popover-closeButton"></button>',
+            replace: '<!--include "../util/popoverBtnOK-av2.html"-->'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('promotion-detail.html'))
+        .pipe(gulp.dest('./src'));
+}
+
 /**
  *   =======================================================
  *                       管理模块相关页面
@@ -1911,7 +1982,8 @@ function popHtml() {
             './js/pages/user/frequent-contact-add.html',
             './js/pages/user/delivery-address-add.html',
             './js/pages/room/note.html',
-            './js/pages/room/designer.html'
+            './js/pages/room/designer.html',
+            './js/pages/promotion/promotion-rule.html'
         ])
         .pipe(gulp.dest('./dist/util/'));
 }
@@ -1978,6 +2050,8 @@ gulp.task('html', gulp.parallel(
     franchiseeMonth,
     franchiseeIncome,
     franchiseeRecord,
+    promotionApply,
+    promotionDetail,
     login,
     homepage,
     nav,

@@ -1,8 +1,8 @@
 <div id="pullrefresh" class="mui-scroll-wrapper" ms-controller="hotel" ms-on-swipeup="su" ms-on-swipedown="sd">
     <div class="mui-scroll">
         <div style="position: absolute;top: 40vh;z-index: 10;right: 0;padding-right: 10px;">
-            <button type="button" class="calender-icon bs-bg-red" ms-css-background-image="type?'url(img/clock.png)':'url(img/calender.png)'" ms-on-tap="openTimePanel">
-            <div class="bs-text-white bs-text-smaller" ms-if="!type" style="margin: 9px 1px 0 0;">{{getToday('day')}}</div>
+            <button type="button" class="calender-icon bs-bg-red" ms-css-background-image="type?'url(img/clock.png)':'url(img/calendar.svg)'" ms-on-tap="openTimePanel">
+            <div class="bs-text-white bs-text-smaller" ms-if="!type" style="line-height: 46px;">{{getToday('day')}}</div>
             </button>
         </div>
         <div class="bs-text-white bs-text-smaller" style="position: fixed;padding: 0 12px;top: 39vh;left: 0;z-index: 9;background: rgba(0,0,0,0.5);">距离 <span style="position: relative;top: 1px;">{{distance?distance:'...'}} km</span></div>
