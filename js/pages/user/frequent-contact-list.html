@@ -6,8 +6,8 @@
         color: black;
     }
     .btn-operate{
-        width: 36px;
-        height: 36px;
+        width: 24px;
+        height: 24px;
         vertical-align: middle;
         float: right;
         margin: 0px 5px;
@@ -37,10 +37,10 @@
             </div>
             <hr style="border: 1px solid #ddd;border-width: 1px 0 0 0">
             <div>
-                <div class="bs-text-gray" style="display: inline-block; float: left; font-size: 14px; padding-top: 11px;" ms-click="setDefault($index)">
+                <div class="bs-text-gray" style="display: inline-block; float: left; font-size: 14px; padding-top: 2px;" ms-click="setDefault($index)">
                     默认入住人
-                    <img src="img/checked.png" alt="选中" style="width: 12px;" ms-if="defaultList.indexOf($index)>-1">
-                    <img src="img/unchecked.png" alt="未选中" style="width: 12px;" ms-if="defaultList.indexOf($index)==-1">
+                    <img src="img/checked.svg" alt="选中" style="width: 12px;" ms-if="defaultList.indexOf($index)>-1">
+                    <img src="img/unchecked.svg" alt="未选中" style="width: 12px;" ms-if="defaultList.indexOf($index)==-1">
                 </div>
                 <img src="img/delete.png" class="btn-operate"  ms-click="del($index)">
                 <img src="img/edit.png" class="btn-operate"  ms-click="edit($index)">

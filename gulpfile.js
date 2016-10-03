@@ -827,8 +827,81 @@ function franchiseeRecord() {
  *                       会员卡相关页面
  *   =======================================================
  */
+ function cardList() {
+    return gulp.src('./js/layout/shell-av2.html')
+        .pipe(replace({
+            regex: '<!-- css -->',
+            replace: '<link rel="stylesheet" href="css/card.css">'
+        }))
+        .pipe(replace({
+            regex: '<!-- content -->',
+            replace: '<!--include "../pages/card/list.html"-->'
+        }))
+        .pipe(replace({
+            regex: '<!-- js -->',
+            replace: '<script src="js/pages/card/list.js"></script>'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('card-list.html'))
+        .pipe(gulp.dest('./src'));
+ }
 
- function promotionApply() {
+function cardBuy() {
+    return gulp.src('./js/layout/shell-av2.html')
+        .pipe(replace({
+            regex: '<!-- css -->',
+            replace: '<link rel="stylesheet" href="css/card.css">'
+        }))
+        .pipe(replace({
+            regex: '<!-- content -->',
+            replace: '<!--include "../pages/card/buy.html"-->'
+        }))
+        .pipe(replace({
+            regex: '<!-- js -->',
+            replace: '<script src="js/pages/card/buy.js"></script>'
+        }))
+        .pipe(replace({
+            regex: '<!-- pop -->',
+            replace: '<!--include "../pages/user/popover.html"-->'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(replace({
+            regex: '<button class="popover-closeButton"></button>',
+            replace: '<!--include "../util/popoverBtnOK-av2.html"-->'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('card-buy.html'))
+        .pipe(gulp.dest('./src'));
+}
+
+function cardShow () {
+    return gulp.src('./js/layout/shell-av2.html')
+        .pipe(replace({
+            regex: '<!-- css -->',
+            replace: '<link rel="stylesheet" href="css/card.css">'
+        }))
+        .pipe(replace({
+            regex: '<!-- content -->',
+            replace: '<!--include "../pages/card/show.html"-->'
+        }))
+        .pipe(replace({
+            regex: '<!-- js -->',
+            replace: '<script src="js/pages/card/show.js"></script>'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('card-show.html'))
+        .pipe(gulp.dest('./src'));
+}
+
+function promotionApply() {
     return gulp.src('./js/layout/shell-av2.html')
         .pipe(replace({
             regex: '<!-- css -->',
@@ -1983,6 +2056,7 @@ function popHtml() {
             './js/pages/user/delivery-address-add.html',
             './js/pages/room/note.html',
             './js/pages/room/designer.html',
+            './js/pages/card/card-rule.html',
             './js/pages/promotion/promotion-rule.html'
         ])
         .pipe(gulp.dest('./dist/util/'));
@@ -2050,6 +2124,9 @@ gulp.task('html', gulp.parallel(
     franchiseeMonth,
     franchiseeIncome,
     franchiseeRecord,
+    cardList,
+    cardBuy,
+    cardShow,
     promotionApply,
     promotionDetail,
     login,

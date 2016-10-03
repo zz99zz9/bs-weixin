@@ -1,14 +1,15 @@
-<style type="text/css">
-	.popover-Button {
-		width: 50%;
-		-webkit-touch-callout:none;
+<style>
+	.popover-btn-double {
+		border-radius: 0;
+		width: 45%;
+		margin-top: 35px;
 	}
 </style>
-<div style="position: fixed;bottom: 20px;width: 100%; display: flex; justify-content: space-between; padding: 0 25px;" class="mui-text-center" ms-controller="aInfoBtn">
-	<button class="popover-Button mui-btn mui-btn-outlined bs-text-small bs-text-white" style="border-radius: 0;" onclick="$('.popover').addClass('popover-hide');popover_ishide = true;">
+<div style="width: 100%; display: flex; justify-content: center;" class="mui-text-center" ms-controller="aInfoBtn">
+	<button class="mui-btn mui-btn-outlined bs-text-small bs-text-white popover-btn-double" onclick="$('.popover').addClass('popover-hide');popover_ishide = true;">
 		取消
 	</button>&emsp;
-	<button class='popover-Button mui-btn mui-btn-outlined bs-text-small bs-text-white' style="border-radius: 0; border-color: #baa071;" ms-click="select">
+	<button class='mui-btn mui-btn-outlined bs-text-small bs-text-white popover-btn-double' style="border-color: #baa071;" ms-click="select">
 		{{selectText}}
 	</button>
 </div>

@@ -1,0 +1,53 @@
+html { -webkit-text-size-adjust: none; }
+
+.card-frame {
+    background-color: #eee;
+    padding: 10px;
+}
+
+.card-list-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0 10px 10px;
+    margin-bottom: 7px;
+    z-index: 10;
+}
+
+.card-list-item-title {
+    margin: 15px 0;
+}
+
+.card-list-img {
+    margin-top: 20px;
+    padding-left: 10px;
+    width: 40%;
+}
+
+.card-buy-img {
+    width: 100%;
+}
+
+.card-show {
+    height: 50vh;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.card-font {
+    position: relative;
+    color: #999;
+    font-size: 12px;
+    line-height: 0.9rem;
+    text-shadow: -1px 1px 4px black;
+}
+
+.card-cardNo {
+    font-size: 1rem;
+    display: inline-block;
+    margin-bottom: 3vw;
+}
+
+.card-cardNo span {
+    padding-right: 8px;
+}

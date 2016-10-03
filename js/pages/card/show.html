@@ -1,0 +1,21 @@
+<div class="card-frame ms-controller" :controller="cardShow" style="padding: 3vw;">
+    <div class="card-show" :css="{'background-image': 'url(' + @getType() + ')'}">
+        <div class="card-font">
+            <div class="card-cardNo">
+                <span>{{@cardNo.slice(0,4)}}</span>
+                <span>{{@cardNo.slice(4,8)}}</span>
+                <span>{{@cardNo.slice(8,10)}}</span>
+                <span>{{@cardNo.slice(10,13)}}</span>
+            </div>
+            <div>
+                <span style="font-size: 8px;">
+                    VALID THRU
+                    &emsp;
+                    {{@validDate}}
+                    </span>
+                <br>
+                C A R D H O L D E R
+            </div>
+        </div>
+    </div>
+</div>

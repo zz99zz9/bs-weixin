@@ -24,7 +24,8 @@ var vmApply = avalon.define({
             // 提交过
             // mui.toast('你已经提交过了，请等待审核');
         } else {
-            this.openRule();
+            vmPopover.useCheck = 1;
+            popover('./util/promotion-rule.html', 1);
         }
     }
 });

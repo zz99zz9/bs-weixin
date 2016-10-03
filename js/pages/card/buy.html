@@ -1,0 +1,32 @@
+<div class="ms-controller" :controller="cardBuy">
+    <div class="card-frame">
+        <img class="card-buy-img" :attr="{src:@data[cardType-1].imgUrl}" alt="">
+        <section style="padding: 8px 0 10px 10px;">
+            <div class="bs-text-red bs-text-larger" style="padding-bottom: 25px;">¥{{@data[cardType-1].price}}</div>
+            <div class="bs-text-smaller bs-text-51">本宿会员{{@data[cardType-1].name}}，限时抢购</div>
+        </section>
+        <img class="card-buy-img" :attr="{src:@data[cardType-1].discountUrl}" alt="">
+        <img class="card-buy-img" :attr="{src:@data[cardType-1].awardUrl}" alt="">
+        <img class="card-buy-img" :attr="{src:@data[cardType-1].promoteUrl}" alt="">
+
+        <section class="bs-text-small bs-text-51" style="padding: 20px 10px;">
+            <div :click="@chooseType(2)" style="margin-bottom: 15px;">
+                <div class="hiddenbox">
+                    <div class="check-icon" :class="@payType == 2?'checked':'unchecked'" style="position: absolute; right: 0px;"></div>
+                </div>
+                <span>微信支付</span>
+            </div>
+            <div :click="@chooseType(1)">
+                <div class="hiddenbox">
+                    <div class="check-icon" :class="@payType == 1?'checked':'unchecked'" style="position: absolute; right: 0px;"></div>
+                </div>
+                <span>支付宝支付（请在浏览器中打开）</span>
+            </div>
+            <div class="bs-text-small" style="padding-top: 30px;" :on-tap="@clickIsAgree">
+                <span :class="['isAgree', @isAgree?'checked':'unchecked']"></span> 我同意
+                <span class="bs-text-gold" :on-tap="@openRule">本宿会员条款</span>
+            </div>
+        </section>
+    </div>
+    <button class="nav-bottom-btn" :click="@goCard">确认购买</button>
+</div>
