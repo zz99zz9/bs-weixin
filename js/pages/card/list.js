@@ -24,8 +24,6 @@ var vmCardList = avalon.define({
         }
     ],
     goBuyCard: function(id) {
-        console.log(1);
-
         location.href = "card-buy.html?cid=" + id;
     }
 });

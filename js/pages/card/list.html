@@ -8,34 +8,14 @@
         </div>
     </section>
 
-    <section class="bs-bg-white card-list-item" :click="@goBuyCard(@data[0].id)">
+    <section class="bs-bg-white card-list-item" :for="el in @data">
         <div style="width: 60%;" >
-            <div class="bs-text-51 bs-text-larger card-list-item-title">{{@data[0].name}}会员</div>
-            <div class="bs-text-51 bs-text-smaller">
-                入住任意本宿酒店即可享受<span class="bs-text-red">{{@data[0].discount}}折</span>优惠，每月返还<span class="bs-text-red">¥{{@data[0].award}}</span> <br>
+            <div class="bs-text-51 bs-text-larger card-list-item-title" :on-tap="@goBuyCard(el.id)">{{el.name}}会员</div>
+            <div class="bs-text-51 bs-text-smaller" :on-tap="@goBuyCard(el.id)">
+                入住任意本宿酒店即可享受<span class="bs-text-red">{{el.discount}}折</span>优惠，每月返还<span class="bs-text-red">¥{{el.award}}</span> <br>
                 免审核直通加入本宿推广计划
             </div>
         </div>
-        <img class="card-list-img" :attr="{src:@data[0].imgUrl}" alt="" :click="@goBuyCard(@data[0].id)">
-    </section>
-    <section class="bs-bg-white card-list-item">
-        <div style="width: 60%;">
-            <div class="bs-text-51 bs-text-larger card-list-item-title">{{@data[1].name}}会员</div>
-            <div class="bs-text-51 bs-text-smaller">
-                入住任意本宿酒店即可享受<span class="bs-text-red">{{@data[1].discount}}折</span>优惠，每月返还<span class="bs-text-red">¥{{@data[1].award}}</span> <br>
-                免审核直通加入本宿推广计划
-            </div>
-        </div>
-        <img class="card-list-img" :attr="{src:@data[1].imgUrl}" alt="">
-    </section>
-    <section class="bs-bg-white card-list-item" :click="@goBuyCard(@data[2].id)">
-        <div style="width: 60%;">
-            <div class="bs-text-51 bs-text-larger card-list-item-title">{{@data[2].name}}会员</div>
-            <div class="bs-text-51 bs-text-smaller">
-                入住任意本宿酒店即可享受<span class="bs-text-red">{{@data[2].discount}}折</span>优惠，每月返还<span class="bs-text-red">¥{{@data[2].award}}</span> <br>
-                免审核直通加入本宿推广计划
-            </div>
-        </div>
-        <img class="card-list-img" :attr="{src:@data[2].imgUrl}" alt="">
+        <img class="card-list-img" :attr="{src:el.imgUrl}" alt="" :on-tap="@goBuyCard(el.id)">
     </section>
 </div>
