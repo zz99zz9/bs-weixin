@@ -35,7 +35,20 @@ var vmSide = avalon.define({
     goCard: function(type) {
         stopSwipeSkip.do(function() {
             if(type) {
-                location.href = "card-detail.html?cid=" + type;
+                var cate = '';
+                switch(type) {
+                    case 1:
+                        cate = 'black';
+                        break;
+                    case 2:
+                        cate = 'gold';
+                        break;
+                    case 3:
+                        cate = 'silver';
+                        break;
+                }
+                
+                location.href = "card-show.html?type=" + cate;
             } else {
                 location.href = "card-list.html";
             }
