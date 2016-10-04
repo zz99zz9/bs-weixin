@@ -1180,6 +1180,10 @@ hr {
     font-size: 12px;
 }
 
+.bs-text-x-smaller {
+    font-size: 10px;
+}
+
 .bs-text-bolder {
     font-weight: bolder;
 }
@@ -1223,6 +1227,10 @@ hr {
 
 .bs-text-black {
     color: #000 !important;
+}
+
+.bs-text-green {
+    color: #008656 !important;
 }
 
 .bs-bg-gold {
@@ -1339,9 +1347,10 @@ hr {
 }
 
 .center-nav-item {
+    box-sizing: border-box;
     padding: 10px;
-    width: 33%;
-    border-left: 1px solid #ddd;
+    flex: 0 0 33.333%;
+    border-right: 1px solid #ddd;
     border-bottom: 1px solid #ddd;
 }
 
@@ -1385,5 +1394,4 @@ hr {
     border: none;
     border-radius: 0;
     height: 50px;
-
 }

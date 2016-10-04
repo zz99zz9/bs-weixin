@@ -1,5 +1,5 @@
 
-const DAYROOM = '全天房', HOURROOM = '时租房';
+const DAYROOM = '全天房', HOURROOM = '时租房', SERVICECALL = "400-0000-0000";
 
 //默认图片
 var defaultHeadImg = '../img/iconfont-yonghu.svg';

@@ -827,7 +827,7 @@ function franchiseeRecord() {
  *                       会员卡相关页面
  *   =======================================================
  */
- function cardList() {
+function cardList() {
     return gulp.src('./js/layout/shell-av2.html')
         .pipe(replace({
             regex: '<!-- css -->',
@@ -898,6 +898,80 @@ function cardShow () {
             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
         }))
         .pipe(rename('card-show.html'))
+        .pipe(gulp.dest('./src'));
+}
+
+function cardDetail() {
+    return gulp.src('./js/layout/shell-av2.html')
+        .pipe(replace({
+            regex: '<!-- css -->',
+            replace: '<link rel="stylesheet" href="css/swiper.min.css">\n<link rel="stylesheet" href="css/card.css">'
+        }))
+        .pipe(replace({
+            regex: '<!-- content -->',
+            replace: '<!--include "../pages/card/detail.html"-->'
+        }))
+        .pipe(replace({
+            regex: '<!-- js -->',
+            replace: '<script src="js/lib/swiper.min.js"></script>\n<script src="js/pages/card/detail.js"></script>'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('card-detail.html'))
+        .pipe(gulp.dest('./src'));
+}
+
+function cardLog () {
+    return gulp.src('./js/layout/shell-av2.html')
+        .pipe(replace({
+            regex: '<!-- css -->',
+            replace: '<link rel="stylesheet" href="css/card.css">'
+        }))
+        .pipe(replace({
+            regex: '<!-- content -->',
+            replace: '<!--include "../pages/card/log.html"-->'
+        }))
+        .pipe(replace({
+            regex: '<!-- js -->',
+            replace: '<script src="js/pages/card/log.js"></script>'
+        }))
+        .pipe(replace({
+            regex: '<!-- pop -->',
+            replace: '<!--include "../pages/user/popover.html"-->'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(replace({
+            regex: '<button class="popover-closeButton"></button>',
+            replace: '<!--include "../util/popoverBtnOK-av2.html"-->'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('card-log.html'))
+        .pipe(gulp.dest('./src'));
+}
+
+function cardBind () {
+    return gulp.src('./js/layout/shell-av2.html')
+        .pipe(replace({
+            regex: '<!-- css -->',
+            replace: '<link rel="stylesheet" href="css/card.css">'
+        }))
+        .pipe(replace({
+            regex: '<!-- content -->',
+            replace: '<!--include "../pages/card/bind.html"-->'
+        }))
+        .pipe(replace({
+            regex: '<!-- js -->',
+            replace: '<script src="js/pages/card/bind.js"></script>'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('card-bind.html'))
         .pipe(gulp.dest('./src'));
 }
 
@@ -2127,6 +2201,9 @@ gulp.task('html', gulp.parallel(
     cardList,
     cardBuy,
     cardShow,
+    cardDetail,
+    cardLog,
+    cardBind,
     promotionApply,
     promotionDetail,
     login,

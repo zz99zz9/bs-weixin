@@ -1,0 +1,62 @@
+<meta name="format-detection" content="telephone=no">
+<div class="swiper-container swiper ms-controller" ms-controller="detail">
+    <div class="swiper-wrapper">
+
+        <div class="swiper-slide bs-text-white bs-text-smaller" :for="el in @data" data-for-rendered="@swiper">
+            <div style="display: flex; justify-content: space-between;width: 100%;">
+                <div class="bs-text-smaller bs-text-white">
+                    {{el.name}}会员
+                </div>
+                <div class="bs-text-x-smaller bs-text-white">
+                    卡号: 
+                    <span style="margin-right: 3px;">{{el.cardNo.slice(0,4)}}</span>
+                    <span style="margin-right: 3px;">{{el.cardNo.slice(4,8)}}</span>
+                    <span style="margin-right: 3px;">{{el.cardNo.slice(8,13)}}</span>
+                </div>
+            </div>
+            
+            <div style="width: 100%;">
+                <div style="display: flex;justify-content: flex-end;height: 25px; width: 100%;">
+                    <img src="img/card/card_log.svg" alt="" style="width: 18.5px;" :on-tap="@goLog">
+                </div>
+                <div style="margin-bottom: 15vw;">
+                    <div class="bs-text-xx-larger bs-text-gold bs-text-bolder">{{el.account}}</div>
+                    <div class="bs-text-x-smaller" style="padding-top: 0.6vh;">
+                        账户余额
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-bottom: 10vw;">
+                <div class="bs-text-larger bs-text-gold">
+                    {{el.cash}}
+                </div>
+                <div class="bs-text-x-smaller" style="padding-top: 0.6vh;">
+                    可提现余额
+                </div>
+                <button type="button" class="bs-text-gold bs-text-large cash-btn">提现</button>
+            </div>
+
+            <div style="display: flex; justify-content: space-around;width: 100%;">
+                <div>
+                    <div class="bs-text-larger bs-text-gold">
+                        {{el.award}}
+                    </div>
+                    <div class="bs-text-x-smaller" style="padding-top: 1.2vh;">
+                        返现累计
+                    </div>
+                </div>
+                <div>
+                    <div class="bs-text-larger bs-text-gold">
+                        {{el.promote}}
+                    </div>
+                    <div class="bs-text-x-smaller" style="padding-top: 1.2vh;">
+                        推广奖励累计
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="swiper-pagination"></div>
+    </div>
+</div>

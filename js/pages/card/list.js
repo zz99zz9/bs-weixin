@@ -1,3 +1,10 @@
+//todo: 判断有没有资格打开本页面（登录，并且会员卡少于两张）
+
+var user = {
+  openUserInfo: 1
+};
+Storage.setLocal('user', user);
+
 var vmCardList = avalon.define({
     $id: 'cardList',
     data: [

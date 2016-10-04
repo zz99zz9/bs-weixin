@@ -1,0 +1,22 @@
+<div style="display: flex;flex-direction: column; justify-content: space-between;height: 100vh;align-items: center;" class="bs-bg-white ms-controller" :controller="bind">
+    <div class="bs-text-large bs-text-51" style="margin-top: 30px;">绑定提现帐号</div>
+
+    <div style="display: flex;width: 49vw;justify-content: space-around;align-items: center;">
+        <img src="img/card/zfb.svg" alt="支付宝" style="width: 41.5px;" :on-tap="@select(1)">
+        或
+        <img src="img/card/bank.svg" alt="银行卡" style="width: 45px;" :on-tap="@select(2)">
+    </div>
+    <form :class="['bs-text-large', 'card-bind-panel',@bindType==1?'left':'right']">
+        <div :if="@bindType==1">
+            <input type="text" placeholder="输入您的支付宝帐号">
+            <input type="text" placeholder="输入您的姓名">
+        </div>
+
+        <div :if="@bindType==2">
+            <input type="text" placeholder="输入您的银行卡号">
+            <input type="text" placeholder="输入您的开户行及支行">
+            <input type="text" placeholder="输入您的开户姓名">
+        </div>
+    </form>
+    <button class="nav-bottom-btn" :click="@bind">绑定</button>
+</div>

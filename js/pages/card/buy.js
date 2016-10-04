@@ -64,7 +64,7 @@ var vmCardBuy = avalon.define({
         if(this.isAgree) {
             //todo: 对接支付接口
 
-            location.href = "card-show.html?type=" + this.getType(cardType);
+            location.replace("card-show.html?type=" + this.getType(cardType));
         } else {
             vmPopover.useCheck = 1;
             popover('./util/card-rule.html', 1);
