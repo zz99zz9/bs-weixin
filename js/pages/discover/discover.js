@@ -1,9 +1,23 @@
-mui.init();
-//初始化单页view
-var viewApi = mui('#app').view({
-    defaultPage: '#infoPage'
-});
+function goPromotion() {
+    var promotionUrl = '';
+    ajaxJsonp({
+        url: urls.promotionList,
+        successCallback: function(json) {
+            if (json.status == 1) {
+                if(json.data.length > 0) {
+                    json.data.map(function(p) {
+                        if(p.status == 2) {
+                            promotionUrl = 'promotion-detail.html';
+                        }
+                    });
+                }
+                
+                if(promotionUrl == '') {
+                    promotionUrl = 'promotion-apply.html';
+                }
 
-$('.cancelBtn').on('tap', function() {
-    viewApi.back();
-});
+                location.href = promotionUrl;
+            }
+        }
+    });
+}

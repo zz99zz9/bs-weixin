@@ -1,5 +1,10 @@
 var frData = Storage.get('frData'),
+    user = Storage.getLocal('user'),
     wait = 60;
+
+if(!(user && user.isAlliance)) {
+    location.href = document.referrer || 'index.html';
+}
 
 if (!frData) {
     frData = { index: 0 };

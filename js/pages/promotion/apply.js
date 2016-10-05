@@ -1,5 +1,21 @@
 var vmApply = avalon.define({
     $id: 'apply',
+    getList: function() {
+        ajaxJsonp({
+            url: urls.promotionList,
+            successCallback: function(json) {
+                if (json.status == 1) {
+                    if(json.data.length > 0) {
+                        json.data.map(function(p) {
+                            if(p.status == 2) {
+                                location.href = 'promotion-detail.html';
+                            }
+                        });
+                    }
+                }
+            }
+        });
+    },
     isAgree: true,
     clickIsAgree: function() {
         this.isAgree = !this.isAgree;
@@ -12,17 +28,21 @@ var vmApply = avalon.define({
     },
     goDetail: function() {
         if(this.isAgree) {
-            // 判断是否有会员卡
-            // 有会员卡就跳转
-            location.href = "promotion-detail.html";
+            ajaxJsonp({
+                url: urls.applyPromotion,
+                successCallback: function(json) {
+                    if (json.status == 1) {
+                        if(json.data.status == 2) {
+                            location.href = "promotion-detail.html";
+                        } else {
+                            mui.alert(json.message);
 
-            // 没有会员卡，接口返回是否提交过申请
-            // ajaxJsonp({});
-            // 没提交过，接口提交
-            // ajaxJsonp({});
-            // mui.toast('提交成功，请等待审核');
-            // 提交过
-            // mui.toast('你已经提交过了，请等待审核');
+                        }
+                    } else {
+                        mui.alert(json.message);
+                    }
+                }
+            });
         } else {
             vmPopover.useCheck = 1;
             popover('./util/promotion-rule.html', 1);
@@ -44,3 +64,4 @@ var vmPopover = avalon.define({
     }
 });
 
+vmApply.getList();

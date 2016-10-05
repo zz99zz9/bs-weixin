@@ -183,6 +183,7 @@ var urls = {
     getDicCardList: urlAPI + '/vip/membershipCard/list', //获取会员卡字典数据
     getCardList: urlAPI + '/vip/userBuyCard/list', //已经购买的会员卡列表
     getDicCardDetail: urlAPI + '/vip/membershipCard/detail', //会员卡详情字典数据
+    getCardDetail: urlAPI + '/vip/userBuyCard/detail', //已经购买的会员卡详情
     submitCardOrder: urlAPI + '/vip/userBuyCardOrderInfo/submit', //购买会员卡下单
     payCardOrder: urlAPI + '/vip/pay/userBuyCardOrderInfoPay/cashier', //会员卡订单支付
     getCardAccountList: urlAPI + '/vip/userCardAccount/list', //钱包列表
@@ -191,4 +192,9 @@ var urls = {
     bindCashAccount: urlAPI + '/vip/userCardAccountApplyCashAccount/bind', //绑定提现帐号
     withdrawCash: urlAPI + '/vip/userCardAccountApplyCashLog/apply', //申请提现
     getAccountLogList: urlAPI + '/vip/userCardAccountOperateLog/list', //账户资金记录
+    applyPromotion: urlAPI + '/vip/marketApplyLog/apply', //申请加入推广套餐
+    promotionList: urlAPI + '/vip/userCardMarketPackage/list', //用户的推广套餐列表
+    goPromotion: urlAPI + '/vip/userCardMarketPackage/apply', //开通推广套餐
+    promoteTaskList: urlAPI + '/vip/userCardMarketPackageTask/currentMonth', //当前任务列表
+    submitPromoteTaskList: urlAPI + '/vip/userCardMarketPackageTask/submit', //提交任务
 }

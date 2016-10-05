@@ -10,21 +10,75 @@ if (!prData) {
 
 var vmDetail = avalon.define({
     $id: 'detail',
-    data: {
-        num: 3,
-        yearIncome: 43200,
-        a: 0 //勾子
+    list: [],
+    getList: function() {
+        ajaxJsonp({
+            url: urls.promotionList,
+            successCallback: function(json) {
+                if (json.status == 1) {
+                    if(json.data.length == 0) {
+                        mui.alert('您还没有成为推广大使', function(){
+                            location.href = document.referrer || 'index.html';
+                        });
+                    } else {
+                        vmDetail.list = json.data;
+
+                        for(var i = 0; i<json.data.length; i++) {
+                            var num = 0;
+                            for(var j = 0; j<json.data[i].currentMonthTaskList.length; j++) {
+                                if(json.data[i].currentMonthTaskList[j].status==1 || json.data[i].currentMonthTaskList[j].status==2) {
+                                    vmDetail.taskList[i][num] = 1;
+                                    num++;
+                                }
+                            }
+                        }
+                        vmDetail.a++;
+                    }
+                }
+            }
+        });
     },
-    list: [0, 0, 0],
-    complete: function(index) {
-        console.log(index);
-        if(vmDetail.list[index] == 0) {
+    goPromotion: function(index) {
+        //开通套餐
+        ajaxJsonp({
+            url: urls.goPromotion,
+            data: {pid: vmDetail.list[index].id},
+            successCallback: function(json) {
+                if (json.status == 1) {
+                    vmDetail.getList();
+                } else {
+                    mui.alert(json.message);
+                }
+            }
+        });
+    },
+    taskList: [
+        [0, 0, 0],
+        [0, 0, 0],
+    ],
+    getTaskStatus: function(prIndex, taskIndex) {
+        return vmDetail.taskList[prIndex][taskIndex];
+    },
+    a: 0,
+    complete: function(prIndex, taskIndex) {
+        if(!vmDetail.taskList[prIndex][taskIndex]) {
             mui.confirm('已经完成本次推广？','',
                 ["否", "是"], 
                 function(e) {
                     if(e.index == 1) {
-                        vmDetail.list[index] = 1; 
-                        vmDetail.data.a += 1; //只改动数组的某项时，不会触发数据刷新
+                        Storage.set('prData', { index: prIndex });
+                        
+                        ajaxJsonp({
+                            url: urls.submitPromoteTaskList,
+                            data: {pid: vmDetail.list[prIndex].id},
+                            successCallback: function(json) {
+                                if (json.status == 1) {
+                                    vmDetail.getList();
+                                } else {
+                                    mui.alert(json.message);
+                                }
+                            }
+                        });
                     }
                 })
         }
@@ -33,19 +87,20 @@ var vmDetail = avalon.define({
         vmPopover.useCheck = 0;
         popover('./util/promotion-rule.html', 1);
     },
-});
-
-var swiper = new Swiper('.swiper', {
-    initialSlide: prData.index,
-    slidesPerView: 1,
-    width: window.innerWidth - 20,
-    spaceBetween: 5,
-    freeMode: true,
-    freeModeSticky: true,
-    freeModeMomentumRatio: 0.4,
-    onSlideChangeEnd: function(swiper) {
-        prData.index = swiper.activeIndex;
-        Storage.set('prData', prData);
+    swiper: function() {
+        var swiper = new Swiper('.swiper', {
+            initialSlide: prData.index,
+            slidesPerView: 1,
+            width: window.innerWidth - 20,
+            spaceBetween: 5,
+            freeMode: true,
+            freeModeSticky: true,
+            freeModeMomentumRatio: 0.4,
+            // onSlideChangeEnd: function(swiper) {
+            //     prData.index = swiper.activeIndex;
+            //     Storage.set('prData', prData);
+            // }
+        });
     }
 });
 
@@ -54,12 +109,12 @@ var vmPopover = avalon.define({
     type: '', //窗口的类型
     useCheck: 1, //1 checkButton, 0 closeButton
     ok: function() {
-        $('#pop-text').empty();
-
         $('.popover').addClass('popover-hide');
         popover_ishide = true;
     }
 });
+
+vmDetail.getList();
 
 /**
  * canvas画圆形

@@ -1,4 +1,4 @@
-var cardID = getParam('cid');
+var cardID = getParam('id');
 if (cardID != "") {
     if (isNaN(cardID)) {
         location.href = document.referrer || "index.html";
@@ -16,35 +16,31 @@ var vmCardBuy = avalon.define({
     $id: 'cardShow',
     cardNo: '',
     validDate: '',
+    cardType: 0,
     getBuyCard: function() {
         ajaxJsonp({
-            url: urls.getCardList,
+            url: urls.getCardDetail,
+            data: { bid: cardID },
             successCallback: function(json) {
-                if (json.status === 1) {
-                    if(json.data.length == 0) {
-                        mui.alert(
-                            '您还没有会员卡',
-                            function() {
-                                location.href = document.referrer || "index.html";
-                            });
-                    } else {
-                        json.data.map(function(c) {
-                            if( c.cid == cardID) {
-                                vmCardBuy.cardNo = c.cardNo;
-                                vmCardBuy.validDate = c.endTime.slice(0, 4) + '/' + c.endTime.slice(5, 7);
-                            }
-                        })
+                if (json.status == 1) {
+                    vmCardBuy.cardNo = json.data.cardNo;
+                    vmCardBuy.validDate = json.data.endTime.slice(0, 4) + '/' + json.data.endTime.slice(5, 7);
+                    vmCardBuy.cardType = json.data.type;
 
-                        if(vmCardBuy.validDate == '') {
-                            location.href = document.referrer || "index.html";
-                        }
+                    switch(vmCardBuy.cardType) {
+                        case 2:
+                        case 3:
+                            $('.card-font').css('color', 'white');
+                            break;
                     }
+                } else {
+                    location.href = document.referrer || "index.html";
                 }
             }
         });
     },
     getType: function() {
-        return 'img/card/No' + cardID + '.png';
+        return 'img/card/No' + vmCardBuy.cardType + '.png';
     }
 });
 
@@ -59,11 +55,4 @@ avalon.ready(function() {
 
     $('.card-font').css('left', cardWidth * 0.05 + 'px');
     $('.card-font').css('top', cardHeight * 0.64 + 'px');
-
-    switch(cardID) {
-        case 2:
-        case 3:
-            $('.card-font').css('color', 'white');
-            break;
-    }
 });

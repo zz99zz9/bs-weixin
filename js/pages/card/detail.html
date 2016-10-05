@@ -2,7 +2,7 @@
 <div class="swiper-container swiper ms-controller" ms-controller="detail">
     <div class="swiper-wrapper">
 
-        <div class="swiper-slide bs-text-white bs-text-smaller" :for="(index,el) in @data" data-for-rendered="@swiper">
+        <div class="swiper-slide bs-text-white bs-text-smaller" :for="(index,el) in @data" data-for-rendered="@renderSwiper">
             <div style="display: flex; justify-content: space-between;width: 100%;">
                 <div class="bs-text-smaller bs-text-white">
                     {{el.userBuyCard.name}}会员

@@ -5,52 +5,55 @@
 <section ms-controller="detail" class="ms-controller">
     <div class="swiper-container swiper">
         <div class="swiper-wrapper">
+            <div class="swiper-slide bs-text-white bs-text-smaller" :for="(index, el) in @list" data-for-rendered="@swiper">
             <!-- 未开通 -->
-            <div class="swiper-slide bs-text-white bs-text-smaller">
-                <div>
-                    <div class="bs-text-larger bs-text-gold bs-text-bolder">推广内容</div>
-                    <div class="promotion-detail-content">
-                        每月转发<span class="bs-text-gold">{{numToHan(@data.num)}}次</span>以上本宿相关内容到自己的朋友圈，内容可以采用本宿提供的，也可以自己创作编辑。
+                <section :if="el.status==1">
+                    <div>
+                        <div class="bs-text-larger bs-text-gold bs-text-bolder">推广内容</div>
+                        <div class="promotion-detail-content">
+                            每月转发<span class="bs-text-gold">{{numToHan(el.monthShareTimes)}}次</span>以上本宿相关内容到自己的朋友圈，内容可以采用本宿提供的，也可以自己创作编辑。
+                        </div>
                     </div>
-                </div>
-                <div>
-                    <div class="bs-text-larger bs-text-gold bs-text-bolder">时效</div>
-                    <div class="promotion-detail-content">
-                        本活动共计<span class="bs-text-gold">12个月</span>，以开通之日为起始，12个月后结束。
+                    <div>
+                        <div class="bs-text-larger bs-text-gold bs-text-bolder">时效</div>
+                        <div class="promotion-detail-content">
+                            本活动共计<span class="bs-text-gold">12个月</span>，以开通之日为起始，12个月后结束。
+                        </div>
                     </div>
-                </div>
-                <div>
-                    <div class="bs-text-larger bs-text-gold bs-text-bolder">收益</div>
-                    <div class="promotion-detail-content">
-                        <div>年收入&nbsp; <span class="bs-text-gold">¥{{@data.yearIncome}}</span></div>
-                        <div>月收入&nbsp; <span class="bs-text-gold">¥{{@data.yearIncome/12}}</span></div>
-                        <div>本收入为本宿品牌推广奖励，请按时发布本宿推广内容。</div>
+                    <div>
+                        <div class="bs-text-larger bs-text-gold bs-text-bolder">收益</div>
+                        <div class="promotion-detail-content">
+                            <div>年收入&nbsp; <span class="bs-text-gold">¥{{el.totalAward}}</span></div>
+                            <div>月收入&nbsp; <span class="bs-text-gold">¥{{el.monthAward}}</span></div>
+                            <div>本收入为本宿品牌推广奖励，请按时发布本宿推广内容。</div>
+                        </div>
                     </div>
-                </div>
-                
-                <button type="button" class="promotion-open bs-text-white bs-bg-black">开通</button>
-            </div>
+                    
+                    <button type="button" class="promotion-open bs-text-white bs-bg-black" :on-tap="@goPromotion(index)">开通</button>
+                </section>
+                <!-- 已开通 -->
+                <section :if="el.status==2">
+                    <canvas id="circle" style="z-index: 1;order: 0;"></canvas>
+                    
+                    <div style="order: 2;position: relative;bottom: 53vh;height: 0;">
+                        <div class="bs-text-xx-larger bs-text-gold" style="padding-bottom: 10px;">
+                            {{el.totalAward}}
+                        </div>
+                        <div class="bs-text-normal bs-text-white">   年推广奖励
+                        </div>
+                    </div>
 
-            <!-- 已开通 -->
-            <div class="swiper-slide bs-text-white bs-text-smaller">
-                <canvas id="circle" style="z-index: 1;order: 0;"></canvas>
-                
-                <div style="order: 2;position: relative;bottom: 53vh;height: 0;">
-                    <div class="bs-text-xx-larger bs-text-gold" style="padding-bottom: 10px;">
-                        {{@data.yearIncome}}
+                    <div style="order: 1;">
+                        <div>本月推广</div>
+                        <div style="display: flex;">
+                            <div :if="el.monthShareTimes>0" :class="['promotion-btn',@taskList[index][0]?'promotion-done':'promotion-undo']" :on-tap="@complete(index, 0)">{{@taskList[index][0]?'完成':'待'}}</div>
+                            <div :if="el.monthShareTimes>1" :class="['promotion-btn',@taskList[index][1]?'promotion-done':'promotion-undo']" :on-tap="@complete(index, 1)">{{@taskList[index][1]?'完成':'待'}}</div>
+                            <div :if="el.monthShareTimes>2" :class="['promotion-btn',@taskList[index][2]?'promotion-done':'promotion-undo']" :on-tap="@complete(index, 2)">{{@taskList[index][2]?'完成':'待'}}</div>
+                        </div>
                     </div>
-                    <div class="bs-text-normal bs-text-white">   年推广奖励
-                    </div>
-                </div>
-
-                <div style="order: 1;">
-                    <div>本月推广</div>
-                    <div style="display: flex;">
-                        <div :for="(index, el) in @list" :class="['promotion-btn',el?'promotion-done':'promotion-undo']" :on-tap="@complete(index)">{{el?'完成':'待'}}</div>
-                    </div>
-                </div>
-                
-                <div class="bs-text-gold" style="order: 3;" :on-tap="@openRule">本宿推广大使条例</div>
+                    
+                    <div class="bs-text-gold" style="order: 3;" :on-tap="@openRule">本宿推广大使条例</div>
+                </section>
             </div>
 
             <div class="swiper-pagination"></div>

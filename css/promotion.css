@@ -14,9 +14,15 @@
 
 .swiper-slide {
     background-color: #333;
+}
+
+.swiper-slide section {
+    display: flex;
     flex-direction: column;
     justify-content: space-between;
+    align-items: center;
     padding: 3vh 4vh;
+    height: 100%;
 }
 
 .swiper-slide .pr-head {

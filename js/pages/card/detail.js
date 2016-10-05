@@ -6,6 +6,7 @@ if (!cardData) {
         cardData.index = 0;
     }
 }
+var swiper;
 
 //进入首页时，默认打开个人中心弹窗
 Storage.setLocal('user', {openUserInfo: 1});
@@ -27,8 +28,8 @@ var vmCardDetail = avalon.define({
             }
         });
     },
-    swiper: function() {
-        var swiper = new Swiper('.swiper', {
+    renderSwiper: function() {
+        swiper = new Swiper('.swiper', {
             initialSlide: cardData.index,
             slidesPerView: 1,
             width: window.innerWidth,
@@ -36,10 +37,10 @@ var vmCardDetail = avalon.define({
             freeMode: true,
             freeModeSticky: true,
             freeModeMomentumRatio: 0.4,
-            // onSlideChangeEnd: function(swiper) {
+            // onSlideChangeEnd: function() {
             //     cardData.index = swiper.activeIndex;
             //     Storage.set('cardData', cardData);
-            // }
+            // },
         });
     },
     goLog: function(index) {

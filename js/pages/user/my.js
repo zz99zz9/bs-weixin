@@ -29,37 +29,23 @@ var vmSide = avalon.define({
     headImg: defaultHeadImg,
     name: '',
     nickName: '',
+    isVip: 0,
     isAdmin: 0,
     isAlliance: 0,
     isManage: isManageMode,
     cardList: [
         {
-            cid: 0,
+            id: 0,
             img: '../img/card/card_null.svg'
         },{
-            cid: 0,
+            id: 0,
             img: '../img/card/card_null.svg'
         },
     ],
-    getCard: function() {
-        ajaxJsonp({
-            url: urls.getCardList,
-            successCallback: function(json) {
-                if (json.status === 1) {
-                    if(json.data.length) {
-                        for(var i = 0; i< json.data.length; i++) {
-                            vmSide.cardList[i].cid = json.data[i].cid;
-                            vmSide.cardList[i].img = '../img/card/card_No' + json.data[i].cid + '.svg';
-                        }
-                    }
-                }
-            }
-        });
-    },
-    goCard: function(cid) {
+    goCard: function(id) {
         stopSwipeSkip.do(function() {
-            if(cid > 0) {
-                location.href = "card-show.html?cid=" + cid;
+            if(id > 0) {
+                location.href = "card-show.html?id=" + id;
             } else {
                 location.href = "card-list.html";
             }
@@ -99,7 +85,15 @@ var vmSide = avalon.define({
 					vmSide.nickName = json.data.nickname;
 					vmSide.isAdmin = json.data.isAdmin;
                     vmSide.isAlliance = json.data.isAlliance;
-                    
+
+                    if(json.data.userBuyCardList.length) {
+                        var cList = json.data.userBuyCardList;
+                        for(var i = 0; i< cList.length; i++) {
+                            vmSide.cardList[i].id = cList[i].id;
+                            vmSide.cardList[i].img = '../img/card/card_No' + cList[i].type + '.svg';
+                        }
+                    }
+
 					var user = {
 						uid: json.data.id,
 						mobile: json.data.mobile,
@@ -112,6 +106,7 @@ var vmSide = avalon.define({
 						idNo: json.data.idNo,
 						authStatus: json.data.authStatus,
 						invoiceMoney: json.data.invoiceMoney,
+                        isVip: json.data.isVip,
 						isAdmin: json.data.isAdmin,
                         isAlliance: json.data.isAlliance,
 						accessToken: json.data.accessToken
@@ -229,4 +224,3 @@ function savePic(serverId) {
 }
 
 vmSide.getUserInfo();
-vmSide.getCard();
