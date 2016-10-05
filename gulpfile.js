@@ -915,6 +915,17 @@ function cardDetail() {
             regex: '<!-- js -->',
             replace: '<script src="js/lib/swiper.min.js"></script>\n<script src="js/pages/card/detail.js"></script>'
         }))
+        .pipe(replace({
+            regex: '<!-- pop -->',
+            replace: '<!--include "../pages/user/popover.html"-->'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(replace({
+            regex: '<button class="popover-closeButton"></button>',
+            replace: '<!--include "../util/popoverBtnOK-av2.html"-->'
+        }))
         .pipe(contentIncluder({
             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
         }))
@@ -967,6 +978,17 @@ function cardBind () {
         .pipe(replace({
             regex: '<!-- js -->',
             replace: '<script src="js/pages/card/bind.js"></script>'
+        }))
+        .pipe(replace({
+            regex: '<!-- pop -->',
+            replace: '<!--include "../pages/user/popover.html"-->'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(replace({
+            regex: '<button class="popover-closeButton"></button>',
+            replace: '<!--include "../util/popoverBtnOK-av2.html"-->'
         }))
         .pipe(contentIncluder({
             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
@@ -2126,12 +2148,14 @@ function popHtml() {
             './js/pages/assess/assess.html',
             './js/pages/index/searchLocation.html',
             './js/util/contactList.html',
+            './js/util/code.html',
             './js/pages/user/frequent-contact-add.html',
             './js/pages/user/delivery-address-add.html',
             './js/pages/room/note.html',
             './js/pages/room/designer.html',
             './js/pages/card/card-rule.html',
-            './js/pages/promotion/promotion-rule.html'
+            './js/pages/card/card-withdraw.html',
+            './js/pages/promotion/promotion-rule.html',
         ])
         .pipe(gulp.dest('./dist/util/'));
 }

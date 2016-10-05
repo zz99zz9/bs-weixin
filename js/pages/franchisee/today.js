@@ -82,31 +82,31 @@ function reload() {
     vmChart.list = [];
 
     ajaxJsonp({
-            url: urls.fraSaleDailyList,
-            data: {
-                startTime: frDate,
-                endTime: frDate,
-                pageSize: vmChart.pageSize,
-                pageNo: vmChart.pageNo
-            },
-            successCallback: function(json) {
-                if (json.status === 1) {
-                    vmChart.pageNo = 2;
-                    vmChart.list.push.apply(vmChart.list, json.data.list);
-                    
-                    mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
-                    mui('#pullrefresh').pullRefresh().refresh(true);
+        url: urls.fraSaleDailyList,
+        data: {
+            startTime: frDate,
+            endTime: frDate,
+            pageSize: vmChart.pageSize,
+            pageNo: vmChart.pageNo
+        },
+        successCallback: function(json) {
+            if (json.status === 1) {
+                vmChart.pageNo = 2;
+                vmChart.list.push.apply(vmChart.list, json.data.list);
+                
+                mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+                mui('#pullrefresh').pullRefresh().refresh(true);
 
-                    mui("#pullrefresh").pullRefresh().endPullupToRefresh(false);
-                    // if (vmChart.pageNo > json.data.pageCount) {
-                    //     mui("#pullrefresh").pullRefresh().endPullupToRefresh(true);
-                    // } else {
-                    //     mui("#pullrefresh").pullRefresh().endPullupToRefresh(false);
-                    //     mui('#pullrefresh').pullRefresh().refresh(true);
-                    // }
-                }
+                mui("#pullrefresh").pullRefresh().endPullupToRefresh(false);
+                // if (vmChart.pageNo > json.data.pageCount) {
+                //     mui("#pullrefresh").pullRefresh().endPullupToRefresh(true);
+                // } else {
+                //     mui("#pullrefresh").pullRefresh().endPullupToRefresh(false);
+                //     mui('#pullrefresh').pullRefresh().refresh(true);
+                // }
             }
-        });
+        }
+    });
 }
 
 //mui 上拉加载

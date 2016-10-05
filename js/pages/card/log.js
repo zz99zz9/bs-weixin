@@ -1,75 +1,59 @@
+var accountID = getParam('cid');
+if (accountID != "") {
+    if (isNaN(accountID)) {
+        location.href = document.referrer || "index.html";
+    } else {
+        accountID = parseInt(accountID);
+    }
+} else {
+    location.href = "index.html";
+}
+
 var vmCardLog = avalon.define({
     $id: 'log',
-    data: {
-        type: -1,
-        account: '15618950312',
-        name: '仔仔',
-        bankNo: '4392250027129419',
-        bank: '招商银行上海淮海路支行'
+    data: { accountType: 0, accountNo: '' },
+    getData: function() {
+        ajaxJsonp({
+            url: urls.getDefaultCashAccount,
+            data: {
+                cid: accountID,
+            },
+            successCallback: function(json){
+                if(json.status == 1) {
+                    if(!json.data) {
+                        json.data = { accountType: 0, accountNo: '' };
+                    }
+                    vmCardLog.data = json.data;
+                }
+            }
+        });
     },
-    list: [
-        {
-            content: '余额提现',
-            time: '2016.8.1',
-            amount: 1000,
-            type: '1'
-        },
-        {
-            content: '会员卡返还到可提现余额',
-            time: '2016.8.10',
-            amount: 3000,
-            type: '2'
-        },
-        {
-            content: '推广奖励',
-            time: '2016.11.10',
-            amount: 200,
-            type: '3'
-        },
-        {
-            content: '余额提现',
-            time: '2016.8.1',
-            amount: 1000,
-            type: '1'
-        },
-        {
-            content: '会员卡返还到可提现余额',
-            time: '2016.8.10',
-            amount: 3000,
-            type: '2'
-        },
-        {
-            content: '推广奖励',
-            time: '2016.11.10',
-            amount: 200,
-            type: '3'
-        },
-        {
-            content: '余额提现',
-            time: '2016.8.1',
-            amount: 1000,
-            type: '1'
-        },
-        {
-            content: '会员卡返还到可提现余额',
-            time: '2016.8.10',
-            amount: 3000,
-            type: '2'
-        },
-        {
-            content: '推广奖励',
-            time: '2016.11.10',
-            amount: 200,
-            type: '3'
-        },
-    ],
+    list: [],
+    pageNo: 1,
+    pageSize: 10,
+    getList: function() {
+        ajaxJsonp({
+            url: urls.getAccountLogList,
+            data: {
+                cid: accountID,
+                pageSize: vmCardLog.pageSize,
+                pageNo: vmCardLog.pageNo
+            },
+            successCallback: function(json){
+                if(json.status == 1) {
+                    vmCardLog.pageNo = 2;
+                    vmCardLog.list.push.apply(vmCardLog.list, json.data.list);
+                }
+            }
+        });
+    },
     openRule: function() {
         
         vmPopover.useCheck = 0;
         popover('./util/card-rule.html', 1);
     },
     goBind: function() {
-        location.href = "card-bind.html";
+        location.href = "card-bind.html?cid=" + accountID;
     }
 });
 
@@ -84,6 +68,9 @@ var vmPopover = avalon.define({
         popover_ishide = true;
     }
 });
+
+vmCardLog.getData();
+vmCardLog.getList();
 
 mui.init({
     pullRefresh: {
@@ -107,9 +94,51 @@ mui.init({
 });
 
 function reload() {
+    vmCardLog.getData();
+    vmCardLog.pageNo = 1;
+    vmCardLog.list = [];
+    ajaxJsonp({
+        url: urls.getAccountLogList,
+        data: {
+            cid: accountID,
+            pageSize: vmCardLog.pageSize,
+            pageNo: vmCardLog.pageNo
+        },
+        successCallback: function(json){
+            if(json.status == 1) {
+                vmCardLog.pageNo = 2;
+                vmCardLog.list.push.apply(vmCardLog.list, json.data.list);
+                
+                mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+                mui('#pullrefresh').pullRefresh().refresh(true);
 
+                mui("#pullrefresh").pullRefresh().endPullupToRefresh(false);
+                
+            }
+        }
+    });
 }
 
 function loadmore() {
-
+    ajaxJsonp({
+        url: urls.getAccountLogList,
+        data: {
+            cid: accountID,
+            pageSize: vmCardLog.pageSize,
+            pageNo: vmCardLog.pageNo
+        },
+        successCallback: function(json) {
+            if (json.status == 1) {
+                vmCardLog.pageNo++;
+                vmCardLog.list.push.apply(vmCardLog.list, json.data.list);
+                if (vmCardLog.pageNo <= json.data.pageCount) {
+                    mui("#pullrefresh").pullRefresh().endPullupToRefresh(false);
+                } else {
+                    mui("#pullrefresh").pullRefresh().endPullupToRefresh(true);
+                }
+            } else {
+                console.log(json.message);
+            }
+        }
+    });
 }

@@ -178,4 +178,17 @@ var urls = {
     fraLogList: urlAPI + '/acc/hotelCapitalLog/list', //操作记录
     fraSms: urlAPI + '/usr/sms/applyCash', //申请提现验证码
     fraCash: urlAPI + '/acc/applyCash/apply', //申请提现
+
+    //会员卡
+    getDicCardList: urlAPI + '/vip/membershipCard/list', //获取会员卡字典数据
+    getCardList: urlAPI + '/vip/userBuyCard/list', //已经购买的会员卡列表
+    getDicCardDetail: urlAPI + '/vip/membershipCard/detail', //会员卡详情字典数据
+    submitCardOrder: urlAPI + '/vip/userBuyCardOrderInfo/submit', //购买会员卡下单
+    payCardOrder: urlAPI + '/vip/pay/userBuyCardOrderInfoPay/cashier', //会员卡订单支付
+    getCardAccountList: urlAPI + '/vip/userCardAccount/list', //钱包列表
+    getDefaultCashAccount: urlAPI + '/vip/userCardAccountApplyCashAccount/defaultAccount', //获取默认提现帐号
+    bindCashAccountSMS: urlAPI + '/usr/sms/bindApplyCashAcccount', //绑定提现帐号验证码
+    bindCashAccount: urlAPI + '/vip/userCardAccountApplyCashAccount/bind', //绑定提现帐号
+    withdrawCash: urlAPI + '/vip/userCardAccountApplyCashLog/apply', //申请提现
+    getAccountLogList: urlAPI + '/vip/userCardAccountOperateLog/list', //账户资金记录
 }
