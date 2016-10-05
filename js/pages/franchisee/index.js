@@ -1,6 +1,4 @@
 var frData = Storage.get('frData'),
-    user = Storage.getLocal('user'),
-    mobile = user.mobile,
     wait = 60;
 
 if (!frData) {
@@ -207,7 +205,6 @@ var vmGraph = avalon.define({
     getCode: function() {
         ajaxJsonp({
             url: urls.fraSms,
-            data: {},
             successCallback: function(json) {
                 if (json.status !== 1) {
                     mui.alert(json.message);
@@ -306,5 +303,4 @@ function countSecond() {
         wait--;
         setTimeout(countSecond, 1000);
     }
-
 }

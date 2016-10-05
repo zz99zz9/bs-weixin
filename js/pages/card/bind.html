@@ -8,14 +8,14 @@
     </div>
     <form :class="['bs-text-large', 'card-bind-panel',@bindType==1?'left':'right']">
         <div :if="@bindType==1">
-            <input type="text" placeholder="输入您的支付宝帐号">
-            <input type="text" placeholder="输入您的姓名">
+            <input type="text" placeholder="输入您的支付宝帐号" :duplex="@accountNo">
+            <input type="text" placeholder="输入您的姓名" :duplex="@accountName">
         </div>
 
         <div :if="@bindType==2">
-            <input type="text" placeholder="输入您的银行卡号">
-            <input type="text" placeholder="输入您的开户行及支行">
-            <input type="text" placeholder="输入您的开户姓名">
+            <input type="text" placeholder="输入您的银行卡号" :duplex="@accountNo">
+            <input type="text" placeholder="输入您的开户行及支行" :duplex="@bankName">
+            <input type="text" placeholder="输入您的开户姓名" :duplex="@accountName">
         </div>
     </form>
     <button class="nav-bottom-btn" :click="@bind">绑定</button>

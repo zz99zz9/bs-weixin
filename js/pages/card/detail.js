@@ -1,5 +1,4 @@
 var cardData = Storage.get('cardData');
-
 if (!cardData) {
     cardData = { index: 0 };
 } else {
@@ -8,31 +7,26 @@ if (!cardData) {
     }
 }
 
-var user = {
-  openUserInfo: 1
-};
-Storage.setLocal('user', user);
+//进入首页时，默认打开个人中心弹窗
+Storage.setLocal('user', {openUserInfo: 1});
 
 var vmCardDetail = avalon.define({
     $id: 'detail',
-    data: [
-        {
-            name: '银卡',
-            cardNo: '201610100001',
-            account: 3600,
-            cash: 1320,
-            award: 1200,
-            promote: 120,
-        },
-        {
-            name: '黑卡',
-            cardNo: '201610100002',
-            account: 36000,
-            cash: 6600,
-            award: 6000,
-            promote: 600,
-        }
-    ],
+    data: [],
+    getCard: function() {
+        ajaxJsonp({
+            url: urls.getCardAccountList,
+            successCallback: function(json) {
+                if (json.status === 1) {
+                    if(json.data.length) {
+                        vmCardDetail.data = json.data;
+                    } else {
+                        location.href = document.referrer || "index.html";
+                    }
+                }
+            }
+        });
+    },
     swiper: function() {
         var swiper = new Swiper('.swiper', {
             initialSlide: cardData.index,
@@ -42,14 +36,101 @@ var vmCardDetail = avalon.define({
             freeMode: true,
             freeModeSticky: true,
             freeModeMomentumRatio: 0.4,
-            onSlideChangeEnd: function(swiper) {
-                cardData.index = swiper.activeIndex;
-                Storage.set('cardData', cardData);
-            }
+            // onSlideChangeEnd: function(swiper) {
+            //     cardData.index = swiper.activeIndex;
+            //     Storage.set('cardData', cardData);
+            // }
         });
     },
-    goLog: function() {
-        location.href = 'card-log.html';
+    goLog: function(index) {
+        Storage.set('cardData', {index: index});
+        location.href = 'card-log.html?cid=' + vmCardDetail.data[index].id;
+    },
+    openWithdraw: function(index) {
+        //判断有没有绑定提现帐户
+        ajaxJsonp({
+            url: urls.getDefaultCashAccount,
+            data: {
+                cid: vmCardDetail.data[index].id,
+            },
+            successCallback: function(json){
+                if(json.status == 1) {
+                    if(!json.data) {
+                        mui.alert('请先绑定提现帐号', function() {
+                            vmCardDetail.goLog(index);
+                        });
+                    } else {
+                        if(vmPopover.useCheck) {
+                            //av2 不知道为什么不能 scan 第二次
+                            //纯粹显示，在关闭弹窗的时候不要清空弹窗内容
+                            popover('./util/card-withdraw.html', 0);
+
+                            vmCardWithdraw.accountID = vmCardDetail.data[index].id;
+                            vmCardWithdraw.cashAmount = vmCardDetail.data[index].cashAmount;
+                        } else {
+                            vmCardWithdraw.accountID  = vmCardDetail.data[index].id;
+                            vmCardWithdraw.cashAmount = vmCardDetail.data[index].cashAmount;
+                            
+                            vmPopover.useCheck = 1;
+                            popover('./util/card-withdraw.html', 1);
+                        }
+                    }
+                }
+            }
+        });
     }
 });
 
+var vmPopover = avalon.define({
+    $id: 'popoverBtnOK',
+    type: '', //窗口的类型
+    useCheck: 0, //1 checkButton, 0 closeButton
+    ok: function() {
+        var reg = new RegExp("^[0-9]+(.[0-9]{1})?(.[0-9]{2})?$");
+        
+        if(!reg.test(vmCardWithdraw.cash)) {
+            mui.alert('请输入正确的金额');
+        } else {
+            if(vmCardWithdraw.cash > vmCardWithdraw.cashAmount) {
+                mui.alert('提现金额超限');
+            } else {
+                //提现
+                ajaxJsonp({
+                    url: urls.withdrawCash,
+                    data: {
+                        cid: vmCardWithdraw.accountID,
+                        amount: vmCardWithdraw.cash
+                    },
+                    successCallback: function(json){
+                        if(json.status == 1) {
+                            vmCardWithdraw.cash = '';
+
+                            vmCardDetail.getCard();
+                            vmPopover.close();
+                        } else {
+                            mui.alert(json.message);
+                        }
+                    }
+                })
+            }
+        }
+    },
+    close: function() {
+        //纯粹隐藏，在关闭弹窗的时候不要清空弹窗内容
+
+        $('.popover').addClass('popover-hide');
+        popover_ishide = true;
+    }
+});
+
+var vmCardWithdraw = avalon.define({
+    $id: 'withdraw',
+    accountID: 0,
+    cashAmount: '',
+    cash: '',
+    close: function() {
+        vmPopover.close();
+    }
+});
+
+vmCardDetail.getCard();

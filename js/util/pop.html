@@ -7,9 +7,9 @@
                 </div>
             </div> 
             <!-- <div class="bs-text-large" style="font-weight: lighter;padding-bottom: 10px;">{{nickName}}</div> -->
+            <!-- 会员卡 -->
             <div style="padding-bottom: 5px;">
-                <img src="../img/card/card_black.svg" style="width:22px;margin-right: 12px" alt="" ms-on-tap="goCard(1)">
-                <img src="../img/card/card_null.svg" style="width:22px;" alt="" ms-on-tap="goCard(0)">
+                <img ms-repeat="cardList" ms-attr-src="el.img" style="width:22px;" ms-css-margin-right="$index==0?'12px':''" alt="" ms-on-tap="goCard(el.cid)">
             </div>
         </div>
 
@@ -61,7 +61,7 @@
             </div>
             <div class="center-nav-item" ms-on-tap="clickA(8)" ms-visible="isAlliance&&!isManage">
                 <a href="javascript:void(0)" >
-                    <img src="../img/iconfont-jiudian.svg" class="grid-icon" />
+                    <img src="../img/alliance.svg" class="grid-icon" />
                     <div class="bs-text-smaller bs-text-black">鸿鹄伙伴</div>
                 </a>
             </div>
@@ -72,7 +72,7 @@
                 </a>
             </div>
             <div class="center-nav-item" ms-on-tap="clickA(9)" ms-visible="!isManage">
-                <img src="../img/icon/fund.png" class="grid-icon" />
+                <img src="../img/wallet.svg" class="grid-icon" />
                 <div class="bs-text-smaller bs-text-black">钱包</div>
             </div>
             <!-- <div class="center-nav-item" ms-visible="!isAdmin&&!isManage"> -->

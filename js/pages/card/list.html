@@ -12,7 +12,7 @@
         <div style="width: 60%;" >
             <div class="bs-text-51 bs-text-larger card-list-item-title" :on-tap="@goBuyCard(el.id)">{{el.name}}会员</div>
             <div class="bs-text-51 bs-text-smaller" :on-tap="@goBuyCard(el.id)">
-                入住任意本宿酒店即可享受<span class="bs-text-red">{{el.discount}}折</span>优惠，每月返还<span class="bs-text-red">¥{{el.award}}</span> <br>
+                入住任意本宿酒店即可享受<span class="bs-text-red">{{el.discount*10}}折</span>优惠，每月返还<span class="bs-text-red">¥{{el.monthReturnAmount}}</span> <br>
                 免审核直通加入本宿推广计划
             </div>
         </div>

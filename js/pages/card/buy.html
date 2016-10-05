@@ -1,13 +1,13 @@
 <div class="ms-controller" :controller="cardBuy">
     <div class="card-frame">
-        <img class="card-buy-img" :attr="{src:@data[cardType-1].imgUrl}" alt="">
+        <img class="card-buy-img" :attr="{src:@data.imgUrl}" alt="">
         <section style="padding: 8px 0 10px 10px;">
-            <div class="bs-text-red bs-text-larger" style="padding-top: 5px; padding-bottom: 25px;">¥{{@data[cardType-1].price}}</div>
-            <div class="bs-text-smaller bs-text-51">本宿会员{{@data[cardType-1].name}}，限时抢购</div>
+            <div class="bs-text-red bs-text-larger" style="padding-top: 5px; padding-bottom: 25px;">¥{{@data.amount}}</div>
+            <div class="bs-text-smaller bs-text-51">本宿会员{{@data.name}}，限时抢购</div>
         </section>
-        <img class="card-buy-img" :attr="{src:@data[cardType-1].discountUrl}" alt="">
-        <img class="card-buy-img" :attr="{src:@data[cardType-1].awardUrl}" alt="">
-        <img class="card-buy-img" :attr="{src:@data[cardType-1].promoteUrl}" alt="">
+        <img class="card-buy-img" :attr="{src:@data.discountUrl}" alt="">
+        <img class="card-buy-img" :attr="{src:@data.awardUrl}" alt="">
+        <img class="card-buy-img" :attr="{src:@data.promoteUrl}" alt="">
 
         <section class="bs-text-small bs-text-51" style="padding: 20px 10px;">
             <div style="margin-bottom: 15px;" :on-tap="@chooseType(2)">
@@ -28,5 +28,5 @@
             </div>
         </section>
     </div>
-    <button class="nav-bottom-btn" type="button" :on-tap="@goCard">确认购买</button>
+    <button class="nav-bottom-btn" type="button" :attr="{disabled:@isDisabled}" :on-tap="@buyCard">确认购买</button>
 </div>

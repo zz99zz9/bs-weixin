@@ -2,25 +2,25 @@
 <article class="ms-controller card-log bs-bg-white bs-text-51" :controller="log">
     <div class="bs-text-larger">提现帐号</div>
 
-    <div class="bs-text-white card-log-head" :class="@data.type?'zfb':'bank'" :if="@data.type>-1">
-        <div :if="@data.type">
-            <div class="bs-text-larger">{{@data.account}}</div>
-            <div class="bs-text-smaller">{{@data.name}}</div>
+    <div class="bs-text-white card-log-head" :class="@data.accountType==1?'zfb':'bank'" :if="@data.accountType">
+        <div :if="@data.accountType==1">
+            <div class="bs-text-larger">{{@data.accountNo}}</div>
+            <div class="bs-text-smaller">{{@data.accountName}}</div>
         </div>
-        <div :if="!@data.type">
+        <div :if="@data.accountType==2">
             <div class="bs-text-larger bs-text-lighter" style="margin-top: -5px;">
-                <span class="card-no">{{@data.bankNo.slice(0,4)}}</span>
-                <span class="card-no">{{@data.bankNo.slice(4,8)}}</span>
-                <span class="card-no">{{@data.bankNo.slice(8,12)}}</span>
-                <span class="card-no">{{@data.bankNo.slice(12,18)}}</span>
+                <span class="card-no">{{@data.accountNo.slice(0,4)}}</span>
+                <span class="card-no">{{@data.accountNo.slice(4,8)}}</span>
+                <span class="card-no">{{@data.accountNo.slice(8,12)}}</span>
+                <span class="card-no">{{@data.accountNo.slice(12,18)}}</span>
             </div>
             <div class="bs-text-smaller" style="line-height: 15px;">
-                {{@data.bank}}
+                {{@data.bankName}}
             </div>
-            <div class="bs-text-smaller" style="line-height: 15px;">{{@data.name}}</div>
+            <div class="bs-text-smaller" style="line-height: 15px;">{{@data.accountName}}</div>
         </div>
     </div>
-    <div :if="@data.type==-1" class="bs-text-153 bs-text-smaller" style="background-color: #ddd;margin: 15px 0 10px 0;padding: 25px 15px;" :on-tap="@goBind">
+    <div :if="!@data.accountType" class="bs-text-153 bs-text-smaller" style="background-color: #ddd;margin: 15px 0 10px 0;padding: 25px 15px;" :on-tap="@goBind">
         您还未绑定提现帐号
         <img src="img/add.svg" style="width: 30px;position: relative;float: right;top: -4px;" alt="" :on-tap="@goBind">
     </div>
@@ -31,9 +31,9 @@
         <div class="mui-scroll" style="padding-right: 10px;">
             <div class="bs-text-smaller fr-flex" style="border-bottom: 1px solid #ddd;" :for="el in @list">
                 <div class="today-list-item">
-                    {{el.content}}
+                    {{el.description}}
                     <br>
-                    <span class="bs-text-smaller bs-text-gray bs-text-x-smaller">{{el.time}}</span>
+                    <span class="bs-text-smaller bs-text-gray bs-text-x-smaller">{{el.createTime}}</span>
                 </div>
                 <div class="today-list-item" style="line-height: 43px;">
                     <span :if="el.type==1" class="bs-text-large bs-text-red">+</span>
