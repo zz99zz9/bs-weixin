@@ -634,9 +634,23 @@ function disableCheckinTime(startIndex, hour) {
         } else {
             return false;
         }
-    } else if (bookDateList && bookDateList.outIndex.indexOf(vmRoom.todayIndex) > -1) {
+    } else if (bookDateList && bookDateList.outIndex.indexOf(startIndex) > -1) {
         //14点以前的入住时段要灰掉
-        if (hour <= 14) {
+        //设置默认表盘
+        if (hour < 14) {
+            var index = vmRoom.startTimeIndex;
+            while(vmRoom.roomNightDiscount[index].startTime  < 14) {
+                if(index == 3) {
+                    break;
+                }
+                index ++;
+            }
+            vmRoom.startTimeIndex = index;
+
+            vmRoom.price = vmRoom.roomNightDiscount[index].discount;
+            newOrder.day.startTimeIndex = index;
+            newOrder.day.startTime = vmRoom.roomNightDiscount[index].startTime;
+            Storage.set("newOrder", newOrder);
             return true;
         } else {
             return false;
@@ -803,6 +817,7 @@ vmRoom.$watch('startIndex', function(a) {
     }
 })
 
+//预订今天全天房时，设置默认的表盘
 function setDefaultStartTime() {
     var index = vmRoom.startTimeIndex;
 
