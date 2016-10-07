@@ -201,7 +201,9 @@ input[type=checkbox] {
     </div>
 
     <nav class="mui-bar mui-bar-tab" ms-if="btn1Text!=''||btn2Text!=''">
-        <button type="button" class="order-btn bs-text-white" ms-click="btn1Click" ms-class="visible-hidden:btn1Text==''" ms-attr-disabled="btn1Disabled" ms-class-1="bs-bg-gray:data.status==1||data.status==2" ms-class-2="bs-bg-gold:data.status==3||data.staus==4" ms-class-3="width100:data.status==4">{{btn1Text}}</button>
-        <button type="button" class="order-btn bs-text-white bs-bg-black" ms-click="btn2Click" ms-class="visible-hidden:btn2Text==''" ms-attr-disabled="btn2Disabled">{{btn2Text}}</button>
+        <button type="button" class="order-btn bs-text-white" ms-click="btn1Click" ms-if="btn1Text!=''" ms-attr-disabled="btn1Disabled" ms-class-1="bs-bg-gray:data.status==1||data.status==2" ms-class-2="bs-bg-gold:data.status==3||data.staus==4" ms-class-3="width100:data.status==2||data.status==4">{{btn1Text}}</button>
+        <button type="button" class="order-btn bs-text-white bs-bg-black" ms-click="btn2Click" ms-if="btn2Text!=''" ms-attr-disabled="btn2Disabled">{{btn2Text}}</button>
+        <!--  ms-class="visible-hidden:btn1Text==''
+            ms-class="visible-hidden:btn2Text==''" -->
     </nav>
 </div>

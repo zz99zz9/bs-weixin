@@ -86,7 +86,7 @@ var vmCardBind = avalon.define({
 });
 
 //如果已经绑定过默认帐号，就跳转
-vmCardBind.getData();
+// vmCardBind.getData();
 
 var vmPopover = avalon.define({
     $id: 'popoverBtnOK',

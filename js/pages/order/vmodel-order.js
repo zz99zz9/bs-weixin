@@ -31,11 +31,7 @@ var vmOrder = avalon.define({
     selectedList: [],
     orids: [], //订单包含的房间业务流水编号
     selectPayType: function(type) {
-        if(vmOrder.payType == type) {
-            vmOrder.payType = 0;
-        } else {
-            vmOrder.payType = type;
-        }
+        vmOrder.payType = type;
     },
     //status 房间的状态
     selectRoom: function(index, status) {
@@ -365,6 +361,8 @@ function payOrder() {
         
         //暂时不算约会基金
         if(cardCash==0 || cardCash < vmOrder.needAmount* vmOrder.discount) {
+            vmOrder.btn2Disabled = false;
+
             vmPopover.useCheck = 1;
             popover('./util/card-select.html', 1);
             return;

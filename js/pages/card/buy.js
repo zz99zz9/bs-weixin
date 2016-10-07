@@ -17,6 +17,9 @@ var vmCardBuy = avalon.define({
         awardUrl: '',
         promoteUrl: ''
     },
+    getType: function() {
+        return 'img/card/No' + vmCardBuy.cardType + '.png';
+    },
     getData: function() {
         ajaxJsonp({
             url: urls.getDicCardDetail,
@@ -130,6 +133,24 @@ var vmPopover = avalon.define({
 });
 
 vmCardBuy.getData();
+
+switch(cardID) {
+    case 2:
+    case 3:
+        $('.card-font').css('color', 'white');
+        break;
+}
+
+var cardWidth, cardHeight;
+avalon.ready(function() {
+    cardWidth = $('.card-frame').width();
+    
+    //卡的长高比例 1.73
+    cardHeight = cardWidth / 1.73;
+
+    $('.card-font').css('left', cardWidth * 0.05 + 'px');
+    $('.card-font').css('top', cardHeight * 0.64 + 'px');
+});
 
 /**
  * 准备微信支付

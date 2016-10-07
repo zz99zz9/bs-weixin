@@ -1,6 +1,26 @@
+<meta name="format-detection" content="telephone=no">
 <div class="ms-controller" :controller="cardBuy">
     <div class="card-frame">
+
+        <div class="card-font" style="height: 0;">
+            <div class="card-cardNo">
+                <span>{{getToday('date').slice(0,4)}}</span>
+                <span>{{getToday('date').slice(5,7)}}
+                {{getToday('date').slice(8,10)}}</span>
+                <span>*****</span>
+            </div>
+            <div>
+                <span style="font-size: 8px;">
+                    VALID THRU
+                <span>&nbsp;&nbsp;</span>
+                    {{getDates(365).slice(0,4)}}/{{getToday('date').slice(5,7)}}
+                </span>
+                <br>
+                C A R D H O L D E R
+            </div>
+        </div>
         <img class="card-buy-img" :attr="{src:@data.imgUrl}" alt="">
+
         <section style="padding: 8px 0 10px 10px;">
             <div class="bs-text-red bs-text-larger" style="padding-top: 5px; padding-bottom: 25px;">¥{{@data.amount}}</div>
             <div class="bs-text-smaller bs-text-51">预存 ¥{{@data.amount}} 即可升级成为{{@data.name}}会员</div>
@@ -8,6 +28,7 @@
         <img class="card-buy-img" :attr="{src:@data.discountUrl}" alt="">
         <img class="card-buy-img" :attr="{src:@data.awardUrl}" alt="">
         <img class="card-buy-img" :attr="{src:@data.promoteUrl}" alt="">
+    </div>
 
         <section class="bs-text-small bs-text-51" style="padding: 20px 10px;">
             <div style="margin-bottom: 15px;" :on-tap="@chooseType(2)">
