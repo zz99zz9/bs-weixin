@@ -1,17 +1,3 @@
-var cardID = getParam('id');
-if (cardID != "") {
-    if (isNaN(cardID)) {
-        location.href = document.referrer || "index.html";
-    } else {
-        cardID = parseInt(cardID);
-    }
-} else {
-    location.href = "index.html";
-}
-
-//进入首页时，默认打开个人中心弹窗
-Storage.setLocal('user', {openUserInfo: 1});
-
 var vmCardBuy = avalon.define({
     $id: 'cardShow',
     cardNo: '',
@@ -34,7 +20,7 @@ var vmCardBuy = avalon.define({
                             break;
                     }
                 } else {
-                    location.href = document.referrer || "index.html";
+                    // location.href = "index.html";
                 }
             }
         });
@@ -44,7 +30,40 @@ var vmCardBuy = avalon.define({
     }
 });
 
-vmCardBuy.getBuyCard();
+var cardIndex, cardID = getParam('id');
+if (cardID != "") {
+    if (isNaN(cardID)) {
+        location.href = document.referrer || "index.html";
+    } else {
+        cardID = parseInt(cardID);
+    }
+
+    vmCardBuy.getBuyCard();
+} else {
+    //没有id可能是第一次买卡跳转过来的，判断下
+    ajaxJsonp({
+        url: urls.getCardList,
+        successCallback: function(json) {
+            if (json.status == 1) {
+                if (json.data.length) {
+                    var data = Storage.get('cardData');
+                    if(data) {
+                        cardIndex = data.cardIndex;
+                        cardID = json.data[cardIndex].id;
+
+                        vmCardBuy.getBuyCard();
+                    }
+                }
+                else {
+                    location.href = "index.html";
+                }
+            }
+        }
+    });
+}
+
+//进入首页时，默认打开个人中心弹窗
+Storage.setLocal('user', {openUserInfo: 1});
 
 var cardWidth, cardHeight;
 avalon.ready(function() {

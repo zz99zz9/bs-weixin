@@ -1,0 +1,39 @@
+<style>
+    .pop-content{
+        height: 80vh;
+        margin-left: auto;
+        margin-right: auto;
+        transition: margin-top 100ms;
+        background: #fff;
+        overflow-y: auto;
+    }
+</style>
+<div class="pop-content bs-text-51" ms-controller="selectCard">
+    <div style="padding: 20px;text-align: center;">
+        <div style="text-align: right;">
+            <img src="img/close.svg" style="width: 15px;" alt="" ms-click="close">
+        </div>
+
+        <div class="bs-text-large">卡内余额不足</div>
+        <div style="text-align: left;margin-top: 30px;">
+            <div class="bs-text-large">
+                更换支付会员卡
+            </div>
+            
+            <div style="margin-bottom: 10px;" ms-repeat="cardList"
+            ms-click="select($index, el.id)">
+                <div class="hiddenbox">
+                    <div class="check-icon unchecked" ms-class-1="unchecked:$index!=selectIndex" ms-class-2="checked:$index==selectIndex" style="position: absolute; right: 5px;"></div>
+                </div>
+                <span class="bs-text-normal bs-text-black">
+                    本宿{{el.userBuyCard.name}}
+                    <br> 
+                    <span class="bs-text-153 bs-text-small">
+                        可提现余额
+                        <span class="bs-text-red bs-text-smaller">¥{{el.cashAmount}}</span>
+                    </span>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>

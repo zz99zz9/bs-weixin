@@ -349,7 +349,7 @@ var vmHotel = avalon.define({
                 hid: hid,
                 tid: vmHotel.tid,
                 aids: roomType.type ? newOrder.partTime.filter.join(',') : newOrder.day.filter.join(','),
-                startTime: roomType ? newOrder.partTime.start : newOrder.day.start,
+                startTime: roomType ? newOrder.partTime.start : (newOrder.day.start==getToday('date')?getToday():newOrder.day.start),
                 endTime: roomType ? newOrder.partTime.end : newOrder.day.end,
                 isPartTime: roomType,
                 lng: myLng,
@@ -513,6 +513,7 @@ vmHotel.getRoomList();
 
 vmFilter.type = roomType;
 vmFilter.getFilter();
+vmHotel.judgeOk();
 
 mui.init({
     pullRefresh: {
@@ -524,7 +525,7 @@ mui.init({
         }
     }
 });
-vmHotel.judgeOk();
+
 //mui 上拉加载
 function loadmore() {
     ajaxJsonp({

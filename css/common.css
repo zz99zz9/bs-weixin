@@ -1395,3 +1395,7 @@ hr {
     border-radius: 0;
     height: 50px;
 }
+
+.hidden {
+    visibility: hidden;
+}

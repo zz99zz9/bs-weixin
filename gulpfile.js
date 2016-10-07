@@ -198,6 +198,17 @@ function order() {
             regex: '<!-- content -->',
             replace: '<!--include "../pages/order/order.html"-->'
         }))
+        .pipe(replace({
+            regex: '<!-- pop -->',
+            replace: '<!--include "../pages/user/popover.html"-->'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(replace({
+            regex: '<button class="popover-closeButton"></button>',
+            replace: '<!--include "../util/popoverBtnOK.html"-->'
+        }))
         .pipe(contentIncluder({
             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
         }))
@@ -2149,6 +2160,7 @@ function popHtml() {
             './js/pages/index/searchLocation.html',
             './js/util/contactList.html',
             './js/util/code.html',
+            './js/util/card-select.html',
             './js/pages/user/frequent-contact-add.html',
             './js/pages/user/delivery-address-add.html',
             './js/pages/room/note.html',

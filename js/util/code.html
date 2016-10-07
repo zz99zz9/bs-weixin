@@ -8,7 +8,7 @@
         overflow-y: auto;
     }
     .code-sendSMS {
-        width: 60px;
+        width: 70px;
         height: 30px;
         background-color: #eee;
         margin-left: 10px;
@@ -34,10 +34,12 @@
         <div style="text-align: right;">
             <img src="img/close.svg" style="width: 15px;" alt="" :on-tap="@close">
         </div>
+        <div class="bs-text-large" style="text-align: left;">验证码已发送到：</div>
         <div class="bs-text-x-larger" style="margin: 20px 0 15px 0;">{{mobile}}</div>
-        <div style="display: flex;justify-content: center;margin-top: 30px;">
+        <div class="bs-text-large" style="text-align: left;margin-top: 30px;">请输入验证码：</div>
+        <div style="display: flex;justify-content: center;">
             <input type="tel" :duplex="@code" style="padding-bottom: 0;">
-            <button class="code-sendSMS bs-text-smaller bs-text-gold" type="button" :attr="{disabled:@isDisabled}">{{@codeMsg}}</button>
+            <button class="code-sendSMS bs-text-smaller bs-text-gold" type="button" :attr="{disabled:@isDisabled}" :on-tap='@getCode'>{{@codeMsg}}</button>
         </div>
     </div>
     

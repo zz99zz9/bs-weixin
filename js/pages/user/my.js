@@ -42,11 +42,12 @@ var vmSide = avalon.define({
             img: '../img/card/card_null.svg'
         },
     ],
-    goCard: function(id) {
+    goCard: function(id, index) {
         stopSwipeSkip.do(function() {
             if(id > 0) {
                 location.href = "card-show.html?id=" + id;
             } else {
+                Storage.set('cardData', {cardIndex: index});
                 location.href = "card-list.html";
             }
         });
@@ -86,7 +87,7 @@ var vmSide = avalon.define({
 					vmSide.isAdmin = json.data.isAdmin;
                     vmSide.isAlliance = json.data.isAlliance;
 
-                    if(json.data.userBuyCardList.length) {
+                    if(json.data.userBuyCardList && json.data.userBuyCardList.length) {
                         var cList = json.data.userBuyCardList;
                         for(var i = 0; i< cList.length; i++) {
                             vmSide.cardList[i].id = cList[i].id;
@@ -183,7 +184,8 @@ var vmSide = avalon.define({
                     location.href = "../service.html";
                     break;
                 case 4:
-                    location.href = "../wallet.html";
+                    // location.href = "../wallet.html";
+                    goPromotion(); //config.js
                     break;
                 case 5:
                     location.href = "../manage/homepage.html";
@@ -198,7 +200,6 @@ var vmSide = avalon.define({
                     location.href = "../franchisee.html";
                     break;
                 case 9:
-
                     location.href = "../card-detail.html";
                     break;
             }

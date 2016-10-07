@@ -44,7 +44,7 @@
                     </div>
 
                     <div style="order: 1;">
-                        <div>本月推广</div>
+                        <div>本月推广奖励 ¥{{el.monthAward}}</div>
                         <div style="display: flex;">
                             <div :if="el.monthShareTimes>0" :class="['promotion-btn',@taskList[index][0]?'promotion-done':'promotion-undo']" :on-tap="@complete(index, 0)">{{@taskList[index][0]?'完成':'待'}}</div>
                             <div :if="el.monthShareTimes>1" :class="['promotion-btn',@taskList[index][1]?'promotion-done':'promotion-undo']" :on-tap="@complete(index, 1)">{{@taskList[index][1]?'完成':'待'}}</div>

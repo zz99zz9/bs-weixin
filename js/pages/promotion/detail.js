@@ -39,17 +39,19 @@ var vmDetail = avalon.define({
         });
     },
     goPromotion: function(index) {
-        //开通套餐
-        ajaxJsonp({
-            url: urls.goPromotion,
-            data: {pid: vmDetail.list[index].id},
-            successCallback: function(json) {
-                if (json.status == 1) {
-                    vmDetail.getList();
-                } else {
-                    mui.alert(json.message);
+        mui.alert('开通成功', function() {
+            //开通套餐
+            ajaxJsonp({
+                url: urls.goPromotion,
+                data: {pid: vmDetail.list[index].id},
+                successCallback: function(json) {
+                    if (json.status == 1) {
+                        vmDetail.getList();
+                    } else {
+                        mui.alert(json.message);
+                    }
                 }
-            }
+            });
         });
     },
     taskList: [

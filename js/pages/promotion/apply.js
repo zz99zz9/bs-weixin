@@ -33,10 +33,11 @@ var vmApply = avalon.define({
                 successCallback: function(json) {
                     if (json.status == 1) {
                         if(json.data.status == 2) {
-                            location.href = "promotion-detail.html";
+                            mui.alert('申请成功', function(){
+                                location.href = "promotion-detail.html";
+                            });
                         } else {
                             mui.alert(json.message);
-
                         }
                     } else {
                         mui.alert(json.message);
