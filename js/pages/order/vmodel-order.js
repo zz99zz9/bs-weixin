@@ -282,6 +282,10 @@ iniOrder();
 registerWeixinConfig();
 
 function iniOrder() {
+    if(!isweixin) {
+        vmOrder.payType = 1; //不在微信里打开时，默认支付方式改成支付宝
+    }
+
     ajaxJsonp({
         url: urls.getOrderDetail,
         data: { id: orderid },

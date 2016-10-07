@@ -17,7 +17,7 @@ var vmDetail = avalon.define({
             successCallback: function(json) {
                 if (json.status == 1) {
                     if(json.data.length == 0) {
-                        mui.alert('您还没有成为推广大使', function(){
+                        mui.alert('您还没有成为推广奖励', function(){
                             location.href = document.referrer || 'index.html';
                         });
                     } else {

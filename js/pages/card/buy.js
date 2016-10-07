@@ -38,10 +38,8 @@ var vmCardBuy = avalon.define({
         this.isAgree = !this.isAgree;
     },
     openRule: function() {
-        stopSwipeSkip.do(function() {
-            vmPopover.useCheck = 1;
-            popover('./util/card-rule.html', 1);
-        });
+        vmPopover.useCheck = 1;
+        popover('./util/card-rule.html', 1);
     },
     payType: 2,
     chooseType: function(type) {
