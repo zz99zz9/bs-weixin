@@ -404,6 +404,7 @@ vmBtn = avalon.define({
                 vmRoom.showDate();
                 saveStorage();
                 vmRoom.startIndex = vmCalendar.startIndex;
+                vmCalendar.startClick();
                 break;
             case 'partTime':
                 vmRoom.showPartTime();

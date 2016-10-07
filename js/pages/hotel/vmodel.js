@@ -404,6 +404,7 @@ var vmBtn = avalon.define({
     ok: function() {
         switch (vmBtn.type) {
             case 'date':
+                vmCalendar.startClick();
             case 'partTime':
                 mui('#pullrefresh').pullRefresh().refresh(true);
 
