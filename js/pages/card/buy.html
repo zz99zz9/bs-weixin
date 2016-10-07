@@ -30,24 +30,24 @@
         <img class="card-buy-img" :attr="{src:@data.promoteUrl}" alt="">
     </div>
 
-        <section class="bs-text-small bs-text-51" style="padding: 20px 10px;">
-            <div style="margin-bottom: 15px;" :on-tap="@chooseType(2)">
-                <div class="hiddenbox">
-                    <div class="check-icon" :class="@payType == 2?'checked':'unchecked'" style="position: absolute; right: 0px;" :on-tap="@chooseType(2)"></div>
-                </div>
-                <span :on-tap="@chooseType(2)">微信支付</span>
+    <section class="bs-text-small bs-text-51" style="padding: 20px 10px;">
+        <div style="margin-bottom: 15px;" :on-tap="@chooseType(2)">
+            <div class="hiddenbox">
+                <div class="check-icon" :class="@payType == 2?'checked':'unchecked'" style="position: absolute; right: 0px;" :on-tap="@chooseType(2)"></div>
             </div>
-            <div :on-tap="@chooseType(1)">
-                <div class="hiddenbox">
-                    <div class="check-icon" :class="@payType == 1?'checked':'unchecked'" style="position: absolute; right: 0px;" :on-tap="@chooseType(1)" ></div>
-                </div>
-                <span :on-tap="@chooseType(1)" >支付宝支付（请在浏览器中打开）</span>
+            <span :on-tap="@chooseType(2)">微信支付</span>
+        </div>
+        <div :on-tap="@chooseType(1)">
+            <div class="hiddenbox">
+                <div class="check-icon" :class="@payType == 1?'checked':'unchecked'" style="position: absolute; right: 0px;" :on-tap="@chooseType(1)" ></div>
             </div>
-            <div class="bs-text-small" style="margin-top: 30px;" :on-tap="@clickIsAgree">
-                <span :class="['isAgree', @isAgree?'checked':'unchecked']"></span> 我同意
-                <span class="bs-text-gold" :on-tap="@openRule">本宿会员条款</span>
-            </div>
-        </section>
-    </div>
+            <span :on-tap="@chooseType(1)" >支付宝支付（请在浏览器中打开）</span>
+        </div>
+        <div class="bs-text-small" style="margin-top: 30px;" :on-tap="@clickIsAgree">
+            <span :class="['isAgree', @isAgree?'checked':'unchecked']"></span> 我同意
+            <span class="bs-text-gold" :on-tap="@openRule">本宿会员条款</span>
+        </div>
+    </section>
+
     <button class="nav-bottom-btn" type="button" :attr="{disabled:@isDisabled}" :on-tap="@buyCard">确认购买</button>
 </div>

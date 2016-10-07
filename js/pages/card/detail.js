@@ -126,10 +126,12 @@ var vmPopover = avalon.define({
                     },
                     successCallback: function(json) {
                         if (json.status == 1) {
-                            vmCardWithdraw.cash = '';
+                            mui.alert('提现成功，请等待打款',function() {
+                                vmCardWithdraw.cash = '';
 
-                            vmCardDetail.getCard();
-                            vmPopover.close();
+                                vmCardDetail.getCard();
+                                vmPopover.close();
+                            });
                         } else {
                             mui.alert(json.message);
                         }
