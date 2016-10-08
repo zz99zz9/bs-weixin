@@ -249,11 +249,14 @@ var vmSelectCard = avalon.define({
     selectCardID: 0,
     selectIndex: 0,
     select: function(index, cid) {
-        vmSelectCard.selectIndex = index;
-        vmSelectCard.selectCardID = cid;
-    },
-    close: function() {
-        vmPopover.close();
+        if(vmSelectCard.cardList[index].cashAmount>=vmOrder.needAmount* vmOrder.discount) {
+
+            vmSelectCard.selectIndex = index;
+            vmSelectCard.selectCardID = cid;
+
+            vmPopover.close();
+            payOrder();
+        }
     }
 });
 
@@ -263,7 +266,6 @@ var vmPopover = avalon.define({
     useCheck: 0, //1 checkButton, 0 closeButton
     ok: function() {
         vmPopover.close();
-        payOrder();
     },
     close: function() {
         //纯粹隐藏，在关闭弹窗的时候不要清空弹窗内容
@@ -363,8 +365,7 @@ function payOrder() {
         if(cardCash==0 || cardCash < vmOrder.needAmount* vmOrder.discount) {
             vmOrder.btn2Disabled = false;
 
-            vmPopover.useCheck = 1;
-            popover('./util/card-select.html', 1);
+            popover('./util/card-select.html', 1)
             return;
         }
     }

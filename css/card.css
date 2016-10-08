@@ -27,6 +27,22 @@
     width: 100%;
 }
 
+.card-buy-item {
+    display: flex;
+    align-items: center;
+    background-color: #ddd;
+    padding: 18px 20px;
+    margin-bottom: 1.5px;
+    margin-left: -10px;
+}
+.card-buy-item-left {
+    margin-right: 15px;
+}
+.card-buy-item-right {
+    padding-left: 19px;
+    border-left: solid 1px #999;
+}
+
 .card-show {
     height: 50vh;
     background-size: contain;

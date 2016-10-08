@@ -33,6 +33,25 @@ var vmDetail = avalon.define({
                             }
                         }
                         vmDetail.a++;
+
+                        /**
+                         * canvas画圆形
+                         */
+                         $('.circle').each(function(i, o) {
+                            var $circle = o;
+
+                            var context = $circle.getContext('2d');
+                            $circle.width = window.innerWidth;
+                            $circle.height = 160;
+
+                            context.beginPath();
+                            context.arc((window.innerWidth) / 2,
+                                95,
+                                75, getRadians(135), getRadians(45), false);
+                            context.lineWidth = 7;
+                            context.strokeStyle = "rgb(186,160,113)";
+                            context.stroke();
+                        });
                     }
                 }
             }
@@ -117,19 +136,3 @@ var vmPopover = avalon.define({
 });
 
 vmDetail.getList();
-
-/**
- * canvas画圆形
- */
-var $circle = $('#circle');
-var context = $circle[0].getContext('2d');
-$circle.attr("width", window.innerWidth);
-$circle.attr("height", 160);
-
-context.beginPath();
-context.arc((window.innerWidth) / 2,
-    80,
-    75, getRadians(135), getRadians(45), false);
-context.lineWidth = 7;
-context.strokeStyle = "rgb(186,160,113)";
-context.stroke();
