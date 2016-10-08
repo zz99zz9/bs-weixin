@@ -112,7 +112,7 @@ var vmOrder = avalon.define({
         }
     },
     discount: 1,
-    did: 0,
+    did: '',
     discountCard: '',
     getDiscount: function() {
         ajaxJsonp({

@@ -154,7 +154,7 @@ input[type=checkbox] {
 
         <div class="order-panel bs-text-small" ms-if="data.status==1">
             <div class="order-panel-title bs-text-large bs-text-153">支付方式</div>
-            <div ms-if="discount>0" ms-click="selectPayType(6)" style="margin-bottom: 10px;">
+            <div ms-if="discount<1" ms-click="selectPayType(6)" style="margin-bottom: 10px;">
                 <div class="hiddenbox">
                     <div class="check-icon" ms-class-1="unchecked:payType!=6" ms-class-2="checked:payType==6" style="position: absolute; right: 5px;"></div>
                 </div>

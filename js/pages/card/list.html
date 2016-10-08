@@ -10,11 +10,11 @@
 
     <section class="bs-bg-white card-list-item" :for="el in @data">
         <div style="width: 60%;" >
-            <div class="bs-text-51 bs-text-larger card-list-item-title" :on-tap="@goBuyCard(el.id)">{{el.name}}会员</div>
+            <div class="bs-text-51 bs-text-larger card-list-item-title" :on-tap="@goBuyCard(el.id)">成为{{el.name}}会员</div>
             <div class="bs-text-51 bs-text-smaller" :on-tap="@goBuyCard(el.id)">
                 入住任意本宿酒店即可享受<span class="bs-text-red">{{el.discount*10}}折</span>优惠。
                 <br>
-                免审核直通加入本宿推广计划
+                免审核直通本宿推广奖励计划
             </div>
         </div>
         <img class="card-list-img" :attr="{src:el.imgUrl}" alt="" :on-tap="@goBuyCard(el.id)">
