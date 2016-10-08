@@ -8,15 +8,14 @@
                 <span>{{getToday('date').slice(5,7)}}
                 {{getToday('date').slice(8,10)}}</span>
                 <span>*****</span>
-            </div>
-            <div>
+            </div><br>
+            <div style="display: inline-block;">
                 <span style="font-size: 8px;">
                     VALID THRU
                 <span>&nbsp;&nbsp;</span>
                     {{getDates(365).slice(0,4)}}/{{getToday('date').slice(5,7)}}
-                </span>
-                <br>
-                C A R D H O L D E R
+                </span><br>
+                <span>C A R D H O L D E R</span>
             </div>
         </div>
         <img class="card-buy-img" :attr="{src:@data.imgUrl}" alt="">
@@ -24,7 +23,9 @@
         <section style="padding: 10px 0 5px 10px;">
             <div class="bs-text-red bs-text-larger" style="padding-top: 5px; padding-bottom: 25px;">¥{{@data.amount}}</div>
             <div class="bs-text-smaller bs-text-51" style="margin-bottom: 10px;">
-                只需预存 {{@data.amount}} 即可升级成为{{@data.name}}会员，有效期 12 个月。<br>{{@data.name}}会员将享受以下优惠：
+                <span>只需预存 {{@data.amount}} 即可升级成为{{@data.name}}会员，有效期 12 个月。</span>
+                <br>
+                <span>{{@data.name}}会员将享受以下优惠：</span>
             </div>
             <div class="card-buy-item">
                 <img class="card-buy-item-left" src='img/card/card-discount.png' style="width: 49px;height: 30px;" alt="">

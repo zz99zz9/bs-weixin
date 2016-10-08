@@ -55,6 +55,7 @@
     font-size: 12px;
     line-height: 0.9rem;
     text-shadow: -1px 1px 4px black;
+    width: 60%;
 }
 
 .card-cardNo {
