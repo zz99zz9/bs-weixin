@@ -2,7 +2,6 @@ var orderid = getParam("id"),
     showCancelBtn = 0,
     showCheckoutBtn = 0;
 
-
 if (orderid != "") {
     if (isNaN(orderid)) {
         location.href = document.referrer || "index.html";
@@ -31,11 +30,8 @@ var vmOrder = avalon.define({
     needAmount: 0, //总价
     selectedList: [],
     orids: [], //订单包含的房间业务流水编号
-    newRadio1: function() {
-        vmOrder.payType = 2;
-    },
-    newRadio2: function() {
-        vmOrder.payType = 1;
+    selectPayType: function(type) {
+        vmOrder.payType = type;
     },
     //status 房间的状态
     selectRoom: function(index, status) {
@@ -104,7 +100,7 @@ var vmOrder = avalon.define({
                     vmOrder.fundList.push.apply(vmOrder.fundList, json.data);
                 }
             }
-        })
+        });
     },
     selectFund: function(index) {
         if (vmOrder.fundIndex !== index) {
@@ -114,6 +110,41 @@ var vmOrder = avalon.define({
             vmOrder.fund = 0;
             vmOrder.fundIndex = -1;
         }
+    },
+    discount: 1,
+    did: '',
+    discountCard: '',
+    getDiscount: function() {
+        ajaxJsonp({
+            url: urls.getDiscountList,
+            successCallback: function(json) {
+                if (json.status == 1) {
+                    if(json.data.length > 1 && json.data[0].discount){
+                        vmOrder.did = json.data[0].id;
+                        vmOrder.discount = json.data[0].discount;
+                        vmOrder.discountCard = json.data[0].name;
+
+                        vmOrder.getCardList();
+                    }
+                }
+            }
+        });
+    },
+    getCardList: function() {
+        ajaxJsonp({
+            url: urls.getAccountList,
+            successCallback: function(json) {
+                if (json.status == 1) {
+                    if(json.data.length > 1){
+                        vmOrder.payType = 6;
+
+                        vmSelectCard.cardList = json.data;
+                        //设置默认支付卡
+                        vmSelectCard.selectCardID = json.data[0].id;
+                    }
+                }
+            }
+        });
     },
     mayCancelRoomList: [],
     //左边按钮
@@ -211,11 +242,48 @@ var vmOrder = avalon.define({
     }
 });
 
+//钱包支付：换卡弹窗
+var vmSelectCard = avalon.define({
+    $id: 'selectCard',
+    cardList: [],
+    selectCardID: 0,
+    selectIndex: 0,
+    select: function(index, cid) {
+        if(vmSelectCard.cardList[index].cashAmount>=vmOrder.needAmount* vmOrder.discount) {
+
+            vmSelectCard.selectIndex = index;
+            vmSelectCard.selectCardID = cid;
+
+            vmPopover.close();
+            payOrder();
+        }
+    }
+});
+
+var vmPopover = avalon.define({
+    $id: 'popoverBtnOK',
+    type: '', //窗口的类型
+    useCheck: 0, //1 checkButton, 0 closeButton
+    ok: function() {
+        vmPopover.close();
+    },
+    close: function() {
+        //纯粹隐藏，在关闭弹窗的时候不要清空弹窗内容
+
+        $('.popover').addClass('popover-hide');
+        popover_ishide = true;
+    }
+});
+
 iniOrder();
 
 registerWeixinConfig();
 
 function iniOrder() {
+    if(!isweixin) {
+        vmOrder.payType = 1; //不在微信里打开时，默认支付方式改成支付宝
+    }
+
     ajaxJsonp({
         url: urls.getOrderDetail,
         data: { id: orderid },
@@ -229,7 +297,7 @@ function iniOrder() {
                     vmOrder.fundList[0].isValid = true;
                 }
 
-                vmOrder.getFund();
+                // vmOrder.getFund();
 
                 showCancelBtn = 0;
                 showCheckoutBtn = 0;
@@ -258,9 +326,12 @@ function iniOrder() {
                 }
 
                 if(json.data.status == 1) {
-                        //待付款
-                        vmOrder.btn1Text = "取消预订";
-                        vmOrder.btn2Text = "立即支付";
+                    //待付款
+                    vmOrder.btn1Text = "取消预订";
+                    vmOrder.btn2Text = "立即支付";
+
+                    //查询可用会员卡及折扣
+                    vmOrder.getDiscount();
                 } else {
                     if(showCancelBtn > 0) {
                         vmOrder.btn1Text = "退订";
@@ -286,6 +357,19 @@ function payOrder() {
         return;
     }
 
+    if(vmOrder.payType == 6) {
+        
+        var cardCash = vmSelectCard.cardList[vmSelectCard.selectIndex].cashAmount;
+        
+        //暂时不算约会基金
+        if(cardCash==0 || cardCash < vmOrder.needAmount* vmOrder.discount) {
+            vmOrder.btn2Disabled = false;
+
+            popover('./util/card-select.html', 1)
+            return;
+        }
+    }
+
     ajaxJsonp({
         url: urls.payOrder,
         data: {
@@ -293,7 +377,9 @@ function payOrder() {
             payType: vmOrder.payType,
             fid: vmOrder.fundIndex > -1 ? vmOrder.fundList[vmOrder.fundIndex].id : '',
             orids: vmOrder.orids.join(','),
-            returnUrl: window.location.origin + '/payend.html?id=' + orderid
+            returnUrl: window.location.origin + '/payend.html?id=' + orderid,
+            cid: vmSelectCard.selectCardID,
+            did: vmOrder.did,
         },
         successCallback: function(json) {
             if (json.status === 1) {
@@ -308,6 +394,8 @@ function payOrder() {
                     }
                 } else if (vmOrder.payType == 2) { //微信支付
                     onBridgeReady();
+                } else if (vmOrder.payType == 6) { //钱包支付
+                    location.href = '/payend.html?id=' + orderid;
                 }
             } else {
                 //调取后台接口不成功

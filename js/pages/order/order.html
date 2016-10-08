@@ -56,6 +56,12 @@ input[type=checkbox] {
     border-radius: 0;
     height: 50px;
 }
+.width30 {
+    width: 30%;
+}
+.width70 {
+    width: 70%;
+}
 .width100 {
     width: 100%;
 }
@@ -111,7 +117,8 @@ input[type=checkbox] {
         <div class="bs-text-large" style="text-align: center;margin-top: -14px;background: #fff;height: 40px;line-height: 40px;" ms-click="goHotelById(data.hotel.id)" ms-if="data.status==1">
             <span class="mui-icon mui-icon-plusempty bs-text-red" style="font-size: 32px;position: relative;top: 3px;"></span>预定更多房间
         </div>
-        <div class="order-panel" ms-if="data.status==1">
+        <!-- <div class="order-panel" ms-if="data.status==1"> -->
+        <div class="order-panel" ms-if="false">
             <div class="order-panel-title bs-text-large bs-text-153">体验基金</div>
             <div class="order-fundList">
                 <div class="order-fund bs-text-normal bs-text-gold" ms-click="selectFund($index)" ms-repeat="fundList" ms-class="selected: $index == fundIndex" ms-if-loop="el.isValid">
@@ -129,29 +136,39 @@ input[type=checkbox] {
                 <span class="info-left">订单状态：</span>
                 <span class="info-right bs-text-black">{{getStatus(data.status)}}</span>
             </div>
-            <div style="clear: both;">
+            <div style="clear: both;" ms-if="discount<1">
                 <span class="info-left">优惠金额：</span>
-                <span class="info-right bs-text-red">¥{{fund}}</span>
+                <span class="info-right bs-text-red">¥<!-- {{fund}} -->
+                {{round(needAmount*discount)}}
+                （{{discountCard}}{{discount*10}}折优惠）</span>
             </div>
             <div style="clear: both;">
                 <span class="info-left">实付金额：</span>
                 <span class="info-right bs-text-red">
-                ¥{{round(needAmount-fund)<0?0:round(needAmount-fund)}}
+                ¥<!-- {{round(needAmount-fund)<0?0:round(needAmount-fund)}} -->
+                {{round(needAmount*discount)}}
                 </span>
             </div>
             <div>&nbsp;</div>
         </div>
+
         <div class="order-panel bs-text-small" ms-if="data.status==1">
             <div class="order-panel-title bs-text-large bs-text-153">支付方式</div>
-            <div ms-click="newRadio1" style="margin-bottom: 10px;">
+            <div ms-if="discount<1" ms-click="selectPayType(6)" style="margin-bottom: 10px;">
                 <div class="hiddenbox">
-                    <div class="check-icon" ms-class-1="unchecked:payType == 1" ms-class-2="checked:payType == 2" style="position: absolute; right: 5px;"></div>
+                    <div class="check-icon" ms-class-1="unchecked:payType!=6" ms-class-2="checked:payType==6" style="position: absolute; right: 5px;"></div>
+                </div>
+                <span class="bs-text-normal bs-text-black">钱包支付</span>
+            </div>
+            <div ms-if="isweixin" ms-click="selectPayType(2)" style="margin-bottom: 10px;">
+                <div class="hiddenbox">
+                    <div class="check-icon" ms-class-1="unchecked:payType!=2" ms-class-2="checked:payType==2" style="position: absolute; right: 5px;"></div>
                 </div>
                 <span class="bs-text-normal bs-text-black">微信支付</span>
             </div>
-            <div ms-click="newRadio2">
+            <div ms-click="selectPayType(1)">
                 <div class="hiddenbox">
-                    <div class="check-icon" ms-class-1="unchecked:payType == 2" ms-class-2="checked:payType == 1" style="position: absolute; right: 5px;"></div>
+                    <div class="check-icon" ms-class-1="unchecked:payType!=1" ms-class-2="checked:payType==1" style="position: absolute; right: 5px;"></div>
                 </div>
                 <span class="bs-text-normal bs-text-black">支付宝支付（请在浏览器中打开）</span>
             </div>
@@ -184,7 +201,9 @@ input[type=checkbox] {
     </div>
 
     <nav class="mui-bar mui-bar-tab" ms-if="btn1Text!=''||btn2Text!=''">
-        <button type="button" class="order-btn bs-text-white" ms-click="btn1Click" ms-class="visible-hidden:btn1Text==''" ms-attr-disabled="btn1Disabled" ms-class-1="bs-bg-gray:data.status==1||data.status==2" ms-class-2="bs-bg-gold:data.status==3||data.staus==4" ms-class-3="width100:data.staus==4">{{btn1Text}}</button>
-        <button type="button" class="order-btn bs-text-white bs-bg-black" ms-click="btn2Click" ms-class="visible-hidden:btn2Text==''" ms-attr-disabled="btn2Disabled">{{btn2Text}}</button>
+        <button type="button" class="order-btn bs-text-white" ms-click="btn1Click" ms-if="btn1Text!=''" ms-attr-disabled="btn1Disabled" ms-class-1="bs-bg-gray:data.status==1||data.status==2" ms-class-2="bs-bg-gold:data.status==3||data.staus==4" ms-class-3="width100:data.status==2||data.status==4">{{btn1Text}}</button>
+        <button type="button" class="order-btn bs-text-white bs-bg-black" ms-click="btn2Click" ms-if="btn2Text!=''" ms-attr-disabled="btn2Disabled">{{btn2Text}}</button>
+        <!--  ms-class="visible-hidden:btn1Text==''
+            ms-class="visible-hidden:btn2Text==''" -->
     </nav>
 </div>

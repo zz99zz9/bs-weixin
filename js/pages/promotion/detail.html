@@ -1,7 +1,3 @@
-<section class="promotion-detail-head">
-    <div class="bs-text-x-larger bs-text-white" style="margin: 4vh 0;">本宿推广套餐</div>
-</section>
-
 <section ms-controller="detail" class="ms-controller">
     <div class="swiper-container swiper">
         <div class="swiper-wrapper">
@@ -33,9 +29,9 @@
                 </section>
                 <!-- 已开通 -->
                 <section :if="el.status==2">
-                    <canvas id="circle" style="z-index: 1;order: 0;"></canvas>
+                    <canvas class="circle" style="z-index: 1;order: 0;"></canvas>
                     
-                    <div style="order: 2;position: relative;bottom: 53vh;height: 0;">
+                    <div style="order: 2;position: relative;bottom: 48vh;height: 0;">
                         <div class="bs-text-xx-larger bs-text-gold" style="padding-bottom: 10px;">
                             {{el.totalAward}}
                         </div>
@@ -44,15 +40,15 @@
                     </div>
 
                     <div style="order: 1;">
-                        <div>本月推广</div>
-                        <div style="display: flex;">
+                        <div>本月推广奖励 ¥{{el.monthAward}}</div>
+                        <div style="display: flex;justify-content: center;">
                             <div :if="el.monthShareTimes>0" :class="['promotion-btn',@taskList[index][0]?'promotion-done':'promotion-undo']" :on-tap="@complete(index, 0)">{{@taskList[index][0]?'完成':'待'}}</div>
                             <div :if="el.monthShareTimes>1" :class="['promotion-btn',@taskList[index][1]?'promotion-done':'promotion-undo']" :on-tap="@complete(index, 1)">{{@taskList[index][1]?'完成':'待'}}</div>
                             <div :if="el.monthShareTimes>2" :class="['promotion-btn',@taskList[index][2]?'promotion-done':'promotion-undo']" :on-tap="@complete(index, 2)">{{@taskList[index][2]?'完成':'待'}}</div>
                         </div>
                     </div>
                     
-                    <div class="bs-text-gold" style="order: 3;" :on-tap="@openRule">本宿推广大使条例</div>
+                    <div class="bs-text-gold" style="order: 3;" :on-tap="@openRule">本宿推广奖励条例</div>
                 </section>
             </div>
 

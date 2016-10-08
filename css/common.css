@@ -1395,3 +1395,32 @@ hr {
     border-radius: 0;
     height: 50px;
 }
+
+.hidden {
+    visibility: hidden;
+}
+
+/*条款弹窗的样式*/
+.content-rule {
+    background: #fff;
+    color: black;
+    height: 80vh;
+    overflow-y: auto;
+    transition: margin-top 100ms;
+    padding: 20px;
+}
+
+.content-headtitle {
+    font-size: 24px;
+    margin-bottom: 1.5rem;
+}
+
+.content-title {
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+.content-text {
+    font-size: 13px;
+    text-indent: 1rem;
+}

@@ -67,8 +67,26 @@ var vmCardBind = avalon.define({
     },
     select: function(type) {
         this.bindType = type;
-    }
+    },
+    getData: function() {
+        ajaxJsonp({
+            url: urls.getDefaultCashAccount,
+            data: {
+                cid: accountID,
+            },
+            successCallback: function(json){
+                if(json.status == 1) {
+                    if(json.data) {
+                        location.href = document.referrer || 'index.html';
+                    }
+                }
+            }
+        });
+    },
 });
+
+//如果已经绑定过默认帐号，就跳转
+// vmCardBind.getData();
 
 var vmPopover = avalon.define({
     $id: 'popoverBtnOK',
@@ -113,18 +131,24 @@ var vmCode = avalon.define({
     isDisabled: false,
     codeMsg: '发送验证码',
     getCode: function() {
-        ajaxJsonp({
-            url: urls.bindCashAccountSMS,
-            successCallback: function(json) {
-                if (json.status !== 1) {
-                    mui.alert(json.message);
-                    return;
-                } else {
-                    wait = 60;
-                    countSecond();
+        if(!vmCode.isDisabled) {
+            vmCode.isDisabled = true;
+
+            ajaxJsonp({
+                url: urls.bindCashAccountSMS,
+                successCallback: function(json) {
+                    if (json.status !== 1) {
+                        mui.alert(json.message);
+                        vmCode.isDisabled = false;
+                        return;
+                    } else {
+                        vmCode.isDisabled = true;
+                        wait = 60;
+                        countSecond();
+                    }
                 }
-            }
-        });
+            });
+        }
     },
     close: function() {
         vmPopover.close();

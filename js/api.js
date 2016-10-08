@@ -186,7 +186,7 @@ var urls = {
     getCardDetail: urlAPI + '/vip/userBuyCard/detail', //已经购买的会员卡详情
     submitCardOrder: urlAPI + '/vip/userBuyCardOrderInfo/submit', //购买会员卡下单
     payCardOrder: urlAPI + '/vip/pay/userBuyCardOrderInfoPay/cashier', //会员卡订单支付
-    getCardAccountList: urlAPI + '/vip/userCardAccount/list', //钱包列表
+    getCardAccountList: urlAPI + '/vip/userCardAccount/list', //钱包会员卡列表
     getDefaultCashAccount: urlAPI + '/vip/userCardAccountApplyCashAccount/defaultAccount', //获取默认提现帐号
     bindCashAccountSMS: urlAPI + '/usr/sms/bindApplyCashAcccount', //绑定提现帐号验证码
     bindCashAccount: urlAPI + '/vip/userCardAccountApplyCashAccount/bind', //绑定提现帐号
@@ -197,4 +197,6 @@ var urls = {
     goPromotion: urlAPI + '/vip/userCardMarketPackage/apply', //开通推广套餐
     promoteTaskList: urlAPI + '/vip/userCardMarketPackageTask/currentMonth', //当前任务列表
     submitPromoteTaskList: urlAPI + '/vip/userCardMarketPackageTask/submit', //提交任务
+    getAccountList: urlAPI + '/vip/userCardAccount/accountList', //会员卡账户列表
+    getDiscountList: urlAPI + '/vip/userBuyCard/discountList', //会员卡折扣列表
 }

@@ -39,7 +39,7 @@ vmRoom = avalon.define({
         data: {}
     },
     list: [],
-    startTimeIndex: 1,
+    startTimeIndex: 1, //夜房入住时间表盘
     todayIndex: 0,
     startIndex: -1,
     roomNightDiscount: [{
@@ -404,6 +404,7 @@ vmBtn = avalon.define({
                 vmRoom.showDate();
                 saveStorage();
                 vmRoom.startIndex = vmCalendar.startIndex;
+                vmCalendar.startClick();
                 break;
             case 'partTime':
                 vmRoom.showPartTime();
@@ -546,6 +547,10 @@ function room_init() {
                     if (newOrder.day && newOrder.day.startTimeIndex > 0) {
                         vmRoom.startTimeIndex = newOrder.day.startTimeIndex;
                         vmRoom.price = json.data[newOrder.day.startTimeIndex].discount;
+
+                        if(getToday('date') == newOrder.day.start) {
+                            setDefaultStartTime();
+                        }
                     } else {
                         //默认选择第二个时间
                         vmRoom.price = json.data[1].discount;
@@ -623,16 +628,30 @@ function room_init() {
 // @todayIndex: 日历模块中今天的序号
 // @hour: 入住时间，几点
 function disableCheckinTime(startIndex, hour) {
-    //入住时间选今天以后，要灰掉小于当前时间的表盘
+    //入住时间选今天，要灰掉小于当前时间的表盘
     if (vmRoom.todayIndex == startIndex) {
-        if (hour * 2 < getHourIndex()) {
+        if (hour * 2 < getHourIndex() && hour < vmRoom.roomNightDiscount[3].startTime) {
             return true;
         } else {
             return false;
         }
-    } else if (bookDateList && bookDateList.outIndex.indexOf(vmRoom.todayIndex) > -1) {
+    } else if (bookDateList && bookDateList.outIndex.indexOf(startIndex) > -1) {
         //14点以前的入住时段要灰掉
-        if (hour <= 14) {
+        //设置默认表盘
+        if (hour < 14) {
+            var index = vmRoom.startTimeIndex;
+            while(vmRoom.roomNightDiscount[index].startTime  < 14) {
+                if(index == 3) {
+                    break;
+                }
+                index ++;
+            }
+            vmRoom.startTimeIndex = index;
+
+            vmRoom.price = vmRoom.roomNightDiscount[index].discount;
+            newOrder.day.startTimeIndex = index;
+            newOrder.day.startTime = vmRoom.roomNightDiscount[index].startTime;
+            Storage.set("newOrder", newOrder);
             return true;
         } else {
             return false;
@@ -790,3 +809,32 @@ vmRoom.$watch('startTimeIndex', function(a) {
         vmRoom.price = 0;
     }
 })
+
+vmRoom.$watch('startIndex', function(a) {
+    //如果入住时间选择了今天
+    //根据当前的小时，选择表盘
+    if(a == vmRoom.todayIndex) {
+        setDefaultStartTime();
+    }
+})
+
+//预订今天全天房时，设置默认的表盘
+function setDefaultStartTime() {
+    var index = vmRoom.startTimeIndex;
+
+    //已选择的表盘早于当前时间，就修改为晚于当前时间的第一个表盘
+    //如果当前时间晚于最后一个表盘，就选择最后一个
+    while(vmRoom.roomNightDiscount[index].startTime * 2 < getHourIndex()) {
+        if(index == 3) {
+            break;
+        }
+        index ++;
+    }
+
+    vmRoom.startTimeIndex = index;
+
+    vmRoom.price = vmRoom.roomNightDiscount[index].discount;
+    newOrder.day.startTimeIndex = index;
+    newOrder.day.startTime = vmRoom.roomNightDiscount[index].startTime;
+    Storage.set("newOrder", newOrder);
+}

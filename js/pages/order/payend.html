@@ -1,45 +1,42 @@
 <div style="margin: 0 auto;width: 95%;" ms-controller="payend">
 
 	<div class="hotel">
-            <!-- <div ms-on-tap="goHotelById(hotel.id)"> -->
-            <div>
-                <p class="hotel-alias bs-text-larger bs-text-black">{{data.hotel.name}}</p>&nbsp;
-                <p class="room-name bs-text-larger bs-text-51">{{data.hotel.alias}}</p>
-                <p class="hotel-address bs-text-normal bs-text-gold" ms-on-tap="openNav(data.hotel.lat,data.hotel.lng,data.hotel.name,data.hotel.address)">
-                    <img src="img/icon/position.png" alt="" style="width: 17px;position: relative;top: 2px;">{{data.hotel.address}}
-                </p>
-            </div>
+        <!-- <div ms-on-tap="goHotelById(hotel.id)"> -->
+        <div>
+            <p class="hotel-alias bs-text-larger bs-text-black">{{data.hotel.name}}</p>&nbsp;
+            <p class="room-name bs-text-larger bs-text-51">{{data.hotel.alias}}</p>
+            <p class="hotel-address bs-text-normal bs-text-gold" ms-on-tap="openNav(data.hotel.lat,data.hotel.lng,data.hotel.name,data.hotel.address)">
+                <img src="img/icon/position.png" alt="" style="width: 17px;position: relative;top: 2px;">{{data.hotel.address}}
+            </p>
         </div>
+    </div>
         <!-- <div ms-on-tap="openNav(data.hotel.lat,data.hotel.lng,data.hotel.name,data.hotel.address)" class="line" style="background-image: url(img/line.png); position: absolute; top: 5px;"></div> -->
 
-        <ul class="order-list" ms-click="goOrder">
-            <li class="order-item" ms-repeat="data.orderRoomList" style="padding: 8px 0 8px 10px;">
-                <span class="order-panel-title bs-text-large bs-text-51">{{el.name}}</span>
-                <h5 class="bs-text-small bs-text-102" style="margin: 0 0 20px 0;">
-                    <span style="margin-bottom: 8px; display: inline-block;">
-                        <!-- 全天房 -->
-                        <span ms-if="!data.isPartTime">{{formatDate(el.startTime)}} - {{formatDate(el.endTime)}} &nbsp;共 {{el.timeCount}} 晚 {{getHourTime(el.startTime)}} 开始入住
-                        </span>
-                        <!-- 时租房 -->
-                        <span ms-if="data.isPartTime">{{formatDate(el.startTime)}} {{getHourTime(el.startTime)}} - {{getHourTime(el.endTime)}} &nbsp;共 {{el.timeCount}} 小时
-                        </span>
+    <ul class="order-list" ms-click="goOrder">
+        <li class="order-item" ms-repeat="data.orderRoomList" style="padding: 8px 0 8px 10px;">
+            <span class="order-panel-title bs-text-large bs-text-51">{{el.name}}</span>
+            <h5 class="bs-text-small bs-text-102" style="margin: 0 0 20px 0;">
+                <span style="margin-bottom: 8px; display: inline-block;">
+                    <!-- 全天房 -->
+                    <span ms-if="!data.isPartTime">{{formatDate(el.startTime)}} - {{formatDate(el.endTime)}} &nbsp;共 {{el.timeCount}} 晚 {{getHourTime(el.startTime)}} 开始入住
                     </span>
-                    <br>
-                    <span style=" margin-top: 8px;" ms-repeat-cl="el.orderCustomerList">{{cl.name}}&nbsp;</span>
-                    <br>
-                    <span class="bs-text-large bs-text-red" style="float: right; margin: 20px 15px 0 0;">¥{{el.amount}}</</span>
-                </h5>
-                <span style="clear: both;">&nbsp;</span>
-            </li>
-        </ul>
-	</div>
+                    <!-- 时租房 -->
+                    <span ms-if="data.isPartTime">{{formatDate(el.startTime)}} {{getHourTime(el.startTime)}} - {{getHourTime(el.endTime)}} &nbsp;共 {{el.timeCount}} 小时
+                    </span>
+                </span>
+                <br>
+                <span style=" margin-top: 8px;" ms-repeat-cl="el.orderCustomerList">{{cl.name}}&nbsp;</span>
+                <br>
+                <span class="bs-text-large bs-text-red" style="float: right; margin: 20px 15px 0 0;">¥{{el.amount}}</</span>
+            </h5>
+            <span style="clear: both;">&nbsp;</span>
+        </li>
+    </ul>
 
 	<!-- <div class="mui-table-view-cell">
 		<h4>电子钥匙</h4>	
 		<img src="../img/barcode.png" style="width:100%"/>
 	</div> -->
-	<div class="mui-table-view-cell">
-		<h4>入住流程</h4>	
-		<img src="../img/flow.png" style="width:100%"/>
-	</div>
+
+	<img src="../img/flow.jpg" style="width:100%"/>
 </div>

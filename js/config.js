@@ -452,7 +452,7 @@ function getHourIndex() {
     var now = getToday('time').split(':'),
         index = parseInt(now[0]) * 2;
 
-    if (parseInt(now[1]) >= 30) {
+    if (parseInt(now[1]) >= 0) {
         index++;
     }
 
@@ -522,4 +522,28 @@ function numToHan(num) {
         case 9:
             return '九';
     }
+}
+
+function goPromotion() {
+    var promotionUrl = '';
+    ajaxJsonp({
+        url: urls.promotionList,
+        successCallback: function(json) {
+            if (json.status == 1) {
+                if(json.data.length > 0) {
+                    json.data.map(function(p) {
+                        if(p.status == 2) {
+                            promotionUrl = 'promotion-detail.html';
+                        }
+                    });
+                }
+                
+                if(promotionUrl == '') {
+                    promotionUrl = 'promotion-apply.html';
+                }
+
+                location.href = promotionUrl;
+            }
+        }
+    });
 }

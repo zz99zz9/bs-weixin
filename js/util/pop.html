@@ -1,16 +1,17 @@
 <div id="popModule" style="display: none;" class="hide" ms-controller="aside" >
     <div class="content">
         <div class="mui-text-center bs-bg-white" style="padding-top: 20px;">
-            <div class="circle" style="width: 104px;height: 104px;margin: 0px auto 8px auto;border: 1px solid #baa074;">    
+            <div class="circle" style="width: 104px;height: 104px;margin: 0px auto;border: 1px solid #baa074;">    
                 <div class="circle" style="margin: 0 auto;width: 96px;height: 96px;background-size: cover;background-position: center;position:relative;top: 3px;" ms-css-background-image='url({{headImg}})' ms-on-tap="changeImg">
                     <img src="../img/edit-small.png" style="position: absolute;background: #fff;border-radius: 50%;bottom: 2px;left: 72px;width: 18px;"/>
                 </div>
             </div> 
             <!-- <div class="bs-text-large" style="font-weight: lighter;padding-bottom: 10px;">{{nickName}}</div> -->
             <!-- 会员卡 -->
-            <div style="padding-bottom: 5px;">
-                <img ms-repeat="cardList" ms-attr-src="el.img" style="width:22px;" ms-css-margin-right="$index==0?'12px':''" alt="" ms-on-tap="goCard(el.id)">
+            <div style="padding: 5px;" ms-if="cardList[0].id">
+                <img ms-repeat="cardList" ms-attr-src="el.img" style="width:22px;" ms-css-margin-right="$index==0?'12px':''" alt="" ms-on-tap="goCard(el.id, $index)">
             </div>
+            <div class="bs-text-smaller bs-text-gold" style="padding: 5px;" ms-if="!cardList[0].id" ms-on-tap="goCard(0, 0)">成为本宿会员</div>
         </div>
 
         <div class="control bs-bg-black bs-text-white">
@@ -53,10 +54,16 @@
                     <div class="bs-text-smaller bs-text-black">个人信息</div>
                 </a>
             </div>
-            <div class="center-nav-item" ms-on-tap="clickA(4)" ms-visible="!isManage">
+            <!-- <div class="center-nav-item" ms-on-tap="clickA(4)" ms-visible="!isManage">
                 <a href="javascript:void(0)">
                     <img src="../img/icon/fund.png" class="grid-icon" />
                     <div class="bs-text-smaller bs-text-black">体验基金</div>
+                </a>
+            </div> -->
+            <div class="center-nav-item" ms-on-tap="clickA(4)" ms-visible="!isManage">
+                <a href="javascript:void(0)">
+                    <img src="../img/icon/fund.png" class="grid-icon" />
+                    <div class="bs-text-smaller bs-text-black">推广奖励</div>
                 </a>
             </div>
             <div class="center-nav-item" ms-on-tap="clickA(8)" ms-visible="isAlliance&&!isManage">

@@ -17,7 +17,7 @@ var vmDetail = avalon.define({
             successCallback: function(json) {
                 if (json.status == 1) {
                     if(json.data.length == 0) {
-                        mui.alert('您还没有成为推广大使', function(){
+                        mui.alert('您还没有成为推广奖励', function(){
                             location.href = document.referrer || 'index.html';
                         });
                     } else {
@@ -33,23 +33,44 @@ var vmDetail = avalon.define({
                             }
                         }
                         vmDetail.a++;
+
+                        /**
+                         * canvas画圆形
+                         */
+                         $('.circle').each(function(i, o) {
+                            var $circle = o;
+
+                            var context = $circle.getContext('2d');
+                            $circle.width = window.innerWidth;
+                            $circle.height = 160;
+
+                            context.beginPath();
+                            context.arc((window.innerWidth) / 2,
+                                95,
+                                75, getRadians(135), getRadians(45), false);
+                            context.lineWidth = 7;
+                            context.strokeStyle = "rgb(186,160,113)";
+                            context.stroke();
+                        });
                     }
                 }
             }
         });
     },
     goPromotion: function(index) {
-        //开通套餐
-        ajaxJsonp({
-            url: urls.goPromotion,
-            data: {pid: vmDetail.list[index].id},
-            successCallback: function(json) {
-                if (json.status == 1) {
-                    vmDetail.getList();
-                } else {
-                    mui.alert(json.message);
+        mui.alert('开通成功', function() {
+            //开通套餐
+            ajaxJsonp({
+                url: urls.goPromotion,
+                data: {pid: vmDetail.list[index].id},
+                successCallback: function(json) {
+                    if (json.status == 1) {
+                        vmDetail.getList();
+                    } else {
+                        mui.alert(json.message);
+                    }
                 }
-            }
+            });
         });
     },
     taskList: [
@@ -115,19 +136,3 @@ var vmPopover = avalon.define({
 });
 
 vmDetail.getList();
-
-/**
- * canvas画圆形
- */
-var $circle = $('#circle');
-var context = $circle[0].getContext('2d');
-$circle.attr("width", window.innerWidth);
-$circle.attr("height", 160);
-
-context.beginPath();
-context.arc((window.innerWidth) / 2,
-    80,
-    75, getRadians(135), getRadians(45), false);
-context.lineWidth = 7;
-context.strokeStyle = "rgb(186,160,113)";
-context.stroke();
