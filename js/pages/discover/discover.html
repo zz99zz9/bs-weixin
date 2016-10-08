@@ -1,22 +1,56 @@
 <style>
-    a {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 33.33vh;
-        width: 100%;
-        background-size: cover; 
-    }
-</style>
-<div>
-    <a href="user-invite.html" style="background-image:url(img/getFund.jpg)">
-        <div class="bs-text-x-larger bs-text-white" style="text-shadow:1px 2px 0 rgba(0,0,0,0.3),0 0 90px #ff00de;">获取体验基金</div>
-    </a>
-    <a href="###" onclick="goPromotion()" style="background-image:url(img/generalize.jpg)">
-        <div class="bs-text-x-larger bs-text-white" style="text-shadow:1px 2px 0 rgba(0,0,0,0.3),0 0 90px rgba(16,197,23,0.7);">本宿推广奖励</div>
-    </a>
-    <a href="about.html" style="background-image:url(img/aboutUs.jpg)">
-        <div class="bs-text-x-larger bs-text-white" style="text-shadow:1px 2px 0 rgba(0,0,0,0.3),0 0 50px #ff9530;">关于我们</div>
-    </a>
-</div>
+.goPromotion {
+    height: 85vh;
+    background-image: url(img/discovery_promotion.jpg);
+    background-size: cover;
+    text-align: center;
+    flex-grow: 1;
+}
+.goPromotion:active {
+    text-shadow: 1px 2px 0 rgba(0,0,0,0.3);
+}
 
+a {
+    flex: 0 0 25%;
+    color: white;
+    font-size: 12px;
+    border: 1px solid white;
+    height: 15vh;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+a:active {
+    text-shadow:1px 2px 0 rgba(0,0,0,0.3);
+    color: white;
+}
+</style>
+<div class="bs-text-white" style="display: flex;flex-wrap: wrap;">
+    <section onclick="goPromotion()" class="goPromotion">
+        <div class="bs-text-x-larger" style="padding: 70px 0 30px 0;">获取推广奖励计划</div>
+        <div class="bs-text-normal">住酒店还能挣钱</div>
+    </section>
+    <section style="display: flex;flex-grow: 1;">
+        <a href="###" style="background-image:url(img/discovery_sleeper.png);">
+            <div>
+                招募试睡师
+            </div>
+        </a>
+        <a href="special.html" style="background-image:url(img/discovery_midnight.png);">
+            <div>
+                午夜特价房
+            </div>
+        </a>
+        <a href="###" style="background-image:url(img/discovery_join.png);">
+            <div>
+                加盟本宿
+            </div>
+        </a>
+        <a href="about.html" style="background-image:url(img/discovery_about.png);">
+            <div>
+                关于我们
+            </div>
+        </a>
+    </section>
+</div>
