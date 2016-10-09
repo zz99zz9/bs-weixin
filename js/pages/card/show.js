@@ -1,5 +1,6 @@
 var vmCardBuy = avalon.define({
     $id: 'cardShow',
+    data: {},
     cardNo: '',
     validDate: '',
     cardType: 0,
@@ -9,6 +10,7 @@ var vmCardBuy = avalon.define({
             data: { bid: cardID },
             successCallback: function(json) {
                 if (json.status == 1) {
+                    vmCardBuy.data = json.data;
                     vmCardBuy.cardNo = json.data.cardNo;
                     vmCardBuy.validDate = json.data.endTime.slice(0, 4) + '/' + json.data.endTime.slice(5, 7);
                     vmCardBuy.cardType = json.data.type;

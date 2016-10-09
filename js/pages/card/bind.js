@@ -18,6 +18,7 @@ var vmCardBind = avalon.define({
     bindType: 1, //1 支付宝, 2 银行卡
     accountNo: '',
     accountName: '',
+    bankNo: '',
     bankName: '',
     bind: function() {
         // mui.confirm(
@@ -103,13 +104,17 @@ var vmPopover = avalon.define({
                     cid: accountID,
                     code: vmCode.code,
                     accountType: vmCardBind.bindType,
-                    accountNo: vmCardBind.accountNo,
+                    accountNo: vmCardBind.bindType==1?vmCardBind.accountNo:vmCardBind.bankNo,
                     accountName: vmCardBind.accountName,
                     bankName: vmCardBind.bankName,
                 },
                 successCallback: function(json) {
                     if (json.status == 1) {
-                        location.replace("card-log.html?cid=" + accountID);
+                        vmPopover.close();
+                        mui.alert('绑定成功', function(){
+                            history.go(-1);
+                        });
+                        // location.replace("card-log.html?cid=" + accountID);
                     } else {
                         mui.alert(json.message);
                     }
