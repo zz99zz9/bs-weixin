@@ -40,7 +40,7 @@ var vmCardBind = avalon.define({
                 return;
             }
         } else if (vmCardBind.bindType == 2) {
-            if (vmCardBind.accountNo == '') {
+            if (vmCardBind.bankNo == '') {
                 mui.alert('请输入您的银行卡号');
                 return;
             }
