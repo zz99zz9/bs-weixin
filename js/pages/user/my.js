@@ -83,6 +83,11 @@ var vmSide = avalon.define({
 					} else {
 						vmSide.headImg = urlAPINet + json.data.headUrl;
 					}
+
+                    if(location.pathname.indexOf('index')>=0) {
+                        vmHotel.headImg = vmSide.headImg;
+                    }
+
 					vmSide.nickName = json.data.nickname;
 					vmSide.isAdmin = json.data.isAdmin;
                     vmSide.isAlliance = json.data.isAlliance;
