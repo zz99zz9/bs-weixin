@@ -108,11 +108,11 @@ var vmDetail = avalon.define({
                                     vmDetail.taskList[prIndex][taskIndex] = 1;
 
                                     var done = true;
-                                    vmDetail.$model.taskList[prIndex].map(function(o) {
-                                        if(o == 0) {
+                                    for(var i = 0; i < vmDetail.$model.list[prIndex].monthShareTimes; i++ ) {
+                                        if(vmDetail.$model.taskList[prIndex][i] == 0) {
                                             done = false;
                                         }
-                                    });
+                                    }
 
                                     if(done) {
                                         mui.alert('感谢您的支持，本宿工作人员审核后，推广奖励将汇入您的钱包，请及时查询！');
