@@ -119,7 +119,7 @@ var vmOrder = avalon.define({
             url: urls.getDiscountList,
             successCallback: function(json) {
                 if (json.status == 1) {
-                    if(json.data.length > 1 && json.data[0].discount){
+                    if(json.data.length > 0 && json.data[0].discount){
                         vmOrder.did = json.data[0].id;
                         vmOrder.discount = json.data[0].discount;
                         vmOrder.discountCard = json.data[0].name;

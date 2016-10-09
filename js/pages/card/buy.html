@@ -23,21 +23,19 @@
         <section style="padding: 10px 0 5px 10px;">
             <div class="bs-text-red bs-text-larger" style="padding-top: 5px; padding-bottom: 25px;">¥{{@data.amount}}</div>
             <div class="bs-text-smaller bs-text-51" style="margin-bottom: 10px;">
-                <span>只需预存 {{@data.amount}} 即可升级成为{{@data.name}}会员，有效期 12 个月。</span>
-                <br>
-                <span>{{@data.name}}会员将享受以下优惠：</span>
+                <span>只需预存 {{@data.amount}} 元，即可升级成为本宿{{@data.name}}会员，有效期为 12 个月。{{@data.name}}会员入住所有本宿酒店均无需交纳押金，还可享受如下优惠：</span>
             </div>
             <div class="card-buy-item">
                 <img class="card-buy-item-left" src='img/card/card-discount.png' style="width: 49px;height: 30px;" alt="">
-                <div class="card-buy-item-right bs-text-153 bs-text-smaller">凭此卡入住任意本宿酒店，即可享受{{@data.discount*10}}折优惠</div>
+                <div class="card-buy-item-right bs-text-153 bs-text-smaller">凭此卡入住任意本宿酒店，即可享受 {{@data.discount*10}} 折优惠</div>
             </div>
             <div class="card-buy-item">
                 <img class="card-buy-item-left" src='img/card/card-award.png' style="width: 50px;height: 48px;" alt="">
-                <div class="card-buy-item-right bs-text-153 bs-text-smaller">每月返还预存金额{{@data.monthReturnAmount}}元, {{@data.totalReturnTimes}}个月全额返还预存款。<br>用户可直接提现或在店内消费。</div>
+                <div class="card-buy-item-right bs-text-153 bs-text-smaller">每月返还预存金额 {{@data.monthReturnAmount}} 元, {{@data.totalReturnTimes}} 个月全额返还预存款。<br>用户可直接提现或在店内消费。</div>
             </div>
             <div class="card-buy-item">
                 <img class="card-buy-item-left" src='img/card/card-promotion.png' style="width: 50px;height: 48px;" alt="">
-                <div class="card-buy-item-right bs-text-153 bs-text-smaller">本宿{{@data.name}}会员免审核获得每月最高{{@data.monthShareTimes*@data.everyTimeAward}}元推广奖励金额。<br>奖励可直接提现或在店内消费。</div>
+                <div class="card-buy-item-right bs-text-153 bs-text-smaller">本宿{{@data.name}}会员免审核获得每月最高 {{@data.monthShareTimes*@data.everyTimeAward}} 元推广奖励金额。<br>奖励可直接提现或在店内消费。</div>
             </div>
         </section>
     </div>

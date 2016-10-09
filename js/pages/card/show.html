@@ -1,5 +1,27 @@
+<style>
+.nav-bottom-btn-left {
+    background: #000;
+    color: #fff;
+    font-size: 17px;
+    font-weight: bolder;
+    width: 28%;
+    border: none;
+    border-radius: 0;
+    height: 50px;
+}
+.nav-bottom-btn-right {
+    background: #baa071;
+    color: #fff;
+    font-size: 17px;
+    font-weight: bolder;
+    width: 72%;
+    border: none;
+    border-radius: 0;
+    height: 50px;
+}
+</style>
 <meta name="format-detection" content="telephone=no">
-<div class="card-frame ms-controller" :controller="cardShow" style="padding: 3vw;">
+<div class="card-frame ms-controller" :controller="cardShow" style="padding: 3vw;background-color: #fff;height: 100vh;">
     <div class="card-show" :css="{'background-image': 'url(' + @getType() + ')'}">
         <div class="card-font">
             <div class="card-cardNo">
@@ -19,4 +41,10 @@
             </div>
         </div>
     </div>
+
+    <div class="bs-text-normal" style="text-indent: 2rem;">欢迎您加入本宿大家庭，成为我们尊贵的VIP用户，在这里您不仅能享受到全新的住宿体验、VIP级客户服务，亦能通过帮助我们推广获得丰厚的收入！</div>
+</div>
+<div style="position: absolute;bottom: 0;display: table;width: 100vw;">
+    <button class="nav-bottom-btn-left" type="button" onclick="javascript:location.href='index.html'">暂不开通</button>
+    <button class="nav-bottom-btn-right" type="button" onclick="javascript:location.href='promotion-apply.html'">现在开通本宿推广奖励计划</button>
 </div>

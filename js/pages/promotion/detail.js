@@ -83,10 +83,18 @@ var vmDetail = avalon.define({
     a: 0,
     complete: function(prIndex, taskIndex) {
         if(!vmDetail.taskList[prIndex][taskIndex]) {
-            mui.confirm('已经完成本次推广？','',
-                ["否", "是"], 
-                function(e) {
+            var todayDone = false;
+            vmDetail.$model.list[prIndex].currentMonthTaskList.map(function(t) {
+                if(t.submitTime.slice(0,10) == getToday('date')) {
+                    todayDone = true;
+                    mui.alert('Sorry, 每天只能完成一次任务！');
+                }
+            });
+
+            if(!todayDone) {
+                mui.confirm('已经完成本次推广？','',["否", "是"], function(e) {
                     if(e.index == 1) {
+                        //记录当前轮播页
                         Storage.set('prData', { index: prIndex });
                         
                         ajaxJsonp({
@@ -94,6 +102,19 @@ var vmDetail = avalon.define({
                             data: {pid: vmDetail.list[prIndex].id},
                             successCallback: function(json) {
                                 if (json.status == 1) {
+                                    vmDetail.taskList[prIndex][taskIndex] = 1;
+
+                                    var done = true;
+                                    vmDetail.$model.taskList[prIndex].map(function(o) {
+                                        if(o == 0) {
+                                            done = false;
+                                        }
+                                    });
+
+                                    if(done) {
+                                        mui.alert('感谢您的支持，本宿工作人员审核后，推广奖励将汇入您的钱包，请及时查询！');
+                                    }
+
                                     vmDetail.getList();
                                 } else {
                                     mui.alert(json.message);
@@ -101,7 +122,8 @@ var vmDetail = avalon.define({
                             }
                         });
                     }
-                })
+                });
+            }
         }
     },
     openRule: function() {
