@@ -22,7 +22,10 @@ var vmDetail = avalon.define({
                         });
                     } else {
                         vmDetail.list = json.data;
-
+                        vmDetail.taskList = [
+                            [0, 0, 0],
+                            [0, 0, 0]
+                        ];
                         for(var i = 0; i<json.data.length; i++) {
                             var num = 0;
                             for(var j = 0; j<json.data[i].currentMonthTaskList.length; j++) {
