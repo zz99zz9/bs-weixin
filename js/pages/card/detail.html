@@ -49,7 +49,7 @@
                         返现累计
                     </div>
                 </div>
-                <div>
+                <div :if="el.id>0" >
                     <div :if="el.packageStatus==2" class="bs-text-larger bs-text-gold">
                         {{el.totalAwardAmount}}
                     </div>
