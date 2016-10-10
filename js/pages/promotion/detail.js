@@ -13,7 +13,7 @@ var vmDetail = avalon.define({
     isShowMask: false,
     hideMask: function() {
         vmDetail.isShowMask = false;
-        Storage.setLocal('user', { openUserInfo: 0});
+        Storage.setLocal('user', { openUserInfo: 1});
 
         location.href = "index.html";
     },
