@@ -20,27 +20,49 @@ var vmPay = avalon.define({
         //再支付订单
         ajaxJsonp({
             url: urls.payCardOrder,
-            data: { 
+            data: {
                 oid: orderid,
                 payType: 1,
-                returnUrl: window.location.origin + "/card-show.html"
+                returnUrl: window.location.origin + "/closePage.html"
             },
             successCallback: function(json) {
                 if (json.status == 1) {
                     //跳转支付宝提供的支付页面
                     location.href = json.data.payUrl;
+                } else {
+                    mui.alert(json.message, function() {
+                        location.href = document.referrer || "index.html";
+                    });
+                }
+            }
+        });
+    },
+    isPaySuccess: function() {
+        console.log(1);
+        ajaxJsonp({
+            url: urls.getCardOrderInfo,
+            data: {
+                oid: orderid,
+            },
+            successCallback: function(json) {
+                if (json.status == 1) {
+                    if (json.payStatus) {
+                        location.href = "card-show.html?id=" + json.data.id;
+                    }
                 }
             }
         });
     }
 });
 
-if(!isLocalStorageNameSupported) {
+if (!isLocalStorageNameSupported) {
     mui.alert("您的 Safari 浏览器可能需要修改‘阻止Cookie’设置，请在打开 设置-Safari-阻止Cookie，选择'始终允许'。")
 }
 
-if(isweixin) {
+if (isweixin) {
     vmPay.isShowMask = true;
 } else {
     vmPay.payOrder();
 }
+
+setInterval('vmPay.isPaySuccess()', 1000);
