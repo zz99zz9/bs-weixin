@@ -46,8 +46,8 @@ var vmPay = avalon.define({
             },
             successCallback: function(json) {
                 if (json.status == 1) {
-                    if (json.payStatus) {
-                        location.href = "card-show.html?id=" + json.data.id;
+                    if (json.data.payStatus) {
+                        location.href = "card-show.html?id=" + json.data.cid;
                     }
                 }
             }
