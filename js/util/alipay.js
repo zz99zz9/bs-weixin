@@ -38,7 +38,6 @@ var vmPay = avalon.define({
         });
     },
     isPaySuccess: function() {
-        console.log(1);
         ajaxJsonp({
             url: urls.getCardOrderInfo,
             data: {
@@ -46,8 +45,20 @@ var vmPay = avalon.define({
             },
             successCallback: function(json) {
                 if (json.status == 1) {
+                    //支付成功
                     if (json.data.payStatus) {
-                        location.href = "card-show.html?id=" + json.data.cid;
+                        //根据卡号查询已购买的卡id
+                        ajaxJsonp({
+                            url: urls.getCardDetailByCardNo,
+                            data: {
+                                cardNo: json.data.cardNo,
+                            },
+                            successCallback: function(json) {
+                                if (json.status == 1) {
+                                    location.href = "card-show.html?id=" + json.data.id;
+                                }
+                            }
+                        });
                     }
                 }
             }
