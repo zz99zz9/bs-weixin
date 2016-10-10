@@ -10,6 +10,13 @@ if (!prData) {
 
 var vmDetail = avalon.define({
     $id: 'detail',
+    isShowMask: false,
+    hideMask: function() {
+        vmDetail.isShowMask = false;
+        Storage.setLocal('user', { openUserInfo: 0});
+
+        location.href = "index.html";
+    },
     list: [],
     getList: function() {
         ajaxJsonp({
@@ -69,6 +76,8 @@ var vmDetail = avalon.define({
                 successCallback: function(json) {
                     if (json.status == 1) {
                         vmDetail.getList();
+
+                        vmDetail.isShowMask = true;
                     } else {
                         mui.alert(json.message);
                     }
