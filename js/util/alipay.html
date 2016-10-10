@@ -29,14 +29,14 @@
         <div ms-click="maskToggle" class="bs-text-large" style="padding-top: 35px;">关闭 <br></div>
     </div>
     <section ms-if="!isweixin" style="padding:68px 0;">
-        <div class="bs-text-x-larger">支付信息加载中，请稍候……</div>
+        <div class="bs-text-x-larger" style="line-height: 30px;">支付信息加载中，请稍候……</div>
         <div class="bs-text-gold bs-text-large" style="padding-top: 10px;">
             正在处理支付宝请求，请您在支付宝中完成支付
         </div>
     </section>
 
     <section ms-if="isweixin" style="padding:68px 0 20px 0;">
-        <div class="bs-text-x-larger">支付信息加载成功</div>
+        <div class="bs-text-x-larger" style="line-height: 30px;">支付信息加载成功</div>
         <div class="bs-text-gold bs-text-large" style="padding-top: 10px;">
             因微信无法处理支付宝请求，请您按照以下步骤继续完成支付
         </div>

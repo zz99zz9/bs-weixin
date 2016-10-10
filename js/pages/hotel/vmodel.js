@@ -36,9 +36,7 @@ if (bensue) {
 } else { 
     //第一次加载
     roomType = 0;
-    Storage.set("bensue", {
-        type: 0
-    });
+    Storage.set("bensue", {type: 0});
     isOk = 1;
     setTimeout(function() {
         if (isOk) {

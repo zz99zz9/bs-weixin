@@ -21,12 +21,12 @@ var vmPay = avalon.define({
         ajaxJsonp({
             url: urls.payCardOrder,
             data: { 
-                oid:  orderid,
+                oid: orderid,
                 payType: 1,
                 returnUrl: window.location.origin + "/card-show.html"
             },
             successCallback: function(json) {
-                if (json.status === 1) {
+                if (json.status == 1) {
                     //跳转支付宝提供的支付页面
                     location.href = json.data.payUrl;
                 }
@@ -34,6 +34,10 @@ var vmPay = avalon.define({
         });
     }
 });
+
+if(!isLocalStorageNameSupported) {
+    mui.alert("您的 Safari 浏览器可能需要修改‘阻止Cookie’设置，请在打开 设置-Safari-阻止Cookie，选择'始终允许'。")
+}
 
 if(isweixin) {
     vmPay.isShowMask = true;
