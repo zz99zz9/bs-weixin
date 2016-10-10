@@ -21,6 +21,10 @@ var vmCardBuy = avalon.define({
         return 'img/card/No' + vmCardBuy.cardType + '.png';
     },
     getData: function() {
+        if(!isweixin) {
+            vmCardBuy.payType = 1; //不在微信里打开时，默认支付方式改成支付宝
+        }
+
         ajaxJsonp({
             url: urls.getDicCardDetail,
             data: { id: cardID },
@@ -72,32 +76,27 @@ var vmCardBuy = avalon.define({
                                     if (json.status === 1) {
                                         var oid = json.data.id;
                                         
-                                        //再支付订单
-                                        ajaxJsonp({
-                                            url: urls.payCardOrder,
-                                            data: { 
-                                                oid:  oid,
-                                                payType: vmCardBuy.payType,
-                                                returnUrl: window.location.origin + "/card-show.html"
-                                            },
-                                            successCallback: function(json) {
-                                                if (json.status === 1) {
-                                                    vmCardBuy.payinfo = json.data;
+                                        if (vmCardBuy.payType == 1) { 
+                                            //支付宝支付，跳转支付页面
+                                            location.href = 'alipay.html?oid=' + oid;
+                                        } else if (vmCardBuy.payType == 2) { 
+                                            //微信支付订单
+                                            ajaxJsonp({
+                                                url: urls.payCardOrder,
+                                                data: { 
+                                                    oid:  oid,
+                                                    payType: vmCardBuy.payType,
+                                                    returnUrl: window.location.origin + "/card-show.html"
+                                                },
+                                                successCallback: function(json) {
+                                                    if (json.status === 1) {
+                                                        vmCardBuy.payinfo = json.data;
 
-                                                    if (vmCardBuy.payType == 1) { //支付宝支付
-                                                        if (isweixin) { //如果是在微信里打开
-                                                            // location.href = 'alipay-iframe.html?payUrl=' + encodeURIComponent(json.data.payUrl);
-                                                            mui.alert("请点击微信右上角菜单中的\"在浏览器中打开\"选项，在外部浏览器中使用支付宝支付", "支付订单");
-                                                            vmCardBuy.isDisabled = false;
-                                                        } else { //在其它浏览器打开
-                                                            location.href = json.data.payUrl;
-                                                        }
-                                                    } else if (vmCardBuy.payType == 2) { //微信支付
                                                         onBridgeReady();
                                                     }
                                                 }
-                                            }
-                                        });
+                                            });
+                                        }
                                     }   else {
                                         //调取后台接口不成功
                                         mui.alert(json.message, "支付订单");

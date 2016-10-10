@@ -41,7 +41,7 @@
     </div>
 
     <section class="bs-text-small bs-text-51" style="padding: 12px 10px 20px 10px;">
-        <div style="margin-bottom: 15px;" :on-tap="@chooseType(2)">
+        <div style="margin-bottom: 15px;" :on-tap="@chooseType(2)" :if="isweixin">
             <div class="hiddenbox">
                 <div class="check-icon" :class="@payType == 2?'checked':'unchecked'" style="position: absolute; right: 0px;" :on-tap="@chooseType(2)"></div>
             </div>

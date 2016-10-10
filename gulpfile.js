@@ -235,6 +235,24 @@ function payend() {
         .pipe(gulp.dest('./src'));
 }
 
+//支付宝支付提示跳转页面
+function alipay() {
+    return gulp.src('./js/layout/shell.html')
+        .pipe(replace({
+            regex: '<!-- js -->',
+            replace: '<script src="js/util/alipay.js"></script>'
+        }))
+        .pipe(replace({
+            regex: '<!-- content -->',
+            replace: '<!--include "../util/alipay.html"-->'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('alipay.html'))
+        .pipe(gulp.dest('./src'));
+}
+
 //用户提交评论
 function submitassess() {
     return gulp.src('./js/layout/shell.html')
@@ -2280,7 +2298,8 @@ gulp.task('html', gulp.parallel(
     warehouseFormAllocate,
     warehouseFormStock,
     discover,
-    special
+    special,
+    alipay
 ));
 
 function watchForReload() {
