@@ -238,7 +238,7 @@ var vmHotel = avalon.define({
             },
             successCallback: function(json) {
                 if (json.status === 1) {
-                    if (json.data.list.length > 1) {
+                    if (json.data.list.length > 0) {
                         if (json.data.pageCount > 1) {
                             vmHotel.isShowLoadMoreBtn = true;
                         }
