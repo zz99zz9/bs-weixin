@@ -45,10 +45,10 @@ var vmSide = avalon.define({
     goCard: function(id, index) {
         stopSwipeSkip.do(function() {
             if(id > 0) {
-                location.href = "card-show.html?id=" + id;
+                location.href = "../card-show.html?id=" + id;
             } else {
                 Storage.set('cardData', {cardIndex: index});
-                location.href = "card-list.html";
+                location.href = "../card-list.html";
             }
         });
     },
@@ -130,7 +130,7 @@ var vmSide = avalon.define({
                 data: {},
                 successCallback: function(json) {
                     if (json.status == 1) { //已登录
-                        location.href = 'avatar.html';
+                        location.href = '../avatar.html';
                         //通过config接口注入权限验证配置
                         // ajaxJsonp({
                         //     url: urls.weiXinConfig,
