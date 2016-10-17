@@ -86,7 +86,7 @@ var vmCardBuy = avalon.define({
                                                 data: { 
                                                     oid:  oid,
                                                     payType: vmCardBuy.payType,
-                                                    returnUrl: window.location.origin + "/card-show.html"
+                                                    returnUrl: window.location.origin + "/card-show.html?isShowNew=1"
                                                 },
                                                 successCallback: function(json) {
                                                     if (json.status === 1) {
@@ -181,7 +181,7 @@ function callWcpay() {
     }, function(res) {
         if (res.err_msg == "get_brand_wcpay_request:ok") {
 
-            location.replace("card-show.html");
+            location.replace("card-show.html?isShowNew=1");
         } else {
             vmCardBuy.isDisabled = false;
             if (res.err_msg == "get_brand_wcpay_request:fail") {
