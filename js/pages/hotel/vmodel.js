@@ -36,9 +36,7 @@ if (bensue) {
 } else { 
     //第一次加载
     roomType = 0;
-    Storage.set("bensue", {
-        type: 0
-    });
+    Storage.set("bensue", {type: 0});
     isOk = 1;
     setTimeout(function() {
         if (isOk) {
@@ -240,7 +238,7 @@ var vmHotel = avalon.define({
             },
             successCallback: function(json) {
                 if (json.status === 1) {
-                    if (json.data.list.length > 1) {
+                    if (json.data.list.length > 0) {
                         if (json.data.pageCount > 1) {
                             vmHotel.isShowLoadMoreBtn = true;
                         }

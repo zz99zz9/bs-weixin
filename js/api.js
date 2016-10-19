@@ -184,6 +184,7 @@ var urls = {
     getCardList: urlAPI + '/vip/userBuyCard/list', //已经购买的会员卡列表
     getDicCardDetail: urlAPI + '/vip/membershipCard/detail', //会员卡详情字典数据
     getCardDetail: urlAPI + '/vip/userBuyCard/detail', //已经购买的会员卡详情
+    getCardDetailByCardNo: urlAPI + '/vip/userBuyCard/detailByCardNo', //根据会员卡号获取会员卡详情
     submitCardOrder: urlAPI + '/vip/userBuyCardOrderInfo/submit', //购买会员卡下单
     payCardOrder: urlAPI + '/vip/pay/userBuyCardOrderInfoPay/cashier', //会员卡订单支付
     getCardAccountList: urlAPI + '/vip/userCardAccount/list', //钱包会员卡列表
@@ -199,4 +200,5 @@ var urls = {
     submitPromoteTaskList: urlAPI + '/vip/userCardMarketPackageTask/submit', //提交任务
     getAccountList: urlAPI + '/vip/userCardAccount/accountList', //会员卡账户列表
     getDiscountList: urlAPI + '/vip/userBuyCard/discountList', //会员卡折扣列表
+    getCardOrderInfo: urlAPI + '/vip/userBuyCardOrderInfo/detail', //会员卡订单详情
 }

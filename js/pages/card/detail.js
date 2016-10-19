@@ -67,7 +67,7 @@ var vmCardDetail = avalon.define({
     },
     openWithdraw: function(index, cash) {
         if(cash == 0) {
-            mui.toast("你的可提现余额不足");
+            mui.toast("您的可用余额不足");
         } else {
             //判断有没有绑定提现帐户
             ajaxJsonp({

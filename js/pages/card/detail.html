@@ -32,7 +32,7 @@
                     {{el.cashAmount}}
                 </div>
                 <div class="bs-text-x-smaller" style="padding-top: 0.6vh;">
-                    可提现余额
+                    可用余额
                 </div>
                 <button type="button" class="bs-text-gold bs-text-large cash-btn" :on-tap="@openWithdraw(index, el.cashAmount)">提现</button>
             </div>
@@ -49,14 +49,14 @@
                         返现累计
                     </div>
                 </div>
-                <div>
+                <div :if="el.id>0" >
                     <div :if="el.packageStatus==2" class="bs-text-larger bs-text-gold">
                         {{el.totalAwardAmount}}
                     </div>
                     <div :if="el.packageStatus==1||el.accountAmount==0" class="bs-text-larger bs-text-gold" :on-tap="@goPromotion(index)">
                         去开通
                     </div>
-                    <div class="bs-text-x-smaller" style="padding-top: 1.2vh;">
+                    <div class="bs-text-x-smaller" style="padding-top: 1.2vh;width: 72px;">
                         推广奖励累计
                     </div>
                 </div>

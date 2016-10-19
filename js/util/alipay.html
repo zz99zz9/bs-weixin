@@ -1,0 +1,56 @@
+<style>
+.mask {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    bottom: 0;
+    background: #000;
+    opacity: 0.5;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-end;
+    text-align: right;
+    padding: 20px 10vw 0 0;
+}
+</style>
+<div ms-controller="pay" style="padding: 20px;background-color: #fff;height: 100vh;">
+    <div class="mask bs-text-white" ms-if="isShowMask">
+        <img src="img/icon/arrow-top-right.svg" style="width: 30px;">
+        <div class="bs-text-larger" style="padding-top: 30px;line-height: 25px;">
+            请点击右上角
+            <br> 
+            选择在浏览器中打开
+            <br> 
+            继续完成支付
+            <br>
+        </div>
+        <div ms-click="maskToggle" class="bs-text-large" style="padding-top: 35px;">关闭 <br></div>
+    </div>
+    <section ms-if="!isweixin" style="padding:68px 0;">
+        <div class="bs-text-x-larger" style="line-height: 30px;">支付信息加载中，请稍候……</div>
+        <div class="bs-text-gold bs-text-large" style="padding-top: 10px;">
+            正在处理支付宝请求，请您在支付宝中完成支付
+        </div>
+    </section>
+
+    <section ms-if="isweixin" style="padding:68px 0 20px 0;">
+        <div class="bs-text-x-larger" style="line-height: 30px;">支付信息加载成功</div>
+        <div class="bs-text-gold bs-text-large" style="padding-top: 10px;">
+            因微信无法处理支付宝请求，请您按照以下步骤继续完成支付
+        </div>
+    </section>
+
+    <ol ms-if="isweixin" style="border-top:1px solid #eee;margin-left: -20px;" class="bs-text-large">
+        <li style="padding-top:30px;">
+            点击微信客户端右上角（三个小点）。<br><a class=" bs-text-gold bs-text-smaller" href="javascript:void(0)" ms-click="maskToggle">点击查看如何操作</a>
+        </li>
+        <li style="padding-top:20px;">
+            选择在其它浏览器中打开。苹果系统选择在“safari中打开”，安卓系统选择“在浏览器中打开”即可。
+        </li>
+        <li style="padding-top:20px;">
+            在外部浏览器打开后继续完成支付，然后支付成功返回此页面刷新，即可看到订单状态。
+        </li>
+    </ol>
+</div>

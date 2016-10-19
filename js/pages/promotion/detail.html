@@ -1,4 +1,31 @@
+<style>
+.mask {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 99;
+}
+</style>
 <section ms-controller="detail" class="ms-controller">
+    <div class="mask bs-text-white" :if="@isShowMask">
+        <div style="margin-top: 260px;display: flex;flex-direction: column;align-items: center;">
+            <div style="margin: 20px;">
+                <img src="img/arrow_invite.png" style="width: 50px;position: relative;left: 15vw;">
+                <div class="bs-text-larger" style="line-height: 25px;width: 70vw;">
+                    当您完成本月所有推广后，本月推广奖励将汇入您的本宿钱包账户。
+                </div>
+            </div>
+            <button type="button" style="border:1px solid #fff;background: rgba(0,0,0,0.5);color: #fff;width: 50%;" :on-tap="@hideMask">知道了</button>
+        </div>
+    </div>
+
     <div class="swiper-container swiper">
         <div class="swiper-wrapper">
             <div class="swiper-slide bs-text-white bs-text-smaller" :for="(index, el) in @list" data-for-rendered="@swiper">
@@ -17,7 +44,7 @@
                         </div>
                     </div>
                     <div>
-                        <div class="bs-text-larger bs-text-gold bs-text-bolder">收益</div>
+                        <div class="bs-text-larger bs-text-gold bs-text-bolder">收入</div>
                         <div class="promotion-detail-content">
                             <div>年收入&nbsp; <span class="bs-text-gold">¥{{el.totalAward}}</span></div>
                             <div>月收入&nbsp; <span class="bs-text-gold">¥{{el.monthAward}}</span></div>
@@ -35,7 +62,7 @@
                         <div class="bs-text-xx-larger bs-text-gold" style="padding-bottom: 10px;">
                             {{el.totalAward}}
                         </div>
-                        <div class="bs-text-normal bs-text-white">   年推广奖励
+                        <div class="bs-text-normal bs-text-white">年推广奖励
                         </div>
                     </div>
 

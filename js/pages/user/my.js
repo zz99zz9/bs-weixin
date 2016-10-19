@@ -45,10 +45,10 @@ var vmSide = avalon.define({
     goCard: function(id, index) {
         stopSwipeSkip.do(function() {
             if(id > 0) {
-                location.href = "card-show.html?id=" + id;
+                location.href = "../card-show.html?id=" + id;
             } else {
                 Storage.set('cardData', {cardIndex: index});
-                location.href = "card-list.html";
+                location.href = "../card-list.html";
             }
         });
     },
@@ -58,10 +58,8 @@ var vmSide = avalon.define({
         $('#popModule').show();
         setTimeout("$('#popModule').removeClass('hide')", 10);
         //$('#popModule').removeClass('hide');
-        var user = {
-            openUserInfo: 0
-        };
-        Storage.setLocal('user', user);
+
+        Storage.setLocal('user', { openUserInfo: 0 });
     },
     getUserInfo: function() {
         var userInfo = Storage.getLocal('user') || {};
@@ -83,6 +81,11 @@ var vmSide = avalon.define({
 					} else {
 						vmSide.headImg = urlAPINet + json.data.headUrl;
 					}
+
+                    if(location.pathname.indexOf('index')>=0) {
+                        vmHotel.headImg = vmSide.headImg;
+                    }
+
 					vmSide.nickName = json.data.nickname;
 					vmSide.isAdmin = json.data.isAdmin;
                     vmSide.isAlliance = json.data.isAlliance;
@@ -127,7 +130,7 @@ var vmSide = avalon.define({
                 data: {},
                 successCallback: function(json) {
                     if (json.status == 1) { //已登录
-                        location.href = 'avatar.html';
+                        location.href = '../avatar.html';
                         //通过config接口注入权限验证配置
                         // ajaxJsonp({
                         //     url: urls.weiXinConfig,

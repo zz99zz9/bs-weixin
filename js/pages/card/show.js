@@ -1,5 +1,6 @@
 var vmCardBuy = avalon.define({
     $id: 'cardShow',
+    data: {},
     cardNo: '',
     validDate: '',
     cardType: 0,
@@ -9,6 +10,7 @@ var vmCardBuy = avalon.define({
             data: { bid: cardID },
             successCallback: function(json) {
                 if (json.status == 1) {
+                    vmCardBuy.data = json.data;
                     vmCardBuy.cardNo = json.data.cardNo;
                     vmCardBuy.validDate = json.data.endTime.slice(0, 4) + '/' + json.data.endTime.slice(5, 7);
                     vmCardBuy.cardType = json.data.type;
@@ -30,7 +32,9 @@ var vmCardBuy = avalon.define({
     }
 });
 
-var cardIndex, cardID = getParam('id');
+var cardIndex, 
+    cardID = getParam('id'), 
+    isShowNew = getParam('isShowNew');
 if (cardID != "") {
     if (isNaN(cardID)) {
         location.href = document.referrer || "index.html";
@@ -46,12 +50,19 @@ if (cardID != "") {
         successCallback: function(json) {
             if (json.status == 1) {
                 if (json.data.length) {
-                    var data = Storage.get('cardData');
-                    if(data) {
-                        cardIndex = data.cardIndex;
+                    if(isShowNew) {
+                        cardIndex = json.data.length - 1;
                         cardID = json.data[cardIndex].id;
 
                         vmCardBuy.getBuyCard();
+                    } else {
+                        var data = Storage.get('cardData');
+                        if(data) {
+                            cardIndex = data.cardIndex;
+                            cardID = json.data[cardIndex].id;
+
+                            vmCardBuy.getBuyCard();
+                        }
                     }
                 }
                 else {

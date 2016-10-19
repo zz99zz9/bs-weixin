@@ -8,8 +8,8 @@
         </div>
     </section>
 
-    <section class="bs-bg-white card-list-item" :for="el in @data">
-        <div style="width: 60%;" >
+    <section class="bs-bg-white card-list-item" :for="el in @data" :on-tap="@goBuyCard(el.id)">
+        <div style="width: 60%;" :on-tap="@goBuyCard(el.id)">
             <div class="bs-text-51 bs-text-larger card-list-item-title" :on-tap="@goBuyCard(el.id)">成为{{el.name}}会员
                 <img src="img/icon/right-arrow.svg" style="width: 13px;" alt="">
             </div>
