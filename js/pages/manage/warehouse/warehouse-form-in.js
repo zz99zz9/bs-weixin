@@ -267,9 +267,7 @@ if (inid == 0) {
     //商品选择
     ajaxJsonp({
         url: urls.commodityList,
-        data: {
-            type: vmInStorage.type
-        },
+        data: {},
         successCallback: function(json) {
             if (json.status === 1) {
                 json.data.map(function(e) {
