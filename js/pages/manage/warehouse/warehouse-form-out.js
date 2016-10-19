@@ -32,7 +32,7 @@ var vmOutStorage = avalon.define({
     agentUid: '',
     cid: '',
     pid: '',
-    type: 001,
+    type: 2,
     isCreateAllot: 0,
     isDisabled: true,
     isAllocate: function(value) {

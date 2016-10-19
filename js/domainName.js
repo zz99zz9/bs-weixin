@@ -11,4 +11,4 @@ var urlAPI = "http://web.api.bensue.com/test"; //接口根目录
 
 // 生产环境
 // var urlWeixin = "http://weixin.bensue.com";
-// var urlAPI = "http://web.api.bensue.com/";
+// var urlAPI = "http://web.api.bensue.com";
