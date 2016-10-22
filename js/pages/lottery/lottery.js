@@ -26,7 +26,7 @@ var vmLottery = avalon.define({
         text: '小米手环 2'
     }, {
         angle: 337,
-        text: 'iPhone 7 Plus'
+        text: 'iPhone7 Plus'
     }],
     task: [{
         img: 'img/card/card_null.svg',
@@ -50,31 +50,31 @@ var vmLottery = avalon.define({
         add: 8
     }],
     winnerList: [{
-        name: '13839987893',
+        name: '1383998****',
         rank: 4
     },{
-        name: '13537858903',
+        name: '1353785****',
         rank: 2
     },{
-        name: '15893452074',
+        name: '1589345****',
         rank: 6
     },{
-        name: '13537858903',
+        name: '1353785****',
         rank: 1
     },{
-        name: '18701845336',
+        name: '1870184****',
         rank: 3
     },{
-        name: '13537858903',
+        name: '1353785****',
         rank: 4
     },{
-        name: '15618950312',
+        name: '1561895****',
         rank: 2
     },{
-        name: '13537858903',
+        name: '1353785****',
         rank: 6
     },{
-        name: '13666176157',
+        name: '1366617****',
         rank: 7
     }],
     renderSwiper: function() {
