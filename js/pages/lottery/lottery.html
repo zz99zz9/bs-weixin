@@ -106,16 +106,18 @@
             <img ms-attr-src="el.img" alt="" style="width: 40px;margin: 15px;">
         </div>
         <section class="flex-column" style="padding-right: 5px;">
-            <div class="bs-text-large">{{el.name}}</div>
-            <div class="bs-text-small" style="padding-bottom: : 10px;">
-                成为{{el.name}}，即送<span class="bs-text-red">{{el.chance}}</span>次抽奖机会
-            </div>
-            <div class="bs-text-gray bs-text-small">转发本宿相关文章到朋友圈，完成一次推广任务</div>
             <div class="bs-text-large">
-                +<span class="bs-text-red" style="padding-top: 10px;">{{el.add}}</span> 抽奖机会</div>
+                {{el.name}}
+                <span class="bs-text-smaller">
+                    增送<span class="bs-text-red">{{el.chance}}</span>次
+                </span>
+            </div>
+            <div class="bs-text-102 bs-text-small">转发本宿相关文章到朋友圈，完成一次推广任务</div>
+            <div class="bs-text-large">
+                +<span class="bs-text-red" style="padding-top: 10px;">{{el.add}}</span> 次抽奖机会</div>
         </section>
         <div class="flex-column">
-            <button type="button" class="lottery-btn-go bs-text-small bs-bg-black bs-text-white">去完成</button>
+            <button type="button" class="lottery-btn-go bs-text-small bs-bg-black bs-text-white">去{{!$index?'完成':'升级'}}</button>
         </div>
     </div>
 </div>
