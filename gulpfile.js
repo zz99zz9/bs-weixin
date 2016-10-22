@@ -1104,6 +1104,38 @@ function promotionDetail() {
         .pipe(gulp.dest('./src'));
 }
 
+function lottery() {
+    return gulp.src('./js/layout/shell.html')
+        .pipe(replace({
+            regex: '<!-- css -->',
+            replace: '<link rel="stylesheet" href="css/swiper.min.css">'
+        }))
+        .pipe(replace({
+            regex: '<!-- content -->',
+            replace: '<!--include "../pages/lottery/lottery.html"-->'
+        }))
+        .pipe(replace({
+            regex: '<!-- js -->',
+            replace: '<script src="js/lib/swiper.min.js"></script>\n<script src="js/lib/jQueryRotate.2.2.js"></script>\n<script src="js/pages/lottery/lottery.js"></script>'
+        }))
+        .pipe(replace({
+            regex: '<!-- pop -->',
+            replace: '<!--include "../pages/user/popover.html"-->'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(replace({
+            regex: '<button class="popover-closeButton"></button>',
+            replace: '<!--include "../util/popoverBtnOK.html"-->'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('lottery.html'))
+        .pipe(gulp.dest('./src'));
+}
+
 /**
  *   =======================================================
  *                       管理模块相关页面
@@ -2199,6 +2231,8 @@ function popHtml() {
             './js/pages/room/designer.html',
             './js/pages/card/card-rule.html',
             './js/pages/card/card-withdraw.html',
+            './js/pages/card/lottery-log.html',
+            './js/pages/card/lottery-rule.html',
             './js/pages/promotion/promotion-rule.html',
         ])
         .pipe(gulp.dest('./dist/util/'));
@@ -2274,6 +2308,7 @@ gulp.task('html', gulp.parallel(
     cardBind,
     promotionApply,
     promotionDetail,
+    lottery,
     login,
     homepage,
     nav,

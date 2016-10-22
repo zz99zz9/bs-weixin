@@ -1,0 +1,95 @@
+<style>
+    .ly-plate{
+        padding: 18px 0 18px 0;
+        background-image: url(img/lottery-bg.jpg);
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    .rotate-wheel{
+        position: relative;
+        text-align: center;
+    }
+    #lotteryBtn{
+        cursor: pointer;
+        position: absolute;
+        top: 93px;
+        left: 50vw;
+        z-index: 1;
+        width: 80px;
+        margin-left: -40px;
+    }
+    
+    .swiper-container {
+        height: 32px;
+    }
+
+    .lottery-btn-log, .lottery-btn-rule {
+        width: 50%;
+        line-height: 40px;
+        text-align: center;
+        border: 1px solid #efeff4;
+    }
+    .lottery-btn-log:active, .lottery-btn-rule:active {
+        background-color: #eee
+    }
+    .lottery-task {
+        display: flex;
+        padding: 10px 10px 10px 0;
+        margin-bottom: 2px;
+    }
+    .lottery-btn-go {
+        width: 55px;
+        height: 33px;
+        padding: 0;
+        border: none;
+        border-radius: 0;
+    }
+</style>
+<div class="ms-controller" ms-controller="lottery">
+    <!-- 转盘 -->
+    <div class="ly-plate">
+        <div class="bs-text-larger bs-text-white" style="text-align: center;margin: 2px 0 18px 0;">剩余 <span class="bs-text-yellow">{{chance}}</span> 次抽奖机会</div>
+
+        <div class="rotate-wheel">
+            <img src="img/pointer.png" id="lotteryBtn">
+            <img src="img/wheel.png" id="rotatebg" style="width: 300px;">
+        </div>
+    </div>
+
+    <div class="swiper-container swiper">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide bs-text-white bs-text-smaller swiper-no-swiping" ms-repeat="winnerList" data-repeat-rendered="renderSwiper">
+                <div class="bs-text-white bs-bg-black bs-text-smaller" style="line-height: 32px;width: 100%;text-align: left;">
+                    <img src="img/horn.png" alt="" style="width: 30px;float: left;">恭喜会员{{el.name.substring(0,7)+'****'}}抽中 <span class="bs-text-yellow">{{prize[el.rank].text}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div style="display: flex;" class="bs-bg-white bs-text-red bs-text-large">
+        <div class="lottery-btn-log" ms-click="openLog">中奖记录</div>
+        <div class="lottery-btn-rule" ms-click="openRule">活动规则</div>
+    </div>
+
+
+    <div class="bs-text-102 bs-text-large" style="padding: 10px 16px;">获得更多抽奖机会</div>
+
+    <div class="lottery-task bs-bg-white" ms-repeat="task" ms-click="goPromotion">
+        <div style="align-items: center;" class="flex-column">
+            <img ms-attr-src="el.img" alt="" style="width: 40px;margin: 15px;">
+        </div>
+        <section class="flex-column" style="padding-right: 5px;">
+            <div class="bs-text-large">{{el.name}}</div>
+            <div class="bs-text-small" style="padding-bottom: : 10px;">
+                成为{{el.name}}，即送<span class="bs-text-red">{{el.chance}}</span>次抽奖机会 
+            </div>
+            <div class="bs-text-gray bs-text-small">转发本宿相关文章到朋友圈，完成一次推广任务</div>
+            <div class="bs-text-large">
+            +<span class="bs-text-red" style="padding-top: 10px;">{{el.add}}</span> 抽奖机会</div>
+        </section>
+        <div class="flex-column">
+            <button type="button" class="lottery-btn-go bs-text-small bs-bg-black bs-text-white">去完成</button>
+        </div>
+    </div>
+
+</div>

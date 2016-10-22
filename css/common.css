@@ -1424,3 +1424,9 @@ hr {
     font-size: 13px;
     text-indent: 1rem;
 }
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
