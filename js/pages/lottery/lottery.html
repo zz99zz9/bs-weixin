@@ -10,25 +10,34 @@
     position: relative;
     text-align: center;
 }
-
+.wheel-edge{
+    background-image: url(../img/wheel-edge.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 280px;
+    height: 280px;
+    margin: 0 auto;
+}
 #rotatebg {
     background-image: url(../img/wheel.png);
     background-size: contain;
     background-repeat: no-repeat;
-    width: 300px;
-    height: 300px;
-    border-radius: 50%;
-    margin: 0 auto;
+    width: 235px;
+    height: 235px;
+    position: absolute;
+    left: 50vw;
+    top: 23px;
+    margin-left: -117px;
 }
 
 #lotteryBtn {
     cursor: pointer;
     position: absolute;
-    top: 93px;
+    top: 95px;
     left: 50vw;
     z-index: 1;
-    width: 80px;
-    margin-left: -40px;
+    width: 64px;
+    margin-left: -32px;
 }
 
 .swiper-container {
@@ -70,6 +79,7 @@
         <div class="rotate-wheel">
             <img src="img/pointer.png" id="lotteryBtn">
             <div id="rotatebg"></div>
+            <div class="wheel-edge"></div>
         </div>
     </div>
 
