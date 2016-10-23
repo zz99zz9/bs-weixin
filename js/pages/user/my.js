@@ -205,6 +205,9 @@ var vmSide = avalon.define({
                 case 9:
                     location.href = "../card-detail.html";
                     break;
+                case 10:
+                    location.href = "../lottery.html";
+                    break;
             }
         });
     }
