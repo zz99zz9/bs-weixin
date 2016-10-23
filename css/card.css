@@ -164,3 +164,79 @@
 .card-no {
     padding-right: 5px; 
 }
+
+.introduce {
+    height: 100%;
+    background-color: white;
+    padding: 25px 15px;
+}
+
+.introduce-title {
+    font-size: 16px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    color: #baa071;
+}
+
+.introduce-title img {
+    height: 20px;
+    width: 20px;
+}
+
+.introduce-content {
+    font-size: 14px;
+    line-height: 26px;
+    letter-spacing: 2px;
+    color: #888;
+    margin: 20px 30px 30px 10px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #ccc;
+}
+
+.introduce-title2 {
+    line-height: 32px;
+    margin-left: 8px;
+    letter-spacing: 3px;
+}
+
+.introduce-table {
+    width: 100%;
+    color: #888;
+    font-size: 12px;
+    text-align: center;
+    border-collapse: collapse;
+    border: none;
+    border-color: #eee;
+}
+
+.introduce-table th {
+    border: 1px solid #ccc;
+    padding: 5px;
+}
+
+.introduce-table td {
+    font-size: 10px;
+    border: solid #000 1px;
+    padding: 1px;
+    border-color: #ccc;
+}
+
+.introduce-table-grey {
+    background-color: grey;
+    color: white;
+}
+
+.introduce-table-black {
+    background-color: black;
+    color: white;
+}
+
+.introduce-tick {
+    color: #baa071;
+}
+
+.introduce-note {
+    font-size: 10px;
+    color: #888;
+}

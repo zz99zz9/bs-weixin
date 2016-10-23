@@ -1040,6 +1040,38 @@ function cardBind () {
         .pipe(gulp.dest('./src'));
 }
 
+function cardIntroduce () {
+    return gulp.src('./js/layout/shell-av2.html')
+        .pipe(replace({
+            regex: '<!-- css -->',
+            replace: '<link rel="stylesheet" href="css/card.css">'
+        }))
+        .pipe(replace({
+            regex: '<!-- content -->',
+            replace: '<!--include "../pages/card/introduce.html"-->'
+        }))
+        .pipe(replace({
+            regex: '<!-- js -->',
+            replace: '<script src="js/pages/card/introduce.js"></script>'
+        }))
+        // .pipe(replace({
+        //     regex: '<!-- pop -->',
+        //     replace: '<!--include "../pages/user/popover.html"-->'
+        // }))
+        // .pipe(contentIncluder({
+        //     includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        // }))
+        // .pipe(replace({
+        //     regex: '<button class="popover-closeButton"></button>',
+        //     replace: '<!--include "../util/popoverBtnOK-av2.html"-->'
+        // }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('card-introduce.html'))
+        .pipe(gulp.dest('./src'));
+}
+
 function promotionApply() {
     return gulp.src('./js/layout/shell-av2.html')
         .pipe(replace({
@@ -2272,6 +2304,7 @@ gulp.task('html', gulp.parallel(
     cardDetail,
     cardLog,
     cardBind,
+    cardIntroduce,
     promotionApply,
     promotionDetail,
     login,
