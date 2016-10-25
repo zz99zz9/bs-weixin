@@ -1012,7 +1012,7 @@ function cardBind () {
     return gulp.src('./js/layout/shell-av2.html')
         .pipe(replace({
             regex: '<!-- css -->',
-            replace: '<link rel="stylesheet" href="css/card.css">'
+            replace: '<link href="../css/mui.picker.all.css" rel="stylesheet" />\n<link rel="stylesheet" href="css/card.css">'
         }))
         .pipe(replace({
             regex: '<!-- content -->',
@@ -1020,7 +1020,7 @@ function cardBind () {
         }))
         .pipe(replace({
             regex: '<!-- js -->',
-            replace: '<script src="js/pages/card/bind.js"></script>'
+            replace: '<script src="../js/lib/mui.picker.all.js"></script>\n<script src="js/pages/card/bind.js"></script>'
         }))
         .pipe(replace({
             regex: '<!-- pop -->',
