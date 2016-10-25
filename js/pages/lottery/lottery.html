@@ -1,7 +1,7 @@
 <style>
 .ly-plate {
     padding: 18px 0 18px 0;
-    background-image: url(img/lottery-bg.jpg);
+    background-image: url(../img/card/lottery-bg.jpg);
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -11,7 +11,7 @@
     text-align: center;
 }
 .wheel-edge{
-    background-image: url(../img/wheel-edge.png);
+    background-image: url(../img/card/wheel-edge.png);
     background-size: contain;
     background-repeat: no-repeat;
     width: 280px;
@@ -19,7 +19,7 @@
     margin: 0 auto;
 }
 #rotatebg {
-    background-image: url(../img/wheel.png);
+    background-image: url(../img/card/wheel.png);
     background-size: contain;
     background-repeat: no-repeat;
     width: 235px;
@@ -70,6 +70,34 @@
     border: none;
     border-radius: 0;
 }
+.prizeModal {
+    width: 250px;
+    height: 240px;
+    background-color: #fff;
+    margin: 0 auto;
+    overflow-x: hidden;
+    overflow-y: auto;
+    position: relative;
+    top: -90px;
+    border-radius: 20px;
+}
+.prizeModal-close {
+    width: 20px;
+    height: 20px;
+    background-image: url(../img/icon/close_black.svg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: inline-block;
+    box-sizing: content-box;
+    border: 11px solid transparent;
+}
+.prizeModal-btn {
+    border-radius: 17px;
+    border: none;
+    color: white;
+    width: 90px;
+    margin-top: 10px;
+}
 </style>
 <meta name="format-detection" content="telephone=no">
 <div class="ms-controller" ms-controller="lottery">
@@ -77,7 +105,7 @@
     <div class="ly-plate">
         <div class="bs-text-larger bs-text-white" style="text-align: center;margin: 2px 0 18px 0;">剩余 <span class="bs-text-yellow">{{chance}}</span> 次抽奖机会</div>
         <div class="rotate-wheel">
-            <img src="img/pointer.png" id="lotteryBtn">
+            <img src="img/card/pointer.png" id="lotteryBtn">
             <div id="rotatebg"></div>
             <div class="wheel-edge"></div>
         </div>
@@ -118,6 +146,32 @@
         </section>
         <div class="flex-column">
             <button type="button" class="lottery-btn-go bs-text-small bs-bg-black bs-text-white">去{{!$index?'完成':'升级'}}</button>
+        </div>
+    </div>
+    
+    <!-- 弹窗 -->
+    <div class="mask" style="display: none;">
+        <div class="prizeModal">
+            <section style="height: 38px;text-align: right;" class="bs-bg-yellow">
+                <div class="prizeModal-close"></div>
+            </section>
+            <section style="border-bottom: 1px solid #ccc;">
+                <img src="../img/card/prize-star.png" style="width: 55px;position: absolute;top: 6px;left: 12px;" alt="">
+                <img src="../img/card/con.png" style="width: 130px;position: relative;top: 5px;" alt="">
+                <img src="../img/card/prize-stars.png" style="    position: absolute;left: -4px;top: 73px;width: 66px;" alt="">
+                <img src="../img/card/prize-stars.png" style="    position: absolute;right: 4px;top: 73px;width: 66px;"alt="">
+                <div class="flex-column" style="margin:6px auto;">
+                    <div ms-css-background-image="'url(' + prize[prizeIndex].img + ')'" alt="" style="width: 80px;height: 80px;margin: 0 auto;background-repeat: no-repeat;background-size: contain;background-position: center;">
+                        <div ms-if="prizeIndex==5" class="bs-text-large bs-text-white" style="margin-top:46px;">{{cash}} 元</div>
+                    </div>
+                    <div class="bs-text-large">{{prize[prizeIndex].text}}</div>
+                </div>
+            </section>
+
+            <section style="display: flex;justify-content: space-around;">
+                <button class="bs-bg-yellow prizeModal-btn" type="button" id="closeBtn">知道了</button>
+                <button class="bs-bg-red prizeModal-btn" type="button">去看看</button>
+            </section>
         </div>
     </div>
 </div>
