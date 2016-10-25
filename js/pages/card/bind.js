@@ -20,6 +20,9 @@ var vmCardBind = avalon.define({
     accountName: '',
     bankNo: '',
     bankName: '',
+    pickerText: '',
+    provinceId: '',
+    cityId: '',
     bind: function() {
         // mui.confirm(
         //     '请确认帐号信息无误，绑定完成后，如需更改请联系客服。',
@@ -46,6 +49,10 @@ var vmCardBind = avalon.define({
             }
             if (vmCardBind.bankName == '') {
                 mui.alert('请输入您的开户行及支行');
+                return;
+            }
+            if (vmCardBind.pickerText == '') {
+                mui.alert('请选择您开户行的地区');
                 return;
             }
         }
@@ -107,6 +114,9 @@ var vmPopover = avalon.define({
                     accountNo: vmCardBind.bindType==1?vmCardBind.accountNo:vmCardBind.bankNo,
                     accountName: vmCardBind.accountName,
                     bankName: vmCardBind.bankName,
+                    provinceId: vmCardBind.provinceId,
+                    cityId: vmCardBind.cityId,
+                    regionName: vmCardBind.regionName
                 },
                 successCallback: function(json) {
                     if (json.status == 1) {
@@ -173,3 +183,30 @@ function countSecond() {
         setTimeout(countSecond, 1000);
     }
 }
+
+//获取用户的省市区列表
+ajaxJsonp({
+    url: urls.getAllArea,
+    successCallback: function(json) {
+        if (json.status == 1) {
+
+            //初始化地区picker，绑定事件
+           (function($, doc) {
+                var regionPicker = new $.PopPicker({
+                    layer: 2
+                });
+                regionPicker.setData(json.data);
+
+                var regionPickerBtn = doc.getElementById('regionPicker');
+                regionPickerBtn.addEventListener('tap', function(event) {
+                    regionPicker.show(function(items) {
+                        vmCardBind.pickerText = (items[0].text || '全部')
+                            + " " + (items[1].text?(items[1].text == '全部'?'':items[1].text):'');
+                        vmCardBind.provinceId = items[0].value;
+                        vmCardBind.cityId = items[1].value;
+                    });
+                }, false);
+           })(mui, document);
+        }
+    }
+});

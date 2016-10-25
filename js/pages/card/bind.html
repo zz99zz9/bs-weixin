@@ -8,14 +8,15 @@
     </div>
     <form :class="['bs-text-large', 'card-bind-panel',@bindType==1?'left':'right']">
         <div :if="@bindType==1">
-            <input type="text" placeholder="输入您的支付宝帐号" :duplex="@accountNo">
-            <input type="text" placeholder="输入您的姓名" :duplex="@accountName">
+            <input type="text" placeholder="您的支付宝帐号" :duplex="@accountNo">
+            <input type="text" placeholder="您的姓名" :duplex="@accountName">
         </div>
 
         <div :if="@bindType==2">
-            <input type="text" placeholder="输入您的银行卡号" :duplex="@bankNo">
-            <input type="text" placeholder="输入您的开户行及支行" :duplex="@bankName">
-            <input type="text" placeholder="输入您的开户姓名" :duplex="@accountName">
+            <input type="text" placeholder="您的银行卡号" :duplex="@bankNo">
+            <input type="text" placeholder="您的开户银行及支行" :duplex="@bankName">
+            <button id="regionPicker" :class="['mui-btn mui-btn-block', @pickerText?'':'bs-text-aaa']" type="button" style="padding: 0;background-color: transparent;border: none;border-bottom: solid 1px #ccc;margin-top: 17px;line-height: 36px;">{{@pickerText?@pickerText:'请选择开户行的地区'}}</button>
+            <input type="text" placeholder="您的开户姓名" :duplex="@accountName">
         </div>
     </form>
     <button class="nav-bottom-btn" :click="@bind">绑定</button>

@@ -201,4 +201,5 @@ var urls = {
     getAccountList: urlAPI + '/vip/userCardAccount/accountList', //会员卡账户列表
     getDiscountList: urlAPI + '/vip/userBuyCard/discountList', //会员卡折扣列表
     getCardOrderInfo: urlAPI + '/vip/userBuyCardOrderInfo/detail', //会员卡订单详情
+    getAllArea: urlAPI + '/sys/area/getAllTree', //获取所有地区数据
 }
