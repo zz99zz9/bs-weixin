@@ -45,7 +45,11 @@
 
         <div class="bs-text-normal">欢迎您加入本宿大家庭，成为我们尊贵的VIP用户，在这里您不仅能享受到全新的住宿体验、VIP级客户服务，亦能通过帮助我们推广获得丰厚的收入！</div>
         <br>
-        <div class="bs-text-normal">如果您有任何疑问，欢迎咨询<br>客服电话：{{SERVICECALL}} <br>或者客服微信：zoeaier</div>
+        <div class="bs-text-normal">{{@data.name}}会员专属微信客服：木一君（微信客服：****），为了保障能及时提供服务，建议您尽快添加好友；
+        <br>
+        如果您对本宿会员有任何疑问，欢迎咨询客服：{{SERVICECALL}}；
+        <br>
+        商务合作请发送邮件至：ben@bensue.com</div>
     </div>
     <div style="position: absolute;bottom: 0;display: table;width: 100vw;" :if="@data.packageStatus==1">
         <button class="nav-bottom-btn-left" type="button" onclick="javascript:location.href='index.html'">暂不开通</button>

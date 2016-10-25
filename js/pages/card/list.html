@@ -1,10 +1,10 @@
 <div class="card-frame ms-controller" :controller="cardList">
     <section style="padding: 10px;margin-bottom: 4vh;">
         <div class="bs-text-x-larger bs-text-bolder bs-text-51">
-            升级成为本宿会员
+            升级成为VIP会员
         </div>
         <div class="bs-text-153 bs-text-smaller" style="margin-top: 10px;">
-            升级成为本宿会员，即可享受更多优惠
+            了解更多，请点击：<a class="bs-text-gold" href="card-introduce.html">本宿会员介绍</a>
         </div>
     </section>
 
@@ -16,7 +16,9 @@
             <div class="bs-text-51 bs-text-smaller" :on-tap="@goBuyCard(el.id)">
                 入住任意本宿酒店即可享受<span class="bs-text-red">{{el.discount*10}}折</span>优惠。
                 <br>
-                免审核直通本宿推广奖励计划。
+                加入本宿推广奖励计划，可获得丰厚现金奖励。
+                <br>
+                参加抽奖次数加速 <span class="bs-text-red">n</span> 倍。
             </div>
         </div>
         <img class="card-list-img" :attr="{src:el.imgUrl}" alt="" :on-tap="@goBuyCard(el.id)">

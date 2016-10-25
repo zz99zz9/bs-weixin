@@ -1,7 +1,20 @@
 var vmLottery = avalon.define({
     $id: 'lottery',
-    chance: 6,
-    count: 0,
+    chance: 0, //拥有的抽奖机会
+    count: 0, //当天已抽次数
+    max: 3, //每天抽奖上限
+    getChance: function() {
+        ajaxJsonp({
+            url: urls.getLotteryTimes,
+            successCallback: function(json) {
+                if (json.status > 0) {
+                    vmLottery.chance = json.data.total;
+                    vmLottery.count = json.data.today;
+                    vmLottery.max = json.data.max;
+                } 
+            }
+        });
+    },
     isRotate: false,
     cash: 0,
     prizeIndex: 5,
@@ -38,6 +51,102 @@ var vmLottery = avalon.define({
         text: 'iPhone7 Plus',
         img: '../img/card/iphone7plus.png',
     }],
+    getPrize: function() {
+        ajaxJsonp({
+            url: urls.getPrize,//1-iPhone 7 Plus；2-锤子M1L；3-小米手环2；4-床品礼包；5-免费入住iroom max；6-免费入住iroom；7-洗护礼包；8-现金红包
+            successCallback: function(json) {
+                if (json.status > 0) {
+                    switch(json.data.flag) {
+                        case 1:
+                            vmLottery.prizeIndex = 7;
+                            break;
+                        case 2:
+                            vmLottery.prizeIndex = 4;
+                            break;
+                        case 3:
+                            vmLottery.prizeIndex = 6;
+                            break;
+                        case 4:
+                            vmLottery.prizeIndex = 3;
+                            break;
+                        case 5:
+                            vmLottery.prizeIndex = 0;
+                            break;
+                        case 6:
+                            vmLottery.prizeIndex = 1;
+                            break;
+                        case 7:
+                            vmLottery.prizeIndex = 2;
+                            break;
+                        case 8:
+                            vmLottery.prizeIndex = 5;
+                            vmLottery.cash = json.data.amount;
+                            break;
+                    }
+
+                    rotateFunc(vmLottery.prize[vmLottery.prizeIndex].angle);
+                } 
+            }
+        });
+    },
+    winnerList: [],
+    getWinnerList: function() {
+        ajaxJsonp({
+            url: urls.getWinnerList,
+            data: { pageSize: 10, pageNo:1 },
+            successCallback: function(json) {
+                if (json.status > 0) {
+                    var rank = -1;
+                    json.data.list.map(function(o) {
+                        switch(o.flag) {
+                            case 1:
+                                rank = 7;
+                                break;
+                            case 2:
+                                rank = 4;
+                                break;
+                            case 3:
+                                rank = 6;
+                                break;
+                            case 4:
+                                rank = 3;
+                                break;
+                            case 5:
+                                rank = 0;
+                                break;
+                            case 6:
+                                rank = 1;
+                                break;
+                            case 7:
+                                rank = 2;
+                                break;
+                            case 8:
+                                rank = 5;
+                                break;
+                        }
+
+                        vmLottery.winnerList.push({
+                            name: o.user.mobile,
+                            rank: rank,
+                            amount: o.amount,
+                        })
+                    });
+                } 
+            }
+        });
+    },
+    renderSwiper: function() {
+        swiper = new Swiper('.swiper', {
+            direction: 'vertical',
+            autoplay: 2000,
+            autoplayDisableOnInteraction: false,
+            loop: true,
+            slidesPerView: 1,
+            width: window.innerWidth,
+            height: 32,
+            noSwiping : true
+        });
+    },
     task: [{
         img: 'img/card/card_null.svg',
         name: '会员',
@@ -59,48 +168,10 @@ var vmLottery = avalon.define({
         chance: 60,
         add: 8
     }],
-    winnerList: [{
-        name: '1383998****',
-        rank: 4
-    },{
-        name: '1353785****',
-        rank: 2
-    },{
-        name: '1589345****',
-        rank: 6
-    },{
-        name: '1353785****',
-        rank: 1
-    },{
-        name: '1870184****',
-        rank: 3
-    },{
-        name: '1353785****',
-        rank: 4
-    },{
-        name: '1561895****',
-        rank: 2
-    },{
-        name: '1353785****',
-        rank: 6
-    },{
-        name: '1366617****',
-        rank: 7
-    }],
-    renderSwiper: function() {
-        swiper = new Swiper('.swiper', {
-            direction: 'vertical',
-            autoplay: 2000,
-            autoplayDisableOnInteraction: false,
-            loop: true,
-            slidesPerView: 1,
-            width: window.innerWidth,
-            height: 32,
-            noSwiping : true
-        });
-    },
     openLog: function() {
-        popover('./util/lottery-log.html', 1);
+        popover('./util/lottery-log.html', 1, function() {
+            vmLog.getList();
+        });
     },
     openRule: function() {
         popover('./util/lottery-rule.html', 1);
@@ -124,55 +195,91 @@ var vmPopover = avalon.define({
 
 var vmLog = avalon.define({
     $id: 'log',
-    list: [{
-        name: '现金红包',
-        img: '../img/card/redPacket.png',
-        num: 1.5,
-        date: '2016-10-21'
-    },{
-        name: '现金红包',
-        img: '../img/card/redPacket.png',
-        num: 4.1,
-        date: '2016-10-21'
-    },{
-        name: 'iPhone 7 Plus',
-        img: '../img/card/iphone7plus.png',
-        num: 1,
-        date: '2016-10-21'
-    },{
-        name: '小米手环2',
-        img: '../img/card/miBand2.png',
-        num: 1,
-        date: '2016-10-21'
-    },{
-        name: '现金红包',
-        img: '../img/card/redPacket.png',
-        num: 0.5,
-        date: '2016-10-21'
-    },{
-        name: '本宿定制洗护大礼包',
-        img: '../img/card/gift.png',
-        num: 1,
-        date: '2016-10-21'
-    },{
-        name: '现金红包',
-        img: '../img/card/redPacket.png',
-        num: 8.5,
-        date: '2016-10-21'
-    },{
-        name: '锤子M1L',
-        img: '../img/card/hammer.png',
-        num: 1,
-        date: '2016-10-21'
-    },{
-        name: '本宿定制床品',
-        img: '../img/card/bedding.png',
-        num: 1,
-        date: '2016-10-21'
-    }]
+    list: [],
+    pageNo: 1,
+    pageSize: 10,
+    getList: function() {
+        ajaxJsonp({
+            url: urls.getPrizeLogList,
+            data: { 
+                pageSize: 10, 
+                pageNo:1, 
+            },
+            successCallback: function(json) {
+                if (json.status > 0) {
+                    vmLog.list = [];
+                    var rank = -1;
+                    json.data.list.map(function(o) {
+                        switch(o.flag) {
+                            case 1:
+                                rank = 7;
+                                break;
+                            case 2:
+                                rank = 4;
+                                break;
+                            case 3:
+                                rank = 6;
+                                break;
+                            case 4:
+                                rank = 3;
+                                break;
+                            case 5:
+                                rank = 0;
+                                break;
+                            case 6:
+                                rank = 1;
+                                break;
+                            case 7:
+                                rank = 2;
+                                break;
+                            case 8:
+                                rank = 5;
+                                break;
+                        }
+
+                        vmLog.list.push({
+                            name: vmLottery.prize[rank].text,
+                            img: vmLottery.prize[rank].img,
+                            amount: o.amount,
+                            createTime: o.createTime
+                        })
+                    });
+                } 
+            }
+        });
+    }
 });
 
+vmLottery.getChance();
+vmLottery.getWinnerList();
+
+vmLog.getList();
+
+function rotateFunc(angle) { //angle:奖项对应的角度
+    vmLottery.isRotate = true;
+    vmLottery.chance--;
+
+    // $('#rotatebg').stopRotate();
+    $("#rotatebg").rotate({
+        angle: 0,
+        duration: 5000,
+        animateTo: angle + 1440, //angle是图片上各奖项对应的角度，1440是我要让指针旋转4圈。所以最后的结束的角度就是这样子^^
+        callback: function() {
+            $('.mask').show();
+            vmLottery.isRotate = false;
+            vmLottery.count ++;
+        }
+    });
+};
+
 $(function() {
+    $('.prizeModal-close').click(function() {
+        $('.mask').hide();
+    });
+    $('#closeBtn').click(function() {
+        $('.mask').hide();
+    });
+
     var timeOut = function() { //超时函数
         // $("#lotteryBtn").rotate({
         $("#rotatebg").rotate({
@@ -184,37 +291,20 @@ $(function() {
             }
         });
     };
-    var rotateFunc = function(angle) { //angle:奖项对应的角度
-        vmLottery.isRotate = true;
-        vmLottery.chance--;
-
-        // $('#rotatebg').stopRotate();
-        $("#rotatebg").rotate({
-            angle: 0,
-            duration: 5000,
-            animateTo: angle + 1440, //angle是图片上各奖项对应的角度，1440是我要让指针旋转4圈。所以最后的结束的角度就是这样子^^
-            callback: function() {
-                $('.mask').show();
-                vmLottery.isRotate = false;
-                vmLottery.count ++;
-            }
-        });
-    };
 
     $("#lotteryBtn").rotate({
         bind: {
             click: function() {
                 if (!vmLottery.isRotate) {
                     if (vmLottery.chance > 0) {
-                        if(vmLottery.count < LOTTERYPEYDAY) {
-                            vmLottery.prizeIndex = Math.floor(Math.random() * 8);
-                            if(vmLottery.prizeIndex == 5) {
-                                vmLottery.cash = round(Math.random() * 15);
-                            }
-
-                            rotateFunc(vmLottery.prize[vmLottery.prizeIndex].angle);
+                        if(vmLottery.count < vmLottery.max) {
+                            // vmLottery.prizeIndex = Math.floor(Math.random() * 8);
+                            // if(vmLottery.prizeIndex == 5) {
+                            //     vmLottery.cash = round(Math.random() * 15);
+                            // }
+                            vmLottery.getPrize();
                         } else {
-                            mui.alert('您已经达到每日抽奖上限，每天抽奖次数为' + LOTTERYPEYDAY + '次，请明天继续抽奖～');
+                            mui.alert('您已经达到每日抽奖上限，每天抽奖次数为' + vmLottery.max + '次，请明天继续抽奖～');
                         }
                     } else {
                         mui.alert('您的抽奖机会用完了，快去完成下面的任务获得更多的抽奖机会吧～');
@@ -224,12 +314,3 @@ $(function() {
         }
     });
 });
-
-$(function() {
-    $('.prizeModal-close').click(function() {
-        $('.mask').hide();
-    });
-    $('#closeBtn').click(function() {
-        $('.mask').hide();
-    });
-})

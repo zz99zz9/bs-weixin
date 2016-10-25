@@ -1,4 +1,4 @@
-<div style="display: flex;flex-direction: column; justify-content: space-between;height: 100vh;" class="ms-controller" :controller="apply">
+<div style="display: flex;flex-direction: column; justify-content: space-between;min-height: 100vh;" class="ms-controller" :controller="apply">
     <section style="width: 100vw; height: 225px;background-image: url(img/promote_head.jpg);background-size: cover;background-position: center center;">
         <div class="bs-text-x-larger bs-text-white" style="font-weight: bolder;padding: 25px 20px;">本宿推广奖励计划</div>
     </section>
@@ -9,7 +9,7 @@
                 住酒店也能赚钱
             </div>
             <div class="bs-text-larger" style="line-height: 24px;">
-                加入本宿推广奖励计划，与朋友分享您在本宿的难忘体验，即可获得本宿推广现金奖励。推广奖励可用于本宿平台消费或直接提现。
+                别人住酒店是消费，我住酒店在赚钱！本宿推出推广奖励计划，旨在让认同我们的用户通过传播本宿获得额外的收入，您只需要与朋友分享您在本宿的难忘体验，或者帮我们转发微信软文，即可获得抽奖奖励或现金奖励。所得奖励可以提取现金或在任意一家本宿酒店消费。
             </div>
         </div>
         <div class="bs-text-normal" style="padding: 25px 0;" :on-tap="@clickIsAgree">
@@ -18,5 +18,5 @@
         </div>
     </section>
 
-    <button class="nav-bottom-btn" :click="@goDetail">申请加入</button>
+    <button class="nav-bottom-btn" :click="@goDetail">立即加入</button>
 </div>

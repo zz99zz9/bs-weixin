@@ -117,7 +117,10 @@
             <div class="swiper-wrapper">
                 <div class="swiper-slide bs-text-white bs-text-smaller swiper-no-swiping" ms-repeat="winnerList" data-repeat-rendered="renderSwiper">
                     <div class="bs-text-white bs-bg-black bs-text-smaller" style="line-height: 32px;width: 100%;text-align: left;padding-left:35px;">
-                        恭喜会员{{el.name}}抽中 <span class="bs-text-yellow">{{prize[el.rank].text}}</span>
+                        恭喜会员{{el.name}}抽中
+                        <span class="bs-text-yellow">{{prize[el.rank].text}}
+                            <span ms-if="el.rank==5">{{el.amount}}元</span>
+                        </span>
                     </div>
                 </div>
             </div>
@@ -159,7 +162,7 @@
                 <img src="../img/card/prize-star.png" style="width: 55px;position: absolute;top: 6px;left: 12px;" alt="">
                 <img src="../img/card/prize-con.png" style="width: 130px;position: relative;top: 5px;" alt="">
                 <img src="../img/card/prize-stars.png" style="    position: absolute;left: -4px;top: 73px;width: 66px;" alt="">
-                <img src="../img/card/prize-stars.png" style="    position: absolute;right: 4px;top: 73px;width: 66px;"alt="">
+                <img src="../img/card/prize-stars.png" style="    position: absolute;right: 4px;top: 73px;width: 66px;" alt="">
                 <div class="flex-column" style="margin:6px auto;">
                     <div ms-css-background-image="'url(' + prize[prizeIndex].img + ')'" alt="" style="width: 80px;height: 80px;margin: 0 auto;background-repeat: no-repeat;background-size: contain;background-position: center;">
                         <div ms-if="prizeIndex==5" class="bs-text-large bs-text-white" style="margin-top:46px;">{{cash}} 元</div>

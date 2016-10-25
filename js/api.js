@@ -202,4 +202,8 @@ var urls = {
     getDiscountList: urlAPI + '/vip/userBuyCard/discountList', //会员卡折扣列表
     getCardOrderInfo: urlAPI + '/vip/userBuyCardOrderInfo/detail', //会员卡订单详情
     getAllArea: urlAPI + '/sys/area/getAllTree', //获取所有地区数据
+    getPrize: urlAPI + '/vip/lottery/luck', //抽奖
+    getPrizeLogList: urlAPI + '/vip/prizeLog/myList', //所有的中奖记录
+    getWinnerList: urlAPI + '/vip/prizeLog/list', //所有的中奖记录
+    getLotteryTimes: urlAPI + '/vip/lotteryTimes/times', //会员的声誉抽奖次数
 }

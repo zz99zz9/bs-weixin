@@ -33,7 +33,7 @@ var vmApply = avalon.define({
                 successCallback: function(json) {
                     if (json.status == 1) {
                         if(json.data.status == 2) {
-                            mui.alert('申请成功', function(){
+                            mui.alert('加入成功', function(){
                                 location.href = "promotion-detail.html";
                             });
                         } else {

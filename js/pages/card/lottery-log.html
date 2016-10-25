@@ -8,9 +8,11 @@
             <img ms-attr-src="el.img" style="width: 30px;margin: 5px 10px 0 0;" alt="">
         </div>
         <div class="bs-text-large">
-            {{el.name}} {{el.num}}{{el.name=='现金红包'?'元':'个'}}
+            {{el.name}} 
+            <span ms-if="el.name=='现金红包'">{{el.amount}}元</span>
+            <span ms-if="el.name!='现金红包'">{{el.quantity}}个</span>
             <br>
-            <span class="bs-text-small bs-text-153">{{el.date}}</span>
+            <span class="bs-text-small bs-text-153">{{el.createTime}}</span>
         </div>
     </div>
 </div>
