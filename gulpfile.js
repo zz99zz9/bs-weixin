@@ -1050,10 +1050,10 @@ function cardIntroduce () {
             regex: '<!-- content -->',
             replace: '<!--include "../pages/card/introduce.html"-->'
         }))
-        .pipe(replace({
-            regex: '<!-- js -->',
-            replace: '<script src="js/pages/card/introduce.js"></script>'
-        }))
+        // .pipe(replace({
+        //     regex: '<!-- js -->',
+        //     replace: '<script src="js/pages/card/introduce.js"></script>'
+        // }))
         // .pipe(replace({
         //     regex: '<!-- pop -->',
         //     replace: '<!--include "../pages/user/popover.html"-->'
@@ -1069,6 +1069,38 @@ function cardIntroduce () {
             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
         }))
         .pipe(rename('card-introduce.html'))
+        .pipe(gulp.dest('./src'));
+}
+
+function cardIntroducePicture () {
+    return gulp.src('./js/layout/shell-av2.html')
+        .pipe(replace({
+            regex: '<!-- css -->',
+            replace: '<link rel="stylesheet" href="css/card.css">'
+        }))
+        .pipe(replace({
+            regex: '<!-- content -->',
+            replace: '<!--include "../pages/card/introduce-picture.html"-->'
+        }))
+        // .pipe(replace({
+        //     regex: '<!-- js -->',
+        //     replace: '<script src="js/pages/card/introduce.js"></script>'
+        // }))
+        // .pipe(replace({
+        //     regex: '<!-- pop -->',
+        //     replace: '<!--include "../pages/user/popover.html"-->'
+        // }))
+        // .pipe(contentIncluder({
+        //     includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        // }))
+        // .pipe(replace({
+        //     regex: '<button class="popover-closeButton"></button>',
+        //     replace: '<!--include "../util/popoverBtnOK-av2.html"-->'
+        // }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('card-introduce-picture.html'))
         .pipe(gulp.dest('./src'));
 }
 
@@ -2339,6 +2371,7 @@ gulp.task('html', gulp.parallel(
     cardLog,
     cardBind,
     cardIntroduce,
+    cardIntroducePicture,
     promotionApply,
     promotionDetail,
     lottery,

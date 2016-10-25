@@ -29,18 +29,74 @@
 
 .card-buy-item {
     display: flex;
+    position: relative;
     align-items: center;
-    background-color: #ddd;
-    padding: 18px 20px;
+    justify-content: space-between;
+    background-color: white;
+    padding: 17px 11px 36px 11px;
     margin-bottom: 2px;
     margin-left: -10px;
 }
-.card-buy-item-left {
+
+
+/*.card-buy-item-left {
     margin-right: 15px;
 }
+
 .card-buy-item-right {
     padding-left: 19px;
     border-left: solid 1px #999;
+}*/
+
+.card-buy-circle {
+    background-image: url(../img/card/card-circle.png);
+    height: 30vw;
+    width: 30vw;
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin: 0 auto;
+}
+
+.card-buy-fan {
+    text-align: center;
+    padding-top: 11vw;
+}
+
+.card-buy-con1 {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.card-buy-con2 {
+    position: relative;
+    top: 23px;
+    height: 50px;
+    border-left: 1px solid #baa071;
+    line-height: 25px;
+}
+
+.card-buy-right-down {
+    margin-top: 10px;
+}
+
+.card-buy-con3 {
+    position: relative;
+    top: 62px;
+    height: 50px;
+    border-left: 1px solid #baa071;
+    line-height: 25px;
+}
+
+.card-buy-left {
+    width: 60vw;
+    padding-right: 10vw;
+}
+
+.card-buy-right {
+    width: 40vw;
+    display: flex;
+    flex-direction: column;
+    align-self: flex-start;
 }
 
 .card-show {
@@ -100,7 +156,7 @@
     box-shadow: 2px 2px 5px #999;
 }
 
-.card-bind-panel input{
+.card-bind-panel input {
     width: 200px;
     display: block;
     margin-top: 30px;
@@ -143,26 +199,27 @@
     margin-top: 15px;
     padding: 12px 0 0 20vw;
 }
-.card-log-head.zfb{
+
+.card-log-head.zfb {
     background-image: url('../img/card/log_zhifubao.png');
-
 }
-.card-log-head.bank{
-    background-image: url('../img/card/log_bank.png');
 
+.card-log-head.bank {
+    background-image: url('../img/card/log_bank.png');
 }
 
 .fr-flex {
     display: flex !important;
     justify-content: space-between;
 }
+
 .today-list-item {
     display: inline-block;
     padding: 10px 0 2px 0;
 }
 
 .card-no {
-    padding-right: 5px; 
+    padding-right: 5px;
 }
 
 .introduce {
