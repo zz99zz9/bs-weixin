@@ -3,46 +3,56 @@ var vmLottery = avalon.define({
     chance: 6,
     count: 0,
     isRotate: false,
+    cash: 0,
+    prizeIndex: 5,
     prize: [{
         angle: 22,
-        text: 'iroom max 体验券'
+        text: 'iroom max 体验券',
+        img: '../img/card/free.svg'
     }, {
         angle: 67,
-        text: 'iroom 体验券'
+        text: 'iroom 体验券',
+        img: '../img/card/free.svg'
     }, {
         angle: 112,
-        text: '本宿定制洗护大礼包'
+        text: '本宿定制洗护大礼包',
+        img: '../img/card/gift.png',
     }, {
         angle: 157,
-        text: '本宿定制床品一套'
+        text: '本宿定制床品',
+        img: '../img/card/bedding.png',
     }, {
         angle: 202,
-        text: '锤子M1L'
+        text: '锤子M1L',
+        img: '../img/card/hammer.png',
     }, {
         angle: 247,
-        text: '现金红包'
+        text: '现金红包',
+        img: '../img/card/redPacket.png',
     }, {
         angle: 292,
-        text: '小米手环 2'
+        text: '小米手环2',
+        img: '../img/card/miBand2.png',
     }, {
         angle: 337,
-        text: 'iPhone7 Plus'
+        text: 'iPhone7 Plus',
+        img: '../img/card/iphone7plus.png',
     }],
     task: [{
         img: 'img/card/card_null.svg',
         name: '会员',
         chance: 2,
-        add: 1
+        add: 2
     }, {
         img: 'img/card/card_No3.svg',
         name: '银卡会员',
         chance: 10,
-        add: 2
+        add: 4
     }, {
         img: 'img/card/card_No2.svg',
         name: '金卡会员',
         chance: 25,
-        add: 4
+        add: 6
     }, {
         img: 'img/card/card_No1.svg',
         name: '黑卡会员',
@@ -174,7 +184,7 @@ $(function() {
             }
         });
     };
-    var rotateFunc = function(awards, angle, text) { //awards:奖项，angle:奖项对应的角度
+    var rotateFunc = function(angle) { //angle:奖项对应的角度
         vmLottery.isRotate = true;
         vmLottery.chance--;
 
@@ -184,7 +194,7 @@ $(function() {
             duration: 5000,
             animateTo: angle + 1440, //angle是图片上各奖项对应的角度，1440是我要让指针旋转4圈。所以最后的结束的角度就是这样子^^
             callback: function() {
-                mui.alert(text, '中奖了！');
+                $('.mask').show();
                 vmLottery.isRotate = false;
                 vmLottery.count ++;
             }
@@ -197,18 +207,12 @@ $(function() {
                 if (!vmLottery.isRotate) {
                     if (vmLottery.chance > 0) {
                         if(vmLottery.count < LOTTERYPEYDAY) {
-                            var time = [0, 1];
-                            time = time[Math.floor(Math.random() * time.length)];
-                            // if(time==0){
-                            //  timeOut(); //网络超时
-                            // }
-                            // if(time==1){
-                            var index = Math.floor(Math.random() * 8);
-                            // }
+                            vmLottery.prizeIndex = Math.floor(Math.random() * 8);
+                            if(vmLottery.prizeIndex == 5) {
+                                vmLottery.cash = round(Math.random() * 15);
+                            }
 
-                            rotateFunc(index,
-                                vmLottery.prize[index].angle,
-                                '恭喜您抽中 ' + vmLottery.prize[index].text);
+                            rotateFunc(vmLottery.prize[vmLottery.prizeIndex].angle);
                         } else {
                             mui.alert('您已经达到每日抽奖上限，每天抽奖次数为' + LOTTERYPEYDAY + '次，请明天继续抽奖～');
                         }
@@ -220,3 +224,12 @@ $(function() {
         }
     });
 });
+
+$(function() {
+    $('.prizeModal-close').click(function() {
+        $('.mask').hide();
+    });
+    $('#closeBtn').click(function() {
+        $('.mask').hide();
+    });
+})
