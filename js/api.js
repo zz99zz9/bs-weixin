@@ -202,4 +202,8 @@ var urls = {
     getDiscountList: urlAPI + '/vip/userBuyCard/discountList', //会员卡折扣列表
     getCardOrderInfo: urlAPI + '/vip/userBuyCardOrderInfo/detail', //会员卡订单详情
     getAllArea: urlAPI + '/sys/area/getAllTree', //获取所有地区数据
+
+    //客服
+    getAuditList: urlAPI + '/vip/userCardMarketPackageTask/auditList', //查询待审核任务列表
+    getAuditSuccess: urlAPI + '/vip/userCardMarketPackageTask/auditSuccess', //审核任务通过或不通过
 }

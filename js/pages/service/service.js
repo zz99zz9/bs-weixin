@@ -37,6 +37,7 @@ var vmService = avalon.define({
         });
     },
     call: function(s) {
+        console.log(111);
         stopSwipeSkip.do(function() {
             vmAInfoBtn.selectText = '呼叫';
             popover('', none);

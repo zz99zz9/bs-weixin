@@ -2271,6 +2271,31 @@ function special() {
         .pipe(gulp.dest('./src'));
 }
 
+//客服待审核任务列表
+function auditList() {
+    return gulp.src('./js/layout/shell.html')
+        .pipe(replace({
+            regex: '<!-- css -->',
+            replace: '<link rel="stylesheet" href="../css/customer.css">'
+        }))
+        .pipe(replace({
+            regex: '<!-- content -->',
+            replace: '<!--include "../pages/customer/auditList.html"-->'
+        }))
+        .pipe(replace({
+            regex: '<!-- js -->',
+            replace: '<script src="../js/pages/customer/auditList.js"></script>'
+        }))
+        .pipe(replace({
+            regex: '<!-- pop -->',
+            replace: '<!--include "../util/pop.html"-->'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('customer/auditList.html'))
+        .pipe(gulp.dest('./src'));
+}
 
 /**
  * 输出弹框相关页面
@@ -2415,7 +2440,8 @@ gulp.task('html', gulp.parallel(
     discover,
     special,
     alipay,
-    closePage
+    closePage,
+    auditList
 ));
 
 function watchForReload() {
