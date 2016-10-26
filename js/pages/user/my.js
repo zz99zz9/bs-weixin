@@ -93,8 +93,10 @@ var vmSide = avalon.define({
                     if(json.data.userBuyCardList && json.data.userBuyCardList.length) {
                         var cList = json.data.userBuyCardList;
                         for(var i = 0; i< cList.length; i++) {
-                            vmSide.cardList[i].id = cList[i].id;
-                            vmSide.cardList[i].img = '../img/card/card_No' + cList[i].type + '.svg';
+                            if(cList[i].type<4) {
+                                vmSide.cardList[i].id = cList[i].id;
+                                vmSide.cardList[i].img = '../img/card/card_No' + cList[i].type + '.svg';
+                            }
                         }
                     }
 

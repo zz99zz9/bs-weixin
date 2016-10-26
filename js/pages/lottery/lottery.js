@@ -151,23 +151,38 @@ var vmLottery = avalon.define({
         img: 'img/card/card_null.svg',
         name: '会员',
         chance: 2,
-        add: 2
+        add: 2,
+        type: 4
     }, {
         img: 'img/card/card_No3.svg',
         name: '银卡会员',
         chance: 10,
-        add: 4
+        add: 4,
+        type: 3
     }, {
         img: 'img/card/card_No2.svg',
         name: '金卡会员',
         chance: 25,
-        add: 6
+        add: 6,
+        type: 2
     }, {
         img: 'img/card/card_No1.svg',
         name: '黑卡会员',
         chance: 60,
-        add: 8
+        add: 8,
+        type: 1
     }],
+    getText: function(type) {
+        if(vmLottery.cardTypeList.indexOf(4)>-1) {
+            if(type==4) {
+                return '完成';
+            } else {
+                return '升级';
+            }
+        } else {
+            return '完成';
+        }
+    },
     openLog: function() {
         popover('./util/lottery-log.html', 1, function() {
             vmLog.getList();
@@ -176,8 +191,32 @@ var vmLottery = avalon.define({
     openRule: function() {
         popover('./util/lottery-rule.html', 1);
     },
-    goPromotion: function() {
-        location.href = 'promotion-detail.html';
+    goPromotion: function(type) {
+        if(vmLottery.cardTypeList.indexOf(4)>-1) {
+            if(type<4) {
+                location.href = 'card-list.html';
+            } else {
+                location.href = 'promotion-detail.html';
+            }
+        } else {
+            if(vmLottery.cardTypeList.indexOf(type)>-1) {
+                location.href = 'promotion-detail.html';
+            }
+        }
+        
+    },
+    cardTypeList: [],
+    getCardList: function() {
+        ajaxJsonp({
+            url: urls.getCardList,
+            successCallback: function(json) {
+                if (json.status == 1) {
+                    json.data.map(function(o) {
+                        vmLottery.cardTypeList.push(o.type);
+                    })
+                }
+            }
+        });
     }
 })
 
@@ -252,7 +291,7 @@ var vmLog = avalon.define({
 
 vmLottery.getChance();
 vmLottery.getWinnerList();
-
+vmLottery.getCardList();
 vmLog.getList();
 
 function rotateFunc(angle) { //angle:奖项对应的角度

@@ -17,9 +17,9 @@
     <div class="mask bs-text-white" :if="@isShowMask">
         <div style="margin-top: 260px;display: flex;flex-direction: column;align-items: center;">
             <div style="margin: 20px;">
-                <img src="img/arrow_invite.png" style="width: 50px;position: relative;left: 15vw;">
+                <img src="img/arrow_invite.png" style="width: 50px;position: relative;left: 15vw;display: none;">
                 <div class="bs-text-larger" style="line-height: 25px;width: 70vw;">
-                    当您完成本月所有推广后，本月推广奖励将汇入您的本宿钱包账户。
+                    当您完成本月所有“待”推广任务后，本月推广奖励将汇入您的本宿钱包账户。
                 </div>
             </div>
             <button type="button" style="border:1px solid #fff;background: rgba(0,0,0,0.5);color: #fff;width: 50%;" :on-tap="@hideMask">知道了</button>
@@ -37,18 +37,24 @@
                             每月转发<span class="bs-text-gold">{{numToHan(el.monthShareTimes)}}次</span>以上本宿相关内容到自己的朋友圈，内容可以采用本宿提供的，也可以自己创作编辑。
                         </div>
                     </div>
-                    <div>
+                    <div :if="!@isNormal">
                         <div class="bs-text-larger bs-text-gold bs-text-bolder">时效</div>
                         <div class="promotion-detail-content">
                             本活动共计<span class="bs-text-gold">12个月</span>，以开通之日为起始，12个月后结束。
                         </div>
                     </div>
-                    <div>
+                    <div :if="!@isNormal">
                         <div class="bs-text-larger bs-text-gold bs-text-bolder">收入</div>
                         <div class="promotion-detail-content">
                             <div>年收入&nbsp; <span class="bs-text-gold">¥{{el.totalAward}}</span></div>
                             <div>月收入&nbsp; <span class="bs-text-gold">¥{{el.monthAward}}</span></div>
                             <div>本收入为本宿品牌推广奖励，请按时发布本宿推广内容。</div>
+                        </div>
+                    </div>
+                    <div :if="@isNormal">
+                        <div class="bs-text-larger bs-text-gold bs-text-bolder">奖励</div>
+                        <div class="promotion-detail-content">
+                            <div>推广一次，增加抽奖机会&nbsp; <span class="bs-text-gold">X2</span></div>
                         </div>
                     </div>
                     
@@ -58,24 +64,40 @@
                 <section :if="el.status==2">
                     <canvas class="circle" style="z-index: 1;order: 0;"></canvas>
                     
-                    <div style="order: 2;position: relative;bottom: 55.5vh;height: 0;">
+                    <div :if="!@isNormal" style="order: 2;position: relative;bottom: 55.5vh;height: 0;">
                         <div class="bs-text-xx-larger bs-text-gold" style="padding-bottom: 10px;">
                             {{el.totalAward}}
                         </div>
                         <div class="bs-text-normal bs-text-white">年推广奖励
                         </div>
                     </div>
+                    <div :if="@isNormal" style="order: 2;position: relative;bottom: 55.5vh;height: 0;">
+                        <div class="bs-text-xx-larger bs-text-gold" style="padding-bottom: 10px;">
+                            X2
+                        </div>
+                        <div class="bs-text-normal bs-text-white">抽奖次数加速
+                        </div>
+                    </div>
 
                     <div style="order: 1;">
-                        <div>本月推广奖励 ¥{{el.monthAward}}</div>
+                        <div :if="!@isNormal">
+                            本月推广奖励 ¥{{el.monthAward}}
+                            <br>
+                            抽奖次数加速 X{{el.userBuyCard.lotteryShareTimes}}
+                        </div>
+                        <div :if="@isNormal">
+                            本月推广
+                        </div>
                         <div style="display: flex;justify-content: center;">
-                            <div :if="el.monthShareTimes>0" :class="['promotion-btn',@taskList[index][0]?'promotion-done':'promotion-undo']" :on-tap="@complete(index, 0)">{{@taskList[index][0]?'完成':'待'}}</div>
-                            <div :if="el.monthShareTimes>1" :class="['promotion-btn',@taskList[index][1]?'promotion-done':'promotion-undo']" :on-tap="@complete(index, 1)">{{@taskList[index][1]?'完成':'待'}}</div>
-                            <div :if="el.monthShareTimes>2" :class="['promotion-btn',@taskList[index][2]?'promotion-done':'promotion-undo']" :on-tap="@complete(index, 2)">{{@taskList[index][2]?'完成':'待'}}</div>
+                            <div :class="['promotion-btn',@taskList[index][0]?'promotion-done':'promotion-undo']" :on-tap="@complete(index, 0)">{{@taskList[index][0]?'完成':(@list[index].monthShareTimes>0?'待':'推')}}</div>
+                            <div :class="['promotion-btn',@taskList[index][1]?'promotion-done':'promotion-undo']" :on-tap="@complete(index, 1)">{{@taskList[index][1]?'完成':(@list[index].monthShareTimes>1?'待':'推')}}</div>
+                            <div :class="['promotion-btn',@taskList[index][2]?'promotion-done':'promotion-undo']" :on-tap="@complete(index, 2)">{{@taskList[index][2]?'完成':(@list[index].monthShareTimes>2?'待':'推')}}</div>
+                            <div :class="['promotion-btn',@taskList[index][3]?'promotion-done':'promotion-undo']" :on-tap="@complete(index, 3)">{{@taskList[index][3]?'完成':(@list[index].monthShareTimes>3?'待':'推')}}</div>
                         </div>
                     </div>
                     
-                    <div class="bs-text-gold" style="order: 3;" :on-tap="@openRule">本宿推广奖励条例</div>
+                    <div :if="!@isNormal" class="bs-text-gold" style="order: 3;" :on-tap="@openRule">本宿推广奖励条例</div>
+                    <div :if="@isNormal" class="bs-text-gold" style="order: 3;" :on-tap="@openCard">获得更多抽奖机会</div>
                 </section>
             </div>
 

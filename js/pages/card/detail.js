@@ -116,6 +116,8 @@ var vmPopover = avalon.define({
         } else {
             if (vmCardWithdraw.cash > vmCardWithdraw.cashAmount) {
                 mui.alert('提现金额超限');
+            } else if (vmCardWithdraw.cash < 60) {
+                mui.alert('对不起，每次提现金额不能少于60元')
             } else {
                 //提现
                 ajaxJsonp({

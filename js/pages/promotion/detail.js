@@ -13,30 +13,35 @@ var vmDetail = avalon.define({
     isShowMask: false,
     hideMask: function() {
         vmDetail.isShowMask = false;
-        Storage.setLocal('user', { openUserInfo: 1});
+        Storage.setLocal('user', { openUserInfo: 1 });
 
         location.href = "index.html";
     },
     list: [],
+    isNormal: true,
     getList: function() {
         ajaxJsonp({
             url: urls.promotionList,
             successCallback: function(json) {
                 if (json.status == 1) {
-                    if(json.data.length == 0) {
-                        mui.alert('您还没有成为推广奖励', function(){
+                    if (json.data.length == 0) {
+                        mui.alert('您还没有开通推广奖励计划', function() {
                             location.href = document.referrer || 'index.html';
                         });
                     } else {
                         vmDetail.list = json.data;
                         vmDetail.taskList = [
-                            [0, 0, 0],
-                            [0, 0, 0]
+                            [0, 0, 0, 0],
+                            [0, 0, 0, 0]
                         ];
-                        for(var i = 0; i<json.data.length; i++) {
+                        for (var i = 0; i < json.data.length; i++) {
+                            if (json.data[i].name.indexOf('普通') == -1) {
+                                vmDetail.isNormal = false;
+                            }
+
                             var num = 0;
-                            for(var j = 0; j<json.data[i].currentMonthTaskList.length; j++) {
-                                if(json.data[i].currentMonthTaskList[j].status==1 || json.data[i].currentMonthTaskList[j].status==2) {
+                            for (var j = 0; j < json.data[i].currentMonthTaskList.length; j++) {
+                                if (json.data[i].currentMonthTaskList[j].status == 1 || json.data[i].currentMonthTaskList[j].status == 2) {
                                     vmDetail.taskList[i][num] = 1;
                                     num++;
                                 }
@@ -47,7 +52,7 @@ var vmDetail = avalon.define({
                         /**
                          * canvas画圆形
                          */
-                         $('.circle').each(function(i, o) {
+                        $('.circle').each(function(i, o) {
                             var $circle = o;
 
                             var context = $circle.getContext('2d');
@@ -72,12 +77,14 @@ var vmDetail = avalon.define({
             //开通套餐
             ajaxJsonp({
                 url: urls.goPromotion,
-                data: {pid: vmDetail.list[index].id},
+                data: { pid: vmDetail.list[index].id },
                 successCallback: function(json) {
                     if (json.status == 1) {
                         vmDetail.getList();
 
-                        vmDetail.isShowMask = true;
+                        if (!vmDetail.isNormal) {
+                            vmDetail.isShowMask = true;
+                        }
                     } else {
                         mui.alert(json.message);
                     }
@@ -86,44 +93,44 @@ var vmDetail = avalon.define({
         });
     },
     taskList: [
-        [0, 0, 0],
-        [0, 0, 0],
+        [0, 0, 0, 0],
+        [0, 0, 0, 0],
     ],
     getTaskStatus: function(prIndex, taskIndex) {
         return vmDetail.taskList[prIndex][taskIndex];
     },
     a: 0,
     complete: function(prIndex, taskIndex) {
-        if(!vmDetail.taskList[prIndex][taskIndex]) {
+        if (!vmDetail.taskList[prIndex][taskIndex]) {
             var todayDone = false;
             vmDetail.$model.list[prIndex].currentMonthTaskList.map(function(t) {
-                if(t.submitTime.slice(0,10) == getToday('date')) {
+                if (t.submitTime.slice(0, 10) == getToday('date')) {
                     todayDone = true;
                     mui.alert('Sorry, 每天只能完成一次任务！');
                 }
             });
 
-            if(!todayDone) {
-                mui.confirm('已经完成本次推广？','',["否", "是"], function(e) {
-                    if(e.index == 1) {
+            if (!todayDone) {
+                mui.confirm('已经完成本次推广？', '', ["否", "是"], function(e) {
+                    if (e.index == 1) {
                         //记录当前轮播页
                         Storage.set('prData', { index: prIndex });
-                        
+
                         ajaxJsonp({
                             url: urls.submitPromoteTaskList,
-                            data: {pid: vmDetail.list[prIndex].id},
+                            data: { pid: vmDetail.list[prIndex].id },
                             successCallback: function(json) {
                                 if (json.status == 1) {
                                     vmDetail.taskList[prIndex][taskIndex] = 1;
 
-                                    var done = true;
-                                    for(var i = 0; i < vmDetail.$model.list[prIndex].monthShareTimes; i++ ) {
-                                        if(vmDetail.$model.taskList[prIndex][i] == 0) {
-                                            done = false;
+                                    var done = 0;
+                                    for (var i = 0; i < 4; i++) {
+                                        if (vmDetail.taskList[prIndex][i]) {
+                                            done++;
                                         }
                                     }
 
-                                    if(done) {
+                                    if (done == vmDetail.list[prIndex].monthShareTimes) {
                                         mui.alert('感谢您的支持，本宿工作人员审核后，推广奖励将汇入您的钱包，请及时查询！');
                                     }
 
@@ -141,6 +148,9 @@ var vmDetail = avalon.define({
     openRule: function() {
         vmPopover.useCheck = 0;
         popover('./util/promotion-rule.html', 1);
+    },
+    openCard: function() {
+        location.href = "card-list.html";
     },
     swiper: function() {
         var swiper = new Swiper('.swiper', {
