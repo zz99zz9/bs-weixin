@@ -205,5 +205,9 @@ var urls = {
     getPrize: urlAPI + '/vip/lottery/luck', //抽奖
     getPrizeLogList: urlAPI + '/vip/prizeLog/myList', //所有的中奖记录
     getWinnerList: urlAPI + '/vip/prizeLog/list', //所有的中奖记录
-    getLotteryTimes: urlAPI + '/vip/lotteryTimes/times', //会员的声誉抽奖次数
+    getLotteryTimes: urlAPI + '/vip/lotteryTimes/times', //会员的剩余抽奖次数
+
+    //客服
+    getAuditList: urlAPI + '/vip/userCardMarketPackageTask/auditList', //查询待审核任务列表
+    getAuditSuccess: urlAPI + '/vip/userCardMarketPackageTask/auditSuccess', //审核任务通过或不通过
 }

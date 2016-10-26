@@ -1,0 +1,29 @@
+<header class="mui-bar mui-bar-nav" style="display: -webkit-box;justify-content: space-between;position: fixed;">
+    <div class="mui-input-row mui-search" style="-webkit-box-flex: 1;padding-top:2px;">
+        <h1 id="headerReplace" class="mui-title">待审核列表</h1>
+    </div>
+</header>
+<div id="pullrefresh" class="mui-scroll-wrapper" ms-controller="auditList">
+    <div class="mui-scroll">
+        <br>
+        <br>
+        <div class="input-panel">
+            <div class="audit-block" ms-repeat="data">
+                <div class="audit-block-left">
+                    <img class="audit-block-head" ms-attr-src="'http://img.bensue.com/' + el.headUrl" onerror="javascript:this.src='../img/defaultHeadImg.png';">
+                    <br>
+                    <img class="audit-block-card" ms-attr-src="el.card" onerror="javascript:this.src='../img/card/card_null.svg';">
+                </div> 
+                <div class="audit-block-right">
+                    <div>卡号：{{el.cardNo}}</div>
+                    <div>手机：{{el.mobile}}</div>
+                    <div>时间：{{el.time}}</div>
+                    <div>
+                        <button class="audit-button" type="button" style="background-color: red" ms-click="submit(3,el.id)">不通过</button>
+                        <button class="audit-button" type="button" style="background-color: green" ms-click="submit(2,el.id)">通过</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
