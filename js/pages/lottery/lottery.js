@@ -162,13 +162,13 @@ var vmLottery = avalon.define({
     }, {
         img: 'img/card/card_No2.svg',
         name: '金卡会员',
-        chance: 25,
+        chance: 20,
         add: 6,
         type: 2
     }, {
         img: 'img/card/card_No1.svg',
         name: '黑卡会员',
-        chance: 60,
+        chance: 30,
         add: 8,
         type: 1
     }],
