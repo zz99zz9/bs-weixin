@@ -1,18 +1,10 @@
 <style>
 .swiper-container {
     height: 100vh;
-    /*top: 5vh;
-    width: 90vw;
-    margin: 5vh;*/
     background-color: #999;
 }
 
 .swiper-slide {
-    /*background-size: contain;
-    background-color: #999;
-    height: 90vh;
-    width: 100% !important;
-    margin-right: 8px !important;*/
     background-size: contain;
     padding: 0;
 }
@@ -25,23 +17,27 @@
 
 </style>
 <div class="swiper-container">
-    <!-- <div class="swiper-wrapper">
-            <div class="swiper-slide" style="background-image: url(img/promotion_1.png);">
-            </div>
-            <div class="swiper-slide" style="background-image: url(img/promotion_2.png);">
-            </div>
-            <div class="swiper-slide" style="background-image: url(img/promotion_2.png);">
-            </div>
-        </div> -->
     <div class="swiper-wrapper">
-        <div class="swiper-slide" style=" margin-right: 5px !important;">
-            <div style="background-image: url(img/promotion_1.png);">Slide 1</div>
+        <div class="swiper-slide">
+            <div style="background-image: url(img/promotion_1.png);"></div>
         </div>
-        <div class="swiper-slide" style=" margin-right: 5px !important;">
-            <div style="background-image: url(img/promotion_1.png);">Slide 1</div>
+        <div class="swiper-slide">
+            <div style="background-image: url(img/promotion_2.png);"></div>
         </div>
-        <div class="swiper-slide" style=" margin-right: 5px !important;">
-            <div style="background-image: url(img/promotion_1.png);">Slide 1</div>
+        <div class="swiper-slide">
+            <div style="background-image: url(img/promotion_3.png);"></div>
+        </div>
+        <div class="swiper-slide">
+            <div style="background-image: url(img/promotion_4.png);"></div>
+        </div>
+        <div class="swiper-slide">
+            <div style="background-image: url(img/promotion_5.png);"></div>
+        </div>
+        <div class="swiper-slide">
+            <div style="background-image: url(img/promotion_6.png);"></div>
+        </div>
+        <div class="swiper-slide">
+            <div style="background-image: url(img/promotion_7.png);"></div>
         </div>
     </div>
 </div>
@@ -52,9 +48,8 @@
 var swiper = new Swiper('.swiper-container', {
     width: window.innerWidth - 20,
     paginationClickable: true,
-    spaceBetween: 30,
+    spaceBetween: 7,
     centeredSlides: true,
-    // autoplay: 2500,
     autoplayDisableOnInteraction: false
 });
 </script>
