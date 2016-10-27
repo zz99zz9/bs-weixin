@@ -232,7 +232,11 @@ var vmLottery = avalon.define({
         });
     },
     goLog: function() {
-        location.href = 'card-log.html?cid=' + vmLottery.cardDataList.id;
+        if (vmLottery.prizeIndex == 5) {
+            location.href = 'card-log.html?cid=' + vmLottery.cardDataList.id;
+        } else {
+            vmLottery.openLog();
+        }
     },
 })
 
