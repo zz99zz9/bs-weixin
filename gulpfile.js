@@ -1200,6 +1200,27 @@ function lottery() {
         .pipe(gulp.dest('./src'));
 }
 
+function cardPromotion() {
+    return gulp.src('./js/layout/shell.html')
+        .pipe(replace({
+            regex: '<!-- css -->',
+            replace: '<link rel="stylesheet" href="css/swiper.min.css">\n<link rel="stylesheet" href="css/card.css">'
+        }))
+        .pipe(replace({
+            regex: '<!-- content -->',
+            replace: '<!--include "../pages/card/promotion.html"-->'
+        }))
+        // .pipe(replace({
+        //     regex: '<!-- js -->',
+        //     replace: '<script src="js/pages/card/list.js"></script>'
+        // }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('card-promotion.html'))
+        .pipe(gulp.dest('./src'));
+ }
+
 /**
  *   =======================================================
  *                       管理模块相关页面
@@ -2397,6 +2418,7 @@ gulp.task('html', gulp.parallel(
     cardBind,
     cardIntroduce,
     cardIntroducePicture,
+    cardPromotion,
     promotionApply,
     promotionDetail,
     lottery,
