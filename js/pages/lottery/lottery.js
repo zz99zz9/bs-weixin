@@ -217,7 +217,23 @@ var vmLottery = avalon.define({
                 }
             }
         });
-    }
+    },
+    cardDataList: {id: ''},
+    getCard: function() {
+        ajaxJsonp({
+            url: urls.getCardAccountList,
+            successCallback: function(json) {
+                if (json.status === 1) {
+                    if (json.data.length) {
+                        vmLottery.cardDataList.id = json.data[0].id;
+                    }
+                }
+            }
+        });
+    },
+    goLog: function() {
+        location.href = 'card-log.html?cid=' + vmLottery.cardDataList.id;
+    },
 })
 
 var vmPopover = avalon.define({
@@ -292,6 +308,7 @@ var vmLog = avalon.define({
 vmLottery.getChance();
 vmLottery.getWinnerList();
 vmLottery.getCardList();
+vmLottery.getCard();
 vmLog.getList();
 
 function rotateFunc(angle) { //angle:奖项对应的角度
