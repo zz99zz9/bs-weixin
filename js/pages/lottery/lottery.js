@@ -238,6 +238,28 @@ var vmLottery = avalon.define({
             vmLottery.openLog();
         }
     },
+    //获取所有会员卡列表
+    data: [],
+    getData: function() {
+        ajaxJsonp({
+            url: urls.getAllDicCardList,
+            successCallback: function(json) {
+                if (json.status === 1) {
+                    vmLottery.data = [];
+                    json.data.map(function(c) {
+                        if (c.id == 4) {
+                            c.imgUrl = 'img/card/card_null.svg';
+                        } else {
+                            c.imgUrl = 'img/card/card_No' + c.id + '.svg';
+                        }
+                        vmLottery.data.push(c);
+                    });
+                    console.log(111);
+                }
+            }
+        });
+        
+    }
 })
 
 var vmPopover = avalon.define({
@@ -300,7 +322,8 @@ var vmLog = avalon.define({
                             name: vmLottery.prize[rank].text,
                             img: vmLottery.prize[rank].img,
                             amount: o.amount,
-                            createTime: o.createTime
+                            createTime: o.createTime,
+                            quantity: o.quantity
                         })
                     });
                 } 
@@ -313,6 +336,7 @@ vmLottery.getChance();
 vmLottery.getWinnerList();
 vmLottery.getCardList();
 vmLottery.getCard();
+vmLottery.getData();
 vmLog.getList();
 
 function rotateFunc(angle) { //angle:奖项对应的角度

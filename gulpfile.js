@@ -1050,10 +1050,10 @@ function cardIntroduce () {
             regex: '<!-- content -->',
             replace: '<!--include "../pages/card/introduce.html"-->'
         }))
-        // .pipe(replace({
-        //     regex: '<!-- js -->',
-        //     replace: '<script src="js/pages/card/introduce.js"></script>'
-        // }))
+        .pipe(replace({
+            regex: '<!-- js -->',
+            replace: '<script src="js/pages/card/introduce.js"></script>'
+        }))
         // .pipe(replace({
         //     regex: '<!-- pop -->',
         //     replace: '<!--include "../pages/user/popover.html"-->'

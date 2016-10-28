@@ -206,6 +206,7 @@ var urls = {
     getPrizeLogList: urlAPI + '/vip/prizeLog/myList', //所有的中奖记录
     getWinnerList: urlAPI + '/vip/prizeLog/list', //所有的中奖记录
     getLotteryTimes: urlAPI + '/vip/lotteryTimes/times', //会员的剩余抽奖次数
+    getAllDicCardList: urlAPI + '/vip/membershipCard/all', //获取所有会员卡字典数据
 
     //客服
     getAuditList: urlAPI + '/vip/userCardMarketPackageTask/auditList', //查询待审核任务列表
