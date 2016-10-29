@@ -56,7 +56,7 @@ var vmAuditList = avalon.define({
                             headUrl: e.user.headUrl,
                             card: src,
                             mobile: e.user.mobile,
-                            time: e.userCardMarketPackagePlan.endTime,
+                            time: e.submitTime,
                         })
                     })
                 } else {
