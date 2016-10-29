@@ -122,7 +122,7 @@ function reload() {
                         headUrl: e.user.headUrl,
                         card: src,
                         mobile: e.user.mobile,
-                        time: e.userCardMarketPackagePlan.endTime,
+                        time: e.submitTime,
                     })
                 })
 
@@ -161,7 +161,7 @@ function loadmore() {
                         headUrl: e.user.headUrl,
                         card: src,
                         mobile: e.user.mobile,
-                        time: e.userCardMarketPackagePlan.endTime,
+                        time: e.submitTime,
                     })
                 })
                 if (vmAuditList.pageNo <= json.data.pageCount) {
