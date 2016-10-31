@@ -450,6 +450,9 @@ bensue = Storage.get("bensue");
 if (bensue) {
     roomType = bensue.type || 0;
 }
+if (roomType==undefined) {
+    roomType = 0;
+}
 vmRoom.type = roomType;
 
 newOrder = Storage.get("newOrder");

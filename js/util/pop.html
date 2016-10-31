@@ -1,11 +1,11 @@
-<div id="popModule" style="display: none;" class="hide" ms-controller="aside" >
+<div id="popModule" style="display: none;" class="hide" ms-controller="aside">
     <div class="content">
         <div class="mui-text-center bs-bg-white" style="padding-top: 20px;">
-            <div class="circle" style="width: 104px;height: 104px;margin: 0px auto;border: 1px solid #baa074;">    
+            <div class="circle" style="width: 104px;height: 104px;margin: 0px auto;border: 1px solid #baa074;">
                 <div class="circle" style="margin: 0 auto;width: 96px;height: 96px;background-size: cover;background-position: center;position:relative;top: 3px;" ms-css-background-image='url({{headImg}})' ms-on-tap="changeImg">
-                    <img src="../img/edit-small.png" style="position: absolute;background: #fff;border-radius: 50%;bottom: 2px;left: 72px;width: 18px;"/>
+                    <img src="../img/edit-small.png" style="position: absolute;background: #fff;border-radius: 50%;bottom: 2px;left: 72px;width: 18px;" />
                 </div>
-            </div> 
+            </div>
             <!-- <div class="bs-text-large" style="font-weight: lighter;padding-bottom: 10px;">{{nickName}}</div> -->
             <!-- 会员卡 -->
             <div style="padding: 5px;" ms-if="cardList[0].id">
@@ -13,16 +13,15 @@
             </div>
             <div class="bs-text-smaller bs-text-gold" style="padding: 5px;" ms-if="!cardList[0].id" ms-on-tap="goCard(0, 0)">升级VIP会员</div>
         </div>
-
         <div class="control bs-bg-black bs-text-white">
-            <div class="control-item">
+            <div class="control-item" ms-click="open">
                 <img src="../img/icon/open.png" />
                 <div class="grid-text bs-text-small">开门</div>
             </div>
-            <div class="control-item">
+            <div class="control-item" ms-click="leave">
                 <img src="../img/icon/checkOut.png" />
                 <div class="grid-text bs-text-small">退房</div>
-            <!-- </div><div class="control-item">
+                <!-- </div><div class="control-item">
                 <div class="grid-img" style="background-color: #eee3cd;">
                     <img src="../img/icon/temp.png" style="margin-top: 8px;margin-left: 0px;" />
                 </div>
@@ -32,9 +31,34 @@
                     <img src="../img/icon/controller.png" style="margin-top: 8px;margin-left: 1px;" />
                 </div>
                 <div class="grid-text">遥控器</div>-->
-            </div> 
+            </div>
         </div>
-
+        <div id="roomSheet" class="mui-popover mui-popover-bottom mui-popover-action bs-text-large" style="right: 0;">
+            <ul class="mui-table-view">
+                <li class="mui-table-view-cell" ms-repeat="roomData" ms-click="openDoor(el.id,el.roomNo)" ms-visible="isShowSheet(el.status, sheetType)">
+                    <a href="#">{{el.roomNo}}
+            </a>
+                </li>
+            </ul>
+            <ul class="mui-table-view">
+                <li class="mui-table-view-cell">
+                    <a href="#roomSheet"><b>取消</b></a>
+                </li>
+            </ul>
+        </div>
+        <div id="leaveSheet" class="mui-popover mui-popover-bottom mui-popover-action bs-text-large" style="right: 0;">
+            <ul class="mui-table-view">
+                <li class="mui-table-view-cell" ms-repeat="leaveData" ms-click="checkOut(el.id,el.roomNo)" ms-visible="isShowSheet(el.status, sheetType)">
+                    <a href="#">{{el.roomNo}}
+            </a>
+                </li>
+            </ul>
+            <ul class="mui-table-view">
+                <li class="mui-table-view-cell">
+                    <a href="#leaveSheet"><b>取消</b></a>
+                </li>
+            </ul>
+        </div>
         <div class="bs-bg-white" style="display: flex;flex-flow: row wrap;align-content: flex-start;">
             <div class="center-nav-item" ms-on-tap="clickA(3)" ms-visible="!isManage">
                 <a href="javascript:void(0)">
@@ -67,13 +91,13 @@
                 </a>
             </div>
             <div class="center-nav-item" ms-on-tap="clickA(8)" ms-visible="isAlliance&&!isManage">
-                <a href="javascript:void(0)" >
+                <a href="javascript:void(0)">
                     <img src="../img/alliance.svg" class="grid-icon" />
                     <div class="bs-text-smaller bs-text-black">鸿鹄伙伴</div>
                 </a>
             </div>
             <div class="center-nav-item" ms-on-tap="clickA(5)" ms-visible="isAdmin&&!isManage">
-                <a href="javascript:void(0)" >
+                <a href="javascript:void(0)">
                     <img src="../img/icon/switch.png" class="grid-icon" />
                     <div class="bs-text-smaller bs-text-black">管理模式</div>
                 </a>
@@ -87,7 +111,7 @@
                 <div class="bs-text-smaller bs-text-black">抽奖</div>
             </div>
             <!-- <div class="center-nav-item" ms-visible="!isAdmin&&!isManage"> -->
-                <!-- <a href="javascript:void(0)">
+            <!-- <a href="javascript:void(0)">
                     <img src="../img/icon/shopping.png" class="grid-icon" />
                     <div class="bs-text-smaller bs-text-black">购物</div>
                 </a>-->
@@ -99,19 +123,18 @@
                 </a>
             </div> -->
             <div class="center-nav-item" ms-on-tap="clickA(7)" ms-visible="isManage">
-                <a href="javascript:void(0)" >
+                <a href="javascript:void(0)">
                     <img src="../img/iconfont-jiudian.svg" class="grid-icon" />
                     <div class="bs-text-smaller bs-text-black">更多酒店</div>
                 </a>
             </div>
             <div class="center-nav-item" ms-on-tap="clickA(6)" ms-visible="isManage">
-                <a href="javascript:void(0)" >
+                <a href="javascript:void(0)">
                     <img src="../img/icon/switch.png" class="grid-icon" />
                     <div class="bs-text-smaller bs-text-black">下单模式</div>
                 </a>
             </div>
         </div>
-        
         <button id='closebtn' class="popover-Button popover-Button-close"></button>
     </div>
 </div>

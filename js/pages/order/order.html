@@ -109,7 +109,7 @@ input[type=checkbox] {
                     <!-- 操作按钮 -->
                     <button class="bs-text-small" type="button" ms-on-tap="orderRoomAction(el.id, el.status)" ms-if="el.status>=3&&el.status<=4&&!el.isComment" style="float: left;margin: 0px;margin-top: 12px;">{{showActionText(el.status)}}</button>
                     <!-- 房间价格 -->
-                    <span class="bs-text-large bs-text-red" style="float: right; margin: 20px 15px 0 0;">¥{{el.amount}}</</span>
+                    <span class="bs-text-large bs-text-red" style="float: right; margin: 20px 15px 0 0;">¥{{el.actualAmount}}</</span>
                 </h5>
                 <span style="clear: both;">&nbsp;</span>
             </li>
@@ -146,7 +146,7 @@ input[type=checkbox] {
                 <span class="info-left">实付金额：</span>
                 <span class="info-right bs-text-red">
                 ¥<!-- {{round(needAmount-fund)<0?0:round(needAmount-fund)}} -->
-                {{round(needAmount*discount)}}
+                {{needAmount+data.paidAmount}}
                 </span>
             </div>
             <div>&nbsp;</div>

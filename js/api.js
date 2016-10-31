@@ -74,6 +74,10 @@ var urls = {
     hotelService: urlAPI + '/svr/hotelService/list',//店内服务列表
     socialService: urlAPI + '/svr/socialServiceCategory/list',//社会化服务列表
     socialList: urlAPI + '/svr/hotelSocialStore/list',//社会化商铺列表
+    openDoorList: urlAPI + '/trd/hotelControl/openDoorList',//查询当前登录用户开门列表
+    checkOutDoorList: urlAPI + '/trd/hotelControl/checkOutList',//查询当前登录用户退房列表
+    openDoor: urlAPI + '/trd/hotelControl/openDoor',// 微信开门
+    checkOutDoor: urlAPI + '/trd/hotelControl/checkOut',//微信退房
 
     //管理
     //欢迎页

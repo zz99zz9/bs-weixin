@@ -1,6 +1,5 @@
-
-const DAYROOM = '全天房', 
-    HOURROOM = '时租房', 
+const DAYROOM = '全天房',
+    HOURROOM = '时租房',
     SERVICECALL = "021-50881962";
 
 //默认图片
@@ -125,7 +124,7 @@ var controlCore = {
     getHotel: function() {
         this.hotel = Storage.get("hotel");
 
-        if(!(this.hotel && this.hotel.hid)) {
+        if (!(this.hotel && this.hotel.hid)) {
             location.href = "homepage.html";
         } else {
             return this.hotel;
@@ -152,9 +151,9 @@ function isLeapYear(year) {
 
 //获取指定年月的当月天数
 function getDayNum(year, month) {
-    if ([1, 3, 5, 7, 8, 10, 12].indexOf(month)>-1) {
+    if ([1, 3, 5, 7, 8, 10, 12].indexOf(month) > -1) {
         return 31;
-    } else if ([4, 6, 9, 11].indexOf(month)>-1) {
+    } else if ([4, 6, 9, 11].indexOf(month) > -1) {
         return 30;
     } else if (self.isLeapYear(year)) {
         return 29;
@@ -186,8 +185,8 @@ function getDates(addDayCount) {
 }
 
 function getWeekday(date) {
-    var w_array = new Array("星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六")
-    ,d = new Date(date.replace(/-/g, "/"));
+    var w_array = new Array("星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"),
+        d = new Date(date.replace(/-/g, "/"));
     return w_array[d.getDay()];
 }
 
@@ -219,13 +218,13 @@ function getToday(type) {
     if (mins < 10) mins = "0" + mins;
     if (s < 10) s = "0" + s;
 
-    switch(type) {
+    switch (type) {
         case "date":
             return year + "-" + month + "-" + day;
         case "monthNotFormat":
             return year + "-" + month;
         case "preMonthNotFormat":
-            if(month == "01") {
+            if (month == "01") {
                 year = year - 1;
                 month = 12;
             } else {
@@ -256,18 +255,18 @@ function getToday(type) {
 //返回上月第一天和最后一天的字符串 2016-2-1, 2016-2-29
 //type: start, end
 function getLastMonth(type) {
-     var d = new Date(),
+    var d = new Date(),
         year = d.getFullYear(),
         month = d.getMonth() + 1;
 
-    if(month == 1) {
+    if (month == 1) {
         year = year - 1;
-        if(type == 'start') {
-           return year + "-12-1";
+        if (type == 'start') {
+            return year + "-12-1";
         } else if (type == 'end') {
             return year + "-12-31";
         }
-     } else {
+    } else {
         month = month - 1;
         if (type == 'start') {
             return year + "-" + month + "-1";
@@ -280,17 +279,17 @@ function getLastMonth(type) {
 //返回上一个月的时间字符串
 function getPreMonth(date) {
     var d = new Date(date.replace(/-/g, '/')),
-    year = d.getFullYear(),
-    month = d.getMonth() + 1;
+        year = d.getFullYear(),
+        month = d.getMonth() + 1;
 
-    if(month == 1) {
+    if (month == 1) {
         year = year - 1;
         return year + "-12";
     } else {
         month = month - 1;
-        if(month < 10) {
+        if (month < 10) {
             month = "0" + month;
-         }
+        }
         return year + "-" + month;
     }
 }
@@ -298,11 +297,11 @@ function getPreMonth(date) {
 //返回上一天的时间字符串
 function getPreDay(date) {
     var d = new Date(date.replace(/-/g, '/'));
-    d.setDate(d.getDate()-1);
+    d.setDate(d.getDate() - 1);
 
     var year = d.getFullYear(),
-    month = d.getMonth() + 1,
-    day = d.getDate();
+        month = d.getMonth() + 1,
+        day = d.getDate();
 
     if (month < 10) {
         month = "0" + month;
@@ -348,10 +347,10 @@ function isNotEmpty(obj) {
 //     });
 //     return vmData;
 // }
-function mapList(json){
+function mapList(json) {
     var vmData = [];
-    json.map(function(item){
-         vmData.push({value:item.id,text:item.name,unit:item.unit,price:item.price});
+    json.map(function(item) {
+        vmData.push({ value: item.id, text: item.name, unit: item.unit, price: item.price });
     });
     return vmData;
 }
@@ -361,9 +360,9 @@ var stopSwipeSkip = (function() {
     var tapCount = 0;
     return {
         do: function(callback) {
-            tapCount ++;
-            if(tapCount>1) {
-                callback();    
+            tapCount++;
+            if (tapCount > 1) {
+                callback();
             }
             //滑动只触发一次
             //tap 会连续触发两次，间隔小于100ms
@@ -374,9 +373,9 @@ var stopSwipeSkip = (function() {
     }
 })();
 
-function getDateByDays(date,days){
+function getDateByDays(date, days) {
     var d = new Date();
-    d.setFullYear(date.split('-')[0],date.split('-')[1]-1,date.split('-')[2]);
+    d.setFullYear(date.split('-')[0], date.split('-')[1] - 1, date.split('-')[2]);
     d.setDate(d.getDate() + days);
 
     var year = d.getFullYear(),
@@ -401,7 +400,7 @@ function loadSessionPartTime() {
 
         vmPart.partTimeNumber = number;
         vmPart.partTimeIndex = index;
-        
+
         vmPart.selectTime(newOrder.partTime.partTimeIndex);
 
         select_bar.style.top = 21 * (vmPart.partTimeIndex - vmPart.minIndex + 1) + 'px';
@@ -465,7 +464,7 @@ function getHourIndex() {
 function registerWeixinConfig() {
     ajaxJsonp({
         url: urls.weiXinConfig,
-        data: { url: window.location.href},
+        data: { url: window.location.href },
         successCallback: function(json) {
             if (json.status === 1) {
                 wx.config({
@@ -477,7 +476,10 @@ function registerWeixinConfig() {
                     jsApiList: [
                         'checkJsApi',
                         'openLocation',
-                        'getLocation'
+                        'getLocation',
+                        'onMenuShareTimeline',
+                        'onMenuShareAppMessage',
+                        'hideMenuItems'
                     ],
                 });
                 isSuccess = true;
@@ -488,8 +490,8 @@ function registerWeixinConfig() {
 
 //验证url的数字传参
 function verifyIntParam(p) {
-    if(p != "") {
-        if(isNaN(p)) {
+    if (p != "") {
+        if (isNaN(p)) {
             location.href = document.referrer || "index.html";
         } else {
             return parseInt(p);
@@ -504,7 +506,7 @@ function getRadians(degrees) {
 }
 
 function numToHan(num) {
-    switch(num) {
+    switch (num) {
         case 1:
             return '一';
         case 2:
@@ -532,15 +534,15 @@ function goPromotion() {
         url: urls.promotionList,
         successCallback: function(json) {
             if (json.status == 1) {
-                if(json.data.length > 0) {
+                if (json.data.length > 0) {
                     json.data.map(function(p) {
-                        if(p.status == 2) {
+                        if (p.status == 2) {
                             promotionUrl = 'promotion-detail.html';
                         }
                     });
                 }
-                
-                if(promotionUrl == '') {
+
+                if (promotionUrl == '') {
                     promotionUrl = 'promotion-apply.html';
                 }
 
@@ -551,12 +553,13 @@ function goPromotion() {
 }
 
 function isLocalStorageNameSupported() {
-    var testKey = 'test', storage = window.localStorage;
-        try {
-            storage.setItem(testKey, '1');
-            storage.removeItem(testKey);
-            return true;
-        } catch (error) {
-            return false;
+    var testKey = 'test',
+        storage = window.localStorage;
+    try {
+        storage.setItem(testKey, '1');
+        storage.removeItem(testKey);
+        return true;
+    } catch (error) {
+        return false;
     }
 }
