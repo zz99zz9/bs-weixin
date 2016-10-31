@@ -1,17 +1,24 @@
 <style>
 .swiper-container {
     height: 100vh;
-    background-color: #999;
+    background-color: black;
 }
 
 .swiper-slide {
     padding: 0;
+    background-color: black;
 }
 
 .swiper-slide div {
     width: inherit;
+    background-position: center;
     background-size: contain;
     height: 100%;
+    background-repeat: no-repeat;
+}
+
+.swiper-pagination-progress .swiper-pagination-progressbar {
+    background: #baa071;
 }
 </style>
 <div class="swiper-container">
@@ -40,14 +47,15 @@
             </div>
         </div>
     </div>
+    <div class="swiper-pagination"></div>
 </div>
 <!-- Swiper JS -->
 <script src="../js/lib/swiper.min.js"></script>
 <script>
 var swiper = new Swiper('.swiper-container', {
-    width: window.innerWidth - 20,
+    pagination: '.swiper-pagination',
+    paginationType: 'progress',
     paginationClickable: true,
-    spaceBetween: 7,
     centeredSlides: true,
     autoplayDisableOnInteraction: false
 });

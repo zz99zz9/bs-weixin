@@ -871,7 +871,7 @@ function franchiseeRecord() {
  *   =======================================================
  */
 function cardList() {
-    return gulp.src('./js/layout/shell-av2.html')
+    return gulp.src('./js/layout/shell-customer2.html')
         .pipe(replace({
             regex: '<!-- css -->',
             replace: '<link rel="stylesheet" href="css/card.css">'
@@ -892,7 +892,7 @@ function cardList() {
  }
 
 function cardBuy() {
-    return gulp.src('./js/layout/shell-av2.html')
+    return gulp.src('./js/layout/shell-customer2.html')
         .pipe(replace({
             regex: '<!-- css -->',
             replace: '<link rel="stylesheet" href="css/card.css">'
@@ -1041,7 +1041,7 @@ function cardBind () {
 }
 
 function cardIntroduce () {
-    return gulp.src('./js/layout/shell-av2.html')
+    return gulp.src('./js/layout/shell-customer2.html')
         .pipe(replace({
             regex: '<!-- css -->',
             replace: '<link rel="stylesheet" href="css/card.css">'
@@ -1073,7 +1073,7 @@ function cardIntroduce () {
 }
 
 function cardIntroducePicture () {
-    return gulp.src('./js/layout/shell-av2.html')
+    return gulp.src('./js/layout/shell-customer2.html')
         .pipe(replace({
             regex: '<!-- css -->',
             replace: '<link rel="stylesheet" href="css/card.css">'
@@ -1201,7 +1201,7 @@ function lottery() {
 }
 
 function cardPromotion() {
-    return gulp.src('./js/layout/shell.html')
+    return gulp.src('./js/layout/shell-customer.html')
         .pipe(replace({
             regex: '<!-- css -->',
             replace: '<link rel="stylesheet" href="css/swiper.min.css">\n<link rel="stylesheet" href="css/card.css">'
