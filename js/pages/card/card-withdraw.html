@@ -26,7 +26,7 @@
         position: relative;
     }
 </style>
-<div class="pop-content bs-text-51" :controller="withdraw">
+<div class="pop-content bs-text-51 mui-ios mui-ios-8 mui-ios-8-0" :controller="withdraw">
     <div style="background-color: #eee;padding: 0 20px 20px 20px;">
         <div style="text-align: right;">
             <img src="img/close.svg" class="icon-close" alt="" :on-tap="@close">
@@ -35,7 +35,7 @@
             提现金额
         </div>
         <div class="bs-text-xx-larger" style="display: inline-block;">¥</div>
-        <input class="bs-text-xx-larger" type="tel" :duplex="@cash">
+        <input class="bs-text-xx-larger" type="text" :duplex="@cash" onKeyPress="if((event.keyCode<48 || event.keyCode>57) && event.keyCode!=46 || /\.\d\d$/.test(value))event.returnValue=false" onkeyup="value=value.replace(/[^\w\.\/]/ig,'')">
         <div class="bs-text-x-smaller" style="margin-top: 5px;">
             可提现余额 {{@cashAmount}} 元<br>
             <!-- 可提现次数 n 次 -->
