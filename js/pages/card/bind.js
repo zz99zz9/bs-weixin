@@ -183,13 +183,13 @@ function countSecond() {
         setTimeout(countSecond, 1000);
     }
 }
+var regionPickerBtn = document.getElementById('regionPicker');
 
 //获取用户的省市区列表
 ajaxJsonp({
     url: urls.getAllArea,
     successCallback: function(json) {
         if (json.status == 1) {
-
             //初始化地区picker，绑定事件
            (function($, doc) {
                 var regionPicker = new $.PopPicker({
@@ -197,8 +197,8 @@ ajaxJsonp({
                 });
                 regionPicker.setData(json.data);
 
-                var regionPickerBtn = doc.getElementById('regionPicker');
-                regionPickerBtn.addEventListener('tap', function(event) {
+                // regionPickerBtn.addEventListener('tap', function(event) {
+                    regionPickerBtn.addEventListener('tap', function(event) {
                     regionPicker.show(function(items) {
                         vmCardBind.pickerText = (items[0].text || '全部')
                             + " " + (items[1].text?(items[1].text == '全部'?'':items[1].text):'');

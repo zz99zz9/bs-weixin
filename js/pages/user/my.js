@@ -53,7 +53,6 @@ var vmSide = avalon.define({
     roomData: [],
     //开门列表
     getDoorList: function() {
-        console.log(123);
         ajaxJsonp({
             url: urls.openDoorList,
             data: {},
@@ -69,6 +68,7 @@ var vmSide = avalon.define({
     //一个房，就开门，两个的话，就弹框
     open: function() {
         console.log(111);
+        vmSide.getDoorList();
         if (vmSide.roomData.length == 1) {
             var id = vmSide.roomData[0].id;
             var No = vmSide.roomData[0].roomNo;
@@ -103,6 +103,19 @@ var vmSide = avalon.define({
         });
     },
     leaveData: [],
+    //一个房，就退，两个的话，就弹框
+    leave: function() {
+        vmSide.getLeaveList();
+        if (vmSide.leaveData.length == 1) {
+            var id = vmSide.leaveData[0].id;
+            var No = vmSide.leaveData[0].roomNo;
+            vmSide.checkOut(id, No);
+        } else if (vmSide.leaveData.length > 1) {
+            mui('#leaveSheet').popover('toggle');
+        } else {
+            mui.alert("没有可退的房间");
+        }
+    },
     //退房列表
     getLeaveList: function() {
         ajaxJsonp({
@@ -116,19 +129,6 @@ var vmSide = avalon.define({
                 }
             }
         });
-    },
-    //一个房，就退，两个的话，就弹框
-    leave: function() {
-        console.log(vmSide.leaveData.length);
-        if (vmSide.leaveData.length == 1) {
-            var id = vmSide.leaveData[0].id;
-            var No = vmSide.leaveData[0].roomNo;
-            vmSide.checkOut(id, No);
-        } else if (vmSide.leaveData.length > 1) {
-            mui('#leaveSheet').popover('toggle');
-        } else {
-            mui.alert("没有可退的房间");
-        }
     },
     //退房
     checkOut: function(id, No) {
@@ -338,5 +338,3 @@ function savePic(serverId) {
 }
 
 vmSide.getUserInfo();
-vmSide.getDoorList();
-vmSide.getLeaveList();
