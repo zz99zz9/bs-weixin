@@ -487,7 +487,7 @@ function checkout(orid, roomName) {
         function(e) {
             if (e.index == 1) {
                 ajaxJsonp({
-                    url: urls.checkout,
+                    url: urls.checkOutDoor,
                     data: {
                         orid: orid,
                     },
