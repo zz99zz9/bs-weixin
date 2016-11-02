@@ -67,7 +67,6 @@ var urls = {
     saveSub: urlAPI + '/trd/orderComment/save', //用户提交评论
     payOrder: urlAPI + '/trd/pay/orderInfoPay/cashier', //支付订单
     unsubscribeOrder: urlAPI + '/trd/refund/orderInfoRefund/refund', //退订订单
-    checkout: urlAPI + '/trd/orderInfo/checkOut', //退房
     
     //客控
     inStoreGoods: urlAPI + '/svr/inStoreGoods/list',//店内商品列表

@@ -489,7 +489,7 @@ function checkout(orid, roomName) {
                 ajaxJsonp({
                     url: urls.checkOutDoor,
                     data: {
-                        orid: orid,
+                        id: orid,
                     },
                     successCallback: function(json) {
                         if (json.status === 1) {

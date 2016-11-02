@@ -131,15 +131,13 @@ var vmSide = avalon.define({
         });
     },
     //退房
-    checkOut: function(id, No) {
-        console.log(id);
-        console.log(No);
+    checkOut: function(orid, No) {
         mui.confirm("是否退房？", "退房", ["否", "是"], function(e) {
             if (e.index == 1) {
                 ajaxJsonp({
                     url: urls.checkOutDoor,
                     data: {
-                        id: id
+                        id: orid
                     },
                     successCallback: function(json) {
                         if (json.status === 1) {
