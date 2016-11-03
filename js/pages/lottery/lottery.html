@@ -70,18 +70,14 @@
     border: none;
     border-radius: 0;
 }
-.prizeModal {
+.modal {
     width: 250px;
     height: 240px;
-    background-color: #fff;
-    margin: 0 auto;
-    overflow-x: hidden;
-    overflow-y: auto;
     position: relative;
     top: -90px;
     border-radius: 20px;
 }
-.prizeModal-close {
+.modal-close {
     width: 20px;
     height: 20px;
     background-image: url(../img/icon/close_black.svg);
@@ -91,7 +87,7 @@
     box-sizing: content-box;
     border: 11px solid transparent;
 }
-.prizeModal-btn {
+.modal-btn {
     border-radius: 17px;
     border: none;
     color: white;
@@ -172,11 +168,13 @@
         </div>
     </div>
     
+    <!-- modal -->
+
     <!-- 弹窗 -->
-    <div class="mask" style="display: none;">
-        <div class="prizeModal">
-            <section style="height: 38px;text-align: right;" class="bs-bg-yellow">
-                <div class="prizeModal-close"></div>
+    <!-- <div class="mask" style="display: none;">
+        <div class="modal">
+            <section style="height: 38px;text-align: right;border-top-right-radius: 20px;border-top-left-radius: 20px;" class="bs-bg-yellow">
+                <div class="modal-close"></div>
             </section>
             <section style="border-bottom: 1px solid #ccc;">
                 <img src="../img/card/prize-star.png" style="width: 55px;position: absolute;top: 6px;left: 12px;" alt="">
@@ -192,9 +190,9 @@
             </section>
 
             <section style="display: flex;justify-content: space-around;">
-                <button class="bs-bg-yellow prizeModal-btn" type="button" id="closeBtn">知道了</button>
-                <button class="bs-bg-red prizeModal-btn" type="button" ms-click="goLog()">去看看</button>
+                <button class="bs-bg-yellow modal-btn" type="button" id="closeBtn">知道了</button>
+                <button class="bs-bg-red modal-btn" type="button" ms-click="goLog()">去看看</button>
             </section>
         </div>
-    </div>
+    </div> -->
 </div>

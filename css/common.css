@@ -515,6 +515,10 @@ button {
     opacity: 1;
     text-align: center;
 }
+.modal {;
+    background-color: #fff;
+    margin: 0 auto;
+}
 
 @supports(-webkit-backdrop-filter:none) {
     #popModule {

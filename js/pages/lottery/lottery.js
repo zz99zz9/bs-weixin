@@ -85,7 +85,9 @@ var vmLottery = avalon.define({
                     }
 
                     rotateFunc(vmLottery.prize[vmLottery.prizeIndex].angle);
-                } 
+                } else {
+                    mui.alert(json.message);
+                }
             }
         });
     },
@@ -349,21 +351,16 @@ function rotateFunc(angle) { //angle:奖项对应的角度
         duration: 5000,
         animateTo: angle + 1440, //angle是图片上各奖项对应的角度，1440是我要让指针旋转4圈。所以最后的结束的角度就是这样子^^
         callback: function() {
-            $('.mask').show();
-            vmLottery.isRotate = false;
-            vmLottery.count ++;
+            // $('.mask').show();
+            modalShow('./util/prizeModal.html', 1, function() {
+                vmLottery.isRotate = false;
+                vmLottery.count ++;
+            });
         }
     });
 };
 
 $(function() {
-    $('.prizeModal-close').click(function() {
-        $('.mask').hide();
-    });
-    $('#closeBtn').click(function() {
-        $('.mask').hide();
-    });
-
     var timeOut = function() { //超时函数
         // $("#lotteryBtn").rotate({
         $("#rotatebg").rotate({
