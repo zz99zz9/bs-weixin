@@ -1,0 +1,66 @@
+
+<div ms-controller="detail">
+    <div class="detail-back1">
+        <div class="detail-title bs-text-small">
+            <div class="bs-text-normal" style="margin-top: ">
+                <img class="intro-img-love" style="height: 24px; width: 24px;" src="img/commonweal/love.png">
+                <span style="position: relative; top: -6px;"> 杜氏助学公益基金</span>
+            </div>
+            <div class="bs-text-x-smaller detail-foundation">
+                {{@foundation}}
+            </div>
+        </div>
+    </div>
+
+    <div style="margin-top: 20px; text-align: center;">
+        <div class="detail-left-tab bs-text-normal" :click="@getButton(1)">
+            <span class="bs-text-smaller detail-left-up">已资助</span>
+            <br>
+            <span class="intro-text-red">11</span>位孩子完成学业
+        </div>
+        <div class="detail-right-tab bs-text-normal" :click="@getButton(2)">
+            <span class="bs-text-smaller detail-right-up">已捐出</span>
+            <br>
+            <span class="intro-text-red">97845</span>元善款
+        </div>
+    </div>
+
+    <div id="pullrefresh" class="mui-scroll-wrapper bs-text-smaller" style="top: 270px; background-color: white;">
+        <div class="mui-scroll">
+            <div :if="@listType==1">
+                <div class="detail-left-list" :for="el in @list1">
+                    <div>
+                    <img class="detail-head" :attr="{src:'http://img.bensue.com/' + el.headUrl}" onerror="javascript:this.src='../img/defaultHeadImg.png';">
+                </div>
+                    <div style="margin-left: 30px;">
+                        <div>
+                            <span class="bs-text-normal">{{el.name1}}</span>
+                            <span style="margin-left: 40px;">{{el.name1}}</span>
+                        </div>
+                        <div style="margin-top: 19px;">{{el.name1}}</div>
+                    </div>
+                </div>
+            </div>
+            <div :if="@listType==2">
+                <div class="detail-left-list" :for="cl in @list2">
+                    <!-- <div>
+                    <img class="detail-head" :attr="{src:'http://img.bensue.com/' + @el.headUrl}" onerror="javascript:this.src='../img/defaultHeadImg.png';">
+                </div> -->
+                    <div style="margin-left: 30px; width: 55vw;">
+                        <div style="display: flex; justify-content: space-between;">
+                            <div class="bs-text-normal">{{cl.name2}}</div>
+                            <div style="margin-left: 50px;">累计捐赠
+                                <span class="intro-text-red">{{cl.number}}</span>元
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+        </div>
+    </div>
+    
+    <div>
+        <button class="detail-button">确认捐赠</button>
+    </div>
+</div>

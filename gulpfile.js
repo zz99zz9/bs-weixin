@@ -2318,6 +2318,55 @@ function auditList() {
         .pipe(gulp.dest('./src'));
 }
 
+//公益
+//介绍页面
+function commonwealIntro() {
+    return gulp.src('./js/layout/shell-av2.html')
+        .pipe(replace({
+            regex: '<!-- pop -->',
+            replace: '<!--include "../util/popWeal.html"-->'
+        }))
+        .pipe(replace({
+            regex: '<!-- css -->',
+            replace: '<link rel="stylesheet" href="css/commonweal.css">'
+        }))
+        .pipe(replace({
+            regex: '<!-- content -->',
+            replace: '<!--include "../pages/commonweal/intro.html"-->'
+        }))
+        .pipe(replace({
+            regex: '<!-- js -->',
+            replace: '<script src="js/pages/commonweal/intro.js"></script>'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('commonweal-introduce.html'))
+        .pipe(gulp.dest('./src'));
+}
+
+//列表详情
+function commonwealDetail() {
+    return gulp.src('./js/layout/shell-av2.html')
+        .pipe(replace({
+            regex: '<!-- css -->',
+            replace: '<link rel="stylesheet" href="css/commonweal.css">'
+        }))
+        .pipe(replace({
+            regex: '<!-- content -->',
+            replace: '<!--include "../pages/commonweal/detail.html"-->'
+        }))
+        .pipe(replace({
+            regex: '<!-- js -->',
+            replace: '<script src="js/pages/commonweal/detail.js"></script>'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('commonweal-detail.html'))
+        .pipe(gulp.dest('./src'));
+}
+
 /**
  * 输出弹框相关页面
  */
@@ -2463,7 +2512,9 @@ gulp.task('html', gulp.parallel(
     special,
     alipay,
     closePage,
-    auditList
+    auditList,
+    commonwealIntro,
+    commonwealDetail
 ));
 
 function watchForReload() {

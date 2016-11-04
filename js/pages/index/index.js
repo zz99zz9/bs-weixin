@@ -6,6 +6,69 @@ var vmIndex = avalon.define({
     $id: 'index',
     headImg: 'img/defaultHeadImg.png', //左上角头像
     galleryList: [{ imgUrl: '' }],
+    getInvite: function() {
+        registerWeixinConfig();
+
+        wx.ready(function() {
+
+            //隐藏菜单项
+            // wx.hideMenuItems({
+            //     menuList: [
+            //             "menuItem:share:qq", // 分享到QQ
+            //             "menuItem:share:weiboApp", // 分享到Weibo
+            //             "menuItem:share:QZone" // 分享到 QQ 空间
+            //         ] // 要隐藏的菜单项，只能隐藏“传播类”和“保护类”按钮，所有menu项见附录3
+            // });
+            // wx.onMenuShareTimeline({
+            //     title: '住本宿，不将就', // 分享标题
+            //     link: 'testweixin.bensue.com/index.html', // 分享链接
+            //     imgUrl: urlWeixin + '/img/logo.jpg', // 分享图标
+            //     success: function() {
+            //         mui.alert("分享成功");
+            //         // 用户确认分享后执行的回调函数
+            //     },
+            //     cancel: function() {
+            //         console.log('取消分享到朋友圈');
+            //         // 用户取消分享后执行的回调函数
+            //     }
+            // });
+            // wx.onMenuShareAppMessage({
+            //     title: '本宿', // 分享标题
+            //     desc: '住本宿，不将就', // 分享描述
+            //     link: 'testweixin.bensue.com/index.html', // 分享链接
+            //     imgUrl: urlWeixin + '/img/logo.jpg', // 分享图标
+            //     type: '', // 分享类型,music、video或link，不填默认为link
+            //     dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+            //     success: function() {
+            //         mui.alert("分享成功");
+            //         // 用户确认分享后执行的回调函数
+            //     },
+            //     cancel: function() {
+            //         console.log("取消分享到个人");
+            //         // 用户取消分享后执行的回调函数
+            //     }
+            // });
+            wx.onMenuShareTimeline({
+                title: '互联网之子',
+                link: 'http://movie.douban.com/subject/25785114/',
+                imgUrl: 'http://demo.open.weixin.qq.com/jssdk/images/p2166127561.jpg',
+                trigger: function(res) {
+                    // 不要尝试在trigger中使用ajax异步请求修改本次分享的内容，因为客户端分享操作是一个同步操作，这时候使用ajax的回包会还没有返回
+                    alert('用户点击分享到朋友圈');
+                },
+                success: function(res) {
+                    alert('已分享');
+                },
+                cancel: function(res) {
+                    alert('已取消');
+                },
+                fail: function(res) {
+                    alert(JSON.stringify(res));
+                }
+            });
+            alert('已注册获取“分享到朋友圈”状态事件');
+        });
+    },
     getCityGallery: function() {
         ajaxJsonp({
             url: urls.getCityGallery,
@@ -250,7 +313,7 @@ var vmIndex = avalon.define({
         // }, 500);
     }
 });
-
+vmIndex.getInvite();
 //地址搜索栏
 var vmSearch = avalon.define({
     $id: 'search',
@@ -453,7 +516,7 @@ function verify(position) {
     if (position) {
         if (position.lng && position.lat) {
 
-            if(myMarker) {
+            if (myMarker) {
                 myMarker.setPosition([position.lng, position.lat]);
             } else {
                 myMarker = new AMap.Marker({
@@ -463,8 +526,8 @@ function verify(position) {
                     offset: new AMap.Pixel(-12, -36)
                 });
                 myMarker.setPosition([position.lng, position.lat]);
-             }
-             return true;
+            }
+            return true;
         } else {
             positionInStorage.lng = 0;
             positionInStorage.lat = 0;

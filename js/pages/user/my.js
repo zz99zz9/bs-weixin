@@ -67,7 +67,6 @@ var vmSide = avalon.define({
     },
     //一个房，就开门，两个的话，就弹框
     open: function() {
-        console.log(111);
         vmSide.getDoorList();
         if (vmSide.roomData.length == 1) {
             var id = vmSide.roomData[0].id;

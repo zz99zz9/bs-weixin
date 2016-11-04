@@ -214,4 +214,8 @@ var urls = {
     //客服
     getAuditList: urlAPI + '/vip/userCardMarketPackageTask/auditList', //查询待审核任务列表
     getAuditSuccess: urlAPI + '/vip/userCardMarketPackageTask/auditSuccess', //审核任务通过或不通过
+
+    //公益
+    benefitStudentList: urlAPI + '/bnf/benefitStudent/findListByFid', //受资助学生列表
+    
 }
