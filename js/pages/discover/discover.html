@@ -1,56 +1,90 @@
 <style>
-.goPromotion {
-    height: 85vh;
-    background-image: url(img/discovery_promotion.jpg);
-    background-size: cover;
-    text-align: center;
-    flex-grow: 1;
-}
-.goPromotion:active {
-    text-shadow: 1px 2px 0 rgba(0,0,0,0.3);
-}
-
-a {
-    flex: 0 0 25%;
-    color: white;
-    font-size: 12px;
-    border: 1px solid white;
-    height: 15vh;
-    background-size: cover;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-a:active {
-    text-shadow:1px 2px 0 rgba(0,0,0,0.3);
-    color: white;
-}
+    section {
+        margin: 15px 0;
+    }
+    .row {
+        display: flex;
+        justify-content: space-between;
+        padding: 9px 13px;
+        background-color: #fff;
+        font-size: 15px;
+        border-bottom: 1px solid #ddd;
+    }
+    .row:active {
+        background-color: #ddd;
+    }
+    .item-img {
+        width: 22px;
+        height: 22px;
+        margin-left: 9px;
+    }
+    .arrow {
+        height: 15px;
+        opacity: 0.5;
+        margin: 3px;
+    }
+    .item-text {
+        flex-grow: 1;
+        margin-left: 18px;
+    }
 </style>
-<div class="bs-text-white" style="display: flex;flex-wrap: wrap;">
-    <section onclick="javascript:location.href='card-list.html'" class="goPromotion">
-        <div class="bs-text-x-larger" style="padding: 70px 0 30px 0;">成为本宿VIP会员</div>
-        <div class="bs-text-normal">住酒店还能挣钱</div>
-    </section>
-    <section style="display: flex;flex-grow: 1;">
-        <a href="###" style="background-image:url(img/discovery_sleeper.png);">
-            <div>
-                招募试睡师
-            </div>
-        </a>
-        <a href="special.html" style="background-image:url(img/discovery_midnight.png);">
-            <div>
-                午夜特价房
-            </div>
-        </a>
-        <a href="###" style="background-image:url(img/discovery_join.png);">
-            <div>
-                加盟本宿
-            </div>
-        </a>
-        <a href="about.html" style="background-image:url(img/discovery_about.png);">
-            <div>
-                关于我们
-            </div>
-        </a>
-    </section>
-</div>
+<section>
+    <div class="row" onclick="javascript:location.href='member-center.html';">
+        <img src="../img/discover/member.png" class="item-img">
+        <div class="item-text">
+            会员中心
+        </div>
+        <img src="../img/icon/right-arrow.svg" class="arrow">
+    </div>
+</section>
+
+<section>
+    <div class="row">
+        <img src="../img/discover/commonweal.png" class="item-img">
+        <div class="item-text">
+            本宿公益
+        </div>
+        <img src="../img/icon/right-arrow.svg" class="arrow">
+    </div>
+</section>
+
+<section>
+    <div class="row" onclick="javascript:location.href='promotion-detail.html';">
+        <img src="../img/discover/promotion.png" class="item-img">
+        <div class="item-text">
+            推广奖励计划
+        </div>
+        <img src="../img/icon/right-arrow.svg" class="arrow">
+    </div>
+    <div class="row" onclick="javascript:location.href='lottery.html';">
+        <img src="../img/discover/lottery.png" class="item-img">
+        <div class="item-text">
+            抽奖活动
+        </div>
+        <img src="../img/icon/right-arrow.svg" class="arrow">
+    </div>
+</section>
+
+<section>
+    <div class="row">
+        <img src="../img/discover/alliance.png" class="item-img" style="height: 16px;margin-top: 3px;margin-bottom: 3px;">
+        <div class="item-text">
+            合作加盟
+        </div>
+        <img src="../img/icon/right-arrow.svg" class="arrow">
+    </div>
+    <div class="row">
+        <img src="../img/discover/joinUs.png" class="item-img" style="height: 16px;margin-top: 3px;margin-bottom: 3px;">
+        <div class="item-text">
+            加入我们
+        </div>
+        <img src="../img/icon/right-arrow.svg" class="arrow">
+    </div>
+    <div class="row" onclick="javascript:location.href='about.html';">
+        <img src="../img/logo.jpg" class="item-img">
+        <div class="item-text">
+            关于本宿
+        </div>
+        <img src="../img/icon/right-arrow.svg" class="arrow">
+    </div>
+</section>

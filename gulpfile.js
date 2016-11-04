@@ -2261,10 +2261,6 @@ function discover() {
     return gulp.src('./js/layout/shell.html')
         //.pipe(replace({ regex: '<!-- pop -->', replace: '<!--include "../util/pop.html"-->' }))
         .pipe(replace({
-            regex: '<!-- js -->',
-            replace: '<script src="js/lib/mui.view.js"></script> \n <script src="js/pages/discover/discover.js"></script>'
-        }))
-        .pipe(replace({
             regex: '<!-- content -->',
             replace: '<!--include "../pages/discover/discover.html"-->'
         }))
@@ -2273,6 +2269,20 @@ function discover() {
             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
         }))
         .pipe(rename('discover.html'))
+        .pipe(gulp.dest('./src'));
+}
+
+//发现页面
+function memberCenter() {
+    return gulp.src('./js/layout/shell.html')
+        //.pipe(replace({ regex: '<!-- pop -->', replace: '<!--include "../util/pop.html"-->' }))
+        .pipe(replace({
+            regex: '<!-- content -->',
+            replace: '<!--include "../pages/discover/member-center.html"-->'
+        })).pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('member-center.html'))
         .pipe(gulp.dest('./src'));
 }
 
@@ -2514,6 +2524,7 @@ gulp.task('html', gulp.parallel(
     warehouseFormAllocate,
     warehouseFormStock,
     discover,
+    memberCenter,
     special,
     alipay,
     closePage,
