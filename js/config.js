@@ -563,3 +563,30 @@ function isLocalStorageNameSupported() {
         return false;
     }
 }
+
+//弹出框-小
+//显示
+function modalShow(url, type, callback) {
+    $('.mask').show();
+    switch (type) {
+        case 1:
+            $('#modal-text').load(url, function() {
+                if (typeof callback == "function") {
+                    callback();
+                }
+                avalon.scan(document.getElementsByClassName('mask')[0]);
+            });
+            break;
+        case 2:
+            $('#modal-text').html(url);
+            avalon.scan(document.getElementsByClassName('mask')[0]);
+            break;
+        default:
+            break;
+    }
+}
+//弹出框-小
+//隐藏
+function modalClose() {
+    $('.mask').hide();
+}

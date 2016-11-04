@@ -1190,6 +1190,10 @@ function lottery() {
             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
         }))
         .pipe(replace({
+            regex: '<!-- modal -->',
+            replace: '<!--include "../util/modal.html"-->'
+        }))
+        .pipe(replace({
             regex: '<button class="popover-closeButton"></button>',
             replace: '<!--include "../util/popoverBtnOK.html"-->'
         }))
@@ -2392,6 +2396,7 @@ function popHtml() {
             './js/pages/card/card-withdraw.html',
             './js/pages/card/lottery-log.html',
             './js/pages/card/lottery-rule.html',
+            './js/pages/lottery/prizeModal.html',
             './js/pages/promotion/promotion-rule.html',
         ])
         .pipe(gulp.dest('./dist/util/'));

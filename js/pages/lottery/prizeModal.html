@@ -1,0 +1,22 @@
+<div ms-controller="lottery">
+    <section style="height: 38px;text-align: right;border-top-right-radius: 20px;border-top-left-radius: 20px;" class="bs-bg-yellow">
+        <div class="modal-close" ms-click="modalClose"></div>
+    </section>
+    <section style="border-bottom: 1px solid #ccc;">
+        <img src="../img/card/prize-star.png" style="width: 55px;position: absolute;top: 6px;left: 12px;" alt="">
+        <img src="../img/card/prize-con.png" style="width: 130px;position: relative;top: 5px;" alt="">
+        <img src="../img/card/prize-stars.png" style="    position: absolute;left: -4px;top: 73px;width: 66px;" alt="">
+        <img src="../img/card/prize-stars.png" style="    position: absolute;right: 4px;top: 73px;width: 66px;" alt="">
+        <div class="flex-column" style="margin:6px auto;">
+            <div ms-css-background-image="'url(' + prize[prizeIndex].img + ')'" alt="" style="width: 80px;height: 80px;margin: 0 auto;background-repeat: no-repeat;background-size: contain;background-position: center;">
+                <div ms-if="prizeIndex==5" class="bs-text-large bs-text-white" style="margin-top:46px;">{{cash}} 元</div>
+            </div>
+            <div class="bs-text-large">{{prize[prizeIndex].text}}</div>
+        </div>
+    </section>
+
+    <section style="display: flex;justify-content: space-around;">
+        <button class="bs-bg-yellow modal-btn" type="button" id="closeBtn" ms-click="modalClose">知道了</button>
+        <button class="bs-bg-red modal-btn" type="button" ms-click="goLog()">去看看</button>
+    </section>
+</div>
