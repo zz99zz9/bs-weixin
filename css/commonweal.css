@@ -1,0 +1,128 @@
+/*.commonweal-back1 {
+    background-image: url(/img/commonweal/back1.png);
+}*/
+
+.intro-back1 {
+    position: relative; 
+    width: 100vw;
+    top: -8vh;
+}
+
+.intro-title {
+    position: relative;
+    text-align: center;
+    color: white;
+    top: -32vh;
+    line-height: 26px;
+}
+
+.intro-content {
+    margin: 10px;
+    padding: 20px;
+    background-color: white;
+    height: 54vh;
+    box-shadow: 0 0 20px #999;
+    text-align: center;
+}
+
+.intro-text-grey {
+    color: #d4d4d4;
+}
+
+.intro-text-red {
+    color: #b20e15;
+}
+
+.intro-img-love {
+    height: 16px; 
+    width: 16px; 
+    position: relative;
+}
+
+.intro-button {
+    border: 2px solid #b20e15;
+    height: 60px;
+    width: 100%;
+    border-radius: 5px;
+}
+
+.intro-footer {
+    background-color: white;
+    height: 6vh;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    padding-top: 1.5vh;
+}
+
+.detail-back1 {
+    background-image: url(../img/commonweal/back2.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: white;
+    padding: 28px 0 10px;
+    background-position: center;
+}
+
+.detail-title {
+    text-align: center;
+}
+
+.detail-foundation {
+    margin: 0 15vw;
+    text-align: initial;
+}
+
+/*.detail-content {
+    margin: 10px;
+    background-color: white;
+    height: 66vh;
+    box-shadow: 0 0 20px #999;
+    text-align: center;
+    overflow-y: auto;
+}*/
+
+.detail-left-tab {
+    display: inline-block;
+    width: 50%;
+    height: 70px;
+    background-color: #baa071;
+    padding: 1vh;
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+}
+
+.detail-right-tab {
+    display: inline-block;
+    width: 50%;
+    height: 70px;
+    padding: 1vh;
+    border-bottom: 1px solid #ccc;
+}
+
+.detail-left-list {
+    display: flex;
+    text-align: -webkit-auto;
+    border-bottom: 1px solid #ccc;
+    padding: 15px 30px 10px 15px;
+}
+
+.detail-head {
+    height: 70px;
+    width: 70px;
+    border-radius: 50%;
+}
+
+.detail-button {
+    position: fixed;
+    bottom: 0;
+    width: 100vw;
+    z-index: 4;
+    height: 40px;
+}
+
+.detail-button button {
+    width: 100%;
+    height: 40px;
+}

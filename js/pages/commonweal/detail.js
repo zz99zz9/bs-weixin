@@ -74,12 +74,10 @@ var vmDetail = avalon.define({
             }
         });
     },
-    buttonType: 1, //1、左边按钮  2、右边按钮
     listType: 1, //1、左边列表  2、右边列表
-    getButton: function(buttonType) {
+    getButton: function(id) {
         mui('#pullrefresh').pullRefresh().refresh(true);
-        console.log(buttonType);
-        if (buttonType == 1) {
+        if (id == 1) {
             vmDetail.listType = 1;
             $(".detail-left-tab").css("background-color", "#baa071");
             $(".detail-left-up").css("color", "white");

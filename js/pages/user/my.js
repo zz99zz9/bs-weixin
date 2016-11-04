@@ -67,7 +67,6 @@ var vmSide = avalon.define({
     },
     //一个房，就开门，两个的话，就弹框
     open: function() {
-        vmSide.getDoorList();
         if (vmSide.roomData.length == 1) {
             var id = vmSide.roomData[0].id;
             var No = vmSide.roomData[0].roomNo;
@@ -81,7 +80,6 @@ var vmSide = avalon.define({
     },
     //开门
     openDoor: function(id, No) {
-        console.log(id);
         ajaxJsonp({
             url: urls.openDoor,
             data: {
@@ -104,7 +102,6 @@ var vmSide = avalon.define({
     leaveData: [],
     //一个房，就退，两个的话，就弹框
     leave: function() {
-        vmSide.getLeaveList();
         if (vmSide.leaveData.length == 1) {
             var id = vmSide.leaveData[0].id;
             var No = vmSide.leaveData[0].roomNo;
@@ -156,6 +153,8 @@ var vmSide = avalon.define({
     },
     show: function() {
         vmSide.getUserInfo();
+        vmSide.getDoorList();
+        vmSide.getLeaveList();
         ishide = false;
         $('#popModule').show();
         setTimeout("$('#popModule').removeClass('hide')", 10);
