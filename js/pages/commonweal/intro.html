@@ -13,7 +13,7 @@
         </div>
     </div>
     <div class="intro-content">
-        <div class="intro-text-red bs-text-smaller" style="margin: 10px 0 15px 0">
+        <div class="intro-text-red bs-text-smaller" style="margin: 10px 0 15px 0" :click="@goDetail()">
             <img class="intro-img-love" src="img/commonweal/love.png">
             <span style="position: relative; top: -2px;"> 杜氏助学公益基金</span>
         </div>
@@ -23,18 +23,20 @@
             <div class="bs-text-x-smaller">已资助<span class="intro-text-red">50</span>位学生完成学业</div>
         </div>
         <div style="margin: 5vh 30px 3vh 30px;">
-            <button class="intro-button bs-text-larger">马上捐赠</button>
+            <button class="intro-button bs-text-larger" :click="@open">马上捐赠</button>
         </div>
         <div class="bs-text-x-smaller bs-text-102">
             以您个人名义，将推广奖励收入的15%捐赠
             <br> 给指定的公益组织
         </div>
-        <div class="bs-text-smaller bs-text-gold" style="position: relative; bottom: -5vh;">
+        <div class="bs-text-smaller bs-text-gold" style="position: relative; bottom: -5vh;" :click="@goRecord()">
             我的公益记录
         </div>
     </div>
-    <div class="intro-footer bs-text-smaller bs-text-gold">
+    <div class="intro-footer bs-text-smaller bs-text-gold" :click="@rule()">
         <img class="intro-img-love" src="img/commonweal/commonweal.png">
         <span style="position: relative; top: -4px;">本宿公益</span>
     </div>
+    <!-- modal -->
+    <!-- 弹窗 -->
 </div>
