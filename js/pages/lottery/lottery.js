@@ -395,3 +395,47 @@ $(function() {
         }
     });
 });
+
+registerWeixinConfig(function() {
+    wx.ready(function() {
+
+        //隐藏菜单项
+        wx.hideMenuItems({
+            menuList: [
+                "menuItem:share:qq", // 分享到QQ
+                "menuItem:share:weiboApp", // 分享到Weibo
+                "menuItem:share:QZone" // 分享到 QQ 空间
+            ] // 要隐藏的菜单项，只能隐藏“传播类”和“保护类”按钮，所有menu项见附录3
+        });
+
+        wx.onMenuShareTimeline({
+            title: '抽奖进行中', // 分享标题
+            link: location.href, // 分享链接
+            imgUrl: urlWeixin + '/img/logo.jpg', // 分享图标
+            success: function() {
+                // 用户确认分享后执行的回调函数
+                mui.alert("感谢您的厚爱与支持");
+            },
+            cancel: function() {
+                console.log('取消分享到朋友圈');
+                // 用户取消分享后执行的回调函数
+            }
+        });
+        wx.onMenuShareAppMessage({
+            title: '抽奖进行中', // 分享标题
+            desc: '厉害了我的本宿', // 分享描述
+            link: location.href, // 分享链接
+            imgUrl: urlWeixin + '/img/logo.jpg', // 分享图标
+            type: '', // 分享类型,music、video或link，不填默认为link
+            dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+            success: function() {
+                // 用户确认分享后执行的回调函数
+                mui.alert("感谢您的厚爱与支持");
+            },
+            cancel: function() {
+                console.log("取消分享到个人");
+                // 用户取消分享后执行的回调函数
+            }
+        });
+    });
+});

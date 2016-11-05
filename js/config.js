@@ -461,7 +461,7 @@ function getHourIndex() {
 }
 
 //注册导航接口
-function registerWeixinConfig() {
+function registerWeixinConfig(callback) {
     ajaxJsonp({
         url: urls.weiXinConfig,
         data: { url: window.location.href },
@@ -483,6 +483,10 @@ function registerWeixinConfig() {
                     ],
                 });
                 isSuccess = true;
+
+                if(typeof callback == 'function') {
+                    callback();
+                }
             }
         }
     });

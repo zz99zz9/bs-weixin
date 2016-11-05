@@ -111,7 +111,7 @@ var vmDetail = avalon.define({
             });
 
             if (!todayDone) {
-                mui.confirm('已经完成本次推广？', '', ["否", "是"], function(e) {
+                mui.confirm('请转发本宿相关内容到自己的朋友圈，内容可以采用本宿提供的，也可以自己创作编辑。', '', ["知道了", "已完成"], function(e) {
                     if (e.index == 1) {
                         //记录当前轮播页
                         Storage.set('prData', { index: prIndex });
