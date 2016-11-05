@@ -1,0 +1,26 @@
+<style>
+    .button {
+        width: 50vw; 
+        height: 50px; 
+        border-color: #ddd;
+    }
+</style>
+<div ms-controller="detailPop">
+    <div class="bs-text-smaller" style="width: 90vw; text-align: center; padding: 22px 5vw 0;">
+        <div>帮助他人改变命运</div>
+        <div style="margin: 14px 0 22px;">你有权让自己独一无二</div>
+        <div class="card-buy-circle">
+            <div style="padding-top: 20vw;">
+                <div class="bs-text-gold" style="font-size: 16px;">{{@cs}}元/月</div>
+                <div class="bs-text-normal">每月捐赠</div>
+            </div>
+        </div>
+        <div style="margin: 45px 0 20px;">
+            您的公益捐赠，每月将以您个人的名义自动划拨到响应公益账户。本宿公益负责对进入我们的平台的公益组织进行审核，但不干涉具体运营，如有任何疑问，请您致电该组织。
+        </div>
+    </div>
+    <div>
+        <button class="button" :click="@close()">取消</button>
+        <button class="button" :click="@go()">确定</button>
+    </div>
+</div>

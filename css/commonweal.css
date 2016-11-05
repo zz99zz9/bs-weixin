@@ -115,7 +115,7 @@
 }
 
 .detail-button {
-    position: fixed;
+    position: absolute;
     bottom: 0;
     width: 100vw;
     z-index: 4;
@@ -125,4 +125,13 @@
 .detail-button button {
     width: 100%;
     height: 40px;
+}
+
+.card-buy-circle {
+    background-image: url(../img/card/card-circle.png);
+    height: 45vw;
+    width: 45vw;
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin: 0 auto;
 }

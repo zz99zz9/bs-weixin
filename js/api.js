@@ -217,5 +217,6 @@ var urls = {
 
     //公益
     benefitStudentList: urlAPI + '/bnf/benefitStudent/findListByFid', //受资助学生列表
+    getDonationList: urlAPI + '/bnf/donationLog/findListByFid', //捐赠列表
     
 }

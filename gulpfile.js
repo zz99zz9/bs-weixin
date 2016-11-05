@@ -2327,10 +2327,6 @@ function auditList() {
 function commonwealIntro() {
     return gulp.src('./js/layout/shell-av2.html')
         .pipe(replace({
-            regex: '<!-- pop -->',
-            replace: '<!--include "../util/popWeal.html"-->'
-        }))
-        .pipe(replace({
             regex: '<!-- css -->',
             replace: '<link rel="stylesheet" href="css/commonweal.css">'
         }))
@@ -2367,6 +2363,13 @@ function commonwealDetail() {
         .pipe(contentIncluder({
             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
         }))
+        .pipe(replace({
+            regex: '<!-- modal -->',
+            replace: '<!--include "../util/modal.html"-->'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
         .pipe(rename('commonweal-detail.html'))
         .pipe(gulp.dest('./src'));
 }
@@ -2398,6 +2401,7 @@ function popHtml() {
             './js/pages/card/lottery-rule.html',
             './js/pages/lottery/prizeModal.html',
             './js/pages/promotion/promotion-rule.html',
+            './js/pages/commonweal/commonweal-pop.html',
         ])
         .pipe(gulp.dest('./dist/util/'));
 }
