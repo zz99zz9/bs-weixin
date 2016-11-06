@@ -1,0 +1,48 @@
+<article class="bs-bg-white bs-text-51" ms-controller="account">
+    <div style="padding: 9px 20px;padding-top: 12px;border-bottom: 1px solid #ddd;">账户余额：<span class="bs-text-red">{{data.cashAmount}}</span> 元</div>
+    <section class="cms-account" style="min-height: 80vh;">
+        <div class="bs-text-larger">提现帐号</div>
+        <div class="bs-text-white cms-account-head" ms-class-1="'zfb':data.accountType==1" ms-class-2="'bank':data.accountType==2" ms-if="data.accountType">
+            <div ms-if="data.accountType==1">
+                <div class="bs-text-larger">{{data.accountNo}}</div>
+                <div class="bs-text-smaller">{{data.accountName}}</div>
+            </div>
+            <div ms-if="data.accountType==2">
+                <div class="bs-text-larger bs-text-lighter" style="margin-top: -5px;">
+                    <span class="cms-account-no">{{data.accountNo.slice(0,4)}}</span>
+                    <span class="cms-account-no">{{data.accountNo.slice(4,8)}}</span>
+                    <span class="cms-account-no">{{data.accountNo.slice(8,12)}}</span>
+                    <span class="cms-account-no">{{data.accountNo.slice(12,24)}}</span>
+                </div>
+                <div class="bs-text-smaller" style="line-height: 15px;">
+                    {{data.bankName}}
+                </div>
+                <div class="bs-text-smaller" style="line-height: 15px;">{{data.accountName}}</div>
+            </div>
+        </div>
+        <div ms-if="!data.accountType" class="bs-text-153 bs-text-smaller" style="background-color: #ddd;margin: 15px 0 10px 0;padding: 25px 15px;" ms-click="goBind">
+            您还未绑定提现帐号
+            <img src="../img/add.svg" style="width: 30px;position: relative;float: right;top: -4px;">
+        </div>
+        <div class="bs-text-larger">交易记录</div>
+        <div id="pullrefresh" class="mui-scroll-wrapper" style="top: 250px;left: 6vw;width: 90vw;">
+            <div class="mui-scroll" style="padding-right: 10px;">
+                <div class="bs-text-smaller fr-flex" style="border-bottom: 1px solid #ddd;" ms-repeat="list">
+                    <div class="today-list-item">
+                        {{el.description}}
+                        <br>
+                        <span class="bs-text-smaller bs-text-gray bs-text-x-smaller">{{el.createTime}}</span>
+                    </div>
+                    <div class="today-list-item" style="line-height: 43px;">
+                        <span ms-if="el.type==1" class="bs-text-large bs-text-red">+</span>
+                        <span :ms-if="el.type!=1" class="bs-text-large bs-text-green">-</span> {{el.amount}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="bs-text-gold bs-text-smaller" style="width: 100%;text-align: center;padding: 10px;position: fixed;bottom: 0;left: 0;background: #fff;z-index:99">
+            <button class="bs-text-white bs-bg-black" style="width: 100%;" ms-click="openWithdraw">提现</button>
+        </div>
+    </section>
+</article>

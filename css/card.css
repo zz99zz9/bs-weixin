@@ -185,42 +185,6 @@
     border-left: 12px solid transparent;
 }
 
-.card-log {
-    padding: 6vw;
-    min-height: 100vh;
-}
-
-.card-log-head {
-    background-repeat: no-repeat;
-    background-size: contain;
-    width: 100%;
-    height: 75px;
-    margin-top: 15px;
-    padding: 12px 0 0 20vw;
-}
-
-.card-log-head.zfb {
-    background-image: url('../img/card/log_zhifubao.png');
-}
-
-.card-log-head.bank {
-    background-image: url('../img/card/log_bank.png');
-}
-
-.fr-flex {
-    display: flex !important;
-    justify-content: space-between;
-}
-
-.today-list-item {
-    display: inline-block;
-    padding: 10px 0 2px 0;
-}
-
-.card-no {
-    padding-right: 5px;
-}
-
 .introduce {
     height: 100%;
     background-color: white;

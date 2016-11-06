@@ -2381,6 +2381,110 @@ function commonwealDetail() {
         .pipe(gulp.dest('./src'));
 }
 
+
+/**
+ *   =======================================================
+ *                       公益管理相关页面
+ *   =======================================================
+ */
+
+//公益基金管理导航页
+function cmsNav() {
+    return gulp.src('./js/layout/shell-manage.html')
+        .pipe(replace({
+            regex: '<h1 id="headerReplace" class="mui-title">标题</h1>',
+            replace: '<h1 id="headerReplace" class="mui-title">欢迎进入公益管理模式</h1>'
+        }))
+        .pipe(replace({
+            regex: '<!-- css -->',
+            replace: '<link rel="stylesheet" href="../css/commonweal.css">'
+        }))
+        .pipe(replace({
+            regex: '<!-- content -->',
+            replace: '<!--include "../pages/cms/nav.html"-->'
+        }))
+        .pipe(replace({
+            regex: '<!-- js -->',
+            replace: '<script src="../js/pages/cms/nav.js"></script>'
+        }))
+        .pipe(replace({
+            regex: '<!-- pop -->',
+            replace: '<!--include "../util/pop.html"-->'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('nav.html'))
+        .pipe(gulp.dest('./src/cms'));
+}
+
+//捐赠列表页
+function cmsDonation() {
+    return gulp.src('./js/layout/shell-manage.html')
+        .pipe(replace({
+            regex: '<h1 id="headerReplace" class="mui-title">标题</h1>',
+            replace: '<h1 id="headerReplace" class="mui-title">捐赠详情</h1>'
+        }))
+        .pipe(replace({
+            regex: '<!-- css -->',
+            replace: '<link rel="stylesheet" href="../css/commonweal.css">'
+        }))
+        .pipe(replace({
+            regex: '<!-- content -->',
+            replace: '<!--include "../pages/cms/donation.html"-->'
+        }))
+        .pipe(replace({
+            regex: '<!-- js -->',
+            replace: '<script src="../js/pages/cms/donation.js"></script>'
+        }))
+        .pipe(replace({
+            regex: '<!-- pop -->',
+            replace: '<!--include "../util/pop.html"-->'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('donation.html'))
+        .pipe(gulp.dest('./src/cms'));
+}
+
+//公益基金账户
+function cmsAccount () {
+    return gulp.src('./js/layout/shell-manage.html')
+    .pipe(replace({
+            regex: '<h1 id="headerReplace" class="mui-title">标题</h1>',
+            replace: '<h1 id="headerReplace" class="mui-title">账户详情</h1>'
+        }))
+        .pipe(replace({
+            regex: '<!-- css -->',
+            replace: '<link rel="stylesheet" href="../css/commonweal.css">'
+        }))
+        .pipe(replace({
+            regex: '<!-- content -->',
+            replace: '<!--include "../pages/cms/account.html"-->'
+        }))
+        .pipe(replace({
+            regex: '<!-- js -->',
+            replace: '<script src="../js/pages/cms/account.js"></script>'
+        }))
+        .pipe(replace({
+            regex: '<!-- pop -->',
+            replace: '<!--include "../util/pop.html"-->\n<!--include "../pages/user/popover.html"-->'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(replace({
+            regex: '<button class="popover-closeButton"></button>',
+            replace: '<!--include "../util/popoverBtnOK.html"-->'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('account.html'))
+        .pipe(gulp.dest('./src/cms'));
+}
+
 /**
  * 输出弹框相关页面
  */
@@ -2530,7 +2634,10 @@ gulp.task('html', gulp.parallel(
     closePage,
     auditList,
     commonwealIntro,
-    commonwealDetail
+    commonwealDetail,
+    cmsNav,
+    cmsDonation,
+    cmsAccount
 ));
 
 function watchForReload() {

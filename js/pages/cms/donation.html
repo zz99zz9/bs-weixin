@@ -1,0 +1,62 @@
+<style>
+.donation-head {
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    padding: 10px;
+}
+.row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 10px;
+    background-color: #fff;
+    font-size: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+.item-img {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+}
+.item-text {
+    flex-grow: 1;
+    margin-left: 18px;
+}
+.tab {
+    flex-grow: 1;
+    padding: 10px;
+}
+.tab.active {
+    border-bottom: 1px solid #e93b39;
+    color: #e93b39;
+}
+</style>
+<div ms-controller="donation">
+    <div class="bs-text-small bs-bg-white donation-head">
+        <div style="flex-grow: 1;">
+            <span class="bs-text-red">{{data.amount}}</span>元
+            <br> 已获捐赠
+        </div>
+        <div style="border-left: 1px solid #eee;"></div>
+        <div style="flex-grow: 1;">
+            <span class="bs-text-red">{{data.num}}</span>人
+            <br> 累计捐赠
+        </div>
+    </div>
+    
+    <div class="row" style="margin-top: 15px;padding: 0;text-align: center;">
+        <div class="tab active">捐赠</div>
+        <div class="tab">最新</div>
+    </div>
+    <div class="row" ms-repeat="data.list">
+        <img ms-attr-src="el.img" class="item-img">
+        <div class="item-text bs-text-normal">
+            {{el.name}}
+        </div>
+        <div class="bs-text-smaller">
+            累计捐赠<span class="bs-text-red">{{el.money}}</span>元
+        </div>
+    </div>
+</div>
