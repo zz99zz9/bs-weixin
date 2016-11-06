@@ -3,49 +3,39 @@ var vmDetail = avalon.define({
     data: 'kill',
     pageNo: 1,
     pageSize: 10,
-    list1: [],   //左侧列表
-    list2: [],   //右侧列表
+    list1: [], //左侧列表
+    list2: [], //右侧列表
     foundation: "基金创始于2012年，从最初发起人个人资助特贫困大学生完成学业开始，迅速发展成苏北地区具有较高影响力的助学公益组织，秉承基金创始人杜玉莲女士“让每个孩子只少能够拥有受教育的机会”之理念，坚持资助必须有始有终，不为名利，只为能够保留孩子心中那一丝对未来的期望！",
-    getData1: function() {
+    amount: '',    //该用户捐赠总额
+    //判断是否显示下方按钮
+    getData: function() {
         ajaxJsonp({
-            url: urls.getAuditList,
-            successCallback: function(json) {
-                if (json.status === 1) {
-                    vmDetail.pageNo++;
-                    vmDetail.list1 = [];
-                    json.data.list.map(function(e) {
-                        vmDetail.list1.push({
-                            id: e.id,
-                            name1: e.user.name,
-                            cardNo: e.userBuyCard.cardNo,
-                            headUrl: e.user.headUrl,
-                            mobile: e.user.mobile,
-                            time: e.submitTime,
-                        })
-                    });
-                } else {
-                    mui.alert(json.message);
+            url: urls.getMyWealCount,
+            data: {},
+            successCallback: function(json){
+                if(json.status == 1) {
+                    vmDetail.amount = json.data.amount;
                 }
             }
         });
     },
-
-    getData: function() {
+    studentCount: 0,     //该基金资助学生人数
+    getData1: function() {
         ajaxJsonp({
             url: urls.benefitStudentList,
             data: { fid: 1 },
             successCallback: function(json) {
                 if (json.status === 1) {
                     vmDetail.pageNo++;
-                    vmDetail.list = [];
-                    json.data.list.map(function(e) {
+                    vmDetail.list1 = [];
+                    vmDetail.studentCount = json.data.count;
+                    json.data.list.map(function(d) {
                         vmDetail.list1.push({
-                            id: e.id,
-                            name1: e.user.name,
-                            cardNo: e.userBuyCard.cardNo,
-                            headUrl: e.user.headUrl,
-                            mobile: e.user.mobile,
-                            time: e.submitTime,
+                            id: d.id,
+                            name: d.name,
+                            grade: d.grade,
+                            imgUrl: d.imgUrl,
+                            reason: d.reason
                         })
                     });
                 } else {
@@ -56,18 +46,35 @@ var vmDetail = avalon.define({
     },
     getData2: function() {
         ajaxJsonp({
-            url: urls.getAllDicCardList,
+            url: urls.getDonationList,
+            data: { fid: 1 },
             successCallback: function(json) {
                 if (json.status === 1) {
                     vmDetail.pageNo++;
                     vmDetail.list2 = [];
-                    json.data.map(function(c) {
+                    json.data.list.map(function(c) {
                         vmDetail.list2.push({
                             id: c.id,
-                            name2: c.name,
-                            number: c.lotteryDefaultTimes,
+                            name: c.user.name,
+                            imgUrl: c.user.headUrl,
+                            number: c.sumAmount,
                         })
                     })
+                } else {
+                    mui.alert(json.message);
+                }
+            }
+        });
+    },
+    moneySum: 0,    //该基金捐赠总额
+    //捐赠总额
+    getSum: function() {
+        ajaxJsonp({
+            url: urls.benefitAmount,
+            data: { fid: 1 },
+            successCallback: function(json) {
+                if (json.status === 1) {
+                    vmDetail.moneySum = json.data.totalDonateAmount;
                 } else {
                     mui.alert(json.message);
                 }
@@ -91,14 +98,39 @@ var vmDetail = avalon.define({
             $(".detail-left-up").css("color", "black");
         }
     },
-    // goBuyCard: function(id) {
-    //     location.href = "card-buy.html?cid=" + id;
-    // }
+    cardId: '',
+    getId: function() {
+        ajaxJsonp({
+            url: urls.getCardAccountList,
+            successCallback: function(json) {
+                if (json.status === 1) {
+                    vmDetail.cardId = json.data[0].userBuyCard.id;
+                }
+            }
+        });
+    },
+    openPop: function() {
+        if (vmDetail.cardNo != '') {
+            vmDetailPop.getAmount();
+            if (vmDetailPop.useCheck) {
+                //av2 不知道为什么不能 scan 第二次
+                //纯粹显示，在关闭弹窗的时候不要清空弹窗内容
+                modalShow('./util/commonweal-pop.html', 0);
+            } else {
+                vmDetailPop.useCheck = 1;
+                modalShow('./util/commonweal-pop.html', 1);
+            }
+        } else {
+            mui.alert("123");
+        }
+    },
 });
 
+vmDetail.getData();
 vmDetail.getData1();
 vmDetail.getData2();
-vmDetail.getData();
+vmDetail.getSum();
+vmDetail.getId();
 
 mui.init({
     pullRefresh: {
@@ -128,8 +160,9 @@ function reload() {
     vmDetail.list1 = [];
     vmDetail.list2 = [];
     ajaxJsonp({
-        url: urls.getAuditList,
+        url: urls.benefitStudentList,
         data: {
+            fid: 1,
             pageSize: vmDetail.pageSize,
             pageNo: vmDetail.pageNo
         },
@@ -137,14 +170,13 @@ function reload() {
             if (json.status == 1) {
                 vmDetail.pageNo = 2;
                 vmDetail.list1 = [];
-                json.data.list.map(function(e) {
+                json.data.list.map(function(d) {
                     vmDetail.list1.push({
-                        id: e.id,
-                        name1: e.user.name,
-                        cardNo: e.userBuyCard.cardNo,
-                        headUrl: e.user.headUrl,
-                        mobile: e.user.mobile,
-                        time: e.submitTime,
+                        id: d.id,
+                        name: d.name,
+                        grade: d.grade,
+                        imgUrl: d.imgUrl,
+                        reason: d.reason,
                     })
                 });
                 mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
@@ -155,8 +187,9 @@ function reload() {
         }
     });
     ajaxJsonp({
-        url: urls.getAllDicCardList,
+        url: urls.getDonationList,
         data: {
+            fid: 1,
             pageSize: vmDetail.pageSize,
             pageNo: vmDetail.pageNo
         },
@@ -164,11 +197,12 @@ function reload() {
             if (json.status == 1) {
                 vmDetail.pageNo = 2;
                 vmDetail.list2 = [];
-                json.data.map(function(c) {
+                json.data.list.map(function(c) {
                     vmDetail.list2.push({
                         id: c.id,
-                        name2: c.name,
-                        number: c.lotteryDefaultTimes,
+                        name: c.user.name,
+                        imgUrl: c.user.headUrl,
+                        number: c.sumAmount,
                     })
                 });
                 mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
@@ -182,22 +216,22 @@ function reload() {
 
 function loadmore() {
     ajaxJsonp({
-        url: urls.getAuditList,
+        url: urls.benefitStudentList,
         data: {
+            fid: 1,
             pageSize: vmDetail.pageSize,
             pageNo: vmDetail.pageNo
         },
         successCallback: function(json) {
             if (json.status == 1) {
                 vmDetail.pageNo++;
-                json.data.list.map(function(e) {
+                json.data.list.map(function(d) {
                     vmDetail.list1.push({
-                        id: e.id,
-                        name1: e.user.name,
-                        cardNo: e.userBuyCard.cardNo,
-                        headUrl: e.user.headUrl,
-                        mobile: e.user.mobile,
-                        time: e.submitTime,
+                        id: d.id,
+                        name: d.name,
+                        grade: d.grade,
+                        imgUrl: d.imgUrl,
+                        reason: d.reason,
                     })
                 });
                 if (vmDetail.pageNo <= json.data.pageCount) {
@@ -211,19 +245,21 @@ function loadmore() {
         }
     });
     ajaxJsonp({
-        url: urls.getAllDicCardList,
+        url: urls.getDonationList,
         data: {
+            fid: 1,
             pageSize: vmDetail.pageSize,
             pageNo: vmDetail.pageNo
         },
         successCallback: function(json) {
             if (json.status == 1) {
                 vmDetail.pageNo++;
-                json.data.map(function(c) {
+                json.data.list.map(function(c) {
                     vmDetail.list2.push({
                         id: c.id,
-                        name2: c.name,
-                        number: c.lotteryDefaultTimes,
+                        name: c.user.name,
+                        imgUrl: c.user.headUrl,
+                        number: c.sumAmount,
                     })
                 });
                 if (vmDetail.pageNo <= json.data.pageCount) {
@@ -237,3 +273,47 @@ function loadmore() {
         }
     });
 }
+
+var vmDetailPop = avalon.define({
+    $id: 'detailPop',
+    useCheck: 0, //1 checkButton, 0 closeButton
+    amount: 0,
+    getAmount: function() {
+        ajaxJsonp({
+            url: urls.getDonationAmount,
+            data: {
+                cid: vmDetail.cardId,
+                fid: 1
+            },
+            successCallback: function(json) {
+                if (json.status === 1) {
+                    vmDetailPop.amount = json.data.amount;
+                    console.log(vmDetailPop.amount);
+                }
+            }
+        });
+    },
+    close: function() {
+        modalClose();
+    },
+    go: function() {
+        ajaxJsonp({
+            url: urls.goDonate,
+            data: {
+                cid: vmDetail.cardId,
+                fid: 1
+            },
+            successCallback: function(json) {
+                if (json.status === 1) {
+                    mui.alert(json.message);
+                    modalClose();
+                    vmDetail.getData();
+                    vmDetail.getData2();
+                    vmDetail.getButton(2);
+                } else {
+                    mui.alert(json.message);
+                }
+            }
+        });
+    },
+});

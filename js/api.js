@@ -216,6 +216,13 @@ var urls = {
     getAuditSuccess: urlAPI + '/vip/userCardMarketPackageTask/auditSuccess', //审核任务通过或不通过
 
     //公益
+    getFoundationInfo: urlAPI + '/bnf/nonprofitFoundationInfo/get', //根据id查询公益基金信息详情
     benefitStudentList: urlAPI + '/bnf/benefitStudent/findListByFid', //受资助学生列表
+    getDonationList: urlAPI + '/bnf/donationLog/findListByFid', //捐赠列表
+    benefitAmount: urlAPI + '/bnf/nonprofitFoundationAccount/amountByFid', //根据基金ID查询捐赠总额和捐赠人数
+    getDonationAmount: urlAPI + '/bnf/userDonateFoundation/amount', //每月捐赠金额
+    getMyWealCount: urlAPI + '/bnf/donationLog/findByUidCount', //根据用户ID查询我的公益捐赠总额
+    getMyWealRecord: urlAPI + '/bnf/donationLog/findByUid', //根据用户ID查询我的公益记录
+    goDonate: urlAPI + '/bnf/userDonateFoundation/donate', //马上捐赠
     
 }
