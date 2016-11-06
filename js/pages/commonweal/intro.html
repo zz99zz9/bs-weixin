@@ -14,13 +14,13 @@
     </div>
     <div class="intro-content">
         <div class="intro-text-red bs-text-smaller" style="margin: 10px 0 15px 0" :click="@goDetail()">
-            <img class="intro-img-love" src="img/commonweal/love.png">
-            <span style="position: relative; top: -2px;"> 杜氏助学公益基金</span>
+            <img class="intro-img-love" :attr="{src: @data.logoUrl}">
+            <span style="position: relative; top: -3px; margin-left: 5px;"> {{@data.cnName}}</span>
         </div>
         <div class="bs-text-smaller">
-            让每个孩子只少能够拥有受教育的机会
+            {{@data.brief}}
             <br>
-            <div class="bs-text-x-smaller">已资助<span class="intro-text-red">50</span>位学生完成学业</div>
+            <div class="bs-text-x-smaller">已资助<span class="intro-text-red"> {{@studentCount}} </span>位学生完成学业</div>
         </div>
         <div style="margin: 5vh 30px 3vh 30px;">
             <button class="intro-button bs-text-larger" :click="@open">马上捐赠</button>
@@ -33,7 +33,7 @@
             我的公益记录
         </div>
     </div>
-    <div class="intro-footer bs-text-smaller bs-text-gold" :click="@rule()">
+    <div class="intro-footer bs-text-smaller bs-text-gold">
         <img class="intro-img-love" src="img/commonweal/commonweal.png">
         <span style="position: relative; top: -4px;">本宿公益</span>
     </div>

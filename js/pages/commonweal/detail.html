@@ -10,27 +10,25 @@
             </div>
         </div>
     </div>
-
     <div style="margin-top: 20px; text-align: center;">
         <div class="detail-left-tab bs-text-normal" :click="@getButton(1)">
             <span class="bs-text-smaller detail-left-up">已资助</span>
             <br>
-            <span class="intro-text-red">11</span>位孩子完成学业
+            <span class="intro-text-red">{{@studentCount}}</span>位孩子完成学业
         </div>
         <div class="detail-right-tab bs-text-normal" :click="@getButton(2)">
             <span class="bs-text-smaller detail-right-up">已捐出</span>
             <br>
-            <span class="intro-text-red">97845</span>元善款
+            <span class="intro-text-red">{{@moneySum}}</span>元善款
         </div>
     </div>
-
     <div id="pullrefresh" class="mui-scroll-wrapper bs-text-smaller" style="top: 270px; background-color: white;">
         <div class="mui-scroll">
             <div :if="@listType==1">
                 <div class="detail-left-list" :for="el in @list1">
                     <div>
-                    <img class="detail-head" :attr="{src:'http://img.bensue.com/' + el.imgUrl}" onerror="javascript:this.src='../img/defaultHeadImg.png';">
-                </div>
+                        <img class="detail-head" :attr="{src:'http://img.bensue.com/' + el.imgUrl}" onerror="javascript:this.src='../img/defaultHeadImg.png';">
+                    </div>
                     <div style="margin-left: 30px;">
                         <div>
                             <span class="bs-text-normal">{{el.name}}</span>
@@ -41,11 +39,11 @@
                 </div>
             </div>
             <div :if="@listType==2">
-                <div class="detail-left-list" :for="cl in @list2">
-                    <!-- <div>
-                    <img class="detail-head" :attr="{src:'http://img.bensue.com/' + @el.headUrl}" onerror="javascript:this.src='../img/defaultHeadImg.png';">
-                </div> -->
-                    <div style="margin-left: 30px; width: 55vw;">
+                <div class="detail-right-list" :for="cl in @list2">
+                    <div>
+                        <img class="detail-head" :attr="{src:'http://img.bensue.com/' + cl.imgUrl}" onerror="javascript:this.src='../img/defaultHeadImg.png';">
+                    </div>
+                    <div style="margin-left: 30px; width: 70vw;">
                         <div style="display: flex; justify-content: space-between;">
                             <div class="bs-text-normal">{{cl.name}}</div>
                             <div style="margin-left: 50px;">累计捐赠

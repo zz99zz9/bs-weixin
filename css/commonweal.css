@@ -108,6 +108,15 @@
     padding: 15px 30px 10px 15px;
 }
 
+.detail-right-list {
+    display: flex;
+    text-align: -webkit-auto;
+    border-bottom: 1px solid #ccc;
+    padding: 15px 10px 10px 15px;
+    display: flex;
+    align-items: center;
+}
+
 .detail-head {
     height: 70px;
     width: 70px;

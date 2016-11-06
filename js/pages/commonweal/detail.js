@@ -19,6 +19,7 @@ var vmDetail = avalon.define({
             }
         });
     },
+    studentCount: 0,     //该基金资助学生人数
     getData1: function() {
         ajaxJsonp({
             url: urls.benefitStudentList,
@@ -27,13 +28,14 @@ var vmDetail = avalon.define({
                 if (json.status === 1) {
                     vmDetail.pageNo++;
                     vmDetail.list1 = [];
+                    vmDetail.studentCount = json.data.count;
                     json.data.list.map(function(d) {
                         vmDetail.list1.push({
                             id: d.id,
                             name: d.name,
                             grade: d.grade,
                             imgUrl: d.imgUrl,
-                            reason: d.reason,
+                            reason: d.reason
                         })
                     });
                 } else {
@@ -54,9 +56,25 @@ var vmDetail = avalon.define({
                         vmDetail.list2.push({
                             id: c.id,
                             name: c.user.name,
+                            imgUrl: c.user.headUrl,
                             number: c.sumAmount,
                         })
                     })
+                } else {
+                    mui.alert(json.message);
+                }
+            }
+        });
+    },
+    moneySum: 0,    //该基金捐赠总额
+    //捐赠总额
+    getSum: function() {
+        ajaxJsonp({
+            url: urls.benefitAmount,
+            data: { fid: 1 },
+            successCallback: function(json) {
+                if (json.status === 1) {
+                    vmDetail.moneySum = json.data.totalDonateAmount;
                 } else {
                     mui.alert(json.message);
                 }
@@ -111,6 +129,7 @@ var vmDetail = avalon.define({
 vmDetail.getData();
 vmDetail.getData1();
 vmDetail.getData2();
+vmDetail.getSum();
 vmDetail.getId();
 
 mui.init({
@@ -182,6 +201,7 @@ function reload() {
                     vmDetail.list2.push({
                         id: c.id,
                         name: c.user.name,
+                        imgUrl: c.user.headUrl,
                         number: c.sumAmount,
                     })
                 });
@@ -238,6 +258,7 @@ function loadmore() {
                     vmDetail.list2.push({
                         id: c.id,
                         name: c.user.name,
+                        imgUrl: c.user.headUrl,
                         number: c.sumAmount,
                     })
                 });

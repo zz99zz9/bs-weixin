@@ -2348,12 +2348,20 @@ function commonwealIntro() {
             regex: '<!-- js -->',
             replace: '<script src="js/pages/commonweal/intro.js"></script>'
         }))
+        .pipe(replace({
+            regex: '<!-- pop -->',
+            replace: '<!--include "../pages/user/popover.html"-->'
+        }))
         .pipe(contentIncluder({
             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
         }))
         .pipe(replace({
             regex: '<!-- modal -->',
             replace: '<!--include "../util/modal.html"-->'
+        }))
+        .pipe(replace({
+            regex: '<button class="popover-closeButton"></button>',
+            replace: '<!--include "../util/popoverBtnOK-av2.html"-->'
         }))
         .pipe(contentIncluder({
             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
@@ -2399,20 +2407,12 @@ function commonwealDetail() {
             regex: '<!-- js -->',
             replace: '<script src="js/pages/commonweal/detail.js"></script>'
         }))
-        .pipe(replace({
-            regex: '<!-- pop -->',
-            replace: '<!--include "../pages/user/popover.html"-->'
-        }))
         .pipe(contentIncluder({
             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
         }))
         .pipe(replace({
             regex: '<!-- modal -->',
             replace: '<!--include "../util/modal.html"-->'
-        }))
-        .pipe(replace({
-            regex: '<button class="popover-closeButton"></button>',
-            replace: '<!--include "../util/popoverBtnOK.html"-->'
         }))
         .pipe(contentIncluder({
             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g

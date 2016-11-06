@@ -1,6 +1,29 @@
 var vmIntroduce = avalon.define({
     $id: 'intro',
-    data: 'kill',
+    data: {
+        id: 1,
+        cnName: '杜氏助学公益基金',
+        enName: '杜氏助学公益基金',
+        introduction: '杜氏助学公益基金',
+        brief: '让每个孩子只少能够拥有受教育的机会',
+        logoUrl: 'img/commonweal/love.png'
+    },
+    //获取基金信息详情
+    getInfo: function() {
+        ajaxJsonp({
+            url: urls.getFoundationInfo,
+            successCallback: function(json) {
+                if (json.status === 1) {
+                    vmCardList.data = [];
+                    json.data.map(function(c) {
+                        c.imgUrl = 'img/card/card_list_No' + c.id + '.png';
+
+                        vmCardList.data.push(c);
+                    });
+                }
+            }
+        });
+    },
     getData: function() {
         ajaxJsonp({
             url: urls.getDicCardList,
@@ -31,7 +54,7 @@ var vmIntroduce = avalon.define({
                 modalShow('./util/commonweal-pop.html', 1);
             }
         } else {
-            mui.alert("123");
+            popover('./util/noCard.html', 1);
         }
     },
     goRecord: function() {
@@ -48,9 +71,19 @@ var vmIntroduce = avalon.define({
             }
         });
     },
-    rule: function() {
-        console.log(123);
-        popover('./util/lottery-rule.html', 1);
+    studentCount: 0,
+    getStudent: function() {
+        ajaxJsonp({
+            url: urls.benefitStudentList,
+            data: { fid: 1 },
+            successCallback: function(json) {
+                if (json.status === 1) {
+                    vmIntroduce.studentCount = json.data.count;
+                } else {
+                    mui.alert(json.message);
+                }
+            }
+        });
     },
 });
 vmIntroduce.getId();
@@ -92,7 +125,7 @@ var vmDetailPop = avalon.define({
         ajaxJsonp({
             url: urls.goDonate,
             data: {
-                cid: vmDetail.cardId,
+                cid: vmIntroduce.cardId,
                 fid: 1
             },
             successCallback: function(json) {
@@ -102,6 +135,7 @@ var vmDetailPop = avalon.define({
                     location.href = "commonweal-introduce.html";
                 } else {
                     mui.alert(json.message);
+                    modalClose();
                 }
             }
         });
