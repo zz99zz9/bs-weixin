@@ -3,7 +3,7 @@
 }*/
 
 .intro-back1 {
-    position: relative; 
+    position: relative;
     width: 100vw;
     top: -8vh;
 }
@@ -34,8 +34,8 @@
 }
 
 .intro-img-love {
-    height: 16px; 
-    width: 16px; 
+    height: 16px;
+    width: 16px;
     position: relative;
 }
 
@@ -73,6 +73,7 @@
     margin: 0 15vw;
     text-align: initial;
 }
+
 
 /*.detail-content {
     margin: 10px;
@@ -143,4 +144,13 @@
     background-size: cover;
     background-repeat: no-repeat;
     margin: 0 auto;
+}
+
+.cms-head-row {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 15px 0;
+    height: 44px;
+    padding: 0 15px;
 }

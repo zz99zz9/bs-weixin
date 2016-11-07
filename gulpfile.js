@@ -2272,7 +2272,7 @@ function discover() {
         .pipe(gulp.dest('./src'));
 }
 
-//发现页面
+//会员中心
 function memberCenter() {
     return gulp.src('./js/layout/shell.html')
         //.pipe(replace({ regex: '<!-- pop -->', replace: '<!--include "../util/pop.html"-->' }))
@@ -2525,6 +2525,66 @@ function cmsAccount () {
         .pipe(gulp.dest('./src/cms'));
 }
 
+//受益人列表页面
+function cmsFavoreeList () {
+    return gulp.src('./js/layout/shell-manage.html')
+    .pipe(replace({
+            regex: '<h1 id="headerReplace" class="mui-title">标题</h1>',
+            replace: '<h1 id="headerReplace" class="mui-title">受益学生管理</h1>'
+        }))
+        .pipe(replace({
+            regex: '<!-- css -->',
+            replace: '<link rel="stylesheet" href="../css/commonweal.css">'
+        }))
+        .pipe(replace({
+            regex: '<!-- content -->',
+            replace: '<!--include "../pages/cms/favoreeList.html"-->'
+        }))
+        .pipe(replace({
+            regex: '<!-- js -->',
+            replace: '<script src="../js/pages/cms/favoreeList.js"></script>'
+        }))
+        .pipe(replace({
+            regex: '<!-- pop -->',
+            replace: '<!--include "../util/pop.html"-->'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('favoreeList.html'))
+        .pipe(gulp.dest('./src/cms'));
+}
+
+//子账号列表页面
+function cmsSubList () {
+    return gulp.src('./js/layout/shell-manage.html')
+    .pipe(replace({
+            regex: '<h1 id="headerReplace" class="mui-title">标题</h1>',
+            replace: '<h1 id="headerReplace" class="mui-title">账户管理</h1>'
+        }))
+        .pipe(replace({
+            regex: '<!-- css -->',
+            replace: '<link rel="stylesheet" href="../css/commonweal.css">'
+        }))
+        .pipe(replace({
+            regex: '<!-- content -->',
+            replace: '<!--include "../pages/cms/subList.html"-->'
+        }))
+        .pipe(replace({
+            regex: '<!-- js -->',
+            replace: '<script src="../js/pages/cms/subList.js"></script>'
+        }))
+        .pipe(replace({
+            regex: '<!-- pop -->',
+            replace: '<!--include "../util/pop.html"-->'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('subList.html'))
+        .pipe(gulp.dest('./src/cms'));
+}
+
 /**
  * 输出弹框相关页面
  */
@@ -2680,7 +2740,9 @@ gulp.task('html', gulp.parallel(
     commonwealRecord,
     cmsNav,
     cmsDonation,
-    cmsAccount
+    cmsAccount,
+    cmsFavoreeList,
+    cmsSubList
 ));
 
 function watchForReload() {
