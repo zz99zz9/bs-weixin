@@ -344,6 +344,7 @@ var vmAvatar = avalon.define({
     $id: 'avatar',
     headImg: '',
     isEdit: false,
+    picture: '',
     pickImg: function() {
         var $input = $("#avatarInput");
 
@@ -375,7 +376,13 @@ var vmAvatar = avalon.define({
                 console.log(data.Message);
                 if (data.Status == 1) {
                     //上传成功，调接口保存url
-                    ajaxJsonp({
+                    var pathName = document.referrer;
+                    if (pathName.indexOf("subAdd") != -1) {
+                        vmAvatar.picture = data.Data.thuUrl;
+                        console.log(vmAvatar.picture);
+                        location.href = document.referrer;
+                    } else {
+                        ajaxJsonp({
                         url: urls.saveUserInfo,
                         data: {
                             headUrl: data.Data.thuUrl
@@ -406,6 +413,7 @@ var vmAvatar = avalon.define({
                             }
                         }
                     });
+                    }
                 } else {
                   bs_cropper.submitEnd();
                   alert(data.Message);

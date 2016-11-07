@@ -2585,6 +2585,36 @@ function cmsSubList () {
         .pipe(gulp.dest('./src/cms'));
 }
 
+//添加子账户
+function subAdd () {
+    return gulp.src('./js/layout/shell-manage.html')
+    .pipe(replace({
+            regex: '<h1 id="headerReplace" class="mui-title">标题</h1>',
+            replace: '<h1 id="headerReplace" class="mui-title">添加子账户</h1>'
+        }))
+        .pipe(replace({
+            regex: '<!-- css -->',
+            replace: '<link rel="stylesheet" href="../css/commonweal.css">'
+        }))
+        .pipe(replace({
+            regex: '<!-- content -->',
+            replace: '<!--include "../pages/cms/subAdd.html"-->'
+        }))
+        .pipe(replace({
+            regex: '<!-- js -->',
+            replace: '<script src="../js/pages/cms/subAdd.js"></script>'
+        }))
+        .pipe(replace({
+            regex: '<!-- pop -->',
+            replace: '<!--include "../util/pop.html"-->'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('subAdd.html'))
+        .pipe(gulp.dest('./src/cms'));
+}
+
 /**
  * 输出弹框相关页面
  */
@@ -2742,7 +2772,8 @@ gulp.task('html', gulp.parallel(
     cmsDonation,
     cmsAccount,
     cmsFavoreeList,
-    cmsSubList
+    cmsSubList,
+    subAdd
 ));
 
 function watchForReload() {
