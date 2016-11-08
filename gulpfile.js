@@ -2672,6 +2672,7 @@ function popHtml() {
             './js/pages/commonweal/commonweal-pop.html',
             './js/pages/commonweal/noCard.html',
             './js/pages/card/ETF.html',
+            './js/pages/cms/foundation-withdraw.html'
         ])
         .pipe(gulp.dest('./dist/util/'));
 }

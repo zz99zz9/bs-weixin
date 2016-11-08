@@ -1,26 +1,26 @@
 <article class="bs-bg-white bs-text-51" ms-controller="account">
-    <div style="padding: 9px 20px;padding-top: 12px;border-bottom: 1px solid #ddd;">账户余额：<span class="bs-text-red">{{data.cashAmount}}</span> 元</div>
+    <div style="padding: 9px 20px;padding-top: 12px;border-bottom: 1px solid #ddd;">账户余额：<span class="bs-text-red">{{amount}}</span> 元</div>
     <section class="cms-account" style="min-height: 80vh;">
         <div class="bs-text-larger">提现帐号</div>
-        <div class="bs-text-white cms-account-head" ms-class-1="'zfb':data.accountType==1" ms-class-2="'bank':data.accountType==2" ms-if="data.accountType">
-            <div ms-if="data.accountType==1">
-                <div class="bs-text-larger">{{data.accountNo}}</div>
-                <div class="bs-text-smaller">{{data.accountName}}</div>
+        <div class="bs-text-white cms-account-head" ms-class-1="zfb:cashAccount.accountType==1" ms-class-2="bank:cashAccount.accountType==2" ms-if="cashAccount.accountType">
+            <div ms-if="cashAccount.accountType==1">
+                <div class="bs-text-larger">{{cashAccount.accountNo}}</div>
+                <div class="bs-text-smaller">{{cashAccount.accountName}}</div>
             </div>
-            <div ms-if="data.accountType==2">
+            <div ms-if="cashAccount.accountType==2">
                 <div class="bs-text-larger bs-text-lighter" style="margin-top: -5px;">
-                    <span class="cms-account-no">{{data.accountNo.slice(0,4)}}</span>
-                    <span class="cms-account-no">{{data.accountNo.slice(4,8)}}</span>
-                    <span class="cms-account-no">{{data.accountNo.slice(8,12)}}</span>
-                    <span class="cms-account-no">{{data.accountNo.slice(12,24)}}</span>
+                    <span class="cms-account-no">{{cashAccount.accountNo.slice(0,4)}}</span>
+                    <span class="cms-account-no">{{cashAccount.accountNo.slice(4,8)}}</span>
+                    <span class="cms-account-no">{{cashAccount.accountNo.slice(8,12)}}</span>
+                    <span class="cms-account-no">{{cashAccount.accountNo.slice(12,24)}}</span>
                 </div>
                 <div class="bs-text-smaller" style="line-height: 15px;">
-                    {{data.bankName}}
+                    {{cashAccount.bankName}}
                 </div>
-                <div class="bs-text-smaller" style="line-height: 15px;">{{data.accountName}}</div>
+                <div class="bs-text-smaller" style="line-height: 15px;">{{cashAccount.accountName}}</div>
             </div>
         </div>
-        <div ms-if="!data.accountType" class="bs-text-153 bs-text-smaller" style="background-color: #ddd;margin: 15px 0 10px 0;padding: 25px 15px;" ms-click="goBind">
+        <div ms-if="!cashAccount.accountType" class="bs-text-153 bs-text-smaller" style="background-color: #ddd;margin: 15px 0 10px 0;padding: 25px 15px;" ms-click="goBind">
             您还未绑定提现帐号
             <img src="../img/add.svg" style="width: 30px;position: relative;float: right;top: -4px;">
         </div>

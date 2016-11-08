@@ -226,4 +226,8 @@ var urls = {
     goDonate: urlAPI + '/bnf/userDonateFoundation/donate', //马上捐赠
     getFoundationByUid: urlAPI + '/bnf/nonprofitFoundationInfo/findByUid', //根据uid查询公益基金信息详情
     getFoundationAccount: urlAPI + '/bnf/nonprofitFoundationAccount/statistics', //公益管理模式首页数据统计
+    getFoundationAccountLog: urlAPI + '/bnf/nonprofitFoundationAccountOperateLog/list', //获取公益基金帐户资金操作记录
+    getFoundationCashAccount: urlAPI + '/bnf/nonprofitFoundationAccountApplyCashAccount/defaultAccount', //获取公益基金默认体现账号
+    bindFoundationCashAccount: urlAPI + '/bnf/nonprofitFoundationAccountApplyCashAccount/bind', //绑定公益基金提现账号
+    foundationWithdrawCash: urlAPI +'/bnf/nonprofitFoundationAccountApplyCashLog/apply', //公益基金账户申请提现
 }

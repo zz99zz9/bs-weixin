@@ -6,8 +6,8 @@ var vmFoundation = avalon.define({
         img: '../img/commonweal/love.png',
         amount: 0,
         account: 0,
-        number: 0,
-        child: 0
+        numberStudent: 0,
+        numberSub: 0
     },
     fid: 0,
     getFid: function() {
@@ -26,9 +26,9 @@ var vmFoundation = avalon.define({
                         successCallback: function(json) {
                             if (json.status == 1) {
                                 vmFoundation.data.account = json.data.cashAmount;
-                                vmFoundation.data.number = json.data.number;
+                                vmFoundation.data.numberStudent = json.data.numberStudent;
                                 vmFoundation.data.amount = json.data.totalDonateAmount;
-                                vmFoundation.data.child = json.data.numberAccount;
+                                vmFoundation.data.numberSub = json.data.numberAccount;
 
                             } else {
                                 mui.alert(json.message);
