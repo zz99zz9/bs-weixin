@@ -2551,6 +2551,32 @@ function subAdd () {
         .pipe(gulp.dest('./src/cms'));
 }
 
+//添加学生
+function favoree () {
+    return gulp.src('./js/layout/shell-manage.html')
+    .pipe(replace({
+            regex: '<h1 id="headerReplace" class="mui-title">标题</h1>',
+            replace: '<h1 id="headerReplace" class="mui-title"></h1>'
+        }))
+        .pipe(replace({
+            regex: '<!-- css -->',
+            replace: '<link rel="stylesheet" href="../css/commonweal.css">\n<link href="../css/mui.picker.all.css" rel="stylesheet" />'
+        }))
+        .pipe(replace({
+            regex: '<!-- content -->',
+            replace: '<!--include "../pages/cms/favoree.html"-->'
+        }))
+        .pipe(replace({
+            regex: '<!-- js -->',
+            replace: '<script src="../js/pages/cms/favoree.js"></script>\n<script src="../js/lib/mui.picker.all.js"></script>'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('favoree.html'))
+        .pipe(gulp.dest('./src/cms'));
+}
+
 /**
  * 输出弹框相关页面
  */
@@ -2707,7 +2733,8 @@ gulp.task('html', gulp.parallel(
     cmsNav,
     cmsDonation,
     cmsAccount,
-    subAdd
+    subAdd,
+    favoree
 ));
 
 function watchForReload() {
