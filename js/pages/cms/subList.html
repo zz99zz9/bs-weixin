@@ -1,0 +1,46 @@
+<style>
+    table {
+        width: 90vw;
+        margin: 0 auto;
+        text-align: center;
+    }
+    tr th {
+        height: 39px;
+    }
+    .row-data {
+        height: 59px;
+    }
+    .row-data:nth-child(2n+1) {
+        background-color: #bbb;
+    }
+    .row-data:active {
+        background-color: #000;
+        color: #fff;
+    }
+    tr th, tr td {
+        border: 1px solid #ddd;
+    }
+</style>
+<section ms-controller="subList">
+    <div class="bs-bg-white bs-text-small cms-head-row">
+        <div class="flex1">
+            已有子账户<span class="bs-text-red">{{data.num}}</span>人
+        </div>
+        <img class="flex0" src="../img/commonweal/add.png" alt="" style="width: 36px;">
+    </div>
+
+    <table class="bs-text-smaller bs-bg-white">
+        <tr class="bs-text-white bs-bg-black">
+            <th>编号</th>
+            <th>手机</th>
+            <th>使用者</th>
+            <th>操作</th>
+        </tr>
+        <tr ms-repeat="data.list" class="row-data">
+            <td>{{el.id}}</td>
+            <td>{{el.tel}}</td>
+            <td>{{el.name}}</td>
+            <td><button class="mui-btn mui-btn-danger bs-text-smaller" style="line-height: 10px;">删除</button></td>
+        </tr>
+    </table>
+</section>
