@@ -10,7 +10,7 @@ var vmFoundation = avalon.define({
         child: 0
     },
     fid: 0,
-    getFid: function () {
+    getFid: function() {
         ajaxJsonp({
             url: urls.getFoundationByUid,
             successCallback: function(json) {
@@ -22,24 +22,38 @@ var vmFoundation = avalon.define({
 
                     ajaxJsonp({
                         url: urls.getFoundationAccount,
-                        data: {fid: vmFoundation.fid},
+                        data: { fid: vmFoundation.fid },
                         successCallback: function(json) {
                             if (json.status == 1) {
                                 vmFoundation.data.account = json.data.cashAmount;
                                 vmFoundation.data.number = json.data.number;
                                 vmFoundation.data.amount = json.data.totalDonateAmount;
                                 vmFoundation.data.child = json.data.numberAccount;
-                                
+
                             } else {
                                 mui.alert(json.message);
                             }
                         }
                     });
                 } else {
-                    mui.alert(json.message);
+                    mui.alert(json.message, function() {
+                        location.href = document.referrer || '../index.html';
+                    });
                 }
             }
         })
+    },
+    goDonation: function() {
+        location.href = "donation.html";
+    },
+    goAccount: function() {
+        location.href = "account.html";
+    },
+    goFavoreeList: function() {
+        location.href = "favoreeList.html";
+    },
+    goSubList: function() {
+        location.href = "subList.html";
     },
 });
 
