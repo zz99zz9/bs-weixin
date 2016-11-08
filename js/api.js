@@ -224,5 +224,6 @@ var urls = {
     getMyWealCount: urlAPI + '/bnf/donationLog/findByUidCount', //根据用户ID查询我的公益捐赠总额
     getMyWealRecord: urlAPI + '/bnf/donationLog/findByUid', //根据用户ID查询我的公益记录
     goDonate: urlAPI + '/bnf/userDonateFoundation/donate', //马上捐赠
-    
+    getFoundationByUid: urlAPI + '/bnf/nonprofitFoundationInfo/findByUid', //根据uid查询公益基金信息详情
+    getFoundationAccount: urlAPI + '/bnf/nonprofitFoundationAccount/statistics', //公益管理模式首页数据统计
 }
