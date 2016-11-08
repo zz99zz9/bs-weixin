@@ -55,7 +55,10 @@ var vmCardBuy = avalon.define({
     isDisabled: false,
     payinfo: {},
     buyCard: function() {
-        //todo: 判断有没有买卡资格（会员卡少于两张）
+        if (this.payType == 3) {
+            popover('./util/ETF.html', 1);
+        } else {
+            //todo: 判断有没有买卡资格（会员卡少于两张）
         ajaxJsonp({
             url: urls.getCardList,
             successCallback: function(json) {
@@ -113,6 +116,8 @@ var vmCardBuy = avalon.define({
                 }
             }
         });
+        }
+        
         
     },
 });

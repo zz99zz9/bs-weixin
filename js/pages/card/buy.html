@@ -59,11 +59,17 @@
                 </div>
                 <span :on-tap="@chooseType(2)">微信支付</span>
             </div>
-            <div :on-tap="@chooseType(1)">
+            <div style="margin-bottom: 15px;" :on-tap="@chooseType(1)">
                 <div class="hiddenbox">
                     <div class="check-icon" :class="@payType == 1?'checked':'unchecked'" style="position: absolute; right: 0px;" :on-tap="@chooseType(1)"></div>
                 </div>
                 <span :on-tap="@chooseType(1)">支付宝支付（请在浏览器中打开）</span>
+            </div>
+            <div :on-tap="@chooseType(3)">
+                <div class="hiddenbox">
+                    <div class="check-icon" :class="@payType == 3?'checked':'unchecked'" style="position: absolute; right: 0px;" :on-tap="@chooseType(3)"></div>
+                </div>
+                <span :on-tap="@chooseType(3)">电汇支付</span>
             </div>
             <div class="bs-text-small" style="margin-top: 30px;" :on-tap="@clickIsAgree">
                 <span :class="['isAgree', @isAgree?'checked':'unchecked']"></span> 我同意

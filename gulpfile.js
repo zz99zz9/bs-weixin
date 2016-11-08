@@ -2671,6 +2671,7 @@ function popHtml() {
             './js/pages/promotion/promotion-rule.html',
             './js/pages/commonweal/commonweal-pop.html',
             './js/pages/commonweal/noCard.html',
+            './js/pages/card/ETF.html',
         ])
         .pipe(gulp.dest('./dist/util/'));
 }
