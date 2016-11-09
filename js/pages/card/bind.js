@@ -1,12 +1,12 @@
-var accountID = getParam('cid');
+var accountID = getParam('cid'), bindType = getParam('type') || 'card';
 if (accountID != "") {
     if (isNaN(accountID)) {
-        location.href = document.referrer || "index.html";
+        location.href = document.referrer || "../index.html";
     } else {
         accountID = parseInt(accountID);
     }
 } else {
-    location.href = "index.html";
+    location.href = "../index.html";
 }
 
 var user = Storage.getLocal('user'),
@@ -106,7 +106,7 @@ var vmPopover = avalon.define({
         } else {
             //绑定提现帐号
             ajaxJsonp({
-                url: urls.bindCashAccount,
+                url: bindType=='card'?urls.bindCashAccount:urls.bindFoundationCashAccount,
                 data: {
                     cid: accountID,
                     code: vmCode.code,

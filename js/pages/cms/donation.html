@@ -41,22 +41,26 @@
         </div>
         <div style="border-left: 1px solid #eee;"></div>
         <div style="flex-grow: 1;">
-            <span class="bs-text-red">{{data.num}}</span>人
+            <span class="bs-text-red">{{data.number}}</span>人
             <br> 累计捐赠
         </div>
     </div>
     
     <div class="row" style="margin-top: 15px;padding: 0;text-align: center;">
-        <div class="tab active">捐赠</div>
-        <div class="tab">最新</div>
+        <div class="tab" ms-class="active:orderType == byMoneyDesc" ms-click="changeOrderType(byMoneyDesc)">捐赠</div>
+        <div class="tab" ms-class="active:orderType == byTimeDesc" ms-click="changeOrderType(byTimeDesc)">最新</div>
     </div>
-    <div class="row" ms-repeat="data.list">
-        <img ms-attr-src="el.img" class="item-img">
-        <div class="item-text bs-text-normal">
-            {{el.name}}
-        </div>
-        <div class="bs-text-smaller">
-            累计捐赠<span class="bs-text-red">{{el.money}}</span>元
+    <div id="pullrefresh" class="mui-scroll-wrapper" style="top: 164px;">
+        <div class="mui-scroll" >
+            <div class="row" ms-repeat="list">
+                <img ms-attr-src="urlAPINet + el.user.headUrl" class="item-img">
+                <div class="item-text bs-text-normal">
+                    {{el.user.name}}
+                </div>
+                <div class="bs-text-smaller">
+                    累计捐赠<span class="bs-text-red">{{el.sumAmount}}</span>元
+                </div>
+            </div>
         </div>
     </div>
 </div>
