@@ -2459,6 +2459,36 @@ function cmsNav() {
         .pipe(gulp.dest('./src/cms'));
 }
 
+//基金编辑资料
+function editFund () {
+    return gulp.src('./js/layout/shell-manage.html')
+    .pipe(replace({
+            regex: '<h1 id="headerReplace" class="mui-title">标题</h1>',
+            replace: '<h1 id="headerReplace" class="mui-title">编辑资料</h1>'
+        }))
+        .pipe(replace({
+            regex: '<!-- css -->',
+            replace: '<link rel="stylesheet" href="../css/commonweal.css">'
+        }))
+        .pipe(replace({
+            regex: '<!-- content -->',
+            replace: '<!--include "../pages/cms/editFund.html"-->'
+        }))
+        .pipe(replace({
+            regex: '<!-- js -->',
+            replace: '<script src="../js/pages/cms/editFund.js"></script>'
+        }))
+        .pipe(replace({
+            regex: '<!-- pop -->',
+            replace: '<!--include "../util/pop.html"-->'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('editFund.html'))
+        .pipe(gulp.dest('./src/cms'));
+}
+
 //捐赠列表页
 function cmsDonation() {
     return gulp.src('./js/layout/shell-manage.html')
@@ -2633,7 +2663,7 @@ function favoree () {
         }))
         .pipe(replace({
             regex: '<!-- js -->',
-            replace: '<script src="../js/pages/cms/favoree.js"></script>\n<script src="../js/lib/mui.picker.all.js"></script>'
+            replace: '<script src="../js/lib/mui.picker.all.js"></script>\n<script src="../js/pages/cms/favoree.js"></script>'
         }))
         .pipe(contentIncluder({
             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
@@ -2803,7 +2833,8 @@ gulp.task('html', gulp.parallel(
     cmsFavoreeList,
     cmsSubList,
     subAdd,
-    favoree
+    favoree,
+    editFund
 ));
 
 function watchForReload() {

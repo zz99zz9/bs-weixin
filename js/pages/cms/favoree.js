@@ -1,14 +1,16 @@
-var inid = 1;
+var inid = 0;
 
 var vmFavoree = avalon.define({
     $id: 'favoree',
+    fundId: '', //基金id
     data: {
+        id: '',
+        name: '',
         edu1: '',
         edu2: '',
         reason: '',
+        imgUrl: defaultHeadImg,
     },
-    headImg: defaultHeadImg,
-    name: '',
     mobile: '',
     nickName: '',
     isVip: 0,
@@ -16,38 +18,96 @@ var vmFavoree = avalon.define({
     isAlliance: 0,
     isManage: isManageMode,
     isDisabled: true,
-    listEdu1: [],
-    listEdu2: [],
+    listEdu1: [{
+        value: 1,
+        text: "大学",
+        children: [
+            { value: 1, text: "大一" },
+            { value: 2, text: "大二" },
+            { value: 3, text: "大三" },
+            { value: 4, text: "大四" },
+            { value: 5, text: "大五" }
+        ]
+    }, {
+        value: 2,
+        text: "高中",
+        children: [
+            { value: 1, text: "高一" },
+            { value: 2, text: "高二" },
+            { value: 3, text: "高三" }
+        ]
+    }, {
+        value: 3,
+        text: "初中",
+        children: [
+            { value: 1, text: "初一" },
+            { value: 2, text: "初二" },
+            { value: 3, text: "初三" }
+        ]
+    }, {
+        value: 4,
+        text: "小学",
+        children: [
+            { value: 1, text: "一年级" },
+            { value: 2, text: "二年级" },
+            { value: 3, text: "三年级" },
+            { value: 4, text: "四年级" },
+            { value: 5, text: "五年级" },
+            { value: 6, text: "六年级" }
+        ]
+    }],
+    getFund: function() {
+        ajaxJsonp({
+            url: urls.benefitAmountUid,
+            data: {},
+            successCallback: function(json) {
+                if (json.status == 1) {
+                    vmFavoree.fundId = json.data.id;
+                }
+            }
+        });
+    },
+    //根据学生id查询详情
     getData: function() {
         ajaxJsonp({
-            url: urls.warehouseInDetail,
-            data: { id: 25 },
+            url: urls.benefitStudentDetail,
+            data: { id: vmFavoree.fundId },
             successCallback: function(json) {
                 vmFavoree.getList1();
-                vmFavoree.getList2();
                 if (json.status === 1) {
-                    vmFavoree.name = json.data.agent.name;
-                    vmFavoree.data.edu1 = json.data.amount;
-                    vmFavoree.data.edu2 = json.data.cid;
+                    vmFavoree.data = json.data.list;
                 }
             }
         });
     },
     getList1: function() {
         //仓库选择
-        vmFavoree.listEdu1 = ["大学", "高中", "初中", "小学"];
         (function($, doc) {
-            var userPicker = new $.PopPicker();
+            var userPicker = new $.PopPicker({ layer: 2 });
+            userPicker.setData(vmFavoree.$model.listEdu1);
             var showUserPickerButton1 = doc.getElementById('edu1');
             showUserPickerButton1.addEventListener('tap', function(event) {
-                userPicker.setData(vmFavoree.listEdu1);
                 userPicker.show(function(items) {
                     vmFavoree.data.edu1 = items[0].text;
-                    var grade1 = ["大一", "大二", "大三", "大四", "大五"];
-                    var grade2 = ["高一", "高二", "高三"];
-                    var grade3 = ["初一", "初二", "初三", ];
-                    var grade4 = ["一年级", "二年级", "三年级", "四年级", "五年级", "六年级"];
-                    
+                    var a = vmFavoree.data.edu1;
+                    console.log(a);
+                    switch (a) {
+                        case "大学":
+                            vmFavoree.listEdu2 = vmFavoree.grade1;
+                            break;
+                        case "高中":
+                            vmFavoree.listEdu2 = vmFavoree.grade2;
+                            break;
+                        case "初中":
+                            vmFavoree.listEdu2 = vmFavoree.grade3;
+                            break;
+                        case "小学":
+                            vmFavoree.listEdu2 = vmFavoree.grade4;
+                            break;
+                        default:
+                            vmFavoree.listEdu2 = [];
+                            break;
+                    }
                     vmFavoree.getList2();
                     vmFavoree.changed();
                 });
@@ -55,11 +115,6 @@ var vmFavoree = avalon.define({
         })(mui, document);
     },
     getList2: function() {
-        //供应商选择
-        vmFavoree.listEdu2 = ["大一", "大二", "大三", "大四", "大五"];
-        vmFavoree.listEdu2 = ["高一", "高二", "高三"];
-        vmFavoree.listEdu2 = ["初一", "初二", "初三", ];
-        vmFavoree.listEdu2 = ["一年级", "二年级", "三年级", "四年级", "五年级", "六年级"];
         (function($, doc) {
             var userPicker = new $.PopPicker();
             var showUserPickerButton2 = doc.getElementById('edu2');
@@ -72,15 +127,6 @@ var vmFavoree = avalon.define({
             }, false);
         })(mui, document);
     },
-    show: function() {
-        vmFavoree.getUserInfo();
-        ishide = false;
-        $('#popModule').show();
-        setTimeout("$('#popModule').removeClass('hide')", 10);
-        //$('#popModule').removeClass('hide');
-
-        Storage.setLocal('user', { openUserInfo: 0 });
-    },
     changed: function() {
         if (vmFavoree.name == '' || vmFavoree.mobile == '' || vmFavoree.mobile.length != 11) {
             vmFavoree.isDisabled = true;
@@ -88,59 +134,14 @@ var vmFavoree = avalon.define({
         }
         vmFavoree.isDisabled = false;
     },
-    getUserInfo: function() {
-        var userInfo = Storage.getLocal('user') || {};
-        var token = userInfo.accessToken || '';
-        var openid = userInfo.openId || '';
-
-        $.ajax({
-            type: "get",
-            async: true,
-            url: urls.userInfotUrl + "?accessToken=" + token + "&openId=" + openid,
-            dataType: "jsonp",
-            jsonp: "jsonpcallback",
-            success: function(json) {
-                if (json.status === -1) {
-                    vmFavoree.nickName = ' 未登录 ';
-                } else {
-                    if (json.data.headUrl === '') {
-                        vmFavoree.headImg = defaultHeadImg;
-                    } else {
-                        vmFavoree.headImg = urlAPINet + json.data.headUrl;
-                    }
-
-                    if (location.pathname.indexOf('index') >= 0) {
-                        vmHotel.headImg = vmFavoree.headImg;
-                    }
-
-                    vmFavoree.nickName = json.data.nickname;
-                    vmFavoree.isAdmin = json.data.isAdmin;
-                    vmFavoree.isAlliance = json.data.isAlliance;
-
-                    var user = {
-                        uid: json.data.id,
-                        mobile: json.data.mobile,
-                        openId: json.data.openId,
-                        name: json.data.name,
-                        nickname: json.data.nickname,
-                        headImg: json.data.headUrl,
-                        logState: 1,
-                        idUrl: json.data.idUrl,
-                        idNo: json.data.idNo,
-                        authStatus: json.data.authStatus,
-                        invoiceMoney: json.data.invoiceMoney,
-                        isVip: json.data.isVip,
-                        isAdmin: json.data.isAdmin,
-                        isAlliance: json.data.isAlliance,
-                        accessToken: json.data.accessToken
-                    };
-                    Storage.setLocal('user', user);
-                }
-            },
-            error: function(XMLHttpRequest, type, errorThrown) {
-                console.log(XMLHttpRequest.responseText + "\n" + type + "\n" + errorThrown);
-            }
-        });
+    getPic: function() {
+        var a = Storage.get("headImg");
+        if (a == null) {
+            vmFavoree.data.imgUrl = defaultHeadImg;
+            console.log(vmFavoree.data.imgUrl);
+        } else {
+            vmFavoree.data.imgUrl = urlAPINet + Storage.get("headImg").url;
+        }
     },
     changeImg: function() {
         stopSwipeSkip.do(function() {
@@ -155,32 +156,36 @@ var vmFavoree = avalon.define({
             });
         });
     },
+    save: function() {
+        ajaxJsonp({
+            url: urls.saveBenefitStudent,
+            data: {
+                id: vmFavoree.data.id,
+                fid: vmFavoree.fundId,
+                mobile: vmFavoree.data.mobile,
+                name: vmFavoree.data.name,
+                imgUrl: vmFavoree.data.imgUrl,
+                education: vmFavoree.data.edu1,
+                grade: vmFavoree.data.edu2,
+                reason: vmFavoree.data.reason
+            },
+            successCallback: function(json) {
+                if (json.status == 1) { //已登录
+                    console.log(123);
+                    //location.href = 'favoreeList.html';
+                }
+            }
+        });
+    },
 });
 
-function savePic(serverId) {
-    ajaxJsonp({
-        url: urls.saveUserInfo,
-        data: {
-            headUrl: serverId
-        },
-        successCallback: function(json) {
-            if (json.status === 1) {
-                vmFavoree.getUserInfo();
-                alert(json.message);
-            } else {
-                alert(json.message);
-            }
-        }
-    });
-}
+vmFavoree.getFund();
+vmFavoree.getPic();
 
 if (inid == 0) {
     $("#headerReplace").text("添加");
     vmFavoree.getList1();
-    vmFavoree.getList2();
 } else {
     $("#headerReplace").text("修改");
     vmFavoree.getData();
 }
-
-vmFavoree.getUserInfo();

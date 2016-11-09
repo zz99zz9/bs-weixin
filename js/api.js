@@ -217,13 +217,19 @@ var urls = {
 
     //公益
     getFoundationInfo: urlAPI + '/bnf/nonprofitFoundationInfo/get', //根据id查询公益基金信息详情
+    updateFoundationInfo: urlAPI + '/bnf/nonprofitFoundationInfo/update', //根据id修改公益基金信息
     benefitStudentList: urlAPI + '/bnf/benefitStudent/findListByFid', //受资助学生列表
+    benefitStudentDetail: urlAPI + '/bnf/benefitStudent/get', //受益学生详情
+    saveBenefitStudent: urlAPI + '/bnf/benefitStudent/save', //受益学生保存
     getDonationList: urlAPI + '/bnf/donationLog/findListByFid', //捐赠列表
     benefitAmount: urlAPI + '/bnf/nonprofitFoundationAccount/amountByFid', //根据基金ID查询捐赠总额和捐赠人数
+    benefitAmountUid: urlAPI + '/bnf/nonprofitFoundationInfo/findByUid', //根据基金ID查询捐赠总额和捐赠人数
     getDonationAmount: urlAPI + '/bnf/userDonateFoundation/amount', //每月捐赠金额
     getMyWealCount: urlAPI + '/bnf/donationLog/findByUidCount', //根据用户ID查询我的公益捐赠总额
     getMyWealRecord: urlAPI + '/bnf/donationLog/findByUid', //根据用户ID查询我的公益记录
     goDonate: urlAPI + '/bnf/userDonateFoundation/donate', //马上捐赠
+    addSubAccount: urlAPI + '/bnf/nonprofitFoundationManager/add', //添加子账户
+    delSubAccount: urlAPI + '/bnf/nonprofitFoundationManager/delete', //删除子账户
     getFoundationByUid: urlAPI + '/bnf/nonprofitFoundationInfo/findByUid', //根据uid查询公益基金信息详情
     getFoundationAccount: urlAPI + '/bnf/nonprofitFoundationAccount/statistics', //公益管理模式首页数据统计
     getFoundationAccountLog: urlAPI + '/bnf/nonprofitFoundationAccountOperateLog/list', //获取公益基金帐户资金操作记录
