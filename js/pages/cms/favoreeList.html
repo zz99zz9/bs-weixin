@@ -1,20 +1,24 @@
 <section ms-controller="favoreeList">
     <div class="bs-bg-white bs-text-small cms-head-row">
         <div class="flex1">
-            已资助<span class="bs-text-red">{{data.num}}</span>人
+            已资助<span class="bs-text-red">{{num}}</span>人
         </div>
-        <img class="flex0" src="../img/commonweal/add.png" alt="" style="width: 36px;">
+        <img class="flex0" src="../img/commonweal/add.png" alt="" style="width: 36px;" ms-click="goAdd">
     </div>
-
-    <div ms-repeat="data.list" style="display: flex;justify-content: space-around;align-items: center;padding:15px;border-bottom: 1px solid #ddd;" class="bs-bg-white bs-text-smaller">
-        <img ms-attr-src="el.img" alt="" style="border-radius: 50%;width: 44px;">
-        <div style="padding-left: 15px;padding-right: 5px;">
-            <span class="bs-text-normal">{{el.name}}</span> {{el.grade}}
-            <br>
-            {{el.reason}}
-        </div>
-        <div>
-            <img src="../img/icon/edit_red.png" alt="" style="width: 12px;position: relative;top: -20px;">
+    
+    <div id="pullrefresh" class="mui-scroll-wrapper" style="top: 120px;">
+        <div class="mui-scroll">
+            <div ms-repeat="list" style="display: flex;justify-content: space-around;align-items: center;padding:15px;border-bottom: 1px solid #ddd;" class="bs-bg-white bs-text-smaller" ms-on-tap="goEdit(el.id)">
+                <img ms-attr-src="urlAPINet + el.imgUrl" alt="" style="border-radius: 50%;width: 44px;">
+                <div class="flex1" style="padding-left: 15px;padding-right: 5px;">
+                    <span class="bs-text-normal">{{el.name}}</span> {{el.education}}{{el.grade}}
+                    <br>
+                    {{el.reason}}
+                </div>
+                <div>
+                    <img src="../img/icon/edit_red.png" alt="" style="width: 12px;position: relative;top: -10px;">
+                </div>
+            </div>
         </div>
     </div>
 </section>

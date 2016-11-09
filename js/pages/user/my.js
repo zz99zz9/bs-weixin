@@ -1,9 +1,11 @@
 var ishide = false,
     isManageMode = false,
+    isCMSMode = false,
     localpath = location.pathname;
 
 //判断是否为管理模式
 isManageMode = localpath.indexOf('manage') > 0 ? true : false;
+isCMSMode = localpath.indexOf('cms') > 0 ? true : false;
 
 $(function() {
     if (!isios && isweixin) {
@@ -33,6 +35,8 @@ var vmSide = avalon.define({
     isAdmin: 0,
     isAlliance: 0,
     isManage: isManageMode,
+    isCMS: isCMSMode,
+    isFoundation: 0,
     cardList: [{
         id: 0,
         img: '../img/card/card_null.svg'
@@ -153,8 +157,11 @@ var vmSide = avalon.define({
     },
     show: function() {
         vmSide.getUserInfo();
-        vmSide.getDoorList();
-        vmSide.getLeaveList();
+        //非管理系统才调取开门和退房
+        if (!isCMSMode && !isManageMode) {
+            vmSide.getDoorList();
+            vmSide.getLeaveList();
+        }
         ishide = false;
         $('#popModule').show();
         setTimeout("$('#popModule').removeClass('hide')", 10);
@@ -190,6 +197,7 @@ var vmSide = avalon.define({
                     vmSide.nickName = json.data.nickname;
                     vmSide.isAdmin = json.data.isAdmin;
                     vmSide.isAlliance = json.data.isAlliance;
+                    vmSide.isFoundation = json.data.isFoundation;
 
                     if (json.data.userBuyCardList && json.data.userBuyCardList.length) {
                         var cList = json.data.userBuyCardList;
@@ -216,6 +224,7 @@ var vmSide = avalon.define({
                         isVip: json.data.isVip,
                         isAdmin: json.data.isAdmin,
                         isAlliance: json.data.isAlliance,
+                        isFoundation: json.data.isFoundation,
                         accessToken: json.data.accessToken
                     };
                     Storage.setLocal('user', user);
@@ -309,7 +318,7 @@ var vmSide = avalon.define({
                     location.href = "../card-detail.html";
                     break;
                 case 10:
-                    location.href = "../lottery.html";
+                    location.href = "../cms/nav.html";
                     break;
             }
         });
