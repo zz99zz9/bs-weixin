@@ -42,7 +42,7 @@ var vmDonation = avalon.define({
     },
     orderType: byMoneyDesc,
     pageNo: 1,
-    pageSize: 5,
+    pageSize: 7,
     getList: function() {
         ajaxJsonp({
             url: urls.getDonationList,

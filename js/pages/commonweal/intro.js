@@ -1,7 +1,7 @@
 var vmIntroduce = avalon.define({
     $id: 'intro',
     data: {
-        id: 1,
+        id: 2,
         cnName: '杜氏助学公益基金',
         enName: '杜氏助学公益基金',
         introduction: '杜氏助学公益基金',
@@ -18,7 +18,7 @@ var vmIntroduce = avalon.define({
                     json.data.map(function(c) {
                         c.imgUrl = 'img/card/card_list_No' + c.id + '.png';
 
-                        vmCardList.data.push(c);
+                        vmCardList.data = c;
                     });
                 }
             }
@@ -66,7 +66,7 @@ var vmIntroduce = avalon.define({
             url: urls.getCardAccountList,
             successCallback: function(json) {
                 if (json.status === 1) {
-                    vmIntroduce.cardId = json.data[0].userBuyCard.id;
+                    vmIntroduce.cardId = json.data[0].id;
                 }
             }
         });
@@ -75,7 +75,7 @@ var vmIntroduce = avalon.define({
     getStudent: function() {
         ajaxJsonp({
             url: urls.benefitStudentList,
-            data: { fid: 1 },
+            data: { fid: vmIntroduce.data.id },
             successCallback: function(json) {
                 if (json.status === 1) {
                     vmIntroduce.studentCount = json.data.count;
@@ -109,7 +109,7 @@ var vmDetailPop = avalon.define({
             url: urls.getDonationAmount,
             data: {
                 cid: vmIntroduce.cardId,
-                fid: 1
+                fid: vmIntroduce.data.id
             },
             successCallback: function(json) {
                 if (json.status === 1) {
@@ -126,7 +126,7 @@ var vmDetailPop = avalon.define({
             url: urls.goDonate,
             data: {
                 cid: vmIntroduce.cardId,
-                fid: 1
+                fid: vmIntroduce.data.id
             },
             successCallback: function(json) {
                 if (json.status === 1) {

@@ -28,7 +28,6 @@ var vmEditFund = avalon.define({
     },
     getPic: function() {
         var a = Storage.get("headImg");
-        console.log(vmEditFund.logoUrl);
         if (a == null && vmEditFund.logoUrl == '') {
             vmEditFund.headImg = defaultHeadImg;
             vmEditFund.logoUrl = defaultHeadImg;
@@ -41,7 +40,6 @@ var vmEditFund = avalon.define({
             vmEditFund.headImg = urlAPINet + a.url;
             vmEditFund.logoUrl = a.url;
         }
-        console.log(vmEditFund.logoUrl);
     },
     changeImg: function() {
         stopSwipeSkip.do(function() {

@@ -24,23 +24,27 @@
 <section ms-controller="subList">
     <div class="bs-bg-white bs-text-small cms-head-row">
         <div class="flex1">
-            已有子账户<span class="bs-text-red">{{data.num}}</span>人
+            已有子账户<span class="bs-text-red">{{num}}</span>人
         </div>
-        <img class="flex0" src="../img/commonweal/add.png" alt="" style="width: 36px;">
+        <img class="flex0" src="../img/commonweal/add.png" alt="" style="width: 36px;" ms-click="goAdd">
     </div>
 
-    <table class="bs-text-smaller bs-bg-white">
-        <tr class="bs-text-white bs-bg-black">
-            <th>编号</th>
-            <th>手机</th>
-            <th>使用者</th>
-            <th>操作</th>
-        </tr>
-        <tr ms-repeat="data.list" class="row-data">
-            <td>{{el.id}}</td>
-            <td>{{el.tel}}</td>
-            <td>{{el.name}}</td>
-            <td><button class="mui-btn mui-btn-danger bs-text-smaller bs-bg-black" style="border: none;line-height: 10px;">删除</button></td>
-        </tr>
-    </table>
+    <div id="pullrefresh" class="mui-scroll-wrapper" style="top: 120px;">
+        <div class="mui-scroll">
+            <table class="bs-text-smaller bs-bg-white">
+                <tr class="bs-text-white bs-bg-black">
+                    <th>编号</th>
+                    <th>手机</th>
+                    <th>使用者</th>
+                    <th>操作</th>
+                </tr>
+                <tr ms-repeat="list" class="row-data">
+                    <td>{{el.id}}</td>
+                    <td>{{el.user.mobile}}</td>
+                    <td>{{el.user.name}}</td>
+                    <td><button class="mui-btn mui-btn-danger bs-text-smaller bs-bg-black" style="border: none;line-height: 10px;" ms-on-tap="deleteSub(el.id)">删除</button></td>
+                </tr>
+            </table>
+        </div>
+    </div>
 </section>

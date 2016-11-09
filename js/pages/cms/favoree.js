@@ -1,23 +1,20 @@
-var inid = 0;
+var inid = 45;
 
 var vmFavoree = avalon.define({
     $id: 'favoree',
     fundId: '', //基金id
+    //studentId: '',    //学生id  空：添加  非空：修改
     data: {
         id: '',
         name: '',
-        edu1: '',
-        edu2: '',
+        education: '',
+        grade: '',
         reason: '',
-        imgUrl: defaultHeadImg,
+        imgUrl: defaultHeadImg, //显示的pic
+        logoUrl: '', //传的pic
     },
+    edu1: '',
     mobile: '',
-    nickName: '',
-    isVip: 0,
-    isAdmin: 0,
-    isAlliance: 0,
-    isManage: isManageMode,
-    isDisabled: true,
     listEdu1: [{
         value: 1,
         text: "大学",
@@ -71,77 +68,47 @@ var vmFavoree = avalon.define({
     getData: function() {
         ajaxJsonp({
             url: urls.benefitStudentDetail,
-            data: { id: vmFavoree.fundId },
+            data: { id: inid },
             successCallback: function(json) {
-                vmFavoree.getList1();
                 if (json.status === 1) {
-                    vmFavoree.data = json.data.list;
+                    vmFavoree.data = json.data;
+                    vmFavoree.data.logoUrl = json.data.imgUrl;
+                    vmFavoree.edu1 = json.data.education + " " + json.data.grade;
+                    vmFavoree.getPic();
                 }
             }
         });
     },
+    //学历
     getList1: function() {
-        //仓库选择
         (function($, doc) {
             var userPicker = new $.PopPicker({ layer: 2 });
             userPicker.setData(vmFavoree.$model.listEdu1);
             var showUserPickerButton1 = doc.getElementById('edu1');
             showUserPickerButton1.addEventListener('tap', function(event) {
                 userPicker.show(function(items) {
-                    vmFavoree.data.edu1 = items[0].text;
-                    var a = vmFavoree.data.edu1;
-                    console.log(a);
-                    switch (a) {
-                        case "大学":
-                            vmFavoree.listEdu2 = vmFavoree.grade1;
-                            break;
-                        case "高中":
-                            vmFavoree.listEdu2 = vmFavoree.grade2;
-                            break;
-                        case "初中":
-                            vmFavoree.listEdu2 = vmFavoree.grade3;
-                            break;
-                        case "小学":
-                            vmFavoree.listEdu2 = vmFavoree.grade4;
-                            break;
-                        default:
-                            vmFavoree.listEdu2 = [];
-                            break;
-                    }
-                    vmFavoree.getList2();
-                    vmFavoree.changed();
+                    vmFavoree.edu1 = items[0].text + " " + items[1].text;
+                    vmFavoree.data.education = items[0].text;
+                    vmFavoree.data.grade = items[1].text;
+                    console.log(vmFavoree.edu1);
                 });
             }, false);
         })(mui, document);
-    },
-    getList2: function() {
-        (function($, doc) {
-            var userPicker = new $.PopPicker();
-            var showUserPickerButton2 = doc.getElementById('edu2');
-            showUserPickerButton2.addEventListener('tap', function(event) {
-                userPicker.setData(vmFavoree.listEdu2);
-                userPicker.show(function(items) {
-                    vmFavoree.data.edu2 = items[0].text;
-                    vmFavoree.changed();
-                });
-            }, false);
-        })(mui, document);
-    },
-    changed: function() {
-        if (vmFavoree.name == '' || vmFavoree.mobile == '' || vmFavoree.mobile.length != 11) {
-            vmFavoree.isDisabled = true;
-            return;
-        }
-        vmFavoree.isDisabled = false;
     },
     getPic: function() {
         var a = Storage.get("headImg");
-        if (a == null) {
-            vmFavoree.data.imgUrl = defaultHeadImg;
-            console.log(vmFavoree.data.imgUrl);
-        } else {
-            vmFavoree.data.imgUrl = urlAPINet + Storage.get("headImg").url;
+        if (vmFavoree.data.logoUrl == '' && a == null) {
+            vmFavoree.data.logoUrl = vmFavoree.data.imgUrl;
+        } else if (vmFavoree.data.logoUrl == '' && a != null) {
+            vmFavoree.data.imgUrl = urlAPINet + a.url;
+            vmFavoree.data.logoUrl = a.url;
+        } else if (vmFavoree.data.logoUrl != '' && a == null) {
+            vmFavoree.data.imgUrl = urlAPINet + vmFavoree.data.imgUrl;
+        } else if (vmFavoree.data.logoUrl != '' && a != null) {
+            vmFavoree.data.imgUrl = urlAPINet + a.url;
+            vmFavoree.data.logoUrl = a.url;
         }
+        console.log(vmFavoree.data.logoUrl);
     },
     changeImg: function() {
         stopSwipeSkip.do(function() {
@@ -160,19 +127,17 @@ var vmFavoree = avalon.define({
         ajaxJsonp({
             url: urls.saveBenefitStudent,
             data: {
-                id: vmFavoree.data.id,
+                id: inid,
                 fid: vmFavoree.fundId,
-                mobile: vmFavoree.data.mobile,
                 name: vmFavoree.data.name,
-                imgUrl: vmFavoree.data.imgUrl,
-                education: vmFavoree.data.edu1,
-                grade: vmFavoree.data.edu2,
+                imgUrl: vmFavoree.data.logoUrl,
+                education: vmFavoree.data.education,
+                grade: vmFavoree.data.grade,
                 reason: vmFavoree.data.reason
             },
             successCallback: function(json) {
                 if (json.status == 1) { //已登录
-                    console.log(123);
-                    //location.href = 'favoreeList.html';
+                    location.href = 'favoreeList.html';
                 }
             }
         });
@@ -180,11 +145,11 @@ var vmFavoree = avalon.define({
 });
 
 vmFavoree.getFund();
-vmFavoree.getPic();
+vmFavoree.getList1();
 
-if (inid == 0) {
+if (inid == '') {
     $("#headerReplace").text("添加");
-    vmFavoree.getList1();
+    vmFavoree.getPic();
 } else {
     $("#headerReplace").text("修改");
     vmFavoree.getData();
