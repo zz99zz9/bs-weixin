@@ -377,8 +377,9 @@ var vmAvatar = avalon.define({
                 if (data.Status == 1) {
                     //上传成功，调接口保存url
                     var pathName = document.referrer;
-                    if (pathName.indexOf("subAdd") != -1) {
+                    if (pathName.indexOf("subAdd") != -1 || pathName.indexOf("favoree") != -1 || pathName.indexOf("editFund") != -1) {
                         vmAvatar.picture = data.Data.thuUrl;
+                        Storage.set("headImg",{url: vmAvatar.picture});
                         console.log(vmAvatar.picture);
                         location.href = document.referrer;
                     } else {
