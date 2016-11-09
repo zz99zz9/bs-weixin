@@ -1,4 +1,4 @@
-var inid = 45;
+var inid = getParam("id");
 
 var vmFavoree = avalon.define({
     $id: 'favoree',
