@@ -1,12 +1,25 @@
 var vmDetail = avalon.define({
     $id: 'detail',
-    data: 'kill',
+    data: '',
+    fundId: '',
     pageNo: 1,
     pageSize: 10,
     list1: [], //左侧列表
     list2: [], //右侧列表
     foundation: "基金创始于2012年，从最初发起人个人资助特贫困大学生完成学业开始，迅速发展成苏北地区具有较高影响力的助学公益组织，秉承基金创始人杜玉莲女士“让每个孩子只少能够拥有受教育的机会”之理念，坚持资助必须有始有终，不为名利，只为能够保留孩子心中那一丝对未来的期望！",
     amount: '',    //该用户捐赠总额
+    //根据当前用户获取基金id
+    getFund: function() {
+        ajaxJsonp({
+            url: urls.benefitAmountUid,
+            data: {},
+            successCallback: function(json) {
+                if (json.status == 1) { 
+                    vmIntroduce.fundId = json.data.id;
+                }
+            }
+        });
+    },
     //判断是否显示下方按钮
     getData: function() {
         ajaxJsonp({
@@ -23,7 +36,7 @@ var vmDetail = avalon.define({
     getData1: function() {
         ajaxJsonp({
             url: urls.benefitStudentList,
-            data: { fid: 1 },
+            data: { fid: vmDetail.fundId },
             successCallback: function(json) {
                 if (json.status === 1) {
                     vmDetail.pageNo++;
@@ -47,7 +60,7 @@ var vmDetail = avalon.define({
     getData2: function() {
         ajaxJsonp({
             url: urls.getDonationList,
-            data: { fid: 1 },
+            data: { fid: vmDetail.fundId },
             successCallback: function(json) {
                 if (json.status === 1) {
                     vmDetail.pageNo++;
@@ -71,7 +84,7 @@ var vmDetail = avalon.define({
     getSum: function() {
         ajaxJsonp({
             url: urls.benefitAmount,
-            data: { fid: 1 },
+            data: { fid: vmDetail.fundId },
             successCallback: function(json) {
                 if (json.status === 1) {
                     vmDetail.moneySum = json.data.totalDonateAmount;
@@ -126,6 +139,7 @@ var vmDetail = avalon.define({
     },
 });
 
+vmDetail.getFund();
 vmDetail.getData();
 vmDetail.getData1();
 vmDetail.getData2();
@@ -162,7 +176,7 @@ function reload() {
     ajaxJsonp({
         url: urls.benefitStudentList,
         data: {
-            fid: 1,
+            fid: vmDetail.fundId,
             pageSize: vmDetail.pageSize,
             pageNo: vmDetail.pageNo
         },
@@ -189,7 +203,7 @@ function reload() {
     ajaxJsonp({
         url: urls.getDonationList,
         data: {
-            fid: 1,
+            fid: vmDetail.fundId,
             pageSize: vmDetail.pageSize,
             pageNo: vmDetail.pageNo
         },
@@ -218,7 +232,7 @@ function loadmore() {
     ajaxJsonp({
         url: urls.benefitStudentList,
         data: {
-            fid: 1,
+            fid: vmDetail.fundId,
             pageSize: vmDetail.pageSize,
             pageNo: vmDetail.pageNo
         },
@@ -247,7 +261,7 @@ function loadmore() {
     ajaxJsonp({
         url: urls.getDonationList,
         data: {
-            fid: 1,
+            fid: vmDetail.fundId,
             pageSize: vmDetail.pageSize,
             pageNo: vmDetail.pageNo
         },
@@ -283,7 +297,7 @@ var vmDetailPop = avalon.define({
             url: urls.getDonationAmount,
             data: {
                 cid: vmDetail.cardId,
-                fid: 1
+                fid: vmDetail.fundId
             },
             successCallback: function(json) {
                 if (json.status === 1) {
@@ -301,7 +315,7 @@ var vmDetailPop = avalon.define({
             url: urls.goDonate,
             data: {
                 cid: vmDetail.cardId,
-                fid: 1
+                fid: vmDetail.fundId,
             },
             successCallback: function(json) {
                 if (json.status === 1) {

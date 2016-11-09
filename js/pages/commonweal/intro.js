@@ -1,12 +1,23 @@
 var vmIntroduce = avalon.define({
     $id: 'intro',
     data: {
-        id: 2,
+        id: '',
         cnName: '杜氏助学公益基金',
         enName: '杜氏助学公益基金',
         introduction: '杜氏助学公益基金',
         brief: '让每个孩子只少能够拥有受教育的机会',
         logoUrl: 'img/commonweal/love.png'
+    },
+    getFund: function() {
+        ajaxJsonp({
+            url: urls.benefitAmountUid,
+            data: {},
+            successCallback: function(json) {
+                if (json.status == 1) { 
+                    vmIntroduce.data.id = json.data.id;
+                }
+            }
+        });
     },
     //获取基金信息详情
     getInfo: function() {
@@ -86,6 +97,7 @@ var vmIntroduce = avalon.define({
         });
     },
 });
+vmIntroduce.getFund();
 vmIntroduce.getId();
 
 var vmPopover = avalon.define({

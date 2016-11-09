@@ -20,7 +20,7 @@ var vmSubList = avalon.define({
         })
     },
     pageNo: 1,
-    pageSize: 3,
+    pageSize: 12,
     getList: function() {
         vmSubList.pageNo = 1;
         ajaxJsonp({
