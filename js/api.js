@@ -236,4 +236,6 @@ var urls = {
     getFoundationCashAccount: urlAPI + '/bnf/nonprofitFoundationAccountApplyCashAccount/defaultAccount', //获取公益基金默认体现账号
     bindFoundationCashAccount: urlAPI + '/bnf/nonprofitFoundationAccountApplyCashAccount/bind', //绑定公益基金提现账号
     foundationWithdrawCash: urlAPI +'/bnf/nonprofitFoundationAccountApplyCashLog/apply', //公益基金账户申请提现
+    getFoundationSubList: urlAPI + '/bnf/nonprofitFoundationManager/list', //获取公益基金子账户列表
+    deleteFoundationSub: urlAPI + '/bnf/nonprofitFoundationManager/delete', //删除子账户
 }
