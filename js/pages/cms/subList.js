@@ -46,25 +46,27 @@ var vmSubList = avalon.define({
     },
     deleteSub: function(id) {
         stopSwipeSkip.do(function() {
-            mui.confirm('确定要删除该账户吗？', function() {
-                ajaxJsonp({
-                    url: urls.deleteFoundationSub,
-                    data: {
-                        id: id
-                    },
-                    successCallback: function(json) {
-                        if (json.status == 1) {
-                            mui.alert('删除成功', function() {
-                                mui('#pullrefresh').pullRefresh().refresh(true);
-                                mui("#pullrefresh").pullRefresh().endPullupToRefresh(false);
+            mui.confirm('确定要删除该账户吗？', function(e) {
+                if(e.index == 1){
+                    ajaxJsonp({
+                        url: urls.deleteFoundationSub,
+                        data: {
+                            id: id
+                        },
+                        successCallback: function(json) {
+                            if (json.status == 1) {
+                                mui.alert('删除成功', function() {
+                                    mui('#pullrefresh').pullRefresh().refresh(true);
+                                    mui("#pullrefresh").pullRefresh().endPullupToRefresh(false);
 
-                                vmSubList.getList();
-                            });
-                        } else {
-                            mui.alert(json.message);
+                                    vmSubList.getList();
+                                });
+                            } else {
+                                mui.alert(json.message);
+                            }
                         }
-                    }
-                });
+                    });
+                }
             })
         });
     }
