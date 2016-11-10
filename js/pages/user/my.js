@@ -58,6 +58,7 @@ var vmSide = avalon.define({
     //开门列表
     getDoorList: function() {
         ajaxJsonp({
+            noSkip: 1,
             url: urls.openDoorList,
             data: {},
             successCallback: function(json) {
@@ -119,6 +120,7 @@ var vmSide = avalon.define({
     //退房列表
     getLeaveList: function() {
         ajaxJsonp({
+            noSkip: 1,
             url: urls.checkOutDoorList,
             data: {},
             successCallback: function(json) {

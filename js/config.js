@@ -104,7 +104,9 @@ function ajaxJsonp(param) {
                 data: param.data,
                 success: function(json) {
                     if (json.status === -1) {
-                        window.location.replace("../register-1.html?prePage=" + window.location.pathname + window.location.search);
+                        if(!param.noSkip) {
+                            window.location.replace("../register-1.html?prePage=" + window.location.pathname + window.location.search);
+                        }
                     } else {
                         if (param.successCallback) {
                             param.successCallback(json);
