@@ -1,82 +1,84 @@
 <style>
-    .row {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;;
-        padding: 0 20px;
-        background-color: #fff;
-        font-size: 13px;
-        border-bottom: 1px solid #ddd;
-        margin: 10px 0;
-        height: 70px;
-    }
-    .row:active {
-        background-color: #ddd;
-    }
-    .item-img {
-        width: 22px;
-        height: 22px;
-        margin-left: 9px;
-    }
-    .arrow {
-        height: 15px;
-        margin: 3px;
-    }
-    .item-text {
-        flex-grow: 1;
-    }
+.row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    ;
+    padding: 0 20px;
+    background-color: #fff;
+    font-size: 13px;
+    border-bottom: 1px solid #ddd;
+    margin: 10px 0;
+    height: 70px;
+}
+
+.row:active {
+    background-color: #ddd;
+}
+
+.item-img {
+    width: 22px;
+    height: 22px;
+    margin-left: 9px;
+}
+
+.arrow {
+    height: 15px;
+    margin: 3px;
+}
+
+.item-text {
+    flex-grow: 1;
+}
 </style>
-
-
 <section ms-controller="foundation">
-    <div class="detail-back1" onclick="javascript: location.href='editFund.html'">
+    <div class="bs-bg-white bs-text-black" style="padding: 15px;" onclick="javascript: location.href='editFund.html'">
         <div class="detail-title bs-text-small">
-            <div class="bs-text-normal" style="margin-top: ">
-                <img class="intro-img-love" style="height: 24px; width: 24px; border-radius: 50%;" ms-attr-src="data.img">
-                <span style="position: relative; top: -6px;"> {{data.name}}</span>
+            <div class="bs-text-normal">
+                <img class="intro-img-love" onError="javascript:src='../img/commonweal/love.png'" style="height: 24px; width: 24px;" ms-attr-src="urlAPINet + data.logoUrl">
+                <span style="position: relative; top: -6px;"> {{data.cnName}}</span>
+                <img style="height: 18px; width: 18px;position: relative;left: 10px;top: -2px;" src="../img/icon/edit_white_red.png">
             </div>
-            <div class="bs-text-x-smaller detail-foundation" style="min-height: 100px;" >
-                {{data.des}}
+            <div class="bs-text-x-smaller">{{data.enName}}</div>
+            <div class="bs-text-bolder bs-text-x-smaller">{{data.brief}}</div>
+            <div class="bs-text-x-smaller detail-foundation">
+                {{data.introduction}}
             </div>
         </div>
     </div>
-
     <div class="row" ms-click="goDonation">
         <div style="width: 100px;">
             捐款总金额
         </div>
         <div class="item-text">
-            <span class="bs-text-red">{{data.amount}}</span> 元
+            <span class="bs-text-red">{{accountData.totalDonateAmount}}</span> 元
         </div>
         <img src="../img/icon/right-arrow.svg" class="arrow">
     </div>
-
     <div class="row" ms-click="goAccount">
         <div style="width: 100px;">
             账户余额
         </div>
         <div class="item-text">
-            <span class="bs-text-red">{{data.account}}</span> 元
+            <span class="bs-text-red">{{accountData.cashAmount}}</span> 元
         </div>
         <img src="../img/icon/right-arrow.svg" class="arrow">
     </div>
-
     <div class="row" ms-click="goFavoreeList">
         <div style="width: 100px;">
             受益学生
         </div>
         <div class="item-text">
-            <span class="bs-text-red">{{data.numberStudent}}</span> 个
+            <span class="bs-text-red">{{accountData.numberStudent}}</span> 个
         </div>
         <img src="../img/icon/right-arrow.svg" class="arrow">
     </div>
-
-    <div class="row"  ms-click="goSubList">
+    <div class="row" ms-click="goSubList">
         <div style="width: 100px;">
             子账户
         </div>
         <div class="item-text">
-            <span class="bs-text-red">{{data.numberSub}}</span> 个
+            <span class="bs-text-red">{{accountData.numberAccount}}</span> 个
         </div>
         <img src="../img/icon/right-arrow.svg" class="arrow">
     </div>
