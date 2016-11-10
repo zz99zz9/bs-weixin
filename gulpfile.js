@@ -427,6 +427,26 @@ function about() {
         .pipe(gulp.dest('./src'));
 }
 
+//合作加盟介绍
+function allianceIntro() {
+    return gulp.src('./js/layout/shell.html')
+        .pipe(replace({
+            regex: '<!-- css -->',
+            replace: '<link rel="stylesheet" href="css/swiper.min.css">'
+        }))
+        //.pipe(replace({ regex: '<!-- pop -->', replace: '<!--include "../util/pop.html"-->' }))
+        .pipe(replace({
+            regex: '<!-- content -->',
+            replace: '<!--include "../pages/discover/alliance-intro.html"-->'
+        }))
+        // .pipe(replace({regex:'<h1 id="headerReplace" class="mui-title"></h1>', replace:'<h1 id="headerReplace" class="mui-title">关于因爱</h1>'}))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('alliance-intro.html'))
+        .pipe(gulp.dest('./src'));
+}
+
 //入住人列表页
 function frequentContactList() {
     return gulp.src('./js/layout/shell.html')
@@ -2753,6 +2773,7 @@ gulp.task('html', gulp.parallel(
     wallet,
     share,
     about,
+    allianceIntro,
     register1,
     register2,
     service,
