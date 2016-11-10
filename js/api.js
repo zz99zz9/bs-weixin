@@ -217,6 +217,7 @@ var urls = {
     getAuditSuccess: urlAPI + '/vip/userCardMarketPackageTask/auditSuccess', //审核任务通过或不通过
 
     //公益
+    commonwealList: urlAPI + '/bnf/nonprofitFoundationInfo/findListEnabled', //查询公益信息列表
     getFoundationInfo: urlAPI + '/bnf/nonprofitFoundationInfo/get', //根据id查询公益基金信息详情
     updateFoundationInfo: urlAPI + '/bnf/nonprofitFoundationInfo/update', //根据id修改公益基金信息
     benefitStudentList: urlAPI + '/bnf/benefitStudent/findListByFid', //受资助学生列表
@@ -231,6 +232,7 @@ var urls = {
     goDonate: urlAPI + '/bnf/userDonateFoundation/donate', //马上捐赠
     addSubAccount: urlAPI + '/bnf/nonprofitFoundationManager/add', //添加子账户
     delSubAccount: urlAPI + '/bnf/nonprofitFoundationManager/delete', //删除子账户
+    getFoundationByid: urlAPI + '/bnf/nonprofitFoundationInfo/findByUid', //根据id查询公益基金信息详情
     getFoundationByUid: urlAPI + '/bnf/nonprofitFoundationInfo/findByUid', //根据uid查询公益基金信息详情
     getFoundationAccount: urlAPI + '/bnf/nonprofitFoundationAccount/statistics', //公益管理模式首页数据统计
     getFoundationAccountLog: urlAPI + '/bnf/nonprofitFoundationAccountOperateLog/list', //获取公益基金帐户资金操作记录

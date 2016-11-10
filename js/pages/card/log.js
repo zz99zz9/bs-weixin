@@ -1,4 +1,5 @@
 var accountID = getParam('cid');
+var cid = accountID;
 if (accountID != "") {
     if (isNaN(accountID)) {
         location.href = document.referrer || "index.html";
@@ -54,7 +55,10 @@ var vmCardLog = avalon.define({
     },
     goBind: function() {
         location.href = "card-bind.html?cid=" + accountID;
-    }
+    },
+    goWeal: function() {
+        location.href = 'commonweal-introduce.html?cid=' + cid;
+    },
 });
 
 var vmPopover = avalon.define({

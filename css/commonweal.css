@@ -23,6 +23,7 @@
     height: 54vh;
     box-shadow: 0 0 20px #999;
     text-align: center;
+    overflow-y: auto;
 }
 
 .intro-text-grey {

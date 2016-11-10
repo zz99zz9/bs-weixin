@@ -1,33 +1,28 @@
+var id = getParam("id");
+var cid = getParam("cid");
+console.log(cid);
 var vmDetail = avalon.define({
     $id: 'detail',
     data: '',
-    fundId: '',
     pageNo: 1,
     pageSize: 10,
     list1: [], //左侧列表
     list2: [], //右侧列表
     foundation: "基金创始于2012年，从最初发起人个人资助特贫困大学生完成学业开始，迅速发展成苏北地区具有较高影响力的助学公益组织，秉承基金创始人杜玉莲女士“让每个孩子只少能够拥有受教育的机会”之理念，坚持资助必须有始有终，不为名利，只为能够保留孩子心中那一丝对未来的期望！",
     amount: '',    //该用户捐赠总额
-    //根据当前用户获取基金id
-    getFund: function() {
-        ajaxJsonp({
-            url: urls.benefitAmountUid,
-            data: {},
-            successCallback: function(json) {
-                if (json.status == 1) { 
-                    vmIntroduce.fundId = json.data.id;
-                }
-            }
-        });
-    },
+    join: '',
     //判断是否显示下方按钮
-    getData: function() {
+    getAmount: function() {
+        //每月捐赠金额
         ajaxJsonp({
-            url: urls.getMyWealCount,
-            data: {},
-            successCallback: function(json){
-                if(json.status == 1) {
-                    vmDetail.amount = json.data.amount;
+            url: urls.getDonationAmount,
+            data: {
+                cid: cid,
+                fid: id
+            },
+            successCallback: function(json) {
+                if (json.status === 1) {
+                    vmDetail.join = json.data.join;
                 }
             }
         });
@@ -36,7 +31,7 @@ var vmDetail = avalon.define({
     getData1: function() {
         ajaxJsonp({
             url: urls.benefitStudentList,
-            data: { fid: vmDetail.fundId },
+            data: { fid: id },
             successCallback: function(json) {
                 if (json.status === 1) {
                     vmDetail.pageNo++;
@@ -60,7 +55,7 @@ var vmDetail = avalon.define({
     getData2: function() {
         ajaxJsonp({
             url: urls.getDonationList,
-            data: { fid: vmDetail.fundId },
+            data: { fid: id },
             successCallback: function(json) {
                 if (json.status === 1) {
                     vmDetail.pageNo++;
@@ -84,7 +79,7 @@ var vmDetail = avalon.define({
     getSum: function() {
         ajaxJsonp({
             url: urls.benefitAmount,
-            data: { fid: vmDetail.fundId },
+            data: { fid: id },
             successCallback: function(json) {
                 if (json.status === 1) {
                     vmDetail.moneySum = json.data.totalDonateAmount;
@@ -111,40 +106,22 @@ var vmDetail = avalon.define({
             $(".detail-left-up").css("color", "black");
         }
     },
-    cardId: '',
-    getId: function() {
-        ajaxJsonp({
-            url: urls.getCardAccountList,
-            successCallback: function(json) {
-                if (json.status === 1) {
-                    vmDetail.cardId = json.data[0].userBuyCard.id;
-                }
-            }
-        });
-    },
     openPop: function() {
-        if (vmDetail.cardNo != '') {
-            vmDetailPop.getAmount();
-            if (vmDetailPop.useCheck) {
-                //av2 不知道为什么不能 scan 第二次
-                //纯粹显示，在关闭弹窗的时候不要清空弹窗内容
-                modalShow('./util/commonweal-pop.html', 0);
-            } else {
-                vmDetailPop.useCheck = 1;
-                modalShow('./util/commonweal-pop.html', 1);
-            }
+        if (vmDetailPop.useCheck) {
+            //av2 不知道为什么不能 scan 第二次
+            //纯粹显示，在关闭弹窗的时候不要清空弹窗内容
+            modalShow('./util/commonweal-pop.html', 0);
         } else {
-            mui.alert("123");
+            vmDetailPop.useCheck = 1;
+            modalShow('./util/commonweal-pop.html', 1);
         }
     },
 });
 
-vmDetail.getFund();
-vmDetail.getData();
+vmDetail.getAmount();
 vmDetail.getData1();
 vmDetail.getData2();
 vmDetail.getSum();
-vmDetail.getId();
 
 mui.init({
     pullRefresh: {
@@ -176,7 +153,7 @@ function reload() {
     ajaxJsonp({
         url: urls.benefitStudentList,
         data: {
-            fid: vmDetail.fundId,
+            fid: id,
             pageSize: vmDetail.pageSize,
             pageNo: vmDetail.pageNo
         },
@@ -203,7 +180,7 @@ function reload() {
     ajaxJsonp({
         url: urls.getDonationList,
         data: {
-            fid: vmDetail.fundId,
+            fid: id,
             pageSize: vmDetail.pageSize,
             pageNo: vmDetail.pageNo
         },
@@ -232,7 +209,7 @@ function loadmore() {
     ajaxJsonp({
         url: urls.benefitStudentList,
         data: {
-            fid: vmDetail.fundId,
+            fid: id,
             pageSize: vmDetail.pageSize,
             pageNo: vmDetail.pageNo
         },
@@ -261,7 +238,7 @@ function loadmore() {
     ajaxJsonp({
         url: urls.getDonationList,
         data: {
-            fid: vmDetail.fundId,
+            fid: id,
             pageSize: vmDetail.pageSize,
             pageNo: vmDetail.pageNo
         },
@@ -292,20 +269,40 @@ var vmDetailPop = avalon.define({
     $id: 'detailPop',
     useCheck: 0, //1 checkButton, 0 closeButton
     amount: 0,
+    join: '',    //true表示加入
+    //获取会员卡捐赠情况(总额)
+    getCardAomunt: function() {
+        ajaxJsonp({
+            url: urls.getAccountCommonwealInfo,
+            data: {
+                cid: cid,
+            },
+            successCallback: function(json) {
+                if (json.status === 1) {
+                    vmDetailPop.amount = json.data.totalDonateAmount;
+                }
+            }
+        });
+    },
     getAmount: function() {
         ajaxJsonp({
             url: urls.getDonationAmount,
             data: {
-                cid: vmDetail.cardId,
-                fid: vmDetail.fundId
+                cid: cid,
+                fid: id
             },
             successCallback: function(json) {
                 if (json.status === 1) {
                     vmDetailPop.amount = json.data.amount;
-                    console.log(vmDetailPop.amount);
+                    vmDetailPop.join = json.data.join;
                 }
             }
         });
+    },
+    isShow: function() {
+        if (vmDetailPop.join == true) {
+            
+        }
     },
     close: function() {
         modalClose();
@@ -314,18 +311,24 @@ var vmDetailPop = avalon.define({
         ajaxJsonp({
             url: urls.goDonate,
             data: {
-                cid: vmDetail.cardId,
-                fid: vmDetail.fundId,
+                cid: cid,
+                fid: id,
             },
             successCallback: function(json) {
                 if (json.status === 1) {
                     mui.alert(json.message);
                     modalClose();
-                    vmDetail.getData();
+                    vmDetail.getAmount();
+                    vmDetail.getData1();
                     vmDetail.getData2();
                     vmDetail.getButton(2);
                 } else {
                     mui.alert(json.message);
+                    modalClose();
+                    vmDetail.getAmount();
+                    vmDetail.getData1();
+                    vmDetail.getData2();
+                    vmDetail.getButton(2);
                 }
             }
         });

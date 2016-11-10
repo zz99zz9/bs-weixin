@@ -11,16 +11,21 @@
                 本宿公益资助计划，邀您携手参与！
             </div>
         </div>
+        <div style="position: relative; top: -190px; text-align: center;">
+            <img :attr="{src: @userImg}" style="border-radius: 50%; height: 45px;">
+        </div>
     </div>
     <div class="intro-content">
-        <div class="intro-text-red bs-text-smaller" style="margin: 10px 0 15px 0" :click="@goDetail()">
-            <img class="intro-img-love" :attr="{src: @data.logoUrl}">
-            <span style="position: relative; top: -3px; margin-left: 5px;"> {{@data.cnName}}</span>
-        </div>
-        <div class="bs-text-smaller">
-            {{@data.brief}}
-            <br>
-            <div class="bs-text-x-smaller">已资助<span class="intro-text-red"> {{@studentCount}} </span>位学生完成学业</div>
+        <div :for="el in @data" :click="@goDetail(el.id)" style="margin-bottom: 30px;">
+            <div class="intro-text-red bs-text-smaller" style="margin: 10px 0 0;">
+                <img class="intro-img-love" :attr="{src: 'http://img.bensue.com/' + el.logoUrl}">
+                <span style="position: relative; top: -3px; margin-left: 5px;"> {{el.cnName}}</span>
+                <div class="bs-text-x-smaller">{{el.enName}}</div>
+            </div>
+            <div class="bs-text-smaller">
+                <div>{{el.brief}}</div>
+                <div class="bs-text-x-smaller">已资助<span class="intro-text-red"> {{el.studentCount}} </span>位学生完成学业</div>
+            </div>
         </div>
         <div style="margin: 5vh 30px 3vh 30px;">
             <button class="intro-button bs-text-larger" :click="@open">马上捐赠</button>
