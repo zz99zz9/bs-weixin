@@ -60,6 +60,13 @@
                         推广奖励累计
                     </div>
                 </div>
+                <div :if="el.isDonate" >
+                    <div class="bs-text-larger bs-text-gold">
+                        {{el.totalDonateAmount}}
+                    </div>
+                    <div class="bs-text-x-smaller" style="padding-top: 1.2vh;width: 72px;">
+                        捐款累计</div>
+                </div>
             </div>
         </div>
 

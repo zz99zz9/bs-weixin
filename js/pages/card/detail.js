@@ -25,15 +25,35 @@ var vmCardDetail = avalon.define({
             id: 0,
             name: "",
             type: 0
-        }
+        },
+        isDonate: 0,
+        totalDonateAmount: 0
     }],
+    test: -1,
     getCard: function() {
         ajaxJsonp({
             url: urls.getCardAccountList,
             successCallback: function(json) {
                 if (json.status === 1) {
-                    if (json.data.length) {
+                    var length = json.data.length;
+                    if (length) {
                         vmCardDetail.data = json.data;
+                        for(var j = 0; j < length; j++) {
+                            (function() {
+                                var k = j;
+                                ajaxJsonp({
+                                    url: urls.getAccountCommonwealInfo,
+                                    data: { cid: json.data[k].id },
+                                    successCallback: function(json) {
+                                        if (json.status === 1) {
+                                            vmCardDetail.data[k].isDonate = 1;
+                                            vmCardDetail.data[k].totalDonateAmount = json.data.totalDonateAmount;
+                                            vmCardDetail.test = k;
+                                        }
+                                    }
+                                });
+                            })();
+                        }
                     }
                 }
             }

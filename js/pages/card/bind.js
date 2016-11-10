@@ -116,7 +116,7 @@ var vmPopover = avalon.define({
                     bankName: vmCardBind.bankName,
                     provinceId: vmCardBind.provinceId,
                     cityId: vmCardBind.cityId,
-                    regionName: vmCardBind.regionName
+                    regionName: vmCardBind.pickerText
                 },
                 successCallback: function(json) {
                     if (json.status == 1) {
