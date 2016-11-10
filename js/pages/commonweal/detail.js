@@ -95,14 +95,14 @@ var vmDetail = avalon.define({
         if (id == 1) {
             vmDetail.listType = 1;
             $(".detail-left-tab").css("background-color", "#baa071");
-            $(".detail-left-up").css("color", "white");
-            $(".detail-right-tab").css("background-color", "white");
+            $(".detail-left-up").css("color", "#efeff4");
+            $(".detail-right-tab").css("background-color", "#efeff4");
             $(".detail-right-up").css("color", "black");
         } else {
             vmDetail.listType = 2;
             $(".detail-right-tab").css("background-color", "#baa071");
-            $(".detail-right-up").css("color", "white");
-            $(".detail-left-tab").css("background-color", "white");
+            $(".detail-right-up").css("color", "#efeff4");
+            $(".detail-left-tab").css("background-color", "#efeff4");
             $(".detail-left-up").css("color", "black");
         }
     },

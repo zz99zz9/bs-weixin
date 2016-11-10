@@ -11,15 +11,15 @@
         </div>
     </div>
     <div style="margin-top: 20px; text-align: center;">
-        <div class="detail-left-tab bs-text-normal" :click="@getButton(1)">
-            <span class="bs-text-smaller detail-left-up">已资助</span>
+        <div class="detail-left-tab bs-text-normal" :on-tap="@getButton(1)">
+            <span class="bs-text-smaller detail-left-up" :on-tap="@getButton(1)">已资助</span>
             <br>
-            <span class="intro-text-red">{{@studentCount}}</span>位孩子完成学业
+            <span class="intro-text-red" :on-tap="@getButton(1)" :on-tap="@getButton(1)">{{@studentCount}}</span>位孩子完成学业
         </div>
-        <div class="detail-right-tab bs-text-normal" :click="@getButton(2)">
-            <span class="bs-text-smaller detail-right-up">已捐出</span>
+        <div class="detail-right-tab bs-text-normal" :on-tap="@getButton(2)">
+            <span class="bs-text-smaller detail-right-up" :on-tap="@getButton(1)">已捐出</span>
             <br>
-            <span class="intro-text-red">{{@moneySum}}</span>元善款
+            <span class="intro-text-red" :on-tap="@getButton(1)">{{@moneySum}}</span>元善款
         </div>
     </div>
     <div id="pullrefresh" class="mui-scroll-wrapper bs-text-smaller" style="top: 270px; background-color: white;">
@@ -57,7 +57,7 @@
         </div>
     </div>
     <div :if="!@join">
-        <button class="detail-button" :click="@openPop()">确认捐赠</button>
+        <button class="detail-button" :on-tap="@openPop()">确认捐赠</button>
     </div>
     <!-- modal -->
     <!-- 弹窗 -->

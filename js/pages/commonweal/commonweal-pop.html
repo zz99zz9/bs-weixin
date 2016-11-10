@@ -3,6 +3,8 @@
         width: 40vw; 
         height: 50px; 
         border-color: #ddd;
+        border-radius: 0;
+        border-left: none;
     }
 </style>
 <div ms-controller="detailPop" style="width: 80vw;">
@@ -10,11 +12,11 @@
         <div>帮助他人改变命运</div>
         <div style="margin: 14px 0 22px;">你有权让自己独一无二</div>
         <div class="card-buy-circle">
-            <div style="padding-top: 20vw;" :if="@join">
+            <div style="padding-top: 20vw;" :if="!@join">
                 <div class="bs-text-gold" style="font-size: 16px;">{{@amount}}元/月</div>
                 <div class="bs-text-normal">每月捐赠</div>
             </div>
-            <div style="padding-top: 20vw;" :if="!@join">
+            <div style="padding-top: 20vw;" :if="@join">
                 <div class="bs-text-gold" style="font-size: 16px;">{{@amount}}元</div>
                 <div class="bs-text-normal">您已捐赠</div>
             </div>
