@@ -12,15 +12,16 @@
     position: relative;
     text-align: center;
     color: white;
-    top: -32vh;
+    top: -36vh;
     line-height: 26px;
 }
 
 .intro-content {
     margin: 10px;
+    margin-top: 8vh;
     padding: 20px;
     background-color: white;
-    height: 54vh;
+    height: 48vh;
     box-shadow: 0 0 20px #999;
     text-align: center;
     overflow-y: auto;
@@ -75,22 +76,13 @@
     text-align: initial;
 }
 
-
-/*.detail-content {
-    margin: 10px;
-    background-color: white;
-    height: 66vh;
-    box-shadow: 0 0 20px #999;
-    text-align: center;
-    overflow-y: auto;
-}*/
-
 .detail-left-tab {
     display: inline-block;
     width: 50%;
     height: 70px;
     background-color: #baa071;
     padding: 1vh;
+    border-top: 1px solid #ccc;
     border-right: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
 }
@@ -100,6 +92,7 @@
     width: 50%;
     height: 70px;
     padding: 1vh;
+    border-top: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
 }
 

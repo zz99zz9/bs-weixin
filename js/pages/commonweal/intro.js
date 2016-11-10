@@ -3,7 +3,7 @@ console.log(cid);
 var vmIntroduce = avalon.define({
     $id: 'intro',
     data: {
-        id: '',
+        fid: '',
         cnName: '杜氏助学公益基金',
         enName: '杜氏助学公益基金',
         introduction: '杜氏助学公益基金',
@@ -14,18 +14,6 @@ var vmIntroduce = avalon.define({
     getUser: function() {
         vmIntroduce.userImg = urlAPINet + Storage.getLocal("user").headImg;
         console.log(vmIntroduce.userImg);
-    },
-    //根据当前用户获取基金id
-    getFund: function() {
-        ajaxJsonp({
-            url: urls.benefitAmountUid,
-            data: {},
-            successCallback: function(json) {
-                if (json.status == 1) {
-                    vmIntroduce.data.id = json.data.id;
-                }
-            }
-        });
     },
     //获取基金信息列表
     getInfo: function() {
@@ -39,21 +27,7 @@ var vmIntroduce = avalon.define({
                 if (json.status === 1) {
                     vmIntroduce.data = json.data.list;
                     vmIntroduce.data.fid = json.data.list[0].id;
-                }
-            }
-        });
-    },
-    getData: function() {
-        ajaxJsonp({
-            url: urls.getDicCardList,
-            successCallback: function(json) {
-                if (json.status === 1) {
-                    vmCardList.data = [];
-                    json.data.map(function(c) {
-                        c.imgUrl = 'img/card/card_list_No' + c.id + '.png';
-
-                        vmCardList.data.push(c);
-                    });
+                    vmIntroduce.getAmount();
                 }
             }
         });
@@ -61,9 +35,28 @@ var vmIntroduce = avalon.define({
     goDetail: function(id) {
         location.href = "commonweal-detail.html?id=" + id + "&cid=" + cid;
     },
+    join: '',
+    getAmount: function() {
+        //每月捐赠金额
+        ajaxJsonp({
+            url: urls.getDonationAmount,
+            data: {
+                cid: cid,
+                fid: vmIntroduce.data.fid
+            },
+            successCallback: function(json) {
+                if (json.status === 1) {
+                    vmDetailPop.amount = json.data.amount;
+                    vmDetailPop.join = json.data.join;
+                    vmIntroduce.join = vmDetailPop.join;
+                }
+            }
+        });
+    },
     open: function() {
-        vmDetailPop.getAmount();
-        if (vmDetailPop.join) {
+        console.log(vmIntroduce.join);
+        if (vmIntroduce.join) {
+            console.log(123);
             vmDetailPop.getCardAomunt();
         } else {
             vmDetailPop.getAmount();
@@ -83,7 +76,7 @@ var vmIntroduce = avalon.define({
 });
 vmIntroduce.getUser();
 vmIntroduce.getInfo();
-vmIntroduce.getFund();
+
 
 var vmPopover = avalon.define({
     $id: 'popoverBtnOK',
@@ -122,12 +115,14 @@ var vmDetailPop = avalon.define({
             url: urls.getDonationAmount,
             data: {
                 cid: cid,
-                fid: vmIntroduce.data.id
+                fid: vmIntroduce.data.fid
             },
             successCallback: function(json) {
                 if (json.status === 1) {
                     vmDetailPop.amount = json.data.amount;
                     vmDetailPop.join = json.data.join;
+                    vmIntroduce.join = vmDetailPop.join;
+                    console.log(vmDetailPop.join);
                 }
             }
         });
@@ -140,7 +135,7 @@ var vmDetailPop = avalon.define({
             url: urls.goDonate,
             data: {
                 cid: cid,
-                fid: vmIntroduce.data.id
+                fid: vmIntroduce.data.fid
             },
             successCallback: function(json) {
                 if (json.status === 1) {
@@ -155,3 +150,4 @@ var vmDetailPop = avalon.define({
         });
     },
 });
+
