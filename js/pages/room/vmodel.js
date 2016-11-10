@@ -632,13 +632,14 @@ function room_init() {
 // @hour: 入住时间，几点
 function disableCheckinTime(startIndex, hour) {
     //入住时间选今天，要灰掉小于当前时间的表盘
-    if (vmRoom.todayIndex == startIndex) {
-        if (hour * 2 < getHourIndex() && hour < vmRoom.roomNightDiscount[3].startTime) {
-            return true;
-        } else {
-            return false;
-        }
-    } else if (bookDateList && bookDateList.outIndex.indexOf(startIndex) > -1) {
+    // if (vmRoom.todayIndex == startIndex) {
+    //     if (hour * 2 < getHourIndex() && hour < vmRoom.roomNightDiscount[3].startTime) {
+    //         return true;
+    //     } else {
+    //         return false;
+    //     }
+    // } else if
+    if (bookDateList && bookDateList.outIndex.indexOf(startIndex) > -1) {
         //14点以前的入住时段要灰掉
         //设置默认表盘
         if (hour < 14) {
