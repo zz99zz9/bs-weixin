@@ -1,5 +1,16 @@
 var cid = getParam("cid");
-console.log(cid);
+if (cid == '') {
+    ajaxJsonp({
+        url: urls.getAccountList,
+        data: {},
+        successCallback: function(json) {
+            if (json.status === 1) {
+                cid = json.data[0].id;
+                console.log(cid);
+            }
+        }
+    });
+}
 var vmIntroduce = avalon.define({
     $id: 'intro',
     data: {
@@ -94,7 +105,7 @@ var vmDetailPop = avalon.define({
     $id: 'detailPop',
     useCheck: 0, //1 checkButton, 0 closeButton
     amount: 0,
-    join: '',    //true表示加入
+    join: '', //true表示加入
     //获取会员卡捐赠情况(总额)
     getCardAomunt: function() {
         ajaxJsonp({
@@ -150,4 +161,3 @@ var vmDetailPop = avalon.define({
         });
     },
 });
-

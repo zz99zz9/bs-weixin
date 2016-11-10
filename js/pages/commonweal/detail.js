@@ -3,12 +3,16 @@ var cid = getParam("cid");
 console.log(cid);
 var vmDetail = avalon.define({
     $id: 'detail',
-    data: '',
+    data: {
+        cnName: '',
+        enName: '',
+        logoUrl: '',
+        brief: ''
+    },
     pageNo: 1,
     pageSize: 10,
     list1: [], //左侧列表
     list2: [], //右侧列表
-    foundation: "基金创始于2012年，从最初发起人个人资助特贫困大学生完成学业开始，迅速发展成苏北地区具有较高影响力的助学公益组织，秉承基金创始人杜玉莲女士“让每个孩子只少能够拥有受教育的机会”之理念，坚持资助必须有始有终，不为名利，只为能够保留孩子心中那一丝对未来的期望！",
     amount: '',    //该用户捐赠总额
     join: '',
     //判断是否显示下方按钮
@@ -23,6 +27,21 @@ var vmDetail = avalon.define({
             successCallback: function(json) {
                 if (json.status === 1) {
                     vmDetail.join = json.data.join;
+                }
+            }
+        });
+    },
+    //基金信息
+    getData: function() {
+        //每月捐赠金额
+        ajaxJsonp({
+            url: urls.getFoundationInfo,
+            data: {
+                id: id
+            },
+            successCallback: function(json) {
+                if (json.status === 1) {
+                    vmDetail.data = json.data;
                 }
             }
         });
@@ -119,6 +138,7 @@ var vmDetail = avalon.define({
 });
 
 vmDetail.getAmount();
+vmDetail.getData();
 vmDetail.getData1();
 vmDetail.getData2();
 vmDetail.getSum();

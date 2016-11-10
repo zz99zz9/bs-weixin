@@ -1,12 +1,12 @@
-<div ms-controller="detail">
-    <div class="detail-back1">
+<div ms-controller="detail" class="ms-controller">
+    <div class="detail-back1" style="height: 30vh;">
         <div class="detail-title bs-text-small">
             <div class="bs-text-normal" style="margin-top: ">
-                <img class="intro-img-love" style="height: 24px; width: 24px;" src="img/commonweal/love.png">
-                <span style="position: relative; top: -6px;"> 杜氏助学公益基金</span>
+                <img class="intro-img-love" style="height: 24px; width: 24px; border-radius: 50%; margin-right: 2vw;" :attr="{src: 'http://img.bensue.com/' + @data.logoUrl}">
+                <span style="position: relative; top: -6px;"> {{@data.cnName}}</span>
             </div>
             <div class="bs-text-x-smaller detail-foundation">
-                {{@foundation}}
+                {{@data.brief}}
             </div>
         </div>
     </div>
@@ -17,9 +17,9 @@
             <span class="intro-text-red" :on-tap="@getButton(1)" :on-tap="@getButton(1)">{{@studentCount}}</span>位孩子完成学业
         </div>
         <div class="detail-right-tab bs-text-normal" :on-tap="@getButton(2)">
-            <span class="bs-text-smaller detail-right-up" :on-tap="@getButton(1)">已捐出</span>
+            <span class="bs-text-smaller detail-right-up" :on-tap="@getButton(2)">已捐出</span>
             <br>
-            <span class="intro-text-red" :on-tap="@getButton(1)">{{@moneySum}}</span>元善款
+            <span class="intro-text-red" :on-tap="@getButton(2)">{{@moneySum}}</span>元善款
         </div>
     </div>
     <div id="pullrefresh" class="mui-scroll-wrapper bs-text-smaller" style="top: 270px; background-color: white;">
