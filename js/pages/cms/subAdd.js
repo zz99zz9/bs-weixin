@@ -20,6 +20,7 @@ var vmSubAdd = avalon.define({
         } else {
             vmSubAdd.headImg = urlAPINet + Storage.get("headImg").url;
         }
+        Storage.set("head",{headImg: vmSubAdd.headImg});
     },
     changeImg: function() {
         stopSwipeSkip.do(function() {

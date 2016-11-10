@@ -108,7 +108,7 @@ var vmFavoree = avalon.define({
             vmFavoree.data.imgUrl = urlAPINet + a.url;
             vmFavoree.data.logoUrl = a.url;
         }
-        console.log(vmFavoree.data.logoUrl);
+        Storage.set("head",{headImg: vmFavoree.data.logoUrl});
     },
     changeImg: function() {
         stopSwipeSkip.do(function() {

@@ -1,4 +1,5 @@
 var cid = getParam("cid");
+//若是cid为空，则默认取第一张卡的账户id
 if (cid == '') {
     ajaxJsonp({
         url: urls.getAccountList,
@@ -11,6 +12,7 @@ if (cid == '') {
         }
     });
 }
+
 var vmIntroduce = avalon.define({
     $id: 'intro',
     data: {
