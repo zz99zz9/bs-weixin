@@ -61,7 +61,7 @@
 </style>
 <div ms-controller="register" style="overflow: hidden;background: url('img/reg-bg.jpg') center;background-size: cover;height: 100vh;width: 100vw;padding:20px 50px;">
     <div style="margin: 0 auto;text-align: center;">
-        <div id="code" class="active" style="text-align: center;" tabindex="0">
+        <div id="code" class="active" style="text-align: center;" tabindex="0" onclick="showkeyboard()">
             <!-- <label style="color:white">验证码：</label> -->
             <b ms-repeat="verifyCodeArray">{{el.code}}</b>
             <!-- <input type="number" class="input1" ms-duplex="code"> -->
