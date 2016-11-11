@@ -37,13 +37,14 @@
                 </div>
                 <div class="today-list-item" style="line-height: 43px;">
                     <span :if="el.type==1" class="bs-text-large bs-text-red">+</span>
-                    <span :if="el.type!=1" class="bs-text-large bs-text-green">-</span>
+                    <span :if="el.type!=1" class="bs-t
+                    ext-large bs-text-green">-</span>
                     {{el.amount}}
                 </div>
             </div>
         </div>
     </div>
-    <div class="bs-text-gold bs-text-smaller" style="width: 100%;text-align: center;margin-left: -20px;padding-top: 15px;position: fixed;bottom: 0;background: #fff;z-index:99">
+    <div class="bs-text-gold bs-text-smaller" style="width: 102%;text-align: center;margin-left: -7vw;padding-top: 15px;position: fixed;bottom: -1vh;background: #fff;z-index:99">
         <div>客服电话: {{SERVICECALL}}</div>
         <button :click="@goWeal()" style="background-color: black;color: white;z-index: 11;width: 100%; height: 49px; margin-top: 15px;font-size: 18px;">公益捐赠</button>
     </div>
