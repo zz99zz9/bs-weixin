@@ -1,18 +1,3 @@
-var cid = getParam("cid");
-//若是cid为空，则默认取第一张卡的账户id
-if (cid == '') {
-    ajaxJsonp({
-        url: urls.getAccountList,
-        data: {},
-        successCallback: function(json) {
-            if (json.status === 1) {
-                cid = json.data[0].id;
-                console.log(cid);
-            }
-        }
-    });
-}
-
 var vmIntroduce = avalon.define({
     $id: 'intro',
     data: {
@@ -87,9 +72,25 @@ var vmIntroduce = avalon.define({
         location.href = "commonweal-record.html";
     },
 });
-vmIntroduce.getUser();
-vmIntroduce.getInfo();
 
+var cid = getParam("cid");
+//若是cid为空，则默认取第一张卡的账户id
+if (cid == '') {
+    ajaxJsonp({
+        url: urls.getAccountList,
+        data: {},
+        successCallback: function(json) {
+            if (json.status === 1) {
+                cid = json.data[0].id;
+                vmIntroduce.getUser();
+                vmIntroduce.getInfo();
+            }
+        }
+    });
+} else{
+    vmIntroduce.getUser();
+    vmIntroduce.getInfo();
+}
 
 var vmPopover = avalon.define({
     $id: 'popoverBtnOK',
@@ -152,9 +153,9 @@ var vmDetailPop = avalon.define({
             },
             successCallback: function(json) {
                 if (json.status === 1) {
-                    mui.alert(json.message);
-                    modalClose();
-                    location.href = "commonweal-introduce.html";
+                    mui.alert(json.message, function() {
+                        location.href = 'commonweal-introduce.html?cid=' + cid;
+                    });
                 } else {
                     mui.alert(json.message);
                     modalClose();
