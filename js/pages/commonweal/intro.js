@@ -5,7 +5,7 @@ var vmIntroduce = avalon.define({
         cnName: '杜氏助学公益基金',
         enName: '杜氏助学公益基金',
         introduction: '杜氏助学公益基金',
-        brief: '让每个孩子只少能够拥有受教育的机会',
+        introduction: '让每个孩子只少能够拥有受教育的机会',
         logoUrl: ''
     },
     userImg: '',
