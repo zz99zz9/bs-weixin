@@ -135,7 +135,7 @@ var vmOrder = avalon.define({
             url: urls.getAccountList,
             successCallback: function(json) {
                 if (json.status == 1) {
-                    if(json.data.length > 1){
+                    if(json.data.length > 0){
                         vmOrder.payType = 6;
 
                         vmSelectCard.cardList = json.data;
