@@ -26,8 +26,8 @@ function openConnect() {
 function sassCompile(callback) {
     sass('./sass/mui.scss')
         .on('error', sass.logError)
-        //.pipe(minifycss())//执行压缩
-        //.pipe(rename({suffix: '.min'}))
+        .pipe(minifycss())//执行压缩
+        .pipe(rename({suffix: '.min'}))
         .pipe(gulp.dest('./dist/css'))
         .on('finish', callback)
 }
@@ -63,6 +63,88 @@ function md5Rev() {
         .pipe(gulp.dest('./dist')); //- 替换后的文件输出的目录
 }
 
+/**
+ *   =======================================================
+ *                       登录&注册
+ *   =======================================================
+ */
+function register1() {
+    return gulp.src('./js/layout/shell-register.html')
+        .pipe(replace({
+            regex: '<!-- js -->',
+            replace: '<script src="js/pages/register/register-1.js"></script>'
+        }))
+        .pipe(replace({
+            regex: '<!-- pop -->',
+            replace: '<!--include "../pages/user/popover.html"-->'
+        }))
+        .pipe(replace({
+            regex: '<!-- content -->',
+            replace: '<!--include "../pages/register/register-1.html"-->'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(replace({
+            regex: '<button class="popover-closeButton"></button>',
+            replace: '<!--include "../util/popoverBtnOK.html"-->'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('register-1.html'))
+        .pipe(gulp.dest('./src'));
+}
+
+//短信验证码
+function register2() {
+    return gulp.src('./js/layout/shell-register.html')
+        .pipe(replace({
+            regex: '<!-- js -->',
+            replace: '<script src="js/pages/register/register-2.js"></script>'
+        }))
+        .pipe(replace({
+            regex: '<!-- content -->',
+            replace: '<!--include "../pages/register/register-2.html"-->'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('register-2.html'))
+        .pipe(gulp.dest('./src'));
+}
+
+//微信自动登录处理页面
+function weixin() {
+    return gulp.src('./js/layout/shell.html')
+        .pipe(replace({
+            regex: '<!-- js -->',
+            replace: '<script src="js/pages/proxy/vmodel-weixin.js"></script>'
+        }))
+        .pipe(replace({
+            regex: '<!-- content -->',
+            replace: '<!--include "../pages/proxy/weixin.html"-->'
+        }))
+        .pipe(replace({
+            regex: '<h1 id="headerReplace" class="mui-title"></h1>',
+            replace: '<h1 id="headerReplace" class="mui-title">加载中</h1>'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('weixin.html'))
+        .pipe(gulp.dest('./src'));
+}
+
+/**
+ *   =======================================================
+ *                       OTA相关页面
+ *   =======================================================
+ */
+
 //首页
 function index() {
     return gulp.src('./js/layout/index.html')
@@ -92,7 +174,7 @@ function index() {
         .pipe(gulp.dest('./src'))
 }
 
-//酒店页面
+//酒店页面--暂时做首页
 function hotel() {
     return gulp.src('./js/layout/shell-index.html')
         .pipe(replace({
@@ -253,7 +335,7 @@ function alipay() {
         .pipe(gulp.dest('./src'));
 }
 
-//支付宝支付提示跳转页面
+//支付宝支付完成页面
 function closePage() {
     return gulp.src('./js/layout/shell.html')
         .pipe(replace({
@@ -264,6 +346,39 @@ function closePage() {
             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
         }))
         .pipe(rename('closePage.html'))
+        .pipe(gulp.dest('./src'));
+}
+
+//支付宝支付--被微信屏蔽
+function alipayIframe() {
+    return gulp.src('./js/layout/shell.html')
+        .pipe(replace({
+            regex: '<!-- pop -->',
+            replace: '<!--include "../pages/user/popover.html"-->'
+        }))
+        .pipe(replace({
+            regex: '<!-- js -->',
+            replace: '<script src="js/pages/alipay/vmodel-alipay.js"></script>'
+        }))
+        .pipe(replace({
+            regex: '<!-- content -->',
+            replace: '<!--include "../pages/alipay/alipay-iframe.html"-->'
+        }))
+        .pipe(replace({
+            regex: '<h1 id="headerReplace" class="mui-title"></h1>',
+            replace: '<h1 id="headerReplace" class="mui-title">支付宝支付</h1>'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(replace({
+            regex: '<button class="popover-closeButton"></button>',
+            replace: '<!--include "../pages/room/pop-btn.html"-->'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('alipay-iframe.html'))
         .pipe(gulp.dest('./src'));
 }
 
@@ -286,124 +401,39 @@ function submitassess() {
         .pipe(gulp.dest('./src'));
 }
 
-//头像编辑页面
-function avatar() {
-    return gulp.src('./js/layout/shell.html')
-        .pipe(replace({
-                regex: '<!-- css -->',
-                replace: '<link rel="stylesheet" href="css/cropper.min.css">'
-            }))
-        .pipe(replace({
-            regex: '<!-- js -->',
-            replace: '<script src="js/lib/cropper.min.js"></script>\n<script src="js/pages/user/avatar.js"></script>'
-        }))
-        .pipe(replace({
-            regex: '<!-- content -->',
-            replace: '<!--include "../pages/user/avatar.html"-->'
-        }))
-        .pipe(contentIncluder({
-            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
-        }))
-        .pipe(rename('avatar.html'))
-        .pipe(gulp.dest('./src'));
-}
-//个人信息
-function userInfo() {
+/**
+ *   =======================================================
+ *                       发现相关页面
+ *   =======================================================
+ */
+
+//发现页面
+function discover() {
     return gulp.src('./js/layout/shell.html')
         //.pipe(replace({ regex: '<!-- pop -->', replace: '<!--include "../util/pop.html"-->' }))
         .pipe(replace({
-            regex: '<!-- js -->',
-            replace: '<script src="js/lib/mui.view.js"></script> \n <script src="js/pages/user/vmodel-info.js"></script>'
-        }))
-        .pipe(replace({
             regex: '<!-- content -->',
-            replace: '<!--include "../pages/user/user-info.html"-->'
+            replace: '<!--include "../pages/discover/discover.html"-->'
         }))
         // .pipe(replace({regex:'<h1 id="headerReplace" class="mui-title"></h1>', replace:'<h1 id="headerReplace" class="mui-title">个人信息</h1>'}))
         .pipe(contentIncluder({
             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
         }))
-        .pipe(rename('user-info.html'))
-        .pipe(gulp.dest('./src'));
-}
-//邀请好友
-function userInvite() {
-    return gulp.src('./js/layout/shell.html')
-        .pipe(replace({
-            regex: '<!-- css -->',
-            replace: '<link rel="stylesheet" href="css/room.css">'
-        }))
-        .pipe(replace({
-            regex: '<!-- pop -->',
-            replace: '<!--include "../pages/user/popover.html"-->'
-        }))
-        .pipe(replace({
-            regex: '<!-- js -->',
-            replace: '<script src="js/pages/invite/vmodel-invite.js"></script>'
-        }))
-        .pipe(replace({
-            regex: '<!-- content -->',
-            replace: '<!--include "../pages/invite/user-invite.html"-->'
-        }))
-        // .pipe(replace({regex:'<h1 id="headerReplace" class="mui-title"></h1>', replace:'<h1 id="headerReplace" class="mui-title">邀请好友</h1>'}))
-        .pipe(contentIncluder({
-            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
-        }))
-        .pipe(replace({
-            regex: '<button class="popover-closeButton"></button>',
-            replace: '<!--include "../util/popoverBtnOK.html"-->'
-        }))
-        .pipe(contentIncluder({
-            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
-        }))
-        .pipe(rename('user-invite.html'))
-        .pipe(gulp.dest('./src'));
-}
-//约会基金
-function wallet() {
-    return gulp.src('./js/layout/shell.html')
-        .pipe(replace({
-            regex: '<!-- pop -->',
-            replace: '<!--include "../pages/user/popover.html"-->'
-        }))
-        .pipe(replace({
-            regex: '<!-- js -->',
-            replace: '<script src="js/pages/wallet/wallet.js"></script>'
-        }))
-        .pipe(replace({
-            regex: '<!-- content -->',
-            replace: '<!--include "../pages/wallet/wallet.html"-->'
-        }))
-        // .pipe(replace({regex:'<h1 id="headerReplace" class="mui-title"></h1>', replace:'<h1 id="headerReplace" class="mui-title">体验基金</h1>'}))
-        .pipe(contentIncluder({
-            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
-        }))
-        .pipe(replace({
-            regex: '<button class="popover-closeButton"></button>',
-            replace: '<!--include "../util/popoverBtnOK.html"-->'
-        }))
-        .pipe(contentIncluder({
-            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
-        }))
-        .pipe(rename('wallet.html'))
+        .pipe(rename('discover.html'))
         .pipe(gulp.dest('./src'));
 }
 
-//邀请
-function share() {
+//会员中心
+function memberCenter() {
     return gulp.src('./js/layout/shell.html')
+        //.pipe(replace({ regex: '<!-- pop -->', replace: '<!--include "../util/pop.html"-->' }))
         .pipe(replace({
             regex: '<!-- content -->',
-            replace: '<!--include "../pages/share/share.html"-->'
-        }))
-        .pipe(replace({
-            regex: '<!-- js -->',
-            replace: '<script src="js/pages/share/share.js"></script>'
-        }))
-        .pipe(contentIncluder({
+            replace: '<!--include "../pages/discover/member-center.html"-->'
+        })).pipe(contentIncluder({
             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
         }))
-        .pipe(rename('share.html'))
+        .pipe(rename('member-center.html'))
         .pipe(gulp.dest('./src'));
 }
 
@@ -464,6 +494,134 @@ function joinUs() {
             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
         }))
         .pipe(rename('joinUs.html'))
+        .pipe(gulp.dest('./src'));
+}
+
+//午夜特价房
+function special() {
+    return gulp.src('./js/layout/shell.html')
+        .pipe(replace({
+            regex: '<!-- css -->',
+            replace: '<link rel="stylesheet" href="css/swiper.min.css">'
+        }))
+        //.pipe(replace({ regex: '<!-- pop -->', replace: '<!--include "../util/pop.html"-->' }))
+        .pipe(replace({
+            regex: '<!-- content -->',
+            replace: '<!--include "../pages/discover/special.html"-->'
+        }))
+        // .pipe(replace({regex:'<h1 id="headerReplace" class="mui-title"></h1>', replace:'<h1 id="headerReplace" class="mui-title">关于因爱</h1>'}))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('special.html'))
+        .pipe(gulp.dest('./src'));
+}
+
+
+/**
+ *   =======================================================
+ *                       用户个人信息相关页面
+ *   =======================================================
+ */
+//个人信息
+function userInfo() {
+    return gulp.src('./js/layout/shell.html')
+        //.pipe(replace({ regex: '<!-- pop -->', replace: '<!--include "../util/pop.html"-->' }))
+        .pipe(replace({
+            regex: '<!-- js -->',
+            replace: '<script src="js/lib/mui.view.js"></script> \n <script src="js/pages/user/vmodel-info.js"></script>'
+        }))
+        .pipe(replace({
+            regex: '<!-- content -->',
+            replace: '<!--include "../pages/user/user-info.html"-->'
+        }))
+        // .pipe(replace({regex:'<h1 id="headerReplace" class="mui-title"></h1>', replace:'<h1 id="headerReplace" class="mui-title">个人信息</h1>'}))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('user-info.html'))
+        .pipe(gulp.dest('./src'));
+}
+
+//邀请好友
+function userInvite() {
+    return gulp.src('./js/layout/shell.html')
+        .pipe(replace({
+            regex: '<!-- css -->',
+            replace: '<link rel="stylesheet" href="css/room.css">'
+        }))
+        .pipe(replace({
+            regex: '<!-- pop -->',
+            replace: '<!--include "../pages/user/popover.html"-->'
+        }))
+        .pipe(replace({
+            regex: '<!-- js -->',
+            replace: '<script src="js/pages/invite/vmodel-invite.js"></script>'
+        }))
+        .pipe(replace({
+            regex: '<!-- content -->',
+            replace: '<!--include "../pages/invite/user-invite.html"-->'
+        }))
+        // .pipe(replace({regex:'<h1 id="headerReplace" class="mui-title"></h1>', replace:'<h1 id="headerReplace" class="mui-title">邀请好友</h1>'}))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(replace({
+            regex: '<button class="popover-closeButton"></button>',
+            replace: '<!--include "../util/popoverBtnOK.html"-->'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('user-invite.html'))
+        .pipe(gulp.dest('./src'));
+}
+
+//约会基金
+function wallet() {
+    return gulp.src('./js/layout/shell.html')
+        .pipe(replace({
+            regex: '<!-- pop -->',
+            replace: '<!--include "../pages/user/popover.html"-->'
+        }))
+        .pipe(replace({
+            regex: '<!-- js -->',
+            replace: '<script src="js/pages/wallet/wallet.js"></script>'
+        }))
+        .pipe(replace({
+            regex: '<!-- content -->',
+            replace: '<!--include "../pages/wallet/wallet.html"-->'
+        }))
+        // .pipe(replace({regex:'<h1 id="headerReplace" class="mui-title"></h1>', replace:'<h1 id="headerReplace" class="mui-title">体验基金</h1>'}))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(replace({
+            regex: '<button class="popover-closeButton"></button>',
+            replace: '<!--include "../util/popoverBtnOK.html"-->'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('wallet.html'))
+        .pipe(gulp.dest('./src'));
+}
+
+//邀请
+function share() {
+    return gulp.src('./js/layout/shell.html')
+        .pipe(replace({
+            regex: '<!-- content -->',
+            replace: '<!--include "../pages/share/share.html"-->'
+        }))
+        .pipe(replace({
+            regex: '<!-- js -->',
+            replace: '<script src="js/pages/share/share.js"></script>'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('share.html'))
         .pipe(gulp.dest('./src'));
 }
 
@@ -566,39 +724,6 @@ function invoiceApply() {
         .pipe(gulp.dest('./src'));
 }
 
-//支付宝支付
-function alipayIframe() {
-    return gulp.src('./js/layout/shell.html')
-        .pipe(replace({
-            regex: '<!-- pop -->',
-            replace: '<!--include "../pages/user/popover.html"-->'
-        }))
-        .pipe(replace({
-            regex: '<!-- js -->',
-            replace: '<script src="js/pages/alipay/vmodel-alipay.js"></script>'
-        }))
-        .pipe(replace({
-            regex: '<!-- content -->',
-            replace: '<!--include "../pages/alipay/alipay-iframe.html"-->'
-        }))
-        .pipe(replace({
-            regex: '<h1 id="headerReplace" class="mui-title"></h1>',
-            replace: '<h1 id="headerReplace" class="mui-title">支付宝支付</h1>'
-        }))
-        .pipe(contentIncluder({
-            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
-        }))
-        .pipe(replace({
-            regex: '<button class="popover-closeButton"></button>',
-            replace: '<!--include "../pages/room/pop-btn.html"-->'
-        }))
-        .pipe(contentIncluder({
-            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
-        }))
-        .pipe(rename('alipay-iframe.html'))
-        .pipe(gulp.dest('./src'));
-}
-
 //支付发票快递费用成功页
 function invoicePaySuccess() {
     return gulp.src('./js/layout/shell.html')
@@ -629,77 +754,6 @@ function invoicePaySuccess() {
             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
         }))
         .pipe(rename('invoice-pay-success.html'))
-        .pipe(gulp.dest('./src'));
-}
-
-//微信自动登录处理页面
-function weixin() {
-    return gulp.src('./js/layout/shell.html')
-        .pipe(replace({
-            regex: '<!-- js -->',
-            replace: '<script src="js/pages/proxy/vmodel-weixin.js"></script>'
-        }))
-        .pipe(replace({
-            regex: '<!-- content -->',
-            replace: '<!--include "../pages/proxy/weixin.html"-->'
-        }))
-        .pipe(replace({
-            regex: '<h1 id="headerReplace" class="mui-title"></h1>',
-            replace: '<h1 id="headerReplace" class="mui-title">加载中</h1>'
-        }))
-        .pipe(contentIncluder({
-            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
-        }))
-        .pipe(rename('weixin.html'))
-        .pipe(gulp.dest('./src'));
-}
-
-//注册
-function register1() {
-    return gulp.src('./js/layout/shell-register.html')
-        .pipe(replace({
-            regex: '<!-- js -->',
-            replace: '<script src="js/pages/register/register-1.js"></script>'
-        }))
-        .pipe(replace({
-            regex: '<!-- pop -->',
-            replace: '<!--include "../pages/user/popover.html"-->'
-        }))
-        .pipe(replace({
-            regex: '<!-- content -->',
-            replace: '<!--include "../pages/register/register-1.html"-->'
-        }))
-        .pipe(contentIncluder({
-            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
-        }))
-        .pipe(replace({
-            regex: '<button class="popover-closeButton"></button>',
-            replace: '<!--include "../util/popoverBtnOK.html"-->'
-        }))
-        .pipe(contentIncluder({
-            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
-        }))
-        .pipe(rename('register-1.html'))
-        .pipe(gulp.dest('./src'));
-}
-
-function register2() {
-    return gulp.src('./js/layout/shell-register.html')
-        .pipe(replace({
-            regex: '<!-- js -->',
-            replace: '<script src="js/pages/register/register-2.js"></script>'
-        }))
-        .pipe(replace({
-            regex: '<!-- content -->',
-            replace: '<!--include "../pages/register/register-2.html"-->'
-        }))
-        .pipe(contentIncluder({
-            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
-        }))
-        .pipe(contentIncluder({
-            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
-        }))
-        .pipe(rename('register-2.html'))
         .pipe(gulp.dest('./src'));
 }
 
@@ -910,8 +964,68 @@ function franchiseeRecord() {
  *                       会员卡相关页面
  *   =======================================================
  */
+
+//会员中心-会员介绍
+function cardIntroduce () {
+    return gulp.src('./js/layout/shell-av2.html')
+        .pipe(replace({
+            regex: '<!-- css -->',
+            replace: '<link rel="stylesheet" href="css/card.css">'
+        }))
+        .pipe(replace({
+            regex: '<!-- content -->',
+            replace: '<!--include "../pages/card/introduce.html"-->'
+        }))
+        .pipe(replace({
+            regex: '<!-- js -->',
+            replace: '<script src="js/pages/card/introduce.js"></script>'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('card-introduce.html'))
+        .pipe(gulp.dest('./src'));
+}
+
+//一张图看懂本宿
+function cardIntroducePicture () {
+    return gulp.src('./js/layout/shell-av2.html')
+        .pipe(replace({
+            regex: '<!-- css -->',
+            replace: '<link rel="stylesheet" href="css/card.css">'
+        }))
+        .pipe(replace({
+            regex: '<!-- content -->',
+            replace: '<!--include "../pages/card/introduce-picture.html"-->'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('card-introduce-picture.html'))
+        .pipe(gulp.dest('./src'));
+}
+
+//会员中心-VIP会员收益
+function cardPromotion() {
+    return gulp.src('./js/layout/shell.html')
+        .pipe(replace({
+            regex: '<!-- css -->',
+            replace: '<link rel="stylesheet" href="css/swiper.min.css">\n<link rel="stylesheet" href="css/card.css">'
+        }))
+        .pipe(replace({
+            regex: '<!-- content -->',
+            replace: '<!--include "../pages/card/promotion.html"-->'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('card-promotion.html'))
+        .pipe(gulp.dest('./src'));
+ }
+
+//会员中心-成为VIP会员
 function cardList() {
-    return gulp.src('./js/layout/shell-customer2.html')
+    return gulp.src('./js/layout/shell-av2.html')
         .pipe(replace({
             regex: '<!-- css -->',
             replace: '<link rel="stylesheet" href="css/card.css">'
@@ -929,10 +1043,11 @@ function cardList() {
         }))
         .pipe(rename('card-list.html'))
         .pipe(gulp.dest('./src'));
- }
+}
 
+//会员卡购买
 function cardBuy() {
-    return gulp.src('./js/layout/shell-customer2.html')
+    return gulp.src('./js/layout/shell-av2.html')
         .pipe(replace({
             regex: '<!-- css -->',
             replace: '<link rel="stylesheet" href="css/card.css">'
@@ -963,6 +1078,7 @@ function cardBuy() {
         .pipe(gulp.dest('./src'));
 }
 
+//会员卡展示
 function cardShow () {
     return gulp.src('./js/layout/shell-av2.html')
         .pipe(replace({
@@ -984,6 +1100,7 @@ function cardShow () {
         .pipe(gulp.dest('./src'));
 }
 
+//钱包
 function cardDetail() {
     return gulp.src('./js/layout/shell-av2.html')
         .pipe(replace({
@@ -1016,6 +1133,7 @@ function cardDetail() {
         .pipe(gulp.dest('./src'));
 }
 
+//账户提现账号及资金操作历史
 function cardLog () {
     return gulp.src('./js/layout/shell-av2.html')
         .pipe(replace({
@@ -1048,6 +1166,7 @@ function cardLog () {
         .pipe(gulp.dest('./src'));
 }
 
+//绑定提现账号页面
 function cardBind () {
     return gulp.src('./js/layout/shell-av2.html')
         .pipe(replace({
@@ -1080,70 +1199,7 @@ function cardBind () {
         .pipe(gulp.dest('./src'));
 }
 
-function cardIntroduce () {
-    return gulp.src('./js/layout/shell-customer2.html')
-        .pipe(replace({
-            regex: '<!-- css -->',
-            replace: '<link rel="stylesheet" href="css/card.css">'
-        }))
-        .pipe(replace({
-            regex: '<!-- content -->',
-            replace: '<!--include "../pages/card/introduce.html"-->'
-        }))
-        .pipe(replace({
-            regex: '<!-- js -->',
-            replace: '<script src="js/pages/card/introduce.js"></script>'
-        }))
-        // .pipe(replace({
-        //     regex: '<!-- pop -->',
-        //     replace: '<!--include "../pages/user/popover.html"-->'
-        // }))
-        // .pipe(contentIncluder({
-        //     includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
-        // }))
-        // .pipe(replace({
-        //     regex: '<button class="popover-closeButton"></button>',
-        //     replace: '<!--include "../util/popoverBtnOK-av2.html"-->'
-        // }))
-        .pipe(contentIncluder({
-            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
-        }))
-        .pipe(rename('card-introduce.html'))
-        .pipe(gulp.dest('./src'));
-}
-
-function cardIntroducePicture () {
-    return gulp.src('./js/layout/shell-customer2.html')
-        .pipe(replace({
-            regex: '<!-- css -->',
-            replace: '<link rel="stylesheet" href="css/card.css">'
-        }))
-        .pipe(replace({
-            regex: '<!-- content -->',
-            replace: '<!--include "../pages/card/introduce-picture.html"-->'
-        }))
-        // .pipe(replace({
-        //     regex: '<!-- js -->',
-        //     replace: '<script src="js/pages/card/introduce.js"></script>'
-        // }))
-        // .pipe(replace({
-        //     regex: '<!-- pop -->',
-        //     replace: '<!--include "../pages/user/popover.html"-->'
-        // }))
-        // .pipe(contentIncluder({
-        //     includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
-        // }))
-        // .pipe(replace({
-        //     regex: '<button class="popover-closeButton"></button>',
-        //     replace: '<!--include "../util/popoverBtnOK-av2.html"-->'
-        // }))
-        .pipe(contentIncluder({
-            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
-        }))
-        .pipe(rename('card-introduce-picture.html'))
-        .pipe(gulp.dest('./src'));
-}
-
+//推广申请
 function promotionApply() {
     return gulp.src('./js/layout/shell-av2.html')
         .pipe(replace({
@@ -1176,6 +1232,7 @@ function promotionApply() {
         .pipe(gulp.dest('./src'));
 }
 
+//会员卡推广详情
 function promotionDetail() {
     return gulp.src('./js/layout/shell-av2.html')
         .pipe(replace({
@@ -1208,6 +1265,7 @@ function promotionDetail() {
         .pipe(gulp.dest('./src'));
 }
 
+//抽奖
 function lottery() {
     return gulp.src('./js/layout/shell.html')
         .pipe(replace({
@@ -1244,32 +1302,13 @@ function lottery() {
         .pipe(gulp.dest('./src'));
 }
 
-function cardPromotion() {
-    return gulp.src('./js/layout/shell-customer.html')
-        .pipe(replace({
-            regex: '<!-- css -->',
-            replace: '<link rel="stylesheet" href="css/swiper.min.css">\n<link rel="stylesheet" href="css/card.css">'
-        }))
-        .pipe(replace({
-            regex: '<!-- content -->',
-            replace: '<!--include "../pages/card/promotion.html"-->'
-        }))
-        // .pipe(replace({
-        //     regex: '<!-- js -->',
-        //     replace: '<script src="js/pages/card/list.js"></script>'
-        // }))
-        .pipe(contentIncluder({
-            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
-        }))
-        .pipe(rename('card-promotion.html'))
-        .pipe(gulp.dest('./src'));
- }
 
 /**
  *   =======================================================
  *                       管理模块相关页面
  *   =======================================================
  */
+
 //管理登录
 function login() {
     return gulp.src('./js/layout/shell-register.html')
@@ -2296,56 +2335,11 @@ function warehouseFormStock() {
         .pipe(gulp.dest('./src/manage'));
 }
 
-//发现页面
-function discover() {
-    return gulp.src('./js/layout/shell.html')
-        //.pipe(replace({ regex: '<!-- pop -->', replace: '<!--include "../util/pop.html"-->' }))
-        .pipe(replace({
-            regex: '<!-- content -->',
-            replace: '<!--include "../pages/discover/discover.html"-->'
-        }))
-        // .pipe(replace({regex:'<h1 id="headerReplace" class="mui-title"></h1>', replace:'<h1 id="headerReplace" class="mui-title">个人信息</h1>'}))
-        .pipe(contentIncluder({
-            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
-        }))
-        .pipe(rename('discover.html'))
-        .pipe(gulp.dest('./src'));
-}
-
-
-//会员中心
-function memberCenter() {
-    return gulp.src('./js/layout/shell.html')
-        //.pipe(replace({ regex: '<!-- pop -->', replace: '<!--include "../util/pop.html"-->' }))
-        .pipe(replace({
-            regex: '<!-- content -->',
-            replace: '<!--include "../pages/discover/member-center.html"-->'
-        })).pipe(contentIncluder({
-            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
-        }))
-        .pipe(rename('member-center.html'))
-        .pipe(gulp.dest('./src'));
-}
-
-//午夜特价房
-function special() {
-    return gulp.src('./js/layout/shell.html')
-        .pipe(replace({
-            regex: '<!-- css -->',
-            replace: '<link rel="stylesheet" href="css/swiper.min.css">'
-        }))
-        //.pipe(replace({ regex: '<!-- pop -->', replace: '<!--include "../util/pop.html"-->' }))
-        .pipe(replace({
-            regex: '<!-- content -->',
-            replace: '<!--include "../pages/discover/special.html"-->'
-        }))
-        // .pipe(replace({regex:'<h1 id="headerReplace" class="mui-title"></h1>', replace:'<h1 id="headerReplace" class="mui-title">关于因爱</h1>'}))
-        .pipe(contentIncluder({
-            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
-        }))
-        .pipe(rename('special.html'))
-        .pipe(gulp.dest('./src'));
-}
+/**
+ *   =======================================================
+ *                       客服
+ *   =======================================================
+ */
 
 //客服待审核任务列表
 function auditList() {
@@ -2373,7 +2367,12 @@ function auditList() {
         .pipe(gulp.dest('./src'));
 }
 
-//公益
+/**
+ *   =======================================================
+ *                       本宿公益
+ *   =======================================================
+ */
+
 //介绍页面
 function commonwealIntro() {
     return gulp.src('./js/layout/shell-av2.html')
@@ -2465,7 +2464,7 @@ function commonwealDetail() {
 
 /**
  *   =======================================================
- *                       公益管理相关页面
+ *                       公益管理
  *   =======================================================
  */
 
@@ -2712,6 +2711,28 @@ function favoree () {
         .pipe(gulp.dest('./src/cms'));
 }
 
+//头像编辑页面
+function avatar() {
+    return gulp.src('./js/layout/shell.html')
+        .pipe(replace({
+                regex: '<!-- css -->',
+                replace: '<link rel="stylesheet" href="css/cropper.min.css">'
+            }))
+        .pipe(replace({
+            regex: '<!-- js -->',
+            replace: '<script src="js/lib/cropper.min.js"></script>\n<script src="js/pages/user/avatar.js"></script>'
+        }))
+        .pipe(replace({
+            regex: '<!-- content -->',
+            replace: '<!--include "../pages/user/avatar.html"-->'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('avatar.html'))
+        .pipe(gulp.dest('./src'));
+}
+
 /**
  * 输出弹框相关页面
  */
@@ -2780,7 +2801,7 @@ function copyFonts() {
  * 拼接html源文件
  */
 gulp.task('html', gulp.parallel(
-    // index,
+    // index,//hotel 页面暂时做首页
     hotel,
     room,
     payend,
@@ -2802,7 +2823,7 @@ gulp.task('html', gulp.parallel(
     frequentContactList,
     invoiceList,
     invoiceApply,
-    alipayIframe,
+    // alipayIframe,
     invoicePaySuccess,
     weixin,
     franchisee,
@@ -2818,7 +2839,7 @@ gulp.task('html', gulp.parallel(
     cardLog,
     cardBind,
     cardIntroduce,
-    cardIntroducePicture,
+    // cardIntroducePicture,
     cardPromotion,
     promotionApply,
     promotionDetail,
