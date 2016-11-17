@@ -2692,6 +2692,65 @@ function favoree () {
         .pipe(gulp.dest('./src/cms'));
 }
 
+//分享页面
+function shareIframe () {
+    return gulp.src('./js/layout/shell-manage.html')
+    .pipe(replace({
+            regex: '<h1 id="headerReplace" class="mui-title">标题</h1>',
+            replace: '<h1 id="headerReplace" class="mui-title"></h1>'
+        }))
+        .pipe(replace({
+            regex: '<!-- content -->',
+            replace: '<!--include "../pages/WXshare.html"-->'
+        }))
+        .pipe(replace({
+            regex: '<!-- js -->',
+            replace: '<script src="../js/pages/WXshare.js"></script>'
+        }))
+        .pipe(replace({
+            regex: '<!-- pop -->',
+            replace: '<!--include "../util/pop.html"-->'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('WXshare.html'))
+        .pipe(gulp.dest('./src'));
+}
+
+//动态圆实验
+function canvasCircle() {
+    return gulp.src('./js/layout/shell-av2.html')
+        .pipe(replace({
+            regex: '<!-- css -->',
+            replace: '<link rel="stylesheet" href="css/swiper.min.css">\n<link rel="stylesheet" href="css/promotion.css">'
+        }))
+        .pipe(replace({
+            regex: '<!-- content -->',
+            replace: '<!--include "../pages/promotion/circle.html"-->'
+        }))
+        .pipe(replace({
+            regex: '<!-- js -->',
+            replace: '<script src="js/lib/swiper.min.js"></script>\n' + '<script src="js/pages/promotion/circle.js"></script>'
+        }))
+        .pipe(replace({
+            regex: '<!-- pop -->',
+            replace: '<!--include "../pages/user/popover.html"-->'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(replace({
+            regex: '<button class="popover-closeButton"></button>',
+            replace: '<!--include "../util/popoverBtnOK-av2.html"-->'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('promotion-circle.html'))
+        .pipe(gulp.dest('./src'));
+}
+
 /**
  * 输出弹框相关页面
  */
@@ -2855,7 +2914,9 @@ gulp.task('html', gulp.parallel(
     cmsSubList,
     subAdd,
     favoree,
-    editFund
+    editFund,
+    shareIframe,
+    canvasCircle
 ));
 
 function watchForReload() {
