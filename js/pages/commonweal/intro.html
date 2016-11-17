@@ -16,10 +16,10 @@
         </div>
     </div>
     <div class="intro-content">
-        <div :for="el in @data" :on-tap="@goDetail(el.id)" style="margin-bottom: 30px;">
-            <div class="intro-text-red bs-text-smaller" :on-tap="@goDetail(el.id)" style="margin: 10px 0 0;">
-                <img class="intro-img-love" :attr="{src: 'http://img.bensue.com/' + el.logoUrl}">
-                <span style="position: relative; top: -3px; margin-left: 5px;"> {{el.cnName}}</span>
+        <div :for="el in @data" :on-tap="@goDetail(el.id)" style="padding:10px 0 20px;">
+            <div class="intro-text-red bs-text-smaller" :on-tap="@goDetail(el.id)">
+                <img class="intro-img-love" :on-tap="@goDetail(el.id)" :attr="{src: 'http://img.bensue.com/' + el.logoUrl}">
+                <span style="position: relative; top: -3px; margin-left: 5px;" :on-tap="@goDetail(el.id)"> {{el.cnName}}</span>
                 <div class="bs-text-x-smaller" :on-tap="@goDetail(el.id)">{{el.enName}}</div>
             </div>
             <div class="bs-text-smaller" :on-tap="@goDetail(el.id)">
@@ -27,7 +27,7 @@
                 <div class="bs-text-x-smaller" :on-tap="@goDetail(el.id)">已资助<span class="intro-text-red"> {{el.studentCount}} </span>位学生完成学业</div>
             </div>
         </div>
-        <div style="margin: 5vh 30px 3vh 30px;">
+        <div style="margin: 4vh 30px 3vh 30px;">
             <button class="intro-button bs-text-larger" :on-tap="@open">马上捐赠</button>
         </div>
         <div class="bs-text-x-smaller bs-text-102">
