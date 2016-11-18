@@ -27,6 +27,8 @@ var vmDetail = avalon.define({
             successCallback: function(json) {
                 if (json.status === 1) {
                     vmDetail.join = json.data.join;
+                    vmDetailPop.amount = json.data.amount;
+                    vmDetailPop.join = json.data.join;
                 }
             }
         });
@@ -290,40 +292,6 @@ var vmDetailPop = avalon.define({
     useCheck: 0, //1 checkButton, 0 closeButton
     amount: 0,
     join: '',    //true表示加入
-    //获取会员卡捐赠情况(总额)
-    getCardAomunt: function() {
-        ajaxJsonp({
-            url: urls.getAccountCommonwealInfo,
-            data: {
-                cid: cid,
-            },
-            successCallback: function(json) {
-                if (json.status === 1) {
-                    vmDetailPop.amount = json.data.totalDonateAmount;
-                }
-            }
-        });
-    },
-    getAmount: function() {
-        ajaxJsonp({
-            url: urls.getDonationAmount,
-            data: {
-                cid: cid,
-                fid: id
-            },
-            successCallback: function(json) {
-                if (json.status === 1) {
-                    vmDetailPop.amount = json.data.amount;
-                    vmDetailPop.join = json.data.join;
-                }
-            }
-        });
-    },
-    isShow: function() {
-        if (vmDetailPop.join == true) {
-            
-        }
-    },
     close: function() {
         modalClose();
     },
