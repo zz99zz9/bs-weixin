@@ -987,6 +987,28 @@ function cardIntroduce () {
         .pipe(gulp.dest('./src'));
 }
 
+//会员中心-会员安全性
+function cardSafe () {
+    return gulp.src('./js/layout/shell-av2.html')
+        .pipe(replace({
+            regex: '<!-- css -->',
+            replace: '<link rel="stylesheet" href="css/card.css">'
+        }))
+        .pipe(replace({
+            regex: '<!-- content -->',
+            replace: '<!--include "../pages/card/safe.html"-->'
+        }))
+        .pipe(replace({
+            regex: '<!-- js -->',
+            replace: '<script src="js/pages/card/safe.js"></script>'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('card-safe.html'))
+        .pipe(gulp.dest('./src'));
+}
+
 //一张图看懂本宿
 function cardIntroducePicture () {
     return gulp.src('./js/layout/shell-av2.html')
@@ -2839,6 +2861,7 @@ gulp.task('html', gulp.parallel(
     cardLog,
     cardBind,
     cardIntroduce,
+    cardSafe,
     // cardIntroducePicture,
     cardPromotion,
     promotionApply,
