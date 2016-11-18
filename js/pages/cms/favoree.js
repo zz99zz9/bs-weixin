@@ -108,7 +108,7 @@ var vmFavoree = avalon.define({
             vmFavoree.data.imgUrl = urlAPINet + a.url;
             vmFavoree.data.logoUrl = a.url;
         }
-        Storage.set("head",{headImg: vmFavoree.data.logoUrl});
+        Storage.set("head", { headImg: vmFavoree.data.logoUrl });
     },
     changeImg: function() {
         stopSwipeSkip.do(function() {
@@ -118,6 +118,8 @@ var vmFavoree = avalon.define({
                 successCallback: function(json) {
                     if (json.status == 1) { //已登录
                         location.href = '../avatar.html';
+                    } else {
+                        mui.alert(json.message);
                     }
                 }
             });
@@ -138,6 +140,8 @@ var vmFavoree = avalon.define({
             successCallback: function(json) {
                 if (json.status == 1) { //已登录
                     location.href = 'favoreeList.html';
+                } else {
+                    mui.alert(json.message);
                 }
             }
         });

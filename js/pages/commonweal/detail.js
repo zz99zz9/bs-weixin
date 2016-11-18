@@ -29,6 +29,8 @@ var vmDetail = avalon.define({
                     vmDetail.join = json.data.join;
                     vmDetailPop.amount = json.data.amount;
                     vmDetailPop.join = json.data.join;
+                } else {
+                    mui.alert(json.message);
                 }
             }
         });
@@ -44,6 +46,8 @@ var vmDetail = avalon.define({
             successCallback: function(json) {
                 if (json.status === 1) {
                     vmDetail.data = json.data;
+                } else {
+                    mui.alert(json.message);
                 }
             }
         });

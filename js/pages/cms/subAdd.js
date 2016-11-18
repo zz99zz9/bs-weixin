@@ -4,7 +4,7 @@ var vmSubAdd = avalon.define({
     name: '',
     mobile: '',
     isDisabled: true,
-    fundId: '',    //基金id
+    fundId: '', //基金id
     changed: function() {
         if (vmSubAdd.name == '' || vmSubAdd.mobile == '' || vmSubAdd.mobile.length != 11) {
             vmSubAdd.isDisabled = true;
@@ -20,7 +20,7 @@ var vmSubAdd = avalon.define({
         } else {
             vmSubAdd.headImg = urlAPINet + Storage.get("headImg").url;
         }
-        Storage.set("head",{headImg: vmSubAdd.headImg});
+        Storage.set("head", { headImg: vmSubAdd.headImg });
     },
     changeImg: function() {
         stopSwipeSkip.do(function() {
@@ -30,6 +30,8 @@ var vmSubAdd = avalon.define({
                 successCallback: function(json) {
                     if (json.status == 1) { //已登录
                         location.href = '../avatar.html';
+                    } else {
+                        mui.alert(json.message);
                     }
                 }
             });
@@ -47,6 +49,8 @@ var vmSubAdd = avalon.define({
             successCallback: function(json) {
                 if (json.status == 1) { //已登录
                     location.href = 'subList.html';
+                } else {
+                    mui.alert(json.message);
                 }
             }
         });
@@ -56,8 +60,10 @@ var vmSubAdd = avalon.define({
             url: urls.benefitAmountUid,
             data: {},
             successCallback: function(json) {
-                if (json.status == 1) { 
+                if (json.status == 1) {
                     vmSubAdd.fundId = json.data.id;
+                } else {
+                    mui.alert(json.message);
                 }
             }
         });

@@ -31,6 +31,8 @@ var vmRecord = avalon.define({
                         vmRecord.amount = json.data.amount;
                         vmRecord.bensueAmount = json.data.companyAmount;
                     }
+                } else {
+                    mui.alert(json.message);
                 }
             }
         });
@@ -42,6 +44,8 @@ var vmRecord = avalon.define({
             successCallback: function(json){
                 if(json.status == 1) {
                     vmRecord.list = json.data.list;
+                } else {
+                    mui.alert(json.message);
                 }
             }
         });

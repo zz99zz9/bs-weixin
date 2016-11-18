@@ -68,6 +68,8 @@ var vmEditFund = avalon.define({
             successCallback: function(json) {
                 if (json.status == 1) { //已登录
                     location.href = 'nav.html';
+                } else {
+                    mui.alert(json.message);
                 }
             }
         });

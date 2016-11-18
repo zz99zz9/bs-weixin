@@ -19,6 +19,8 @@ var vmIntroduce = avalon.define({
                     vmIntroduce.data = json.data.list;
                     vmIntroduce.fid = json.data.list[0].id;
                     vmIntroduce.getAmount();
+                } else {
+                    mui.alert(json.message);
                 }
             }
         });
@@ -40,6 +42,8 @@ var vmIntroduce = avalon.define({
                     vmDetailPop.amount = json.data.amount;
                     vmDetailPop.join = json.data.join;
                     vmIntroduce.join = vmDetailPop.join;
+                } else {
+                    mui.alert(json.message);
                 }
             }
         });
@@ -111,6 +115,8 @@ var vmDetailPop = avalon.define({
             successCallback: function(json) {
                 if (json.status === 1) {
                     vmDetailPop.amount = json.data.totalDonateAmount;
+                } else {
+                    mui.alert(json.message);
                 }
             }
         });
@@ -129,6 +135,8 @@ var vmDetailPop = avalon.define({
                     vmDetailPop.join = json.data.join;
                     vmIntroduce.join = json.data.join;
                     console.log(vmDetailPop.join);
+                } else {
+                    mui.alert(json.message);
                 }
             }
         });

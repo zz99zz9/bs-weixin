@@ -41,6 +41,8 @@ var vmAccount = avalon.define({
             successCallback: function(json) {
                 if (json.status == 1) {
                     vmAccount.cashAccount = json.data;
+                } else {
+                    mui.alert(json.message);
                 }
             }
         });
@@ -61,6 +63,8 @@ var vmAccount = avalon.define({
                 if (json.status == 1) {
                     vmAccount.pageNo = 2;
                     vmAccount.list = json.data.list;
+                } else {
+                    mui.alert(json.message);
                 }
             }
         });
