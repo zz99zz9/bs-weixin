@@ -139,14 +139,14 @@ input[type=checkbox] {
             <div style="clear: both;" ms-if="discount<1">
                 <span class="info-left">优惠金额：</span>
                 <span class="info-right bs-text-red">¥<!-- {{fund}} -->
-                {{round(needAmount*discount)}}
+                {{round(needAmount*(1-discount))}}
                 （{{discountCard}}{{discount*10}}折优惠）</span>
             </div>
             <div style="clear: both;">
                 <span class="info-left">实付金额：</span>
                 <span class="info-right bs-text-red">
                 ¥<!-- {{round(needAmount-fund)<0?0:round(needAmount-fund)}} -->
-                {{needAmount+data.paidAmount}}
+                {{data.paidAmount?data.paidAmount:round(needAmount*discount)}}
                 </span>
             </div>
             <div>&nbsp;</div>
