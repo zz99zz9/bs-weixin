@@ -1,17 +1,36 @@
 var vmRecord = avalon.define({
     $id: 'record',
-    amount: '0',
+    amount: 0,
+    bensueAmount: 0,
+    join: false,
+    getAmount: function() {
+        //每月捐赠金额
+        ajaxJsonp({
+            url: urls.getDonationAmount,
+            data: {
+                cid: cid,
+                fid: fid
+            },
+            successCallback: function(json) {
+                if (json.status === 1) {
+                    vmRecord.join = json.data.join;
+                }
+            }
+        });
+    },
     list: [],
     pageNo: 1,
     pageSize: 10,
     getData: function() {
         ajaxJsonp({
             url: urls.getMyWealCount,
-            data: {},
+            data: {cid: cid},
             successCallback: function(json){
                 if(json.status == 1) {
-                    vmRecord.amount = json.data.amount;
-                    console.log(vmRecord.amount);
+                    if(json.data.amount) {
+                        vmRecord.amount = json.data.amount;
+                        vmRecord.bensueAmount = json.data.companyAmount;
+                    }
                 }
             }
         });
@@ -19,7 +38,7 @@ var vmRecord = avalon.define({
     getList: function() {
         ajaxJsonp({
             url: urls.getMyWealRecord,
-            data: {},
+            data: {cid: cid},
             successCallback: function(json){
                 if(json.status == 1) {
                     vmRecord.list = json.data.list;
@@ -28,6 +47,28 @@ var vmRecord = avalon.define({
         });
     },
 });
+
+var cid = getParam('cid'), fid = getParam('fid');
+if (cid != "") {
+    if (isNaN(cid)) {
+        location.href = document.referrer || "index.html";
+    } else {
+        cid = parseInt(cid);
+    }
+} else {
+    location.href = "index.html";
+}
+
+if (fid != "") {
+    if (isNaN(fid)) {
+        location.href = document.referrer || "index.html";
+    } else {
+        fid = parseInt(fid);
+    }
+} else {
+    location.href = "index.html";
+}
+vmRecord.getAmount();
 vmRecord.getData();
 vmRecord.getList();
 

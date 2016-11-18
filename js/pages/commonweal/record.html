@@ -1,24 +1,36 @@
 <div ms-controller="record" style="height: 100vh; background-color: white; padding: 30px 20px;">
-    <div :if="@amount!=''">
-        <div class="bs-text-larger bs-text-normal">共累计捐赠
-            <span class="intro-text-red">{{@amount}}</span> 元
+    <div :if="@join">
+        <div style="display: flex;justify-content: space-between;">
+            <div class="bs-text-larger bs-text-normal">共累计捐赠
+                <span class="intro-text-red">{{@amount}}</span> 元
+            </div>
+            <div class="bs-text-larger bs-text-normal">本宿捐赠
+                <span class="intro-text-red">{{@bensueAmount}}</span> 元
+            </div>
         </div>
         <div id="pullrefresh" class="mui-scroll-wrapper" style="top: 15vh;left: 6vw;width: 90vw;">
             <div class="mui-scroll" style="padding-right: 10px;">
+                <div :if="@amount==0" class="bs-text-smaller fr-flex" style="border-bottom: 1px solid #ddd; display: flex; justify-content: space-between; padding: 10px 0;">
+                    <div class="today-list-item">
+                        暂无捐赠记录
+                    </div>
+                </div>
                 <div class="bs-text-smaller fr-flex" style="border-bottom: 1px solid #ddd; display: flex; justify-content: space-between; padding: 10px 0;" :for="el in @list">
                     <div class="today-list-item">
                         公益捐赠
                         <br>
                         <span class="bs-text-smaller bs-text-gray bs-text-x-smaller">{{el.createTime}}</span>
                     </div>
-                    <div class="today-list-item" style="line-height: 43px;">
+                    <div class="today-list-item">
                         捐助{{el.amount}}元
+                        <br>
+                        本宿捐赠{{el.companyAmount}}元
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div :if="@amount==''" style="text-align: center; margin-top: 30vh; line-height: 32px;">
+    <div :if="!@join" style="text-align: center; margin-top: 30vh; line-height: 32px;">
         尊敬的用户您好！<br>
         您暂无捐助记录，若您想行善，<br>
         本宿公益将成为你最好的选择。

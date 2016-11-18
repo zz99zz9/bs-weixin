@@ -998,10 +998,6 @@ function cardSafe () {
             regex: '<!-- content -->',
             replace: '<!--include "../pages/card/safe.html"-->'
         }))
-        .pipe(replace({
-            regex: '<!-- js -->',
-            replace: '<script src="js/pages/card/safe.js"></script>'
-        }))
         .pipe(contentIncluder({
             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
         }))

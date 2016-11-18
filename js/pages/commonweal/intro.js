@@ -1,17 +1,10 @@
 var vmIntroduce = avalon.define({
     $id: 'intro',
-    data: {
-        fid: '',
-        cnName: '杜氏助学公益基金',
-        enName: '杜氏助学公益基金',
-        introduction: '杜氏助学公益基金',
-        introduction: '让每个孩子只少能够拥有受教育的机会',
-        logoUrl: ''
-    },
+    fid: 0,
+    data: [],
     userImg: '',
     getUser: function() {
         vmIntroduce.userImg = urlAPINet + Storage.getLocal("user").headImg;
-        console.log(vmIntroduce.userImg);
     },
     //获取基金信息列表
     getInfo: function() {
@@ -24,7 +17,7 @@ var vmIntroduce = avalon.define({
             successCallback: function(json) {
                 if (json.status === 1) {
                     vmIntroduce.data = json.data.list;
-                    vmIntroduce.data.fid = json.data.list[0].id;
+                    vmIntroduce.fid = json.data.list[0].id;
                     vmIntroduce.getAmount();
                 }
             }
@@ -40,7 +33,7 @@ var vmIntroduce = avalon.define({
             url: urls.getDonationAmount,
             data: {
                 cid: cid,
-                fid: vmIntroduce.data.fid
+                fid: vmIntroduce.fid
             },
             successCallback: function(json) {
                 if (json.status === 1) {
@@ -54,7 +47,6 @@ var vmIntroduce = avalon.define({
     open: function() {
         console.log(vmIntroduce.join);
         if (vmIntroduce.join) {
-            console.log(123);
             vmDetailPop.getCardAomunt();
         } else {
             vmDetailPop.getAmount();
@@ -69,7 +61,7 @@ var vmIntroduce = avalon.define({
         }
     },
     goRecord: function() {
-        location.href = "commonweal-record.html";
+        location.href = "commonweal-record.html?cid=" + cid + "&fid=" + vmIntroduce.fid;
     },
 });
 
@@ -129,13 +121,13 @@ var vmDetailPop = avalon.define({
             url: urls.getDonationAmount,
             data: {
                 cid: cid,
-                fid: vmIntroduce.data.fid
+                fid: vmIntroduce.fid
             },
             successCallback: function(json) {
                 if (json.status === 1) {
                     vmDetailPop.amount = json.data.amount;
                     vmDetailPop.join = json.data.join;
-                    vmIntroduce.join = vmDetailPop.join;
+                    vmIntroduce.join = json.data.join;
                     console.log(vmDetailPop.join);
                 }
             }
@@ -149,7 +141,7 @@ var vmDetailPop = avalon.define({
             url: urls.goDonate,
             data: {
                 cid: cid,
-                fid: vmIntroduce.data.fid
+                fid: vmIntroduce.fid
             },
             successCallback: function(json) {
                 if (json.status === 1) {
