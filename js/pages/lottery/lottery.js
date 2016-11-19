@@ -149,31 +149,6 @@ var vmLottery = avalon.define({
             noSwiping : true
         });
     },
-    task: [{
-        img: 'img/card/card_null.svg',
-        name: '会员',
-        chance: 2,
-        add: 2,
-        type: 4
-    }, {
-        img: 'img/card/card_No3.svg',
-        name: '银卡会员',
-        chance: 10,
-        add: 4,
-        type: 3
-    }, {
-        img: 'img/card/card_No2.svg',
-        name: '金卡会员',
-        chance: 20,
-        add: 6,
-        type: 2
-    }, {
-        img: 'img/card/card_No1.svg',
-        name: '黑卡会员',
-        chance: 30,
-        add: 8,
-        type: 1
-    }],
     getText: function(type) {
         if(vmLottery.cardTypeList.indexOf(4)>-1) {
             if(type==4) {
@@ -186,9 +161,7 @@ var vmLottery = avalon.define({
         }
     },
     openLog: function() {
-        popover('./util/lottery-log.html', 1, function() {
-            vmLog.getList();
-        });
+        popover('./util/lottery-log.html', 1);
     },
     openRule: function() {
         popover('./util/lottery-rule.html', 1);
@@ -278,6 +251,7 @@ var vmPopover = avalon.define({
 
 var vmLog = avalon.define({
     $id: 'log',
+    showLoadmore: true,
     list: [],
     pageNo: 1,
     pageSize: 10,
@@ -285,12 +259,17 @@ var vmLog = avalon.define({
         ajaxJsonp({
             url: urls.getPrizeLogList,
             data: { 
-                pageSize: 10, 
-                pageNo:1, 
+                pageSize: vmLog.pageSize, 
+                pageNo:vmLog.pageNo, 
             },
             successCallback: function(json) {
-                if (json.status > 0) {
-                    vmLog.list = [];
+                if (json.status == 1) {
+                    vmLog.pageNo ++;
+
+                    if(json.data.pageCount <= json.data.pageNo) {
+                        vmLog.showLoadmore = false;
+                    }
+
                     var rank = -1;
                     json.data.list.map(function(o) {
                         switch(o.flag) {
