@@ -30,10 +30,11 @@ var vmDetail = avalon.define({
                         });
                     } else {
                         vmDetail.list = json.data;
-                        vmDetail.taskList = [
-                            [0, 0, 0, 0],
-                            [0, 0, 0, 0]
-                        ];
+                        vmDetail.taskList = [];
+                        for(var x = 0; x<json.data.length; x++) {
+                            vmDetail.taskList.push([0, 0, 0, 0]);
+                        }
+
                         for (var i = 0; i < json.data.length; i++) {
                             if (json.data[i].name.indexOf('普通') == -1) {
                                 vmDetail.isNormal = false;
