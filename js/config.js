@@ -186,6 +186,28 @@ function getDates(addDayCount) {
     return year + "-" + month + "-" + day + " " + h + ":" + mins + ":" + s;
 }
 
+//根据指定日期和天数，返回新的时间字符串
+function calDates(date, addDayCount) {
+    var d = new Date(date.replace(/-/g, "/"));
+
+    d.setDate(d.getDate() + addDayCount);
+
+    var year = d.getFullYear(),
+        month = d.getMonth() + 1,
+        day = d.getDate(),
+        h = d.getHours(),
+        mins = d.getMinutes(),
+        s = d.getSeconds();
+
+    if (month < 10) month = "0" + month;
+    if (day < 10) day = "0" + day;
+    if (h < 10) h = "0" + h;
+    if (mins < 10) mins = "0" + mins;
+    if (s < 10) s = "0" + s;
+
+    return year + "-" + month + "-" + day + " " + h + ":" + mins + ":" + s;
+}
+
 function getWeekday(date) {
     var w_array = new Array("星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"),
         d = new Date(date.replace(/-/g, "/"));
