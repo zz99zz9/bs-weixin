@@ -46,8 +46,8 @@
                     <div :if="!@isNormal">
                         <div class="bs-text-larger bs-text-gold bs-text-bolder">收入</div>
                         <div class="promotion-detail-content">
-                            <div>年收入&nbsp; <span class="bs-text-gold">¥{{el.totalAward}}</span></div>
-                            <div>月收入&nbsp; <span class="bs-text-gold">¥{{el.monthAward}}</span></div>
+                            <div>年收入&nbsp; <span class="bs-text-gold">¥{{el.totalAward + el.userBuyCard.monthReturnAmount*12}}</span></div>
+                            <div>月收入&nbsp; <span class="bs-text-gold">¥{{el.monthAward + el.userBuyCard.monthReturnAmount}}</span></div>
                             <div>本收入为本宿品牌推广奖励，请按时发布本宿推广内容。</div>
                         </div>
                     </div>
@@ -64,9 +64,9 @@
                 <section :if="el.status==2">
                     <canvas class="circle" style="z-index: 1;order: 0;"></canvas>
                     
-                    <div :if="!@isNormal" style="order: 2;position: relative;bottom: 55.5vh;height: 0;">
+                    <div :if="!@isNormal" style="order: 2;position: relative;bottom: 62vh;height: 0;">
                         <div class="bs-text-xx-larger bs-text-gold" style="padding-bottom: 10px;">
-                            {{el.totalAward}}
+                            ¥ {{el.totalAward + el.userBuyCard.monthReturnAmount*12}}
                         </div>
                         <div class="bs-text-normal bs-text-white">年推广奖励
                         </div>
@@ -80,10 +80,15 @@
                     </div>
 
                     <div style="order: 1;">
-                        <div :if="!@isNormal">
-                            本月推广奖励 ¥{{el.monthAward}}
-                            <br>
-                            抽奖次数加速 X{{el.userBuyCard.lotteryShareTimes}}
+                        <div :if="!@isNormal" style="text-align:left;width:150px;margin: 20px auto;">
+                            <div style="display: flex;align-items: center;margin-bottom: 10px;">
+                                <img src="../img/card/task-level1.png" alt="" style="width: 24px;margin-right: 5px;">
+                                <div>本月推广奖励 ¥{{el.monthAward+ el.userBuyCard.monthReturnAmount}}</div>
+                            </div>
+                            <div style="display: flex;align-items: center;">
+                                <img src="../img/card/task-level2.png" alt="" style="width: 24px;margin-right: 5px;">
+                                <div>抽奖次数加速 X{{el.userBuyCard.lotteryShareTimes}}</div>
+                            </div>
                         </div>
                         <div :if="@isNormal">
                             本月推广
@@ -93,6 +98,16 @@
                             <div :class="['promotion-btn',@taskList[index][1]?'promotion-done':'promotion-undo']" :on-tap="@complete(index, 1)">{{@taskList[index][1]?'完成':(@list[index].monthShareTimes>1?'待':'推')}}</div>
                             <div :class="['promotion-btn',@taskList[index][2]?'promotion-done':'promotion-undo']" :on-tap="@complete(index, 2)">{{@taskList[index][2]?'完成':(@list[index].monthShareTimes>2?'待':'推')}}</div>
                             <div :class="['promotion-btn',@taskList[index][3]?'promotion-done':'promotion-undo']" :on-tap="@complete(index, 3)">{{@taskList[index][3]?'完成':(@list[index].monthShareTimes>3?'待':'推')}}</div>
+                        </div>
+                        <div :if="!el.currentMonthPlan.isFinished" style="margin-top: 20px;" class="bs-text-large">
+                            第{{el.currentMonthPlan.monthNo}}期推广时间为
+                            <br>
+                            {{el.currentMonthPlan.startTime.slice(0,10)}} 到 {{el.currentMonthPlan.endTime.slice(0,10)}}
+                        </div>
+                        <div :if="el.currentMonthPlan.isFinished&&el.currentMonthPlan.monthNo<12" style="margin-top: 20px;" class="bs-text-large">
+                            第{{el.currentMonthPlan.monthNo+1}}期推广时间为
+                            <br>
+                            {{el.currentMonthPlan.endTime.slice(0,10)}} 到 {{calDates(el.currentMonthPlan.endTime, 30).slice(0,10)}}
                         </div>
                     </div>
                     
