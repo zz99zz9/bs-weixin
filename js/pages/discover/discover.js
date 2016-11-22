@@ -1,6 +1,6 @@
 var vmDiscover = avalon.define({
     $id: 'discover',
-    isLogin: 3,  //0:没登录   1：登录
+    isLogin: 3, //0:没登录   1：登录
     logOff: function() {
         mui.confirm("退出当前账号", "", ["取消", "确定"], function(e) {
             if (e.index == 1) {
@@ -23,5 +23,5 @@ var vmDiscover = avalon.define({
         });
     },
 });
-var a = Storage.getLocal('user').logState;
-vmDiscover.isLogin = a;
+var c = Storage.getLocal('user').logState;
+vmDiscover.isLogin = c;
