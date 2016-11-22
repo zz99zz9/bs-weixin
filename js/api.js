@@ -4,6 +4,7 @@
 var urls = {
     //登录注册
     loginURL: urlAPI + '/usr/user/login',
+    logOut: urlAPI + '/usr/user/logout',
     getCodeURL: urlAPI + '/usr/sms/register',
     getRegisterLogURL: urlAPI + '/usr/user/exists',
     userInfotUrl: urlAPI + '/usr/user/info',
