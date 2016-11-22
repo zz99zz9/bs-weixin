@@ -21,26 +21,25 @@
         <img class="card-buy-img" :attr="{src:@data.imgUrl}" alt="">
         <section style="padding: 10px 0 5px 10px;">
             <div class="bs-text-red bs-text-larger" style="padding-top: 5px; padding-bottom: 15px;">
-                预存 {{@data.amount}}
-                <div class="bs-text-gold bs-text-smaller" style="float: right;" :on-tap="@goSafe">会员卡预存款的安全性如何保障？</div>
+                ¥ {{@data.amount}}
+                <div class="bs-text-gold bs-text-smaller" style="float: right;" :on-tap="@goSafe">VIP会员的推广奖金如何保障？</div>
             </div>
             <div class="card-buy-item">
                 <div class="card-buy-left">
                     <div class="card-buy-circle bs-text-small">
                         <div class="card-buy-fan">
-                            <div class="bs-text-red">{{@data.monthReturnAmount}}元/月</div>
-                            <div class="bs-text-gray" style="font-size: 8px;">现金返还</div>
+                            <div class="bs-text-red">{{@data.monthReturnAmount + @data.everyTimeAward * @data.monthShareTimes}}元/月</div>
+                            <div class="bs-text-gray" style="font-size: 8px;">推广奖励</div>
                         </div>
                     </div>
-                    <div class="bs-text-small bs-text-gray card-buy-con1">预存款现金返还，同时亦可享受{{@data.name}}至尊服务</div>
+                    <div class="bs-text-small bs-text-gray card-buy-con1">高额推广奖励，同时亦可享受{{@data.name}}至尊服务</div>
                 </div>
                 <div class="card-buy-right bs-text-small">
                     <div class="card-buy-con2">
                         <div style="margin-left: 10px;">
-                            推广奖励
+                            预定酒店
                             <br>
-                            <span class="card-buy-right-down bs-text-red">{{@data.everyTimeAward * @data.monthShareTimes}}元/月</span>
-                            <span class="card-buy-right-down bs-text-gray" style="margin-left: 7px; font-size: 8px;">现金返还</span>
+                            <span class="card-buy-right-down bs-text-red">{{round(@data.discount*10,1)}}折</span>
                         </div>
                     </div>
                     <div class="card-buy-con3">
