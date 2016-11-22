@@ -185,6 +185,10 @@ var vmSide = avalon.define({
             success: function(json) {
                 if (json.status === -1) {
                     vmSide.nickName = ' 未登录 ';
+                    var user = {
+                        logState: 0
+                    };
+                    Storage.setLocal('user', user);
                 } else {
                     if (json.data.headUrl === '') {
                         vmSide.headImg = defaultHeadImg;
