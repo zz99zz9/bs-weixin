@@ -2,7 +2,7 @@
 <article class="ms-controller card-log bs-bg-white bs-text-51" :controller="log">
     <div class="bs-text-larger">提现帐号</div>
 
-    <div class="bs-text-white card-log-head" :class="@data.accountType==1?'zfb':'bank'" :if="@data.accountType">
+    <div class="bs-text-white card-log-head" :class="@data.accountType==1?'zfb':'bank'" :if="@data.accountType>0">
         <div :if="@data.accountType==1">
             <div class="bs-text-larger">{{@data.accountNo}}</div>
             <div class="bs-text-smaller">{{@data.accountName}}</div>
@@ -45,7 +45,7 @@
         </div>
     </div>
     <div class="bs-text-gold bs-text-smaller" style="width: 102%;text-align: center;margin-left: -7vw;padding-top: 15px;position: fixed;bottom: -1vh;background: #fff;z-index:99">
-        <div>客服电话: {{SERVICECALL}}</div>
+        <div>客服电话: {{@SERVICECALL}}</div>
         <button :click="@goWeal()" style="background-color: black;color: white;z-index: 11;width: 100%; height: 49px; margin-top: 15px;font-size: 18px;">公益捐赠</button>
     </div>
 </article>

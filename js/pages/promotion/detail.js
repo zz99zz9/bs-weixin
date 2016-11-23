@@ -29,7 +29,6 @@ var vmDetail = avalon.define({
                             location.href = document.referrer || 'index.html';
                         });
                     } else {
-                        vmDetail.list = json.data;
                         vmDetail.taskList = [];
                         for(var x = 0; x<json.data.length; x++) {
                             vmDetail.taskList.push([0, 0, 0, 0]);
@@ -48,6 +47,8 @@ var vmDetail = avalon.define({
                                 }
                             }
                         }
+
+                        vmDetail.list = json.data;
                         vmDetail.a++;
 
                         /**
@@ -93,10 +94,7 @@ var vmDetail = avalon.define({
             });
         });
     },
-    taskList: [
-        [0, 0, 0, 0],
-        [0, 0, 0, 0],
-    ],
+    taskList: [],
     getTaskStatus: function(prIndex, taskIndex) {
         return vmDetail.taskList[prIndex][taskIndex];
     },
@@ -104,7 +102,8 @@ var vmDetail = avalon.define({
     complete: function(prIndex, taskIndex) {
         if (!vmDetail.taskList[prIndex][taskIndex]) {
             var todayDone = false;
-            vmDetail.$model.list[prIndex].currentMonthTaskList.map(function(t) {
+            console.log(prIndex);
+            vmDetail.list[prIndex].currentMonthTaskList.map(function(t) {
                 if (t.submitTime.slice(0, 10) == getToday('date')) {
                     todayDone = true;
                     mui.alert('Sorry, 每天只能完成一次任务！');
@@ -135,7 +134,7 @@ var vmDetail = avalon.define({
                                         mui.alert('感谢您的支持，本宿工作人员审核后，推广奖励将汇入您的钱包，请及时查询！');
                                     }
 
-                                    vmDetail.getList();
+                                    location.href = 'promotion-detail.html';
                                 } else {
                                     mui.alert(json.message);
                                 }
@@ -162,11 +161,14 @@ var vmDetail = avalon.define({
             freeMode: true,
             freeModeSticky: true,
             freeModeMomentumRatio: 0.4,
-            // onSlideChangeEnd: function(swiper) {
-            //     prData.index = swiper.activeIndex;
-            //     Storage.set('prData', prData);
-            // }
+            onSlideChangeEnd: function(swiper) {
+                prData.index = swiper.activeIndex;
+                Storage.set('prData', prData);
+            }
         });
+    },
+    calDates: function(date, count) {
+        return calDates(date, count);
     }
 });
 
