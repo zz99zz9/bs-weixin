@@ -91,6 +91,15 @@ var vmCardBind = avalon.define({
             }
         });
     },
+    openPicker: function() {
+        console.log(123);
+        regionPicker.show(function(items) {
+            vmCardBind.pickerText = (items[0].text || '全部')
+                + " " + (items[1].text?(items[1].text == '全部'?'':items[1].text):'');
+            vmCardBind.provinceId = items[0].value;
+            vmCardBind.cityId = items[1].value;
+        });
+    }
 });
 
 //如果已经绑定过默认帐号，就跳转
@@ -183,30 +192,17 @@ function countSecond() {
         setTimeout(countSecond, 1000);
     }
 }
-var regionPickerBtn = document.getElementById('regionPicker');
+
+var regionPicker = new mui.PopPicker({
+    layer: 2
+});
 
 //获取用户的省市区列表
 ajaxJsonp({
     url: urls.getAllArea,
     successCallback: function(json) {
         if (json.status == 1) {
-            //初始化地区picker，绑定事件
-           (function($, doc) {
-                var regionPicker = new $.PopPicker({
-                    layer: 2
-                });
-                regionPicker.setData(json.data);
-
-                // regionPickerBtn.addEventListener('tap', function(event) {
-                    regionPickerBtn.addEventListener('tap', function(event) {
-                    regionPicker.show(function(items) {
-                        vmCardBind.pickerText = (items[0].text || '全部')
-                            + " " + (items[1].text?(items[1].text == '全部'?'':items[1].text):'');
-                        vmCardBind.provinceId = items[0].value;
-                        vmCardBind.cityId = items[1].value;
-                    });
-                }, false);
-           })(mui, document);
+            regionPicker.setData(json.data);
         }
     }
 });
