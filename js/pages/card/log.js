@@ -25,7 +25,7 @@ var vmCardLog = avalon.define({
                         json.data = { accountType: 0, accountNo: '' };
                     }
                     vmCardLog.data = json.data;
-                    avalon.scan(document.body);
+                    // avalon.scan(document.body);
                 }
             }
         });

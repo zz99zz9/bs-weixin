@@ -15,7 +15,7 @@
         <div :if="@bindType==2">
             <input type="text" placeholder="您的银行卡号" :duplex="@bankNo">
             <input type="text" placeholder="开户行:X银行X市分行X支行" :duplex="@bankName">
-            <button id="regionPicker" :class="['mui-btn mui-btn-block', @pickerText?'':'bs-text-aaa']" type="button" style="padding: 0;background-color: transparent;border: none;border-bottom: solid 1px #ccc;margin-top: 17px;line-height: 36px;">{{@pickerText?@pickerText:'请选择开户行的地区'}}</button>
+            <button id="regionPickerBtn" :class="['mui-btn mui-btn-block', @pickerText?'':'bs-text-aaa']" type="button" style="padding: 0;background-color: transparent;border: none;border-bottom: solid 1px #ccc;margin-top: 17px;line-height: 36px;" :click="@openPicker">{{@pickerText?@pickerText:'请选择开户行的地区'}}</button>
             <input type="text" placeholder="您的开户姓名" :duplex="@accountName">
         </div>
     </form>
