@@ -131,10 +131,12 @@ var vmDetail = avalon.define({
                                     }
 
                                     if (done == vmDetail.list[prIndex].monthShareTimes) {
-                                        mui.alert('感谢您的支持，本宿工作人员审核后，推广奖励将汇入您的钱包，请及时查询！');
+                                        mui.alert('感谢您的支持，本宿工作人员审核后，推广奖励将汇入您的钱包，请及时查询！', function() {
+                                            location.href = 'promotion-detail.html';
+                                        });
+                                    } else {
+                                        location.href = 'promotion-detail.html';
                                     }
-
-                                    location.href = 'promotion-detail.html';
                                 } else {
                                     mui.alert(json.message);
                                 }
