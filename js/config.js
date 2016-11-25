@@ -599,15 +599,15 @@ function modalShow(url, type, callback) {
     switch (type) {
         case 1:
             $('#modal-text').load(url, function() {
+                avalon.scan(document.getElementById('modal-text-content'));
                 if (typeof callback == "function") {
                     callback();
                 }
-                avalon.scan(document.getElementsByClassName('mask')[0]);
             });
             break;
         case 2:
             $('#modal-text').html(url);
-            avalon.scan(document.getElementsByClassName('mask')[0]);
+            avalon.scan(document.getElementById('modal-text-content'));
             break;
         default:
             break;
