@@ -3,7 +3,7 @@ Storage.setLocal('user', {openUserInfo: 1});
 
 var vmCardList = avalon.define({
     $id: 'cardList',
-    data: [{imgUrl: ''}],
+    data: [],
     getData: function() {
         ajaxJsonp({
             url: urls.getDicCardList,
