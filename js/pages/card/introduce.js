@@ -34,7 +34,9 @@ var vmIntroduce = avalon.define({
                 }
             }
         });
-        
+    },
+    round: function(a, b) {
+        return round(a, b);
     }
 });
 

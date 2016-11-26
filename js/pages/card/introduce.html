@@ -99,7 +99,7 @@
                     <td>推广一次获
                         <br>得{{@data[0].lotteryShareTimes}}次抽奖机会
                         <br> +
-                        <br>{{@data[0].everyTimeAward*@data[0].monthShareTimes + @data[0].monthReturnAmount}} 元/月</td>
+                        <br>{{@data[0].everyTimeAward*@data[0].monthShareTimes+@data[0].monthReturnAmount}} 元/月</td>
                 </tr>
                 <tr>
                     <td class="introduce-table-grey">抽奖游戏</td>
@@ -131,9 +131,9 @@
             <div class="introduce-content" style="border: none;">
                 所有会员均可参加本宿的推广奖励计划。
                 <br>普通会员每转发本宿一条微信到自己的朋友圈即可获得{{@data[3].lotteryShareTimes}}次抽奖机会，每天最多转发一条，每条只能转发一次，每月最高奖励4条；
-                <br>银卡会员每月转发{{@data[2].monthShareTimes}}条本宿微信到自己的朋友圈即可获得{{@data[2].everyTimeAward*@data[2].monthShareTimes + @data[2].monthReturnAmount}}元的推广现金奖励，每天最多转发一条，每条只能转发一次；
-                <br>金卡会员每月转发{{@data[1].monthShareTimes}}条本宿微信到自己的朋友圈即可获得{{@data[1].everyTimeAward*@data[1].monthShareTimes+ @data[1].monthReturnAmount}}元的推广现金奖励，每天最多转发一条，每条只能转发一次；
-                <br>黑卡会员每月转发{{@data[0].monthShareTimes}}条本宿微信到自己的朋友圈即可获得{{@data[0].everyTimeAward*@data[0].monthShareTimes+ @data[0].monthReturnAmount}}元的推广现金奖励。
+                <br>银卡会员每月转发{{@data[2].monthShareTimes}}条本宿微信到自己的朋友圈即可获得{{@round(@data[2].everyTimeAward*@data[2].monthShareTimes+@data[2].monthReturnAmount,0)}}元的推广现金奖励，每天最多转发一条，每条只能转发一次；
+                <br>金卡会员每月转发{{@data[1].monthShareTimes}}条本宿微信到自己的朋友圈即可获得{{round(@data[1].everyTimeAward*@data[1].monthShareTimes+@data[1].monthReturnAmount,0)}}元的推广现金奖励，每天最多转发一条，每条只能转发一次；
+                <br>黑卡会员每月转发{{@data[0].monthShareTimes}}条本宿微信到自己的朋友圈即可获得{{round(@data[0].everyTimeAward*@data[0].monthShareTimes+@data[0].monthReturnAmount,0)}}元的推广现金奖励。
             </div>
         </div>
     </div>
