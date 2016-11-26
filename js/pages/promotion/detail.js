@@ -102,7 +102,7 @@ var vmDetail = avalon.define({
     complete: function(prIndex, taskIndex) {
         if (!vmDetail.taskList[prIndex][taskIndex]) {
             var todayDone = false;
-            console.log(prIndex);
+
             vmDetail.list[prIndex].currentMonthTaskList.map(function(t) {
                 if (t.submitTime.slice(0, 10) == getToday('date')) {
                     todayDone = true;
@@ -111,39 +111,43 @@ var vmDetail = avalon.define({
             });
 
             if (!todayDone) {
-                mui.confirm('请转发本宿相关内容到自己的朋友圈，内容可以采用本宿提供的，也可以自己创作编辑。', '', ["知道了", "已完成"], function(e) {
-                    if (e.index == 1) {
-                        //记录当前轮播页
-                        Storage.set('prData', { index: prIndex });
+                vmShareList.ptid = vmDetail.list[prIndex].id;
+                vmPopover.useCheck = 0;
+                popover('./util/shareList.html', 1);
 
-                        ajaxJsonp({
-                            url: urls.submitPromoteTaskList,
-                            data: { pid: vmDetail.list[prIndex].id },
-                            successCallback: function(json) {
-                                if (json.status == 1) {
-                                    vmDetail.taskList[prIndex][taskIndex] = 1;
+                // mui.confirm('请转发本宿相关内容到自己的朋友圈，内容可以采用本宿提供的，也可以自己创作编辑。', '', ["知道了", "已完成"], function(e) {
+                //     if (e.index == 1) {
+                //         //记录当前轮播页
+                //         Storage.set('prData', { index: prIndex });
 
-                                    var done = 0;
-                                    for (var i = 0; i < 4; i++) {
-                                        if (vmDetail.taskList[prIndex][i]) {
-                                            done++;
-                                        }
-                                    }
+                //         ajaxJsonp({
+                //             url: urls.submitPromoteTaskList,
+                //             data: { pid: vmDetail.list[prIndex].id },
+                //             successCallback: function(json) {
+                //                 if (json.status == 1) {
+                //                     vmDetail.taskList[prIndex][taskIndex] = 1;
 
-                                    if (done == vmDetail.list[prIndex].monthShareTimes) {
-                                        mui.alert('感谢您的支持，本宿工作人员审核后，推广奖励将汇入您的钱包，请及时查询！', function() {
-                                            location.href = 'promotion-detail.html';
-                                        });
-                                    } else {
-                                        location.href = 'promotion-detail.html';
-                                    }
-                                } else {
-                                    mui.alert(json.message);
-                                }
-                            }
-                        });
-                    }
-                });
+                //                     var done = 0;
+                //                     for (var i = 0; i < 4; i++) {
+                //                         if (vmDetail.taskList[prIndex][i]) {
+                //                             done++;
+                //                         }
+                //                     }
+
+                //                     if (done == vmDetail.list[prIndex].monthShareTimes) {
+                //                         mui.alert('感谢您的支持，本宿工作人员审核后，推广奖励将汇入您的钱包，请及时查询！', function() {
+                //                             location.href = 'promotion-detail.html';
+                //                         });
+                //                     } else {
+                //                         location.href = 'promotion-detail.html';
+                //                     }
+                //                 } else {
+                //                     mui.alert(json.message);
+                //                 }
+                //             }
+                //         });
+                //     }
+                // });
             }
         }
     },
@@ -182,6 +186,26 @@ var vmPopover = avalon.define({
         $('.popover').addClass('popover-hide');
         popover_ishide = true;
     }
+});
+
+//分享内容弹窗
+var vmShareList = avalon.define({
+    $id: 'shareList',
+    ptid: 0,
+    list: [
+        {
+            id: '1',
+            img: '../img/getFund.jpg',
+        },
+        {
+            id: '2',
+            img: '../img/generalize.jpg',
+        },
+        {
+            id: '3',
+            img: '../img/promote_head.jpg',
+        },
+    ]
 });
 
 vmDetail.getList();
