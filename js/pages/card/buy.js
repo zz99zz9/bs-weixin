@@ -120,6 +120,9 @@ var vmCardBuy = avalon.define({
     },
     goSafe: function() {
         location.href = 'card-safe.html';
+    },
+    round: function(a, b) {
+        return round(a, b);
     }
 });
 
