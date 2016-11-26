@@ -94,10 +94,10 @@
                             本月推广
                         </div>
                         <div style="display: flex;justify-content: center;">
-                            <div :class="['promotion-btn',(@taskList[index][0]?'promotion-done':'promotion-undo')]" :on-tap="@complete(index, 0)">{{@taskList[index][0]?'完成':(@list[index].monthShareTimes>0?'待':'推')}}</div>
-                            <div :class="['promotion-btn',(@taskList[index][1]?'promotion-done':'promotion-undo')]" :on-tap="@complete(index, 1)">{{@taskList[index][1]?'完成':(@list[index].monthShareTimes>1?'待':'推')}}</div>
-                            <div :class="['promotion-btn',(@taskList[index][2]?'promotion-done':'promotion-undo')]" :on-tap="@complete(index, 2)">{{@taskList[index][2]?'完成':(@list[index].monthShareTimes>2?'待':'推')}}</div>
-                            <div :class="['promotion-btn',(@taskList[index][3]?'promotion-done':'promotion-undo')]" :on-tap="@complete(index, 3)">{{@taskList[index][3]?'完成':(@list[index].monthShareTimes>3?'待':'推')}}</div>
+                            <div :class="['promotion-btn',(@taskList[index][0]?'promotion-done':'promotion-undo')]" :click="@complete(index, 0)">{{@taskList[index][0]?'完成':(@list[index].monthShareTimes>0?'待':'推')}}</div>
+                            <div :class="['promotion-btn',(@taskList[index][1]?'promotion-done':'promotion-undo')]" :click="@complete(index, 1)">{{@taskList[index][1]?'完成':(@list[index].monthShareTimes>1?'待':'推')}}</div>
+                            <div :class="['promotion-btn',(@taskList[index][2]?'promotion-done':'promotion-undo')]" :click="@complete(index, 2)">{{@taskList[index][2]?'完成':(@list[index].monthShareTimes>2?'待':'推')}}</div>
+                            <div :class="['promotion-btn',(@taskList[index][3]?'promotion-done':'promotion-undo')]" :click="@complete(index, 3)">{{@taskList[index][3]?'完成':(@list[index].monthShareTimes>3?'待':'推')}}</div>
                         </div>
                         <div :if="!el.currentMonthPlan.isFinished" style="margin-top: 5px;" class="bs-text-smaller">
                             第{{el.currentMonthPlan.monthNo}}期推广时间为
