@@ -24,28 +24,6 @@ var vmShare = avalon.define({
     $id: 'share',
     shareID: shareID,
     data: {},
-    list: [{
-        id: 1,
-        src: 'http://www.bensue.com/article.html?id=1',
-        title: '酒店品牌能否对接共享经济',
-        desc: '这是一个产业升级的时代，赋予了我们创新的机会；这是一个消费升级的时代，给予了我们创新的理由。分享经济能否对接传统酒店？',
-        imgUrl: urlWeixin + '/img/logo.jpg', // 分享图标
-        link: 'http://mp.weixin.qq.com/s/2UENgugjioKC19YR5P7vSg'
-    }, {
-        id: 2,
-        src: 'http://www.bensue.com/article.html?id=2',
-        title: '我们希望能够改变什么？',
-        desc: '诺基亚认为手机是通讯工具，而老乔却认为手机是生活和娱乐的工具。传统酒店认为酒店是住宿空间，而本宿却认为酒店是生活和娱乐的空间，是人们生活方式的延展。',
-        imgUrl: urlWeixin + '/img/logo.jpg', // 分享图标
-        link: 'http://mp.weixin.qq.com/s/Ewjocde0dHGqpNVZo6UHJw'
-    }, {
-        id: 3,
-        src: 'http://www.bensue.com/article.html?id=3',
-        title: '我们希望能够帮助什么',
-        desc: '大家都知道变革的时代来了，却依然选择再次等待。各种酒店不良报道的背后是高昂的成本导致从业者的慌不择路',
-        imgUrl: urlWeixin + '/img/logo.jpg', // 分享图标
-        link: 'http://mp.weixin.qq.com/s/EjEZBeyTpkdGrO4fHhUTLg'
-    }],
     getData: function() {
         ajaxJsonp({
             url: urls.getShareData,

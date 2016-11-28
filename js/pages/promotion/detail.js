@@ -141,6 +141,9 @@ var vmDetail = avalon.define({
     },
     calDates: function(date, count) {
         return calDates(date, count);
+    },
+    round: function(a, b) {
+       return round(a, b); 
     }
 });
 
