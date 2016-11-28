@@ -1,9 +1,12 @@
 <div id="modal-text-content" class="content-rule ms-controller" ms-controller="shareList">
-    <a style="display:block;margin-bottom: 15px;border-radius: 10px;border: 1px solid #ddd;overflow: hidden;text-align: center;" :for="el in @list" :attr="{href: 'promotion-share.html?id=' + el.id + '&ptid=' + @ptid}">
-        <img :attr="{src: el.img}" style="width: 100%;" alt="">
-        <div class="bs-text-large" style="margin: 3px 0 6px 0;" href="">
+    <a style="display:block;margin-bottom: 15px;padding: 10px;border-radius: 10px;border: 1px solid #ddd;overflow: hidden;" :for="el in @list" :attr="{href: 'promotion-share.html?id=' + el.id + '&ptid=' + @ptid}">
+        <div style="font-size: 18px;margin: 5px 0;text-align: left;">{{el.shareTitle}}</div>
+        <img :attr="{src: el.imgUrl}" style="width: 100%;" alt="">
+        <div class="bs-text-smaller bs-text-gray" style="text-align: left;border-bottom: 1px solid #ddd;">{{el.shareContent|truncate(50)}}</div>
+        <div class="bs-text-large" style="margin-top: 8px;">
             请点击阅读后，用微信分享
-            <img src="../img/icon/right-arrow.svg" style="width: 16px;position: relative;top: 3px;right: 8px;float: right;" alt="">
+            <img src="../img/icon/right-arrow.svg" style="width: 16px;position: relative;top: 3px;right: -3px;float: right;" alt="">
         </div>
+        
     </a>
 </div>

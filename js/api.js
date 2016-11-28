@@ -212,7 +212,9 @@ var urls = {
     getLotteryTimes: urlAPI + '/vip/lotteryTimes/times', //会员的剩余抽奖次数
     getAllDicCardList: urlAPI + '/vip/membershipCard/all', //获取所有会员卡字典数据
     getAccountCommonwealInfo: urlAPI + '/bnf/userDonateFoundation/cardDonateAmount', //会员账户的公益信息
-    
+    getShareList: urlAPI + '/vip/shareMessage/list', //分享内容列表
+    getShareData: urlAPI + '/vip/shareMessage/detail', //分享内容详情
+
     //客服
     getAuditList: urlAPI + '/vip/userCardMarketPackageTask/auditList', //查询待审核任务列表
     getAuditSuccess: urlAPI + '/vip/userCardMarketPackageTask/auditSuccess', //审核任务通过或不通过
