@@ -22,6 +22,10 @@ if (shareID != "") {
 
 var vmShare = avalon.define({
     $id: 'share',
+    isShowMask: true,
+    maskHide: function() {
+        vmShare.isShowMask = false;  
+    },
     shareID: shareID,
     data: {},
     getData: function() {

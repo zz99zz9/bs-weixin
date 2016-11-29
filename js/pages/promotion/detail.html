@@ -46,7 +46,7 @@
                     <div :if="!@isNormal">
                         <div class="bs-text-larger bs-text-gold bs-text-bolder">收入</div>
                         <div class="promotion-detail-content">
-                            <div>年收入&nbsp; <span class="bs-text-gold">¥{{el.totalAward + el.userBuyCard.monthReturnAmount*12)}}</span></div>
+                            <div>年收入&nbsp; <span class="bs-text-gold">¥{{@round(el.totalAward+el.userBuyCard.monthReturnAmount*12, 0)}}</span></div>
                             <div>月收入&nbsp; <span class="bs-text-gold">¥{{@round(el.monthAward+el.userBuyCard.monthReturnAmount, 0)}}</span></div>
                             <div>本收入为本宿品牌推广奖励，请按时发布本宿推广内容。</div>
                         </div>
