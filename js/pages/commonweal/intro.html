@@ -18,7 +18,7 @@
     <div class="intro-content">
         <div :for="el in @data" :on-tap="@goDetail(el.id)" style="padding:10px 0 20px;">
             <div class="intro-text-red bs-text-smaller" :on-tap="@goDetail(el.id)">
-                <img class="intro-img-love" :on-tap="@goDetail(el.id)" :attr="{src: urlAPINet + el.logoUrl}">
+                <img class="intro-img-love" :on-tap="@goDetail(el.id)" :attr="{src: @urlAPINet + el.logoUrl}">
                 <span style="position: relative; top: -3px; margin-left: 5px;" :on-tap="@goDetail(el.id)"> {{el.cnName}}</span>
                 <div class="bs-text-x-smaller" :on-tap="@goDetail(el.id)">{{el.enName}}</div>
             </div>

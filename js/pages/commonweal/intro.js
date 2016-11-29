@@ -1,5 +1,6 @@
 var vmIntroduce = avalon.define({
     $id: 'intro',
+    urlAPINet: urlAPINet,
     fid: 0,
     data: [],
     userImg: '',
