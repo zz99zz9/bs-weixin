@@ -1,3 +1,14 @@
 <div ms-controller="share" class="ms-controller">
+    <div class="mask bs-text-white" :if="@isShowMask" :click="@maskHide">
+        <img src="../img/icon/arrow-top-right.svg" style="width: 30px;">
+        <div class="bs-text-larger" style="padding-top: 30px;line-height: 25px;">
+            请点击右上角
+            <br> 
+            分享到朋友圈
+            <br>
+            完成推广任务
+        </div>
+        <div :click="@maskHide" class="bs-text-large" style="padding-top: 35px;">关闭 <br></div>
+    </div>
     <iframe :attr="{src: @data.pcUrl + '?id=' + @data.id}" style="height: 100vh; width: 100vw;border: none;"></iframe>
 </div>
