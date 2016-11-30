@@ -1,5 +1,6 @@
 var vmIntroduce = avalon.define({
     $id: 'intro',
+    urlAPINet: urlAPINet,
     fid: 0,
     data: [],
     userImg: '',
@@ -29,6 +30,7 @@ var vmIntroduce = avalon.define({
         location.href = "commonweal-detail.html?id=" + id + "&cid=" + cid;
     },
     join: '',
+    rate: 0,
     getAmount: function() {
         //每月捐赠金额
         ajaxJsonp({
@@ -42,6 +44,7 @@ var vmIntroduce = avalon.define({
                     vmDetailPop.amount = json.data.amount;
                     vmDetailPop.join = json.data.join;
                     vmIntroduce.join = vmDetailPop.join;
+                    vmIntroduce.rate = round(json.data.rate * 100, 1);
                 } else {
                     mui.alert(json.message);
                 }
@@ -49,7 +52,7 @@ var vmIntroduce = avalon.define({
         });
     },
     open: function() {
-        console.log(vmIntroduce.join);
+
         if (vmIntroduce.join) {
             vmDetailPop.getCardAomunt();
         } else {

@@ -29,7 +29,6 @@ var vmDetail = avalon.define({
                             location.href = document.referrer || 'index.html';
                         });
                     } else {
-                        vmDetail.list = json.data;
                         vmDetail.taskList = [];
                         for(var x = 0; x<json.data.length; x++) {
                             vmDetail.taskList.push([0, 0, 0, 0]);
@@ -48,6 +47,8 @@ var vmDetail = avalon.define({
                                 }
                             }
                         }
+
+                        vmDetail.list = json.data;
                         vmDetail.a++;
 
                         /**
@@ -93,10 +94,7 @@ var vmDetail = avalon.define({
             });
         });
     },
-    taskList: [
-        [0, 0, 0, 0],
-        [0, 0, 0, 0],
-    ],
+    taskList: [],
     getTaskStatus: function(prIndex, taskIndex) {
         return vmDetail.taskList[prIndex][taskIndex];
     },
@@ -104,7 +102,8 @@ var vmDetail = avalon.define({
     complete: function(prIndex, taskIndex) {
         if (!vmDetail.taskList[prIndex][taskIndex]) {
             var todayDone = false;
-            vmDetail.$model.list[prIndex].currentMonthTaskList.map(function(t) {
+
+            vmDetail.list[prIndex].currentMonthTaskList.map(function(t) {
                 if (t.submitTime.slice(0, 10) == getToday('date')) {
                     todayDone = true;
                     mui.alert('Sorry, 每天只能完成一次任务！');
@@ -112,37 +111,9 @@ var vmDetail = avalon.define({
             });
 
             if (!todayDone) {
-                mui.confirm('请转发本宿相关内容到自己的朋友圈，内容可以采用本宿提供的，也可以自己创作编辑。', '', ["知道了", "已完成"], function(e) {
-                    if (e.index == 1) {
-                        //记录当前轮播页
-                        Storage.set('prData', { index: prIndex });
-
-                        ajaxJsonp({
-                            url: urls.submitPromoteTaskList,
-                            data: { pid: vmDetail.list[prIndex].id },
-                            successCallback: function(json) {
-                                if (json.status == 1) {
-                                    vmDetail.taskList[prIndex][taskIndex] = 1;
-
-                                    var done = 0;
-                                    for (var i = 0; i < 4; i++) {
-                                        if (vmDetail.taskList[prIndex][i]) {
-                                            done++;
-                                        }
-                                    }
-
-                                    if (done == vmDetail.list[prIndex].monthShareTimes) {
-                                        mui.alert('感谢您的支持，本宿工作人员审核后，推广奖励将汇入您的钱包，请及时查询！');
-                                    }
-
-                                    vmDetail.getList();
-                                } else {
-                                    mui.alert(json.message);
-                                }
-                            }
-                        });
-                    }
-                });
+                vmShareList.ptid = vmDetail.list[prIndex].id;
+                vmPopover.useCheck = 0;
+                popover('./util/shareList.html', 1, function() {});
             }
         }
     },
@@ -162,11 +133,17 @@ var vmDetail = avalon.define({
             freeMode: true,
             freeModeSticky: true,
             freeModeMomentumRatio: 0.4,
-            // onSlideChangeEnd: function(swiper) {
-            //     prData.index = swiper.activeIndex;
-            //     Storage.set('prData', prData);
-            // }
+            onSlideChangeEnd: function(swiper) {
+                prData.index = swiper.activeIndex;
+                Storage.set('prData', prData);
+            }
         });
+    },
+    calDates: function(date, count) {
+        return calDates(date, count);
+    },
+    round: function(a, b) {
+       return round(a, b); 
     }
 });
 
@@ -180,4 +157,28 @@ var vmPopover = avalon.define({
     }
 });
 
+//分享内容弹窗
+var vmShareList = avalon.define({
+    $id: 'shareList',
+    ptid: 0,
+    list: [],
+    getList: function() {           
+        ajaxJsonp({
+            url: urls.getShareList,
+            data: { pageSize: 5 },
+            successCallback: function(json) {
+                if (json.status == 1) {
+                    json.data.list.map(function(o) {
+                        o.imgUrl = urlAPINet + o.imgUrl;
+                        vmShareList.list.push(o);
+                    })
+                } else {
+                    mui.alert(json.message);
+                }
+            }
+        });
+    }
+});
+
 vmDetail.getList();
+vmShareList.getList();

@@ -357,8 +357,8 @@ vmRoom = avalon.define({
                 vmRoom.end = endObj.month + '月' + endObj.day + '日' + '<br>' + getWeekday(endObj.date);
             }
         }
-
-        if (startIndex && endIndex) {
+        
+        if ((startIndex >= 0) && endIndex) {
             vmRoom.amount = (endIndex - startIndex);
         } else {
             vmRoom.amount = '0';

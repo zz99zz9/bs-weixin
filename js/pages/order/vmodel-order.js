@@ -377,7 +377,7 @@ function payOrder() {
             payType: vmOrder.payType,
             fid: vmOrder.fundIndex > -1 ? vmOrder.fundList[vmOrder.fundIndex].id : '',
             orids: vmOrder.orids.join(','),
-            returnUrl: window.location.origin + '/payend.html?id=' + orderid,
+            returnUrl: window.location.origin + "/closePage.html",
             cid: vmSelectCard.selectCardID,
             did: vmOrder.did,
         },
@@ -385,13 +385,14 @@ function payOrder() {
             if (json.status === 1) {
                 vmOrder.payinfo = json.data;
                 if (vmOrder.payType == 1) { //支付宝支付
-                    if (isweixin) { //如果是在微信里打开
-                        // location.href = 'alipay-iframe.html?payUrl=' + encodeURIComponent(json.data.payUrl);
-                        mui.alert("请点击微信右上角菜单中的\"在浏览器中打开\"选项，在外部浏览器中使用支付宝支付", "支付订单");
-                        vmOrder.btn2Disabled = false;
-                    } else { //在其它浏览器打开
-                        location.href = json.data.payUrl;
-                    }
+                    // if (isweixin) { //如果是在微信里打开
+                    //     // location.href = 'alipay-iframe.html?payUrl=' + encodeURIComponent(json.data.payUrl);
+                    //     mui.alert("请点击微信右上角菜单中的\"在浏览器中打开\"选项，在外部浏览器中使用支付宝支付", "支付订单");
+                    //     vmOrder.btn2Disabled = false;
+                    // } else { //在其它浏览器打开
+                    //     location.href = json.data.payUrl;
+                    // }
+                    location.href = 'alipay.html?oid=' + orderid + '&payUrl=' + encodeURIComponent(json.data.payUrl);
                 } else if (vmOrder.payType == 2) { //微信支付
                     onBridgeReady();
                 } else if (vmOrder.payType == 6) { //钱包支付

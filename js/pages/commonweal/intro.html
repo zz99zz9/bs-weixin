@@ -18,7 +18,7 @@
     <div class="intro-content">
         <div :for="el in @data" :on-tap="@goDetail(el.id)" style="padding:10px 0 20px;">
             <div class="intro-text-red bs-text-smaller" :on-tap="@goDetail(el.id)">
-                <img class="intro-img-love" :on-tap="@goDetail(el.id)" :attr="{src: urlAPINet + el.logoUrl}">
+                <img class="intro-img-love" :on-tap="@goDetail(el.id)" :attr="{src: @urlAPINet + el.logoUrl}">
                 <span style="position: relative; top: -3px; margin-left: 5px;" :on-tap="@goDetail(el.id)"> {{el.cnName}}</span>
                 <div class="bs-text-x-smaller" :on-tap="@goDetail(el.id)">{{el.enName}}</div>
             </div>
@@ -28,10 +28,10 @@
             </div>
         </div>
         <div style="margin: 4vh 30px 3vh 30px;">
-            <button class="intro-button bs-text-larger" :on-tap="@open">马上捐赠</button>
+            <button class="intro-button bs-text-larger" :click="@open">马上捐赠</button>
         </div>
         <div class="bs-text-x-smaller bs-text-102">
-            以您个人名义，将推广奖励收入的15%捐赠
+            以您个人名义，将推广奖励收入的{{@rate}}%捐赠
             <br> 给指定的公益组织，同时本宿将按照1.8:1的比例跟捐。
         </div>
         <div class="bs-text-smaller bs-text-gold" style="position: relative; bottom: -5vh;" :on-tap="@goRecord()">

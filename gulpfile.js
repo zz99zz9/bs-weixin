@@ -415,6 +415,10 @@ function discover() {
             regex: '<!-- content -->',
             replace: '<!--include "../pages/discover/discover.html"-->'
         }))
+        .pipe(replace({
+            regex: '<!-- js -->',
+            replace: '<script src="js/pages/discover/discover.js"></script>'
+        }))
         // .pipe(replace({regex:'<h1 id="headerReplace" class="mui-title"></h1>', replace:'<h1 id="headerReplace" class="mui-title">个人信息</h1>'}))
         .pipe(contentIncluder({
             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
@@ -1280,6 +1284,28 @@ function promotionDetail() {
             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
         }))
         .pipe(rename('promotion-detail.html'))
+        .pipe(gulp.dest('./src'));
+}
+
+//会员卡推广分享页
+function promotionShare() {
+    return gulp.src('./js/layout/shell-av2.html')
+        .pipe(replace({
+            regex: '<!-- css -->',
+            replace: '<link rel="stylesheet" href="css/promotion.css">'
+        }))
+        .pipe(replace({
+            regex: '<!-- content -->',
+            replace: '<!--include "../pages/promotion/share.html"-->'
+        }))
+        .pipe(replace({
+            regex: '<!-- js -->',
+            replace: '<script src="js/pages/promotion/share.js"></script>'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('promotion-share.html'))
         .pipe(gulp.dest('./src'));
 }
 
@@ -2778,6 +2804,7 @@ function popHtml() {
             './js/pages/card/lottery-rule.html',
             './js/pages/lottery/prizeModal.html',
             './js/pages/promotion/promotion-rule.html',
+            './js/pages/promotion/shareList.html',
             './js/pages/commonweal/commonweal-pop.html',
             './js/pages/commonweal/noCard.html',
             './js/pages/card/ETF.html',
@@ -2862,6 +2889,7 @@ gulp.task('html', gulp.parallel(
     cardPromotion,
     promotionApply,
     promotionDetail,
+    promotionShare,
     lottery,
     login,
     homepage,

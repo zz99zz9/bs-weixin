@@ -25,6 +25,7 @@ var vmCardLog = avalon.define({
                         json.data = { accountType: 0, accountNo: '' };
                     }
                     vmCardLog.data = json.data;
+                    // avalon.scan(document.body);
                 }
             }
         });
@@ -59,6 +60,7 @@ var vmCardLog = avalon.define({
     goWeal: function() {
         location.href = 'commonweal-introduce.html?cid=' + cid;
     },
+    SERVICECALL: SERVICECALL
 });
 
 var vmPopover = avalon.define({
