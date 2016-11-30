@@ -38,13 +38,15 @@ if (!newOrder) {
         day: {
             start: '',
             end: '',
-            filter: []
+            filter: [],
+            selectTid: []
         },
         partTime: {
             start: '',
             end: '',
-            filter: []
-        }
+            filter: [],
+            selectTid: []
+        },
     };
     Storage.set("newOrder", newOrder);
 }
@@ -281,6 +283,7 @@ var vmHotel = avalon.define({
         });
     },
     roomTypeSelectList: [],
+    selectTid: [],
     openRoomFilter: function() {
         stopSwipeSkip.do(function() {
             vmBtn.useCheck = 1;
@@ -298,6 +301,7 @@ var vmHotel = avalon.define({
             }
 
             vmHotel.tid = vmHotel.roomTypeSelectList.join(',');
+            vmHotel.selectTid = vmHotel.tid;
         });
     },
     roomTypeList: [],
@@ -321,7 +325,7 @@ var vmHotel = avalon.define({
             data: {
                 hid: hid,
                 tid: vmHotel.tid,
-                aids: roomType.type ? newOrder.partTime.filter.join(',') : newOrder.day.filter.join(','),
+                aids: roomType ? newOrder.partTime.filter.join(',') : newOrder.day.filter.join(','),
                 startTime: roomType ? newOrder.partTime.start : (newOrder.day.start==getToday('date')?getToday():newOrder.day.start),
                 endTime: roomType ? newOrder.partTime.end : newOrder.day.end,
                 isPartTime: roomType,
@@ -368,7 +372,11 @@ var vmHotel = avalon.define({
         });
     }
 })
-
+if (newOrder.day.selectTid != []) {
+    vmHotel.tid = newOrder.day.selectTid;
+} else if (vmHotel.day.selectTid == []) {
+    vmHotel.tid = '';
+}
 //弹出框的确定按钮
 var vmBtn = avalon.define({
     $id: 'popoverBtnOK',
@@ -386,6 +394,7 @@ var vmBtn = avalon.define({
                 break;
             case 'roomType': 
                 mui('#pullrefresh').pullRefresh().refresh(true);
+                saveStorage();
                 vmHotel.getRoomList();
                 break;
         }
@@ -537,15 +546,16 @@ function saveStorage() {
         $.extend(newOrder.partTime, {
             start: getStartTime(roomType),
             end: getEndTime(roomType),
-            filter: vmFilter.$model.selectPartTimeFilter
+            filter: vmFilter.$model.selectPartTimeFilter,
+            selectTid: vmHotel.$model.selectTid
         });
     } else {
         $.extend(newOrder.day, {
             start: getStartTime(roomType),
             end: getEndTime(roomType),
-            filter: vmFilter.$model.selectDayFilter
+            filter: vmFilter.$model.selectDayFilter,
+            selectTid: vmHotel.$model.selectTid
         });
     }
-
     Storage.set("newOrder", newOrder);
 }
