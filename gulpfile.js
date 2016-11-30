@@ -415,10 +415,6 @@ function discover() {
             regex: '<!-- content -->',
             replace: '<!--include "../pages/discover/discover.html"-->'
         }))
-        .pipe(replace({
-            regex: '<!-- js -->',
-            replace: '<script src="js/pages/discover/discover.js"></script>'
-        }))
         // .pipe(replace({regex:'<h1 id="headerReplace" class="mui-title"></h1>', replace:'<h1 id="headerReplace" class="mui-title">个人信息</h1>'}))
         .pipe(contentIncluder({
             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
