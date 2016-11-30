@@ -301,7 +301,11 @@ var vmHotel = avalon.define({
             }
 
             vmHotel.tid = vmHotel.roomTypeSelectList.join(',');
-            vmHotel.selectTid = vmHotel.tid;
+            if (vmHotel.tid == '') {
+                vmHotel.selectTid = [];
+            } else {
+                vmHotel.selectTid = vmHotel.tid;
+            }
         });
     },
     roomTypeList: [],
@@ -373,8 +377,23 @@ var vmHotel = avalon.define({
     }
 })
 if (newOrder.day.selectTid != []) {
-    vmHotel.tid = newOrder.day.selectTid;
-} else if (vmHotel.day.selectTid == []) {
+    vmHotel.tid = newOrder.day.selectTid;   //取到的是串，向数组填的是数字，得转换下
+    var a = vmHotel.tid[0];
+    var b = vmHotel.tid[2];
+    var c = vmHotel.tid[4];
+    if (typeof(a) == 'string' && typeof(b) != 'string' && typeof(c) != 'string') {
+        vmHotel.roomTypeSelectList.push(parseInt(a));
+    } else if (typeof(a) == 'string' && typeof(b) == 'string' && typeof(c) != 'string') {
+        vmHotel.roomTypeSelectList.push(parseInt(a),parseInt(b));
+    } else if (typeof(a) == 'string' && typeof(b) == 'string' && typeof(c) == 'string') {
+        vmHotel.roomTypeSelectList.push(parseInt(a),parseInt(b),parseInt(c));
+    }
+    console.log(typeof(vmHotel.tid[0]));
+    //vmHotel.roomTypeSelectList.push(vmHotel.tid[0]);
+    // console.log(tid);
+    // vmHotel.roomTypeSelectList.push(vmHotel.tid);
+    // console.log(vmHotel.$model.roomTypeSelectList);
+} else if (newOrder.day.selectTid == [] || newOrder.day.selectTid=='') {
     vmHotel.tid = '';
 }
 //弹出框的确定按钮
