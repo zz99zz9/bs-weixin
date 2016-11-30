@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>本宿</title>
+    <style>
+        .all {
+            width: 150px;
+            height: 150px;
+            margin: 20px auto;
+            margin-bottom: 100px;
+            position: relative;
+        }
+
+        #test {
+            height: 27px;
+            width: 27px;
+            position: absolute;
+            background-color: #e93b39;
+            border-radius: 50%;
+            top: 0px;
+            margin: 10px;
+        }
+
+        #rond {
+            height: 150px;
+            width: 150px;
+            border-radius: 50%;
+            position: absolute;
+            top: 0px;
+            animation: rond 5s infinite;
+            -webkit-animation: rond 5s infinite;
+        }
+
+        @keyframes rond {
+            0% {
+                transform: rotate(180deg);
+            }
+            100% {
+                transform: rotate(540deg);
+            }
+        }
+
+        @-webkit-keyframes rond {
+            0% {
+                -webkit-transform: rotate(180deg);
+            }
+            100% {
+                -webkit-transform: rotate(540deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container" style="z-index: 99;width: 100vw;height: 100vh;background: black;position: absolute;">
+        <div style="position: absolute;top: 15%;width: 100%;text-align: center;">
+            <div class="all">
+                <img src="img\loading.svg" style="width: 150px; height: 150px;">
+                <div id="rond">
+                    <div id="test"></div>
+                </div>
+                <div style="color: #baa071;font-size: 20px; margin-top: 5vh;">
+                    遵本心，轻奢宿
+                </div>
+            </div>
+            <div style="color: white;font-size: 14px;margin-top: 35vh;">
+                    正在获取您的地理位置......
+            </div>
+        </div>
+    </div>
+
+    <link href="../css/mui.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/common.css">
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script src="../js/lib/jquery.min.js"></script>
+    <script src="../js/lib/mui.min.js"></script>
+    <script src="../js/lib/avalon.mobile.shim.min.js"></script>
+    <script src="../js/lib/os.js" ></script>
+    <script src="../js/domainName.js"></script>
+    <script src="../js/api.js"></script>
+    <script src="../js/config.js"></script>
+    <script src="../js/util/popOver.js"></script>
+    <script src="../js/pages/user/my.js"></script>
+    <script>
+        var url = getParam("url");
+
+        avalon.ready(function() {
+            setTimeout(function() {
+                if(url) {
+                  location.replace(url);
+                }
+            }, 1500);
+        });
+    </script>
+</body>
+
+</html>

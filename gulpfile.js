@@ -144,6 +144,11 @@ function weixin() {
  *                       OTA相关页面
  *   =======================================================
  */
+//加载页
+function loading() {
+    return gulp.src('./js/pages/loading/loading.html')
+        .pipe(gulp.dest('./src'));
+}
 
 //首页
 function index() {
@@ -2846,6 +2851,7 @@ function copyFonts() {
  * 拼接html源文件
  */
 gulp.task('html', gulp.parallel(
+    loading,
     // index,//hotel 页面暂时做首页
     hotel,
     room,
