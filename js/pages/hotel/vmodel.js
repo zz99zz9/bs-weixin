@@ -3,7 +3,6 @@ var hid, actionType,
     bensue, roomType, newOrder,
     isexpand = false,
     isSuccess = false,
-    isOk = 0,
     user;
 
 hid = 1; //目前只有1家店
@@ -27,22 +26,10 @@ hid = 1; //目前只有1家店
 bensue = Storage.get("bensue");
 if (bensue) {
     roomType = bensue.type || 0;
-
-    //session有数据说明不是第一次加载，上来就隐藏
-    //隐藏loading页面
-    isOk = 1;
-    //window.history.go(-1);
-    $('#container').hide();
 } else { 
     //第一次加载
     roomType = 0;
     Storage.set("bensue", {type: 0});
-    isOk = 1;
-    setTimeout(function() {
-        if (isOk) {
-            $('#container').hide();
-        }
-    }, 2000);
 }
 
 newOrder = Storage.get("newOrder");
@@ -67,15 +54,6 @@ var vmHotel = avalon.define({
     type: 0, //0 全天房, 1 夜房
     //导航相关
     headImg: 'img/defaultHeadImg.png', //左上角头像
-    judgeOk: function() {
-        setTimeout(function() {
-            if (isOk) {
-                $('#container').hide();
-            } else {
-                vmHotel.judgeOk();
-            }
-        }, 2000);
-    },
     selectType: function(type) {
         stopSwipeSkip.do(function() {
             roomType = type;
@@ -180,9 +158,6 @@ var vmHotel = avalon.define({
                     // vmHotel.featureList = json.data.featureList;
                     vmHotel.serviceList = json.data.serviceList;
                     vmHotel.amenityList = json.data.amenityList;
-
-                    //隐藏loading页面
-                    isOk = 1;
                 }
             }
         });
@@ -512,7 +487,6 @@ vmHotel.getRoomList();
 
 vmFilter.type = roomType;
 vmFilter.getFilter();
-vmHotel.judgeOk();
 
 mui.init({
     pullRefresh: {
