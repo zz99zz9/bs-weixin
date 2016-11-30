@@ -301,7 +301,11 @@ var vmHotel = avalon.define({
             }
 
             vmHotel.tid = vmHotel.roomTypeSelectList.join(',');
-            vmHotel.selectTid = vmHotel.tid;
+            if (vmHotel.tid == '') {
+                vmHotel.selectTid = [];
+            } else {
+                vmHotel.selectTid = vmHotel.tid;
+            }
         });
     },
     roomTypeList: [],
@@ -372,9 +376,12 @@ var vmHotel = avalon.define({
         });
     }
 })
-if (newOrder.day.selectTid != []) {
-    vmHotel.tid = newOrder.day.selectTid;
-} else if (vmHotel.day.selectTid == []) {
+if (newOrder.day.selectTid.length != 0) {
+    vmHotel.tid = newOrder.day.selectTid;   //取到的是串，向数组填的是数字，得转换下
+    newOrder.day.selectTid.split(",").map(function(e) {
+        vmHotel.roomTypeSelectList.push(parseInt(e));
+    });
+} else {
     vmHotel.tid = '';
 }
 //弹出框的确定按钮
