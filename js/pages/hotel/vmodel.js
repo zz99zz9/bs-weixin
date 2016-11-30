@@ -376,12 +376,12 @@ var vmHotel = avalon.define({
         });
     }
 })
-if (newOrder.day.selectTid != '') {
+if (newOrder.day.selectTid.length != 0) {
     vmHotel.tid = newOrder.day.selectTid;   //取到的是串，向数组填的是数字，得转换下
     newOrder.day.selectTid.split(",").map(function(e) {
         vmHotel.roomTypeSelectList.push(parseInt(e));
     });
-} else if (newOrder.day.selectTid == [] || newOrder.day.selectTid=='') {
+} else {
     vmHotel.tid = '';
 }
 //弹出框的确定按钮
