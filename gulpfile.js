@@ -144,6 +144,11 @@ function weixin() {
  *                       OTA相关页面
  *   =======================================================
  */
+//加载页
+function loading() {
+    return gulp.src('./js/pages/loading/loading.html')
+        .pipe(gulp.dest('./src'));
+}
 
 //首页
 function index() {
@@ -414,10 +419,6 @@ function discover() {
         .pipe(replace({
             regex: '<!-- content -->',
             replace: '<!--include "../pages/discover/discover.html"-->'
-        }))
-        .pipe(replace({
-            regex: '<!-- js -->',
-            replace: '<script src="js/pages/discover/discover.js"></script>'
         }))
         // .pipe(replace({regex:'<h1 id="headerReplace" class="mui-title"></h1>', replace:'<h1 id="headerReplace" class="mui-title">个人信息</h1>'}))
         .pipe(contentIncluder({
@@ -2846,6 +2847,7 @@ function copyFonts() {
  * 拼接html源文件
  */
 gulp.task('html', gulp.parallel(
+    loading,
     // index,//hotel 页面暂时做首页
     hotel,
     room,
