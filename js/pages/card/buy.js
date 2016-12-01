@@ -124,7 +124,10 @@ var vmCardBuy = avalon.define({
     round: function(a, b) {
         return round(a, b);
     },
-    isweixin: isweixin
+    isweixin: isweixin,
+    getToday: function(type) {
+        return getToday(type);
+    }
 });
 
 var vmPopover = avalon.define({
