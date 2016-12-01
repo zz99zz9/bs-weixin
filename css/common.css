@@ -1443,6 +1443,12 @@ hr {
     justify-content: center;
 }
 
+.flex-column-around {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
 /*账户记录*/
 .card-log, .cms-account {
     padding: 6vw;

@@ -214,7 +214,9 @@ var urls = {
     getAccountCommonwealInfo: urlAPI + '/bnf/userDonateFoundation/cardDonateAmount', //会员账户的公益信息
     getShareList: urlAPI + '/vip/shareMessage/list', //分享内容列表
     getShareData: urlAPI + '/vip/shareMessage/detail', //分享内容详情
-
+    getInviteVIPLogList: urlAPI + '/vip/userBuyCardOrderInfo/inviteeList', //查询邀请VIP记录
+    getInviteVIPAward: urlAPI + '/vip/userBuyCardOrderInfo/sumKickback', //查询邀请VIP获得的总奖励
+    
     //客服
     getAuditList: urlAPI + '/vip/userCardMarketPackageTask/auditList', //查询待审核任务列表
     getAuditSuccess: urlAPI + '/vip/userCardMarketPackageTask/auditSuccess', //审核任务通过或不通过

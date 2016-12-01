@@ -1,0 +1,30 @@
+<div ms-controller="oldInvite" class="bs-bg-white bs-text-black" style="padding: 15px;height: 80vh;overflow-y: auto;">
+    <div ms-if="count===0" style="text-align:center" class="bs-text-large">
+        您还没有邀请小伙伴，赶紧行动吧
+    </div>
+    <div class="bs-text-large" ms-if="count!==0" style="margin-bottom: 15px; display: flex;justify-content: space-between;">
+      <div>已邀请 <span class="bs-text-red">{{count}}</span> 名好友</div>
+      <div>累计获得 <span class="bs-text-red">{{awardAmount}}</span> 元</div>
+    </div>
+    <div class="bs-text-small" ms-repeat="list" ms-if="count!==0" style="margin: 10px 0;display: flex;justify-content: space-between;padding: 7px 0;border-bottom: 1px solid #ddd;">
+        <div>
+          <img ms-attr-src="urlAPINet+el.invitee.headUrl" alt="" style="border-radius: 50%;width: 48px;">
+        </div>
+        <div class="flex-column-around" style="flex: 1 1 auto; text-align: left;padding-left: 15px;">
+          <div>
+            {{el.invitee.nickname||el.invitee.name}}
+             购买{{el.name}}
+          </div>
+          <div>
+            {{el.payTime.slice(0,10)}}
+          </div>
+        </div>
+        <div class="flex-column-around">
+          <div>
+            + <span class="bs-text-red">{{el.kickback}}</span> 元
+          </div>
+          <div>&nbsp;
+          </div>
+        </div>
+    </div>
+</div>
