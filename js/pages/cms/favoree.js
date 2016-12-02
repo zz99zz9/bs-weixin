@@ -158,3 +158,13 @@ if (inid == '') {
     $("#headerReplace").text("修改");
     vmFavoree.getData();
 }
+
+//防止移动端小键盘弹出，footer被顶起。
+var oHeight = $(window).height();
+$(window).resize(function() {
+    if ($('.cms').height() < oHeight) {
+        $(".footer").css('display', 'none');
+    } else {
+        $(".footer").css('display', 'block');
+    }
+});
