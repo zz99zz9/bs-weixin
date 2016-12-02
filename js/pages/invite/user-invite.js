@@ -26,15 +26,14 @@ var vmInvite = avalon.define({
                             ajaxJsonp({
                                 url: urls.getRedPacketUrl,
                                 data: {
-                                    url: urlWeixin + '/inviteToUser.html', //分享页面地址
-                                    invitationCode: vmInvite.code //邀请码
+                                    url: urlWeixin + '/inviteToUser.html?code=' + vmInvite.code, //分享页面地址
                                 },
                                 successCallback: function(json) {
                                     if (json.status === 1) {
                                         vmInvite.url = json.data;
 
                                         wx.onMenuShareTimeline({
-                                            title: '住本宿，不将就', // 分享标题
+                                            title: '本宿互联网酒店', // 分享标题
                                             link: vmInvite.url, // 分享链接
                                             imgUrl: urlWeixin + '/img/logo.jpg', // 分享图标
                                             success: function() {
@@ -46,8 +45,8 @@ var vmInvite = avalon.define({
                                             }
                                         });
                                         wx.onMenuShareAppMessage({
-                                            title: '本宿', // 分享标题
-                                            desc: '住本宿，不将就', // 分享描述
+                                            title: '本宿互联网酒店', // 分享标题
+                                            desc: '遵本心，轻奢宿', // 分享描述
                                             link: vmInvite.url, // 分享链接
                                             imgUrl: urlWeixin + '/img/logo.jpg', // 分享图标
                                             type: '', // 分享类型,music、video或link，不填默认为link
@@ -77,6 +76,10 @@ var vmInvite = avalon.define({
     clickLog: function() {
         popover('./util/user-invite-log.html', 1);
     },
+    isShowMask: true,
+    maskToggle: function() {
+        vmInvite.isShowMask = !vmInvite.isShowMask;
+    }
     // clickShare: function() {
     //         getShareConfig(vmInvite.code);
     //         popover('./util/share.html', 1);

@@ -136,11 +136,15 @@ var vmOrder = avalon.define({
             successCallback: function(json) {
                 if (json.status == 1) {
                     if(json.data.length > 0){
-                        vmOrder.payType = 6;
+                        //取到卡信息
+                        //如果是vip卡，将支付方式设置为卡支付
+                        if(vmOrder.discount < 1) {
+                            vmOrder.payType = 6;
 
-                        vmSelectCard.cardList = json.data;
-                        //设置默认支付卡
-                        vmSelectCard.selectCardID = json.data[0].id;
+                            vmSelectCard.cardList = json.data;
+                            //设置默认支付卡
+                            vmSelectCard.selectCardID = json.data[0].id;
+                        }
                     }
                 }
             }
@@ -297,7 +301,7 @@ function iniOrder() {
                     vmOrder.fundList[0].isValid = true;
                 }
 
-                // vmOrder.getFund();
+                vmOrder.getFund();
 
                 showCancelBtn = 0;
                 showCheckoutBtn = 0;
@@ -383,20 +387,22 @@ function payOrder() {
         },
         successCallback: function(json) {
             if (json.status === 1) {
-                vmOrder.payinfo = json.data;
-                if (vmOrder.payType == 1) { //支付宝支付
-                    // if (isweixin) { //如果是在微信里打开
-                    //     // location.href = 'alipay-iframe.html?payUrl=' + encodeURIComponent(json.data.payUrl);
-                    //     mui.alert("请点击微信右上角菜单中的\"在浏览器中打开\"选项，在外部浏览器中使用支付宝支付", "支付订单");
-                    //     vmOrder.btn2Disabled = false;
-                    // } else { //在其它浏览器打开
-                    //     location.href = json.data.payUrl;
-                    // }
-                    location.href = 'alipay.html?oid=' + orderid + '&payUrl=' + encodeURIComponent(json.data.payUrl);
-                } else if (vmOrder.payType == 2) { //微信支付
-                    onBridgeReady();
-                } else if (vmOrder.payType == 6) { //钱包支付
+                if (json.data.payStatus == 0) {
+                    vmOrder.payinfo = json.data;
+                    if (vmOrder.payType == 1) { //支付宝支付
+                        location.href = 'alipay.html?oid=' + orderid + '&payUrl=' + encodeURIComponent(json.data.payUrl);
+                    } else if (vmOrder.payType == 2) { //微信支付
+                        onBridgeReady();
+                    } else if (vmOrder.payType == 6) { //钱包支付
+                        location.href = '/payend.html?id=' + orderid;
+                    }
+                } else if (json.data.payStatus == 1) {
+                    //付款已完成（比如用了大额的优惠券，把房费降为了0
                     location.href = '/payend.html?id=' + orderid;
+                } else {
+                    mui.alert( "正在支付订单，请稍后", function() {
+                        vmOrder.btn2Disabled = false;
+                    });
                 }
             } else {
                 //调取后台接口不成功

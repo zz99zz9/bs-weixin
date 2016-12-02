@@ -95,10 +95,15 @@ function ajaxJsonp(param) {
 
     getAccessToken(function(token, openid) {
         if (param.url !== "") {
+            param.data = param.data || {};
+            param.data.accessToken = token;
+            param.data.openId = openid;
+
             $.ajax({
                 type: "get",
                 async: param.async || true,
-                url: param.url + "?accessToken=" + token + "&openId=" + openid,
+                // url: param.url + "?accessToken=" + token + "&openId=" + openid,
+                url: param.url,
                 dataType: "jsonp",
                 jsonp: "jsonpcallback",
                 data: param.data,

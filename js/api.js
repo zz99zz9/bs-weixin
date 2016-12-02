@@ -18,6 +18,8 @@ var urls = {
 
     //授权微信获取信息
     authWeixin: urlAPI + '/usr/user/authWeixin',
+    goWeixin: urlAPI + '/wx/wechat/getMenuUrl', //通过微信授权页面跳转到公众号指定页面
+
     //首页
     getCityGallery: urlAPI + '/res/cityImage/list', //城市图片列表
     getHotelByPosition: urlAPI + '/res/hotel/aroundList', //查找周边酒店列表
@@ -216,7 +218,8 @@ var urls = {
     getShareData: urlAPI + '/vip/shareMessage/detail', //分享内容详情
     getInviteVIPLogList: urlAPI + '/vip/userBuyCardOrderInfo/inviteeList', //查询邀请VIP记录
     getInviteVIPAward: urlAPI + '/vip/userBuyCardOrderInfo/sumKickback', //查询邀请VIP获得的总奖励
-    
+    getInviterByCode: urlAPI + '/usr/user/getUserByInvitationCode', //根据邀请码获取邀请人的信息
+
     //客服
     getAuditList: urlAPI + '/vip/userCardMarketPackageTask/auditList', //查询待审核任务列表
     getAuditSuccess: urlAPI + '/vip/userCardMarketPackageTask/auditSuccess', //审核任务通过或不通过

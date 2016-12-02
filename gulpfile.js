@@ -2829,6 +2829,7 @@ function popHtml() {
             './js/pages/hotel/hotelIntroduction.html',
             './js/pages/hotel/hotelFeature.html',
             './js/pages/hotel/roomFilter.html',
+            './js/pages/wallet/coupon-rule.html',
             './js/pages/invite/user-invite-rule.html',
             './js/pages/invite/user-invite-log.html',
             './js/pages/invite/vip-invite-log.html',

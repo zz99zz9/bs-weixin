@@ -29,7 +29,7 @@ var vmInvite = avalon.define({
     },
     code: '',
     url: urlWeixin + '/inviteToVip.html',
-    inviterName: '--' + user?(user.nickname?user.nickname:user.name):'好友',
+    inviterName: user?(user.nickname?user.nickname:user.name):'好友',
     getInviteCode: function() {
         //获取邀请码
         ajaxJsonp({
@@ -67,7 +67,7 @@ var vmInvite = avalon.define({
                             });
                             wx.onMenuShareAppMessage({
                                 title: '本宿VIP会员卡', // 分享标题
-                                desc: '互联网酒店，尊本心，轻奢宿，快来成为本宿VIP会员吧！' + vmInvite.inviterName, // 分享描述
+                                desc: '遵本心，轻奢宿，快来成为本宿VIP会员吧 --' + vmInvite.inviterName, // 分享描述
                                 link: vmInvite.url, // 分享链接
                                 imgUrl: urlWeixin + '/img/logo.jpg', // 分享图标
                                 type: '', // 分享类型,music、video或link，不填默认为link

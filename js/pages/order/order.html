@@ -118,8 +118,8 @@ input[type=checkbox] {
             <span class="mui-icon mui-icon-plusempty bs-text-red" style="font-size: 32px;position: relative;top: 3px;"></span>预定更多房间
         </div>
         <!-- <div class="order-panel" ms-if="data.status==1"> -->
-        <div class="order-panel" ms-if="false">
-            <div class="order-panel-title bs-text-large bs-text-153">体验基金</div>
+        <div class="order-panel" ms-if="data.status==1&&fundList.$model.length>0">
+            <div class="order-panel-title bs-text-large bs-text-153">优惠券</div>
             <div class="order-fundList">
                 <div class="order-fund bs-text-normal bs-text-gold" ms-click="selectFund($index)" ms-repeat="fundList" ms-class="selected: $index == fundIndex" ms-if-loop="el.isValid">
                     ¥<span class="bs-text-x-large">{{el.money}}</span>
@@ -146,7 +146,7 @@ input[type=checkbox] {
                 <span class="info-left">实付金额：</span>
                 <span class="info-right bs-text-red">
                 ¥<!-- {{round(needAmount-fund)<0?0:round(needAmount-fund)}} -->
-                {{data.paidAmount?data.paidAmount:round(needAmount*discount)}}
+                {{data.paidAmount?data.paidAmount:(round(needAmount-fund)<0?0:round(needAmount-fund)*discount)}}
                 </span>
             </div>
             <div>&nbsp;</div>
