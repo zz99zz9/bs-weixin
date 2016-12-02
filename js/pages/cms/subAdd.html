@@ -16,16 +16,16 @@
     <div class="user" style="margin-top: 5vh;">
         <div style="margin-right: 5vw;">使用者</div>
         <div>
-            <input type="text" ms-duplex="name" data-duplex-changed="changed" style="width: 43vw; height: 30px; padding: 8px; border-radius: 8px;" />
+            <input type="text" ms-duplex="name" data-duplex-changed="changed" style="width: 43vw; height: 30px; padding: 8px; border-radius: 8px;" maxlength="20" />
         </div>
     </div>
     <div class="user">
         <div style="margin-right: 5vw;">手机号</div>
         <div>
-            <input type="text" style="width: 43vw; height: 30px; padding: 8px; border-radius: 8px;" ms-duplex="mobile" data-duplex-changed="changed" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" />
+            <input type="text" style="width: 43vw; height: 30px; padding: 8px; border-radius: 8px;" ms-duplex="mobile" data-duplex-changed="changed" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" maxlength="1024" />
         </div>
     </div>
-    <div style="position: absolute; bottom: 0;">
+    <div class="footer" style="position: absolute; bottom: 0;">
         <button style="width: 100vw; height: 50px;" ms-click="save()" ms-attr-disabled="isDisabled">保存</button>
     </div>
 </div>
