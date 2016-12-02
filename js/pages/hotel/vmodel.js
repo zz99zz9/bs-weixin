@@ -376,7 +376,8 @@ var vmHotel = avalon.define({
         });
     }
 })
-if (newOrder.day.selectTid.length != 0) {
+
+if (newOrder.day.selectTid && newOrder.day.selectTid.length != 0) {
     vmHotel.tid = newOrder.day.selectTid;   //取到的是串，向数组填的是数字，得转换下
     newOrder.day.selectTid.split(",").map(function(e) {
         vmHotel.roomTypeSelectList.push(parseInt(e));
@@ -465,7 +466,7 @@ if(actionType) {
 user = Storage.getLocal("user");
 //更换登录用户头像
 if (user) {
-    if(user.headImg) {
+    if(user.logState && user.headImg) {
         vmHotel.headImg = urlAPINet + user.headImg;
     }
 

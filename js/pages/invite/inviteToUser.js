@@ -1,3 +1,17 @@
+var code = getParam('code');
+if (!code) {
+  location.href = document.referrer || "index.html";
+}
+
+//防止和my.js的未登录状态
+setTimeout(function() {
+    var user = Storage.getLocal("user");
+    $.extend(user, {
+      inviteCode: code
+    });
+    Storage.setLocal('user', user);
+}, 500);
+
 var vmShare = avalon.define({
     $id: "share",
     inviter: { name: '' },

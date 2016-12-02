@@ -1,7 +1,8 @@
 var mobile = getParam('pNum'),
     prePage = getParam('prePage'),
     inviteCode = getParam('code'),
-    wait = 60;
+    wait = 60,
+    user = Storage.getLocal('user');
 
 var vmReg = avalon.define({
     $id: 'register',
@@ -83,6 +84,11 @@ var vmReg = avalon.define({
         });
     }
 });
+
+//读取本地储存的邀请码
+if(user && user.inviteCode) {
+    vmReg.inviteCode = user.inviteCode;
+}
 
 vmReg.$watch("code", function(a) {
     if (a.length == 4) {

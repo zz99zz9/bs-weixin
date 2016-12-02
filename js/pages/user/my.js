@@ -185,9 +185,8 @@ var vmSide = avalon.define({
             success: function(json) {
                 if (json.status === -1) {
                     vmSide.nickName = ' 未登录 ';
-                    var user = {
-                        logState: 0
-                    };
+                    var user = Storage.getLocal("user") || {};
+                    user.logState = 0;
                     Storage.setLocal('user', user);
                 } else {
                     if (json.data.headUrl === '') {
@@ -305,8 +304,8 @@ var vmSide = avalon.define({
                     location.href = "../service.html";
                     break;
                 case 4:
-                    // location.href = "../wallet.html";
-                    goPromotion(); //config.js
+                    location.href = "../coupon.html";
+                    // goPromotion(); //config.js
                     break;
                 case 5:
                     location.href = "../manage/homepage.html";

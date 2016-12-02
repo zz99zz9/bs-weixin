@@ -548,20 +548,16 @@ function userInfo() {
         .pipe(gulp.dest('./src'));
 }
 
-//邀请好友
+//邀请好友注册
 function userInvite() {
     return gulp.src('./js/layout/shell.html')
-        .pipe(replace({
-            regex: '<!-- css -->',
-            replace: '<link rel="stylesheet" href="css/room.css">'
-        }))
         .pipe(replace({
             regex: '<!-- pop -->',
             replace: '<!--include "../pages/user/popover.html"-->'
         }))
         .pipe(replace({
             regex: '<!-- js -->',
-            replace: '<script src="js/pages/invite/vmodel-invite.js"></script>'
+            replace: '<script src="js/pages/invite/user-invite.js"></script>'
         }))
         .pipe(replace({
             regex: '<!-- content -->',
@@ -582,8 +578,26 @@ function userInvite() {
         .pipe(gulp.dest('./src'));
 }
 
-//约会基金
-function wallet() {
+//被邀请注册页面
+function inviteToUser() {
+    return gulp.src('./js/layout/shell.html')
+        .pipe(replace({
+            regex: '<!-- content -->',
+            replace: '<!--include "../pages/invite/inviteToUser.html"-->'
+        }))
+        .pipe(replace({
+            regex: '<!-- js -->',
+            replace: '<script src="js/pages/invite/inviteToUser.js"></script>'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('inviteToUser.html'))
+        .pipe(gulp.dest('./src'));
+}
+
+//邀请好友成为VIP
+function vipInvite() {
     return gulp.src('./js/layout/shell.html')
         .pipe(replace({
             regex: '<!-- pop -->',
@@ -591,11 +605,58 @@ function wallet() {
         }))
         .pipe(replace({
             regex: '<!-- js -->',
-            replace: '<script src="js/pages/wallet/wallet.js"></script>'
+            replace: '<script src="js/pages/invite/vip-invite.js"></script>'
         }))
         .pipe(replace({
             regex: '<!-- content -->',
-            replace: '<!--include "../pages/wallet/wallet.html"-->'
+            replace: '<!--include "../pages/invite/vip-invite.html"-->'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(replace({
+            regex: '<button class="popover-closeButton"></button>',
+            replace: '<!--include "../util/popoverBtnOK.html"-->'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('vip-invite.html'))
+        .pipe(gulp.dest('./src'));
+}
+
+//被邀请成为VIP页面
+function inviteToVip() {
+    return gulp.src('./js/layout/shell.html')
+        .pipe(replace({
+            regex: '<!-- content -->',
+            replace: '<!--include "../pages/invite/inviteToVip.html"-->'
+        }))
+        .pipe(replace({
+            regex: '<!-- js -->',
+            replace: '<script src="js/pages/invite/inviteToVip.js"></script>'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('inviteToVip.html'))
+        .pipe(gulp.dest('./src'));
+}
+
+//约会基金
+function coupon() {
+    return gulp.src('./js/layout/shell.html')
+        .pipe(replace({
+            regex: '<!-- pop -->',
+            replace: '<!--include "../pages/user/popover.html"-->'
+        }))
+        .pipe(replace({
+            regex: '<!-- js -->',
+            replace: '<script src="js/pages/wallet/coupon.js"></script>'
+        }))
+        .pipe(replace({
+            regex: '<!-- content -->',
+            replace: '<!--include "../pages/wallet/coupon.html"-->'
         }))
         // .pipe(replace({regex:'<h1 id="headerReplace" class="mui-title"></h1>', replace:'<h1 id="headerReplace" class="mui-title">体验基金</h1>'}))
         .pipe(contentIncluder({
@@ -608,25 +669,7 @@ function wallet() {
         .pipe(contentIncluder({
             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
         }))
-        .pipe(rename('wallet.html'))
-        .pipe(gulp.dest('./src'));
-}
-
-//邀请
-function share() {
-    return gulp.src('./js/layout/shell.html')
-        .pipe(replace({
-            regex: '<!-- content -->',
-            replace: '<!--include "../pages/share/share.html"-->'
-        }))
-        .pipe(replace({
-            regex: '<!-- js -->',
-            replace: '<script src="js/pages/share/share.js"></script>'
-        }))
-        .pipe(contentIncluder({
-            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
-        }))
-        .pipe(rename('share.html'))
+        .pipe(rename('coupon.html'))
         .pipe(gulp.dest('./src'));
 }
 
@@ -2790,8 +2833,10 @@ function popHtml() {
             './js/pages/hotel/hotelIntroduction.html',
             './js/pages/hotel/hotelFeature.html',
             './js/pages/hotel/roomFilter.html',
-            './js/pages/invite/rule.html',
-            './js/pages/invite/oldInvite.html',
+            './js/pages/wallet/coupon-rule.html',
+            './js/pages/invite/user-invite-rule.html',
+            './js/pages/invite/user-invite-log.html',
+            './js/pages/invite/vip-invite-log.html',
             './js/pages/invite/share.html',
             './js/pages/register/agreement.html',
             './js/pages/assess/assess.html',
@@ -2862,8 +2907,10 @@ gulp.task('html', gulp.parallel(
     avatar,
     userInfo,
     userInvite,
-    wallet,
-    share,
+    inviteToUser,
+    vipInvite,
+    inviteToVip,
+    coupon,
     about,
     allianceIntro,
     joinUs,
