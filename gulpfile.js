@@ -2749,6 +2749,10 @@ function favoree () {
             regex: '<!-- js -->',
             replace: '<script src="../js/lib/mui.picker.all.js"></script>\n<script src="../js/pages/cms/favoree.js"></script>'
         }))
+        .pipe(replace({
+            regex: '<!-- pop -->',
+            replace: '<!--include "../util/pop.html"-->'
+        }))
         .pipe(contentIncluder({
             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
         }))

@@ -19,31 +19,31 @@
     <div class="user" style="margin-top: 5vh;">
         <div class="left" class="left">中文名称</div>
         <div>
-            <input type="text" ms-duplex="name" data-duplex-changed="changed" style="width: 43vw; height: 30px; padding: 8px; border-radius: 8px;" />
+            <input type="text" ms-duplex="name" data-duplex-changed="changed" style="width: 43vw; height: 30px; padding: 8px; border-radius: 8px;" maxlength="20" />
         </div>
     </div>
     <div class="user" style="margin-top: 2vh;">
         <div class="left">英文名称</div>
         <div>
-            <input type="text" ms-duplex="enName" data-duplex-changed="changed" style="width: 43vw; height: 30px; padding: 8px; border-radius: 8px;" />
+            <input type="text" ms-duplex="enName" data-duplex-changed="changed" style="width: 43vw; height: 30px; padding: 8px; border-radius: 8px;" maxlength="20" />
         </div>
     </div>
     <div class="user" style="margin-top: 2vh;">
         <div class="left">一句话介绍</div>
         <div>
-            <input type="text" ms-duplex="introduction" data-duplex-changed="changed" style="width: 43vw; height: 30px; padding: 8px; border-radius: 8px;" />
+            <input type="text" ms-duplex="introduction" data-duplex-changed="changed" style="width: 43vw; height: 30px; padding: 8px; border-radius: 8px;" maxlength="20" />
         </div>
     </div>
     <div class="user" style="margin-top: 2vh;">
         <div class="left" style="padding-top: 5px;">简介</div>
         <div>
-            <textarea ms-duplex="brief" style="height: 26vh; width: 43vw; padding: 5px; border-radius: 8px; text-align: left; text-indent: 1em; font-size: 12px;" placeholder="简介">
+            <textarea ms-duplex="brief" style="height: 26vh; width: 43vw; padding: 5px; border-radius: 8px; text-align: left; text-indent: 1em; font-size: 12px;" placeholder="简介" maxlength="1024">
             </textarea>
         </div>
     </div>
     <br>
     <br>
-    <div style="position: fixed; bottom: 0;">
+    <div class="footer" style="position: fixed; bottom: 0;">
         <button style="width: 100vw; height: 50px;" ms-click="save()">保存</button>
     </div>
 </div>

@@ -24,7 +24,7 @@
     right: -4vw;
 }
 </style>
-<div class="bs-text-smaller cms" ms-controller="favoree">
+<div class="bs-text-smaller cms" ms-controller="favoree" style="height: 100vh;">
     <div class="mui-text-center" style="margin-top: 2vh;">
         <div class="circle" style="width: 104px;height: 104px;margin: 0px auto;border: 1px solid #baa074;">
             <div class="circle" style="margin: 0 auto;width: 96px;height: 96px;background-size: cover;background-position: center;position:relative;top: 3px;" ms-css-background-image='url({{data.imgUrl}})' ms-on-tap="changeImg">
@@ -35,7 +35,7 @@
     <div class="user" style="margin-top: 5vh;">
         <div class="left">姓名</div>
         <div>
-            <input type="text" ms-duplex="data.name" style="width: 43vw; height: 30px; padding: 8px; border-radius: 8px; text-align: center;" />
+            <input maxlength="20" type="text" ms-duplex="data.name" style="width: 43vw; height: 30px; padding: 8px; border-radius: 8px; text-align: center;" />
         </div>
     </div>
     <div class="user">
@@ -49,11 +49,11 @@
     <div class="user" style="margin-top: 2vh;">
         <div class="left" style="padding-top: 5px;">原因</div>
         <div>
-            <textarea ms-duplex="data.reason" style="height: 26vh; width: 43vw; padding: 5px; border-radius: 8px; text-align: left; text-indent: 1em; font-size: 12px;" placeholder="资助原因">
+            <textarea maxlength="1024" ms-duplex="data.reason" style="height: 26vh; width: 43vw; padding: 5px; border-radius: 8px; text-align: left; text-indent: 1em; font-size: 12px;" placeholder="资助原因">
             </textarea>
         </div>
     </div>
-    <div style="position: absolute; bottom: 0;">
+    <div class="footer" style="position: absolute; bottom: 0;">
         <button style="width: 100vw; height: 50px;" ms-click="save()">保存</button>
     </div>
 </div>
