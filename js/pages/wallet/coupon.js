@@ -21,7 +21,7 @@ var vmMoney = avalon.define({
         });
     },
     openRule: function() {
-        popover('./util/rule.html',1);
+        popover('./util/coupon-rule.html',1);
     }
 });
 

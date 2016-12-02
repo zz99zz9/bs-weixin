@@ -1,0 +1,25 @@
+<div ms-controller="invite">
+    <div class="mask-fullscreen bs-text-white" ms-if="isShowMask" ms-click="maskToggle" style="padding-right: 3vw;">
+        <img src="../img/icon/arrow_top.gif" style="width: 30px;">
+        <div class="bs-text-larger" style="position: relative;padding-top: 3vh;line-height: 25px;">
+            <div>
+                邀请好友成为本宿VIP会员
+            </div>
+        </div>
+    </div>
+    <div style="height: 35vh;background: url('img/generalize.jpg');background-size: cover;background-position: center">
+    </div>
+    <div class="bs-text-large bs-text-gold" ms-on-tap="clickLog" style="margin: 15px 10px;text-align: right;">邀请记录
+    </div>
+    <div class="bs-text-large" style="margin:10px;line-height: 30px;">
+        <div>
+            邀请好友开通本宿VIP会员，您将获得本宿的现金回馈：
+        </div>
+        <div style="text-align: center;">
+            好友开通银卡会员，您将获得<span class="bs-text-red" style="display:inline-block;width: 35px;">{{sAward}}</span>元；
+            <br>好友开通金卡会员，您将获得<span class="bs-text-red" style="display:inline-block;width: 35px;">{{gAward}}</span>元；
+            <br>好友开通黑卡会员，您将获得<span class="bs-text-red" style="display:inline-block;width: 35px;">{{bAward}}</span>元；
+        </div>
+    </div>
+    <div ms-click="maskToggle" class="bs-bg-black bs-text-white bs-text-larger" style="position: fixed;bottom: 0;line-height: 40px;width: 100%;text-align: center;">邀请好友</div>
+</div>

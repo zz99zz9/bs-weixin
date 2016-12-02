@@ -68,10 +68,10 @@ var vmCardDetail = avalon.define({
             freeMode: true,
             freeModeSticky: true,
             freeModeMomentumRatio: 0.4,
-            // onSlideChangeEnd: function() {
-            //     cardData.index = swiper.activeIndex;
-            //     Storage.set('cardData', cardData);
-            // },
+            onSlideChangeEnd: function() {
+                cardData.index = swiper.activeIndex;
+                Storage.set('cardData', cardData);
+            },
         });
     },
     goLog: function(index) {
