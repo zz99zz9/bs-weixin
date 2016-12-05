@@ -136,17 +136,27 @@ input[type=checkbox] {
                 <span class="info-left">订单状态：</span>
                 <span class="info-right bs-text-black">{{getStatus(data.status)}}</span>
             </div>
+            <div style="clear: both;">
+                <span class="info-left">订单总额：</span>
+                <span class="info-right bs-text-black">¥{{round(needAmount)}}</span>
+            </div>
             <div style="clear: both;" ms-if="discount<1">
                 <span class="info-left">优惠金额：</span>
-                <span class="info-right bs-text-red">¥<!-- {{fund}} -->
-                {{round(needAmount*(1-discount))}}
-                （{{discountCard}}{{discount*10}}折优惠）</span>
+                <span class="info-right bs-text-red" style="text-align: right;">{{fund>0?('¥'+ fund + ' (优惠券)'):''}}
+                <br ms-if="fund>0">
+                ¥{{round((needAmount-fund)*(1-discount))}}
+                ({{discountCard}}{{discount*10}}折)</span>
+            </div>
+            <div style="clear: both;" ms-if="discount==1&&fund>0">
+                <span class="info-left">优惠金额：</span>
+                <span class="info-right bs-text-red">
+                ¥{{fund}}(优惠券)</span>
             </div>
             <div style="clear: both;">
                 <span class="info-left">实付金额：</span>
                 <span class="info-right bs-text-red">
                 ¥<!-- {{round(needAmount-fund)<0?0:round(needAmount-fund)}} -->
-                {{data.paidAmount?data.paidAmount:(round(needAmount-fund)<0?0:round(needAmount-fund)*discount)}}
+                {{data.paidAmount?data.paidAmount:(round(needAmount-fund)<0?0:round((needAmount-fund)*discount))}}
                 </span>
             </div>
             <div>&nbsp;</div>

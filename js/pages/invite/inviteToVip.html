@@ -1,15 +1,59 @@
-<div class="ms-controller" ms-controller="invite" style="display: flex;flex-direction: column; justify-content: start;">
-    <img ms-attr-src="urlAPINet+data.headUrl" onerror="javascript:this.src=defaultHeadImg" alt="" style="width: 64px;margin:20px auto;border-radius: 50%;">
-    <div style="text-align: center;">
+<style>
+  @keyframes yAxis {
+    100% {
+      transform: translateY(-110vh);
+    }
+  }
+  @keyframes xAxis {
+    100% {
+      transform: translateX(-110vw);
+    }
+  }
+  .planeBox {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: 1;
+    animation: yAxis 3s ease-out;
+    animation-delay: 2s;
+    -webkit-animation: yAxis 3s ease-out;
+    -webkit-animation-delay: 2s;
+  }
+  .plane {
+    width: 95px;
+    height: 60px;
+    animation: xAxis 3s cubic-bezier(.51,.01,.31,.8);
+    animation-delay: 2s;
+    -webkit-animation: xAxis 3s cubic-bezier(.51,.01,.31,.8);
+    -webkit-animation-delay: 2s;
+  }
+  .planeStatic {
+    width: 95px;
+    height: 60px;
+    position: absolute;
+    top: 0;
+    display: none;
+  }
+</style>
+<div class="ms-controller" ms-controller="invite" style="display: flex;flex-direction: column; justify-content: start;background-image:url(../img/inviteToVipBG.jpg);background-size: cover;background-repeat: no-repeat; height: 100vh;">
+  <img src="img/inviteToVipPlane.png" class="planeStatic" alt="">
+    <div class="planeBox">
+      <img src="img/inviteToVipPlane.png" class="plane" alt="">
+    </div>
+    <img ms-attr-src="urlAPINet+data.headUrl" onerror="javascript:this.src=defaultHeadImg" alt="" style="width: 75px;margin:16vh auto 20px auto;border-radius: 50%;">
+    <div style="text-align: center;font-size: 18px;" class="bs-text-gold bs-text-bolder">
       {{data.nickname||data.name}}邀请您成为本宿VIP会员
     </div>
-    <div class="bs-text-large" style="margin: 20px;line-height: 24px;">
-      <div style="text-indent: 2rem;margin-bottom: 10px;">本宿会员是本宿互联网酒店为用户提供高品质的入住体验和消费特权的一种身份。
+    <div style="display: flex;justify-content: center;align-items: center;margin-top: 30px;">
+      <div style="height: 1px;background-color: #999;width: 80px;"></div>
+      <div style="margin: 3px;width: 5px; height: 5px; border-radius: 50%;" class="bs-bg-gold"></div>
+      <div style="height: 1px;background-color: #999;width: 80px;"></div>
+    </div>
+    <div class="bs-text-large bs-text-51" style="margin: 40px;line-height: 24px;">
+      <div style="margin-bottom: 20px;">Hi, 亲爱的
       </div>
-      <div style="text-indent: 2rem;margin-bottom: 10px;">本宿会员分为普通会员和VIP会员，VIP会员由低到高分别为银卡会员、金卡会员和黑卡会员。
-      </div>
-      <div style="text-indent: 2rem;margin-bottom: 10px;">普通会员可免费注册获得，普通会员购买电子会员卡即可成为对应等级的VIP会员，VIP会员不可二次升级。
+      <div>我最近在本宿办了张VIP会员卡，每月都能领奖金，住酒店打折还送小礼品，你要不要去看看？
       </div>
     </div>
-    <div class="bs-text-larger bs-text-white bs-bg-black" style="position: fixed;bottom: 0;width: 100%;line-height:48px;text-align: center;" ms-click="goVip">立即成为本宿VIP会员</div>
+    <div class="bs-text-white bs-text-bolder" style="position: absolute; bottom: 15vh;left: 50vw;margin-left:-60px; background-color: #e93b39;font-size: 18px;width: 120px;line-height: 44px;text-align: center;" ms-click="goVip">去看看</div>
 </div>

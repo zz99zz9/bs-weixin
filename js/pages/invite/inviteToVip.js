@@ -12,6 +12,13 @@ setTimeout(function() {
   Storage.setLocal('user', user);
 }, 500);
 
+$(function() {
+  setTimeout(function() {
+    $('.planeStatic').show();
+    $('.planeBox').hide();
+  }, 4500);
+})
+
 var vmInvite = avalon.define({
     $id: 'invite',
     data: { headImg: '' },
