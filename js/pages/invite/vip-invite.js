@@ -13,13 +13,13 @@ var vmInvite = avalon.define({
                     json.data.map(function(card) {
                         switch(card.name) {
                             case '黑卡':
-                                vmInvite.bAward = round(card.inviterKickbackRate * card.amount, 0);
+                                vmInvite.bAward = round(card.inviterKickbackRate * card.amount);
                                 break;
                             case '金卡':
-                                vmInvite.gAward = round(card.inviterKickbackRate * card.amount, 0);
+                                vmInvite.gAward = round(card.inviterKickbackRate * card.amount);
                                 break;
                             case '银卡':
-                                vmInvite.sAward = round(card.inviterKickbackRate * card.amount, 0);
+                                vmInvite.sAward = round(card.inviterKickbackRate * card.amount);
                                 break;
                         }
                     });

@@ -74,6 +74,8 @@
 .detail-foundation {
     margin: 0 15vw;
     text-align: initial;
+    overflow: scroll;
+    height: 115px;
 }
 
 .detail-left-tab {
@@ -113,8 +115,8 @@
 }
 
 .detail-head {
-    height: 70px;
-    width: 70px;
+    height: 44px;
+    width: 44px;
     border-radius: 50%;
 }
 
