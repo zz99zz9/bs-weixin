@@ -82,27 +82,24 @@
     display: inline-block;
     width: 50%;
     height: 70px;
-    background-color: #baa071;
+    background-color: white;
     padding: 1vh;
-    border-top: 1px solid #ccc;
-    border-right: 1px solid #ccc;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 2px solid #baa071;
 }
 
 .detail-right-tab {
     display: inline-block;
     width: 50%;
     height: 70px;
+    background-color: white;
     padding: 1vh;
-    border-top: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
 }
 
 .detail-left-list {
-    display: flex;
     text-align: -webkit-auto;
     border-bottom: 1px solid #ccc;
-    padding: 15px 30px 10px 15px;
+    padding: 15px 0 10px 15px;
 }
 
 .detail-right-list {
@@ -120,12 +117,26 @@
     border-radius: 50%;
 }
 
-.detail-button {
+.detail-button1 {
+    height: 60px;
+    width: 100vw;
     position: absolute;
     bottom: 0;
-    width: 100vw;
-    z-index: 4;
-    height: 40px;
+    background-color: white;
+    /*z-index: 2;*/
+    text-align: center;
+    border-top: 1px solid #ddd;
+}
+
+.detail-button {
+    width: 90vw;
+    z-index: 3;
+    height: 42px;
+    position: relative;
+    top: 9px;
+    background-color: #baa071;
+    color: white;
+    border-radius: 11px;
 }
 
 .detail-button button {
@@ -149,4 +160,10 @@
     margin: 15px 0;
     height: 44px;
     padding: 0 15px;
+}
+
+.arrow {
+    height: 15px;
+    opacity: 0.5;
+    margin: 3px;
 }

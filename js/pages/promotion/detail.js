@@ -30,13 +30,14 @@ var vmDetail = avalon.define({
                         });
                     } else {
                         vmDetail.taskList = [];
-                        for(var x = 0; x<json.data.length; x++) {
+                        for (var x = 0; x < json.data.length; x++) {
                             vmDetail.taskList.push([0, 0, 0, 0]);
                         }
 
                         for (var i = 0; i < json.data.length; i++) {
                             if (json.data[i].name.indexOf('普通') == -1) {
                                 vmDetail.isNormal = false;
+                                vmDetail.circleGolden = i;
                             }
 
                             var num = 0;
@@ -54,21 +55,9 @@ var vmDetail = avalon.define({
                         /**
                          * canvas画圆形
                          */
-                        $('.circle').each(function(i, o) {
-                            var $circle = o;
 
-                            var context = $circle.getContext('2d');
-                            $circle.width = window.innerWidth;
-                            $circle.height = 160;
+                        //底部灰色圆
 
-                            context.beginPath();
-                            context.arc((window.innerWidth) / 2,
-                                95,
-                                75, getRadians(135), getRadians(45), false);
-                            context.lineWidth = 7;
-                            context.strokeStyle = "rgb(186,160,113)";
-                            context.stroke();
-                        });
                     }
                 }
             }
@@ -136,14 +125,64 @@ var vmDetail = avalon.define({
             onSlideChangeEnd: function(swiper) {
                 prData.index = swiper.activeIndex;
                 Storage.set('prData', prData);
+                vmDetail.animation(swiper.activeIndex); //画金圈，传的参数表示是第几个页面
             }
         });
+        vmDetail.$model.list.map(function(ob) {
+            var canvasIni = vmDetail.canvasIni(ob);
+            if (canvasIni) {
+                vmDetail.drawCircle(canvasIni.context, "grey", -4); //先画第一个灰
+            }
+        })
     },
     calDates: function(date, count) {
         return calDates(date, count);
     },
     round: function(a, b) {
-       return round(a, b); 
+        return round(a, b);
+    },
+    //画布初始化
+    canvasIni: function(ob) {
+        var $circle = $("#circleGolden" + ob.id).get(0);//取到html对应id的canvas
+        if ($circle) {
+            var context = $circle.getContext('2d');
+            $circle.height = 160;
+            $circle.width = window.innerWidth;
+            return { $circle: $circle, context: context };
+        } else {
+            return false;
+        }
+    },
+    //画圈
+    drawCircle: function(context, color, step) { //传参为context，填充颜色，度数
+        context.beginPath();
+        context.arc((window.innerWidth) / 2,
+            95,
+            75, getRadians(135), getRadians(135 + step * 22.5), false);
+        context.lineWidth = 7;
+        context.strokeStyle = color;
+        context.stroke();
+    },
+    //动画画圈
+    animation: function(index) {
+        var ob = vmDetail.$model.list[index]; //选定第几个
+        var canvasIni = vmDetail.canvasIni(ob);
+        if (canvasIni) {
+            var x = ob.finishedCount;
+            var y = parseFloat((ob.finishedCount / 500).toFixed(3));//完成期数除以500
+            function go() {
+                canvasIni.context.clearRect(0, 0, canvasIni.$circle.width, 160);//清除一下
+                vmDetail.drawCircle(canvasIni.context, "grey", -4); //先画第一个灰
+                vmDetail.drawCircle(canvasIni.context, "rgb(186,160,113)", y); //画金色的
+                y = y + parseFloat((ob.finishedCount / 500).toFixed(3));
+                if (y < x) {
+                    setTimeout(function() {
+                        go()
+                    }, 5);
+                }
+            }
+            go();
+        }
     }
 });
 
@@ -162,7 +201,7 @@ var vmShareList = avalon.define({
     $id: 'shareList',
     ptid: 0,
     list: [],
-    getList: function() {           
+    getList: function() {
         ajaxJsonp({
             url: urls.getShareList,
             data: { pageSize: 5 },

@@ -1,7 +1,9 @@
 <style>
 .user {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px 0;
 }
 
 .left {
@@ -9,11 +11,11 @@
 }
 
 .choose {
-    width: 43vw; 
-    height: 30px; 
-    padding: 3px; 
-    line-height: 24px; 
-    border-radius: 8px;
+    width: 48vw;
+    height: 30px;
+    padding: 3px;
+    line-height: 24px;
+    /*border-radius: 15px;*/
 }
 
 .choose img {
@@ -23,37 +25,79 @@
     top: -3px;
     right: -4vw;
 }
+
+.student {
+    width: 48vw !important; 
+    height: 30px !important; 
+    padding: 8px !important; 
+    /*border-radius: 15px !important;*/ 
+    font-size: 14px;
+    text-align: center;
+    color: #bbb;
+    background-color: #f7f7f7 !important; 
+}
+
+.student:focus {
+    color: black;
+    background-color: white !important;
+    border: 2px solid #a4e6ff;
+}
+
+#edu1 {
+    color: #bbb;
+    background-color: #f7f7f7 !important; 
+}
+
+#edu1:focus {
+    color: black;
+    background-color: white !important;
+    border: 2px solid #a4e6ff;
+}
+
+.reason {
+    height: 54vh; 
+    width: 82vw; 
+    padding: 5px; 
+    margin: 7px 28px; 
+    /*border-radius: 15px; */
+    text-align: left; 
+    text-indent: 1em; 
+    font-size: 16px;
+    line-height: 30px;
+    overflow-y: auto;
+    color: #999;
+    background-color: #efeff4;
+}
+
+.reason:focus {
+    color: black;
+    background-color: white;
+    border: 1px solid #a0b3d6;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 8px rgba(82, 168, 236, 0.6);
+}
 </style>
-<div class="bs-text-smaller cms" ms-controller="favoree" style="height: 100vh;">
-    <div class="mui-text-center" style="margin-top: 2vh;">
-        <div class="circle" style="width: 104px;height: 104px;margin: 0px auto;border: 1px solid #baa074;">
+<div class="bs-text-smaller cms" ms-controller="favoree" style="">
+    <div class="mui-text-center" style="display: flex; justify-content: flex-start; margin: 27px 28px;">
+        <div class="circle" style="width: 104px;height: 104px;margin-right: 25px;border: 1px solid #baa074;">
             <div class="circle" style="margin: 0 auto;width: 96px;height: 96px;background-size: cover;background-position: center;position:relative;top: 3px;" ms-css-background-image='url({{data.imgUrl}})' ms-on-tap="changeImg">
                 <img src="../img/edit-small.png" style="position: absolute;background: #fff;border-radius: 50%;bottom: 2px;left: 72px;width: 18px;" />
             </div>
         </div>
-    </div>
-    <div class="user" style="margin-top: 5vh;">
-        <div class="left">姓名</div>
-        <div>
-            <input maxlength="20" type="text" ms-duplex="data.name" style="width: 43vw; height: 30px; padding: 8px; border-radius: 8px; text-align: center;" />
-        </div>
-    </div>
-    <div class="user">
-        <div class="left">学历</div>
-        <div>
+        <div class="user">
             <div>
-                <button id='edu1' class="choose"><div style="display: inline-block; position: relative; top: -8px; width: 100px;">{{edu1}}</div><img src="../img/icon/right-arrow.svg"></button>
+                <input class="student" maxlength="20" type="text" ms-duplex="data.name" placeholder="姓名" />
+            </div>
+            <div>
+                <button id='edu1' class="choose">
+                    <div class="grade" style="display: inline-block; position: relative; top: -8px; width: 100px;">{{edu1}}</div><img src="../img/icon/right-arrow.svg"></button>
             </div>
         </div>
     </div>
-    <div class="user" style="margin-top: 2vh;">
-        <div class="left" style="padding-top: 5px;">原因</div>
-        <div>
-            <textarea maxlength="1024" ms-duplex="data.reason" style="height: 26vh; width: 43vw; padding: 5px; border-radius: 8px; text-align: left; text-indent: 1em; font-size: 12px;" placeholder="资助原因">
-            </textarea>
-        </div>
+    <div style="text-align: center;">
+        <textarea class="reason" maxlength="1024" ms-duplex="data.reason" placeholder="资助原因">
+        </textarea>
     </div>
-    <div class="footer" style="position: absolute; bottom: 0;">
+    <div class="footer" style="position: fixed; bottom: 0;">
         <button style="width: 100vw; height: 50px;" ms-click="save()">保存</button>
     </div>
 </div>
