@@ -83,7 +83,7 @@
     width: 50%;
     height: 70px;
     background-color: white;
-    padding: 1vh;
+    padding: 12px 1vh;
     border-bottom: 2px solid #baa071;
 }
 
@@ -92,7 +92,7 @@
     width: 50%;
     height: 70px;
     background-color: white;
-    padding: 1vh;
+    padding: 12px 1vh;
     border-bottom: 1px solid #ccc;
 }
 

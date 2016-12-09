@@ -136,14 +136,7 @@ var vmDetail = avalon.define({
         }
     },
     openPop: function() {
-        if (vmDetailPop.useCheck) {
-            //av2 不知道为什么不能 scan 第二次
-            //纯粹显示，在关闭弹窗的时候不要清空弹窗内容
-            modalShow('./util/commonweal-pop.html', 0);
-        } else {
-            vmDetailPop.useCheck = 1;
-            modalShow('./util/commonweal-pop.html', 1);
-        }
+        modalShow('./util/commonweal-pop.html', 1);
     },
     //旋转右侧图片角度
     isUp: 0, //0:：向上   1：向下
@@ -314,7 +307,6 @@ function loadmore() {
 
 var vmDetailPop = avalon.define({
     $id: 'detailPop',
-    useCheck: 0, //1 checkButton, 0 closeButton
     amount: 0,
     join: '', //true表示加入
     close: function() {
