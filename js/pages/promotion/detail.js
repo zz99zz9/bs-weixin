@@ -128,6 +128,9 @@ var vmDetail = avalon.define({
                 vmDetail.animation(swiper.activeIndex); //画金圈，传的参数表示是第几个页面
             }
         });
+        if (vmDetail.list.length == 1) {
+            vmDetail.animation(prData.index);
+        }
         vmDetail.$model.list.map(function(ob) {
             var canvasIni = vmDetail.canvasIni(ob);
             if (canvasIni) {
@@ -169,12 +172,12 @@ var vmDetail = avalon.define({
         var canvasIni = vmDetail.canvasIni(ob);
         if (canvasIni) {
             var x = ob.finishedCount;
-            var y = parseFloat((ob.finishedCount / 500).toFixed(3));//完成期数除以500
+            var y = parseFloat((ob.finishedCount / 400).toFixed(3));//完成期数除以400
             function go() {
                 canvasIni.context.clearRect(0, 0, canvasIni.$circle.width, 160);//清除一下
                 vmDetail.drawCircle(canvasIni.context, "grey", -4); //先画第一个灰
                 vmDetail.drawCircle(canvasIni.context, "rgb(186,160,113)", y); //画金色的
-                y = y + parseFloat((ob.finishedCount / 500).toFixed(3));
+                y = y + parseFloat((ob.finishedCount / 400).toFixed(3));
                 if (y < x) {
                     setTimeout(function() {
                         go()
