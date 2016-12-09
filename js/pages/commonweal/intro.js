@@ -27,7 +27,9 @@ var vmIntroduce = avalon.define({
         });
     },
     goDetail: function(id) {
-        location.href = "commonweal-detail.html?id=" + id + "&cid=" + cid;
+        stopSwipeSkip.do(function() {
+            location.href = "commonweal-detail.html?id=" + id + "&cid=" + cid;
+        });
     },
     join: '',
     rate: 0,
@@ -52,23 +54,26 @@ var vmIntroduce = avalon.define({
         });
     },
     open: function() {
-
-        if (vmIntroduce.join) {
-            vmDetailPop.getCardAomunt();
-        } else {
-            vmDetailPop.getAmount();
-        }
-        if (vmDetailPop.useCheck) {
-            //av2 不知道为什么不能 scan 第二次
-            //纯粹显示，在关闭弹窗的时候不要清空弹窗内容
-            modalShow('./util/commonweal-pop.html', 0);
-        } else {
-            vmDetailPop.useCheck = 1;
-            modalShow('./util/commonweal-pop.html', 1);
-        }
+        stopSwipeSkip.do(function() {
+            if (vmIntroduce.join) {
+                vmDetailPop.getCardAomunt();
+            } else {
+                vmDetailPop.getAmount();
+            }
+            if (vmDetailPop.useCheck) {
+                //av2 不知道为什么不能 scan 第二次
+                //纯粹显示，在关闭弹窗的时候不要清空弹窗内容
+                modalShow('./util/commonweal-pop.html', 0);
+            } else {
+                vmDetailPop.useCheck = 1;
+                modalShow('./util/commonweal-pop.html', 1);
+            }
+        });
     },
     goRecord: function() {
-        location.href = "commonweal-record.html?cid=" + cid + "&fid=" + vmIntroduce.fid;
+        stopSwipeSkip.do(function() {
+            location.href = "commonweal-record.html?cid=" + cid + "&fid=" + vmIntroduce.fid;
+        });
     },
 });
 

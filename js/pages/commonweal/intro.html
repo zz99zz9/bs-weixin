@@ -1,4 +1,4 @@
-<div class="ms-controller" :controller="intro">
+<div ms-controller="intro">
     <div style="position: relative; height: 37vh;">
         <img class="intro-back1" src="../img/commonweal/back1.png">
         <div class="intro-title bs-text-small">
@@ -12,29 +12,29 @@
             </div>
         </div>
         <div style="position: relative; top: -180px; text-align: center;">
-            <img :attr="{src: @userImg}" style="border-radius: 50%; height: 45px;">
+            <img ms-attr-src="userImg" style="border-radius: 50%; height: 45px;">
         </div>
     </div>
     <div class="intro-content">
-        <div :for="el in @data" :on-tap="@goDetail(el.id)" style="padding:10px 0 20px;">
-            <div class="intro-text-red bs-text-smaller" :on-tap="@goDetail(el.id)">
-                <img class="intro-img-love" :on-tap="@goDetail(el.id)" :attr="{src: @urlAPINet + el.logoUrl}">
-                <span style="position: relative; top: -3px; margin-left: 5px;" :on-tap="@goDetail(el.id)"> {{el.cnName}}</span>
-                <div class="bs-text-x-smaller" :on-tap="@goDetail(el.id)">{{el.enName}}</div>
+        <div ms-repeat="data" ms-on-tap="goDetail(el.id)" style="padding:10px 0 20px;">
+            <div class="intro-text-red bs-text-smaller" >
+                <img class="intro-img-love"  ms-attr-src="urlAPINet + el.logoUrl">
+                <span style="position: relative; top: -3px; margin-left: 5px;" > {{el.cnName}}</span>
+                <div class="bs-text-x-smaller" >{{el.enName}}</div>
             </div>
-            <div class="bs-text-smaller" :on-tap="@goDetail(el.id)">
-                <div :on-tap="@goDetail(el.id)">{{el.introduction}}</div>
-                <div class="bs-text-x-smaller" :on-tap="@goDetail(el.id)">已资助<span class="intro-text-red"> {{el.studentCount}} </span>位学生完成学业</div>
+            <div class="bs-text-smaller" >
+                <div >{{el.introduction}}</div>
+                <div class="bs-text-x-smaller" >已资助<span class="intro-text-red"> {{el.studentCount}} </span>位学生完成学业</div>
             </div>
         </div>
         <div style="margin: 4vh 30px 3vh 30px;">
-            <button class="intro-button bs-text-larger" :click="@open">马上捐赠</button>
+            <button class="intro-button bs-text-larger" ms-on-tap="open">马上捐赠</button>
         </div>
         <div class="bs-text-x-smaller bs-text-102">
-            以您个人名义，将推广奖励收入的{{@rate}}%捐赠
+            以您个人名义，将推广奖励收入的{{rate}}%捐赠
             <br> 给指定的公益组织，同时本宿将按照1.8:1的比例跟捐。
         </div>
-        <div class="bs-text-smaller bs-text-gold" style="position: relative; bottom: -5vh;" :on-tap="@goRecord()">
+        <div class="bs-text-smaller bs-text-gold" style="position: relative; bottom: -5vh;" ms-on-tap="goRecord()">
             我的公益记录
         </div>
         <br>

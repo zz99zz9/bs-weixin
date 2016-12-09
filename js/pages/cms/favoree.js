@@ -13,7 +13,7 @@ var vmFavoree = avalon.define({
         imgUrl: defaultHeadImg, //显示的pic
         logoUrl: '', //传的pic
     },
-    edu1: '',
+    edu1: '年级',
     mobile: '',
     listEdu1: [{
         value: 1,
@@ -162,7 +162,7 @@ if (inid == '') {
 //防止移动端小键盘弹出，footer被顶起。
 var oHeight = $(window).height();
 $(window).resize(function() {
-    if ($('.cms').height() < oHeight) {
+    if ($('.cms').height() < oHeight-200) {
         $(".footer").css('display', 'none');
     } else {
         $(".footer").css('display', 'block');

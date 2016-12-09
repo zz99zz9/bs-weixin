@@ -62,8 +62,8 @@
                 </section>
                 <!-- 已开通 -->
                 <section :if="el.status==2">
-                    <canvas class="circle" style="z-index: 1;order: 0;"></canvas>
-                    
+                    <canvas ms-attr="{id: 'circleGolden' + el.id}" style="z-index: 2;order: 0;"></canvas>
+                    <!-- <canvas class="circleGrey" style="z-index: 1;order: 0;position: absolute;"></canvas> -->
                     <div :if="!@isNormal" style="order: 2;position: relative;bottom: 62vh;height: 0;">
                         <div class="bs-text-xx-larger bs-text-gold" style="padding-bottom: 10px;">
                             ¥ {{@round(el.totalAward+el.userBuyCard.monthReturnAmount*12, 0)}}

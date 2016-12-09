@@ -1,47 +1,57 @@
-<div ms-controller="detail" class="ms-controller">
+<div ms-controller="detail">
     <div class="detail-back1" style="height: 180px;">
         <div class="detail-title bs-text-small">
             <div class="bs-text-normal" style="margin-top: ">
-                <img class="intro-img-love" style="height: 24px; width: 24px; border-radius: 50%; margin-right: 2vw;" :attr="{src: 'http://img.bensue.com/' + @data.logoUrl}">
-                <span style="position: relative; top: -6px;"> {{@data.cnName}}</span>
+                <img class="intro-img-love" style="height: 24px; width: 24px; border-radius: 50%; margin-right: 2vw;" ms-attr-src="'http://img.bensue.com/' + data.logoUrl">
+                <span style="position: relative; top: -6px;"> {{data.cnName}}</span>
             </div>
             <div class="bs-text-x-smaller detail-foundation">
-                {{@data.brief}}
+                {{data.brief}}
             </div>
         </div>
     </div>
-    <div style="margin-top: 10px; text-align: center;">
-        <div class="detail-left-tab bs-text-normal" :on-tap="@getButton(1)">
-            <span class="bs-text-smaller detail-left-up" :on-tap="@getButton(1)">已资助</span>
+    <div style="margin-top: 10px; text-align: center; display: flex;">
+        <div class="detail-left-tab bs-text-normal" ms-on-tap="getButton(1)">
+            <span class="bs-text-smaller detail-left-up" style="color: #baa071;">已资助</span>
             <br>
-            <span class="intro-text-red" :on-tap="@getButton(1)" :on-tap="@getButton(1)">{{@studentCount}}</span>位孩子完成学业
+            <span class="intro-text-red">{{studentCount}}</span>
+            <span class="detail-left-down" style="color: #baa071;">位孩子完成学业</span>
         </div>
-        <div class="detail-right-tab bs-text-normal" :on-tap="@getButton(2)">
-            <span class="bs-text-smaller detail-right-up" :on-tap="@getButton(2)">已捐出</span>
+        <div class="detail-right-tab bs-text-normal" ms-on-tap="getButton(2)">
+            <span class="bs-text-smaller detail-right-up">已捐出</span>
             <br>
-            <span class="intro-text-red" :on-tap="@getButton(2)">{{@moneySum}}</span>元善款
+            <span class="intro-text-red">{{moneySum}}</span>
+            <span class="detail-right-down">元善款</span>
         </div>
     </div>
     <div id="pullrefresh" class="mui-scroll-wrapper bs-text-smaller" style="top: 260px; background-color: white;">
         <div class="mui-scroll">
-            <div :if="@listType==1">
-                <div class="detail-left-list" :for="el in @list1">
-                    <div>
-                        <img class="detail-head" :attr="{src:'http://img.bensue.com/' + el.imgUrl}" onerror="javascript:this.src='../img/defaultHeadImg.png';">
-                    </div>
-                    <div style="margin-left: 30px;">
+            <div ms-if="listType==1">
+                <div class="detail-left-list" ms-repeat="list1" ms-on-tap="goRoate(el.id)">
+                    <div style="display: flex;align-items: center;">
                         <div>
-                            <span class="bs-text-normal">{{el.name}}</span>
-                            <span style="margin-left: 40px;">{{el.grade}}</span>
+                            <img class="detail-head" ms-attr-src="'http://img.bensue.com/' + el.imgUrl" onerror="javascript:this.src='../img/defaultHeadImg.png';">
                         </div>
-                        <div style="margin-top: 19px;">{{el.reason}}</div>
+                        <div style="margin-left: 30px;">
+                            <div>
+                                <span class="bs-text-normal">{{el.name}}</span>
+                                <span style="margin-left: 40px;">{{el.grade}}</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between;">
+                                <div style="margin-top: 12px;width: 62vw;white-space: nowrap;text-overflow: ellipsis;overflow: hidden;">{{el.reason}}</div>
+                            </div>
+                        </div>
+                        <div style="padding: 15px;">
+                            <img src="../img/icon/right-arrow.svg" class="arrow">
+                        </div>
                     </div>
+                    <div ms-if="selectId==el.id" style="color: #666;margin-top: 15px;">{{el.reason}}</div>
                 </div>
             </div>
-            <div :if="@listType==2">
-                <div class="detail-right-list" :for="cl in @list2">
+            <div ms-if="listType==2">
+                <div class="detail-right-list" ms-repeat-cl="list2">
                     <div>
-                        <img class="detail-head" :attr="{src:'http://img.bensue.com/' + cl.imgUrl}" onerror="javascript:this.src='../img/defaultHeadImg.png';">
+                        <img class="detail-head" ms-attr-src="'http://img.bensue.com/' + cl.imgUrl" onerror="javascript:this.src='../img/defaultHeadImg.png';">
                     </div>
                     <div style="margin-left: 30px; width: 70vw;">
                         <div style="display: flex; justify-content: space-between;">
@@ -56,8 +66,8 @@
             <br>
         </div>
     </div>
-    <div :if="!@join">
-        <button class="detail-button" :click="@openPop()">确认捐赠</button>
+    <div ms-if="!join" class="detail-button1">
+        <button class="detail-button" ms-click="openPop()">确认捐赠</button>
     </div>
     <!-- modal -->
     <!-- 弹窗 -->

@@ -40,6 +40,7 @@ var vmEditFund = avalon.define({
             vmEditFund.headImg = urlAPINet + a.url;
             vmEditFund.logoUrl = a.url;
         }
+        Storage.set("head", { headImg: vmEditFund.logoUrl });
     },
     changeImg: function() {
         stopSwipeSkip.do(function() {
@@ -82,7 +83,7 @@ vmEditFund.getFund();
 //防止移动端小键盘弹出，footer被顶起。
 var oHeight = $(window).height();
 $(window).resize(function() {
-    if ($('.cms').height() < oHeight) {
+    if ($('.cms').height() < oHeight-200) {
         $(".footer").css('display', 'none');
     } else {
         $(".footer").css('display', 'block');
