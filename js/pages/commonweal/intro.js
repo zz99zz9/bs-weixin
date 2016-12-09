@@ -27,7 +27,9 @@ var vmIntroduce = avalon.define({
         });
     },
     goDetail: function(id) {
-        location.href = "commonweal-detail.html?id=" + id + "&cid=" + cid;
+        stopSwipeSkip.do(function() {
+            location.href = "commonweal-detail.html?id=" + id + "&cid=" + cid;
+        });
     },
     join: '',
     rate: 0,
@@ -52,23 +54,19 @@ var vmIntroduce = avalon.define({
         });
     },
     open: function() {
-
-        if (vmIntroduce.join) {
-            vmDetailPop.getCardAomunt();
-        } else {
-            vmDetailPop.getAmount();
-        }
-        if (vmDetailPop.useCheck) {
-            //av2 不知道为什么不能 scan 第二次
-            //纯粹显示，在关闭弹窗的时候不要清空弹窗内容
-            modalShow('./util/commonweal-pop.html', 0);
-        } else {
-            vmDetailPop.useCheck = 1;
+        stopSwipeSkip.do(function() {
+            if (vmIntroduce.join) {
+                vmDetailPop.getCardAomunt();
+            } else {
+                vmDetailPop.getAmount();
+            }
             modalShow('./util/commonweal-pop.html', 1);
-        }
+        });
     },
     goRecord: function() {
-        location.href = "commonweal-record.html?cid=" + cid + "&fid=" + vmIntroduce.fid;
+        stopSwipeSkip.do(function() {
+            location.href = "commonweal-record.html?cid=" + cid + "&fid=" + vmIntroduce.fid;
+        });
     },
 });
 
@@ -91,21 +89,8 @@ if (cid == '') {
     vmIntroduce.getInfo();
 }
 
-var vmPopover = avalon.define({
-    $id: 'popoverBtnOK',
-    type: '', //窗口的类型
-    useCheck: 0, //1 checkButton, 0 closeButton
-    ok: function() {
-        $('#pop-text').empty();
-
-        $('.popover').addClass('popover-hide');
-        popover_ishide = true;
-    }
-});
-
 var vmDetailPop = avalon.define({
     $id: 'detailPop',
-    useCheck: 0, //1 checkButton, 0 closeButton
     amount: 0,
     join: '', //true表示加入
     //获取会员卡捐赠情况(总额)

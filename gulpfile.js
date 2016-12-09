@@ -2463,7 +2463,7 @@ function auditList() {
 
 //介绍页面
 function commonwealIntro() {
-    return gulp.src('./js/layout/shell-av2.html')
+    return gulp.src('./js/layout/shell.html')
         .pipe(replace({
             regex: '<!-- css -->',
             replace: '<link rel="stylesheet" href="css/commonweal.css">'
@@ -2500,7 +2500,7 @@ function commonwealIntro() {
 
 //我的公益记录
 function commonwealRecord() {
-    return gulp.src('./js/layout/shell-av2.html')
+    return gulp.src('./js/layout/shell.html')
         .pipe(replace({
             regex: '<!-- css -->',
             replace: '<link rel="stylesheet" href="css/commonweal.css">'
@@ -2522,7 +2522,7 @@ function commonwealRecord() {
 
 //列表详情
 function commonwealDetail() {
-    return gulp.src('./js/layout/shell-av2.html')
+    return gulp.src('./js/layout/shell.html')
         .pipe(replace({
             regex: '<!-- css -->',
             replace: '<link rel="stylesheet" href="css/commonweal.css">'
