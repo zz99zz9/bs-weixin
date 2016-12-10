@@ -37,15 +37,11 @@ if (!newOrder) {
     newOrder = {
         day: {
             start: '',
-            end: '',
-            filter: [],
-            selectTid: []
+            end: ''
         },
         partTime: {
             start: '',
-            end: '',
-            filter: [],
-            selectTid: []
+            end: ''
         },
     };
     Storage.set("newOrder", newOrder);
@@ -60,11 +56,10 @@ var vmHotel = avalon.define({
         stopSwipeSkip.do(function() {
             roomType = type;
             vmHotel.type = type;
-            vmFilter.type = type;
             Storage.set("bensue", { type: type });
-            vmHotel.getRoomList();
+            vmHotel.getRoomTypeList();
 
-            mui('#pullrefresh').pullRefresh().refresh(true);
+            // mui('#pullrefresh').pullRefresh().refresh(true);
         });
     },
     goDiscover: function() {
@@ -105,7 +100,6 @@ var vmHotel = avalon.define({
     distance: '',
     surplusList: [],
     galleryList: [],
-    // featureList: [],
     serviceList: [],
     amenityList: [],
     openTimePanel: function() {
@@ -114,7 +108,7 @@ var vmHotel = avalon.define({
             if (roomType == 0) {
                 vmBtn.type = 'date';
                 popover('./util/calendar.html', 1, function() {
-                    $('#calendarPanel').height($(window).height() - 300);
+                    $('#calendarPanel').height($(window).height() - 180);
                     //初始状态打开选择入住时间
                     if (!(vmCalendar.statusControl.isEndEdit || vmCalendar.statusControl.isStartEdit)) {
                         vmCalendar.startClick();
@@ -123,7 +117,7 @@ var vmHotel = avalon.define({
             } else {
                 vmBtn.type = 'partTime';
                 popover('./util/partTime.html', 1, function() {
-                    $('.select-time').height($(window).height() - 270);
+                    $('.select-time').height($(window).height() - 150);
                     loadSessionPartTime();
                 });
             }
@@ -157,7 +151,6 @@ var vmHotel = avalon.define({
                     //房型数量
                     vmHotel.surplusList = json.data.surplusList;
                     // //酒店特色
-                    // vmHotel.featureList = json.data.featureList;
                     vmHotel.serviceList = json.data.serviceList;
                     vmHotel.amenityList = json.data.amenityList;
                 }
@@ -179,12 +172,6 @@ var vmHotel = avalon.define({
             }
         });
     },
-    // openFeature: function(str) {
-    //     stopSwipeSkip.do(function() {
-    //         var html = "<img src=" + urlAPINet + str.imgUrl + ">" + "<p>" + str.content + "</p>";
-    //         popover(html, 2);
-    //     });
-    // },
     openIntroduction: function() {
         stopSwipeSkip.do(function() {
             vmBtn.useCheck = 0;
@@ -282,39 +269,33 @@ var vmHotel = avalon.define({
             }
         });
     },
-    roomTypeSelectList: [],
-    selectTid: [],
-    openRoomFilter: function() {
-        stopSwipeSkip.do(function() {
-            vmBtn.useCheck = 1;
-            vmBtn.type = 'roomType';
-            popover('./util/roomFilter.html', 1);
-        });
-    },
-    selectRoomType: function(id) {
-        stopSwipeSkip.do(function() {
-            var i = vmHotel.roomTypeSelectList.indexOf(id);
-            if (i == -1) {
-                vmHotel.roomTypeSelectList.push(id);
-            } else {
-                vmHotel.roomTypeSelectList.splice(i, 1);
-            }
-
-            vmHotel.tid = vmHotel.roomTypeSelectList.join(',');
-            if (vmHotel.tid == '') {
-                vmHotel.selectTid = [];
-            } else {
-                vmHotel.selectTid = vmHotel.tid;
-            }
-        });
-    },
     roomTypeList: [],
     tid: '', //房间类型，默认为全部
-    getRoomType: function() {
+    getRoomTypeList: function() {
         ajaxJsonp({
             url: urls.getRoomTypeList,
+            data: {
+                startTime: roomType ? newOrder.partTime.start : (newOrder.day.start==getToday('date')?getToday():newOrder.day.start),
+                endTime: roomType ? newOrder.partTime.end : newOrder.day.end,
+                hid: hid,
+                isPartTime: roomType
+            },
             successCallback: function(json) {
                 if (json.status == 1) {
+                    json.data.map(function(t) {
+                        switch(roomType) {
+                            case 0: 
+                                t.coverUrl = t.nightCoverUrl;
+                                break;
+                            case 1: 
+                                t.coverUrl = t.hourCoverUrl;
+                                break;
+                            case 2: 
+                                t.coverUrl = t.midnightCoverUrl;
+                                break;   
+                        }
+                    });
+                    
                     vmHotel.roomTypeList = json.data;
                 }
             }
@@ -323,29 +304,6 @@ var vmHotel = avalon.define({
     pageNo: 1,
     pageSize: 6,
     roomList: [],
-    getRoomList: function() {
-        ajaxJsonp({
-            url: urls.getRoomList,
-            data: {
-                hid: hid,
-                tid: vmHotel.tid,
-                aids: roomType ? newOrder.partTime.filter.join(',') : newOrder.day.filter.join(','),
-                startTime: roomType ? newOrder.partTime.start : (newOrder.day.start==getToday('date')?getToday():newOrder.day.start),
-                endTime: roomType ? newOrder.partTime.end : newOrder.day.end,
-                isPartTime: roomType,
-                lng: myLng,
-                lat: myLat,
-                pageNo: 1,
-                pageSize: vmHotel.pageSize
-            },
-            successCallback: function(json) {
-                if (json.status == 1) {
-                    vmHotel.pageNo = 2;
-                    vmHotel.roomList = json.data.list;
-                }
-            }
-        });
-    },
     swiper1Render: function() {
         var swiper1 = new Swiper('.swiper1', {
             slidesPerView: 1,
@@ -372,19 +330,11 @@ var vmHotel = avalon.define({
     },
     goRoom: function(id) {
         stopSwipeSkip.do(function() {
-            location.href = "room.html?id=" + id;
+            location.href = "room.html?hid=" + hid + "&tid=" + id;
         });
     }
 })
 
-if (newOrder.day.selectTid && newOrder.day.selectTid.length != 0) {
-    vmHotel.tid = newOrder.day.selectTid;   //取到的是串，向数组填的是数字，得转换下
-    newOrder.day.selectTid.split(",").map(function(e) {
-        vmHotel.roomTypeSelectList.push(parseInt(e));
-    });
-} else {
-    vmHotel.tid = '';
-}
 //弹出框的确定按钮
 var vmBtn = avalon.define({
     $id: 'popoverBtnOK',
@@ -395,15 +345,15 @@ var vmBtn = avalon.define({
             case 'date':
                 vmCalendar.startClick();
             case 'partTime':
-                mui('#pullrefresh').pullRefresh().refresh(true);
+                // mui('#pullrefresh').pullRefresh().refresh(true);
 
                 saveStorage();
-                vmHotel.getRoomList();
+                vmHotel.getRoomTypeList();
                 break;
             case 'roomType': 
-                mui('#pullrefresh').pullRefresh().refresh(true);
+                // mui('#pullrefresh').pullRefresh().refresh(true);
                 saveStorage();
-                vmHotel.getRoomList();
+                vmHotel.getRoomTypeList();
                 break;
         }
 
@@ -413,49 +363,6 @@ var vmBtn = avalon.define({
         popover_ishide = true;
     }
 })
-
-var vmFilter = avalon.define({
-    $id: 'filter',
-    type: 0,
-    dayFilter: [],
-    selectDayFilter: [],
-    partTimeFilter: [],
-    selectPartTimeFilter: [],
-    getFilter: function() {
-        ajaxJsonp({
-            url: urls.getHotelFilter,
-            data: {
-                isPartTime: 0
-            },
-            successCallback: function(json) {
-                if (json.status !== 0) {
-                    vmFilter.dayFilter = json.data;
-
-                    //读取本地数据
-                    if (newOrder.day.filter) {
-                        vmFilter.selectDayFilter = newOrder.day.filter;
-                    }
-                }
-            }
-        });
-        ajaxJsonp({
-            url: urls.getHotelFilter,
-            data: {
-                isPartTime: 1
-            },
-            successCallback: function(json) {
-                if (json.status !== 0) {
-                    vmFilter.partTimeFilter = json.data;
-
-                    //读取本地数据
-                    if (newOrder.partTime.filter) {
-                        vmFilter.selectPartTimeFilter = newOrder.partTime.filter;
-                    }
-                }
-            }
-        });
-    }
-});
 
 //开门或者退房操作，打开面板
 actionType = getParam('type');
@@ -499,53 +406,27 @@ wx.ready(function() {
 
 vmHotel.getHotelDetail();
 vmHotel.getAssess();
-vmHotel.getRoomType();
-vmHotel.getRoomList();
+vmHotel.getRoomTypeList();
 
-vmFilter.type = roomType;
-vmFilter.getFilter();
-
+//用pullRefresh防止穿透
 mui.init({
     pullRefresh: {
         container: '#pullrefresh',
-        up: {
-            contentrefresh: '正在加载...',
-            contentnomore: "没有更多房间了",
-            callback: loadmore
-        }
+        down: {
+            height: 50, //可选,默认50.触发下拉刷新拖动距离,
+            auto: true, //可选,默认false.自动下拉刷新一次
+            contentdown: "下拉可以刷新", //可选，在下拉可刷新状态时，下拉刷新控件上显示的标题内容
+            contentover: "释放立即刷新", //可选，在释放可刷新状态时，下拉刷新控件上显示的标题内容
+            contentrefresh: "正在刷新...", //可选，正在刷新状态时，下拉刷新控件上显示的标题内容
+            callback: reload //必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
+        },
     }
 });
 
-//mui 上拉加载
-function loadmore() {
-    ajaxJsonp({
-        url: urls.getRoomList,
-        data: {
-            hid: hid,
-            tid: vmHotel.tid,
-            aids: roomType ? (newOrder.partTime.filter.length > 0 ? newOrder.partTime.filter.join(',') : '') : (newOrder.day.filter.length > 0 ? newOrder.day.filter.join(',') : ''),
-            startTime: roomType ? newOrder.partTime.start : newOrder.day.start,
-            endTime: roomType ? newOrder.partTime.end : newOrder.day.end,
-            isPartTime: roomType,
-            lng: myLng,
-            lat: myLat,
-            pageNo: vmHotel.pageNo,
-            pageSize: vmHotel.pageSize
-        },
-        successCallback: function(json) {
-            if (json.status == 1) {
-                vmHotel.pageNo++;
-                vmHotel.roomList.push.apply(vmHotel.roomList, json.data.list);
-                if (vmHotel.pageNo <= json.data.pageCount) {
-                    mui("#pullrefresh").pullRefresh().endPullupToRefresh(false);
-                } else {
-                    mui("#pullrefresh").pullRefresh().endPullupToRefresh(true);
-                }
-            } else {
-                console.log(json.message);
-            }
-        }
-    });
+//下拉刷新
+function reload() {
+    mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+    mui('#pullrefresh').pullRefresh().refresh(true);
 }
 
 //保存到本地
@@ -553,16 +434,12 @@ function saveStorage() {
     if (roomType) {
         $.extend(newOrder.partTime, {
             start: getStartTime(roomType),
-            end: getEndTime(roomType),
-            filter: vmFilter.$model.selectPartTimeFilter,
-            selectTid: vmHotel.$model.selectTid
+            end: getEndTime(roomType)
         });
     } else {
         $.extend(newOrder.day, {
             start: getStartTime(roomType),
-            end: getEndTime(roomType),
-            filter: vmFilter.$model.selectDayFilter,
-            selectTid: vmHotel.$model.selectTid
+            end: getEndTime(roomType)
         });
     }
     Storage.set("newOrder", newOrder);

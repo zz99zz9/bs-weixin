@@ -203,7 +203,7 @@ function hotel() {
         }))
         .pipe(replace({
             regex: '<!-- roomSlide -->',
-            replace: '<!--include "../util/roomSlide-room.html"-->'
+            replace: '<!--include "../util/roomSlide-type.html"-->'
         }))
         .pipe(contentIncluder({
             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
@@ -243,7 +243,7 @@ function room() {
         }))
         .pipe(replace({
             regex: '<!-- roomSlide -->',
-            replace: '<!--include "../util/roomSlide-room.html"-->'
+            replace: '<!--include "../util/roomSlide-type.html"-->'
         }))
         .pipe(replace({
             regex: '<button class="popover-closeButton"></button>',
@@ -2868,13 +2868,13 @@ function popHtml() {
  */
 function timeHtml() {
     return gulp.src(['./js/util/calendar.html', './js/util/partTime.html'])
-        .pipe(replace({
-            regex: '<!-- filter -->',
-            replace: '<!--include "../util/filter.html"-->'
-        }))
-        .pipe(contentIncluder({
-            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
-        }))
+        // .pipe(replace({
+        //     regex: '<!-- filter -->',
+        //     replace: '<!--include "../util/filter.html"-->'
+        // }))
+        // .pipe(contentIncluder({
+        //     includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        // }))
         .pipe(gulp.dest('./dist/util/'));
 }
 

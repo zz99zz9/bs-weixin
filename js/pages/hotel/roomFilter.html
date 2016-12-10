@@ -1,10 +1,11 @@
 <style>
-    .roomFilter img {
+    .amenity img {
         width: 60px;
     }
-    .roomFilter section {
+    .amenity section {
         display: flex;
         justify-content: space-between;
+        align-items: center;
         margin-bottom: 33px;
         color: #999;
     }
@@ -13,41 +14,18 @@
         font-size: 18px;
         font-weight: bolder;
     }
-    .type-discription {
-        width: 55vw;
-        font-size: 15px;
+    .noSelect {
+        opacity: 0.5;
     }
 </style>
-<div ms-controller="hotel" class="bs-bg-white bs-text-51 roomFilter" style="padding: 20px;height: 80vh;overflow-y: auto;">
-    <div class="bs-text-x-larger" style="font-weight: bolder;margin-bottom: 50px">选择您需要的房型</div>
-    <section ms-on-tap="selectRoomType(3)">
-        <div ms-class="bs-text-51:roomTypeSelectList.indexOf(3)>-1">
-            <div class="type-name">iroom max</div>
-            <div class="type-discription">约35m<sup>2</sup>，大 HOUSE 的休闲环境，适合与朋友一起享受旅行生活。</div>
+<div ms-controller="amenity" class="bs-bg-white bs-text-51 amenity" style="padding: 20px;height: 80vh;overflow-y: auto;">
+    <div class="bs-text-x-larger" style="font-weight: bolder;margin-bottom: 50px">选择您需要的配套设施</div>
+    <section ms-repeat="list" ms-if-loop="el.isShow" ms-on-tap="select(el.id)">
+        <div ms-class="bs-text-51:selectedList.indexOf(el.id)>-1">
+            <div class="type-name">{{el.name}}</div>
         </div>
-        <div>
-            <img ms-if="roomTypeSelectList.indexOf(3)>-1" src="img/iroommax.png" alt="">
-            <img ms-if="roomTypeSelectList.indexOf(3)<0" src="img/iroommax-unselected.png" alt="">
-        </div>
-    </section>
-    <section ms-on-tap="selectRoomType(2)">
-        <div ms-class="bs-text-51:roomTypeSelectList.indexOf(2)>-1">
-            <div class="type-name">iroom</div>
-            <div class="type-discription">约25m<sup>2</sup>，一体化吧台，打造家的趣味感觉。</div>
-        </div>
-        <div>
-            <img ms-if="roomTypeSelectList.indexOf(2)>-1" src="img/iroom.png" alt="">
-            <img ms-if="roomTypeSelectList.indexOf(2)<0" src="img/iroom-unselected.png" alt="">
-        </div>
-    </section>
-    <section ms-on-tap="selectRoomType(1)">
-        <div ms-class="bs-text-51:roomTypeSelectList.indexOf(1)>-1">
-            <div class="type-name">iroom mini</div>
-            <div class="type-discription">约15m<sup>2</sup>，阳光飘窗，打造蜗居温暖氛围。</div>
-        </div>
-        <div>
-            <img ms-if="roomTypeSelectList.indexOf(1)>-1" src="img/iroommini.png" alt="">
-            <img ms-if="roomTypeSelectList.indexOf(1)<0" src="img/iroommini-unselected.png" alt="">
+        <div ms-class="noSelect:selectedList.indexOf(el.id)==-1">
+            <img ms-attr-src="urlAPINet+el.ico" alt="">
         </div>
     </section>
 </div>
