@@ -84,16 +84,16 @@
 
 .typeFilter {
     width: 90%;
-    margin: 0 auto;
-    margin-bottom: 5px;
+    margin: 0px auto;
     display: flex;
     border-top: 1px solid #ccc;
     font-weight: bolder;
 }
 
 .typeFilter-item {
-    margin: 10px 0px 0px 0px;
-    font-weight: lighter;
+    width: 2px;
+    line-height: 20px;
+    margin: 10px 0;
 }
 
 .typeFilter-item.active {

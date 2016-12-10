@@ -91,7 +91,7 @@ input[type=checkbox] {
                 <!-- 右上角房间状态 -->
                 <span class="status bs-text-smaller bs-text-white" ms-if="data.status>1" style="right: 9px;">{{getStatus(el.status)}}</span>
                 <div id="triangle" ms-if="data.status>1"></div>
-                <span class="order-panel-title bs-text-large bs-text-51">{{el.name}}</span>
+                <span class="order-panel-title bs-text-large bs-text-51">{{el.roomType.name + ' ' + el.name}}</span>
                 <h5 class="bs-text-small bs-text-102" style="margin: 0 0 20px 0;">
                     <span style="margin-bottom: 8px; display: inline-block;">
                         <!-- 全天房 -->

@@ -86,7 +86,8 @@ var bookDateList = null,
 
             isDisabledByBooked = isStartEdit ? date.inDisabled : date.outDisabled;
 
-            if (bookDateList) {
+            // if (bookDateList) {
+            if (false) {
                 var list = isStartEdit ? bookDateList.inIndex : bookDateList.outIndex,
                     length = list.length;
 
@@ -169,7 +170,8 @@ var bookDateList = null,
                             //小于之前的结束时间
                             if (index < vmCalendar.endIndex) {
                                 //判断中间有没有预定掉的日期
-                                if (!bookDateList) {
+                                // if (!bookDateList) {
+                                if (!false) {
                                     vmCalendar.startIndex = index;
                                 } else {
                                     var count = 0;
@@ -213,7 +215,8 @@ var bookDateList = null,
                             //大于之前的起始时间
                             if (index > vmCalendar.startIndex) {
                                 //判断中间有没有预定掉的日期
-                                if (!bookDateList) {
+                                // if (!bookDateList) {
+                                if (!false) {
                                     vmCalendar.endIndex = index;
                                 } else {
                                     var count = 0;
@@ -287,7 +290,7 @@ function getCalendar() {
     vmCalendar.todayIndex = list.length;
 
     d = new Date();
-    for (var i = 0; i < 60; i++) {
+    for (var i = 0; i < 90; i++) {
         year = d.getFullYear();
         month = d.getMonth() + 1;
         day = d.getDate();
@@ -297,18 +300,18 @@ function getCalendar() {
         //选入住时间时，被灰掉的日期
         //不包括被预定的退房日(list2)
         //list1 + list3
-        inDisabled = bookDateList && (bookDateList.inStr.indexOf(date) > -1);
-        if (inDisabled) {
-            bookDateList.inIndex.push(list.length);
-        }
+        // inDisabled = bookDateList && (bookDateList.inStr.indexOf(date) > -1);
+        // if (inDisabled) {
+        //     bookDateList.inIndex.push(list.length);
+        // }
 
         //选退房时间时，被灰掉的日期
         //不包括被预定的入住日（14点后入住）(list1)
         //list2 + list3
-        outDisabled = bookDateList && (bookDateList.outStr.indexOf(date) > -1);
-        if (outDisabled) {
-            bookDateList.outIndex.push(list.length);
-        }
+        // outDisabled = bookDateList && (bookDateList.outStr.indexOf(date) > -1);
+        // if (outDisabled) {
+        //     bookDateList.outIndex.push(list.length);
+        // }
 
         list.push({
             year: year,
