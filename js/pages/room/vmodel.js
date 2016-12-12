@@ -58,6 +58,45 @@ vmRoom = avalon.define({
     }],
     checkinList: [],
     isAgree: true,
+    getData: function() {
+        //获取房型详情
+        ajaxJsonp({
+            url: urls.getRoomTypeDetail,
+            data: {
+                tid: roomTypeId,
+                startTime: vmRoom.type ? newOrder.partTime.start : newOrder.day.start,
+                endTime: vmRoom.type ? newOrder.partTime.end : newOrder.day.end,
+                hid: hid,
+                isPartTime: roomType,
+                aids: vmRoom.aids,
+            },
+            successCallback: function(json) {
+                if (json.status === 1) {
+                    vmRoom.room = json.data;
+
+                    $.extend(newOrder, {
+                        room: {
+                            id: json.data.id,
+                            name: json.data.name
+                        },
+                        hotel: {
+                            id: json.data.hotel.id,
+                            name: json.data.hotel.name,
+                            address: json.data.hotel.address
+                        }
+                    });
+                    Storage.set("newOrder", newOrder);
+
+                    vmAmenity.list = json.data.optionalAmenityList;
+                    vmDesigner.designer = json.data.designer;
+                    if (roomType == 1) {
+                        //时租房的价格，接口返回的是每半个小时
+                        vmRoom.price = vmRoom.room.minPrice * 2;
+                    }
+                }
+            }
+        });
+    },
     goHotel: function() {
         stopSwipeSkip.do(function() {
             location.href = "index.html";
@@ -171,7 +210,7 @@ vmRoom = avalon.define({
                     url: urls.getContactList,
                     data: {
                         pageSize: 30 //因为要维护选中状态，没有用loadmore按钮
-                    }, 
+                    },
                     successCallback: function(json) {
                         if (json.status === 1) {
                             vmContactList.list = json.data.list;
@@ -274,7 +313,7 @@ vmRoom = avalon.define({
             popCase = 'rule';
         }
 
-        if(vmRoom.isGoNext) {
+        if (vmRoom.isGoNext) {
             ajaxJsonp({
                 url: urls.submitOrder,
                 data: {
@@ -299,7 +338,7 @@ vmRoom = avalon.define({
                 }
             })
         } else {
-            switch(popCase) {
+            switch (popCase) {
                 case 'time':
                     vmRoom.openTimePanel();
                     vmRoom.openTimePanel();
@@ -377,7 +416,7 @@ vmRoom = avalon.define({
                 vmRoom.end = endObj.month + '月' + endObj.day + '日' + '<br>' + getWeekday(endObj.date);
             }
         }
-        
+
         if ((startIndex >= 0) && endIndex) {
             vmRoom.amount = (endIndex - startIndex);
         } else {
@@ -481,7 +520,7 @@ bensue = Storage.get("bensue");
 if (bensue) {
     roomType = bensue.type || 0;
 }
-if (roomType==undefined) {
+if (roomType == undefined) {
     roomType = 0;
 }
 vmRoom.type = roomType;
@@ -542,43 +581,7 @@ function reload() {
  **函数声明
  */
 function room_init() {
-    //获取房间详情
-    ajaxJsonp({
-        url: urls.getRoomTypeDetail,
-        data: {
-            tid: roomTypeId,
-            startTime: vmRoom.type ? newOrder.partTime.start : newOrder.day.start,
-            endTime: vmRoom.type ? newOrder.partTime.end : newOrder.day.end,
-            hid: hid,
-            isPartTime: roomType,
-            aids: ''
-        },
-        successCallback: function(json) {
-            if (json.status === 1) {
-                vmRoom.room = json.data;
-
-                $.extend(newOrder, {
-                    room: {
-                        id: json.data.id,
-                        name: json.data.name
-                    },
-                    hotel: {
-                        id: json.data.hotel.id,
-                        name: json.data.hotel.name,
-                        address: json.data.hotel.address
-                    }
-                });
-                Storage.set("newOrder", newOrder);
-
-                vmAmenity.list = json.data.optionalAmenityList;
-                vmDesigner.designer = json.data.designer;
-                if (roomType==1) {
-                    //时租房的价格，接口返回的是每半个小时
-                    vmRoom.price = vmRoom.room.minPrice * 2;
-                }
-            }
-        }
-    });
+    vmRoom.getData();
 
     if (roomType == 0) {
         //查询房间夜房优惠价格
@@ -596,7 +599,7 @@ function room_init() {
                         vmRoom.startTimeIndex = newOrder.day.startTimeIndex;
                         vmRoom.price = json.data[newOrder.day.startTimeIndex].discount;
 
-                        if(getToday('date') == newOrder.day.start) {
+                        if (getToday('date') == newOrder.day.start) {
                             setDefaultStartTime();
                         }
                     } else {
@@ -623,16 +626,16 @@ function room_init() {
         successCallback: function(json) {
             if (json.status === 1) {
                 json.data.map(function(t) {
-                    switch(roomType) {
-                        case 0: 
+                    switch (roomType) {
+                        case 0:
                             t.coverUrl = t.nightCoverUrl;
                             break;
-                        case 1: 
+                        case 1:
                             t.coverUrl = t.hourCoverUrl;
                             break;
-                        case 2: 
+                        case 2:
                             t.coverUrl = t.midnightCoverUrl;
-                            break;   
+                            break;
                     }
                 });
                 vmRoom.list = json.data;
@@ -767,7 +770,7 @@ function getClock(index, startTimeIndex, startIndex, hour) {
 }
 
 function dateDataToSession() {
-    if (roomType==0) {
+    if (roomType == 0) {
         newOrder.day.startShow = vmRoom.start;
         newOrder.day.endShow = vmRoom.end;
         newOrder.day.amount = vmRoom.amount;
@@ -781,7 +784,7 @@ function dateDataToSession() {
 }
 
 function sessionToDateData() {
-    if (roomType==0) {
+    if (roomType == 0) {
         if (newOrder.day.startShow) {
             vmRoom.start = newOrder.day.startShow;
         }
@@ -825,6 +828,8 @@ function saveStorage() {
     }
 
     Storage.set("newOrder", newOrder);
+
+    vmRoom.getData();
 }
 
 //注册导航接口
@@ -865,7 +870,7 @@ vmRoom.$watch('startTimeIndex', function(a) {
 vmRoom.$watch('startIndex', function(a) {
     //如果入住时间选择了今天
     //根据当前的小时，选择表盘
-    if(a == vmRoom.todayIndex) {
+    if (a == vmRoom.todayIndex) {
         setDefaultStartTime();
     }
 })
@@ -876,11 +881,11 @@ function setDefaultStartTime() {
 
     //已选择的表盘早于当前时间，就修改为晚于当前时间的第一个表盘
     //如果当前时间晚于最后一个表盘，就选择最后一个
-    while(vmRoom.roomNightDiscount[index].startTime * 2 < getHourIndex()) {
-        if(index == 3) {
+    while (vmRoom.roomNightDiscount[index].startTime * 2 < getHourIndex()) {
+        if (index == 3) {
             break;
         }
-        index ++;
+        index++;
     }
 
     vmRoom.startTimeIndex = index;
