@@ -254,23 +254,28 @@ if(newOrder && newOrder.day) {
     }
 }
 
-getCalendar();
+getServerTime(getCalendar);
 
 //日历初始化
-function getCalendar() {
-    var d = new Date(),
+function getCalendar(serverTime) {
+    var d = new Date(serverTime.replace(/-/g, '/')),
         year, month, day,
         weekday = d.getDay(),
         temp,
         list = [],
-        inDisabled, outDisabled;
+        inDisabled = false, outDisabled = false;
 
     if (weekday == 0) {
         weekday = 7;
     }
     temp = weekday;
 
-    d.setDate(d.getDate() - (weekday - 1));
+    //如果是周一，就多往前显示一周
+    if(temp == 1) {
+        temp = temp + 7;
+    }
+
+    d.setDate(d.getDate() - (temp - 1));
     for (var i = 1; i < temp; i++) {
         year = d.getFullYear();
         month = d.getMonth() + 1;
@@ -286,11 +291,18 @@ function getCalendar() {
             date: year + '-' + (month < 10 ? ('0' + month) : month) + '-' + (day < 10 ? ('0' + day) : day)
         });
         d.setDate(d.getDate() + 1);
+
+        //当前时间6点前的话，可以订昨天的夜房
+        if(getHourIndex()<13 && (i == temp-1)) {
+            console.log(i);
+            console.log(list);
+            list[i-1].inDisabled = false;
+        }
     }
     vmCalendar.todayIndex = list.length;
 
     d = new Date();
-    for (var i = 0; i < 90; i++) {
+    for (var i = 0; i < 60; i++) {
         year = d.getFullYear();
         month = d.getMonth() + 1;
         day = d.getDate();

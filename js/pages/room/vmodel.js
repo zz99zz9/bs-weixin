@@ -248,7 +248,7 @@ vmRoom = avalon.define({
         vmRoom.isGoNext = true;
         // Storage.set("newOrder", newOrder);
 
-        if (vmRoom.type) {
+        if (vmRoom.type == 1) {
             if (!newOrder.partTime.start || !newOrder.partTime.end || newOrder.partTime.start == '' || newOrder.partTime.end == '') {
                 // mui.toast('请选择时间');
                 popCase = 'time';
@@ -547,8 +547,8 @@ function room_init() {
         url: urls.getRoomTypeDetail,
         data: {
             tid: roomTypeId,
-            startTime: '',
-            endTime: '',
+            startTime: vmRoom.type ? newOrder.partTime.start : newOrder.day.start,
+            endTime: vmRoom.type ? newOrder.partTime.end : newOrder.day.end,
             hid: hid,
             isPartTime: roomType,
             aids: ''
