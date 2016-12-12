@@ -3,6 +3,7 @@
  */
 var urls = {
     //登录注册
+    getServerTime: urlAPI + '/sys/info', //获取系统信息
     loginURL: urlAPI + '/usr/user/login',
     logOut: urlAPI + '/usr/user/logout',
     getCodeURL: urlAPI + '/usr/sms/register',

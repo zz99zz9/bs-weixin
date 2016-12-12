@@ -109,7 +109,7 @@ function ajaxJsonp(param) {
                 data: param.data,
                 success: function(json) {
                     if (json.status === -1) {
-                        if(!param.noSkip) {
+                        if (!param.noSkip) {
                             window.location.replace("../register-1.html?prePage=" + window.location.pathname + window.location.search);
                         }
                     } else {
@@ -228,9 +228,14 @@ function getWeekday(date) {
 //day d
 //hour h
 //空 yyyy-MM-dd hh:mm:ss
-function getToday(type) {
-    var d = new Date(),
-        year = d.getFullYear(),
+function getToday(type, serverTime) {
+    var d;
+    if (serverTime) {
+        d = new Date(serverTime.replace(/-/g, '/'));
+    } else {
+        d = new Date();
+    }
+    var year = d.getFullYear(),
         month = d.getMonth() + 1,
         day = d.getDate(),
         week = d.getDay(),
@@ -477,6 +482,20 @@ function getDate(index) {
     }
 }
 
+//获取系统时间
+function getServerTime(callback) {
+    ajaxJsonp({
+        url: urls.getServerTime,
+        successCallback: function(json) {
+            if (json.status == 1) {
+                return callback(json.data.serverTime);
+            } else {
+                mui.alert(json.message);
+            }
+        }
+    });
+}
+
 //获取当前小时序号
 function getHourIndex() {
     var now = getToday('time').split(':'),
@@ -513,7 +532,7 @@ function registerWeixinConfig(callback) {
                 });
                 isSuccess = true;
 
-                if(typeof callback == 'function') {
+                if (typeof callback == 'function') {
                     callback();
                 }
             }
