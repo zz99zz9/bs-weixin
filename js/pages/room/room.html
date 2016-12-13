@@ -4,7 +4,7 @@
         <div class="swiper-container swiper1" style="z-index: 0;height: 275px;">
             <div class="swiper-wrapper">
                 <div class="swiper-slide" ms-repeat="room.roomGalleryList" data-repeat-rendered="swiper1Render">
-                    <div style="width: 100%;height: 100%;background-size: cover;background-position: center;" ms-css-background-image="'url(' + urlAPINet + el.imgUrl+')'" ms-attr-data-preview-src="urlAPINet + el.imgUrl" data-preview-group="1" ms-data-tag="el.imgDesc">
+                    <div style="width: 100%;height: 100%;background-size: cover;background-position: center;" ms-css-background-image="'url(' + urlAPINet + el.imgUrl+')'" ms-attr-data-preview-src="urlAPINet + el.imgUrl" data-preview-group="1">
                     </div>
                 </div>
                 <div class="swiper-pagination"></div>
@@ -18,7 +18,7 @@
                 </div>
                 <div>
                     <span class="room-name bs-text-x-larger bs-text-51"> {{room.name}}</span>
-                    <span class="room-name bs-text-x-larger bs-text-51" ms-if="room.restRoomCount"> 
+                    <span class="room-name bs-text-x-larger bs-text-51" ms-if="typeof room.restRoomCount != 'undefined'"> 
                         (剩余<span class="bs-text-red">{{room.restRoomCount}}</span>间)</span>
                     <p class="bs-text-small bs-text-gold" style="margin: 8px 0 0;white-space: normal;">{{room.introduction}}
                     </p>

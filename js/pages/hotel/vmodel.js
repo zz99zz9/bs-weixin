@@ -57,6 +57,8 @@ var vmHotel = avalon.define({
             roomType = type;
             vmHotel.type = type;
             Storage.set("bensue", { type: type });
+            
+            vmHotel.getHotelDetail();
             vmHotel.getRoomTypeList();
 
             // mui('#pullrefresh').pullRefresh().refresh(true);
