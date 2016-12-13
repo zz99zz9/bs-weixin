@@ -445,7 +445,7 @@ function loadSessionPartTime() {
 //获取入住时间
 function getStartTime(type) {
     if (type) {
-        if (vmPart.partTimeStart) {
+        if (newOrder.partTime.start) {
             var today = new Date();
             return today.getFullYear() + "-" + ((today.getMonth() + 1) < 10 ? ('0' + (today.getMonth() + 1)) : (today.getMonth() + 1)) + "-" + today.getDate() + " " + vmPart.partTimeStart;
         } else {
