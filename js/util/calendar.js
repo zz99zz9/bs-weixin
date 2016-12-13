@@ -86,7 +86,8 @@ var bookDateList = null,
 
             isDisabledByBooked = isStartEdit ? date.inDisabled : date.outDisabled;
 
-            if (bookDateList) {
+            // if (bookDateList) {
+            if (false) {
                 var list = isStartEdit ? bookDateList.inIndex : bookDateList.outIndex,
                     length = list.length;
 
@@ -169,7 +170,8 @@ var bookDateList = null,
                             //小于之前的结束时间
                             if (index < vmCalendar.endIndex) {
                                 //判断中间有没有预定掉的日期
-                                if (!bookDateList) {
+                                // if (!bookDateList) {
+                                if (!false) {
                                     vmCalendar.startIndex = index;
                                 } else {
                                     var count = 0;
@@ -213,7 +215,8 @@ var bookDateList = null,
                             //大于之前的起始时间
                             if (index > vmCalendar.startIndex) {
                                 //判断中间有没有预定掉的日期
-                                if (!bookDateList) {
+                                // if (!bookDateList) {
+                                if (!false) {
                                     vmCalendar.endIndex = index;
                                 } else {
                                     var count = 0;
@@ -251,23 +254,28 @@ if(newOrder && newOrder.day) {
     }
 }
 
-getCalendar();
+getServerTime(getCalendar);
 
 //日历初始化
-function getCalendar() {
-    var d = new Date(),
+function getCalendar(serverTime) {
+    var d = new Date(serverTime.replace(/-/g, '/')),
         year, month, day,
         weekday = d.getDay(),
         temp,
         list = [],
-        inDisabled, outDisabled;
+        inDisabled = false, outDisabled = false;
 
     if (weekday == 0) {
         weekday = 7;
     }
     temp = weekday;
 
-    d.setDate(d.getDate() - (weekday - 1));
+    //如果是周一，就多往前显示一周
+    if(temp == 1) {
+        temp = temp + 7;
+    }
+
+    d.setDate(d.getDate() - (temp - 1));
     for (var i = 1; i < temp; i++) {
         year = d.getFullYear();
         month = d.getMonth() + 1;
@@ -283,6 +291,13 @@ function getCalendar() {
             date: year + '-' + (month < 10 ? ('0' + month) : month) + '-' + (day < 10 ? ('0' + day) : day)
         });
         d.setDate(d.getDate() + 1);
+
+        //当前时间6点前的话，可以订昨天的夜房
+        if(getHourIndex()<13 && (i == temp-1)) {
+            console.log(i);
+            console.log(list);
+            list[i-1].inDisabled = false;
+        }
     }
     vmCalendar.todayIndex = list.length;
 
@@ -297,18 +312,18 @@ function getCalendar() {
         //选入住时间时，被灰掉的日期
         //不包括被预定的退房日(list2)
         //list1 + list3
-        inDisabled = bookDateList && (bookDateList.inStr.indexOf(date) > -1);
-        if (inDisabled) {
-            bookDateList.inIndex.push(list.length);
-        }
+        // inDisabled = bookDateList && (bookDateList.inStr.indexOf(date) > -1);
+        // if (inDisabled) {
+        //     bookDateList.inIndex.push(list.length);
+        // }
 
         //选退房时间时，被灰掉的日期
         //不包括被预定的入住日（14点后入住）(list1)
         //list2 + list3
-        outDisabled = bookDateList && (bookDateList.outStr.indexOf(date) > -1);
-        if (outDisabled) {
-            bookDateList.outIndex.push(list.length);
-        }
+        // outDisabled = bookDateList && (bookDateList.outStr.indexOf(date) > -1);
+        // if (outDisabled) {
+        //     bookDateList.outIndex.push(list.length);
+        // }
 
         list.push({
             year: year,

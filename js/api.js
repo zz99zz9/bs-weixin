@@ -3,6 +3,7 @@
  */
 var urls = {
     //登录注册
+    getServerTime: urlAPI + '/sys/info', //获取系统信息
     loginURL: urlAPI + '/usr/user/login',
     logOut: urlAPI + '/usr/user/logout',
     getCodeURL: urlAPI + '/usr/sms/register',
@@ -49,6 +50,7 @@ var urls = {
     getInvoiceExpressFee: urlAPI + '/usr/invoiceLog/invoiceExpressFee', //获取发票快递费用
     //房间相关
     getRoomTypeList: urlAPI + '/res/roomType/list', //房间类型列表
+    getRoomTypeDetail: urlAPI + '/res/roomType/detail', //房间类型列表
     getRoomList: urlAPI + '/res/room/list', //房间列表
     getRoomDetail: urlAPI + '/res/room/detail', //房间详情
     getRoomAssess: urlAPI + '/trd/orderComment/list', //房间评价列表

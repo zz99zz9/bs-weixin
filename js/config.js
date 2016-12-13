@@ -109,7 +109,7 @@ function ajaxJsonp(param) {
                 data: param.data,
                 success: function(json) {
                     if (json.status === -1) {
-                        if(!param.noSkip) {
+                        if (!param.noSkip) {
                             window.location.replace("../register-1.html?prePage=" + window.location.pathname + window.location.search);
                         }
                     } else {
@@ -228,9 +228,14 @@ function getWeekday(date) {
 //day d
 //hour h
 //空 yyyy-MM-dd hh:mm:ss
-function getToday(type) {
-    var d = new Date(),
-        year = d.getFullYear(),
+function getToday(type, serverTime) {
+    var d;
+    if (serverTime) {
+        d = new Date(serverTime.replace(/-/g, '/'));
+    } else {
+        d = new Date();
+    }
+    var year = d.getFullYear(),
         month = d.getMonth() + 1,
         day = d.getDate(),
         week = d.getDay(),
@@ -440,7 +445,7 @@ function loadSessionPartTime() {
 //获取入住时间
 function getStartTime(type) {
     if (type) {
-        if (vmPart.partTimeStart) {
+        if (newOrder.partTime.start) {
             var today = new Date();
             return today.getFullYear() + "-" + ((today.getMonth() + 1) < 10 ? ('0' + (today.getMonth() + 1)) : (today.getMonth() + 1)) + "-" + today.getDate() + " " + vmPart.partTimeStart;
         } else {
@@ -475,6 +480,20 @@ function getDate(index) {
         date = vmCalendar.calendar[index];
         return date.year + '-' + (date.month < 10 ? ('0' + date.month) : date.month) + '-' + (date.day < 10 ? ('0' + date.day) : date.day);
     }
+}
+
+//获取系统时间
+function getServerTime(callback) {
+    ajaxJsonp({
+        url: urls.getServerTime,
+        successCallback: function(json) {
+            if (json.status == 1) {
+                return callback(json.data.serverTime);
+            } else {
+                mui.alert(json.message);
+            }
+        }
+    });
 }
 
 //获取当前小时序号
@@ -513,7 +532,7 @@ function registerWeixinConfig(callback) {
                 });
                 isSuccess = true;
 
-                if(typeof callback == 'function') {
+                if (typeof callback == 'function') {
                     callback();
                 }
             }
