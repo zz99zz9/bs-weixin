@@ -7,7 +7,7 @@
                 <span>/{{type==1?"3小时":"晚起"}}</span>
                 <span class="roomtype">{{el.name}}</span>
             </label>
-            <span ms-if="el.restRoomCount" class="bs-text-white bs-bg-black" style="position: absolute;right:0;top:15px;display: inline-block;    padding: 4px 5px 4px 10px;border-bottom-left-radius: 20px;border-top-left-radius: 20px;">
+            <span ms-if="typeof el.restRoomCount != 'undefined'" class="bs-text-white bs-bg-black" style="position: absolute;right:0;top:15px;display: inline-block; padding: 4px 5px 4px 10px;border-bottom-left-radius: 20px;border-top-left-radius: 20px;">
                 <span class="bs-text-larger bs-text-bolder">剩余{{el.restRoomCount}}间</span>
             </span>
         </div>
