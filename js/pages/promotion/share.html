@@ -1,5 +1,5 @@
-<div ms-controller="share" class="ms-controller">
-    <div class="mask-fullscreen bs-text-white" :if="@isShowMask" :click="@maskHide" style="padding-right: 3vw;">
+<div ms-controller="share" class="ms-controller" style="-webkit-overflow-scrolling:touch;overflow:auto;height: 100vh;">
+    <div class="mask-fullscreen bs-text-white" :if="@isShowMask" :on-tap="@maskHide" style="padding-right: 3vw;">
         <img src="../img/icon/arrow_top.gif" style="width: 30px;">
         <div class="bs-text-larger" style="position: relative;padding-top: 3vh;line-height: 25px;">
             <div>
@@ -10,5 +10,5 @@
             </div>
         </div>
     </div>
-    <iframe :attr="{src: @data.pcUrl + '?id=' + @data.id}" style="height: 100vh; width: 100vw;border: none;"></iframe>
+    <iframe :attr="{src: @data.pcUrl + '?id=' + @data.id}" style="height: 100%; width: 100%;border: none;"></iframe>
 </div>
