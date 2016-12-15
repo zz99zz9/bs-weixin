@@ -728,6 +728,16 @@ function getClock(index, startTimeIndex, startIndex, hour) {
     switch (index) {
         case 0:
             if (isDisabled) {
+                return 'img/clock/6-dis.png';
+            } else {
+                if (index == startTimeIndex) {
+                    return 'img/clock/6-sel.png';
+                } else {
+                    return 'img/clock/6.png';
+                }
+            }
+        case 1:
+            if (isDisabled) {
                 return 'img/clock/13-dis.png';
             } else {
                 if (index == startTimeIndex) {
@@ -736,7 +746,7 @@ function getClock(index, startTimeIndex, startIndex, hour) {
                     return 'img/clock/13.png';
                 }
             }
-        case 1:
+        case 2:
             if (isDisabled) {
                 return 'img/clock/16-dis.png';
             } else {
@@ -746,26 +756,16 @@ function getClock(index, startTimeIndex, startIndex, hour) {
                     return 'img/clock/16.png';
                 }
             }
-        case 2:
-            if (isDisabled) {
-                return 'img/clock/19-dis.png';
-            } else {
-                if (index == startTimeIndex) {
-                    return 'img/clock/19-sel.png';
-                } else {
-                    return 'img/clock/19.png';
-                }
-            }
         case 3:
             if (isDisabled) {
-                return 'img/clock/21-dis.png';
+                return 'img/clock/6-dis.png';
             } else {
                 if (index == startTimeIndex) {
-                    return 'img/clock/21-sel.png';
+                    return 'img/clock/6-sel.png';
                 } else {
-                    return 'img/clock/21.png';
+                    return 'img/clock/6.png';
                 }
-            }
+            } 
     }
 }
 

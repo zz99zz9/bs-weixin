@@ -7,7 +7,7 @@
         font-weight: 100;
     }
     .item .left {
-        width: 35%;
+        width: 125px;
         display: table-cell;
         vertical-align: middle;
         text-align: center;
@@ -19,15 +19,15 @@
     .item .left sub {
         font-size: 18px;
         position: absolute;
-        top: 35px;
-        left: 21px;
+        top: 20px;
+        left: -17px;
     }
     .item .left span {
         font-size: 30px;
         line-height: 60px;
+        position: relative;
     }
     .item .right {
-        width: 60%;
         display: table-cell;
         vertical-align: middle;
         text-align: right;
@@ -63,14 +63,14 @@
     <div style="height: 0;">&nbsp;</div>
     <div class="item" ms-repeat="fundList">
         <div class="left bs-text-white">
-            <sub>￥</sub>
-            <span>{{el.money}}</span>
+            
+            <span><sub>￥</sub>{{el.money}}</span>
         </div>
         <div class="right bs-bg-white">
             <div class="bs-text-smaller">
                 {{el.name}}
                 <c ms-if="el.minAmount!=0">满{{el.minAmount}}减{{el.money}}</c><br>
-                <span class="bs-text-gray">有效期：{{el.useEndTime.substring(0,10)}} 之前</span>
+                <span class="bs-text-gray">有效期：{{el.endTime.substring(0,10)}} 之前</span>
             </div>
         </div>
     </div>
