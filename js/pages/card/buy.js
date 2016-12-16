@@ -35,6 +35,17 @@ var vmCardBuy = avalon.define({
                     json.data.imgUrl = 'img/card/No' + json.data.type + '.png';
 
                     vmCardBuy.data = json.data;
+
+                    //根据卡片类型确定文字颜色
+                    switch(json.data.type) {
+                        case 2:
+                        case 3:
+                            $('.card-font').css('color', 'white');
+                            break;
+                        case 5:
+                            $('.card-font').css('color', '#eee');
+                            break;
+                    }
                 }
             }
         });
@@ -139,16 +150,6 @@ var vmPopover = avalon.define({
 });
 
 vmCardBuy.getData();
-
-switch(cardID) {
-    case 2:
-    case 3:
-        $('.card-font').css('color', 'white');
-        break;
-    case 6:
-        $('.card-font').css('color', '#eee');
-        break;
-}
 
 var cardWidth, cardHeight;
 avalon.ready(function() {

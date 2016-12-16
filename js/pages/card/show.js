@@ -15,14 +15,14 @@ var vmCardBuy = avalon.define({
                     vmCardBuy.validDate = json.data.endTime.slice(0, 4) + '/' + json.data.endTime.slice(5, 7);
                     vmCardBuy.cardType = json.data.type;
 
-                    switch(vmCardBuy.cardType) {
+                    switch(json.data.type) {
                         case 2:
                         case 3:
                             $('.card-font').css('color', 'white');
                             break;
                         case 5:
-                        $('.card-font').css('color', '#eee');
-                        break;
+                            $('.card-font').css('color', '#eee');
+                            break;
                     }
                 } else {
                     // location.href = "index.html";
