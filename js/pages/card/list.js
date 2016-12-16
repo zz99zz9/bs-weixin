@@ -11,7 +11,7 @@ var vmCardList = avalon.define({
                 if (json.status === 1) {
                     vmCardList.data = [];
                     json.data.map(function(c) {
-                        c.imgUrl = 'img/card/card_list_No' + c.id + '.png';
+                        c.imgUrl = 'img/card/card_list_No' + c.type + '.png';
 
                         vmCardList.data.push(c);
                     });

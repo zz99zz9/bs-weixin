@@ -34,7 +34,14 @@
                     <div>
                         <div class="bs-text-larger bs-text-gold bs-text-bolder">推广内容</div>
                         <div class="promotion-detail-content">
-                            每月转发<span class="bs-text-gold">{{el.monthShareTimes}}次</span>以上本宿相关内容到自己的朋友圈，内容可以采用本宿提供的，也可以自己创作编辑。
+                            每月转发
+                            <span :if="!@isNormal">
+                                <span class="bs-text-gold">{{el.monthShareTimes}}次</span>以上
+                            </span>
+                            <span class="bs-text-gold" :if="@isNormal">
+                                4次
+                            </span>
+                            本宿提供的内容到自己的朋友圈。
                         </div>
                     </div>
                     <div :if="!@isNormal">

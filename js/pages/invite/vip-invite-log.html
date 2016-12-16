@@ -17,8 +17,11 @@
             {{el.payTime.slice(0,10)}}
           </div>
         </div>
-        <div>
-            <span class="bs-text-green">+</span> {{el.kickback}} 元
+        <div ms-if="el.type!=5">
+            <span class="bs-text-red">+</span> {{el.kickback}} 元
+        </div>
+        <div ms-if="el.type==5">
+            {{el.remarks}}
         </div>
     </div>
 </div>

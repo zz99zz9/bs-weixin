@@ -43,7 +43,8 @@
             </div>
         </div>
 
-        <div class="bs-text-normal">欢迎您加入本宿大家庭，成为我们尊贵的VIP用户，在这里您不仅能享受到全新的住宿体验、VIP级客户服务，亦能通过帮助我们推广获得丰厚的收入！</div>
+        <div class="bs-text-normal" :visible="@cardType<4">欢迎您加入本宿大家庭，成为我们尊贵的VIP用户，在这里您不仅能享受到全新的住宿体验、VIP级客户服务，亦能通过帮助我们推广获得丰厚的收入！</div>
+        <div class="bs-text-normal" :visible="@cardType==5">欢迎您加入本宿大家庭，成为我们尊贵的校园卡用户，在这里您能享受到全新的住宿体验，以及VIP级的客户服务！</div>
         <br>
         <div class="bs-text-normal">{{@data.name}}会员专属微信客服：木一君（微信客服：bensuer007），为了保障能及时提供服务，建议您尽快添加好友；
         <br>
