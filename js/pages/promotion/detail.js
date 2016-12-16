@@ -35,7 +35,8 @@ var vmDetail = avalon.define({
                         }
 
                         for (var i = 0; i < json.data.length; i++) {
-                            if (json.data[i].name.indexOf('普通') == -1) {
+                            //VIP卡才显示开通提示
+                            if (json.data[i].userBuyCard.type < 4) {
                                 vmDetail.isNormal = false;
                                 vmDetail.circleGolden = i;
                             }
@@ -51,13 +52,6 @@ var vmDetail = avalon.define({
 
                         vmDetail.list = json.data;
                         vmDetail.a++;
-
-                        /**
-                         * canvas画圆形
-                         */
-
-                        //底部灰色圆
-
                     }
                 }
             }
@@ -132,6 +126,7 @@ var vmDetail = avalon.define({
             vmDetail.animation(prData.index);
         }
         vmDetail.$model.list.map(function(ob) {
+            console.log(ob);
             var canvasIni = vmDetail.canvasIni(ob);
             if (canvasIni) {
                 vmDetail.drawCircle(canvasIni.context, "grey", -4); //先画第一个灰

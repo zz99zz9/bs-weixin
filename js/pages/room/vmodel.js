@@ -815,7 +815,7 @@ function sessionToDateData() {
 
 //保存到本地
 function saveStorage() {
-    if (roomType) {
+    if (roomType == 1) {
         $.extend(newOrder.partTime, {
             start: getStartTime(roomType),
             end: getEndTime(roomType),

@@ -2,6 +2,8 @@
 <div class="ms-controller" :controller="cardBuy">
     <div class="card-frame">
         <div class="card-font" style="height: 0;">
+            <div class="card-discount">{{@round(@data.discount*10, 1)}}折
+            </div>
             <div class="card-cardNo">
                 <span>{{@getToday('date').slice(0,4)}}</span>
                 <span>{{@getToday('date').slice(5,7)}}

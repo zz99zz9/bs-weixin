@@ -28,6 +28,7 @@ var vmOrder = avalon.define({
         }]
     },
     needAmount: 0, //总价
+    minFee: 9999, //订单中最便宜房间的房费，供免费入住抵扣
     selectedList: [],
     orids: [], //订单包含的房间业务流水编号
     selectPayType: function(type) {
@@ -90,6 +91,7 @@ var vmOrder = avalon.define({
     },
     fund: 0, //基金优惠金额
     fundIndex: -1,
+    fundType: 0, //1现金优惠券 2免费入住券
     fundList: [],
     getFund: function() {
         //获取用户可用基金
@@ -102,10 +104,18 @@ var vmOrder = avalon.define({
             }
         });
     },
-    selectFund: function(index) {
+    selectFund: function(index, type) {
+        vmOrder.fundType = type;
+
         if (vmOrder.fundIndex !== index) {
-            vmOrder.fund = vmOrder.fundList[index].money;
             vmOrder.fundIndex = index;
+
+            if(type == 1) {
+                vmOrder.fund = vmOrder.fundList[index].money;
+            } else if(type == 2) {
+                //type == 2 免费入住券抵扣房价最低的房间房费
+                vmOrder.fund = vmOrder.minFee;
+            }
         } else {
             vmOrder.fund = 0;
             vmOrder.fundIndex = -1;
@@ -293,6 +303,7 @@ function iniOrder() {
         data: { id: orderid },
         successCallback: function(json) {
             if (json.status === 1) {
+                var orderRoom;
                 vmOrder.data = json.data;
 
                 if (json.data.fid > 0) {
@@ -309,22 +320,23 @@ function iniOrder() {
                 vmOrder.mayCheckoutRoomList = [];
 
                 for (var i = 0; i < json.data.orderRoomList.length; i++) {
+                    orderRoom = json.data.orderRoomList[i];
                     vmOrder.selectedList.push(i);
-                    if(json.data.orderRoomList[i].status == 2) {
+                    if(orderRoom.status == 2) {
                         //可以退订房间列表
                         showCancelBtn ++;
                         vmOrder.mayCancelRoomList.push({
-                            id: json.data.orderRoomList[i].id,
-                            name: json.data.orderRoomList[i].name
+                            id: orderRoom.id,
+                            name: orderRoom.name
                         });
                     }
 
-                    if(json.data.orderRoomList[i].status == 3) {
+                    if(orderRoom.status == 3) {
                         //可以退房房间列表
                         showCheckoutBtn ++;
                         vmOrder.mayCheckoutRoomList.push({
-                            id: json.data.orderRoomList[i].id,
-                            name: json.data.orderRoomList[i].name
+                            id: orderRoom.id,
+                            name: orderRoom.name
                         });
                     }
                 }
@@ -577,6 +589,8 @@ function callWcpay() {
 }
 
 vmOrder.$watch('selectedList.length', function(a) {
+    var minFee = 0, orderRoom;
+    vmOrder.minFee = 9999; //重新计算最低房费
     vmOrder.needAmount = 0;
     vmOrder.orids = [];
 
@@ -589,5 +603,25 @@ vmOrder.$watch('selectedList.length', function(a) {
 
         //记录要支付房间的业务流水号
         vmOrder.orids.push(vmOrder.data.orderRoomList[index].id);
+
+        orderRoom = vmOrder.data.orderRoomList[index];
+        //找到最低的房费
+        if(vmOrder.data.isPartTime == 0) {
+            minFee = orderRoom.amount/orderRoom.timeCount;
+        } else if(vmOrder.data.isPartTime == 1) {
+            minFee = orderRoom.amount;
+        }
+
+        if(vmOrder.minFee > minFee) {
+            vmOrder.minFee = minFee;
+
+            if(vmOrder.fundType == 2) {
+                vmOrder.fund = minFee;
+            }
+        }
     })
+
+    if(a == 0) {
+        vmOrder.fund = 0;
+    }
 })
