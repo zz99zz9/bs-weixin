@@ -18,12 +18,9 @@ var vmCardBuy = avalon.define({
     $id: 'cardBuy',
     data: {
         imgUrl: '',
-        discountUrl: '',
-        awardUrl: '',
-        promoteUrl: ''
     },
     getType: function() {
-        return 'img/card/No' + vmCardBuy.cardType + '.png';
+        return 'img/card/No' + vmCardBuy.data.type + '.png';
     },
     getData: function() {
         if(!isweixin) {
@@ -35,11 +32,8 @@ var vmCardBuy = avalon.define({
             data: { id: cardID },
             successCallback: function(json) {
                 if (json.status === 1) {
-                    json.data.imgUrl = 'img/card/No' + cardID + '.png';
-                    json.data.discountUrl = 'img/card/No' + cardID + '_discount.png';
-                    json.data.awardUrl = 'img/card/No' + cardID + '_award.png';
-                    json.data.promoteUrl = 'img/card/No' + cardID + '_promote.png';
-        
+                    json.data.imgUrl = 'img/card/No' + json.data.type + '.png';
+
                     vmCardBuy.data = json.data;
                 }
             }
@@ -151,6 +145,9 @@ switch(cardID) {
     case 3:
         $('.card-font').css('color', 'white');
         break;
+    case 6:
+        $('.card-font').css('color', '#eee');
+        break;
 }
 
 var cardWidth, cardHeight;
@@ -162,6 +159,7 @@ avalon.ready(function() {
 
     $('.card-font').css('left', cardWidth * 0.05 + 'px');
     $('.card-font').css('top', cardHeight * 0.64 + 'px');
+    $('.card-discount').css('top', '-' + cardHeight * 0.32 + 'px');
 });
 
 /**

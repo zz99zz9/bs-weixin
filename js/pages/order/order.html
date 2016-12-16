@@ -109,7 +109,7 @@ input[type=checkbox] {
                     <!-- 操作按钮 -->
                     <button class="bs-text-small" type="button" ms-on-tap="orderRoomAction(el.id, el.status)" ms-if="el.status>=3&&el.status<=4&&!el.isComment" style="float: left;margin: 0px;margin-top: 12px;">{{showActionText(el.status)}}</button>
                     <!-- 房间价格 -->
-                    <span class="bs-text-large bs-text-red" style="float: right; margin: 20px 15px 0 0;">¥{{el.actualAmount}}</</span>
+                    <span class="bs-text-large bs-text-black" style="float: right; margin: 20px 15px 0 0;">¥{{el.amount}}</</span>
                 </h5>
                 <span style="clear: both;">&nbsp;</span>
             </li>
@@ -121,8 +121,10 @@ input[type=checkbox] {
         <div class="order-panel" ms-if="data.status==1&&fundList.$model.length>0">
             <div class="order-panel-title bs-text-large bs-text-153">优惠券</div>
             <div class="order-fundList">
-                <div class="order-fund bs-text-normal bs-text-gold" ms-click="selectFund($index)" ms-repeat="fundList" ms-class="selected: $index == fundIndex" ms-if-loop="el.isValid">
-                    ¥<span class="bs-text-x-large">{{el.money}}</span>
+                <div class="order-fund bs-text-normal bs-text-gold" ms-click="selectFund($index, el.type)" ms-repeat="fundList" ms-class="selected: $index == fundIndex" ms-if-loop="el.isValid">
+                    <div ms-if="el.type==1">¥<span class="bs-text-x-large">{{el.money}}</span>
+                    </div>
+                    <div ms-if="el.type==2" style="width: 68px;margin: 9px auto;line-height: 17px;white-space: normal;">{{el.remarks}}</div>
                 </div>
             </div>
         </div>
@@ -142,11 +144,11 @@ input[type=checkbox] {
             </div>
 
             <!-- 支付时的优惠金额显示 -->
-            <div style="clear: both;" ms-if="fund>0">
+            <div style="clear: both;" ms-if="fund>0&&fund<9999">
                 <span class="info-left">优惠券</span>
                 <span class="info-right bs-text-black" style="text-align: right;">-¥{{fund}}</span>
             </div>
-            <div style="clear: both;" ms-if="discount<1">
+            <div style="clear: both;" ms-if="(discount<1)&&(needAmount-fund>0)">
                 <span class="info-left">{{discountCard}}{{discount*10}}折</span>
                 <span class="info-right bs-text-black">
                 -¥{{round((needAmount-fund)*(1-discount))}}</span>
@@ -166,7 +168,7 @@ input[type=checkbox] {
                 <span class="info-left">实付金额</span>
                 <span class="info-right bs-text-red">
                 ¥<!-- {{round(needAmount-fund)<0?0:round(needAmount-fund)}} -->
-                {{data.paidAmount?data.paidAmount:(round(needAmount-fund)<0?0:round((needAmount-fund)*discount))}}
+                {{data.status!=1?data.paidAmount:(round(needAmount-fund)<0?0:round((needAmount-fund)*discount))}}
                 </span>
             </div>
             <div>&nbsp;</div>

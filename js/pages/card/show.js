@@ -20,6 +20,9 @@ var vmCardBuy = avalon.define({
                         case 3:
                             $('.card-font').css('color', 'white');
                             break;
+                        case 5:
+                        $('.card-font').css('color', '#eee');
+                        break;
                     }
                 } else {
                     // location.href = "index.html";
