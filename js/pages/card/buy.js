@@ -115,8 +115,7 @@ var vmCardBuy = avalon.define({
                                 }
                             });
                         } else {
-                            vmPopover.useCheck = 1;
-                            popover('./util/card-rule.html', 1);
+                            vmCardBuy.openRule();
                         }
                     }
                 }

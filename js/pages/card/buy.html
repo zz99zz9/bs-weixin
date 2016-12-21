@@ -24,7 +24,7 @@
         <section style="padding: 10px 0 5px 10px;">
             <div class="bs-text-red bs-text-larger" style="padding-top: 5px; padding-bottom: 15px;">
                 ¥ {{@data.amount}}
-                <div class="bs-text-gold bs-text-smaller" style="float: right;" :on-tap="@goSafe">VIP会员的推广奖金如何保障？</div>
+                <div class="bs-text-gold bs-text-smaller" style="float: right;" :on-tap="@goSafe" :visible="@data.type!=5">VIP会员的推广奖金如何保障？</div>
             </div>
             <div class="card-buy-item">
                 <div class="card-buy-left">
@@ -34,8 +34,8 @@
                             <div class="bs-text-gray" style="font-size: 8px;">推广奖励</div>
                         </div>
                         <div class="card-buy-fan" :if="@data.type==5">
-                            <div class="bs-text-red">免费入住券</div>
-                            <div class="bs-text-gray" style="font-size: 8px;">邀请好友获赠</div>
+                            <div class="bs-text-red">全额退款</div>
+                            <div class="bs-text-gray" style="font-size: 8px;">入住满6次后</div>
                         </div>
                     </div>
                     <div class="bs-text-small bs-text-gray card-buy-con1" :if="@data.type<5">高额推广奖励，同时亦可享受{{@data.name}}至尊服务</div>
