@@ -1,6 +1,7 @@
 var vmRecord = avalon.define({
     $id: 'record',
     amount: 0,
+    totalAmount: 0,  //共累计捐赠的钱数
     bensueAmount: 0,
     join: false,
     getAmount: function() {
@@ -14,6 +15,22 @@ var vmRecord = avalon.define({
             successCallback: function(json) {
                 if (json.status === 1) {
                     vmRecord.join = json.data.join;
+                }
+            }
+        });
+    },
+    //共累计捐赠的钱数
+    getCardAomunt: function() {
+        ajaxJsonp({
+            url: urls.getAccountCommonwealInfo,
+            data: {
+                cid: cid,
+            },
+            successCallback: function(json) {
+                if (json.status === 1) {
+                    vmRecord.totalAmount = json.data.totalDonateAmount;
+                } else {
+                    mui.alert(json.message);
                 }
             }
         });
@@ -75,6 +92,7 @@ if (fid != "") {
 vmRecord.getAmount();
 vmRecord.getData();
 vmRecord.getList();
+vmRecord.getCardAomunt();
 
 mui.init({
     pullRefresh: {
@@ -103,6 +121,7 @@ function reload() {
     ajaxJsonp({
         url: urls.getMyWealRecord,
         data: {
+            cid: cid,
             pageSize: vmRecord.pageSize,
             pageNo: vmRecord.pageNo
         },
@@ -124,6 +143,7 @@ function loadmore() {
     ajaxJsonp({
         url: urls.getMyWealRecord,
         data: {
+            cid: cid,
             pageSize: vmRecord.pageSize,
             pageNo: vmRecord.pageNo
         },

@@ -1,11 +1,10 @@
 <div class="filter-row mui-control-content mui-active" ms-controller="calendar">
      <div class="time">
-        <a id="select_start" href="###" ms-on-touchend="startClick" ms-class="selected: statusControl.isStartEdit">
-            入住时间<br><small ms-class="bs-text-black:!statusControl.isStartEdit">{{startIndex==-1?'选择日期':(calendar[startIndex]?formatDate(calendar[startIndex].date):'&nbsp;')}}</small>
+        <a id="select_start" href="###" style="border-right: 1px solid #eee;">
+            入住时间<br><small style="color: #baa071;">{{startIndex==-1?'选择日期':(calendar[startIndex]?formatDate(calendar[startIndex].date):'&nbsp;')}}</small>
         </a>
-        <i></i>
-        <a id="select_end" href="###" ms-on-touchend="endClick" ms-class="selected: statusControl.isEndEdit">
-            退房时间<br><small ms-class="bs-text-black:!statusControl.isEndEdit">{{endIndex==-1?'选择日期':(calendar[endIndex]?formatDate(calendar[endIndex].date):'&nbsp;')}}</small>
+        <a id="select_end" href="###">
+            退房时间<br><small style="color: #baa071;">{{endIndex==-1?'选择日期':(calendar[endIndex]?formatDate(calendar[endIndex].date):'&nbsp;')}}</small>
         </a>
     </div>
 
@@ -13,12 +12,12 @@
         <div class="calendar" style="border-bottom: 1px solid gainsboro;">
             <b>一</b><b>二</b><b>三</b><b>四</b><b>五</b><b>六</b><b>日</b>
         </div>
-        <div id="calendarPanel" class="calendar" ms-class="edit:statusControl.isCalendarEdit" style="background: url('img/loading.gif') no-repeat center;background-size: 81px 14px;overflow-y: auto;-webkit-overflow-scrolling: touch;">
+        <div id="calendarPanel" class="calendar" style="background: url('img/loading.gif') no-repeat center;background-size: 81px 14px;overflow-y: auto;-webkit-overflow-scrolling: touch;">
             <!-- <a href="###">
                 15
                 <sub>打折</sub>
             </a>-->
-            <a href="###" ms-repeat="calendar" ms-class-1="disabled:isDisabled($index,statusControl.isStartEdit,statusControl.isEndEdit,startIndex,endIndex)" ms-class-2="split-top:(el.day<=7)" ms-class-3="split-left:(el.day==1)" ms-class-4="selected:isSelected($index)" ms-class-5="start:$index==startIndex" ms-class-6="end:endIndex&&$index==endIndex" ms-on-tap="clickDate($index)">
+            <a id="cal" href="###" ms-repeat="calendar" ms-attr-disabled="el.isDisabled" ms-class-1="disabled:el.isDisabled" ms-class-2="split-top:(el.day<=7)" ms-class-3="split-left:(el.day==1)" ms-class-4="selected:isSelected($index)" ms-class-5="start:$index==startIndex" ms-class-6="end:endIndex&&$index==endIndex" ms-on-tap="clickDate($index)">
                 <sup ms-if="el.day==1 && todayIndex!=$index">{{el.month}}月</sup> {{el.day==0?'&nbsp;':el.day}}
                 <sup ms-if="todayIndex==$index">今天</sup>
             </a>

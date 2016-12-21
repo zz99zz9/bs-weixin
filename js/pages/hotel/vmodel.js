@@ -111,7 +111,7 @@ var vmHotel = avalon.define({
                 vmBtn.type = 'date';
                 popover('./util/calendar.html', 1, function() {
                     $('#calendarPanel').height($(window).height() - 180);
-                    //初始状态打开选择入住时间
+                    //初始状态打开`入住时间
                     if (!(vmCalendar.statusControl.isEndEdit || vmCalendar.statusControl.isStartEdit)) {
                         vmCalendar.startClick();
                     }

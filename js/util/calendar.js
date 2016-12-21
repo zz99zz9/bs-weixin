@@ -1,4 +1,3 @@
-
 //日历相关
 var bookDateList = null,
     vmCalendar = avalon.define({
@@ -17,119 +16,11 @@ var bookDateList = null,
         },
         startClick: function() {
             vmCalendar.statusControl.isCalendarShow = true;
-
-            // if (!vmCalendar.statusControl.isStartEdit) {
-            vmCalendar.statusControl.isStartEdit = true;
-            vmCalendar.statusControl.isEndEdit = false;
             vmCalendar.statusControl.isCalendarEdit = true;
-            // } else {
-            //     //进入非编辑模式
-            //     vmCalendar.statusControl.isStartEdit = false;
-            //     vmCalendar.statusControl.isCalendarEdit = false;
-            // }
-
-            // vmCalendar.statusControl.isTypeShow = false;
-            // vmCalendar.statusControl.isMoreBtnShow = false;
-            // vmCalendar.statusControl.isRoomListShow = false;
-            // vmCalendar.statusControl.isStartTimeShow = true;
-
-            // if (pageType != "order") {
-            //     vmLogo.isClose = true;
-
-            //     //查询搜索时，要显示的酒店夜房优惠价格列表
-            //     ajaxJsonp({
-            //         url: urls.getNightDiscount,
-            //         data: { hid: hotelid, tid: vmCalendar.typeid },
-            //         successCallback: function(json) {
-            //             if (json.status === 1) {
-            //                 vmCalendar.nightDiscount = json.data;
-            //             }
-            //         }
-            //     });
-            // }
-            // if (pageType == 'order') {
-            //     vmCalendar.statusControl.isStartTimeEdit = false;
-            // }
         },
         endClick: function() {
             vmCalendar.statusControl.isCalendarShow = true;
-
-            // if (!vmCalendar.statusControl.isEndEdit) {
-            vmCalendar.statusControl.isStartEdit = false;
-            vmCalendar.statusControl.isEndEdit = true;
             vmCalendar.statusControl.isCalendarEdit = true;
-            // } else {
-            //     //进入非编辑模式
-            //     vmCalendar.statusControl.isEndEdit = false;
-            //     vmCalendar.statusControl.isCalendarEdit = false;
-            // }
-
-            // vmCalendar.statusControl.isTypeShow = false;
-            // vmCalendar.statusControl.isMoreBtnShow = false;
-            // vmCalendar.statusControl.isRoomListShow = false;
-            // vmCalendar.statusControl.isStartTimeShow = false
-
-            // if (pageType != "order") {
-            //     vmLogo.isClose = true;
-            //     vmCalendar.statusControl.isMoreBtnShow = true;
-            // }
-            // if (pageType == 'order') {
-            //     vmCalendar.statusControl.isStartTimeEdit = true;
-            // }
-        },
-        //日历灰掉的逻辑
-        isDisabled: function(index, isStartEdit, isEndEdit, startIndex, endIndex) {
-            var isDisabledByBooked,
-                date = vmCalendar.$model.calendar[index],
-                max = -1,
-                min = -1;
-
-            isDisabledByBooked = isStartEdit ? date.inDisabled : date.outDisabled;
-
-            // if (bookDateList) {
-            if (false) {
-                var list = isStartEdit ? bookDateList.inIndex : bookDateList.outIndex,
-                    length = list.length;
-
-                //先选入住，再选退房时
-                if (startIndex > -1 && isEndEdit) {
-                    for (var i in list) {
-                        max = list[i];
-                        if (list[i] > startIndex) {
-                            break;
-                        }
-                    }
-
-                    if (index > max && max > startIndex) {
-                        isDisabledByBooked = true;
-                    }
-                }
-                //先选退房，在选入住
-                if (endIndex > -1 && isStartEdit) {
-                    if(endIndex > list[0]) {
-                        for (var i in list) {
-                            min = list[i-1];
-                            if (list[i] >= endIndex) {
-                                break;
-                            }
-                        }
-                        //如果退房时间在所有预订日期的后面
-                        //要保留可点的入住时间的最小值就是预订日期的最大值的前一天
-                        if (endIndex > list[length - 1]) {
-                            min = list[length - 1];
-                        }
-                    }
-
-                    //小于最小值的都灰掉
-                    if (index < min) {
-                        isDisabledByBooked = true;
-                    }
-                }
-            }
-
-            return (isStartEdit && ((endIndex != -1) && (index > endIndex))) 
-            || (isEndEdit && ((startIndex != -1) && (index < startIndex))) 
-            || isDisabledByBooked
         },
         isSelected: function(index) {
             if (vmCalendar.startIndex == -1 && vmCalendar.endIndex == -1) {
@@ -148,97 +39,31 @@ var bookDateList = null,
         endIndex: -1,
         todayIndex: 0,
         clickDate: function(index) {
-            stopSwipeSkip.do(function(){
+            stopSwipeSkip.do(function() {
                 var date = vmCalendar.$model.calendar[index];
-
-                //是否是编辑状态
-                if (vmCalendar.statusControl.isCalendarEdit) {
-                    //是否是编辑入住时间
-                    if (vmCalendar.statusControl.isStartEdit && !date.inDisabled) {
-                        if ((vmCalendar.startIndex != -1) && (vmCalendar.startIndex == index)) {
-                            vmCalendar.startIndex = -1;
-                            //如果还有结束时间，变成开始时间
-                            // if(vmCalendar.endIndex != -1){
-                            //     vmCalendar.startIndex = vmCalendar.endIndex;
-                            //     vmCalendar.endIndex = -1;
-                            //     vmCalendar.endClick();
-                            // }
-                            return;
-                        }
-
-                        if (vmCalendar.endIndex > vmCalendar.startIndex) {
-                            //小于之前的结束时间
-                            if (index < vmCalendar.endIndex) {
-                                //判断中间有没有预定掉的日期
-                                // if (!bookDateList) {
-                                if (!false) {
-                                    vmCalendar.startIndex = index;
-                                } else {
-                                    var count = 0;
-                                    for (var i = index; i < vmCalendar.endIndex; i++) {
-                                        if (bookDateList.inIndex.indexOf(i) > -1) {
-                                            count = 1;
-                                            break;
-                                        }
-                                    }
-                                    if (!count) {
-                                        vmCalendar.startIndex = index;
-                                    }
-                                }
-                            }
-                            //大于之前的结束时间－不响应
-                        } else {
+                if (vmCalendar.calendar[index].isDisabled == false) {
+                    //开始，结束，index相当于分配到开始或结束前的cache
+                    if (vmCalendar.startIndex == -1) {
+                        vmCalendar.startIndex = index;
+                    } else if (vmCalendar.startIndex != -1 && vmCalendar.endIndex == -1 && vmCalendar.startIndex != index) {
+                        if (index < vmCalendar.startIndex) {
+                            vmCalendar.endIndex = vmCalendar.startIndex;
                             vmCalendar.startIndex = index;
-                        }
-
-                        vmCalendar.startTime = "";
-                        vmCalendar.nightPrice = 0;
-                        if(vmCalendar.startIndex == index) {
-                            vmCalendar.endClick();
-                        }
-                    }
-
-                    //是否是编辑退房时间
-                    if (vmCalendar.statusControl.isEndEdit && !date.outDisabled) {
-                        if ((vmCalendar.endIndex != -1) && (vmCalendar.endIndex == index)) {
-                            vmCalendar.endIndex = -1;
-                            //如果还有开始时间，变成结束时间
-                            // if(vmCalendar.startIndex != -1){
-                            //     vmCalendar.endIndex = vmCalendar.startIndex;
-                            //     vmCalendar.startIndex = -1;
-                            //     vmCalendar.startClick();
-                            // }
-                            return;
-                        }
-
-                        if ((vmCalendar.endIndex > vmCalendar.startIndex || vmCalendar.endIndex == -1) && vmCalendar.startIndex > -1) {
-                            //大于之前的起始时间
-                            if (index > vmCalendar.startIndex) {
-                                //判断中间有没有预定掉的日期
-                                // if (!bookDateList) {
-                                if (!false) {
-                                    vmCalendar.endIndex = index;
-                                } else {
-                                    var count = 0;
-                                    for (var i = vmCalendar.startIndex + 1; i <= index; i++) {
-                                        if (bookDateList.outIndex.indexOf(i) > -1) {
-                                            count = 1;
-                                            break;
-                                        }
-                                    }
-                                    if (!count) {
-                                        vmCalendar.endIndex = index;
-                                    }
-                                }
-                            }
-                            //小于之前的起始时间－不响应
                         } else {
                             vmCalendar.endIndex = index;
                         }
-                        if(vmCalendar.endIndex == index) {
-                            vmCalendar.startClick();
+                    } else if (vmCalendar.startIndex != -1 && vmCalendar.endIndex != -1 && vmCalendar.startIndex != index && vmCalendar.endIndex != index) {
+                        if (index == vmCalendar.startIndex - 1 || index == vmCalendar.startIndex + 1) {
+                            vmCalendar.startIndex = index;
+                        } else if (index == vmCalendar.endIndex - 1 || index == vmCalendar.endIndex + 1) {
+                            vmCalendar.endIndex = index;
+                        } else {
+                            vmCalendar.startIndex = index;
+                            vmCalendar.endIndex = -1;
                         }
                     }
+                    console.log(vmCalendar.startIndex);
+                    console.log(vmCalendar.endIndex);
                 }
             });
         },
@@ -247,7 +72,7 @@ var bookDateList = null,
     });
 
 //先读取本地session
-if(newOrder && newOrder.day) {
+if (newOrder && newOrder.day) {
     if (newOrder.day.startIndex > -1) {
         vmCalendar.startIndex = newOrder.day.startIndex;
         vmCalendar.endIndex = newOrder.day.endIndex;
@@ -263,7 +88,7 @@ function getCalendar(serverTime) {
         weekday = d.getDay(),
         temp,
         list = [],
-        inDisabled = false, outDisabled = false;
+        isDisabled = false;
 
     if (weekday == 0) {
         weekday = 7;
@@ -271,7 +96,7 @@ function getCalendar(serverTime) {
     temp = weekday;
 
     //如果是周一，就多往前显示一周
-    if(temp == 1) {
+    if (temp == 1) {
         temp = temp + 7;
     }
 
@@ -286,17 +111,16 @@ function getCalendar(serverTime) {
             month: month,
             day: day,
             weekday: weekday,
-            inDisabled: true,
-            outDisabled: true,
+            isDisabled: true,
             date: year + '-' + (month < 10 ? ('0' + month) : month) + '-' + (day < 10 ? ('0' + day) : day)
         });
         d.setDate(d.getDate() + 1);
 
         //当前时间6点前的话，可以订昨天的夜房
-        if(getHourIndex()<13 && (i == temp-1)) {
+        if (getHourIndex() < 13 && (i == temp - 1)) {
             console.log(i);
             console.log(list);
-            list[i-1].inDisabled = false;
+            list[i - 1].isDisabled = false;
         }
     }
     vmCalendar.todayIndex = list.length;
@@ -309,29 +133,12 @@ function getCalendar(serverTime) {
         weekday = d.getDay();
         date = year + '-' + (month < 10 ? ('0' + month) : month) + '-' + (day < 10 ? ('0' + day) : day);
 
-        //选入住时间时，被灰掉的日期
-        //不包括被预定的退房日(list2)
-        //list1 + list3
-        // inDisabled = bookDateList && (bookDateList.inStr.indexOf(date) > -1);
-        // if (inDisabled) {
-        //     bookDateList.inIndex.push(list.length);
-        // }
-
-        //选退房时间时，被灰掉的日期
-        //不包括被预定的入住日（14点后入住）(list1)
-        //list2 + list3
-        // outDisabled = bookDateList && (bookDateList.outStr.indexOf(date) > -1);
-        // if (outDisabled) {
-        //     bookDateList.outIndex.push(list.length);
-        // }
-
         list.push({
             year: year,
             month: month,
             day: day,
             weekday: weekday,
-            inDisabled: inDisabled,
-            outDisabled: outDisabled,
+            isDisabled: isDisabled,
             date: date
         });
 
@@ -352,8 +159,7 @@ function getCalendar(serverTime) {
             month: month,
             day: day,
             weekday: weekday,
-            inDisabled: true,
-            outDisabled: true,
+            isDisabled: true,
             date: year + '-' + (month < 10 ? ('0' + month) : month) + '-' + (day < 10 ? ('0' + day) : day)
         });
         d.setDate(day + 1);
@@ -362,7 +168,7 @@ function getCalendar(serverTime) {
     vmCalendar.calendar = list;
 }
 
-vmCalendar.$watch('startIndex',function(a){
+vmCalendar.$watch('startIndex', function(a) {
     var startObj, sIndex, startShow, amount;
 
     if (a == -1) {
@@ -389,7 +195,7 @@ vmCalendar.$watch('startIndex',function(a){
     Storage.set("newOrder", newOrder);
 });
 
-vmCalendar.$watch('endIndex',function(a){
+vmCalendar.$watch('endIndex', function(a) {
     var endObj, eIndex, endShow, amount;
 
     if (a == -1) {
