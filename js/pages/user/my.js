@@ -210,14 +210,12 @@ var vmSide = avalon.define({
 
                         for (var i = 0; i < cList.length; i++) {
                             if (cList[i].type != 4) {
-                                if(vmSide.cardList[0].id == 0) {
+                                if(vmSide.cardList[0].id == 0 && i == 0) {
                                     vmSide.cardList[0].id = cList[i].id;
                                     vmSide.cardList[0].img = '../img/card/card_No' + cList[i].type + '.svg'; 
-                                } else {
-                                    if (vmSide.cardList[1].id == 0) {
-                                        vmSide.cardList[1].id = cList[i].id;
-                                        vmSide.cardList[1].img = '../img/card/card_No' + cList[i].type + '.svg';
-                                    }
+                                } else if (vmSide.cardList[1].id == 0 && i == 1) {
+                                    vmSide.cardList[1].id = cList[i].id;
+                                    vmSide.cardList[1].img = '../img/card/card_No' + cList[i].type + '.svg';
                                 }
                             }
                         }

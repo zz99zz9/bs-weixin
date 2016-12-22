@@ -76,7 +76,8 @@ var vmCardDetail = avalon.define({
     },
     goLog: function(index) {
         Storage.set('cardData', { index: index });
-        location.href = 'card-log.html?cid=' + vmCardDetail.data[index].id;
+        location.href = 'card-log.html?cid=' + vmCardDetail.data[index].id
+                    + '&type=' + vmCardDetail.data[index].userBuyCard.type;
     },
     goCardList: function() {
         location.href = 'card-list.html';
