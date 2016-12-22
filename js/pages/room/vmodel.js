@@ -396,7 +396,6 @@ vmRoom = avalon.define({
     //显示夜房的入住时间
     showDate: function() {
         var startObj, endObj, startIndex, endIndex;
-
         if (vmCalendar.startIndex == -1) {
             vmRoom.start = '请选择';
         } else {
@@ -429,7 +428,6 @@ vmRoom = avalon.define({
     showPartTime: function() {
         var start = vmPart.partTimeStart,
             end = vmPart.partTimeEnd;
-
         if (start) {
             vmRoom.start = '今日<br>' + start;
         } else {
@@ -802,10 +800,10 @@ function sessionToDateData() {
         }
     } else {
         if (newOrder.partTime.startShow) {
-            vmRoom.start = newOrder.partTime.startShow;
+            vmRoom.start = '今日<br>' + newOrder.partTime.startShow;
         }
         if (newOrder.partTime.endShow) {
-            vmRoom.end = newOrder.partTime.endShow;
+            vmRoom.end = '今日<br>' + newOrder.partTime.endShow;
         }
         if (newOrder.partTime.amount) {
             vmRoom.amount = newOrder.partTime.amount;

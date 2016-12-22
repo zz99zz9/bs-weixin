@@ -62,8 +62,6 @@ var bookDateList = null,
                             vmCalendar.endIndex = -1;
                         }
                     }
-                    console.log(vmCalendar.startIndex);
-                    console.log(vmCalendar.endIndex);
                 }
             });
         },
@@ -118,8 +116,6 @@ function getCalendar(serverTime) {
 
         //当前时间6点前的话，可以订昨天的夜房
         if (getHourIndex() < 13 && (i == temp - 1)) {
-            console.log(i);
-            console.log(list);
             list[i - 1].isDisabled = false;
         }
     }
