@@ -56,7 +56,11 @@ var vmCardBuy = avalon.define({
     },
     openRule: function() {
         vmPopover.useCheck = 1;
-        popover('./util/card-rule.html', 1);
+        if(vmCardBuy.data.type != 5) {
+            popover('./util/card-rule.html', 1);
+        } else {
+            popover('./util/card-rule-5.html', 1);
+        }
     },
     payType: 2,
     chooseType: function(type) {
@@ -115,8 +119,7 @@ var vmCardBuy = avalon.define({
                                 }
                             });
                         } else {
-                            vmPopover.useCheck = 1;
-                            popover('./util/card-rule.html', 1);
+                            vmCardBuy.openRule();
                         }
                     }
                 }

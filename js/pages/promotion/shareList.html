@@ -1,4 +1,4 @@
-<div id="modal-text-content" class="content-rule ms-controller" ms-controller="shareList">
+<div id="popover-text-content" class="content-rule ms-controller" ms-controller="shareList">
     <a style="display:block;margin-bottom: 15px;padding: 10px;border-radius: 10px;border: 1px solid #ddd;overflow: hidden;" :for="el in @list" :attr="{href: 'promotion-share.html?id=' + el.id + '&ptid=' + @ptid}">
         <div style="font-size: 18px;margin: 5px 0;text-align: left;">{{el.shareTitle}}</div>
         <img :attr="{src: el.imgUrl}" style="width: 100%;" alt="">
