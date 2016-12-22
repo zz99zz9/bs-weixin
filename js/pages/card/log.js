@@ -1,10 +1,19 @@
-var accountID = getParam('cid');
+var accountID = getParam('cid'), cardType = getParam('type');
 var cid = accountID;
 if (accountID != "") {
     if (isNaN(accountID)) {
         location.href = document.referrer || "index.html";
     } else {
         accountID = parseInt(accountID);
+    }
+} else {
+    location.href = "index.html";
+}
+if (cardType != "") {
+    if (isNaN(cardType)) {
+        location.href = document.referrer || "index.html";
+    } else {
+        cardType = parseInt(cardType);
     }
 } else {
     location.href = "index.html";
@@ -53,6 +62,11 @@ var vmCardLog = avalon.define({
         
         vmPopover.useCheck = 0;
         popover('./util/card-rule.html', 1);
+        if(cardType != 5) {
+            popover('./util/card-rule.html', 1);
+        } else {
+            popover('./util/card-rule-5.html', 1);
+        }
     },
     goBind: function() {
         location.href = "card-bind.html?cid=" + accountID;

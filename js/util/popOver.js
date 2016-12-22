@@ -9,7 +9,7 @@ function popover(url, type, callback) {
     switch (type) {
         case loadUrl:
             $('#pop-text').load(url, function() {
-                avalon.scan(document.getElementById('modal-text-content'));
+                avalon.scan(document.getElementById('popover-text-content'));
 
                 if (typeof callback == "function") {
                     callback();
@@ -19,7 +19,7 @@ function popover(url, type, callback) {
             break;
         case loadStr:
             $('#pop-text').html(url);
-            avalon.scan(document.getElementById('modal-text-content'));
+            avalon.scan(document.getElementById('popover-text-content'));
             
             // avalon.scan(document.getElementsByClassName('popover')[0]);
             break;
