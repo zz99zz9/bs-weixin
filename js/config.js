@@ -445,12 +445,12 @@ function loadSessionPartTime() {
 //获取入住时间
 function getStartTime(type) {
     if (type) {
-        if (newOrder.partTime.start) {
+        //if (newOrder.partTime.start) {
             var today = new Date();
             return today.getFullYear() + "-" + ((today.getMonth() + 1) < 10 ? ('0' + (today.getMonth() + 1)) : (today.getMonth() + 1)) + "-" + today.getDate() + " " + vmPart.partTimeStart;
-        } else {
-            return '';
-        }
+        //} else {
+        //    return '';
+        //}
     } else {
         return getDate(vmCalendar.startIndex);
     }
@@ -459,12 +459,12 @@ function getStartTime(type) {
 //获取退房时间
 function getEndTime(type) {
     if (type) {
-        if (vmPart.partTimeEnd) {
+        //if (vmPart.partTimeEnd) {
             var today = new Date();
             return today.getFullYear() + "-" + ((today.getMonth() + 1) < 10 ? ('0' + (today.getMonth() + 1)) : (today.getMonth() + 1)) + "-" + today.getDate() + " " + vmPart.partTimeEnd;
-        } else {
-            return '';
-        }
+        //} else {
+        //    return '';
+        //}
     } else {
         //夜房默认退房时间
         return getDate(vmCalendar.endIndex) + " 14:00";

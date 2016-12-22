@@ -1,6 +1,5 @@
 var id = getParam("id");
 var cid = getParam("cid");
-console.log(cid);
 var vmDetail = avalon.define({
     $id: 'detail',
     data: {
@@ -143,7 +142,6 @@ var vmDetail = avalon.define({
     selectId: -1, //传的人id
     goRoate: function(id) {
         stopSwipeSkip.do(function() {
-            console.log(0);
             if (vmDetail.isUp == 0) {
                 $(".arrow").css("transform", "rotate(90deg)");
                 vmDetail.selectId = id;
