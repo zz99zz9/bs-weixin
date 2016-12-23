@@ -84,6 +84,8 @@ var vmLottery = avalon.define({
                             break;
                     }
 
+                    vmLog.iniList();
+
                     rotateFunc(vmLottery.prize[vmLottery.prizeIndex].angle);
                 } else {
                     mui.alert(json.message);
@@ -225,11 +227,10 @@ var vmLottery = avalon.define({
                         if (c.id == 4) {
                             c.imgUrl = 'img/card/card_null.svg';
                         } else {
-                            c.imgUrl = 'img/card/card_No' + c.id + '.svg';
+                            c.imgUrl = 'img/card/card_No' + c.type + '.svg';
                         }
                         vmLottery.data.push(c);
                     });
-                    console.log(111);
                 }
             }
         });
@@ -255,6 +256,11 @@ var vmLog = avalon.define({
     list: [],
     pageNo: 1,
     pageSize: 10,
+    iniList: function() {
+        vmLog.list = [];
+        vmLog.pageNo = 1;
+        vmLog.getList();
+    },
     getList: function() {
         ajaxJsonp({
             url: urls.getPrizeLogList,
@@ -318,7 +324,7 @@ vmLottery.getWinnerList();
 vmLottery.getCardList();
 vmLottery.getCard();
 vmLottery.getData();
-vmLog.getList();
+vmLog.iniList();
 
 function rotateFunc(angle) { //angle:奖项对应的角度
     vmLottery.isRotate = true;

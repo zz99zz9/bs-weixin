@@ -126,7 +126,6 @@ var vmDetail = avalon.define({
             vmDetail.animation(prData.index);
         }
         vmDetail.$model.list.map(function(ob) {
-            console.log(ob);
             var canvasIni = vmDetail.canvasIni(ob);
             if (canvasIni) {
                 vmDetail.drawCircle(canvasIni.context, "grey", -4); //先画第一个灰

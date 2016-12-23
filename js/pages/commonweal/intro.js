@@ -56,6 +56,7 @@ var vmIntroduce = avalon.define({
     open: function() {
         stopSwipeSkip.do(function() {
             if (vmIntroduce.join) {
+                console.log(123);
                 vmDetailPop.getCardAomunt();
             } else {
                 vmDetailPop.getAmount();
@@ -92,6 +93,7 @@ if (cid == '') {
 var vmDetailPop = avalon.define({
     $id: 'detailPop',
     amount: 0,
+    totalAmount: 0,//总捐赠金额
     join: '', //true表示加入
     //获取会员卡捐赠情况(总额)
     getCardAomunt: function() {
@@ -102,7 +104,7 @@ var vmDetailPop = avalon.define({
             },
             successCallback: function(json) {
                 if (json.status === 1) {
-                    vmDetailPop.amount = json.data.totalDonateAmount;
+                    vmDetailPop.totalAmount = json.data.totalDonateAmount;
                 } else {
                     mui.alert(json.message);
                 }

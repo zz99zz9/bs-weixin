@@ -2849,6 +2849,7 @@ function popHtml() {
             './js/pages/room/note.html',
             './js/pages/room/designer.html',
             './js/pages/card/card-rule.html',
+            './js/pages/card/card-rule-5.html',//校园卡会员条款
             './js/pages/card/card-withdraw.html',
             './js/pages/card/lottery-log.html',
             './js/pages/card/lottery-rule.html',

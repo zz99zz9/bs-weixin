@@ -26,10 +26,10 @@ hid = 1; //目前只有1家店
 bensue = Storage.get("bensue");
 if (bensue) {
     roomType = bensue.type || 0;
-} else { 
+} else {
     //第一次加载
     roomType = 0;
-    Storage.set("bensue", {type: 0});
+    Storage.set("bensue", { type: 0 });
 }
 
 newOrder = Storage.get("newOrder");
@@ -57,7 +57,7 @@ var vmHotel = avalon.define({
             roomType = type;
             vmHotel.type = type;
             Storage.set("bensue", { type: type });
-            
+
             vmHotel.getHotelDetail();
             vmHotel.getRoomTypeList();
 
@@ -111,7 +111,7 @@ var vmHotel = avalon.define({
                 vmBtn.type = 'date';
                 popover('./util/calendar.html', 1, function() {
                     $('#calendarPanel').height($(window).height() - 180);
-                    //初始状态打开选择入住时间
+                    //初始状态打开`入住时间
                     if (!(vmCalendar.statusControl.isEndEdit || vmCalendar.statusControl.isStartEdit)) {
                         vmCalendar.startClick();
                     }
@@ -277,7 +277,7 @@ var vmHotel = avalon.define({
         ajaxJsonp({
             url: urls.getRoomTypeList,
             data: {
-                startTime: roomType ? newOrder.partTime.start : (newOrder.day.start==getToday('date')?getToday():newOrder.day.start),
+                startTime: roomType ? newOrder.partTime.start : (newOrder.day.start == getToday('date') ? getToday() : newOrder.day.start),
                 endTime: roomType ? newOrder.partTime.end : newOrder.day.end,
                 hid: hid,
                 isPartTime: roomType
@@ -285,19 +285,19 @@ var vmHotel = avalon.define({
             successCallback: function(json) {
                 if (json.status == 1) {
                     json.data.map(function(t) {
-                        switch(roomType) {
-                            case 0: 
+                        switch (roomType) {
+                            case 0:
                                 t.coverUrl = t.nightCoverUrl;
                                 break;
-                            case 1: 
+                            case 1:
                                 t.coverUrl = t.hourCoverUrl;
                                 break;
-                            case 2: 
+                            case 2:
                                 t.coverUrl = t.midnightCoverUrl;
-                                break;   
+                                break;
                         }
                     });
-                    
+
                     vmHotel.roomTypeList = json.data;
                 }
             }
@@ -345,14 +345,18 @@ var vmBtn = avalon.define({
     ok: function() {
         switch (vmBtn.type) {
             case 'date':
-                vmCalendar.startClick();
+                //vmCalendar.startClick();
             case 'partTime':
                 // mui('#pullrefresh').pullRefresh().refresh(true);
-
+                
+                newOrder.partTime.startShow = vmPart.partTimeStart;
+                newOrder.partTime.endShow = vmPart.partTimeEnd;
+                newOrder.partTime.amount = vmPart.partTimeNumber / 2;
+                Storage.set("newOrder", newOrder);
                 saveStorage();
                 vmHotel.getRoomTypeList();
                 break;
-            case 'roomType': 
+            case 'roomType':
                 // mui('#pullrefresh').pullRefresh().refresh(true);
                 saveStorage();
                 vmHotel.getRoomTypeList();
@@ -368,14 +372,14 @@ var vmBtn = avalon.define({
 
 //开门或者退房操作，打开面板
 actionType = getParam('type');
-if(actionType) {
+if (actionType) {
     vmSide.show();
 }
 
 user = Storage.getLocal("user");
 //更换登录用户头像
 if (user) {
-    if(user.logState && user.headImg) {
+    if (user.logState && user.headImg) {
         vmHotel.headImg = urlAPINet + user.headImg;
     }
 

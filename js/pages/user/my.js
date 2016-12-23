@@ -40,10 +40,11 @@ var vmSide = avalon.define({
     cardList: [{
         id: 0,
         img: '../img/card/card_null.svg'
-    }, {
+    },
+    {
         id: 0,
         img: '../img/card/card_null.svg'
-    }, ],
+    }],
     goCard: function(id, index) {
         stopSwipeSkip.do(function() {
             if (id > 0) {
@@ -206,10 +207,16 @@ var vmSide = avalon.define({
 
                     if (json.data.userBuyCardList && json.data.userBuyCardList.length) {
                         var cList = json.data.userBuyCardList;
+
                         for (var i = 0; i < cList.length; i++) {
                             if (cList[i].type != 4) {
-                                vmSide.cardList[i].id = cList[i].id;
-                                vmSide.cardList[i].img = '../img/card/card_No' + cList[i].type + '.svg';
+                                if(vmSide.cardList[0].id == 0 && i == 0) {
+                                    vmSide.cardList[0].id = cList[i].id;
+                                    vmSide.cardList[0].img = '../img/card/card_No' + cList[i].type + '.svg'; 
+                                } else if (vmSide.cardList[1].id == 0 && i == 1) {
+                                    vmSide.cardList[1].id = cList[i].id;
+                                    vmSide.cardList[1].img = '../img/card/card_No' + cList[i].type + '.svg';
+                                }
                             }
                         }
                     }

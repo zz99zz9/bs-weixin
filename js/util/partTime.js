@@ -221,7 +221,6 @@ vmPart.$watch("partTimeNumber", function(a) {
     } else {
         endShow = '<br>请选择';
     }
-
     if (start && end) {
         amount = vmPart.partTimeNumber / 2;
     } else {
