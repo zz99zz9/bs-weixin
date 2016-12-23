@@ -288,7 +288,7 @@ vmRoom = avalon.define({
         // Storage.set("newOrder", newOrder);
 
         if (vmRoom.type == 1) {
-            if (!newOrder.partTime.start || !newOrder.partTime.end || newOrder.partTime.start == '' || newOrder.partTime.end == '') {
+            if (!newOrder.partTime.start || !newOrder.partTime.end || newOrder.partTime.start == '' || newOrder.partTime.end == '' || newOrder.partTime.start.length < 12 || newOrder.partTime.end.length < 12) {
                 // mui.toast('请选择时间');
                 popCase = 'time';
                 vmRoom.isGoNext = false;
@@ -328,7 +328,7 @@ vmRoom = avalon.define({
                 },
                 successCallback: function(json) {
                     if (json.status == 1) {
-                        Storage.delete("newOrder");
+                        Storage.delete("newOrder");   //清空该用户的缓存记录
 
                         location.href = "order.html?id=" + json.data.id;
                     } else {
