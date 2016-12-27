@@ -1,13 +1,13 @@
 <div ms-controller="record" style="height: 100vh; background-color: white; padding: 30px 20px;">
     <div ms-if="join">
         <div class="bs-text-larger" style="margin-bottom: 15px;">
-            共捐赠  <span class="intro-text-red">{{totalAmount+bensueAmount}}</span> 元
+            共捐赠  <span class="intro-text-red">{{sumMoney(totalAmount,bensueAmount)}}</span> 元
         </div>
         <div style="display: flex;justify-content: space-between;">
             <div class="bs-text-larger bs-text-normal">您已累计捐赠
                 <span class="intro-text-red">{{amount}}</span> 元
             </div>
-            <div class="bs-text-larger bs-text-normal">本宿捐赠
+            <div class="bs-text-larger bs-text-normal">本宿跟赠
                 <span class="intro-text-red">{{bensueAmount}}</span> 元
             </div>
         </div>
@@ -27,7 +27,7 @@
                     <div class="today-list-item">
                         捐助{{el.amount}}元
                         <br>
-                        本宿捐赠{{el.companyAmount}}元
+                        本宿跟赠{{el.companyAmount}}元
                     </div>
                 </div>
             </div>
