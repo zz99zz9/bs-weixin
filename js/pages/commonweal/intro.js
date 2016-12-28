@@ -32,7 +32,8 @@ var vmIntroduce = avalon.define({
         });
     },
     join: '',
-    rate: 0,
+    rate: 0,    //无论是否捐赠，都是这个固定比例显示
+    pcRate: 0,  //个人与本宿捐赠比值
     getAmount: function() {
         //每月捐赠金额
         ajaxJsonp({
@@ -46,7 +47,12 @@ var vmIntroduce = avalon.define({
                     vmDetailPop.amount = json.data.amount;
                     vmDetailPop.join = json.data.join;
                     vmIntroduce.join = vmDetailPop.join;
-                    vmIntroduce.rate = round(json.data.rate * 100, 1);
+                    vmIntroduce.rate = round(json.data.rate);
+                    if (json.data.userDonateFoundation != '') {
+                        vmIntroduce.pcRate = round(json.data.userDonateFoundation.rate/json.data.userDonateFoundation.companyRate,1);
+                    } else {
+                        vmIntroduce.pcRate = round(json.data.rate/json.data.companyRate,1);
+                    }
                 } else {
                     mui.alert(json.message);
                 }
@@ -68,6 +74,10 @@ var vmIntroduce = avalon.define({
         stopSwipeSkip.do(function() {
             location.href = "commonweal-record.html?cid=" + cid + "&fid=" + vmIntroduce.fid;
         });
+    },
+    //计算个人：本宿捐赠比例
+    getRate: function(people,bensue) {
+        return round(people/bensue);
     },
 });
 
