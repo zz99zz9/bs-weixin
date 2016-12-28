@@ -1,6 +1,6 @@
 var hid, roomTypeId, bensue, newOrder, vmRoom, vmBtn, vmDesigner, vmAmenity,
     isSuccess = false,
-    positionInStorage = Storage.getLocal("position");
+    user = Storage.getLocal("user");
 
 hid = getParam("hid");
 if (hid != "") {
@@ -658,25 +658,27 @@ function room_init() {
     //     }
     // });
 
-    //获取默认联系人
-    ajaxJsonp({
-        url: urls.getContactList,
-        successCallback: function(json) {
-            var defaultList = [];
-            if (json.status === 1) {
-                json.data.list.map(function(o) {
-                    if (o.isDefault) {
-                        defaultList.push(o);
+    if(user && user.logState) {
+        //获取默认联系人
+        ajaxJsonp({
+            url: urls.getContactList,
+            successCallback: function(json) {
+                var defaultList = [];
+                if (json.status === 1) {
+                    json.data.list.map(function(o) {
+                        if (o.isDefault) {
+                            defaultList.push(o);
+                        }
+                    });
+                    //如果有默认入住人，就覆盖本地数据
+                    if (defaultList.length > 0) {
+                        newOrder.contact = defaultList;
+                        vmRoom.checkinList = defaultList;
                     }
-                });
-                //如果有默认入住人，就覆盖本地数据
-                if (defaultList.length > 0) {
-                    newOrder.contact = defaultList;
-                    vmRoom.checkinList = defaultList;
                 }
             }
-        }
-    });
+        });
+    }
 
     registerWeixinConfig();
 }

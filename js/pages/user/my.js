@@ -78,7 +78,6 @@ var vmSide = avalon.define({
             var No = vmSide.roomData[0].roomNo;
             vmSide.openDoor(id, No);
         } else if (vmSide.roomData.length > 1) {
-            console.log(222);
             mui('#roomSheet').popover('toggle');
         } else {
             mui.alert("没有可开门的房间");

@@ -1501,3 +1501,15 @@ hr {
     text-align: right;
     padding: 20px 10vw 0 0;
 }
+
+.bs-index-bottom {
+    position: fixed;
+    z-index: 5;
+    bottom: 0;
+    height: 90px;
+    width: 100%;
+}
+.bs-index-bottom-tab {
+    display: flex;
+    justify-content: space-around;
+}

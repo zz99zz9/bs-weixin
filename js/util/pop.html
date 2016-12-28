@@ -35,9 +35,8 @@
         </div>
         <div id="roomSheet" class="mui-popover mui-popover-bottom mui-popover-action bs-text-large" style="right: 0;">
             <ul class="mui-table-view">
-                <li class="mui-table-view-cell" ms-repeat="roomData" ms-click="openDoor(el.id,el.roomNo)" ms-visible="isShowSheet(el.status, sheetType)">
-                    <a href="#">{{el.roomNo}}
-            </a>
+                <li class="mui-table-view-cell" ms-repeat="roomData" ms-click="openDoor(el.id,el.roomNo)">
+                    <a href="#">{{el.roomNo}}</a>
                 </li>
             </ul>
             <ul class="mui-table-view">
@@ -48,9 +47,8 @@
         </div>
         <div id="leaveSheet" class="mui-popover mui-popover-bottom mui-popover-action bs-text-large" style="right: 0;">
             <ul class="mui-table-view">
-                <li class="mui-table-view-cell" ms-repeat="leaveData" ms-click="checkOut(el.id,el.roomNo)" ms-visible="isShowSheet(el.status, sheetType)">
-                    <a href="#">{{el.roomNo}}
-            </a>
+                <li class="mui-table-view-cell" ms-repeat="leaveData" ms-click="checkOut(el.id,el.roomNo)">
+                    <a href="#">{{el.roomNo}}</a>
                 </li>
             </ul>
             <ul class="mui-table-view">
