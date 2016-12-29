@@ -699,6 +699,13 @@ function balance() {
         .pipe(contentIncluder({
             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
         }))
+        .pipe(replace({
+            regex: '<!-- modal -->',
+            replace: '<!--include "../util/modal.html"-->'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
         .pipe(rename('balance.html'))
         .pipe(gulp.dest('./src'));
 }
@@ -2874,6 +2881,7 @@ function popHtml() {
             './js/util/contactList.html',
             './js/util/code.html',
             './js/util/card-select.html',
+            './js/util/pay.html', //支付方式选择弹框
             './js/pages/user/frequent-contact-add.html',
             './js/pages/user/delivery-address-add.html',
             './js/pages/room/note.html',

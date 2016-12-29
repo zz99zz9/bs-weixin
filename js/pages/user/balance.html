@@ -1,7 +1,7 @@
 <!-- 余额页面 -->
 <div class="bs-text-gold" style="height: 100vh;background-color: #23262a;display: flex;flex-direction: column;justify-content: space-between;align-items: center;text-align: center;font-size: 18px;position: relative;" ms-controller="balance">
     <div class="bs-text-xxx-larger fr-head" style="width: 200px;margin-top: 120px;">
-        {{amount}}
+        ¥ {{amount}}
         <span class="bs-text-large bs-text-white"><br>余额</span>
         <!-- <img src="img/icon/question.png" alt="" style="position: absolute;top: -7px;right: -20px;width: 18px;" ms-click="goNote"> -->
     </div>
@@ -14,4 +14,6 @@
         <button class="withdrawBtn" type="button" ms-click="recharge" ms-attr-disabled="isDisabled">充值</button>
     </div>
     <div class="bs-text-smaller fr-link" style="width: 60px;margin-bottom: 25px;" ms-click="goLog">明细</div>
+
+    <!-- modal -->
 </div>
