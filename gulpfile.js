@@ -183,12 +183,20 @@ function index() {
 function hotel() {
     return gulp.src('./js/layout/shell-index.html')
         .pipe(replace({
-            regex: '<!-- css -->',
-            replace: '<link rel="stylesheet" href="css/swiper.min.css">\n<link rel="stylesheet" href="css/hotel.css">'
+            regex: '<!-- top -->',
+            replace: '<!--include "../layout/top.html"-->'
         }))
         .pipe(replace({
             regex: '<!-- content -->',
             replace: '<!--include "../pages/hotel/hotel.html"-->'
+        }))
+        // .pipe(replace({
+        //     regex: '<!-- bottom -->',
+        //     replace: '<!--include "../layout/bottom.html"-->'
+        // }))
+        .pipe(replace({
+            regex: '<!-- css -->',
+            replace: '<link rel="stylesheet" href="css/swiper.min.css">\n<link rel="stylesheet" href="css/hotel.css">'
         }))
         .pipe(replace({
             regex: '<!-- pop -->',
@@ -643,7 +651,7 @@ function inviteToVip() {
         .pipe(gulp.dest('./src'));
 }
 
-//约会基金
+//优惠券页
 function coupon() {
     return gulp.src('./js/layout/shell.html')
         .pipe(replace({
@@ -670,6 +678,56 @@ function coupon() {
             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
         }))
         .pipe(rename('coupon.html'))
+        .pipe(gulp.dest('./src'));
+}
+
+//账户余额
+function balance() {
+    return gulp.src('./js/layout/shell.html')
+        .pipe(replace({
+            regex: '<!-- css -->',
+            replace: '<link rel="stylesheet" href="css/franchisee.css">'
+        }))
+        .pipe(replace({
+            regex: '<!-- content -->',
+            replace: '<!--include "../pages/user/balance.html"-->'
+        }))
+        .pipe(replace({
+            regex: '<!-- js -->',
+            replace: '<script src="js/pages/user/balance.js"></script>'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(replace({
+            regex: '<!-- modal -->',
+            replace: '<!--include "../util/modal.html"-->'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('balance.html'))
+        .pipe(gulp.dest('./src'));
+}
+//账户余额交易明细
+function balanceLog() {
+    return gulp.src('./js/layout/shell.html')
+        .pipe(replace({
+            regex: '<!-- css -->',
+            replace: '<link rel="stylesheet" href="css/franchisee.css">'
+        }))
+        .pipe(replace({
+            regex: '<!-- content -->',
+            replace: '<!--include "../pages/user/balance-log.html"-->'
+        }))
+        .pipe(replace({
+            regex: '<!-- js -->',
+            replace: '<script src="js/pages/user/balance-log.js"></script>'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('balance-log.html'))
         .pipe(gulp.dest('./src'));
 }
 
@@ -2844,6 +2902,7 @@ function popHtml() {
             './js/util/contactList.html',
             './js/util/code.html',
             './js/util/card-select.html',
+            './js/util/pay.html', //支付方式选择弹框
             './js/pages/user/frequent-contact-add.html',
             './js/pages/user/delivery-address-add.html',
             './js/pages/room/note.html',
@@ -2919,6 +2978,8 @@ gulp.task('html', gulp.parallel(
     register2,
     service,
     shop,
+    balance,
+    balanceLog,
     frequentContactList,
     invoiceList,
     invoiceApply,

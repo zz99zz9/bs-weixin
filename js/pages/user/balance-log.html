@@ -1,0 +1,17 @@
+<div id="pullrefresh" class="mui-scroll-wrapper">
+    <div class="mui-scroll">
+        <div class="bs-bg-white bs-text-larger fr-padding-20">余额交易明细</div>
+        <div class="bs-bg-white bs-text-large" ms-controller="log">
+            <div class="fr-flex" style="border-bottom: 1px solid #ddd;" ms-repeat="list" ms-if-loop="el.amount">
+                <div class="today-list-item">
+                    {{el.description}}
+                    <br>
+                    <span class="bs-text-smaller bs-text-gray">{{el.createTime}}</span>
+                </div>
+                <div class="today-list-item" style="line-height: 43px;">
+                    {{(el.type==1?'+':'-') + ' ' + el.amount}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

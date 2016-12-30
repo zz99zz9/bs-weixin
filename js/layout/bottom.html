@@ -1,0 +1,25 @@
+<div class="bs-index-bottom bs-bg-white" ms-controller="bottom">
+    <div ms-if="type==0">
+      <span>入住时间 13 15 17 19</span>
+      <span>越晚入住，价格越低</span>
+    </div>
+    <div ms-if="type==1">
+      <span>入住时间 8:00-20:00</span>
+      <span>价格随时间波动</span>
+    </div>
+    <div ms-if="type==2">
+      <span>每天22:05起售</span>
+      <span></span>
+      <div>
+        <span>2折</span>
+        <span>3折</span>
+        <span>4折</span>
+        <span>5折</span>
+      </div>
+    </div>
+    <div class="bs-index-bottom-tab">
+        <div ms-click="selectType(0)">全天房</div>
+        <div ms-click="selectType(1)">时租房</div>
+        <div ms-click="selectType(2)">钟点房</div>
+    </div>
+</div>
