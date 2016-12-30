@@ -1,5 +1,6 @@
 var hid, roomTypeId, bensue, newOrder, vmRoom, vmBtn, vmDesigner, vmAmenity,
     isSuccess = false,
+    roomType = 0,
     user = Storage.getLocal("user");
 
 hid = getParam("hid");
@@ -517,9 +518,6 @@ vmAmenity = avalon.define({
 bensue = Storage.get("bensue");
 if (bensue) {
     roomType = bensue.type || 0;
-}
-if (roomType == undefined) {
-    roomType = 0;
 }
 vmRoom.type = roomType;
 
