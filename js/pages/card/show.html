@@ -48,11 +48,12 @@
         <br>
         <div class="bs-text-normal">{{@data.name}}会员专属微信客服：木一君（微信客服：bensuer007），为了保障能及时提供服务，建议您尽快添加好友；
         <br>
-        如果您对本宿会员有任何疑问，欢迎咨询客服：{{SERVICECALL}}；
+        如果您对本宿会员有任何疑问，欢迎咨询客服：021-50881962<!-- {{SERVICECALL}}； -->
         <br>
         商务合作请发送邮件至：ben@bensue.com</div>
     </div>
-    <div style="position: absolute;bottom: 0;display: table;width: 100vw;" :if="@data.packageStatus==1">
+    <div style="height: 45px;background-color: #fff;"></div>
+    <div style="position: absolute;bottom: 0;display: table;width: 100vw;overflow: auto;" :if="@data.packageStatus==1">
         <button style="background: #000;color: #fff;font-size: 17px;font-weight: bolder;width: 28%;border: none;border-radius: 0;height: 50px;" type="button" onclick="javascript:location.href='index.html'">暂不开通</button>
         <button style="background: #baa071;color: #fff;font-size: 17px;font-weight: bolder;width: 72%;border: none;border-radius: 0;height: 50px;" type="button" onclick="javascript:location.href='promotion-apply.html'">现在开通本宿推广奖励计划</button>
     </div>
