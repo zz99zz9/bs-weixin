@@ -2,8 +2,11 @@
     .mui-bar-nav~.mui-content {
         padding-top: 0px;
     }
+    /*.mui-scroll-wrapper {
+        bottom: 90px;
+    }*/
 </style>
-<div id="pullrefresh" class="mui-scroll-wrapper bs-bg-white" ms-controller="hotel" ms-on-swipeup="su" ms-on-swipedown="sd">
+<div id="pullrefresh" class="mui-scroll-wrapper bs-bg-white" ms-controller="hotel" ms-on-swipeup="vmTop.su" ms-on-swipedown="vmTop.sd">
     <div class="mui-scroll">
         <div style="position: absolute;top: 40vh;z-index: 10;right: 0;padding-right: 10px;">
             <button type="button" class="calender-icon bs-bg-red" ms-css-background-image="type?'url(img/clock.png)':'url(img/calendar.svg)'" ms-on-tap="openTimePanel">

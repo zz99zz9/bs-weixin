@@ -2,9 +2,9 @@
     <div class="bs-text-large bs-text-51" style="margin-top: 30px;">绑定提现帐号</div>
 
     <div style="display: flex;width: 49vw;justify-content: space-around;align-items: center;">
-        <img src="img/card/zfb.svg" alt="支付宝" style="width: 41.5px;" :on-tap="@select(1)">
+        <img src="img/icon/zfb.svg" alt="支付宝" style="width: 41.5px;" :on-tap="@select(1)">
         或
-        <img src="img/card/bank.svg" alt="银行卡" style="width: 45px;" :on-tap="@select(2)">
+        <img src="img/icon/bank.svg" alt="银行卡" style="width: 45px;" :on-tap="@select(2)">
     </div>
     <form :class="['bs-text-large', 'card-bind-panel',@bindType==1?'left':'right']">
         <div :if="@bindType==1">

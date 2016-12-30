@@ -402,7 +402,7 @@ function payOrder() {
                 if (json.data.payStatus == 0) {
                     vmOrder.payinfo = json.data;
                     if (vmOrder.payType == 1) { //支付宝支付
-                        location.href = 'alipay.html?oid=' + orderid + '&payUrl=' + encodeURIComponent(json.data.payUrl);
+                        location.href = 'alipay.html?oid=' + orderid + '&payUrl=' + encodeURIComponent(json.data.payUrl) + '&type=room';
                     } else if (vmOrder.payType == 2) { //微信支付
                         onBridgeReady();
                     } else if (vmOrder.payType == 6) { //钱包支付

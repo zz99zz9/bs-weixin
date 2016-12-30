@@ -1,0 +1,69 @@
+<style>
+  #modal-text-content {
+    width: 100vw;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+  }
+  .modal-content-title {
+    text-align: center;
+    line-height: 48px;
+    border-bottom: 1px solid #ddd;
+    font-size: 18px;
+  }
+  .modal-close {
+    width: 20px;
+    height: 20px;
+    background-image: url(../img/close.svg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: inline-block;
+    box-sizing: content-box;
+    border: 13px solid transparent;
+    top: 1px;
+    left: 3px;
+    position: absolute;
+  }
+  .modal-content-item {
+    text-align: left;
+    line-height: 64px;
+    padding: 0 16px;
+  }
+  .modal-content-item:active {
+    background-color: #ddd;
+  }
+  .modal-content-item .icon {
+    width: 25px;
+    height: 25px;
+    position: relative;
+    top: 6px;
+    margin-right: 12px;
+  }
+  .modal-content-item .arrow {
+    height: 18px;
+    float: right;
+    position: relative;
+    top: 22px;
+  }
+</style>
+<div id="modal-text-content" class="bs-text-51 bs-bg-white" ms-controller="pay">
+  <section class="modal-content-title">
+    <div class="modal-close" ms-click="closeModal"></div>选择充值方式
+  </section>
+
+  <section>
+    <div class="modal-content-item bs-text-51 bs-text-larger" ms-click="goPay(1)">
+      <img src="img/icon/zfb.svg" alt="" class="icon">
+      支付宝
+      <img src="../img/icon/right-arrow.svg" class="arrow" alt="">
+      <div style="height: 1px;background-color: #ddd;"></div>
+    </div>
+    <div class="modal-content-item bs-text-51 bs-text-larger" ms-click="goPay(2)">
+      <img src="img/icon/weixin.svg" alt="" class="icon">
+      微信
+      <img src="../img/icon/right-arrow.svg" class="arrow" alt="">
+    </div>
+  </section>
+
+  <section style="height: 60px;border-top: 1px solid #ddd;"></section>
+</div>

@@ -47,10 +47,8 @@ if (!newOrder) {
     Storage.set("newOrder", newOrder);
 }
 
-var vmHotel = avalon.define({
-    $id: 'hotel',
-    type: 0, //0 全天房, 1 夜房
-    //导航相关
+var vmTop = avalon.define({
+    $id: 'top',
     headImg: 'img/defaultHeadImg.png', //左上角头像
     selectType: function(type) {
         stopSwipeSkip.do(function() {
@@ -91,6 +89,19 @@ var vmHotel = avalon.define({
         //向下滑
         $('header').slideDown();
     },
+});
+
+var vmBottom = avalon.define({
+    $id: 'bottom',
+    type: 0,
+    selectType: function(type) {
+        vmBottom.type = type;
+    }
+});
+
+var vmHotel = avalon.define({
+    $id: 'hotel',
+    type: 0, //0 全天房, 1 夜房
     alias: '',
     name: '',
     tel: '',
@@ -380,7 +391,7 @@ user = Storage.getLocal("user");
 //更换登录用户头像
 if (user) {
     if (user.logState && user.headImg) {
-        vmHotel.headImg = urlAPINet + user.headImg;
+        vmTop.headImg = urlAPINet + user.headImg;
     }
 
     if (user.openUserInfo) {

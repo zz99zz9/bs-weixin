@@ -42,6 +42,19 @@ var vmUser = avalon.define({
         vmSave.newNickname = vmUser.nickname;
         vmSave.newMobile = vmUser.mobile;
     },
+    balance: 0,
+    getBalance: function() {
+        ajaxJsonp({
+            url: urls.getBalance,
+            successCallback: function(json) {
+                if (json.status === 1) {
+                    vmUser.balance = json.data.availableAmount;
+                } else {
+                    mui.alert(json.message, "查询余额");
+                }
+            }
+        });
+      },
     isLogin: 3, //0:没登录   1：登录
     logOff: function() {
         mui.confirm("退出当前账号", "", ["取消", "确定"], function(e) {
@@ -134,3 +147,4 @@ vmSave.$watch('newMobile', function(a) {
 });
 
 vmUser.getUserInfo();
+vmUser.getBalance();
