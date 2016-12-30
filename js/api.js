@@ -76,7 +76,8 @@ var urls = {
     getBalance: urlAPI + '/usr/userBalanceAccount/info', //查询用户余额详情
     submitBalanceOrder: urlAPI + '/usr/userBalanceOrderInfo/submit', //提交余额充值订单
     payBalanceOrder: urlAPI + '/usr/pay/userBalanceOrderInfoPay/cashier', //支付余额充值订单
-    getBalanceOrderDetail: urlAPI + '/usr/pay/userBalanceOrderInfoPay/detail', //获取余额充值订单详情
+    getBalanceOrderDetail: urlAPI + '/usr/userBalanceOrderInfo/detail', //获取余额充值订单详情
+    getBalanceLog: urlAPI + '/usr/userBalanceAccountOperateLog/list', //获取余额交易记录
     //客控
     inStoreGoods: urlAPI + '/svr/inStoreGoods/list',//店内商品列表
     hotelService: urlAPI + '/svr/hotelService/list',//店内服务列表

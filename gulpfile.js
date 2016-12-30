@@ -709,6 +709,27 @@ function balance() {
         .pipe(rename('balance.html'))
         .pipe(gulp.dest('./src'));
 }
+//账户余额交易明细
+function balanceLog() {
+    return gulp.src('./js/layout/shell.html')
+        .pipe(replace({
+            regex: '<!-- css -->',
+            replace: '<link rel="stylesheet" href="css/franchisee.css">'
+        }))
+        .pipe(replace({
+            regex: '<!-- content -->',
+            replace: '<!--include "../pages/user/balance-log.html"-->'
+        }))
+        .pipe(replace({
+            regex: '<!-- js -->',
+            replace: '<script src="js/pages/user/balance-log.js"></script>'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('balance-log.html'))
+        .pipe(gulp.dest('./src'));
+}
 
 //入住人列表页
 function frequentContactList() {
@@ -2958,6 +2979,7 @@ gulp.task('html', gulp.parallel(
     service,
     shop,
     balance,
+    balanceLog,
     frequentContactList,
     invoiceList,
     invoiceApply,

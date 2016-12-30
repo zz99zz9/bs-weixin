@@ -69,7 +69,7 @@ var vmCardBuy = avalon.define({
     isDisabled: false,
     payinfo: {},
     buyCard: function() {
-        if (this.payType == 3) {
+        if (this.payType == 9) {
             popover('./util/ETF.html', 1);
         } else {
             //todo: 判断有没有买卡资格（会员卡少于两张）
@@ -87,32 +87,43 @@ var vmCardBuy = avalon.define({
                                     if (json.status === 1) {
                                         var oid = json.data.id;
                                         
-                                        if (vmCardBuy.payType == 1) { 
-                                            //支付宝支付，跳转支付页面
-                                            location.href = 'alipay.html?oid=' + oid;
-                                        } else if (vmCardBuy.payType == 2) { 
-                                            //微信支付订单
-                                            ajaxJsonp({
-                                                url: urls.payCardOrder,
-                                                data: { 
-                                                    oid:  oid,
-                                                    payType: vmCardBuy.payType,
-                                                    returnUrl: window.location.origin + "/card-show.html?isShowNew=1"
-                                                },
-                                                successCallback: function(json) {
-                                                    if (json.status === 1) {
-                                                        vmCardBuy.payinfo = json.data;
-
-                                                        onBridgeReady();
+                                        ajaxJsonp({
+                                            url: urls.payCardOrder,
+                                            data: { 
+                                                oid:  oid,
+                                                payType: vmCardBuy.payType,
+                                                returnUrl: window.location.origin + "/closePage.html"
+                                            },
+                                            successCallback: function(json) {
+                                                if (json.status === 1) {
+                                                    if (json.data.payStatus == 0) {
+                                                        if (vmCardBuy.payType == 1) { //支付宝支付
+                                                            location.href = 'alipay.html?oid=' + oid + '&payUrl=' + encodeURIComponent(json.data.payUrl) + '&type=card';
+                                                        } else if (vmCardBuy.payType == 2) { //微信支付
+                                                            vmCardBuy.payinfo = json.data;
+                                                            onBridgeReady();
+                                                        } else if (vmCardBuy.payType == 3) { //余额支付
+                                                            
+                                                        }
+                                                    } else if (json.data.payStatus == 1) {
+                                                        mui.alert( "支付成功", function() {
+                                                            location.href = "/card-show.html?isShowNew=1";
+                                                        });
                                                     } else {
-                                                        mui.alert(json.message, "支付订单");
+                                                        mui.alert( "正在支付订单，请稍后", function() {
+                                                            vmCardBuy.isDisabled = false;
+                                                        });
                                                     }
+                                                } else {
+                                                    //调取后台接口不成功
+                                                    mui.alert(json.message, "支付订单");
+                                                    vmCardBuy.btn2Disabled = false;
                                                 }
-                                            });
-                                        }
-                                    }   else {
+                                            }
+                                        });
+                                    } else {
                                         //调取后台接口不成功
-                                        mui.alert(json.message, "支付订单");
+                                        mui.alert(json.message, "提交订单");
                                         vmCardBuy.isDisabled = false;
                                     } 
 

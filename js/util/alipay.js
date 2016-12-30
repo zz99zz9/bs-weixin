@@ -22,65 +22,14 @@ var vmPay = avalon.define({
         if(payUrl) {
             location.href = decodeURIComponent(payUrl);
         } else {
-            if(orderType == 'balance') {
-                //支付余额订单
-                ajaxJsonp({
-                    url: urls.payBalanceOrder,
-                    data: {
-                        oid: orderid,
-                        payType: 1,
-                        returnUrl: window.location.origin + "/closePage.html"
-                    },
-                    successCallback: function(json) {
-                        if (json.status == 1) {
-                            //跳转支付宝提供的支付页面
-                            location.href = json.data.payUrl;
-                        } else {
-                            mui.alert(json.message, function() {
-                                location.href = document.referrer || "index.html";
-                            });
-                        }
-                    }
-                });
-            } else {
-                //再支付会员卡订单
-                ajaxJsonp({
-                    url: urls.payCardOrder,
-                    data: {
-                        oid: orderid,
-                        payType: 1,
-                        returnUrl: window.location.origin + "/closePage.html"
-                    },
-                    successCallback: function(json) {
-                        if (json.status == 1) {
-                            //跳转支付宝提供的支付页面
-                            location.href = json.data.payUrl;
-                        } else {
-                            mui.alert(json.message, function() {
-                                location.href = document.referrer || "index.html";
-                            });
-                        }
-                    }
-                });
-            }
+            mui.alert('出问题啦，请重试', function() {
+                location.href = document.referrer || "index.html";
+            });
         }
     },
     isPaySuccess: function() {
-        if(payUrl) {
-            ajaxJsonp({
-                url: urls.getOrderDetail,
-                data: { id: orderid },
-                successCallback: function(json) {
-                    if(json.status == 1){
-                        //支付成功
-                        if (json.data.status > 1) {
-                            location.href = '/payend.html?id=' + orderid;
-                        }
-                    }
-                }
-            });
-        } else {
-            if(orderType == 'balance') {
+        switch(orderType) {
+            case 'balance':
                 ajaxJsonp({
                     url: urls.getBalanceOrderDetail,
                     data: {
@@ -89,13 +38,30 @@ var vmPay = avalon.define({
                     successCallback: function(json) {
                         if (json.status == 1) {
                             //支付成功
-                            if (json.data.payStatus) {
+                            if (json.data.payStatus == 1) {
                                 location.href = "balance.html";
                             }
                         }
                     }
                 });
-            } else {
+                break;
+            case 'room':
+                ajaxJsonp({
+                    url: urls.getOrderDetail,
+                    data: { 
+                        id: orderid 
+                    },
+                    successCallback: function(json) {
+                        if(json.status == 1){
+                            //支付成功
+                            if (json.data.status > 1) {
+                                location.href = '/payend.html?id=' + orderid;
+                            }
+                        }
+                    }
+                });
+                break;
+            case 'card':
                 ajaxJsonp({
                     url: urls.getCardOrderInfo,
                     data: {
@@ -104,7 +70,7 @@ var vmPay = avalon.define({
                     successCallback: function(json) {
                         if (json.status == 1) {
                             //支付成功
-                            if (json.data.payStatus) {
+                            if (json.data.payStatus == 1) {
                                 //根据卡号查询已购买的卡id
                                 ajaxJsonp({
                                     url: urls.getCardDetailByCardNo,
@@ -121,7 +87,7 @@ var vmPay = avalon.define({
                         }
                     }
                 });
-            }
+                break;
         }
     }
 });

@@ -30,7 +30,7 @@ var vmBalance = avalon.define({
   },
   payinfo: {},
   goLog: function() {
-
+    location.href = "balance-log.html";
   }
 });
 
@@ -44,42 +44,48 @@ var vmPay = avalon.define({
   goPay: function(type) {
     //先下单
     ajaxJsonp({
-        url: urls.submitBalanceOrder,
-        data: { amount: vmBalance.money },
-        successCallback: function(json) {
-            if (json.status === 1) {
-                var oid = json.data.id;
-                
-                //再支付
-                if (type == 1) { 
-                    //支付宝支付，跳转支付页面
-                    location.href = 'alipay.html?oid=' + oid + "&type=balance";
-                } else if (type == 2) { 
-                    //微信支付订单
-                    ajaxJsonp({
-                        url: urls.payBalanceOrder,
-                        data: { 
-                            oid:  oid,
-                            payType: 2,
-                        },
-                        successCallback: function(json) {
-                            if (json.status === 1) {
-                                vmBalance.payinfo = json.data;
-
-                                onBridgeReady();
-                            } else {
-                                mui.alert(json.message, "支付订单");
-                            }
-                        }
-                    });
+      url: urls.submitBalanceOrder,
+      data: { amount: vmBalance.money },
+      successCallback: function(json) {
+        if (json.status === 1) {
+          var oid = json.data.id;
+            
+          ajaxJsonp({
+            url: urls.payBalanceOrder,
+            data: { 
+                oid:  oid,
+                payType: type,
+                returnUrl: window.location.origin + "/closePage.html"
+            },
+            successCallback: function(json) {
+              if (json.status === 1) {
+                if (json.data.payStatus == 0) {
+                  if (type == 1) { //支付宝支付
+                    location.href = 'alipay.html?oid=' + oid + '&payUrl=' + encodeURIComponent(json.data.payUrl) + "&type=balance";
+                  } else if (type == 2) { //微信支付
+                    vmBalance.payinfo = json.data;
+                    onBridgeReady();
+                  }
+                } else if (json.data.payStatus == 1) {
+                  location.href = "/balance.html";
+                } else {
+                  mui.alert( "正在支付订单，请稍后", function() {
+                    vmBalance.isDisabled = false;
+                  });
                 }
-            }   else {
-                //调取后台接口不成功
-                mui.alert(json.message, "余额充值");
-                vmBalance.isDisabled = false;
-            } 
-
+              } else {
+                mui.alert(json.message, function(){
+                  vmBalance.isDisabled = false;
+                });
+              }
+            }
+          });
+        } else {
+          mui.alert(json.message, function(){
+            vmBalance.isDisabled = false;
+          });
         }
+      }
     });
   }
 });
