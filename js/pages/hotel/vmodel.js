@@ -50,9 +50,11 @@ if (!newOrder) {
 var vmTop = avalon.define({
     $id: 'top',
     headImg: 'img/defaultHeadImg.png', //左上角头像
+    type: 0,
     selectType: function(type) {
         stopSwipeSkip.do(function() {
             roomType = type;
+            vmTop.type = type;
             vmHotel.type = type;
             Storage.set("bensue", { type: type });
 
@@ -89,14 +91,6 @@ var vmTop = avalon.define({
         //向下滑
         $('header').slideDown();
     },
-});
-
-var vmBottom = avalon.define({
-    $id: 'bottom',
-    type: 0,
-    selectType: function(type) {
-        vmBottom.type = type;
-    }
 });
 
 var vmHotel = avalon.define({

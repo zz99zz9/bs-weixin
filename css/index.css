@@ -1,0 +1,67 @@
+.bs-marker-price {
+  color: #e93b39;
+  background-color: #fff;
+  border: solid #e93b39 1px;
+  border-radius: 3px;
+  width: 60px;
+  text-align: center;
+  height: 22px;
+  font-size: 12px;
+  padding-top: 1px;
+}
+.bs-marker-price.selected {
+  color: #fff;
+  background-color: #baa071;
+  border: solid #fff 1px;
+}
+.bs-marker-point {
+  width: 22px;
+  height: 22px;
+  margin: 0 auto;
+  background-image: url('../img/icon/mapPoint.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.swiper-slide-marker {
+  position: relative;
+  display: block;
+  white-space: normal;
+  height: 100%;
+  font-size: 14px;
+  vertical-align: top;
+}
+.swiper-slide-marker .price{
+  line-height: 26px;
+  padding-top: 5px;
+  padding-right: 10px;
+}
+.swiper-slide-marker .price span {
+  display: inline-block;
+}
+.swiper-slide-marker .hotelName
+{
+  text-align: left;
+  font-size: 18px;
+  font-weight: 200;
+  color: #000;
+  background-color: rgba(0,0,0,0.2);
+  line-height: 26px;
+  padding-top: 5px;
+  padding-left: 10px;
+  flex-grow: 1;
+}
+.distance {
+  display: inline-block;
+  background-color: rgba(0,0,0,0.5);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 100;
+  padding: 0 10px;
+  padding-top: 3px;
+  line-height: 15px;
+  position: relative;
+  top: 10px;
+  right: 0;
+  z-index: 9;
+  float: right;
+}

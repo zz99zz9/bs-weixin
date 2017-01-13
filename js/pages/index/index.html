@@ -1,0 +1,27 @@
+<div ms-controller="index" style="height: 100vh;padding-bottom: 140px;">
+    <!-- 地图 -->
+    <div id="container" style="z-index:1;height: 100%;">
+        <button type="button" style="z-index:9999;float: right;top: 50px;right: 20px;" ms-click="closeMap">关闭</button>
+    </div>
+
+    <div class="swiper-container swiper1" style="height: 150px; z-index: 10;position: absolute;bottom: 0;" ms-visible="isShowHotelDetail">
+        <div class="swiper-wrapper" style="padding-left: 15px;background-color: rgba(0,0,0,0.5);">
+            <div class="swiper-slide swiper-slide-marker" ms-repeat="hotelMarkers" data-repeat-rendered="swiper1Render">
+                <div ms-css-background-image="url({{urlAPINet + el.coverUrl}})" style="height: 150px;background-size: cover;width: inherit;position: relative;" ms-on-tap="goHotel(el.id)">
+                    <span class="distance">{{round(el.distance/1000)}}km</span>
+                    
+                    <div style="display: flex;width: 100%;position: absolute;bottom: 5px;">
+                        <div class="bs-text-white bs-bg-black price">
+                            <span style="position: relative;top: -6px;right: -3px;color: #999;font-size: 15px">￥</span>
+                            <span class="bs-text-x-larger">{{type?round(el.minPrice*6):el.minPrice}}</span>
+                            <span class="bs-text-smaller bs-text-lighter">{{type==0?"/晚起":(type==1?"/3小时起":"")}}</span>
+                        </div>
+
+                        <div class="hotelName">{{el.name}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-scrollbar"></div>
+        </div>
+    </div>
+</div>
