@@ -1,27 +1,26 @@
-var hid, actionType,
+var hid,
     myPosition, myLng, myLat,
     bensue, roomType, newOrder,
     isexpand = false,
     isSuccess = false,
     user;
 
-hid = 1; //目前只有1家店
-// hid = getParam("id");
-// if (hid != "") {
-//     if (isNaN(hid)) {
-//         location.href = document.referrer || "index.html";
-//     } else {
-//         hid = parseInt(hid);
-//     }
-// } else {
-//     location.href = "index.html";
-// }
+hid = getParam("id");
+if (hid != "") {
+    if (isNaN(hid)) {
+        location.href = document.referrer || "index.html";
+    } else {
+        hid = parseInt(hid);
+    }
+} else {
+    location.href = "index.html";
+}
 
-// myPosition = Storage.getLocal("position");
-// if (myPosition) {
-//     myLng = myPosition.lng || "";
-//     myLat = myPosition.lat || "";
-// }
+myPosition = Storage.getLocal("position");
+if (myPosition) {
+    myLng = myPosition.lng || "";
+    myLat = myPosition.lat || "";
+}
 
 bensue = Storage.get("bensue");
 if (bensue) {
@@ -374,12 +373,6 @@ var vmBtn = avalon.define({
         popover_ishide = true;
     }
 })
-
-//开门或者退房操作，打开面板
-actionType = getParam('type');
-if (actionType) {
-    vmSide.show();
-}
 
 user = Storage.getLocal("user");
 //更换登录用户头像

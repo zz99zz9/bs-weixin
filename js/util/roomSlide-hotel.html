@@ -1,9 +1,19 @@
-<div class="mui-text-left slide-info">
-    <span class="slide-address bs-text-large" ms-on-tap="goRoom(el.id)">{{el.hotel.address|truncate(8,'...')}}</span><br>
-    <span class="slide-room bs-text-gray bs-text-normal" ms-on-tap="goRoom(el.id)">{{el.name}}</span>
-    <span class="bs-text-yellow bs-text-normal">★★★★★</span>
-    <div class="bs-text-large" ms-on-tap="goHotelById(el.hotel.id)">
-        <i ms-css-background-image="url({{urlAPINet + el.hotel.logoUrl}})"></i>
-        {{el.hotel.name}}
-    </div>
+<div style="height: 34vh;background-size: cover;background-position: center;position: relative;" ms-css-background-image="'url(' + urlAPINet + el.coverUrl+')'" ms-on-tap="goHotel(el.id)">
+  <div class="bs-text-white bs-text-smaller" style="display: inline-block;float: right;margin-top: 15px;padding: 0 12px;background: rgba(0,0,0,0.5);">
+    <span style="position: relative;top: 1px;">{{round(el.distance/1000)}} km</span>
+  </div>
+  <label class="hotel-price-lable" style="padding-right: 15px;padding-left: 10px;bottom: 15px;">
+      <span style="position: relative;top: -6px;right: -3px;color: #999;">￥</span>
+      <span class="hotel-price-span">{{type?round(el.minPrice*6):el.minPrice}}</span>
+      <span>{{type==0?"/晚起":(type==1?"/3小时起":"")}}</span>
+  </label>
+</div>
+<div class="bs-bg-white" style="height: 90px;padding: 23px 0 16px 20px;">
+  <span class="bs-text-x-larger" style="font-weight: 900;" ms-on-tap="goHotel(el.id)">{{el.name}}&nbsp;</span>
+  <span class="bs-text-larger" style="font-weight: 100;" ms-on-tap="goHotel(el.id)">{{el.alias}}</span>
+  <br />
+  <div class="bs-text-small bs-text-gold" style="max-width: 90%;margin-top: 10px;white-space: normal;" ms-on-tap="openNav(el.lng,el.lat,el.name,el.address)">
+      <img src="img/icon/position.png" alt="" style="width: 17px;position: relative;top: 2px;">
+    {{el.address}}
+  </div>
 </div>

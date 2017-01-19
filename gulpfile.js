@@ -171,7 +171,7 @@ function index() {
         }))
         .pipe(replace({
             regex: '<!-- pop -->',
-            replace: '<!--include "../util/pop.html"-->'
+            replace: '<!--include "../util/pop.html"--><!--include "../pages/user/popover.html"-->'
         }))
         .pipe(replace({
             regex: '<!-- js -->',
@@ -180,6 +180,13 @@ function index() {
             + '<script src="js/pages/index/vmodel.js"></script>\n' 
             + '<script src="js/util/calendar.js"></script>\n'
             + '<script src="js/util/partTime.js"></script>'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(replace({
+            regex: '<!-- roomSlide -->',
+            replace: '<!--include "../util/roomSlide-hotel.html"-->'
         }))
         .pipe(contentIncluder({
             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
@@ -2911,6 +2918,7 @@ function popHtml() {
             './js/pages/register/agreement.html',
             './js/pages/assess/assess.html',
             './js/pages/index/searchLocation.html',
+            './js/pages/index/midnightBanner.html',
             './js/util/contactList.html',
             './js/util/code.html',
             './js/util/card-select.html',

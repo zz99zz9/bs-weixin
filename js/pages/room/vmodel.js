@@ -1,6 +1,6 @@
 var hid, roomTypeId, bensue, newOrder, vmRoom, vmBtn, vmDesigner, vmAmenity,
     isSuccess = false,
-    roomType = 0,
+    roomType = 0,//住宿类型
     user = Storage.getLocal("user");
 
 hid = getParam("hid");
@@ -14,6 +14,7 @@ if (hid != "") {
     location.href = "index.html";
 }
 
+//房型
 roomTypeId = getParam("tid");
 if (roomTypeId != "") {
     if (isNaN(roomTypeId)) {
@@ -27,7 +28,7 @@ if (roomTypeId != "") {
 
 vmRoom = avalon.define({
     $id: "room",
-    type: 0, //0 夜房，1 时租房
+    type: 0, //0 全天房，1 时租房, 2 午夜房
     start: '请选择',
     end: '请选择',
     amount: '0',
@@ -515,6 +516,7 @@ vmAmenity = avalon.define({
     }
 });
 
+//获取住宿类型 0-全天房，1-时租房，2-午夜房
 bensue = Storage.get("bensue");
 if (bensue) {
     roomType = bensue.type || 0;

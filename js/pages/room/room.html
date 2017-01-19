@@ -35,7 +35,7 @@
                 </div>
             </div>
             <div style="height: 5px;background-color: #ccc;"></div>
-            <div class="mui-text-center" style="background: white;padding: 0 10px;" ms-if="!type">
+            <div class="mui-text-center" style="background: white;padding: 0 10px;">
                 <div style="margin-top: 35px" class="circle photo" ms-css-background-image="'url('+urlAPINet + room.designer.portraitUrl+')'">
                     &nbsp;
                 </div>
@@ -45,7 +45,7 @@
                 <button class="mui-btn" style="width: 120px;height: 40px;margin-bottom: 30px; border-radius: 0;" ms-on-tap="openDesigner">阅读全部</button>
             </div>
         </section>
-        <section class="room-time">
+        <section class="room-time" ms-if="type!=2">
             <p style="margin-bottom: 0;">
                 <span class="bs-text-large bs-text-51">入住时间</span>
                 <span class="bs-text-large bs-text-51" style="float: right">退房时间</span>
@@ -80,6 +80,7 @@
                 </div>
             </div>
         </section>
+        <div ms-if="type==2" style="height: 15px;background-color: #ccc;"></div>
         <section class="checkin" style="display: flex;align-items: center;" ms-on-tap="openCheckin">
             <div class="bs-text-large bs-text-51" style="display: inline;">
                 入住人信息：

@@ -1,20 +1,17 @@
-<div class="bs-index-bottom bs-bg-white" ms-controller="bottom">
-    <div ms-if="type==0" class="bs-index-bottom-title">
-      <div class="bs-index-bottom-title-left">入住时间: 6:00/13:00/16:00/18:00</div>
+<div class="bs-index-bottom bs-bg-white" ms-controller="bottom" ms-on-swipeup="su" ms-on-swipedown="sd">
+    <div ms-if="type==0" class="bs-index-bottom-title" ms-click="su">
+      <div class="bs-index-bottom-title-left">全天房: 6:00/13:00/16:00/18:00</div>
       <div class="bs-index-bottom-title-right">越晚入住价格越低</div>
     </div>
-    <div ms-if="type==1" class="bs-index-bottom-title">
-      <div class="bs-index-bottom-title-left">入住时间: 8:00-20:00</div>
+    <div ms-if="type==1" class="bs-index-bottom-title" ms-click="su">
+      <div class="bs-index-bottom-title-left">时租房: 8:00-20:00</div>
       <div class="bs-index-bottom-title-right">价格随时间波动</div>
     </div>
     <div ms-if="type==2" class="bs-index-bottom-title">
-      <div class="bs-index-bottom-title-discount"
-       ms-class="bs-index-bottom-title-discount-selected:midnightDiscount==0.3" ms-click="selectMidnightDiscount(0.3)">3折</div>
-      <div class="bs-index-bottom-title-discount" ms-class="bs-index-bottom-title-discount-selected:midnightDiscount==0.4" ms-click="selectMidnightDiscount(0.4)">4折</div>
-      <div class="bs-index-bottom-title-discount" ms-class="bs-index-bottom-title-discount-selected:midnightDiscount==0.5" ms-click="selectMidnightDiscount(0.5)">5折</div>
-      <div class="bs-index-bottom-title-discount" ms-class="bs-index-bottom-title-discount-selected:midnightDiscount==0.6" ms-click="selectMidnightDiscount(0.6)">6折</div>
+      <div ms-repeat="midnightDiscountList" class="bs-index-bottom-title-discount"
+       ms-class="bs-index-bottom-title-discount-selected:midnightDiscount==el.discount" ms-click="selectMidnightDiscount(el.discount)">{{round(el.discount*10,0)}}折</div>
     </div>
-    <div style="background-image: url(img/bottom-bar.svg);height: 30px;background-repeat: no-repeat;margin: 30px 40px 40px 40px;"></div>
+    <div id="bottomTab" style="background-image: url(img/bottom-bar.svg);height: 30px;background-repeat: no-repeat;margin: 30px 40px 40px 40px;"></div>
 
     <div class="bs-index-bottom-tab">
       <div ms-click="selectType(0)" class="bs-index-bottom-tab-item">

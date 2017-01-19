@@ -425,7 +425,8 @@ button {
     display: inline-block;
 }
 
-.swiper-slide-item a div label {
+.swiper-slide-item a div label, 
+.hotel-price-lable {
     position: absolute;
     bottom: 27px;
     left: 0px;
@@ -437,7 +438,8 @@ button {
     padding: 6px;
 }
 
-.swiper-slide-item .slide-price {
+.swiper-slide-item .slide-price, 
+.hotel-price-lable .hotel-price-span {
     font-weight: 200;
     font-size: 24px;
 }
@@ -1280,6 +1282,10 @@ hr {
     background-color: #ffbc1b;
 }
 
+.bs-bg-eee {
+    background-color: #eee;
+}
+
 .bs-type-tab {
     display: inline-table;
     position: relative;
@@ -1311,9 +1317,9 @@ hr {
 
 .bs-city {
     position: relative;
-    top: 190px;
+    top: 135px;
     color: #fff;
-    z-index: 10;
+    z-index: 2;
     font-size: 36px;
     height: 0;
     text-align: center;
@@ -1582,9 +1588,9 @@ hr {
 .bs-search {
     flex-grow: 1;
     margin: 0px 20px;
-    padding-top: 4px;
+    padding-top: 3px;
     padding-left: 15px;
-    height: 33px;
+    height: 31px;
     text-align: left;
     border-radius: 18px;
 }
