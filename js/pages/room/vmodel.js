@@ -624,13 +624,13 @@ function room_init() {
                 json.data.map(function(t) {
                     switch (roomType) {
                         case 0:
-                            t.coverUrl = t.nightCoverUrl;
+                            t.coverUrl = t.coverUrl;
                             break;
                         case 1:
-                            t.coverUrl = t.hourCoverUrl;
+                            t.coverUrl = t.coverUrl;
                             break;
                         case 2:
-                            t.coverUrl = t.midnightCoverUrl;
+                            t.coverUrl = t.coverUrl;
                             break;
                     }
                 });
