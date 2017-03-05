@@ -272,7 +272,7 @@ vmRoom = avalon.define({
     },
     goRoom: function(id) {
         stopSwipeSkip.do(function() {
-            location.href = "room.html?id=" + id;
+            location.href = "room.html?hid=" + hid + "&tid=" + id;
         });
     },
     goHotelById: function(id) {
