@@ -196,7 +196,7 @@ var vmSide = avalon.define({
                     }
 
                     if (location.pathname.indexOf('index') >= 0) {
-                        vmHotel.headImg = vmSide.headImg;
+                        vmTop.headImg = vmSide.headImg;
                     }
 
                     vmSide.nickName = json.data.nickname;

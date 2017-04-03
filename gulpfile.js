@@ -152,21 +152,44 @@ function loading() {
 
 //首页
 function index() {
-    return gulp.src('./js/layout/index.html')
+    return gulp.src('./js/layout/shell-index.html')
         .pipe(replace({
-            regex: '<!-- pop -->',
-            replace: '<!--include "../util/pop.html"-->'
+            regex: '<!-- top -->',
+            replace: '<!--include "../layout/top.html"-->'
         }))
         .pipe(replace({
-            regex: '<!-- roomSlide -->',
-            replace: '<!--include "../util/roomSlide.html"-->'
+            regex: '<!-- content -->',
+            replace: '<!--include "../pages/index/index.html"-->'
+        }))
+        .pipe(replace({
+            regex: '<!-- bottom -->',
+            replace: '<!--include "../layout/bottom.html"-->'
+        }))
+        .pipe(replace({
+            regex: '<!-- css -->',
+            replace: '<link rel="stylesheet" href="css/swiper.min.css">\n<link rel="stylesheet" href="css/index.css">'
+        }))
+        .pipe(replace({
+            regex: '<!-- pop -->',
+            replace: '<!--include "../util/pop.html"--><!--include "../pages/user/popover.html"-->'
+        }))
+        .pipe(replace({
+            regex: '<!-- js -->',
+            replace: '<script src="js/lib/swiper.min.js"></script>\n' 
+            + '<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=0743dafb590f3622f52d0d4218a9f1f7"></script>\n'
+            + '<script src="js/pages/index/vmodel.js"></script>\n' 
+            + '<script src="js/util/calendar.js"></script>\n'
+            + '<script src="js/util/partTime.js"></script>'
         }))
         .pipe(contentIncluder({
             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
         }))
         .pipe(replace({
-            regex: '<!-- slide-info -->',
+            regex: '<!-- roomSlide -->',
             replace: '<!--include "../util/roomSlide-hotel.html"-->'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
         }))
         .pipe(replace({
             regex: '<button class="popover-closeButton"></button>',
@@ -179,7 +202,7 @@ function index() {
         .pipe(gulp.dest('./src'))
 }
 
-//酒店页面--暂时做首页
+//酒店页面
 function hotel() {
     return gulp.src('./js/layout/shell-index.html')
         .pipe(replace({
@@ -190,10 +213,6 @@ function hotel() {
             regex: '<!-- content -->',
             replace: '<!--include "../pages/hotel/hotel.html"-->'
         }))
-        // .pipe(replace({
-        //     regex: '<!-- bottom -->',
-        //     replace: '<!--include "../layout/bottom.html"-->'
-        // }))
         .pipe(replace({
             regex: '<!-- css -->',
             replace: '<link rel="stylesheet" href="css/swiper.min.css">\n<link rel="stylesheet" href="css/hotel.css">'
@@ -223,7 +242,7 @@ function hotel() {
         .pipe(contentIncluder({
             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
         }))
-        .pipe(rename('index.html'))
+        .pipe(rename('hotel.html'))
         .pipe(gulp.dest('./src'));
 }
 
@@ -2899,6 +2918,7 @@ function popHtml() {
             './js/pages/register/agreement.html',
             './js/pages/assess/assess.html',
             './js/pages/index/searchLocation.html',
+            './js/pages/index/midnightBanner.html',
             './js/util/contactList.html',
             './js/util/code.html',
             './js/util/card-select.html',
@@ -2957,7 +2977,7 @@ function copyFonts() {
  */
 gulp.task('html', gulp.parallel(
     loading,
-    // index,//hotel 页面暂时做首页
+    index,
     hotel,
     room,
     payend,

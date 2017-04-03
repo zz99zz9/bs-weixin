@@ -1,31 +1,36 @@
-var hid, actionType,
+var hid, 
+    roomType = 0, 
+    midnightDiscount = 1,
     myPosition, myLng, myLat,
     bensue, roomType, newOrder,
     isexpand = false,
     isSuccess = false,
     user;
 
-hid = 1; //目前只有1家店
-// hid = getParam("id");
-// if (hid != "") {
-//     if (isNaN(hid)) {
-//         location.href = document.referrer || "index.html";
-//     } else {
-//         hid = parseInt(hid);
-//     }
-// } else {
-//     location.href = "index.html";
-// }
+hid = getParam("id");
+if (hid != "") {
+    if (isNaN(hid)) {
+        location.href = document.referrer || "index.html";
+    } else {
+        hid = parseInt(hid);
+    }
+} else {
+    location.href = "index.html";
+}
 
-// myPosition = Storage.getLocal("position");
-// if (myPosition) {
-//     myLng = myPosition.lng || "";
-//     myLat = myPosition.lat || "";
-// }
+myPosition = Storage.getLocal("position");
+if (myPosition) {
+    myLng = myPosition.lng || "";
+    myLat = myPosition.lat || "";
+}
 
 bensue = Storage.get("bensue");
 if (bensue) {
-    roomType = bensue.type || 0;
+    roomType = bensue.type;
+
+    if (bensue.type == 2) {
+        midnightDiscount = bensue.midnightDiscount;
+    }
 } else {
     //第一次加载
     roomType = 0;
@@ -50,9 +55,11 @@ if (!newOrder) {
 var vmTop = avalon.define({
     $id: 'top',
     headImg: 'img/defaultHeadImg.png', //左上角头像
+    type: 0,
     selectType: function(type) {
         stopSwipeSkip.do(function() {
             roomType = type;
+            vmTop.type = type;
             vmHotel.type = type;
             Storage.set("bensue", { type: type });
 
@@ -89,14 +96,6 @@ var vmTop = avalon.define({
         //向下滑
         $('header').slideDown();
     },
-});
-
-var vmBottom = avalon.define({
-    $id: 'bottom',
-    type: 0,
-    selectType: function(type) {
-        vmBottom.type = type;
-    }
 });
 
 var vmHotel = avalon.define({
@@ -282,6 +281,7 @@ var vmHotel = avalon.define({
             }
         });
     },
+    midnightDiscount: 1,
     roomTypeList: [],
     tid: '', //房间类型，默认为全部
     getRoomTypeList: function() {
@@ -291,25 +291,19 @@ var vmHotel = avalon.define({
                 startTime: roomType ? newOrder.partTime.start : (newOrder.day.start == getToday('date') ? getToday() : newOrder.day.start),
                 endTime: roomType ? newOrder.partTime.end : newOrder.day.end,
                 hid: hid,
-                isPartTime: roomType
+                isPartTime: roomType,
+                discount: midnightDiscount
             },
             successCallback: function(json) {
                 if (json.status == 1) {
-                    json.data.map(function(t) {
-                        switch (roomType) {
-                            case 0:
-                                t.coverUrl = t.coverUrl;
-                                break;
-                            case 1:
-                                t.coverUrl = t.coverUrl;
-                                break;
-                            case 2:
-                                t.coverUrl = t.coverUrl;
-                                break;
+
+                    vmHotel.roomTypeList = [];
+                    json.data.map(function(o) {
+                        if(o.minPrice) {
+                            vmHotel.roomTypeList.push(o);
+
                         }
                     });
-
-                    vmHotel.roomTypeList = json.data;
                 }
             }
         });
@@ -380,12 +374,6 @@ var vmBtn = avalon.define({
         popover_ishide = true;
     }
 })
-
-//开门或者退房操作，打开面板
-actionType = getParam('type');
-if (actionType) {
-    vmSide.show();
-}
 
 user = Storage.getLocal("user");
 //更换登录用户头像

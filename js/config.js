@@ -444,30 +444,28 @@ function loadSessionPartTime() {
 
 //获取入住时间
 function getStartTime(type) {
-    if (type) {
-        //if (newOrder.partTime.start) {
-            var today = new Date();
-            return today.getFullYear() + "-" + ((today.getMonth() + 1) < 10 ? ('0' + (today.getMonth() + 1)) : (today.getMonth() + 1)) + "-" + today.getDate() + " " + vmPart.partTimeStart;
-        //} else {
-        //    return '';
-        //}
-    } else {
+    if (type == 1) {
+        var today = new Date();
+        return today.getFullYear() + "-" + ((today.getMonth() + 1) < 10 ? ('0' + (today.getMonth() + 1)) : (today.getMonth() + 1)) + "-" + today.getDate() + " " + vmPart.partTimeStart;
+    } else if (type == 0){
         return getDate(vmCalendar.startIndex);
+    } else if (type == 2) {
+        return getToday();
     }
 }
 
 //获取退房时间
 function getEndTime(type) {
-    if (type) {
-        //if (vmPart.partTimeEnd) {
-            var today = new Date();
-            return today.getFullYear() + "-" + ((today.getMonth() + 1) < 10 ? ('0' + (today.getMonth() + 1)) : (today.getMonth() + 1)) + "-" + today.getDate() + " " + vmPart.partTimeEnd;
-        //} else {
-        //    return '';
-        //}
-    } else {
+    var today = new Date(),
+        date = today.getFullYear() + "-" + ((today.getMonth() + 1) < 10 ? ('0' + (today.getMonth() + 1)) : (today.getMonth() + 1)) + "-" + today.getDate();
+    
+    if (type == 1) {
+        return date + " " + vmPart.partTimeEnd;
+    } else if (type == 0) {
         //夜房默认退房时间
         return getDate(vmCalendar.endIndex) + " 14:00";
+    } else if (type == 2) {
+        return date + " 14:00"; 
     }
 }
 
