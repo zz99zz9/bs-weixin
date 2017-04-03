@@ -87,6 +87,9 @@ var vmBottom = avalon.define({
     },
     midnightDiscount: 0.3,
     selectMidnightDiscount: function(d) {
+        bensue.midnightDiscount = d;
+        Storage.set('bensue', bensue);
+
         vmBottom.midnightDiscount = d;
         vmIndex.getHotelPosition(mapObj);
 
@@ -190,7 +193,9 @@ var vmIndex = avalon.define({
             freeModeSticky: true,
             freeModeMomentumRatio: 3,
             onSlideChangeEnd: function(swiper) {
-                vmIndex.selectedHid = hotelMarkersOnMap[swiper.activeIndex].getExtData().hid;
+                var marker = hotelMarkersOnMap[swiper.activeIndex];
+                marker.getMap().setCenter(marker.getPosition());
+                vmIndex.selectedHid = marker.getExtData().hid;
                 setMarkers();
             }
         });
@@ -225,6 +230,7 @@ var vmIndex = avalon.define({
     },
     getHotelPosition: function(mapObj) {
         mapObj.remove(hotelMarkersOnMap);
+        hotelMarkersOnMap = [];
 
         //获取酒店定位
         ajaxJsonp({
@@ -255,6 +261,9 @@ var vmIndex = avalon.define({
                         }).on('click', function() {
                             vmIndex.selectedHid = this.getExtData().hid;
                             vmIndex.isShowHotelDetail = true;
+
+                            //点击酒店，在地图里居中
+                            this.getMap().setCenter(this.getPosition());
 
                             setMarkers();
                             swiper1.slideTo(index);
@@ -343,6 +352,10 @@ bensue = Storage.get("bensue");
 if (bensue && bensue.type) {
     vmBottom.type = bensue.type;
     vmIndex.type = bensue.type;
+
+    if (bensue.type == 2) {
+        vmBottom.midnightDiscount = bensue.midnightDiscount || vmBottom.midnightDiscountList[0].discount;
+    }
 } else {
     bensue = { type: 0 };
     Storage.set("bensue", bensue);

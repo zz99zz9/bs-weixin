@@ -1,10 +1,10 @@
 <div class="swiper-slide-item">
     <a href="###" ms-on-tap="goRoom(el.id)">
         <div ms-css-background-image="url({{urlAPINet + el.coverUrl}})">
-            <label style="display: inline-block;width: 115px;">
+            <label style="display: inline-block;width: 120px;">
                 <span style="position: relative;top: -6px;right: -3px;color: #999;">￥</span>
-                <span class="slide-price">{{type?round(el.minPrice*6):el.minPrice}}</span>
-                <span>/{{type==1?"3小时":"晚起"}}</span>
+                <span class="slide-price">{{type==1?round(el.minPrice*6):el.minPrice}}</span>
+                <span>{{type==1?"/3小时":(type==0?"/晚起":"午夜特价")}}</span>
                 <span class="roomtype">{{el.name}}</span>
             </label>
             <span ms-if="typeof el.restRoomCount != 'undefined'" class="bs-text-white bs-bg-black" style="position: absolute;right:0;top:15px;display: inline-block; padding: 4px 5px 4px 10px;border-bottom-left-radius: 20px;border-top-left-radius: 20px;">

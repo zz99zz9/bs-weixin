@@ -1,4 +1,6 @@
-var hid,
+var hid, 
+    roomType = 0, 
+    midnightDiscount = 1,
     myPosition, myLng, myLat,
     bensue, roomType, newOrder,
     isexpand = false,
@@ -24,7 +26,11 @@ if (myPosition) {
 
 bensue = Storage.get("bensue");
 if (bensue) {
-    roomType = bensue.type || 0;
+    roomType = bensue.type;
+
+    if (bensue.type == 2) {
+        midnightDiscount = bensue.midnightDiscount;
+    }
 } else {
     //第一次加载
     roomType = 0;
@@ -275,6 +281,7 @@ var vmHotel = avalon.define({
             }
         });
     },
+    midnightDiscount: 1,
     roomTypeList: [],
     tid: '', //房间类型，默认为全部
     getRoomTypeList: function() {
@@ -284,25 +291,17 @@ var vmHotel = avalon.define({
                 startTime: roomType ? newOrder.partTime.start : (newOrder.day.start == getToday('date') ? getToday() : newOrder.day.start),
                 endTime: roomType ? newOrder.partTime.end : newOrder.day.end,
                 hid: hid,
-                isPartTime: roomType
+                isPartTime: roomType,
+                discount: midnightDiscount
             },
             successCallback: function(json) {
                 if (json.status == 1) {
-                    json.data.map(function(t) {
-                        switch (roomType) {
-                            case 0:
-                                t.coverUrl = t.nightCoverUrl;
-                                break;
-                            case 1:
-                                t.coverUrl = t.hourCoverUrl;
-                                break;
-                            case 2:
-                                t.coverUrl = t.midnightCoverUrl;
-                                break;
+                    vmHotel.roomTypeList = [];
+                    json.data.map(function(o) {
+                        if(o.minPrice) {
+                            vmHotel.roomTypeList.push(o);
                         }
                     });
-
-                    vmHotel.roomTypeList = json.data;
                 }
             }
         });

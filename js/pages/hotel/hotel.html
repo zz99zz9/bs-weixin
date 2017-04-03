@@ -8,7 +8,7 @@
 </style>
 <div id="pullrefresh" class="mui-scroll-wrapper bs-bg-white" ms-controller="hotel" ms-on-swipeup="vmTop.su" ms-on-swipedown="vmTop.sd">
     <div class="mui-scroll">
-        <div style="position: absolute;top: 40vh;z-index: 10;right: 0;padding-right: 10px;">
+        <div style="position: absolute;top: 40vh;z-index: 10;right: 0;padding-right: 10px;" ms-if="type!==2">
             <button type="button" class="calender-icon bs-bg-red" ms-css-background-image="type?'url(img/icon/clock-white.svg)':'url(img/icon/calendar-white.svg)'" ms-on-tap="openTimePanel">
             <div class="bs-text-white bs-text-smaller" ms-if="!type" style="line-height: 46px;">{{getToday('day')}}</div>
             </button>

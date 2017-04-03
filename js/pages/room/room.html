@@ -97,7 +97,7 @@
             <div style="padding: 20px 10px 22px 10px;">
                 <span class="bs-text-large bs-text-51">合计金额</span>
                 <span class="bs-text-x-larger" style="float: right;">￥ {{showTotalPrice(price, amount)}}</span>
-                <span style="font-weight: 100;float: right;margin-right: 15px;" ms-if="!type">
+                <span style="font-weight: 100;float: right;margin-right: 15px;" ms-if="type==0">
                     <del class="bs-text-small bs-text-51">￥ {{showTotalPrice(roomNightDiscount[0].discount,amount)}}</del>
                 </span>
             </div>
