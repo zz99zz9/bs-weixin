@@ -2902,6 +2902,60 @@ function avatar() {
         .pipe(gulp.dest('./src'));
 }
 
+//入住后房间内服务
+function inroom() {
+    return gulp.src('./js/layout/shell.html')
+        .pipe(replace({
+            regex: '<!-- js -->',
+            replace: '<script src="js/pages/checkin/inroom.js"></script>'
+        }))
+        .pipe(replace({
+            regex: '<!-- content -->',
+            replace: '<!--include "../pages/checkin/inroom.html"-->'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('inroom.html'))
+        .pipe(gulp.dest('./src'));
+}
+
+//开门
+function opendoor() {
+    return gulp.src('./js/layout/shell.html')
+        .pipe(replace({
+            regex: '<!-- js -->',
+            replace: '<script src="js/pages/checkin/opendoor.js"></script>'
+        }))
+        .pipe(replace({
+            regex: '<!-- content -->',
+            replace: '<!--include "../pages/checkin/opendoor.html"-->'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('opendoor.html'))
+        .pipe(gulp.dest('./src'));
+}
+
+//开门
+function index2() {
+    return gulp.src('./js/layout/shell.html')
+        .pipe(replace({
+            regex: '<!-- js -->',
+            replace: '<script src="js/pages/index/index2.js"></script>'
+        }))
+        .pipe(replace({
+            regex: '<!-- content -->',
+            replace: '<!--include "../pages/index/index2.html"-->'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('index2.html'))
+        .pipe(gulp.dest('./src'));
+}
+
 /**
  * 输出弹框相关页面
  */
@@ -3079,7 +3133,10 @@ gulp.task('html', gulp.parallel(
     cmsSubList,
     subAdd,
     favoree,
-    editFund
+    editFund,
+    inroom,
+    opendoor,
+    index2
 ));
 
 function watchForReload() {
