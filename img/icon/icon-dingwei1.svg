@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="27px" height="36px" viewBox="0 0 27 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
+    <title>icon-dingwei1</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="首页" transform="translate(-27.000000, -307.000000)" fill-rule="nonzero" fill="#10796B">
+            <g id="定位大" transform="translate(27.000000, 307.000000)">
+                <path d="M13.21875,0 C5.922,0 0,5.7576 0,12.8568 C0,25.1232 13.21875,36 13.21875,36 C13.21875,36 26.4375,24.6576 26.4375,12.8568 C26.4375,5.7576 20.5155,0 13.21875,0 Z M13.21875,20.4 C9.23870455,20.4 6.00852273,17.1744 6.00852273,13.2 C6.00852273,9.2256 9.23870455,6 13.21875,6 C17.1987955,6 20.4289773,9.2256 20.4289773,13.2 C20.4289773,17.1744 17.1987955,20.4 13.21875,20.4 Z" id="Shape"></path>
+            </g>
+        </g>
+    </g>
+</svg>

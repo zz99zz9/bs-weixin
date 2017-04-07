@@ -21,6 +21,7 @@ var vmUser = avalon.define({
     mobile: '',
     idNo: '',
     nickname: '',
+    headUrl:'',
     getUserInfo: function() {
         ajaxJsonp({
             url: urls.userInfotUrl,
@@ -37,7 +38,7 @@ var vmUser = avalon.define({
         vmUser.mobile = user.mobile;
         vmUser.idNo = user.idNo;
         vmUser.nickname = user.nickname;
-
+		vmUser.headImg = user.headImg;
         vmSave.newName = vmUser.name;
         vmSave.newNickname = vmUser.nickname;
         vmSave.newMobile = vmUser.mobile;
@@ -76,6 +77,26 @@ var vmUser = avalon.define({
                 });
             }
         });
+    },
+    goIndex2: function() {
+        stopSwipeSkip.do(function() {
+            location.href = "../index2.html";
+        })
+    },
+    goRoom: function() {
+        stopSwipeSkip.do(function() {
+            location.href = "service/orderList.html";
+        })
+    },
+    goOrder: function() {
+        stopSwipeSkip.do(function() {
+            location.href = "../newOrderList.html";
+        })
+    },
+    goUser: function() {
+        stopSwipeSkip.do(function() {
+            location.href = "../user-info.html";
+        })
     },
 });
 

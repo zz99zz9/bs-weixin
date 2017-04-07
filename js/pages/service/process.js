@@ -22,7 +22,7 @@ var vmServiceProcess = avalon.define({
         $(".ask1").typed({
             strings: ["请问您此行的目的是？"],
             typeSpeed: 90,
-            cursorChar: ""
+            cursorChar: "·.·"
         });
         $("#q1").show();
         $("#q1").animate({ width: "200px" }, 500);
@@ -95,9 +95,9 @@ var vmServiceProcess = avalon.define({
     goEnd: function() {
         $("#lEnd").css("display", "");
         $(".askEnd").typed({
-            strings: ["感谢您的配合，点此下一步"],
+            strings: ["感谢您的配合，点此下一步->"],
             typeSpeed: 90,
-            cursorChar: "->"
+            cursorChar: ""
         });
         $("#end").show();
         $("#end").animate({ width: "230px" }, 500);

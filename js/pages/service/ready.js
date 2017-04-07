@@ -33,5 +33,34 @@ var vmServiceReady = avalon.define({
             document.querySelector('.mui-popup-input input').type = 'password'
         })
     },
+    goIndex2: function() {
+        stopSwipeSkip.do(function() {
+            location.href = "../index2.html";
+        })
+    },
+    goRoom: function() {
+        stopSwipeSkip.do(function() {
+            location.href = "service/orderList.html";
+        })
+    },
+    goOrder: function() {
+        stopSwipeSkip.do(function() {
+            location.href = "../newOrderList.html";
+        })
+    },
+    goUser: function() {
+        stopSwipeSkip.do(function() {
+            location.href = "../user-info.html";
+        })
+    },
+    goOpendoor: function() {
+        stopSwipeSkip.do(function() {
+            mui.confirm("您已成功开启此趟旅程，请跟随我的脚步～","follow me",["去开门","取消"],function(e) {
+                if (e.index==0) {
+                    location.href = "../opendoor.html";
+                } 
+            },"div");
+        })
+    }
 });
 vmServiceReady.data = vmServiceReady.list;

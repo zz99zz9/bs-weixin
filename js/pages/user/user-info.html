@@ -27,26 +27,26 @@
 
 
 /*.mui-page-left {
-		-webkit-transform: translate3d(0, 0, 0);
-		transform: translate3d(0, 0, 0);
-	}
-	.mui-ios .mui-page-left {
-		-webkit-transform: translate3d(-20%, 0, 0);
-		transform: translate3d(-20%, 0, 0);
-	}
-	.mui-page-shadow {
-		position: absolute;
-		right: 100%;
-		top: 0;
-		width: 16px;
-		height: 100%;
-		z-index: -1;
-		content: '';
-	}
-	.mui-page-shadow {
-		background: -webkit-linear-gradient(left, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0) 10%, rgba(0, 0, 0, .01) 50%, rgba(0, 0, 0, .2) 100%);
-		background: linear-gradient(to right, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0) 10%, rgba(0, 0, 0, .01) 50%, rgba(0, 0, 0, .2) 100%);
-	}*/
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+    }
+    .mui-ios .mui-page-left {
+        -webkit-transform: translate3d(-20%, 0, 0);
+        transform: translate3d(-20%, 0, 0);
+    }
+    .mui-page-shadow {
+        position: absolute;
+        right: 100%;
+        top: 0;
+        width: 16px;
+        height: 100%;
+        z-index: -1;
+        content: '';
+    }
+    .mui-page-shadow {
+        background: -webkit-linear-gradient(left, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0) 10%, rgba(0, 0, 0, .01) 50%, rgba(0, 0, 0, .2) 100%);
+        background: linear-gradient(to right, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0) 10%, rgba(0, 0, 0, .01) 50%, rgba(0, 0, 0, .2) 100%);
+    }*/
 
 .mui-page {
     display: none;
@@ -95,52 +95,119 @@ div ul li {
         <ul class="mui-table-view">
             <li class="mui-table-view-cell">
                 <a href="#nick" class="mui-navigate-right">
-                    <span class="bs-text-gray nav-title">昵称</span>
+                    <div style="width: 25px;height: 25px;" class="circle photo" ms-css-background-image="'url('+urlAPINet + headImg+')'">
+                        &nbsp;
+                    </div>
                     <span style="margin-right: 25px;">{{nickname}}</span>
                 </a>
             </li>
             <li class="mui-table-view-cell">
+                <a href="#" class="mui-navigate-right">
+                    <span class="bs-text-gray nav-title">会员中心</span>
+                </a>
+            </li>
+            <ul class="mui-table-view" style="margin-top: 5px">
+                <li class="mui-table-view-cell">
+                    <a href="invoice-list.html" class="mui-navigate-right">
+                        <span class="bs-text-gray nav-title">发票管理</span>
+                    </a>
+                </li>
+            </ul>
+            <ul class="mui-table-view" style="margin-top: 5px">
+                <li class="mui-table-view-cell">
+                    <a href="frequent-contact-list.html" class="mui-navigate-right">
+                        <span class="bs-text-gray nav-title">入住人信息</span>
+                    </a>
+                </li>
+            </ul>
+            <ul class="mui-table-view" style="margin-top: 5px">
+                <li class="mui-table-view-cell">
+                    <a href="commonweal-introduce.html" class="mui-navigate-right">
+                        <span class="bs-text-gray nav-title">本宿公益</span>
+                    </a>
+                </li>
+            </ul>
+            <ul class="mui-table-view" style="margin-top: 5px">
+                <li class="mui-table-view-cell">
+                    <a href="coupon.html" class="mui-navigate-right">
+                        <span class="bs-text-gray nav-title">优惠券</span>
+                    </a>
+                </li>
+            </ul>
+            <ul class="mui-table-view" style="margin-top: 5px">
+                <li class="mui-table-view-cell">
+                    <a href="promotion-detail.html" class="mui-navigate-right">
+                        <span class="bs-text-gray nav-title">推广奖励</span>
+                    </a>
+                </li>
+            </ul>
+            <ul class="mui-table-view" style="margin-top: 5px">
+                <li class="mui-table-view-cell">
+                    <a href="vip-invite.html" class="mui-navigate-right">
+                        <span class="bs-text-gray nav-title">邀请好友</span>
+                    </a>
+                </li>
+            </ul>
+            <ul class="mui-table-view" style="margin-top: 5px">
+                <li class="mui-table-view-cell">
+                    <a href="vip-invite.html" class="mui-navigate-right">
+                        <span class="bs-text-gray nav-title">设置</span>
+                    </a>
+                </li>
+            </ul>
+            <ul class="mui-table-view" style="margin-top: 5px">
+                <li class="mui-table-view-cell">
+                    <a href="about.html" class="mui-navigate-right">
+                        <span class="bs-text-gray nav-title">关于我们</span>
+                    </a>
+                </li>
+            </ul>
+            <!--<li class="mui-table-view-cell">
                 <a href="#">
                     <span class="bs-text-gray nav-title">手机号</span>
                     <span>{{mobile}}</span>
                 </a>
-            </li>
+            </li>-->
         </ul>
-        <ul class="mui-table-view">
+        <!--<ul class="mui-table-view">
             <li class="mui-table-view-cell">
                 <a href="balance.html" class="mui-navigate-right">
                     <span class="bs-text-gray nav-title">余额</span>
-                    <span style="display: inline-block;margin-top: 7px;">¥{{balance}}</span>
+                    <span style="display: inline-block;margin5-top: 7px;">¥{{balance}}</span>
                 </a>
             </li>
-        </ul>
-        <ul class="mui-table-view" style="margin-top: 5px">
-            <li class="mui-table-view-cell">
-                <a href="frequent-contact-list.html" class="mui-navigate-right">
-                    <span class="bs-text-gray nav-title">入住人信息</span>
-                </a>
-            </li>
-        </ul>
-        <ul class="mui-table-view" style="margin-top: 5px">
-            <li class="mui-table-view-cell">
-                <a href="invoice-list.html" class="mui-navigate-right">
-                    <span class="bs-text-gray nav-title">发票管理</span>
-                </a>
-            </li>
-        </ul>
-        <ul class="mui-table-view" style="margin-top: 50px" ms-if="isLogin==1" ms-click="logOff">
+        </ul>-->
+        <ul class="mui-table-view" style="margin-top: 50px;margin-bottom: 60px;" ms-if="isLogin==1" ms-click="logOff">
             <li class="mui-table-view-cell">
                 <a class="mui-navigate-right">
                     <span class="bs-text-gray nav-title">退出当前账号</span>
                 </a>
             </li>
         </ul>
-        <div style="position: fixed; bottom: 0; width: 100%;">
+        <!--<div style="position: fixed; bottom: 0; width: 100%;">
             <div class="mui-content-padded mui-text-center" style="margin-top: 25px">
                 客服电话： <a ms-attr-href="'tel:'+SERVICECALL">{{SERVICECALL}}</a>
             </div>
-        </div>
+        </div>-->
     </div>
+    <nav class="mui-bar mui-bar-tab" style="background: white !important;">
+        <a class="mui-tab-item" ms-on-tap="goIndex2">
+            <span class="mui-icon"><img src="/img/icon/icon-home.svg" class="nav-ico"></span>
+            <span class="mui-tab-label">首页</span>
+        </a>
+        <a class="mui-tab-item" ms-on-tap="goRoom">
+            <span class="mui-icon"><img src="/img/icon/icon-ruzhu.svg" class="nav-ico"></span>
+            <span class="mui-tab-label">入住</span>
+        </a>
+        <a class="mui-tab-item" ms-on-tap="goOrder">
+            <span class="mui-icon"><img src="/img/icon/icon-dingdan.svg" class="nav-ico"></span>
+            <span class="mui-tab-label">订单</span>
+        </a>
+        <a class="mui-tab-item">
+            <span class="mui-icon"><img src="/img/icon/icon-more-select.svg" class="nav-ico"></span>
+            <span class="mui-tab-label">我的</span>
+        </a>
+    </nav>
 </div>
 <div ms-controller="change">
     <div id="name" class="mui-page" style="position: fixed;z-index: 999;">

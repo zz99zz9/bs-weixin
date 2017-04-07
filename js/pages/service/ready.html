@@ -74,6 +74,15 @@
         color: white !important;
     }
 
+.arrow {
+    position: absolute;
+    top: 89px;
+    float: right;
+    right: 38px;
+    height: 30px;
+    width: 30px;
+}
+
 </style>
 <div class="" ms-controller="serviceReady">
     <div class="mui-content gradient">
@@ -94,6 +103,7 @@
         <div class="device-c mui-col-sm-12">
             <div class="cirque">
                 {{temperature}}
+                    <img src="../img/icon/right-arrow.svg" class="arrow" ms-on-tap="goOpendoor">
             </div>
             <div class="bs-text-smaller prompt">
                 点击，将于您预定入住时间前半小时启动预温
@@ -111,7 +121,7 @@
             您需要的更多的服务
         </div>
     </div>
-    <div style="height: 286px;margin-top:16px;padding-top:18px;background-color: white;">
+    <div style="height: 308px;margin-top:16px;padding-top:18px;background-color: white;">
         <div style="margin: 0 30px 18px;color: #444;font-size: 18px;">
             酒店所在位置
         </div>
@@ -119,43 +129,22 @@
             <img src="../img/service-hotelPlace.png" style="height: 200px;width: 100vw;">
         </div>
     </div>
-    <div>
-        &emsp;
-    </div>
+    <nav class="mui-bar mui-bar-tab" style="background: white !important;">
+        <a class="mui-tab-item" ms-on-tap="goIndex2">
+            <span class="mui-icon"><img src="/img/icon/icon-home.svg" class="nav-ico"></span>
+            <span class="mui-tab-label">首页</span>
+        </a>
+        <a class="mui-tab-item">
+            <span class="mui-icon"><img src="/img/icon/icon-ruzhu-select.svg" class="nav-ico"></span>
+            <span class="mui-tab-label">入住</span>
+        </a>
+        <a class="mui-tab-item" ms-on-tap="goOrder">
+            <span class="mui-icon"><img src="/img/icon/icon-dingdan.svg" class="nav-ico"></span>
+            <span class="mui-tab-label">订单</span>
+        </a>
+        <a class="mui-tab-item" ms-on-tap="goUser">
+            <span class="mui-icon"><img src="/img/icon/icon-more.svg" class="nav-ico"></span>
+            <span class="mui-tab-label">我的</span>
+        </a>
+    </nav>
 </div>
-<!-- <nav class="mui-bar mui-bar-tab">
-    <a class="mui-tab-item mui-active" href="#tabbar">
-        <span class="mui-icon mui-icon-home"></span>
-        <span class="mui-tab-label">首页</span>
-    </a>
-    <a class="mui-tab-item"onclick="javascript:location.href='ready.html';">
-        <span class="mui-icon mui-icon-email"><span class="mui-badge">9</span></span>
-        <span class="mui-tab-label">服务</span>
-    </a>
-    <a class="mui-tab-item" href="#tabbar-with-contact">
-        <span class="mui-icon mui-icon-contact"></span>
-        <span class="mui-tab-label">订单</span>
-    </a>
-    <a class="mui-tab-item" href="#tabbar-with-map">
-        <span class="mui-icon mui-icon-gear"></span>
-        <span class="mui-tab-label">个人</span>
-    </a>
-</nav> -->
-<nav class="mui-bar mui-bar-tab" style="background: white !important;">
-    <a class="mui-tab-item mui-active" href="#tabbar">
-        <span class="mui-icon"><img src="/img/icon/icon-home.svg" class="nav-ico"></span>
-        <span class="mui-tab-label">首页</span>
-    </a>
-    <a class="mui-tab-item" href="#tabbar-with-chat">
-        <span class="mui-icon"><img src="/img/icon/icon-dingdan.svg" class="nav-ico"></span>
-        <span class="mui-tab-label">订单</span>
-    </a>
-    <a class="mui-tab-item" ms-click="goToUrl('opendoor.html')" href="#">
-        <span class="mui-icon"><img src="/img/icon/icon-ruzhu.svg" class="nav-ico"></span>
-        <span class="mui-tab-label">入住</span>
-    </a>
-    <a class="mui-tab-item" href="#tabbar-with-map">
-        <span class="mui-icon"><img src="/img/icon/icon-more.svg" class="nav-ico"></span>
-        <span class="mui-tab-label">我的</span>
-    </a>
-</nav>

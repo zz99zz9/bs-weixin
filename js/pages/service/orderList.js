@@ -21,16 +21,38 @@ var vmServiceOrderList = avalon.define({
         roomNo: 1123,
     },
     list: [
-        {orderNo: "a-8301", name: "赵先生", mobile: 13511123123},
-        {orderNo: "b-8301", name: "钱先生", mobile: 13511123123},
-        {orderNo: "c-8301", name: "孙女士", mobile: 12364567897},
-        {orderNo: "d-8301", name: "李先生", mobile: 13511123123},
-        {orderNo: "e-8301", name: "周先生", mobile: 78789123135},
-        {orderNo: "f-8301", name: "吴女士", mobile: 13511123123},
-    ], 
-    send: function() {  //发送订单
+        { orderNo: "a-8301", name: "赵先生", mobile: 13511123123 },
+        { orderNo: "b-8301", name: "钱先生", mobile: 13511123123 },
+        { orderNo: "c-8301", name: "孙女士", mobile: 12364567897 },
+        { orderNo: "d-8301", name: "李先生", mobile: 13511123123 },
+        { orderNo: "e-8301", name: "周先生", mobile: 78789123135 },
+        { orderNo: "f-8301", name: "吴女士", mobile: 13511123123 },
+        { orderNo: "c-8301", name: "孙女士", mobile: 12364567897 },
+        { orderNo: "d-8301", name: "李先生", mobile: 13511123123 },
+    ],
+    send: function() { //发送订单
         stopSwipeSkip.do(function() {
-            mui.alert( '注意提醒您的小伙伴查收订单哦。', "发送成功");
+            mui.alert('注意提醒您的小伙伴查收订单哦。', "发送成功");
+        })
+    },
+    goIndex2: function() {
+        stopSwipeSkip.do(function() {
+            location.href = "../index2.html";
+        })
+    },
+    goRoom: function() {
+        stopSwipeSkip.do(function() {
+            location.href = "service/orderList.html";
+        })
+    },
+    goOrder: function() {
+        stopSwipeSkip.do(function() {
+            location.href = "../newOrderList.html";
+        })
+    },
+    goUser: function() {
+        stopSwipeSkip.do(function() {
+            location.href = "../user-info.html";
         })
     },
     // isDisabled: true,
