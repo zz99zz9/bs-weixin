@@ -1,0 +1,125 @@
+<style>
+section {
+    margin: 2px 0;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    padding: 25px 30px;
+    background-color: #fff;
+    font-size: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+.row:active {
+    background-color: #ddd;
+}
+
+.item-img {
+    width: 24px;
+    height: 24px;
+}
+
+.arrow {
+    height: 15px;
+    opacity: 0.5;
+    margin: 3px;
+    position: relative;
+    top: 5px;
+}
+
+.item-text {
+    flex-grow: 1;
+    color: #444;
+    font-size: 18px;
+}
+
+.content-infor {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; 
+    padding:18px 0; 
+    border-bottom: 1px solid #ccc;
+    color: #444;
+}
+
+</style>
+<section>
+    <div class="row" ms-controller="serviceOrderList">
+        <div class="item-text">
+            {{orderList.roomNo}}
+        </div>
+        <div style="font-size: 18px;color: #169488;">
+            去开门
+        </div>
+        <!-- <img src="../img/icon/service-send.svg" class="item-img"> -->
+    </div>
+</section>
+<div id="pullrefresh" class="mui-scroll-wrapper" ms-controller="serviceOrderList" style="position: static;">
+    <div class="mui-scroll">
+        <div class="input-panel" style="margin: 16px 0;padding: 25px 30px;background-color: white;">
+            <div>
+                <div style="color: #444;font-size: 18px;font-weight: bold;margin-bottom: 25px;">
+                    邀请入住
+                </div>
+                <div class="content-infor" ms-repeat="data">
+                    <h5 class="flex0" style="-webkit-box-pack: justify;">{{el.orderNo}}</h5>
+                    <h5 class="flex1">{{el.name}}</h5>
+                    <img src="../img/icon/service-send.svg" class="item-img"  ms-on-tap="send">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<nav class="mui-bar mui-bar-tab">
+    <a class="mui-tab-item mui-active" href="#tabbar">
+        <span class="mui-icon mui-icon-home"></span>
+        <span class="mui-tab-label">首页</span>
+    </a>
+    <a class="mui-tab-item"onclick="javascript:location.href='ready.html';">
+        <span class="mui-icon mui-icon-email"><span class="mui-badge">9</span></span>
+        <span class="mui-tab-label">服务</span>
+    </a>
+    <a class="mui-tab-item" href="#tabbar-with-contact">
+        <span class="mui-icon mui-icon-contact"></span>
+        <span class="mui-tab-label">订单</span>
+    </a>
+    <a class="mui-tab-item" href="#tabbar-with-map">
+        <span class="mui-icon mui-icon-gear"></span>
+        <span class="mui-tab-label">个人</span>
+    </a>
+</nav>
+<!-- <script>
+mui.init({
+    pullRefresh: {
+        container: '#pullrefresh',
+        up: {
+            contentrefresh: '正在加载...',
+            contentnomore: "没有更多数据了",
+            callback: loadmore
+        }
+    }
+});
+
+function loadmore() {
+    var vm = listData.vm,
+        url = listData.url;
+
+    listData.data.pageNo = vm.pageNo;
+    listData.data.pageSize = vm.pageSize;
+    ajaxJsonp({
+        url: url,
+        data: listData.data,
+        successCallback: function(json) {
+            if (json.data.count + json.data.pageSize > (vm.pageNo * json.data.pageSize) && json.data.list.length > 0) {
+                vm.pageNo++;
+                vm.list.push.apply(vmArticle.list, json.data.list);
+                mui("#pullrefresh").pullRefresh().endPullupToRefresh(false);
+            } else {
+                mui("#pullrefresh").pullRefresh().endPullupToRefresh(true);
+            }
+        }
+    });
+}
+</script> -->

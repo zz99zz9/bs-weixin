@@ -22,6 +22,7 @@
     "gulp-rename": "^1.2.2",
     "gulp-rev": "^7.1.0",
     "gulp-rev-collector": "^1.0.5",
-    "gulp-ruby-sass": "^2.0.6"
+    "gulp-ruby-sass": "^2.0.6",
+    "typed.js": "^1.1.1"
   }
 }
