@@ -7,20 +7,20 @@ var ishide = false,
 isManageMode = localpath.indexOf('manage') > 0 ? true : false;
 isCMSMode = localpath.indexOf('cms') > 0 ? true : false;
 
-$(function() {
+$(function () {
     if (!isios && isweixin) {
         // $('#popModule').css('-webkit-transition-duration', '0');
     }
-    $('#menu').on('tap', function(event) {
+    $('#menu').on('tap', function (event) {
         event.preventDefault();
         vmSide.show();
     });
-    $('#popModule').on('webkitTransitionEnd', function() {
+    $('#popModule').on('webkitTransitionEnd', function () {
         if (ishide) {
             $('#popModule').hide();
         }
     })
-    $('#closebtn').on('click', function() {
+    $('#closebtn').on('click', function () {
         $('#popModule').addClass('hide');
         ishide = true;
     })
@@ -41,28 +41,28 @@ var vmSide = avalon.define({
         id: 0,
         img: '../img/card/card_null.svg'
     },
-    {
-        id: 0,
-        img: '../img/card/card_null.svg'
-    }],
-    goCard: function(id, index) {
-        stopSwipeSkip.do(function() {
+        {
+            id: 0,
+            img: '../img/card/card_null.svg'
+        }],
+    goCard: function (id, index) {
+        stopSwipeSkip.do(function () {
             if (id > 0) {
                 location.href = "../card-show.html?id=" + id;
             } else {
-                Storage.set('cardData', { cardIndex: index });
+                Storage.set('cardData', {cardIndex: index});
                 location.href = "../card-list.html";
             }
         });
     },
     roomData: [],
     //开门列表
-    getDoorList: function() {
+    getDoorList: function () {
         ajaxJsonp({
             noSkip: 1,
             url: urls.openDoorList,
             data: {},
-            successCallback: function(json) {
+            successCallback: function (json) {
                 if (json.status === 1) {
                     vmSide.roomData = json.data;
                 } else {
@@ -72,7 +72,7 @@ var vmSide = avalon.define({
         });
     },
     //一个房，就开门，两个的话，就弹框
-    open: function() {
+    open: function () {
         if (vmSide.roomData.length == 1) {
             var id = vmSide.roomData[0].id;
             var No = vmSide.roomData[0].roomNo;
@@ -84,13 +84,13 @@ var vmSide = avalon.define({
         }
     },
     //开门
-    openDoor: function(id, No) {
+    openDoor: function (id, No) {
         ajaxJsonp({
             url: urls.openDoor,
             data: {
                 id: id
             },
-            successCallback: function(json) {
+            successCallback: function (json) {
                 if (json.status === 1) {
                     mui.alert(No + json.message);
                     if (vmSide.roomData.length != 1) {
@@ -106,7 +106,7 @@ var vmSide = avalon.define({
     },
     leaveData: [],
     //一个房，就退，两个的话，就弹框
-    leave: function() {
+    leave: function () {
         if (vmSide.leaveData.length == 1) {
             var id = vmSide.leaveData[0].id;
             var No = vmSide.leaveData[0].roomNo;
@@ -118,12 +118,12 @@ var vmSide = avalon.define({
         }
     },
     //退房列表
-    getLeaveList: function() {
+    getLeaveList: function () {
         ajaxJsonp({
             noSkip: 1,
             url: urls.checkOutDoorList,
             data: {},
-            successCallback: function(json) {
+            successCallback: function (json) {
                 if (json.status === 1) {
                     vmSide.leaveData = json.data;
                 } else {
@@ -133,15 +133,15 @@ var vmSide = avalon.define({
         });
     },
     //退房
-    checkOut: function(orid, No) {
-        mui.confirm("是否退房？", "退房", ["否", "是"], function(e) {
+    checkOut: function (orid, No) {
+        mui.confirm("是否退房？", "退房", ["否", "是"], function (e) {
             if (e.index == 1) {
                 ajaxJsonp({
                     url: urls.checkOutDoor,
                     data: {
                         id: orid
                     },
-                    successCallback: function(json) {
+                    successCallback: function (json) {
                         if (json.status === 1) {
                             mui.alert(No + json.message);
                             if (vmSide.leaveData.length != 1) {
@@ -157,7 +157,7 @@ var vmSide = avalon.define({
             }
         });
     },
-    show: function() {
+    show: function () {
         vmSide.getUserInfo();
         //非管理系统才调取开门和退房
         if (!isCMSMode && !isManageMode) {
@@ -169,9 +169,9 @@ var vmSide = avalon.define({
         setTimeout("$('#popModule').removeClass('hide')", 10);
         //$('#popModule').removeClass('hide');
 
-        Storage.setLocal('user', { openUserInfo: 0 });
+        Storage.setLocal('user', {openUserInfo: 0});
     },
-    getUserInfo: function() {
+    getUserInfo: function () {
         var userInfo = Storage.getLocal('user') || {};
         var token = userInfo.accessToken || '';
         var openid = userInfo.openId || '';
@@ -182,7 +182,7 @@ var vmSide = avalon.define({
             url: urls.userInfotUrl + "?accessToken=" + token + "&openId=" + openid,
             dataType: "jsonp",
             jsonp: "jsonpcallback",
-            success: function(json) {
+            success: function (json) {
                 if (json.status === -1) {
                     vmSide.nickName = ' 未登录 ';
                     var user = Storage.getLocal("user") || {};
@@ -196,7 +196,10 @@ var vmSide = avalon.define({
                     }
 
                     if (location.pathname.indexOf('index') >= 0) {
-                        vmTop.headImg = vmSide.headImg;
+                        try {
+                            vmTop.headImg = vmSide.headImg;
+                        } catch (e) {
+                        }
                     }
 
                     vmSide.nickName = json.data.nickname;
@@ -209,9 +212,9 @@ var vmSide = avalon.define({
 
                         for (var i = 0; i < cList.length; i++) {
                             if (cList[i].type != 4) {
-                                if(vmSide.cardList[0].id == 0 && i == 0) {
+                                if (vmSide.cardList[0].id == 0 && i == 0) {
                                     vmSide.cardList[0].id = cList[i].id;
-                                    vmSide.cardList[0].img = '../img/card/card_No' + cList[i].type + '.svg'; 
+                                    vmSide.cardList[0].img = '../img/card/card_No' + cList[i].type + '.svg';
                                 } else if (vmSide.cardList[1].id == 0 && i == 1) {
                                     vmSide.cardList[1].id = cList[i].id;
                                     vmSide.cardList[1].img = '../img/card/card_No' + cList[i].type + '.svg';
@@ -241,17 +244,17 @@ var vmSide = avalon.define({
                     Storage.setLocal('user', user);
                 }
             },
-            error: function(XMLHttpRequest, type, errorThrown) {
+            error: function (XMLHttpRequest, type, errorThrown) {
                 console.log(XMLHttpRequest.responseText + "\n" + type + "\n" + errorThrown);
             }
         });
     },
-    changeImg: function() {
-        stopSwipeSkip.do(function() {
+    changeImg: function () {
+        stopSwipeSkip.do(function () {
             ajaxJsonp({
                 url: urls.userInfotUrl,
                 data: {},
-                successCallback: function(json) {
+                successCallback: function (json) {
                     if (json.status == 1) { //已登录
                         location.href = '../avatar.html';
                         //通过config接口注入权限验证配置
@@ -297,8 +300,8 @@ var vmSide = avalon.define({
             });
         });
     },
-    clickA: function(i) {
-        stopSwipeSkip.do(function() {
+    clickA: function (i) {
+        stopSwipeSkip.do(function () {
             switch (i) {
                 case 1:
                     location.href = "../user-info.html";
@@ -342,7 +345,7 @@ function savePic(serverId) {
         data: {
             headUrl: serverId
         },
-        successCallback: function(json) {
+        successCallback: function (json) {
             if (json.status === 1) {
                 vmSide.getUserInfo();
                 alert(json.message);

@@ -1,0 +1,228 @@
+<style>
+    .index-top {
+        background: url('/img/qietu-shouyebgr.png');
+        height: 280px;
+        background-size: cover;
+        position: relative;
+    }
+
+    .index-top-logo {
+        margin: 10px 10px;
+    }
+
+    .index-top-div {
+        position: absolute;
+        bottom: 0px;
+        padding-left: 10px;
+        padding-right: 10px;
+        width: 100%;
+        color: #b3dfdb;
+        opacity: 0.9;
+        font-size: 14px;
+        text-align: center;
+    }
+
+    .index-top-search {
+        color: white;
+        height: 50px !important;
+        font-size: 18px !important;
+    }
+
+    .mui-search .mui-placeholder {
+        height: 50px !important;
+        font-size: 18px !important;
+        line-height: 50px;
+    }
+
+    .mui-search {
+        margin-top: 12px !important;
+    }
+
+    .city-list {
+        background-color: white;
+        height: 114px;
+    }
+
+    .city-list-item {
+        width: 60px;
+        height: auto;
+        text-align: center;
+        line-height: 130% !important;
+        padding: 15px 0px 15px 21px !important;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .city-list-item-txt {
+        font-size: 14px;
+        color: #444444;
+        margin: 0px;
+        padding: 0px;
+    }
+
+    .city-list-location {
+        width: 60px;
+        height: 60px;
+        border-radius: 30px;
+        background: #b3dfdb;
+        text-align: center;
+    }
+
+    .city-list-location-img {
+        width: 30px;
+        height: 30px;
+        margin: 15px auto;
+    }
+
+    .mui-active {
+        border-bottom: none !important;
+    }
+
+    .intro-title {
+        margin-top: 16px;
+        font-size: 16px;
+        color: #444444;
+        font-family: "Microsoft Yahei";
+        padding: 15px 0px 15px 10px;
+        font-weight: bold;
+        background: white;
+    }
+
+    .intro-ul {
+        padding: 0 !important;
+        margin-bottom: 50px;
+    }
+
+    .intro-item {
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    .intro-item > a {
+        margin: 0 !important;
+    }
+
+    .intro-item-spn {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        font-size: 12px;
+        color: #ffffff;
+    }
+
+    .nav-ico {
+        width: 24px;
+        height: 24px;
+    }
+</style>
+<div ms-controller="index2">
+    <div class="index-top">
+        <img src="/img/icon/logo.svg" class="index-top-logo">
+        <div class="index-top-div">
+            <span>您好，Echo</span>
+            <div class="mui-input-row mui-search">
+                <input type="search" class="mui-input-clear index-top-search" placeholder="搜索">
+            </div>
+        </div>
+    </div>
+    <div class="city-list" style="display: none">
+        <div class="city-list-item" style="margin-left: 10px !important;">
+            <div class="city-list-location">
+                <img src="/img/icon/icon-dingwei1.svg" class="city-list-location-img">
+            </div>
+            <span class="city-list-item-txt" style="margin-top: 5px">附近</span>
+        </div>
+        <div class="city-list-item">
+            <img src="/img/qietu-shanghai.png" class="city-list-location">
+            <label class="city-list-item-txt">上海</label>
+        </div>
+        <div class="city-list-item">
+            <img src="/img/qietu-hangzhou.png" class="city-list-location">
+            <label class="city-list-item-txt">杭州</label>
+        </div>
+        <div class="city-list-item">
+            <img src="/img/qietu-nanjing.png" class="city-list-location">
+            <label class="city-list-item-txt">南京</label>
+        </div>
+        <div class="city-list-item">
+            <img src="/img/qietu-suzhou.png" class="city-list-location">
+            <label class="city-list-item-txt">苏州</label>
+        </div>
+    </div>
+
+    <div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted"
+         style="height: 114px;background: white">
+        <div class="mui-scroll">
+            <a class="mui-control-item city-list-item" style="padding-left: 10px !important;">
+                <div><img src="/img/icon/icon-dingwei1.svg" class="city-list-location"></div>
+                <label class="city-list-item-txt">附近</label>
+            </a>
+            <a class="mui-control-item city-list-item">
+                <div><img src="/img/qietu-shanghai.png" class="city-list-location"></div>
+                <label class="city-list-item-txt">上海</label>
+            </a>
+            <a class="mui-control-item city-list-item">
+                <div><img src="/img/qietu-hangzhou.png" class="city-list-location"></div>
+                <label class="city-list-item-txt">杭州</label>
+            </a>
+            <a class="mui-control-item city-list-item">
+                <div><img src="/img/qietu-nanjing.png" class="city-list-location"></div>
+                <label class="city-list-item-txt">南京</label>
+            </a>
+            <a class="mui-control-item city-list-item" style="padding-right: 10px !important;">
+                <div><img src="/img/qietu-suzhou.png" class="city-list-location"></div>
+                <label class="city-list-item-txt">苏州</label>
+            </a>
+        </div>
+    </div>
+
+    <div class="intro-title">
+        <span>为您介绍</span>
+    </div>
+
+    <ul class="mui-table-view mui-grid-view intro-ul">
+        <li class="mui-table-view-cell mui-media mui-col-xs-6 intro-item" style="padding-right: 1px !important;">
+            <a href="#">
+                <img class="mui-media-object" src="/img/qietu-haocai.png">
+                <span class="intro-item-spn">布草/耗材</span>
+            </a>
+        </li>
+        <li class="mui-table-view-cell mui-media mui-col-xs-6 intro-item" style="padding-left: 1px !important;">
+            <a href="#">
+                <img class="mui-media-object" src="/img/qietu-yingyin.png">
+                <span class="intro-item-spn">影音系统</span>
+            </a>
+        </li>
+        <li class="mui-table-view-cell mui-media mui-col-xs-6 intro-item" style="padding-right: 1px !important;">
+            <a href="#">
+                <img class="mui-media-object" src="/img/qietu-kekong.png">
+                <span class="intro-item-spn">智能客控</span>
+            </a>
+        </li>
+        <li class="mui-table-view-cell mui-media mui-col-xs-6 intro-item" style="padding-left: 1px !important;">
+            <a href="#">
+                <img class="mui-media-object" src="/img/qietu-jiaju.png">
+                <span class="intro-item-spn">床垫/家具</span>
+            </a>
+        </li>
+    </ul>
+
+    <nav class="mui-bar mui-bar-tab" style="background: white !important;">
+        <a class="mui-tab-item mui-active" href="#tabbar">
+            <span class="mui-icon"><img src="/img/icon/icon-home.svg" class="nav-ico"></span>
+            <span class="mui-tab-label">首页</span>
+        </a>
+        <a class="mui-tab-item" href="#tabbar-with-chat">
+            <span class="mui-icon"><img src="/img/icon/icon-dingdan.svg" class="nav-ico"></span>
+            <span class="mui-tab-label">订单</span>
+        </a>
+        <a class="mui-tab-item" ms-click="goToUrl('opendoor.html')" href="#">
+            <span class="mui-icon"><img src="/img/icon/icon-ruzhu.svg" class="nav-ico"></span>
+            <span class="mui-tab-label">入住</span>
+        </a>
+        <a class="mui-tab-item" href="#tabbar-with-map">
+            <span class="mui-icon"><img src="/img/icon/icon-more.svg" class="nav-ico"></span>
+            <span class="mui-tab-label">我的</span>
+        </a>
+    </nav>
+</div>
