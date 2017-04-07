@@ -26,7 +26,7 @@ var vmOrders = avalon.define({
     mobile: '18745940055',
     goDetail: function(id, status) {
         if (status == 2 || status == 3) {
-            location.href = "inroom.html";
+            location.href = "service/ready.html";
         } else if (status == 1) {
             location.href = "order.html?&id=" + id;
         }

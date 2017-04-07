@@ -23,4 +23,18 @@ var vmInroom = avalon.define({
             location.href = "../user-info.html";
         })
     },
+    goOpendoor: function() {
+        stopSwipeSkip.do(function() {
+            location.href = "../opendoor.html";
+        })
+    },
+    goCheckout: function() {
+        stopSwipeSkip.do(function() {
+            mui.confirm("摸摸口袋，看看床上，翻翻包裹","再检查一下",["闪人","稍等"],function(e){
+                if (e.index==0) {
+                    location.href = "../checkOut.html";
+                }
+            },"div");
+        })
+    },
 });

@@ -38,12 +38,11 @@ section {
 .content-infor {
     display: flex;
     justify-content: space-between;
-    align-items: center; 
-    padding:18px 0; 
+    align-items: center;
+    padding: 18px 0;
     border-bottom: 1px solid #ccc;
     color: #444;
 }
-
 </style>
 <section>
     <div class="row" ms-controller="serviceOrderList">
@@ -66,12 +65,14 @@ section {
                 <div class="content-infor" ms-repeat="data">
                     <h5 class="flex0" style="-webkit-box-pack: justify;">{{el.orderNo}}</h5>
                     <h5 class="flex1">{{el.name}}</h5>
-                    <img src="../img/icon/service-send.svg" class="item-img"  ms-on-tap="send">
+                    <img src="../img/icon/service-send.svg" class="item-img" ms-on-tap="send">
                 </div>
             </div>
         </div>
+        <div style="height: 22px;">
+        </div>
     </div>
-    <nav class="mui-bar mui-bar-tab" style="background: white !important;">
+    <nav class="mui-bar mui-bar-tab" style="background: white !important;height: 56px;padding: 8px 0 5px;">
         <a class="mui-tab-item" ms-on-tap="goIndex2">
             <span class="mui-icon"><img src="/img/icon/icon-home.svg" class="nav-ico"></span>
             <span class="mui-tab-label">首页</span>

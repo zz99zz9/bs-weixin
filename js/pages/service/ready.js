@@ -20,6 +20,7 @@ var vmServiceReady = avalon.define({
     temperature: "一键预温",
     orderList: {
         roomNo: 1123,
+        startTime: 22,
     },
     list: [
         { id: 1, information: "儿童专用耗材及浴衣一套" },
@@ -60,6 +61,28 @@ var vmServiceReady = avalon.define({
                     location.href = "../opendoor.html";
                 } 
             },"div");
+        })
+    },
+    blankTime: '',  //当前时间
+    timeDiffer: 0,  //时间差值
+    timePrompt: '点击，将于预定入住时间前半小时启动预温',  //提示
+    goTem: function() {  //一键预温
+        stopSwipeSkip.do(function() {
+            vmServiceReady.blankTime = getToday("time").substring(0,5);
+            vmServiceReady.timeDiffer = vmServiceReady.orderList.startTime - parseInt(vmServiceReady.blankTime.substring(0,2));
+            vmServiceReady.timeDiffer = vmServiceReady.timeDiffer + ":" + vmServiceReady.blankTime.substring(3,5);
+            console.log(vmServiceReady.timeDiffer);
+            if (vmServiceReady.temperature=="一键预温" && parseInt(vmServiceReady.timeDiffer.substring(0,1)) >= 0) {
+                vmServiceReady.temperature = "已准备";
+                vmServiceReady.timePrompt = "将于 " + vmServiceReady.timeDiffer + " 后自启动预温";
+                $(".cirque").css("color", "#b3dfdb");
+                $(".cirque").css("border", "2px solid #b3dfdb");
+            } else {
+                vmServiceReady.temperature = "一键预温";
+                vmServiceReady.timePrompt = "点击，将于预定入住时间前半小时启动预温";
+                $(".cirque").css("color", "#fcc02f");
+                $(".cirque").css("border", "2px solid #fcc02f");
+            }
         })
     }
 });
