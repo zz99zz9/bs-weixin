@@ -1,6 +1,78 @@
 <style>
+    .mui-content, body {
+        background: white !important;
+    }
+
     .mui-slider-title {
         color: white !important;
+    }
+
+    .switch-button {
+        margin: 16px 20px 16px 16px;
+    }
+
+    .grid-item {
+        height: 130px;
+        background: #006457 !important;
+    }
+
+    .intro-title {
+        margin-top: 16px;
+        font-size: 16px;
+        color: #444444;
+        font-family: "Microsoft Yahei";
+        padding: 15px 0px 15px 10px;
+        font-weight: bold;
+        background: white;
+    }
+
+    .city-list-item {
+        width: 100px;
+        height: 100px;
+        background: #f2f2f2;
+        line-height: 100% !important;
+        padding: 0 30px !important;
+    }
+
+    .city-list-item-txt {
+        font-size: 12px;
+        color: #444444;
+    }
+
+    .city-list-location {
+        width: 40px;
+        height: 40px;
+        text-align: center;
+        margin-top: 22px;
+        margin-bottom: 10px;
+    }
+
+    .mui-active {
+        border-bottom: none !important;
+    }
+
+    .service-list-item {
+        width: 173px;
+        height: 120px;
+        background: #f2f2f2;
+        line-height: 100% !important;
+        padding: 0 0 !important;
+    }
+
+    .service-list-item-img {
+        width: 173px;
+        height: 120px;
+        text-align: left;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    .service-list-item-txt {
+        font-size: 12px;
+        color: #ffffff;
+        font-family: "Microsoft Yahei";
+        margin-left: 12px;
+        line-height: 30px;
     }
 </style>
 <ul class="mui-table-view">
@@ -12,152 +84,132 @@
     </li>
 </ul>
 
-<ul class="mui-table-view mui-grid-view mui-grid-9" style="background-color: white;margin-top: 10px">
-    <li class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6">
-        <a href="#" style="display: flex;flex-direction: column;justify-content: center">
-            <div>
-                <img src="/img/discover/member.png" style="width: 50px;height: 50px">
+<ul class="mui-table-view mui-grid-view mui-grid-9" style="border-left: 0px;margin-top: 16px">
+    <li class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6 grid-item"
+        style="border-right:1px solid #b3dfdb;border-bottom:1px solid #b3dfdb;">
+        <a href="#" style="margin: 25px auto">
+            <img src="../img/icon/icon-shidu.svg" style="width: 50px;height: 50px"><br>
+            <span style="color: #b3dfdb;font-size: 10px;font-family: 'Microsoft Yahei'">25℃</span>
+        </a>
+    </li>
+    <li class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6 grid-item"
+        style="border-right:0px solid #b3dfdb;border-bottom:1px solid #b3dfdb;">
+        <a href="#" style="margin: 25px auto">
+            <img src="../img/icon/icon-kongtiao.svg" style="width: 50px;height: 50px"><br>
+            <span style="color: #b3dfdb;font-size: 10px;font-family: 'Microsoft Yahei'">35% RH</span>
+        </a>
+    </li>
+    <li class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6 grid-item"
+        style="border-right:1px solid #b3dfdb;border-bottom:0px solid #b3dfdb;">
+        <a href="#" style="margin: 3px auto">
+            <div style="height: 68px;width: 68px;border: 1px solid #fcc02f;border-radius: 68px;margin: 0px auto;display: table">
+                <span style="display:table-cell;vertical-align: middle;color: #fcc02f;font-size: 12px;font-family: 'Microsoft Yahei';">点击开门</span>
             </div>
             <div style="margin-left: 10px;display: flex;flex-direction: column;justify-content: center">
-                <span>25℃</span>
+                <span style="color: #b3dfdb;font-size: 10px;font-family: 'Microsoft Yahei';margin-top: 16px">请观察圈中的影像再开门</span>
             </div>
         </a>
     </li>
-    <li class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6">
-        <a href="#" style="display: flex;flex-direction: column;justify-content: center">
-            <div>
-                <img src="/img/discover/member.png" style="width: 50px;height: 50px">
+    <li class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6 grid-item"
+        style="border-right:0px solid #b3dfdb;border-bottom:0px solid #b3dfdb;">
+        <a href="#" style="margin: 3px auto">
+            <div style="height: 68px;width: 68px;border: 1px solid #fcc02f;border-radius: 68px;margin: 0px auto;display: table">
+                <span style="display:table-cell;vertical-align: middle;color: #fcc02f;font-size: 12px;font-family: 'Microsoft Yahei';">点击退房</span>
             </div>
             <div style="margin-left: 10px;display: flex;flex-direction: column;justify-content: center">
-                <span>35% RH</span>
+                <span style="color: #b3dfdb;font-size: 10px;font-family: 'Microsoft Yahei';margin-top: 16px">将于明日11:00退房</span>
             </div>
         </a>
     </li>
 </ul>
 
-<ul class="mui-table-view mui-grid-view mui-grid-9" style="background-color: white;margin-top: 10px">
-    <li class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6">
-        <a href="#" style="display: flex;flex-direction: column;justify-content: center">
-            <div>
-                <img src="/img/discover/member.png" style="width: 50px;height: 50px">
-            </div>
-            <div style="margin-left: 10px;display: flex;flex-direction: column;justify-content: center">
-                <span class="bs-text-small">请观察圈中的影像再开门</span>
-            </div>
-        </a>
-    </li>
-    <li class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6">
-        <a href="#" style="display: flex;flex-direction: column;justify-content: center">
-            <div>
-                <img src="/img/discover/member.png" style="width: 50px;height: 50px">
-            </div>
-            <div style="margin-left: 10px;display: flex;flex-direction: column;justify-content: center">
-                <span class="bs-text-small">将于明日11:00退房</span>
-            </div>
-        </a>
-    </li>
-</ul>
+<div class="intro-title">
+    <span>为您介绍</span>
+</div>
 
-<ul class="mui-table-view" style="margin-top: 10px">
-    <li class="mui-table-view-cell">
-        <span class="mui-icon mui-icon-settings"></span><span class="bs-text-small">于明早上午8:00叫醒</span>
-    </li>
-</ul>
-
-<ul class="mui-table-view mui-grid-view mui-grid-9" style="background-color: white;">
-    <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4">
-        <a href="#" style="margin: 5px 5px">
-            <span class="bs-text-small">影视</span>
+<div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted"
+     style="height: 114px;background: white">
+    <div class="mui-scroll">
+        <a class="mui-control-item city-list-item" style="margin-left: 10px !important;">
+            <div><img src="../img/icon/icon-yingshi.svg" class="city-list-location"></div>
+            <label class="city-list-item-txt">影视</label>
         </a>
-    </li>
-    <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4">
-        <a href="#" style="margin: 5px 5px">
-            <span class="bs-text-small">光照</span>
+        <a class="mui-control-item city-list-item">
+            <div><img src="../img/icon/icon-guangzhao.svg" class="city-list-location"></div>
+            <label class="city-list-item-txt">光照</label>
         </a>
-    </li>
-    <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4">
-        <a href="#" style="margin: 5px 5px">
-            <span class="bs-text-small">温度</span>
+        <a class="mui-control-item city-list-item" style="margin-right: 10px !important;">
+            <div><img src="../img/icon/icon-wendu.svg" class="city-list-location"></div>
+            <label class="city-list-item-txt">温度</label>
         </a>
-    </li>
-</ul>
-
-<ul class="mui-table-view" style="margin-top: 10px">
-    <li class="mui-table-view-cell">
-        <span class="mui-icon mui-icon-gear"></span><span class="bs-text-small">预约服务</span>
-    </li>
-</ul>
-<div class="mui-slider">
-    <div class="mui-slider-group">
-        <div class="mui-slider-item">
-            <a href="#">
-                <img src="/img/shuttle.jpg">
-                <p class="mui-slider-title">专车代驾</p>
-            </a>
-        </div>
-        <div class="mui-slider-item">
-            <a href="#">
-                <img src="/img/dryCleaning.jpg">
-                <p class="mui-slider-title">洗衣服务</p>
-            </a>
-        </div>
-        <div class="mui-slider-item">
-            <a href="#">
-                <img src="/img/cleaning.jpg">
-                <p class="mui-slider-title">预约早餐</p>
-            </a>
-        </div>
-        <div class="mui-slider-item mui-slider-item-duplicate">
-            <a href="#">
-                <img src="/img/shuttle.jpg">
-                <p class="mui-slider-title">专车代驾</p>
-            </a>
-        </div>
-    </div>
-    <div class="mui-slider-indicator mui-text-right">
-        <div class="mui-indicator"></div>
-        <div class="mui-indicator"></div>
-        <div class="mui-indicator mui-active"></div>
-        <div class="mui-indicator"></div>
     </div>
 </div>
 
-<ul class="mui-table-view" style="margin-top: 10px">
-    <li class="mui-table-view-cell">
-        <span class="mui-icon mui-icon-location"></span><span class="bs-text-small">周边推荐</span>
-    </li>
-</ul>
-<div class="mui-slider">
-    <div class="mui-slider-group">
-        <div class="mui-slider-item">
-            <a href="#">
-                <img src="/img/shuttle.jpg">
-                <p class="mui-slider-title">专车代驾</p>
-            </a>
-        </div>
-        <div class="mui-slider-item">
-            <a href="#">
-                <img src="/img/dryCleaning.jpg">
-                <p class="mui-slider-title">洗衣服务</p>
-            </a>
-        </div>
-        <div class="mui-slider-item">
-            <a href="#">
-                <img src="/img/cleaning.jpg">
-                <p class="mui-slider-title">预约早餐</p>
-            </a>
-        </div>
-        <div class="mui-slider-item mui-slider-item-duplicate">
-            <a href="#">
-                <img src="/img/shuttle.jpg">
-                <p class="mui-slider-title">专车代驾</p>
-            </a>
-        </div>
-    </div>
-    <div class="mui-slider-indicator mui-text-right">
-        <div class="mui-indicator"></div>
-        <div class="mui-indicator"></div>
-        <div class="mui-indicator mui-active"></div>
-        <div class="mui-indicator"></div>
+<div class="intro-title">
+    <span>服务预约</span>
+</div>
+
+<div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted"
+     style="height: 120px;background: white">
+    <div class="mui-scroll">
+        <a class="mui-control-item service-list-item" style="margin-left: 10px !important;">
+            <div class="service-list-item-img" style="background: url('../img/qietu-zaocan.png');">
+                <label class="service-list-item-txt">预约早餐</label>
+            </div>
+        </a>
+        <a class="mui-control-item service-list-item">
+            <div class="service-list-item-img" style="background: url('../img/qietu-xiyi.png');">
+                <label class="service-list-item-txt">洗衣服务</label>
+            </div>
+        </a>
+        <a class="mui-control-item service-list-item" style="margin-right: 10px !important;">
+            <div class="service-list-item-img" style="background: url('../img/qietu-dajia.png');">
+                <label class="service-list-item-txt">专车代驾</label>
+            </div>
+        </a>
     </div>
 </div>
+
+<div class="intro-title">
+    <span>周边推荐</span>
+</div>
+
+<div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted"
+     style="height: 120px;background: white;margin-bottom: 80px">
+    <div class="mui-scroll">
+        <a class="mui-control-item service-list-item" style="margin-left: 10px !important;">
+            <div class="service-list-item-img" style="background: url('../img/qietu-yeshengdongwuyuan.png');">
+                <label class="service-list-item-txt">上海野生动物园</label>
+            </div>
+        </a>
+        <a class="mui-control-item service-list-item">
+            <div class="service-list-item-img" style="background: url('../img/qietu-disini.png');">
+                <label class="service-list-item-txt">迪士尼乐园</label>
+            </div>
+        </a>
+        <a class="mui-control-item service-list-item" style="margin-right: 10px !important;">
+            <div class="service-list-item-img" style="background: url('../img/qietu-xiaochi.png');">
+                <label class="service-list-item-txt">周边小吃</label>
+            </div>
+        </a>
+    </div>
+</div>
+
+<nav class="mui-bar mui-bar-tab" style="background: white !important;">
+    <a class="mui-tab-item mui-active" href="#tabbar">
+        <span class="mui-icon"><img src="/img/icon/icon-home.svg" class="nav-ico"></span>
+        <span class="mui-tab-label">首页</span>
+    </a>
+    <a class="mui-tab-item" href="#tabbar-with-chat">
+        <span class="mui-icon"><img src="/img/icon/icon-dingdan.svg" class="nav-ico"></span>
+        <span class="mui-tab-label">订单</span>
+    </a>
+    <a class="mui-tab-item" ms-click="goToUrl('opendoor.html')" href="#">
+        <span class="mui-icon"><img src="/img/icon/icon-ruzhu-select.svg" class="nav-ico"></span>
+        <span class="mui-tab-label">入住</span>
+    </a>
+    <a class="mui-tab-item" href="#tabbar-with-map">
+        <span class="mui-icon"><img src="/img/icon/icon-more.svg" class="nav-ico"></span>
+        <span class="mui-tab-label">我的</span>
+    </a>
+</nav>
