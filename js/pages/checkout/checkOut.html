@@ -1,0 +1,80 @@
+<style>
+.save-button{
+	padding: 0;
+    margin-right: 5px;
+    margin-top: 5px;
+}
+.back-color{
+	background-color: #fff;
+}
+.comment {
+    font-size: 0.875rem;
+    height: 205px;
+    padding: 0;
+    border: 0px;
+    margin-bottom: 0px;
+} 
+.space {
+    position: relative;
+    margin-top: 10px; 
+    background-color: #fff !important;
+    padding-bottom: 0;
+}
+.title-margin1{
+	margin: 5% 30px 0 30px;
+}
+.title-margin2{
+	margin: 5.5% 5% 0 0;
+}
+.titl-bold{
+	font-weight: bold;
+}
+.evaluation-botton{
+	text-align: center;
+	background-color: #169488;
+	color: #FFFFFF;
+	height: 48px;
+	margin-top: 5px;
+	line-height:45px;
+	font-weight: bold;
+}
+</style>
+
+<div ms-controller="checkOut">
+	<div class="back-color">
+		<div style="display: flex;justify-content: space-between;">
+	    	<div class="bs-text-x-larger title-margin1 titl-bold" style="color: #444444;">您的健康指数报告</div>
+	    	<div class="title-margin2 titl-bold bs-text-normal" style="color: #169488;">保存&分享</div>
+		</div>
+		<div class="back-color bs-text-normal title-margin1" style="color: #444444;font-family: '微软雅黑';">{{nowDate}}</div>
+	</div>
+	<div  class="back-color">
+		<div style="padding: 5px 0 5px 0;" >
+			<div class="bs-text-large" ms-repeat="list">
+				<div class="title-margin1 titl-bold" style="font-family: '微软雅黑';font-size: 18px;color: #444444;">{{el.name}}</div>
+				<div style="margin-top: 10px;display: flex;justify-content: space-between;margin-left: 30px;margin-right: 5%;">
+					<div class="bs-text-normal" ms-repeat="el.typeList" style="color: #444444;">{{el.typeName}}:{{el.number}}</div>
+				</div>
+				<div class="title-margin1 bs-text-smaller" style="margin-top: 8px;color: #444444;font-family: '微软雅黑';">本宿建议：{{el.suggest}}</div>
+				<div style="border-top: 1px solid #AAAAAA;border-top-color:#F2F2F2; margin-top: 15px;margin-left: 20px;margin-right: 20px;"></div>
+			</div>
+			<div>
+				<div class="title-margin1 titl-bold" style="font-style: 20px;color: #444444;font-family: '微软雅黑';">D&K健康建议 </div>
+				<div class="title-margin1" style="font-size: 14px;color: #444444;font-family: '微软雅黑';margin-bottom: 28px;">{{remarks}}</div>
+				<img style="position: relative;top: -200px;float: right;right: 10px;" src="/img/qietu-zhang.png" width="100px" height="83px"/>
+			</div>
+		</div>
+	</div>
+	
+	<div style="margin-top: 16px;" class="back-color">
+		<div>&nbsp;</div>
+   		<div class="titl-bold title-margin1" style="margin-top: 15px;">服务评价</div>
+    
+        <div class="title-margin1" style="height: 270px;">
+            <textarea style="background-color: #F2F2F2;color: #444444;padding-left: 15px;padding-top: 5px;" class="comment" placeholder="写下您的评价，我们将第一时间为你反馈~"></textarea>
+            <div style="border-radius:5px;overflow:hidden" class="evaluation-botton" ms-click="alert"><span>提交</span></div>
+           <!--<button style="width: 100%;background-color: #FFFFFF;" type="button" class="mui-btnbs-text-small bs-text-black sub-button" >提交</button>-->
+        </div>
+	</div>
+</div>
+
