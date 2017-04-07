@@ -2906,7 +2906,7 @@ function checkOut(){
     return gulp.src('./js/layout/shell.html')
         .pipe(replace({
             regex: '<h1 id="headerReplace" class="mui-title">标题</h1>',
-            replace: '<h1 id="headerReplace" class="mui-title">哦对了。。。</h1>'
+            replace: '<h1 id="headerReplace" class="mui-title">哦对了</h1>'
         }))
         .pipe(replace({
             regex: '<!-- content -->',
@@ -3179,7 +3179,7 @@ gulp.task('html', gulp.parallel(
     opendoor,
     editFund,
     checkOut,
-    newOrderList
+    newOrderList,
     index2
 
 ));
