@@ -3179,7 +3179,7 @@ gulp.task('html', gulp.parallel(
     opendoor,
     editFund,
     checkOut,
-    newOrderList
+    newOrderList,
     index2
 
 ));

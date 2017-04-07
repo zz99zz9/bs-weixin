@@ -20,7 +20,7 @@ var vmCheckOut = avalon.define({
 	run:function (){
 		var s = document.getElementById("ss");
 		 	if(s.innerHTML == 0){
-		 		window.location.href='index.html';
+		 		window.location.href='index2.html';
 				return false;
 			}
 		s.innerHTML = s.innerHTML * 1 - 1;
