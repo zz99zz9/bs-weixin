@@ -2901,7 +2901,48 @@ function avatar() {
         .pipe(rename('avatar.html'))
         .pipe(gulp.dest('./src'));
 }
-
+//离店
+function checkOut(){
+    return gulp.src('./js/layout/shell.html')
+        .pipe(replace({
+            regex: '<h1 id="headerReplace" class="mui-title">标题</h1>',
+            replace: '<h1 id="headerReplace" class="mui-title">哦对了。。。</h1>'
+        }))
+        .pipe(replace({
+            regex: '<!-- content -->',
+            replace: '<!--include "../pages/checkout/checkOut.html"-->'
+        }))
+        .pipe(replace({
+            regex: '<!-- js -->',
+            replace: '<script src="../js/pages/checkout/checkOut.js"></script>'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('checkOut.html'))
+        .pipe(gulp.dest('./src'));
+}
+//订单列表新页
+function newOrderList() {
+    return gulp.src('./js/layout/shell.html')
+        .pipe(replace({
+            regex: '<h1 id="headerReplace" class="mui-title">标题</h1>',
+            replace: '<h1 id="headerReplace" class="mui-title">旅程开始</h1>'
+        }))
+        .pipe(replace({
+            regex: '<!-- js -->',
+            replace: '<script src="js/pages/order/vmodel-newOrderList.js"></script>'
+        }))
+        .pipe(replace({
+            regex: '<!-- content -->',
+            replace: '<!--include "../pages/order/newOrderList.html"-->'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('newOrderList.html'))
+        .pipe(gulp.dest('./src'));
+}
 /**
  * 输出弹框相关页面
  */
@@ -3079,7 +3120,9 @@ gulp.task('html', gulp.parallel(
     cmsSubList,
     subAdd,
     favoree,
-    editFund
+    editFund,
+    checkOut,
+    newOrderList
 ));
 
 function watchForReload() {
