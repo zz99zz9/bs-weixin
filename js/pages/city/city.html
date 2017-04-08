@@ -116,7 +116,7 @@
             </a>
         </div>
     </div>
-    <nav class="mui-bar mui-bar-tab footer" style="display: flex;justify-content: space-between;align-items: center;padding: 5px 0 5px 25px;background-color:white !important;font-size: 8px;">
+    <nav class="mui-bar mui-bar-tab footer" style="display: flex;justify-content: space-between;align-items: center;padding: 5px 0 5px 25px;background-color:white !important;font-size: 8px;" ms-if="!isShowHotelDetail">
         <div id="functionBtns">
             <button type="button" class="calender-icon bs-bg-eee" style="background-color: white;" ms-css-background-image="type?'url(img/icon/clock-333.svg)':'url(img/icon/calendar-333.svg)'" ms-on-tap="openTimePanel" ms-visible="type<=1">
                 <div class="bs-text-51 bs-text-smaller" ms-if="!type" style="line-height: 46px;">{{getToday('day')}}</div>
@@ -124,13 +124,13 @@
         </div>
         <div style="display: flex;justify-content: space-around;align-items: center;">
             <a class="" ms-on-tap="goSort" style="width: 18vw">
-                <div class="mui-icon"><img src="../img/icon/icon-paixu.svg" class="nav-ico" style="height: 24px; width: 24px;"></div>
-                <div style="position: relative;left: 5px;margin-bottom: 3px;">排序</div>
+                <div class="mui-icon" style="top: 6px;"><img src="../img/icon/icon-paixu.svg" class="nav-ico" style="height: 24px; width: 24px;"></div>
+                <div style="position: relative;left: 5px;top: -3px;margin-bottom: 3px;">排序</div>
             </a>
             <a class="" ms-on-tap="toggleMap" style="width: 18vw">
-                <div class="mui-icon"><img src="../img/icon/icon-liebiao.svg" class="nav-ico" style="height: 24px; width: 24px;"></div>
-                <div style="position: relative;left: 3px;margin-bottom: 3px;" ms-if="isShowMap==true">地图</div>
-                <div style="position: relative;left: 3px;margin-bottom: 3px;" ms-if="isShowMap==false">列表</div>
+                <div class="mui-icon" style="top: 6px;"><img src="../img/icon/icon-liebiao.svg" class="nav-ico" style="height: 24px; width: 24px;"></div>
+                <div style="position: relative;left: 3px;top: -3px;margin-bottom: 3px;" ms-if="isShowMap==true">地图</div>
+                <div style="position: relative;left: 3px;top: -3px;margin-bottom: 3px;" ms-if="isShowMap==false">列表</div>
             </a>
         </div>
     </nav>

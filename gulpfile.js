@@ -159,7 +159,7 @@ function city() {
         }))
         .pipe(replace({
             regex: '<!-- content -->',
-            replace: '<!--include "../pages/index/city.html"-->'
+            replace: '<!--include "../pages/city/city.html"-->'
         }))
         //.pipe(replace({
          //   regex: '<!-- bottom -->',
@@ -167,15 +167,19 @@ function city() {
         //}))
         .pipe(replace({
             regex: '<!-- css -->',
-            replace: '<link rel="stylesheet" href="css/swiper.min.css">\n<link rel="stylesheet" href="css/index.css">'
+            replace: '<link rel="stylesheet" href="css/swiper.min.css">\n<link rel="stylesheet" href="css/city.css">'
         }))
         .pipe(replace({
             regex: '<!-- pop -->',
-            replace: '<!--include "../util/pop.html"--><!--include "../pages/user/popover.html"-->'
+            replace: '<!--include "../util/pop.html"--><!--include "../pages/user/popover.html"--><!--include "../util/modal.html"-->'
         }))
         .pipe(replace({
             regex: '<!-- js -->',
-            replace: '<script src="js/lib/swiper.min.js"></script>\n' + '<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=0743dafb590f3622f52d0d4218a9f1f7"></script>\n' + '<script src="js/pages/index/vmodel.js"></script>\n' + '<script src="js/util/calendar.js"></script>\n' + '<script src="js/util/partTime.js"></script>'
+            replace: '<script src="js/lib/swiper.min.js"></script>\n' 
+            + '<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=0743dafb590f3622f52d0d4218a9f1f7"></script>\n' 
+            + '<script src="js/pages/city/vmodel.js"></script>\n' 
+            + '<script src="js/util/calendar.js"></script>\n' 
+            + '<script src="js/util/partTime.js"></script>'
         }))
         .pipe(contentIncluder({
             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
@@ -222,7 +226,6 @@ function hotel() {
             replace: '<script src="js/lib/swiper.min.js"></script>\n' 
             + '<script src="js/pages/hotel/vmodel.js"></script>\n' 
             + '<script src="js/util/calendar.js"></script>\n<script src="js/util/partTime.js"></script>'
-            + '<script src="js/util/clock.js"></script>\n'
         }))
         .pipe(contentIncluder({
             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
@@ -268,7 +271,6 @@ function room() {
             + '<script src="js/pages/room/vmodel.js"></script>\n'
             + '<script src="js/util/calendar.js"></script>\n'
             + '<script src="js/util/partTime.js"></script>\n' 
-            + '<script src="js/util/clock.js"></script>\n'
             + '<script src="js/util/contactList.js"></script>'
         }))
         .pipe(contentIncluder({
