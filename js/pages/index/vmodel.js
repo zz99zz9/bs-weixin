@@ -35,6 +35,9 @@ var vmTop = avalon.define({
         //向下滑
         $('header').slideDown();
     },
+    goBack: function() {
+        history.go(-1);
+    }
 });
 
 var vmBottom = avalon.define({
@@ -205,7 +208,30 @@ var vmIndex = avalon.define({
             location.href = "hotel.html?id=" + id;
         })
     },
-    sort: 1, //1按距离，2按价格
+    // sort: 1, //1按距离，2按价格   原始的
+    // changeSort: function(type) {
+    //     stopSwipeSkip.do(function() {
+    //         vmIndex.sort = type;
+    //         ajaxJsonp({
+    //             url: urls.getHotelByPosition,
+    //             data: {
+    //                 lng: vmIndex.lng,
+    //                 lat: vmIndex.lat,
+    //                 isPartTime: vmIndex.type,
+    //                 discount: vmBottom.midnightDiscount,
+    //                 distance: 100000,
+    //                 sort: vmIndex.sort,
+    //                 pageCount: 20,
+    //             },
+    //             successCallback: function(json) {
+    //                 if (json.status == 1) {
+    //                     vmIndex.hotelMarkers = json.data;
+    //                 }
+    //             }
+    //         });
+    //     });
+    // },
+    sort: 1, //1高到低，2低到高   3近到远    为2.0-demo而生的
     changeSort: function(type) {
         stopSwipeSkip.do(function() {
             vmIndex.sort = type;
@@ -226,6 +252,16 @@ var vmIndex = avalon.define({
                     }
                 }
             });
+        });
+    },
+    isSort: 0,  //默认不展开  1-展开
+    goSort: function() {
+        stopSwipeSkip.do(function() {
+            if (vmIndex.isSort==1) {
+                vmIndex.isSort = 0;
+            } else {
+                vmIndex.isSort = 1;
+            }
         });
     },
     getHotelPosition: function(mapObj) {

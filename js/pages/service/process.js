@@ -196,42 +196,43 @@ vmServiceProcess.goa1();
             toolPicker2.show(function(items) {
                 vmServiceProcess.vrId = items[0].value;
                 vmServiceProcess.vr = items[0].text;
-                vmServiceProcess.goq4();
-                vmServiceProcess.goa4();
-            });
-        }, false);
-    });
-})(mui, document);
-
-(function($, doc) {
-    $.init();
-    $.ready(function() {
-        var toolPicker2 = new $.PopPicker();
-        toolPicker2.setData(vmServiceProcess.oldList);
-        var showUserPickerButton2 = doc.getElementById('old');
-        showUserPickerButton2.addEventListener('tap', function(event) {
-            toolPicker2.show(function(items) {
-                vmServiceProcess.oldId = items[0].value;
-                vmServiceProcess.old = items[0].text;
-                vmServiceProcess.goq5();
-                vmServiceProcess.goa5();
-            });
-        }, false);
-    });
-})(mui, document);
-
-(function($, doc) {
-    $.init();
-    $.ready(function() {
-        var toolPicker2 = new $.PopPicker();
-        toolPicker2.setData(vmServiceProcess.otherList);
-        var showUserPickerButton2 = doc.getElementById('other');
-        showUserPickerButton2.addEventListener('tap', function(event) {
-            toolPicker2.show(function(items) {
-                vmServiceProcess.otherId = items[0].value;
-                vmServiceProcess.other = items[0].text;
+                // vmServiceProcess.goq4();
+                // vmServiceProcess.goa4();
                 vmServiceProcess.goEnd();
             });
         }, false);
     });
 })(mui, document);
+
+// (function($, doc) {
+//     $.init();
+//     $.ready(function() {
+//         var toolPicker2 = new $.PopPicker();
+//         toolPicker2.setData(vmServiceProcess.oldList);
+//         var showUserPickerButton2 = doc.getElementById('old');
+//         showUserPickerButton2.addEventListener('tap', function(event) {
+//             toolPicker2.show(function(items) {
+//                 vmServiceProcess.oldId = items[0].value;
+//                 vmServiceProcess.old = items[0].text;
+//                 vmServiceProcess.goq5();
+//                 vmServiceProcess.goa5();
+//             });
+//         }, false);
+//     });
+// })(mui, document);
+
+// (function($, doc) {
+//     $.init();
+//     $.ready(function() {
+//         var toolPicker2 = new $.PopPicker();
+//         toolPicker2.setData(vmServiceProcess.otherList);
+//         var showUserPickerButton2 = doc.getElementById('other');
+//         showUserPickerButton2.addEventListener('tap', function(event) {
+//             toolPicker2.show(function(items) {
+//                 vmServiceProcess.otherId = items[0].value;
+//                 vmServiceProcess.other = items[0].text;
+//                 vmServiceProcess.goEnd();
+//             });
+//         }, false);
+//     });
+// })(mui, document);

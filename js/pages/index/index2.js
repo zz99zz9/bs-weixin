@@ -26,4 +26,9 @@ var vmIndex2 = avalon.define({
             location.href = "../user-info.html";
         })
     },
+    goCity: function() {
+        stopSwipeSkip.do(function() {
+            location.href = "../city.html";
+        })
+    },
 });

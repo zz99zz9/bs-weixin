@@ -1,59 +1,203 @@
-<div ms-controller="index" style="height: 100vh;padding-bottom: 140px;">
-    <!-- 地图 -->
-    <div id="container" style="z-index:1;height: 100%;" ms-visible="isShowMap"></div>
-    <!-- 地图模式的酒店详情轮播 -->
-    <div class="swiper-container swiper1" style="height: 150px; z-index: 10;position: absolute;bottom: 0;" ms-visible="isShowHotelDetail">
-        <div class="swiper-wrapper" style="padding-left: 15px;background-color: rgba(0,0,0,0.5);">
-            <div class="swiper-slide swiper-slide-marker" ms-repeat="hotelMarkers" data-repeat-rendered="swiper1Render">
-                <div ms-css-background-image="url({{urlAPINet + el.coverUrl}})" style="height: 150px;background-size: cover;width: inherit;position: relative;" ms-on-tap="goHotel(el.id)">
-                    <span class="distance">{{round(el.distance/1000)}}km</span>
-                    
-                    <div style="display: flex;width: 100%;position: absolute;bottom: 5px;">
-                        <div class="bs-text-white bs-bg-black price">
-                            <span style="position: relative;top: -6px;right: -3px;color: #999;font-size: 15px">￥</span>
-                            <span class="bs-text-x-larger">{{type==1?round(el.minPrice*6):el.minPrice}}</span>
-                            <span class="bs-text-smaller bs-text-lighter">{{type==0?"/晚起":(type==1?"/3小时起":"")}}</span>
-                        </div>
+<style>
+.index-top {
+    /*background: url('/img/qietu-shouyebgr.png');*/
+    background-image: -webkit-linear-gradient(45deg, #169488, #006457);
+    background-image: linear-gradient(45deg, #169488, #006457);
+    height: 280px;
+    background-size: cover;
+    position: relative;
+}
 
-                        <div class="hotelName">{{el.name}}</div>
-                    </div>
-                </div>
-            </div>
-            <div class="swiper-scrollbar"></div>
-        </div>
-    </div>
+.index-top-logo {
+    margin: 10px 10px;
+}
 
-    <!-- 列表模式 -->
-    <div ms-visible="!isShowMap" ms-on-swipeup="su" ms-on-swipedown="sd">
-        <!-- 城市图片轮播 -->
-        <div class="bs-city">上海</div>
-        <div class="swiper-container swiper2" style="height: 250px;margin-bottom: 15px;">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide" ms-repeat="galleryList" data-repeat-rendered="swiper2Render">
-                    <div style="width: 100%;height: 100%;background-size: cover;background-position: center;" ms-css-background-image="'url(' + urlAPINet + el.imgUrl + ')'">
-                    </div>
-                </div>
-                <div class="swiper-pagination"></div>
-            </div>
-        </div>
-        <div style="position: relative;">
-            <img src="../img/sort.png" style="width: 23px;margin-left: 5px;" alt="">
-            <div class="bs-text-gold" style="position: relative;top: -5px;left: -8px;display: inline-block;" ms-on-tap="changeSort(2)" ms-if="sort==1">距离最近</div>
-            <div class="bs-text-gold" style="position: relative;top: -5px;left: -8px;display: inline-block;" ms-on-tap="changeSort(1)" ms-if="sort==2">价格最低</div>
-        </div>
-        <div id="hotelList" style="padding-bottom: 40px;">
-            <div ms-repeat="hotelMarkers">
-                <!-- roomSlide -->
+.index-top-div {
+    position: absolute;
+    bottom: 0px;
+    padding-left: 10px;
+    padding-right: 10px;
+    width: 100%;
+    color: #b3dfdb;
+    opacity: 0.9;
+    font-size: 14px;
+    text-align: center;
+}
+
+.index-top-search {
+    color: white;
+    height: 50px !important;
+    font-size: 18px !important;
+    border-radius: 34px !important;
+}
+
+.mui-search .mui-placeholder {
+    height: 50px !important;
+    font-size: 18px !important;
+    line-height: 50px;
+    color: #ffffff;
+}
+
+.mui-search {
+    margin-top: 12px !important;
+}
+
+.mui-icon {
+    color: white !important;
+}
+
+.city-list-item {
+    width: 60px;
+    height: auto;
+    text-align: center;
+    line-height: 130% !important;
+    padding: 15px 0px 15px 21px !important;
+    display: flex;
+    flex-direction: column;
+}
+
+.city-list-item-txt {
+    font-size: 14px;
+    color: #444444;
+    margin: 0px;
+    padding: 0px;
+}
+
+.city-list-location {
+    width: 60px;
+    height: 60px;
+    border-radius: 30px;
+    background: #b3dfdb;
+    text-align: center;
+}
+
+.mui-active {
+    border-bottom: none !important;
+}
+
+.intro-title {
+    margin-top: 16px;
+    font-size: 16px;
+    color: #444444;
+    font-family: "Microsoft Yahei";
+    padding: 15px 0px 15px 10px;
+    font-weight: bold;
+    background: white;
+}
+
+.intro-ul {
+    padding: 0 !important;
+    margin-bottom: 50px;
+}
+
+.intro-item {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.intro-item > a {
+    margin: 0 !important;
+}
+
+.intro-item-spn {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 12px;
+    color: #ffffff;
+}
+
+.mui-table-view:after,
+.mui-table-view:before {
+    height: 0px !important;
+}
+
+.nav-ico {
+    width: 30px;
+    height: 30px;
+}
+</style>
+<div ms-controller="index2">
+    <div class="index-top">
+        <img src="/img/icon/logo.svg" class="index-top-logo">
+        <div class="index-top-div">
+            <span>您好，Echo</span>
+            <div class="mui-input-row mui-search">
+                <input type="search" class="mui-input-clear index-top-search" placeholder="搜索">
             </div>
         </div>
     </div>
-    
-    <!-- 时间面板按钮+模式切换按钮 -->
-    <div id="functionBtns" style="z-index:9;float: right;position: fixed;bottom: 155px;right: 15px;">
-        <button type="button" class="calender-icon bs-bg-eee" ms-css-background-image="type?'url(img/icon/clock-333.svg)':'url(img/icon/calendar-333.svg)'" ms-on-tap="openTimePanel" ms-visible="type<=1">
-            <div class="bs-text-51 bs-text-smaller" ms-if="!type" style="line-height: 46px;">{{getToday('day')}}</div>
-        </button>
-        <button type="button" class="calender-icon bs-bg-red" ms-css-background-image="isShowMap?'url(img/icon/list.svg)':'url(img/icon/map.svg)'" style="margin-left: 10px;" ms-on-tap="toggleMap">
-        </button>
+    <div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted" style="height: 114px;background: white">
+        <div class="mui-scroll">
+            <a class="mui-control-item city-list-item" style="padding-left: 10px !important;" ms-on-tap="goCity">
+                <div><img src="/img/icon/icon-dingwei1.svg" class="city-list-location"></div>
+                <label class="city-list-item-txt">附近</label>
+            </a>
+            <a class="mui-control-item city-list-item" ms-on-tap="goCity">
+                <div><img src="/img/qietu-shanghai.png" class="city-list-location"></div>
+                <label class="city-list-item-txt">上海</label>
+            </a>
+            <a class="mui-control-item city-list-item">
+                <div><img src="/img/qietu-hangzhou.png" class="city-list-location"></div>
+                <label class="city-list-item-txt">杭州</label>
+            </a>
+            <a class="mui-control-item city-list-item">
+                <div><img src="/img/qietu-nanjing.png" class="city-list-location"></div>
+                <label class="city-list-item-txt">南京</label>
+            </a>
+            <a class="mui-control-item city-list-item" style="padding-right: 10px !important;">
+                <div><img src="/img/qietu-suzhou.png" class="city-list-location"></div>
+                <label class="city-list-item-txt">苏州</label>
+            </a>
+        </div>
     </div>
+    <div class="intro-title">
+        <span>为您介绍</span>
+    </div>
+    <ul class="mui-table-view mui-grid-view intro-ul">
+        <li class="mui-table-view-cell mui-media mui-col-xs-6 intro-item" style="padding-right: 1px !important;">
+            <a href="#">
+                <img class="mui-media-object" src="/img/qietu-haocai.png">
+                <span class="intro-item-spn">布草/耗材</span>
+            </a>
+        </li>
+        <li class="mui-table-view-cell mui-media mui-col-xs-6 intro-item" style="padding-left: 1px !important;">
+            <a href="#">
+                <img class="mui-media-object" src="/img/qietu-yingyin.png">
+                <span class="intro-item-spn">影音系统</span>
+            </a>
+        </li>
+        <li class="mui-table-view-cell mui-media mui-col-xs-6 intro-item" style="padding-right: 1px !important;">
+            <a href="#">
+                <img class="mui-media-object" src="/img/qietu-kekong.png">
+                <span class="intro-item-spn">智能客控</span>
+            </a>
+        </li>
+        <li class="mui-table-view-cell mui-media mui-col-xs-6 intro-item" style="padding-left: 1px !important;">
+            <a href="#">
+                <img class="mui-media-object" src="/img/qietu-jiaju.png">
+                <span class="intro-item-spn">床垫/家具</span>
+            </a>
+        </li>
+    </ul>
+    <div style="height: 15px;">
+    </div>
+    <nav class="mui-bar mui-bar-tab" style="background: white !important;height: 56px;padding: 8px 0 5px;">
+        <a class="mui-tab-item" ms-on-tap="goIndex2">
+            <span class="mui-icon"><img src="/img/icon/icon-home-select.svg" class="nav-ico"></span>
+            <span class="mui-tab-label">首页</span>
+        </a>
+        <a class="mui-tab-item" ms-on-tap="goRoom">
+            <span class="mui-icon"><img src="/img/icon/icon-ruzhu.svg" class="nav-ico"></span>
+            <span class="mui-tab-label">入住</span>
+        </a>
+        <a class="mui-tab-item" ms-on-tap="goOrder">
+            <span class="mui-icon"><img src="/img/icon/icon-dingdan.svg" class="nav-ico"></span>
+            <span class="mui-tab-label">订单</span>
+        </a>
+        <a class="mui-tab-item" ms-on-tap="goUser">
+            <span class="mui-icon"><img src="/img/icon/icon-more.svg" class="nav-ico"></span>
+            <span class="mui-tab-label">我的</span>
+        </a>
+    </nav>
 </div>

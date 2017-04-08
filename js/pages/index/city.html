@@ -1,0 +1,137 @@
+<style>
+.footer {
+    background: #eee !important;
+    height: 56px;
+    padding: 8px 0 5px;
+}
+
+.footer-select {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 25px;
+    position: fixed;
+    z-index: 5;
+    height: 44px;
+    width: 100vw;
+    bottom: 56px;
+    font-size: 12px;
+    background-color: white;
+}
+
+.mui-bar-tab .mui-tab-item {
+    text-align: -webkit-right;
+    padding-top: 2px;
+}
+.mui-bar-tab .mui-icon {
+    padding-bottom: 0;
+}
+
+.calender-icon {
+    border--radius: none;
+    box-shadow: none;
+    background-size: 26px 26px;
+}
+</style>
+<div ms-controller="index" style="height: 100vh;">
+    <!-- 地图 -->
+    <div id="container" style="z-index:1;height: 100%;" ms-visible="isShowMap"></div>
+    <!-- 地图模式的酒店详情轮播 -->
+    <div class="swiper-container swiper1" style="height: 150px; z-index: 10;position: absolute;bottom: 0;" ms-visible="isShowHotelDetail">
+        <div class="swiper-wrapper" style="padding-left: 15px;background-color: rgba(0,0,0,0.5);">
+            <div class="swiper-slide swiper-slide-marker" ms-repeat="hotelMarkers" data-repeat-rendered="swiper1Render">
+                <div ms-css-background-image="url({{urlAPINet + el.coverUrl}})" style="height: 150px;background-size: cover;width: inherit;position: relative;" ms-on-tap="goHotel(el.id)">
+                    <span class="distance">{{round(el.distance/1000)}}km</span>
+                    <div style="display: flex;width: 100%;position: absolute;bottom: 5px;">
+                        <div class="bs-text-white bs-bg-black price">
+                            <span style="position: relative;top: -6px;right: -3px;color: #999;font-size: 15px">￥</span>
+                            <span class="bs-text-x-larger">{{type==1?round(el.minPrice*6):el.minPrice}}</span>
+                            <span class="bs-text-smaller bs-text-lighter">{{type==0?"/晚起":(type==1?"/3小时起":"")}}</span>
+                        </div>
+                        <div class="hotelName">{{el.name}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-scrollbar"></div>
+        </div>
+    </div>
+    <!-- 列表模式 -->
+    <div ms-visible="!isShowMap" ms-on-swipeup="su" ms-on-swipedown="sd">
+        <!-- 城市图片轮播 -->
+        <div class="bs-city">上海</div>
+        <div class="swiper-container swiper2" style="height: 250px;margin-bottom: 15px;">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide" ms-repeat="galleryList" data-repeat-rendered="swiper2Render">
+                    <div style="width: 100%;height: 100%;background-size: cover;background-position: center;" ms-css-background-image="'url(' + urlAPINet + el.imgUrl + ')'">
+                    </div>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+        <!-- <div style="position: relative;">
+            <img src="../img/sort.png" style="width: 23px;margin-left: 5px;" alt="">
+            <div class="bs-text-gold" style="position: relative;top: -5px;left: -8px;display: inline-block;" ms-on-tap="changeSort(2)" ms-if="sort==1">距离最近</div>
+            <div class="bs-text-gold" style="position: relative;top: -5px;left: -8px;display: inline-block;" ms-on-tap="changeSort(1)" ms-if="sort==2">价格最低</div>
+        </div> -->
+        <div id="hotelList" style="padding-bottom: 40px;">
+            <div ms-repeat="hotelMarkers">
+                <!-- roomSlide -->
+            </div>
+        </div>
+    </div>
+    <!-- 时间面板按钮+模式切换按钮 -->
+    <!-- <div id="functionBtns" style="z-index:9;float: right;position: fixed;bottom: 155px;right: 15px;">
+        <button type="button" class="calender-icon bs-bg-eee" ms-css-background-image="type?'url(img/icon/clock-333.svg)':'url(img/icon/calendar-333.svg)'" ms-on-tap="openTimePanel" ms-visible="type<=1">
+            <div class="bs-text-51 bs-text-smaller" ms-if="!type" style="line-height: 46px;">{{getToday('day')}}</div>
+        </button>
+        <button type="button" class="calender-icon bs-bg-red" ms-css-background-image="isShowMap?'url(img/icon/list.svg)':'url(img/icon/map.svg)'" style="margin-left: 10px;" ms-on-tap="toggleMap">
+        </button>
+    </div> -->
+    <div class="footer-select" ms-if="isSort==1 && isShowMap==false">
+        <div ms-on-tap="changeSort(1)">
+            <a class="mui-tab-item">
+                <span class="mui-icon">
+                    <img ms-if="sort==1" src="../img/icon/icon-gao-di-select.svg" class="nav-ico">
+                    <img ms-if="sort!=1" src="../img/icon/icon-gao-di.svg" class="nav-ico">
+                </span>
+                <span style="position: relative;top: -1px;">由高到低</span>
+            </a>
+        </div>
+        <div ms-on-tap="changeSort(2)">
+            <a class="mui-tab-item">
+                <span class="mui-icon">
+                    <img ms-if="sort==2" src="../img/icon/icon-di-gao-select.svg" class="nav-ico">
+                    <img ms-if="sort!=2" src="../img/icon/icon-di-gao.svg" class="nav-ico">
+                </span>
+                <span style="position: relative;top: -1px;">由低到高</span>
+            </a>
+        </div>
+        <div ms-on-tap="changeSort(3)">
+            <a class="mui-tab-item">
+                <span class="mui-icon">
+                    <img ms-if="sort==3" src="../img/icon/icon-jin-yuan-select.svg" class="nav-ico">
+                    <img ms-if="sort!=3" src="../img/icon/icon-jin-yuan.svg" class="nav-ico">
+                </span>
+                <span style="position: relative;top: -1px;">由近及远</span>
+            </a>
+        </div>
+    </div>
+    <nav class="mui-bar mui-bar-tab footer" style="display: flex;justify-content: space-between;align-items: center;padding: 5px 0 5px 25px;background-color:white !important;font-size: 8px;">
+        <div id="functionBtns">
+            <button type="button" class="calender-icon bs-bg-eee" style="background-color: white;" ms-css-background-image="type?'url(img/icon/clock-333.svg)':'url(img/icon/calendar-333.svg)'" ms-on-tap="openTimePanel" ms-visible="type<=1">
+                <div class="bs-text-51 bs-text-smaller" ms-if="!type" style="line-height: 46px;">{{getToday('day')}}</div>
+            </button>
+        </div>
+        <div style="display: flex;justify-content: space-around;align-items: center;">
+            <a class="" ms-on-tap="goSort" style="width: 18vw">
+                <div class="mui-icon"><img src="../img/icon/icon-paixu.svg" class="nav-ico" style="height: 24px; width: 24px;"></div>
+                <div style="position: relative;left: 5px;margin-bottom: 3px;">排序</div>
+            </a>
+            <a class="" ms-on-tap="toggleMap" style="width: 18vw">
+                <div class="mui-icon"><img src="../img/icon/icon-liebiao.svg" class="nav-ico" style="height: 24px; width: 24px;"></div>
+                <div style="position: relative;left: 3px;margin-bottom: 3px;" ms-if="isShowMap==true">地图</div>
+                <div style="position: relative;left: 3px;margin-bottom: 3px;" ms-if="isShowMap==false">列表</div>
+            </a>
+        </div>
+    </nav>
+</div>

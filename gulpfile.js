@@ -151,7 +151,7 @@ function loading() {
 }
 
 //首页
-function index() {
+function city() {
     return gulp.src('./js/layout/shell-index.html')
         .pipe(replace({
             regex: '<!-- top -->',
@@ -159,12 +159,12 @@ function index() {
         }))
         .pipe(replace({
             regex: '<!-- content -->',
-            replace: '<!--include "../pages/index/index.html"-->'
+            replace: '<!--include "../pages/index/city.html"-->'
         }))
-        .pipe(replace({
-            regex: '<!-- bottom -->',
-            replace: '<!--include "../layout/bottom.html"-->'
-        }))
+        //.pipe(replace({
+         //   regex: '<!-- bottom -->',
+         //   replace: '<!--include "../layout/bottom.html"-->'
+        //}))
         .pipe(replace({
             regex: '<!-- css -->',
             replace: '<link rel="stylesheet" href="css/swiper.min.css">\n<link rel="stylesheet" href="css/index.css">'
@@ -194,7 +194,7 @@ function index() {
         .pipe(contentIncluder({
             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
         }))
-        .pipe(rename('index.html'))
+        .pipe(rename('city.html'))
         .pipe(gulp.dest('./src'))
 }
 
@@ -2976,7 +2976,7 @@ function opendoor() {
 }
 
 //开门
-function index2() {
+function index() {
     return gulp.src('./js/layout/shell.html')
         .pipe(replace({
             regex: '<!-- js -->',
@@ -2984,12 +2984,12 @@ function index2() {
         }))
         .pipe(replace({
             regex: '<!-- content -->',
-            replace: '<!--include "../pages/index/index2.html"-->'
+            replace: '<!--include "../pages/index/index.html"-->'
         }))
         .pipe(contentIncluder({
             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
         }))
-        .pipe(rename('index2.html'))
+        .pipe(rename('index.html'))
         .pipe(gulp.dest('./src'));
 }
 
@@ -3138,7 +3138,7 @@ function copyFonts() {
  */
 gulp.task('html', gulp.parallel(
     loading,
-    index,
+    city,
     hotel,
     room,
     payend,
@@ -3245,7 +3245,7 @@ gulp.task('html', gulp.parallel(
     opendoor,
     checkOut,
     newOrderList,
-    index2,
+    index,
     serviceOrderList,
     serviceProcess,
     serviceReady
