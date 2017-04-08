@@ -1,27 +1,106 @@
-<div class="filter-row mui-control-content mui-active" ms-controller="calendar">
-     <div class="time">
-        <a id="select_start" href="###" style="border-right: 1px solid #eee;">
-            入住时间<br><small style="color: #baa071;">{{startIndex==-1?'选择日期':(calendar[startIndex]?formatDate(calendar[startIndex].date):'&nbsp;')}}</small>
+<style>
+#modal-text-content {
+    width: 100vw;
+    height: 100vh;
+}
+#modal-text-content section {
+    width: auto;
+}
+.modal-content-title {
+    line-height: 48px;
+    margin: 34px 30px 20px;
+    text-align: right;
+}
+
+.modal-close {
+    width: 20px;
+    height: 20px;
+    background-image: url(../img/close.svg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: inline-block;
+    box-sizing: content-box;
+    border: 13px solid transparent;
+    top: 16px;
+    left: 20px;
+    position: absolute;
+}
+
+.modal-save {
+    display: inline-block;
+    color: #169488;
+}
+
+.modal-save:active {
+    color: #B3DFDB;
+}
+
+.time {
+    display: flex;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.timeHour {
+    display: flex;
+    justify-content: space-around;
+    font-size: 24px;
+}
+
+.hideClockArrow{
+    background-image: url(./img/icon/right-arrow.svg);
+    background-repeat: no-repeat;
+    transform: rotate(90deg);
+    height: 40px;
+    width: 40px;
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    margin-left:-20px;
+}
+</style>
+<div id="modal-text-content" ms-controller="calendar">
+    <section class="modal-content-title">
+        <div class="modal-close" ms-click="closeModal"></div>
+        <div class="modal-save bs-text-x-larger" ms-click="closeModal">保存</div>
+    </section>
+    <section>
+        <div style="margin: 0 10px;background: none;" ms-visible="statusControl.isCalendarShow">
+            <div class="calendar" style="border-bottom: 1px solid gainsboro;padding-bottom: 10px;">
+                <b>日</b><b>一</b><b>二</b><b>三</b><b>四</b><b>五</b><b>六</b>
+            </div>
+            <div id="calendarPanel" class="calendar" style="background: url('img/loading.gif') no-repeat center;background-size: 81px 14px;overflow-y: auto;-webkit-overflow-scrolling: touch;">
+                <!-- <a href="###">
+                    15
+                    <sub>打折</sub>
+                </a>-->
+                <a href="###" ms-repeat="calendar" ms-attr-disabled="el.isDisabled" ms-class-1="disabled:el.isDisabled" ms-class-2="split-top:(el.day<=7)" ms-class-3="split-left:(el.day==1)" ms-class-4="selected:isSelected($index)" ms-class-5="start:$index==startIndex" ms-class-6="end:endIndex&&$index==endIndex" ms-on-tap="clickDate($index)">
+                    <sup ms-if="el.day==1 && todayIndex!=$index">{{el.month}}月</sup> {{el.day==0?'&nbsp;':el.day}}
+                    <sup ms-if="todayIndex==$index">今天</sup>
+                </a>
+            </div>
+        </div>
+    </section>
+    <section class="time">
+        <a id="select_start" href="###">
+            <small class="bs-text-x-larger bs-text-444">{{startIndex==-1?'入住时间':(calendar[startIndex]?formatDate(calendar[startIndex].date):'&nbsp;')}}</small>
         </a>
         <a id="select_end" href="###">
-            退房时间<br><small style="color: #baa071;">{{endIndex==-1?'选择日期':(calendar[endIndex]?formatDate(calendar[endIndex].date):'&nbsp;')}}</small>
+            <small class="bs-text-x-larger bs-text-444">{{endIndex==-1?'退房时间':(calendar[endIndex]?formatDate(calendar[endIndex].date):'&nbsp;')}}</small>
         </a>
-    </div>
-
-    <div style="margin: 0 auto;background: none;" ms-visible="statusControl.isCalendarShow">
-        <div class="calendar" style="border-bottom: 1px solid gainsboro;">
-            <b>一</b><b>二</b><b>三</b><b>四</b><b>五</b><b>六</b><b>日</b>
-        </div>
-        <div id="calendarPanel" class="calendar" style="background: url('img/loading.gif') no-repeat center;background-size: 81px 14px;overflow-y: auto;-webkit-overflow-scrolling: touch;">
-            <!-- <a href="###">
-                15
-                <sub>打折</sub>
-            </a>-->
-            <a id="cal" href="###" ms-repeat="calendar" ms-attr-disabled="el.isDisabled" ms-class-1="disabled:el.isDisabled" ms-class-2="split-top:(el.day<=7)" ms-class-3="split-left:(el.day==1)" ms-class-4="selected:isSelected($index)" ms-class-5="start:$index==startIndex" ms-class-6="end:endIndex&&$index==endIndex" ms-on-tap="clickDate($index)">
-                <sup ms-if="el.day==1 && todayIndex!=$index">{{el.month}}月</sup> {{el.day==0?'&nbsp;':el.day}}
-                <sup ms-if="todayIndex==$index">今天</sup>
-            </a>
-        </div>
-    </div>
+    </section>
     <!-- filter -->
+    <div class="timeHour">
+        <div class="start">
+            <div id="startHour"></div>
+        </div>
+        <div class="end">
+            <div id="endHour"></div>
+        </div>
+    </div>
+    <canvas id="clock" ms-visible="isShowClock"></canvas>
+
+    <div class="hideClockArrow" ms-visible="isShowClock" ms-on-tap="hideClock"></div>
 </div>

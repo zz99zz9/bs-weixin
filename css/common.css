@@ -226,6 +226,7 @@ button {
 
 .calendar {
     width: 100%;
+    background-color: white;
 }
 
 .calendar a,
@@ -233,7 +234,7 @@ button {
 .calendar b {
     display: inline-block;
     width: 14.285%;
-    height: 3rem;
+    height: 45px;
     /*padding: 5px;*/
     box-sizing: border-box;
     border: 1px solid transparent;
@@ -241,9 +242,10 @@ button {
     border-right: none;
     border-right: none;
     text-align: center;
-    line-height: 3rem;
+    line-height: 45px;
     position: relative;
     font-size: 16px;
+    color: black;
 }
 
 .calendar b {
@@ -273,7 +275,8 @@ button {
 .calendar a sup,
 .calendar i sup {
     font-size: 12px;
-    color: #cc9966;
+    /*color: #cc9966;*/
+    color: #169488;
     display: block;
     position: absolute;
     top: 5px;
@@ -298,13 +301,14 @@ button {
 .calendar a:active {}
 
 .calendar .selected {
-    background: #baa071;
+    /*background: #baa071;*/
+    background: #169488;
     color: white;
 }
 
 .calendar a:active sup,
 .calendar a:active sub,
-.calendar .selected sup .calendar .selected sub {
+.calendar .selected sup, .calendar .selected sub {
     color: white;
 }
 
@@ -1240,6 +1244,13 @@ hr {
 
 .bs-text-green {
     color: #008656 !important;
+}
+
+.bs-text-444 {
+    color: #444;
+}
+.bs-text-169488{
+    color: #169488;
 }
 
 .bs-bg-gold {
