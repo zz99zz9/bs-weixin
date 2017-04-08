@@ -201,10 +201,10 @@ function city() {
 //酒店页面
 function hotel() {
     return gulp.src('./js/layout/shell-index.html')
-        .pipe(replace({
-            regex: '<!-- top -->',
-            replace: '<!--include "../layout/top.html"-->'
-        }))
+        // .pipe(replace({
+        //     regex: '<!-- top -->',
+        //     replace: '<!--include "../layout/top.html"-->'
+        // }))
         .pipe(replace({
             regex: '<!-- content -->',
             replace: '<!--include "../pages/hotel/hotel.html"-->'
@@ -215,11 +215,14 @@ function hotel() {
         }))
         .pipe(replace({
             regex: '<!-- pop -->',
-            replace: '<!--include "../util/pop.html"--><!--include "../pages/user/popover.html"-->'
+            replace: '<!--include "../util/pop.html"--><!--include "../pages/user/popover.html"--><!--include "../util/modal.html"-->'
         }))
         .pipe(replace({
             regex: '<!-- js -->',
-            replace: '<script src="js/lib/swiper.min.js"></script>\n' + '<script src="js/pages/hotel/vmodel.js"></script>\n' + '<script src="js/util/calendar.js"></script>\n<script src="js/util/partTime.js"></script>'
+            replace: '<script src="js/lib/swiper.min.js"></script>\n' 
+            + '<script src="js/pages/hotel/vmodel.js"></script>\n' 
+            + '<script src="js/util/calendar.js"></script>\n<script src="js/util/partTime.js"></script>'
+            + '<script src="js/util/clock.js"></script>\n'
         }))
         .pipe(contentIncluder({
             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
@@ -255,11 +258,18 @@ function room() {
         }))
         .pipe(replace({
             regex: '<!-- pop -->',
-            replace: '<!--include "../pages/user/popover.html"-->'
+            replace: '<!--include "../pages/user/popover.html"--><!--include "../util/modal.html"-->'
         }))
         .pipe(replace({
             regex: '<!-- js -->',
-            replace: '<script src="js/lib/mui.zoom.js"></script>\n<script src="js/lib/mui.previewimage.js"></script>\n<script src="js/lib/swiper.min.js"></script>\n' + '<script src="js/pages/room/vmodel.js"></script>\n<script src="js/util/calendar.js"></script>\n<script src="js/util/partTime.js"></script>\n' + '<script src="js/util/contactList.js"></script>'
+            replace: '<script src="js/lib/mui.zoom.js"></script>\n'
+            + '<script src="js/lib/mui.previewimage.js"></script>\n'
+            + '<script src="js/lib/swiper.min.js"></script>\n' 
+            + '<script src="js/pages/room/vmodel.js"></script>\n'
+            + '<script src="js/util/calendar.js"></script>\n'
+            + '<script src="js/util/partTime.js"></script>\n' 
+            + '<script src="js/util/clock.js"></script>\n'
+            + '<script src="js/util/contactList.js"></script>'
         }))
         .pipe(contentIncluder({
             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
