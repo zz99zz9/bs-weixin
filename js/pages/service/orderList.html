@@ -17,8 +17,17 @@ section {
 }
 
 .item-img {
+    position: relative;
+    top: 18px;
     width: 24px;
     height: 24px;
+    right: -25px;
+}
+
+.send-img {
+    height: 60px;
+    width: 100px;
+    padding: 0 15vw;
 }
 
 .arrow {
@@ -38,10 +47,15 @@ section {
 .content-infor {
     display: flex;
     justify-content: space-between;
+    height: 60px;
     align-items: center;
-    padding: 18px 0;
+    padding: 23px 0;
     border-bottom: 1px solid #ccc;
     color: #444;
+}
+
+.flex0 {
+    font-size: 10px;
 }
 </style>
 <section>
@@ -63,9 +77,14 @@ section {
                     邀请入住
                 </div>
                 <div class="content-infor" ms-repeat="data">
-                    <h5 class="flex0" style="-webkit-box-pack: justify;">{{el.orderNo}}</h5>
-                    <h5 class="flex1">{{el.name}}</h5>
-                    <img src="../img/icon/service-send.svg" class="item-img" ms-on-tap="send">
+                    <div class="flex0 bs-text-x-smaller" style="-webkit-box-pack: justify;">{{el.orderNo}}</div>
+                    <div class="flex1 bs-text-x-smaller">{{el.name}}</div>
+                    <!-- <div style="height: 33px;width: 100px;padding-left: 76px;">
+                        <img src="../img/icon/service-send.svg" class="item-img" ms-on-tap="send">
+                    </div> -->
+                    <div class="send-img" ms-on-tap="send">
+                        <img src="../img/icon/service-send.svg" class="item-img">
+                    </div>
                 </div>
             </div>
         </div>
@@ -73,7 +92,7 @@ section {
         </div>
     </div>
     <nav class="mui-bar mui-bar-tab" style="background: white !important;height: 56px;padding: 8px 0 5px;">
-        <a class="mui-tab-item" ms-on-tap="goIndex2">
+        <a class="mui-tab-item" ms-on-tap="goIndex">
             <span class="mui-icon"><img src="/img/icon/icon-home.svg" class="nav-ico"></span>
             <span class="mui-tab-label">首页</span>
         </a>
@@ -90,6 +109,20 @@ section {
             <span class="mui-tab-label">我的</span>
         </a>
     </nav>
+    <div style="padding: 20px;background-color: #fff;height: 100vh;">
+        <div class="mask-fullscreen bs-text-white" ms-if="isSend" style="position: fixed; z-index: 11;">
+            <img src="../img/icon/arrow-top-right.svg" style="width: 30px;">
+            <div class="bs-text-larger" style="padding-top: 30px;line-height: 25px;">
+                请点击右上角
+                <br> 分享给您的好友
+                <br> 邀请他来入住吧
+                <br>
+            </div>
+            <div ms-on-tap="send" class="bs-text-large" style="height: 100px;padding-top: 35px;">关闭
+                <br>
+            </div>
+        </div>
+    </div>
 </div>
 <!-- <script>
 mui.init({

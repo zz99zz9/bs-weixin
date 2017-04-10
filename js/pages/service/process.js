@@ -22,7 +22,7 @@ var vmServiceProcess = avalon.define({
         $(".ask1").typed({
             strings: ["请问您此行的目的是？"],
             typeSpeed: 90,
-            cursorChar: "·.·"
+            cursorChar: ""
         });
         $("#q1").show();
         $("#q1").animate({ width: "200px" }, 500);
@@ -30,14 +30,14 @@ var vmServiceProcess = avalon.define({
     goa1: function() {
         $("#r1").css("display", "");
         $("#a1").show();
-        $("#a1").animate({ width: "130px" }, 1000);
+        $("#a1").animate({ width: "150px" }, 1000);
     },
     goq2: function() {
         $("#l2").css("display", "");
         $(".ask2").typed({
             strings: ["好的，跟谁一起？"],
             typeSpeed: 90,
-            cursorChar: "·.·"
+            cursorChar: ""
         });
         $("#q2").show();
         $("#q2").animate({ width: "200px" }, 500);
@@ -45,14 +45,14 @@ var vmServiceProcess = avalon.define({
     goa2: function() {
         $("#r2").css("display", "");
         $("#a2").show();
-        $("#a2").animate({ width: "130px" }, 1000);
+        $("#a2").animate({ width: "150px" }, 1000);
     },
     goq3: function() {
         $("#l3").css("display", "");
         $(".ask3").typed({
             strings: ["需要预约VR体验服务吗？"],
             typeSpeed: 90,
-            cursorChar: "·.·"
+            cursorChar: ""
         });
         $("#q3").show();
         $("#q3").animate({ width: "200px" }, 500);
@@ -60,14 +60,14 @@ var vmServiceProcess = avalon.define({
     goa3: function() {
         $("#r3").css("display", "");
         $("#a3").show();
-        $("#a3").animate({ width: "130px" }, 1000);
+        $("#a3").animate({ width: "150px" }, 1000);
     },
     goq4: function() {
         $("#l4").css("display", "");
         $(".ask4").typed({
             strings: ["有老花镜和儿童睡衣，请问？"],
             typeSpeed: 90,
-            cursorChar: "·.·"
+            cursorChar: ""
         });
         $("#q4").show();
         $("#q4").animate({ width: "230px" }, 500);
@@ -75,14 +75,14 @@ var vmServiceProcess = avalon.define({
     goa4: function() {
         $("#r4").css("display", "");
         $("#a4").show();
-        $("#a4").animate({ width: "130px" }, 1000);
+        $("#a4").animate({ width: "150px" }, 1000);
     },
     goq5: function() {
         $("#l5").css("display", "");
         $(".ask5").typed({
             strings: ["我们还为您准备了。。。"],
             typeSpeed: 90,
-            cursorChar: "·.·"
+            cursorChar: ""
         });
         $("#q5").show();
         $("#q5").animate({ width: "200px" }, 500);
@@ -90,17 +90,17 @@ var vmServiceProcess = avalon.define({
     goa5: function() {
         $("#r5").css("display", "");
         $("#a5").show();
-        $("#a5").animate({ width: "130px" }, 1000);
+        $("#a5").animate({ width: "150px" }, 1000);
     },
     goEnd: function() {
         $("#lEnd").css("display", "");
         $(".askEnd").typed({
-            strings: ["感谢您的配合，点此下一步->"],
+            strings: ["感谢您的配合，点此下一步"],
             typeSpeed: 90,
-            cursorChar: ""
+            cursorChar: "<img src='../img/icon/service-click.svg' class='arrow' style='height: 36px;width:28px;top:3px;'>"
         });
         $("#end").show();
-        $("#end").animate({ width: "230px" }, 500);
+        $("#end").animate({ width: "250px" }, 500);
     },
     send: function() { //发送订单
         stopSwipeSkip.do(function() {

@@ -3,9 +3,9 @@
  */
 var vmInroom = avalon.define({
     $id: 'inroom',
-    goIndex2: function() {
+    goIndex: function() {
         stopSwipeSkip.do(function() {
-            location.href = "../index2.html";
+            location.href = "../index.html";
         })
     },
     goRoom: function() {
@@ -25,7 +25,11 @@ var vmInroom = avalon.define({
     },
     goOpendoor: function() {
         stopSwipeSkip.do(function() {
-            location.href = "../opendoor.html";
+            mui.confirm("请通过圆圈内的影像仔细观察门外的人","看看门外",["确定无误，开门","回去看"],function(e){
+                // if (e.index==0) {
+                //     location.href = "../checkOut.html";
+                // }
+            },"div");
         })
     },
     goCheckout: function() {
