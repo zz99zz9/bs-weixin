@@ -25,9 +25,9 @@ var vmCheckOut = avalon.define({
 			}
 		s.innerHTML = s.innerHTML * 1 - 1;
 	},
-	goIndex2: function() {
+	goIndex: function() {
         stopSwipeSkip.do(function() {
-            location.href = "../index2.html";
+            location.href = "../index.html";
         })
     },
     goRoom: function() {

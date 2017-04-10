@@ -30,14 +30,21 @@ var vmServiceOrderList = avalon.define({
         { orderNo: "c-8301", name: "孙女士", mobile: 12364567897 },
         { orderNo: "d-8301", name: "李先生", mobile: 13511123123 },
     ],
+    isSend: 0, //0-不显示  1-显示
     send: function() { //发送订单
         stopSwipeSkip.do(function() {
-            mui.alert('注意提醒您的小伙伴查收订单哦。', "发送成功");
+            // mui.alert('注意提醒您的小伙伴查收订单哦。', "发送成功");
+            if (vmServiceOrderList.isSend==0) {
+                vmServiceOrderList.isSend = 1;
+            } else {
+               vmServiceOrderList.isSend = 0; 
+            }
+            
         })
     },
-    goIndex2: function() {
+    goIndex: function() {
         stopSwipeSkip.do(function() {
-            location.href = "../index2.html";
+            location.href = "../index.html";
         })
     },
     goRoom: function() {

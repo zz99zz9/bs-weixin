@@ -6,9 +6,9 @@ var vmIndex2 = avalon.define({
     goToUrl: function(url) {
         location.href = url;
     },
-    goIndex2: function() {
+    goIndex: function() {
         stopSwipeSkip.do(function() {
-            location.href = "../index2.html";
+            location.href = "../index.html";
         })
     },
     goRoom: function() {
