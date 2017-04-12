@@ -35,6 +35,9 @@ var vmTop = avalon.define({
         //向下滑
         $('header').slideDown();
     },
+    goBack: function() {
+        history.go(-1);
+    }
 });
 
 var vmBottom = avalon.define({
@@ -71,12 +74,12 @@ var vmBottom = avalon.define({
     },
     midnightBannerShowTime: 0,
     selectType: function(type) {
-        vmIndex.type = type;
+        vmCity.type = type;
         vmBottom.type = type;
         Storage.set("bensue", { type: type });
 
-        vmIndex.getHotelPosition(mapObj);
-        vmIndex.getCityGallery();
+        vmCity.getHotelPosition(mapObj);
+        vmCity.getCityGallery();
 
         //午夜特价时显示介绍弹窗
         if (type == 2 && vmBottom.midnightBannerShowTime == 0) {
@@ -91,7 +94,7 @@ var vmBottom = avalon.define({
         Storage.set('bensue', bensue);
 
         vmBottom.midnightDiscount = d;
-        vmIndex.getHotelPosition(mapObj);
+        vmCity.getHotelPosition(mapObj);
 
         vmBottom.su();
     },
@@ -103,7 +106,7 @@ var vmBottom = avalon.define({
         $('.bs-index-bottom-tab').css('display','flex');
     },
     sd: function() {
-        if(!vmIndex.isShowMap) {
+        if(!vmCity.isShowMap) {
             //向下滑
             $('#hotelList').css('padding-bottom', '40px');
             $('#functionBtns').css('bottom', '55px');
@@ -113,28 +116,28 @@ var vmBottom = avalon.define({
     },
 });
 
-var vmIndex = avalon.define({
+var vmCity = avalon.define({
     $id: 'index',
     lng: 121.749, //用户选择位置的经度
     lat: 31.0469, //用户选择位置的维度
     su: function() {
         //列表模式页面向上滑
-        if(!vmIndex.isShowMap) {
+        if(!vmCity.isShowMap) {
             vmTop.su();
         }
     },
     sd: function() {
         //列表模式页面向上滑
-        if(!vmIndex.isShowMap) {
+        if(!vmCity.isShowMap) {
             vmTop.sd();
             vmBottom.sd();
         }
     },
     isShowMap: true,
     showMap: function() {
-        vmIndex.isShowMap = true;
+        vmCity.isShowMap = true;
 
-        myMarker.setPosition([vmIndex.lng, vmIndex.lat]);
+        myMarker.setPosition([vmCity.lng, vmCity.lat]);
 
         //自动调整显示所有的点
         setTimeout(function() {
@@ -144,29 +147,342 @@ var vmIndex = avalon.define({
     },
     toggleMap: function() { //切换地图模式和列表模式
         stopSwipeSkip.do(function() {
-            vmIndex.isShowMap = !vmIndex.isShowMap;
-            if(vmIndex.isShowMap) {
+            vmCity.isShowMap = !vmCity.isShowMap;
+            if(vmCity.isShowMap) {
                 vmTop.sd();
                 vmBottom.su();
             } else {
                 //列表模式不现实酒店详情轮播
-                vmIndex.isShowHotelDetail = false;
+                vmCity.isShowHotelDetail = false;
             }
         });
     },
     type: 0,
     openTimePanel: function() {
         stopSwipeSkip.do(function() {
-            console.log(vmIndex.type);
+            console.log(vmCity.type);
             vmBtn.useCheck = 1;
-            if (vmIndex.type == 0) {
+            if (vmCity.type == 0) {
                 vmBtn.type = 'date';
-                popover('./util/calendar.html', 1, function() {
-                    $('#calendarPanel').height($(window).height() - 180);
+                modalShow('./util/calendar.html', 1, function() {
+                    $('#calendarPanel').height($(window).height() - 230);
                     //初始状态打开`入住时间
                     if (!(vmCalendar.statusControl.isEndEdit || vmCalendar.statusControl.isStartEdit)) {
                         vmCalendar.startClick();
                     }
+
+
+var canvas = document.getElementById('clock'),
+    ctx = canvas.getContext('2d'),
+    cw = 240,
+    ch = 240, //画布大小
+    canvasBackgroundColor = "#fff",
+    r = 100, //圆半径
+    lw = 36, //线宽
+    circleColor = "#eee",
+    tColor = "#ccc",
+    arcColor = "#169488",
+    dr = 18, //点半径
+    dx1 = 100,
+    dy1 = 0, //点1的位置
+    t1 = 3,
+    dx2 = 0,
+    dy2 = -100, //点2的位置
+    t2 = 12,
+    dotColor = "#B3DFDB",
+    isTouchDot1 = false,
+    isTouchDot2 = false,
+    hourCoord = [];
+
+var now = new Date();
+t1 = now.getHours();
+//步进模式，记录步进点的坐标
+for (var i = 1; i <= 12; i++) {
+    hourCoord.push({
+        x: r * Math.cos((i - 3) / 12 * 2 * Math.PI),
+        y: r * Math.sin((i - 3) / 12 * 2 * Math.PI)
+    });
+}
+if (t1 > 12) {
+    dx1 = hourCoord[t1 - 13].x;
+    dy1 = hourCoord[t1 - 13].y;
+} else if (t1 == 12 && t1 == 0) {
+    dx1 = 0;
+    dy1 = -100;
+} else {
+    dx1 = hourCoord[t1 - 1].x;
+    dy1 = hourCoord[t1 - 1].y;
+}
+
+canvas.width = cw;
+canvas.height = ch;
+ctx.translate(cw / 2, ch / 2); //画布原点移到 0，0
+document.getElementById('startHour').innerHTML = t1 + ':00';
+document.getElementById('endHour').innerHTML = t2 + ':00';
+
+//触摸事件绑定
+canvas.ontouchstart = function(e) {
+    e.preventDefault();
+
+    var coord = getCoord(e.touches[0].pageX, e.touches[0].pageY, cw, ch, canvas.offsetLeft, canvas.offsetTop),
+        tx = coord.x,
+        ty = coord.y;
+
+    isTouchDot1 = isDot1Touched(tx, ty);
+    isTouchDot2 = isDot2Touched(tx, ty);
+}
+
+canvas.ontouchmove = function(e) {
+    var coord = getCoord(e.touches[0].pageX, e.touches[0].pageY, cw, ch, canvas.offsetLeft, canvas.offsetTop),
+        tx = coord.x,
+        ty = coord.y,
+        newCoord;
+
+    // if (isDot1Touched(tx, ty) && isTouchDot1) {//手指要沿着圆规拖动
+    if (isTouchDot1) {
+        t1 = calHour(t1, tx, ty)
+
+        document.getElementById('startHour').innerHTML = t1 + ':00';
+        //沿着圆平滑移动
+        newDx1 = tx * r / Math.sqrt(tx * tx + ty * ty);
+        newDy1 = ty * r / Math.sqrt(tx * tx + ty * ty);
+        draw(newDx1, newDy1, dx2, dy2);
+
+        //步进模式
+        // newCoord = clockStep(tx, ty);
+        // draw(newCoord.x, newCoord.y, dx2, dy2);
+    }
+
+    // if (isDot2Touched(tx, ty) && isTouchDot2 && !isTouchDot1) {//手指要沿着圆拖动
+    if (isTouchDot2 && !isTouchDot1) {
+        t2 = calHour(t2, tx, ty);
+        document.getElementById('endHour').innerHTML = t2 + ':00';
+
+        //沿着圆平滑移动
+        newDx2 = tx * r / Math.sqrt(tx * tx + ty * ty);
+        newDy2 = ty * r / Math.sqrt(tx * tx + ty * ty);
+        draw(dx1, dy1, newDx2, newDy2);
+        //步进模式
+        // newCoord = clockStep(tx, ty);
+        // draw(dx1, dy1, newCoord.x, newCoord.y);
+    }
+}
+
+canvas.ontouchend = function(e) {
+    isTouchDot1 = false;
+    isTouchDot2 = false;
+}
+
+//初始值
+draw(dx1, dy1, dx2, dy2);
+
+function draw(x1, y1, x2, y2) {
+    ctx.fillStyle = canvasBackgroundColor;
+    ctx.fillRect(-cw / 2, -ch / 2, cw, ch);
+    drawClock();
+    drawArc();
+
+    drawDot(x2, y2);
+    drawDotText("退", x2, y2);
+    //记录点2的最新位置
+    dx2 = x2;
+    dy2 = y2;
+
+    drawDot(x1, y1);
+    drawDotText("入", x1, y1);
+    //记录点1的最新位置
+    dx1 = x1;
+    dy1 = y1;
+
+    drawTime();
+}
+
+//画表盘
+function drawClock() {
+    ctx.beginPath();
+    ctx.arc(0, 0, r, 0, 2 * Math.PI, true);
+    ctx.strokeStyle = circleColor;
+    ctx.lineWidth = lw;
+    ctx.stroke();
+
+    //画刻度
+    for (var i = 0; i < 12; i++) {
+        ctx.save();
+
+        var angle = i * 30 * Math.PI / 180;
+        ctx.rotate(angle);
+        ctx.beginPath();
+        ctx.fillStyle = circleColor;
+        ctx.rect(r - lw + 6, -1.2, 8, 2.4);
+        ctx.fill();
+
+        ctx.restore();
+    }
+
+    //写时间刻度
+    var tl = r - lw - 3;
+    ctx.fillStyle = tColor;
+    ctx.font = "13px serif";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    for (var j = 1; j <= 12; j++) {
+        var tangle = (j - 3) * 30 * Math.PI / 180;
+        if (j % 3 == 0) {
+            ctx.fillText(j, tl * Math.cos(tangle), tl * Math.sin(tangle));
+        }
+    }
+}
+
+function drawTime() {
+    //写时间
+    ctx.fillStyle = "black";
+    ctx.font = "18px serif";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+
+    var n = Math.floor((dayNum * 24 + t2 - t1)/24),
+        r = (dayNum * 24 + t2 - t1)%24;
+    if (n>0) {
+        ctx.fillText(n + "天 " + r + "小时", 0, 0);
+    } else {
+        ctx.fillText(r + "小时", 0, 0);
+    }
+}
+
+function calHour(time, tx, ty) {
+    var cos = Math.acos(tx / Math.sqrt(tx * tx + ty * ty));
+    var angle = cos * 360 / 2 / Math.PI;
+
+    if (tx >= 0) {
+        if (ty < 0)
+            angle = 90 - angle; //第一象限
+        else
+            angle = 90 + angle; //第四象限
+    } else {
+        if (ty >= 0)
+            angle = 90 + angle; //第三象限
+        else
+            angle = 180 - angle + 270; //第二象限
+    }
+    var hour = Math.floor(angle / 360 * 12);
+    
+    if(time == 0){
+        if (hour == 11) {
+            time = 23;
+        } else {
+            time = hour;
+        }
+    } else if (time == 11) {
+        if (hour == 0) {
+            time = 12;
+        } else {
+            time = hour;
+        }
+    } else if(time == 12) {
+        if(hour == 11)
+            time = 11;
+        else
+            time = hour + 12;
+    } else if (time > 12 && time < 23) {
+        time = hour + 12;
+    } else if (time == 23) {
+        if (hour == 0) {
+            time = 0;
+        } else {
+            time = hour + 12;
+        }
+    } else {
+        time = hour;
+    }
+
+    return time;
+}
+
+//步进模式
+function clockStep(tx, ty) {
+    var cos = Math.acos(tx / Math.sqrt(tx * tx + ty * ty));
+    var angle = cos * 360 / 2 / Math.PI;
+
+    if (tx >= 0) {
+        if (ty < 0)
+            angle = 90 - angle; //第一象限
+        else
+            angle = 90 + angle; //第四象限
+    } else {
+        if (ty >= 0)
+            angle = 90 + angle; //第三象限
+        else
+            angle = 180 - angle + 270; //第二象限
+    }
+    var hour = angle / 360 * 12;
+
+    index = hour < 1 ? 0 : (Math.round(hour) - 1);
+    return {
+        x: hourCoord[index].x,
+        y: hourCoord[index].y
+    }
+}
+
+//画弧线
+function drawArc() {
+    //arcTo 只会画最短的弧
+    // var k = (dy1 - dy2) / (dx2 - dx1),
+    //     x = k * r * r / (dx1 * k + dy1),
+    //     y = r * r / (dx1 * k + dy1);
+    // ctx.beginPath();
+    // ctx.moveTo(dx1, dy1);
+    // ctx.arcTo(x, y, dx2, dy2, r);
+
+    ctx.beginPath();
+    ctx.arc(0, 0, r, Math.atan2(dy1, dx1), Math.atan2(dy2, dx2), false);
+    ctx.strokeStyle = arcColor;
+    ctx.lineWidth = lw;
+    ctx.stroke();
+}
+
+function drawDot(x, y) {
+    ctx.beginPath();
+    ctx.arc(x, y, dr, 0, 2 * Math.PI, true);
+    ctx.fillStyle = dotColor;
+    ctx.fill();
+
+    ctx.arc(x, y, dr, 0, 2 * Math.PI, true);
+    ctx.strokeStyle = arcColor;
+    ctx.lineWidth = 0.5;
+    ctx.stroke();
+}
+
+function drawDotText(text, x, y) {
+    ctx.fillStyle = arcColor;
+    ctx.font = "15px serif";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText(text, x, y);
+}
+
+function isDot1Touched(x, y) {
+    if (Math.abs(x - dx1) <= lw && Math.abs(y - dy1) <= lw) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function isDot2Touched(x, y) {
+    if (Math.abs(x - dx2) <= lw && Math.abs(y - dy2) <= lw) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+//获取触摸位置在画布坐标系的坐标
+function getCoord(x, y, w, h, left, top) {
+    return {
+        x: x - w / 2 - left,
+        y: y - h / 2 - top
+    };
+}
                 });
             } else {
                 vmBtn.type = 'partTime';
@@ -195,7 +511,7 @@ var vmIndex = avalon.define({
             onSlideChangeEnd: function(swiper) {
                 var marker = hotelMarkersOnMap[swiper.activeIndex];
                 marker.getMap().setCenter(marker.getPosition());
-                vmIndex.selectedHid = marker.getExtData().hid;
+                vmCity.selectedHid = marker.getExtData().hid;
                 setMarkers();
             }
         });
@@ -205,27 +521,60 @@ var vmIndex = avalon.define({
             location.href = "hotel.html?id=" + id;
         })
     },
-    sort: 1, //1按距离，2按价格
+    // sort: 1, //1按距离，2按价格   原始的
+    // changeSort: function(type) {
+    //     stopSwipeSkip.do(function() {
+    //         vmCity.sort = type;
+    //         ajaxJsonp({
+    //             url: urls.getHotelByPosition,
+    //             data: {
+    //                 lng: vmCity.lng,
+    //                 lat: vmCity.lat,
+    //                 isPartTime: vmCity.type,
+    //                 discount: vmBottom.midnightDiscount,
+    //                 distance: 100000,
+    //                 sort: vmCity.sort,
+    //                 pageCount: 20,
+    //             },
+    //             successCallback: function(json) {
+    //                 if (json.status == 1) {
+    //                     vmCity.hotelMarkers = json.data;
+    //                 }
+    //             }
+    //         });
+    //     });
+    // },
+    sort: 1, //1高到低，2低到高   3近到远    为2.0-demo而生的
     changeSort: function(type) {
         stopSwipeSkip.do(function() {
-            vmIndex.sort = type;
+            vmCity.sort = type;
             ajaxJsonp({
                 url: urls.getHotelByPosition,
                 data: {
-                    lng: vmIndex.lng,
-                    lat: vmIndex.lat,
-                    isPartTime: vmIndex.type,
+                    lng: vmCity.lng,
+                    lat: vmCity.lat,
+                    isPartTime: vmCity.type,
                     discount: vmBottom.midnightDiscount,
                     distance: 100000,
-                    sort: vmIndex.sort,
+                    sort: vmCity.sort,
                     pageCount: 20,
                 },
                 successCallback: function(json) {
                     if (json.status == 1) {
-                        vmIndex.hotelMarkers = json.data;
+                        vmCity.hotelMarkers = json.data;
                     }
                 }
             });
+        });
+    },
+    isSort: 0,  //默认不展开  1-展开
+    goSort: function() {
+        stopSwipeSkip.do(function() {
+            if (vmCity.isSort==1) {
+                vmCity.isSort = 0;
+            } else {
+                vmCity.isSort = 1;
+            }
         });
     },
     getHotelPosition: function(mapObj) {
@@ -236,17 +585,17 @@ var vmIndex = avalon.define({
         ajaxJsonp({
             url: urls.getHotelByPosition,
             data: {
-                lng: vmIndex.lng,
-                lat: vmIndex.lat,
-                isPartTime: vmIndex.type,
+                lng: vmCity.lng,
+                lat: vmCity.lat,
+                isPartTime: vmCity.type,
                 discount: vmBottom.midnightDiscount,
                 distance: 100000,
-                sort: vmIndex.sort,
+                sort: vmCity.sort,
                 pageCount: 20,
             },
             successCallback: function(json) {
                 if (json.status == 1) {
-                    vmIndex.hotelMarkers = json.data;
+                    vmCity.hotelMarkers = json.data;
 
                     json.data.map(function(marker, index) {
                         var domMarker = createMarker(marker.id, marker.minPrice);
@@ -259,8 +608,8 @@ var vmIndex = avalon.define({
                             content: domMarker,
                             extData: { hid: marker.id, minPrice: marker.minPrice }
                         }).on('click', function() {
-                            vmIndex.selectedHid = this.getExtData().hid;
-                            vmIndex.isShowHotelDetail = true;
+                            vmCity.selectedHid = this.getExtData().hid;
+                            vmCity.isShowHotelDetail = true;
 
                             //点击酒店，在地图里居中
                             this.getMap().setCenter(this.getPosition());
@@ -281,12 +630,12 @@ var vmIndex = avalon.define({
             url: urls.getCityGallery,
             data: {
                 cityCode: '021', //默认上海
-                isPartTime: vmIndex.type
+                isPartTime: vmCity.type
             },
             successCallback: function(json) {
                 if (json.status == 1) {
                     if (json.data.length >= 1) {
-                        vmIndex.galleryList = json.data;
+                        vmCity.galleryList = json.data;
                     }
                 }
             }
@@ -335,7 +684,7 @@ var vmBtn = avalon.define({
                 newOrder.partTime.amount = vmPart.partTimeNumber / 2;
                 Storage.set("newOrder", newOrder);
                 saveStorage();
-                vmIndex.getHotelPosition(mapObj);
+                vmCity.getHotelPosition(mapObj);
                 break;
             default:
                 break;
@@ -351,7 +700,7 @@ var vmBtn = avalon.define({
 bensue = Storage.get("bensue");
 if (bensue && bensue.type) {
     vmBottom.type = bensue.type;
-    vmIndex.type = bensue.type;
+    vmCity.type = bensue.type;
 
     if (bensue.type == 2) {
         vmBottom.midnightDiscount = bensue.midnightDiscount || vmBottom.midnightDiscountList[0].discount;
@@ -439,8 +788,8 @@ myMarker = new AMap.Marker({
 });
 
 vmBottom.getMidnightDiscount();
-vmIndex.getHotelPosition(mapObj);
-vmIndex.getCityGallery();
+vmCity.getHotelPosition(mapObj);
+vmCity.getCityGallery();
 registerWeixinConfig();
 
 //解析定位结果，逆向地理编码
@@ -530,22 +879,22 @@ function updateLocal(name, lng, lat) {
 }
 
 function updateData() {
-    vmIndex.position = positionInStorage.name;
-    vmIndex.lng = positionInStorage.lng;
-    vmIndex.lat = positionInStorage.lat;
+    vmCity.position = positionInStorage.name;
+    vmCity.lng = positionInStorage.lng;
+    vmCity.lat = positionInStorage.lat;
 }
 
 //保存到本地
 function saveStorage() {
-    if (vmIndex.type) {
+    if (vmCity.type) {
         $.extend(newOrder.partTime, {
-            start: getStartTime(vmIndex.type),
-            end: getEndTime(vmIndex.type),
+            start: getStartTime(vmCity.type),
+            end: getEndTime(vmCity.type),
         });
     } else {
         $.extend(newOrder.day, {
-            start: getStartTime(vmIndex.type),
-            end: getEndTime(vmIndex.type),
+            start: getStartTime(vmCity.type),
+            end: getEndTime(vmCity.type),
         });
     }
 
@@ -568,7 +917,7 @@ function createMarker(hid, price) {
     domMarker.className = 'bs-marker';
 
     var domMarkerPrice = document.createElement('div');
-    if (hid != vmIndex.selectedHid) {
+    if (hid != vmCity.selectedHid) {
         domMarkerPrice.className = 'bs-marker-price';
     } else {
         domMarkerPrice.className = 'bs-marker-price selected';
@@ -584,8 +933,8 @@ function createMarker(hid, price) {
 }
 
 function iniMarkers() {
-    vmIndex.isShowHotelDetail = false;
-    vmIndex.selectedHid = 0;
+    vmCity.isShowHotelDetail = false;
+    vmCity.selectedHid = 0;
     setMarkers();
 }
 

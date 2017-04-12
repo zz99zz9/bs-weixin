@@ -1,0 +1,159 @@
+<style>
+.item-img {
+    width: 40px;
+    height: 40px;
+}
+
+.item-img-r {
+    width: 40px;
+    height: 40px;
+}
+
+.oneLine {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    clear: both;
+}
+
+.online-height {
+    height: 40px;
+}
+
+.question {
+    background: white;
+    height: 50px;
+    width: 0px;
+    margin: 10px 8px;
+    overflow: hidden;
+    color: #444;
+    clear: both;
+    line-height: 50px;
+    border-radius: 10px;
+}
+
+.answer {
+    background: #b3dfdb;
+    height: 50px;
+    width: 0;
+    margin: 10px 8px;
+    float: right;
+    overflow: hidden;
+    clear: both;
+    border-radius: 10px;
+}
+
+.arrow {
+    height: 15px;
+    margin: 5px;
+    position: relative;
+    top: -37px;
+    float: right;
+    right: 10px;
+}
+
+.button {
+    height: 50px;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    background: #b3dfdb;
+}
+</style>
+<div ms-controller="serviceProcess" class="bs-text-normal" style="margin: 40px 12px;">
+    <div class="oneLine">
+        <div class="online-height">
+            <img id="l1" src="../img/icon/service-staff.svg" class="item-img" style="display: none;">
+        </div>
+        <div id="q1" class="question">
+            <span class="ask1 typed-cursor" style="margin-left: 20px;"></span>
+        </div>
+    </div>
+    <div class="oneLine" style="float: right;">
+        <div id="a1" class="answer bs-text-normal">
+            <button id='goal' type='button' class="mui-btn mui-btn-block button bs-text-normal">{{goal}}</button>
+            <img src="../img/icon/service-triangle.svg" class="arrow">
+        </div>
+        <div class="online-height">
+            <img id="r1" src="../img/icon/service-user.svg" class="item-img-r" style="display: none;">
+        </div>
+    </div>
+    <div class="oneLine">
+        <div class="online-height">
+            <img id="l2" src="../img/icon/service-staff.svg" class="item-img" style="display: none;">
+        </div>
+        <div id="q2" class="question">
+            <span class="ask2" style="margin-left: 20px;"></span>
+        </div>
+    </div>
+    <div class="oneLine" style="float: right;">
+        <div id="a2" class="answer bs-text-normal">
+            <button id='companion' type='button' class="mui-btn mui-btn-block button bs-text-normal">{{companion}}</button>
+            <img src="../img/icon/service-triangle.svg" class="arrow">
+        </div>
+        <div class="online-height">
+            <img id="r2" src="../img/icon/service-user.svg" class="item-img-r" style="display: none;">
+        </div>
+    </div>
+    <div class="oneLine">
+        <div class="online-height">
+            <img id="l3" src="../img/icon/service-staff.svg" class="item-img" style="display: none;">
+        </div>
+        <div id="q3" class="question">
+            <span class="ask3" style="margin-left: 20px;"></span>
+        </div>
+    </div>
+    <div class="oneLine" style="float: right;">
+        <div id="a3" class="answer bs-text-normal">
+            <button id='vr' type='button' class="mui-btn mui-btn-block button bs-text-normal">{{vr}}</button>
+            <img src="../img/icon/service-triangle.svg" class="arrow">
+        </div>
+        <div class="online-height">
+            <img id="r3" src="../img/icon/service-user.svg" class="item-img-r" style="display: none;">
+        </div>
+    </div>
+    <!-- <div class="oneLine">
+        <div>
+            <img id="l4" src="../img/icon/service-staff.svg" class="item-img" style="display: none;">
+        </div>
+        <div id="q4" class="question">
+            <span class="ask4" style="margin-left: 20px;"></span>
+        </div>
+    </div>
+    <div class="oneLine" style="float: right;">
+        <div id="a4" class="answer bs-text-normal">
+            <button id='old' type='button' class="mui-btn mui-btn-block button bs-text-normal">{{old}}</button>
+            <img src="../img/icon/service-triangle.svg" class="arrow">
+        </div>
+        <div>
+            <img id="r4" src="../img/icon/service-user.svg" class="item-img-r" style="display: none;">
+        </div>
+    </div>
+    <div class="oneLine">
+        <div>
+            <img id="l5" src="../img/icon/service-staff.svg" class="item-img" style="display: none;">
+        </div>
+        <div id="q5" class="question">
+            <span class="ask5" style="margin-left: 20px;"></span>
+        </div>
+    </div>
+    <div class="oneLine" style="float: right;">
+        <div id="a5" class="answer bs-text-normal">
+            <button id='other' type='button' class="mui-btn mui-btn-block button bs-text-normal">{{other}}</button>
+            <img src="../img/icon/service-triangle.svg" class="arrow">
+        </div>
+        <div>
+            <img id="r5" src="../img/icon/service-user.svg" class="item-img-r" style="display: none;">
+        </div>
+    </div> -->
+    <div class="oneLine" onclick="javascript:location.href='ready.html';">
+        <div>
+            <img id="lEnd" src="../img/icon/service-staff.svg" class="item-img" style="display: none;">
+        </div>
+        <div id="end" class="question">
+            <span class="askEnd" style="margin-left: 20px;"></span>
+        </div>
+    </div>
+</div>
+<br>
+<br>

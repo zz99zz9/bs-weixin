@@ -26,8 +26,8 @@ function openConnect() {
 function sassCompile(callback) {
     sass('./sass/mui.scss')
         .on('error', sass.logError)
-        .pipe(minifycss())//执行压缩
-        .pipe(rename({suffix: '.min'}))
+        .pipe(minifycss()) //执行压缩
+        .pipe(rename({ suffix: '.min' }))
         .pipe(gulp.dest('./dist/css'))
         .on('finish', callback)
 }
@@ -151,7 +151,7 @@ function loading() {
 }
 
 //首页
-function index() {
+function city() {
     return gulp.src('./js/layout/shell-index.html')
         .pipe(replace({
             regex: '<!-- top -->',
@@ -159,26 +159,26 @@ function index() {
         }))
         .pipe(replace({
             regex: '<!-- content -->',
-            replace: '<!--include "../pages/index/index.html"-->'
+            replace: '<!--include "../pages/city/city.html"-->'
         }))
-        .pipe(replace({
-            regex: '<!-- bottom -->',
-            replace: '<!--include "../layout/bottom.html"-->'
-        }))
+        //.pipe(replace({
+         //   regex: '<!-- bottom -->',
+         //   replace: '<!--include "../layout/bottom.html"-->'
+        //}))
         .pipe(replace({
             regex: '<!-- css -->',
-            replace: '<link rel="stylesheet" href="css/swiper.min.css">\n<link rel="stylesheet" href="css/index.css">'
+            replace: '<link rel="stylesheet" href="css/swiper.min.css">\n<link rel="stylesheet" href="css/city.css">'
         }))
         .pipe(replace({
             regex: '<!-- pop -->',
-            replace: '<!--include "../util/pop.html"--><!--include "../pages/user/popover.html"-->'
+            replace: '<!--include "../util/pop.html"--><!--include "../pages/user/popover.html"--><!--include "../util/modal.html"-->'
         }))
         .pipe(replace({
             regex: '<!-- js -->',
             replace: '<script src="js/lib/swiper.min.js"></script>\n' 
-            + '<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=0743dafb590f3622f52d0d4218a9f1f7"></script>\n'
-            + '<script src="js/pages/index/vmodel.js"></script>\n' 
-            + '<script src="js/util/calendar.js"></script>\n'
+            + '<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=0743dafb590f3622f52d0d4218a9f1f7"></script>\n' 
+            + '<script src="js/pages/city/vmodel.js"></script>\n' 
+            + '<script src="js/util/calendar.js"></script>\n' 
             + '<script src="js/util/partTime.js"></script>'
         }))
         .pipe(contentIncluder({
@@ -198,7 +198,7 @@ function index() {
         .pipe(contentIncluder({
             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
         }))
-        .pipe(rename('index.html'))
+        .pipe(rename('city.html'))
         .pipe(gulp.dest('./src'))
 }
 
@@ -226,7 +226,6 @@ function hotel() {
             replace: '<script src="js/lib/swiper.min.js"></script>\n' 
             + '<script src="js/pages/hotel/vmodel.js"></script>\n' 
             + '<script src="js/util/calendar.js"></script>\n<script src="js/util/partTime.js"></script>'
-            + '<script src="js/util/clock.js"></script>\n'
         }))
         .pipe(contentIncluder({
             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
@@ -272,7 +271,6 @@ function room() {
             + '<script src="js/pages/room/vmodel.js"></script>\n'
             + '<script src="js/util/calendar.js"></script>\n'
             + '<script src="js/util/partTime.js"></script>\n' 
-            + '<script src="js/util/clock.js"></script>\n'
             + '<script src="js/util/contactList.js"></script>'
         }))
         .pipe(contentIncluder({
@@ -1101,7 +1099,7 @@ function franchiseeRecord() {
  */
 
 //会员中心-会员介绍
-function cardIntroduce () {
+function cardIntroduce() {
     return gulp.src('./js/layout/shell-av2.html')
         .pipe(replace({
             regex: '<!-- css -->',
@@ -1123,7 +1121,7 @@ function cardIntroduce () {
 }
 
 //会员中心-会员安全性
-function cardSafe () {
+function cardSafe() {
     return gulp.src('./js/layout/shell-av2.html')
         .pipe(replace({
             regex: '<!-- css -->',
@@ -1141,7 +1139,7 @@ function cardSafe () {
 }
 
 //一张图看懂本宿
-function cardIntroducePicture () {
+function cardIntroducePicture() {
     return gulp.src('./js/layout/shell-av2.html')
         .pipe(replace({
             regex: '<!-- css -->',
@@ -1174,7 +1172,7 @@ function cardPromotion() {
         }))
         .pipe(rename('card-promotion.html'))
         .pipe(gulp.dest('./src'));
- }
+}
 
 //会员中心-成为VIP会员
 function cardList() {
@@ -1232,7 +1230,7 @@ function cardBuy() {
 }
 
 //会员卡展示
-function cardShow () {
+function cardShow() {
     return gulp.src('./js/layout/shell-av2.html')
         .pipe(replace({
             regex: '<!-- css -->',
@@ -1287,7 +1285,7 @@ function cardDetail() {
 }
 
 //账户提现账号及资金操作历史
-function cardLog () {
+function cardLog() {
     return gulp.src('./js/layout/shell-av2.html')
         .pipe(replace({
             regex: '<!-- css -->',
@@ -1320,7 +1318,7 @@ function cardLog () {
 }
 
 //绑定提现账号页面
-function cardBind () {
+function cardBind() {
     return gulp.src('./js/layout/shell-av2.html')
         .pipe(replace({
             regex: '<!-- css -->',
@@ -2674,9 +2672,9 @@ function cmsNav() {
 }
 
 //基金编辑资料
-function editFund () {
+function editFund() {
     return gulp.src('./js/layout/shell-manage.html')
-    .pipe(replace({
+        .pipe(replace({
             regex: '<h1 id="headerReplace" class="mui-title">标题</h1>',
             replace: '<h1 id="headerReplace" class="mui-title">编辑资料</h1>'
         }))
@@ -2734,9 +2732,9 @@ function cmsDonation() {
 }
 
 //公益基金账户
-function cmsAccount () {
+function cmsAccount() {
     return gulp.src('./js/layout/shell-manage.html')
-    .pipe(replace({
+        .pipe(replace({
             regex: '<h1 id="headerReplace" class="mui-title">标题</h1>',
             replace: '<h1 id="headerReplace" class="mui-title">账户详情</h1>'
         }))
@@ -2771,9 +2769,9 @@ function cmsAccount () {
 }
 
 //受益人列表页面
-function cmsFavoreeList () {
+function cmsFavoreeList() {
     return gulp.src('./js/layout/shell-manage.html')
-    .pipe(replace({
+        .pipe(replace({
             regex: '<h1 id="headerReplace" class="mui-title">标题</h1>',
             replace: '<h1 id="headerReplace" class="mui-title">受益学生管理</h1>'
         }))
@@ -2801,9 +2799,9 @@ function cmsFavoreeList () {
 }
 
 //子账号列表页面
-function cmsSubList () {
+function cmsSubList() {
     return gulp.src('./js/layout/shell-manage.html')
-    .pipe(replace({
+        .pipe(replace({
             regex: '<h1 id="headerReplace" class="mui-title">标题</h1>',
             replace: '<h1 id="headerReplace" class="mui-title">账户管理</h1>'
         }))
@@ -2831,9 +2829,9 @@ function cmsSubList () {
 }
 
 //添加子账户
-function subAdd () {
+function subAdd() {
     return gulp.src('./js/layout/shell-manage.html')
-    .pipe(replace({
+        .pipe(replace({
             regex: '<h1 id="headerReplace" class="mui-title">标题</h1>',
             replace: '<h1 id="headerReplace" class="mui-title">添加子账户</h1>'
         }))
@@ -2861,9 +2859,9 @@ function subAdd () {
 }
 
 //添加学生
-function favoree () {
+function favoree() {
     return gulp.src('./js/layout/shell-manage.html')
-    .pipe(replace({
+        .pipe(replace({
             regex: '<h1 id="headerReplace" class="mui-title">标题</h1>',
             replace: '<h1 id="headerReplace" class="mui-title"></h1>'
         }))
@@ -2894,9 +2892,9 @@ function favoree () {
 function avatar() {
     return gulp.src('./js/layout/shell.html')
         .pipe(replace({
-                regex: '<!-- css -->',
-                replace: '<link rel="stylesheet" href="css/cropper.min.css">'
-            }))
+            regex: '<!-- css -->',
+            replace: '<link rel="stylesheet" href="css/cropper.min.css">'
+        }))
         .pipe(replace({
             regex: '<!-- js -->',
             replace: '<script src="js/lib/cropper.min.js"></script>\n<script src="js/pages/user/avatar.js"></script>'
@@ -2910,6 +2908,171 @@ function avatar() {
         }))
         .pipe(rename('avatar.html'))
         .pipe(gulp.dest('./src'));
+}
+//离店
+function checkOut(){
+    return gulp.src('./js/layout/shell.html')
+        .pipe(replace({
+            regex: '<h1 id="headerReplace" class="mui-title">标题</h1>',
+            replace: '<h1 id="headerReplace" class="mui-title">哦对了</h1>'
+        }))
+        .pipe(replace({
+            regex: '<!-- content -->',
+            replace: '<!--include "../pages/checkout/checkOut.html"-->'
+        }))
+        .pipe(replace({
+            regex: '<!-- js -->',
+            replace: '<script src="../js/pages/checkout/checkOut.js"></script>'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('checkOut.html'))
+        .pipe(gulp.dest('./src'));
+}
+//订单列表新页
+function newOrderList() {
+    return gulp.src('./js/layout/shell.html')
+        .pipe(replace({
+            regex: '<h1 id="headerReplace" class="mui-title">标题</h1>',
+            replace: '<h1 id="headerReplace" class="mui-title">旅程开始</h1>'
+        }))
+        .pipe(replace({
+            regex: '<!-- js -->',
+            replace: '<script src="js/pages/order/vmodel-newOrderList.js"></script>'
+        }))
+        .pipe(replace({
+            regex: '<!-- content -->',
+            replace: '<!--include "../pages/order/newOrderList.html"-->'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('newOrderList.html'))
+        .pipe(gulp.dest('./src'));
+}
+//入住后房间内服务
+function inroom() {
+    return gulp.src('./js/layout/shell.html')
+        .pipe(replace({
+            regex: '<!-- js -->',
+            replace: '<script src="js/pages/checkin/inroom.js"></script>'
+        }))
+        .pipe(replace({
+            regex: '<!-- content -->',
+            replace: '<!--include "../pages/checkin/inroom.html"-->'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('inroom.html'))
+        .pipe(gulp.dest('./src'));
+}
+
+//开门
+function opendoor() {
+    return gulp.src('./js/layout/shell.html')
+        .pipe(replace({
+            regex: '<!-- js -->',
+            replace: '<script src="js/pages/checkin/opendoor.js"></script>'
+        }))
+        .pipe(replace({
+            regex: '<!-- content -->',
+            replace: '<!--include "../pages/checkin/opendoor.html"-->'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('opendoor.html'))
+        .pipe(gulp.dest('./src'));
+}
+
+//开门
+function index() {
+    return gulp.src('./js/layout/shell.html')
+        .pipe(replace({
+            regex: '<!-- js -->',
+            replace: '<script src="js/pages/index/index2.js"></script>'
+        }))
+        .pipe(replace({
+            regex: '<!-- content -->',
+            replace: '<!--include "../pages/index/index.html"-->'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('index.html'))
+        .pipe(gulp.dest('./src'));
+}
+
+//客服页的一级页面————订单列表页
+function serviceOrderList() {
+    return gulp.src('./js/layout/shell.html')
+        .pipe(replace({
+            regex: '<!-- content -->',
+            replace: '<!--include "../pages/service/orderList.html"-->'
+        }))
+        .pipe(replace({
+            regex: '<!-- js -->',
+            replace: '<script src="../js/pages/service/orderList.js"></script>'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('orderList.html'))
+        .pipe(gulp.dest('./src/service'));
+}
+
+//客服页————前置服务选项页
+function serviceProcess() {
+    return gulp.src('./js/layout/shell.html')
+        .pipe(replace({
+            regex: '<!-- css -->',
+            replace: '<link href="../css/mui.picker.all.css" rel="stylesheet" />'
+        }))
+        .pipe(replace({
+            regex: '<!-- content -->',
+            replace: '<!--include "../pages/service/process.html"-->'
+        }))
+        .pipe(replace({
+            regex: '<!-- js -->',
+            replace: '<script src="../js/pages/service/process.js"></script>\n<script src="../js/lib/mui.picker.all.js"></script>'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('process.html'))
+        .pipe(gulp.dest('./src/service'));
+}
+
+//客服页————前置服务就绪页面
+function serviceReady() {
+    return gulp.src('./js/layout/shell.html')
+        .pipe(replace({
+            regex: '<h1 id="headerReplace" class="mui-title">标题</h1>',
+            replace: '<h1 id="headerReplace" class="mui-title">已经就绪</h1>'
+        }))
+        .pipe(replace({
+            regex: '<!-- css -->',
+            replace: '<link href="../css/mui.picker.all.css" rel="stylesheet" />'
+        }))
+        .pipe(replace({
+            regex: '<!-- content -->',
+            replace: '<!--include "../pages/service/ready.html"-->'
+        }))
+        .pipe(replace({
+            regex: '<!-- js -->',
+            replace: '<script src="../js/pages/service/ready.js"></script>\n<script src="../js/lib/mui.picker.all.js"></script>'
+        }))
+        .pipe(replace({
+            regex: '<!-- pop -->',
+            replace: '<!--include "../util/pop.html"-->'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('ready.html'))
+        .pipe(gulp.dest('./src/service'));
 }
 
 /**
@@ -2938,7 +3101,7 @@ function popHtml() {
             './js/pages/room/note.html',
             './js/pages/room/designer.html',
             './js/pages/card/card-rule.html',
-            './js/pages/card/card-rule-5.html',//校园卡会员条款
+            './js/pages/card/card-rule-5.html', //校园卡会员条款
             './js/pages/card/card-withdraw.html',
             './js/pages/card/lottery-log.html',
             './js/pages/card/lottery-rule.html',
@@ -2987,7 +3150,7 @@ function copyFonts() {
  */
 gulp.task('html', gulp.parallel(
     loading,
-    index,
+    city,
     hotel,
     room,
     payend,
@@ -3089,7 +3252,15 @@ gulp.task('html', gulp.parallel(
     cmsSubList,
     subAdd,
     favoree,
-    editFund
+    editFund,
+    inroom,
+    opendoor,
+    checkOut,
+    newOrderList,
+    index,
+    serviceOrderList,
+    serviceProcess,
+    serviceReady
 ));
 
 function watchForReload() {

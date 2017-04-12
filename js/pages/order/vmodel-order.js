@@ -406,11 +406,13 @@ function payOrder() {
                     } else if (vmOrder.payType == 2) { //微信支付
                         onBridgeReady();
                     } else if (vmOrder.payType == 6) { //钱包支付
-                        location.href = '/payend.html?id=' + orderid;
+                        //location.href = '/payend.html?id=' + orderid;
+                        location.href = '../service/orderList.html';
                     }
                 } else if (json.data.payStatus == 1) {
                     //付款已完成（比如用了大额的优惠券，把房费降为了0
-                    location.href = '/payend.html?id=' + orderid;
+                    //location.href = '/payend.html?id=' + orderid;
+                    location.href = '../service/orderList.html';
                 } else {
                     mui.alert( "正在支付订单，请稍后", function() {
                         vmOrder.btn2Disabled = false;

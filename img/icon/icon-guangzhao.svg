@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="42px" height="42px" viewBox="0 0 42 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
+    <title>icon-guangzhao</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <circle id="path-1" cx="20" cy="20" r="10"></circle>
+        <mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="20" height="20" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="入住-控制" transform="translate(-143.000000, -534.000000)" stroke="#444444">
+            <g id="icon-guangzhao" transform="translate(144.000000, 535.000000)">
+                <g id="Group-4">
+                    <use id="Oval-9" mask="url(#mask-2)" stroke-width="4" xlink:href="#path-1"></use>
+                    <path d="M20,0.5 L20,6.5 M33.7885822,6.21141777 L29.5459415,10.4540585 M39.5,20 L33.5,20 M33.7885822,33.7885822 L29.5459415,29.5459415 M20,39.5 L20,33.5 M6.21141777,33.7885822 L10.4540585,29.5459415 M0.5,20 L6.5,20 M6.21141777,6.21141777 L10.4540585,10.4540585" id="Line" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

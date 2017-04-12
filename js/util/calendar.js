@@ -40,8 +40,8 @@ var bookDateList = null,
         todayIndex: 0,
         clickDate: function(index) {
             stopSwipeSkip.do(function() {
-                $('#calendarPanel').height(95);
-                $('#calendarPanel').scrollTop(index/7*45-40);
+                $('#calendarPanel').height(50);
+                $('#calendarPanel').scrollTop(index/7*45-20);
 
                 vmCalendar.isShowClock = true;
 
@@ -219,11 +219,22 @@ vmCalendar.$watch('startIndex', function(a) {
 
     dayNum = (vmCalendar.endIndex - vmCalendar.startIndex)||1;
     
-    if(vmRoom) {
+    if(typeof(vmCity)!='undefined'){
+        Storage.set("newOrder", newOrder);
+        saveStorage();
+        vmCity.getHotelPosition(mapObj);
+    }
+    if(typeof(vmHotel)!='undefined'){
+        Storage.set("newOrder", newOrder);
+        saveStorage();
+        vmHotel.getRoomTypeList();
+    }
+    if(typeof(vmRoom)!='undefined') {
         vmRoom.showDate();
         saveStorage();
         vmRoom.startIndex = vmCalendar.startIndex;
     }
+
 });
 
 vmCalendar.$watch('endIndex', function(a) {
@@ -254,9 +265,20 @@ vmCalendar.$watch('endIndex', function(a) {
 
     dayNum = (vmCalendar.endIndex - vmCalendar.startIndex)||1;
 
-    if(vmRoom) {
+    if(typeof(vmCity)!='undefined'){
+        Storage.set("newOrder", newOrder);
+        saveStorage();
+        vmCity.getHotelPosition(mapObj);
+    }
+    if(typeof(vmHotel)!='undefined'){
+        Storage.set("newOrder", newOrder);
+        saveStorage();
+        vmHotel.getRoomTypeList();
+    }
+    if(typeof(vmRoom)!='undefined') {
         vmRoom.showDate();
         saveStorage();
         vmRoom.startIndex = vmCalendar.startIndex;
     }
+    
 });
