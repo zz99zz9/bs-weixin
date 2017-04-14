@@ -20,7 +20,7 @@ var vmCheckOut = avalon.define({
 	run:function (){
 		var s = document.getElementById("ss");
 		 	if(s.innerHTML == 0){
-		 		window.location.href='index2.html';
+		 		location.href='../index.html';
 				return false;
 			}
 		s.innerHTML = s.innerHTML * 1 - 1;
@@ -40,9 +40,21 @@ var vmCheckOut = avalon.define({
             location.href = "../newOrderList.html";
         })
     },
-    goUser: function() {
+    goMore: function() {
         stopSwipeSkip.do(function() {
-            location.href = "../user-info.html";
+            location.href = "../more.html";
+        })
+    },
+    isSend: 0, //0-不显示  1-显示
+    send: function() { //发送订单
+        stopSwipeSkip.do(function() {
+            // mui.alert('注意提醒您的小伙伴查收订单哦。', "发送成功");
+            if (vmCheckOut.isSend==0) {
+                vmCheckOut.isSend = 1;
+            } else {
+               vmCheckOut.isSend = 0; 
+            }
+            
         })
     },
 })

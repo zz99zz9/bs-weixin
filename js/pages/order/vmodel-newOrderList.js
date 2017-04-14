@@ -76,9 +76,9 @@ var vmOrders = avalon.define({
             location.href = "../newOrderList.html";
         })
     },
-    goUser: function() {
+    goMore: function() {
         stopSwipeSkip.do(function() {
-            location.href = "../user-info.html";
+            location.href = "../more.html";
         })
     },
 });

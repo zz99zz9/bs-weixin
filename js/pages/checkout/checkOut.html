@@ -29,7 +29,7 @@
 }
 
 .title-margin2 {
-    margin: 5.5% 30px 0 0;
+    padding: 5.5% 30px 0 0;
 }
 
 .titl-bold {
@@ -49,8 +49,8 @@
 <div ms-controller="checkOut">
     <div class="back-color">
         <div style="display: flex;justify-content: space-between;">
-            <div class="bs-text-x-larger title-margin1 titl-bold" style="color: #444444;">您的健康指数报告</div>
-            <div class="title-margin2 titl-bold bs-text-normal" style="color: #169488;">保存&分享</div>
+            <div class="bs-text-444 title-margin1 titl-bold" style="font-size: 20px;">您的健康指数报告</div>
+            <div class="title-margin2 titl-bold bs-text-normal" style="color: #169488;" ms-on-tap="send">保存&分享</div>
         </div>
         <div class="back-color bs-text-normal title-margin1" style="color: #444444;font-family: '微软雅黑';">{{nowDate}}</div>
     </div>
@@ -73,16 +73,30 @@
     </div>
     <div style="margin-top: 16px;" class="back-color">
         <div>&nbsp;</div>
-        <div class="titl-bold title-margin1" style="margin-top: 15px;">服务评价</div>
-        <div class="title-margin1" style="height: 270px;">
+        <div class="titl-bold title-margin1" style="margin: 2vh 8vw;">服务评价</div>
+        <div class="title-margin1" style="height: 270px;margin: 0 8vw;">
             <textarea style="background-color: #F2F2F2;color: #444444;padding-left: 15px;padding-top: 5px;" class="comment" placeholder="写下您的评价，我们将第一时间为你反馈~"></textarea>
-            <div style="border-radius:5px;overflow:hidden" class="evaluation-botton" ms-click="alert"><span>提交</span></div>
-            <!--<button style="width: 100%;background-color: #FFFFFF;" type="button" class="mui-btnbs-text-small bs-text-black sub-button" >提交</button>-->
+            <div style="border-radius:5px;overflow:hidden;display: flex;" class="evaluation-botton">
+                <div style="width: 42vw; border-right: 2px solid white;" ms-click="alert"><span style="position: relative;top: 2px;">提交</span></div>
+                <div style="width: 42vw;" onclick="javascript:location.href='../index.html';"><span style="position: relative;top: 2px;">以后再评</span></div>
+            </div>
         </div>
     </div>
-    <div style="height: 67px;">
-        
+    <div ms-if="isSend" style="padding: 20px;background-color: #fff;">
+        <div class="mask-fullscreen bs-text-white" style="position: fixed; z-index: 11;">
+            <img src="../img/icon/arrow-top-right.svg" style="width: 30px;">
+            <div class="" style="padding-top: 30px;line-height: 25px;font-size: 20px;">
+                您的健康指数爆表了
+                <br> 点击右上角分享至朋友圈
+                <br> 赶快去炫耀吧！
+                <br>
+            </div>
+            <div ms-on-tap="send" class="" style="height: 100px;padding-top: 50px;font-size: 20px;">关闭
+                <br>
+            </div>
+        </div>
     </div>
+    <div style="height: 67px;"></div>
     <nav class="mui-bar mui-bar-tab" style="background: white !important;height: 56px;padding: 8px 0 5px;">
         <a class="mui-tab-item" ms-on-tap="goIndex">
             <span class="mui-icon"><img src="/img/icon/icon-home.svg" class="nav-ico"></span>
@@ -96,7 +110,7 @@
             <span class="mui-icon"><img src="/img/icon/icon-dingdan.svg" class="nav-ico"></span>
             <span class="mui-tab-label">订单</span>
         </a>
-        <a class="mui-tab-item" ms-on-tap="goUser">
+        <a class="mui-tab-item" ms-on-tap="goMore">
             <span class="mui-icon"><img src="/img/icon/icon-more.svg" class="nav-ico"></span>
             <span class="mui-tab-label">我的</span>
         </a>

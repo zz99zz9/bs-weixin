@@ -93,9 +93,9 @@ var vmUser = avalon.define({
             location.href = "../newOrderList.html";
         })
     },
-    goUser: function() {
+    goMore: function() {
         stopSwipeSkip.do(function() {
-            location.href = "../user-info.html";
+            location.href = "../more.html";
         })
     },
 });
@@ -111,6 +111,33 @@ var vmSave = avalon.define({
     isNameChange: false,
     isNicknameChange: false,
     isMobileChange: false,
+    headImg: defaultHeadImg,
+    name: '',
+    mobile: '',
+    idNo: '',
+    nickname: '',
+    headUrl:'',
+    getUserInfo: function() {
+        ajaxJsonp({
+            url: urls.userInfotUrl,
+            data: {},
+            successCallback: function(json) {
+                if(json.status !== 0)
+                {
+                }
+            }
+        });
+        var user = Storage.getLocal('user');
+        vmSave.headImg = user.headImg;
+        vmSave.name = user.name;
+        vmSave.mobile = user.mobile;
+        vmSave.idNo = user.idNo;
+        vmSave.nickname = user.nickname;
+        vmSave.headImg = user.headImg;
+        vmSave.newName = vmSave.name;
+        vmSave.newNickname = vmSave.nickname;
+        vmSave.newMobile = vmSave.mobile;
+    },
     save: function() {
         if(vmSave.isNameChange || vmSave.isNicknameChange || vmSave.isMobileChange) {
             var reg = /^(((13[0-9]{1})|(15[0-9]{1})|(17[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
@@ -168,4 +195,5 @@ vmSave.$watch('newMobile', function(a) {
 });
 
 vmUser.getUserInfo();
+vmSave.getUserInfo();
 vmUser.getBalance();
