@@ -506,7 +506,7 @@ button {
     position: fixed;
     width: 100vw;
     height: 100vh;
-    z-index: 9999;
+    z-index: 99;
     background: rgba(0, 0, 0, 0.7);
     top: 0;
     left: 0;
@@ -1169,6 +1169,10 @@ hr {
     font-size: 24px;
 }
 
+.bs-text-18 {
+    font-size: 18px;
+}
+
 .bs-text-larger {
     font-size: 17px;
 }
@@ -1295,6 +1299,10 @@ hr {
 
 .bs-bg-eee {
     background-color: #eee;
+}
+
+.bs-bg-169488{
+    background-color: #169488;
 }
 
 .bs-type-tab {

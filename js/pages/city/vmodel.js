@@ -37,6 +37,26 @@ var vmTop = avalon.define({
     },
     goBack: function() {
         history.go(-1);
+    },
+    openPop: function() {
+        stopSwipeSkip.do(function() {
+            modalShow('./util/searchLocation.html', 1);
+        })
+    },
+});
+
+var vmSearch = avalon.define({
+    $id: 'search',
+    city: '上海',
+    currentLocation: '正在定位...',
+    getCurrentPosition: function() {
+        vmSearch.currentLocation = '正在定位...';
+        geolocation.getCurrentPosition();
+    },
+    closePop: function() {
+        stopSwipeSkip.do(function() {
+            modalClose();
+        })
     }
 });
 
@@ -117,7 +137,7 @@ var vmBottom = avalon.define({
 });
 
 var vmCity = avalon.define({
-    $id: 'index',
+    $id: 'city',
     lng: 121.749, //用户选择位置的经度
     lat: 31.0469, //用户选择位置的维度
     su: function() {
@@ -726,9 +746,9 @@ if (user) {
         vmTop.headImg = urlAPINet + user.headImg;
     }
 
-    if (user.openUserInfo) {
-        vmSide.show();
-    }
+    // if (user.openUserInfo) {
+    //     vmSide.show();
+    // }
 }
 
 //开门或者退房操作，打开面板
@@ -739,8 +759,9 @@ if (actionType) {
 
 //高德地图
 mapObj = new AMap.Map('container', {
-    zoom: 14,
-    center: [121.749, 31.0469] //默认地图中心
+    zoom: 10,   //默认的事14
+    //center: [121.749, 31.0469] //默认地图中心
+    center: [121.340, 31.300] //默认地图中心
 }).on('click', function() {
     iniMarkers();
 });

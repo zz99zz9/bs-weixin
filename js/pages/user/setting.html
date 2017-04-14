@@ -1,0 +1,34 @@
+<style>
+.content {
+    height: 60px;
+    width: 100vw;
+    padding: 21px 30px 25px;
+    background-color: white;
+    margin-bottom: 12px;
+}
+
+.logOff {
+    position: absolute;
+    width: 84vw;
+    bottom: 0;
+    margin: 4vw 8vw;
+    text-align: center; 
+    font-size: 18px;
+    background-color: #169488;
+    border-radius: 3px;
+}
+</style>
+<div class="mui-page" ms-controller="setting">
+    <div class="content bs-text-444 bs-text-normal mui-navigate-right" onclick="javascript:location.href='../invoice-list.html';">
+        发票管理
+    </div>
+    <div class="content bs-text-444 bs-text-normal mui-navigate-right" onclick="javascript:location.href='../frequent-contact-list.html';">
+        入住人信息
+    </div>
+    <div class="content bs-text-444 bs-text-normal mui-navigate-right" onclick="javascript:location.href='../about.html';">
+        关于我们
+    </div>
+    <div class="content logOff bs-text-444 bs-text-normal bs-text-white" ms-on-tap="logOff">
+        退出当前帐号
+    </div>
+</div>

@@ -447,7 +447,7 @@ function getStartTime(type) {
     if (type == 1) {
         var today = new Date();
         return today.getFullYear() + "-" + ((today.getMonth() + 1) < 10 ? ('0' + (today.getMonth() + 1)) : (today.getMonth() + 1)) + "-" + today.getDate() + " " + vmPart.partTimeStart;
-    } else if (type == 0){
+    } else if (type == 0) {
         return getDate(vmCalendar.startIndex);
     } else if (type == 2) {
         return getToday();
@@ -458,14 +458,14 @@ function getStartTime(type) {
 function getEndTime(type) {
     var today = new Date(),
         date = today.getFullYear() + "-" + ((today.getMonth() + 1) < 10 ? ('0' + (today.getMonth() + 1)) : (today.getMonth() + 1)) + "-" + today.getDate();
-    
+
     if (type == 1) {
         return date + " " + vmPart.partTimeEnd;
     } else if (type == 0) {
         //夜房默认退房时间
         return getDate(vmCalendar.endIndex) + " 14:00";
     } else if (type == 2) {
-        return date + " 14:00"; 
+        return date + " 14:00";
     }
 }
 
@@ -640,3 +640,34 @@ function modalShow(url, type, callback) {
 function modalClose() {
     $('.mask').hide();
 }
+
+ajaxJsonp({
+    url: urlAPI + '/usr/user/loginPwd',
+    data: {
+        username: 18321958468,
+        password: 123456
+    },
+    successCallback: function(json) {
+        if (json.status !== 1) {
+            alert(json.message);
+            vmLogin.isDisabled = false;
+        } else {
+            var user = {
+                uid: json.data.id,
+                mobile: json.data.mobile,
+                openId: json.data.openId,
+                name: json.data.name,
+                nickname: json.data.nickname,
+                headImg: json.data.headUrl,
+                logState: 1,
+                accessToken: json.data.accessToken,
+                idUrl: json.data.idUrl,
+                idNo: json.data.idNo,
+                authStatus: json.data.authStatus,
+                invoiceMoney: json.data.invoiceMoney
+            };
+            Storage.setLocal('user', user);
+            //location.replace('../index.html');
+        }
+    }
+});

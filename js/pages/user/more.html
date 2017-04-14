@@ -1,0 +1,38 @@
+<style>
+    .content {
+        height: 60px;
+        width: 100vw;
+        padding: 21px 30px 25px;
+        background-color: white;
+        margin-bottom: 12px;
+    }
+</style>
+<div class="mui-page" ms-controller="more">
+    <div class="content bs-text-444 bs-text-normal mui-navigate-right" onclick="javascript:location.href='../user-info.html';">
+        会员中心
+    </div>
+    <div class="content bs-text-444 bs-text-normal mui-navigate-right" onclick="javascript:location.href='../commonweal-introduce.html';">
+        本宿公益
+    </div>
+    <div class="content bs-text-444 bs-text-normal mui-navigate-right" onclick="javascript:location.href='../setting.html';">
+        设置
+    </div>
+    <nav class="mui-bar mui-bar-tab" style="background: white !important;height: 56px;padding: 8px 0 5px;">
+        <a class="mui-tab-item" ms-on-tap="goIndex">
+            <span class="mui-icon"><img src="/img/icon/icon-home.svg" class="nav-ico"></span>
+            <span class="mui-tab-label">首页</span>
+        </a>
+        <a class="mui-tab-item" ms-on-tap="goRoom">
+            <span class="mui-icon"><img src="/img/icon/icon-ruzhu.svg" class="nav-ico"></span>
+            <span class="mui-tab-label">入住</span>
+        </a>
+        <a class="mui-tab-item" ms-on-tap="goOrder">
+            <span class="mui-icon"><img src="/img/icon/icon-dingdan.svg" class="nav-ico"></span>
+            <span class="mui-tab-label">订单</span>
+        </a>
+        <a class="mui-tab-item" ms-on-tap="goMore">
+            <span class="mui-icon"><img src="/img/icon/icon-more-select.svg" class="nav-ico"></span>
+            <span class="mui-tab-label">我的</span>
+        </a>
+    </nav>
+</div>

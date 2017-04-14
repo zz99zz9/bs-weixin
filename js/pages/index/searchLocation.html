@@ -5,7 +5,8 @@
     padding: 10px 12.5px 10px 12.5px;
 }
 
-input[type="search"] {
+
+/*input[type="search"] {
      height: 40px;
      font-weight: 300; 
      border-radius: 0; 
@@ -38,9 +39,9 @@ hr {
 
 .amap-sug-result .auto-item {
     font-size: 16px;
-}
+}*/
 </style>
-<article ms-controller="search">
+<!-- <article ms-controller="search">
     <br>
     <section class="search-panel" style="height: 70vh;">
         <div style="height: 40px;">
@@ -61,6 +62,43 @@ hr {
                 上海迪斯尼店
             </div>
             <div class="bs-text-small bs-text-black" style="margin: 12px 0 0 32.5px;">惠南店</div>
+        </section>
+    </section>
+</article> -->
+<article ms-controller="search" style="height: 100vh;width: 100vw;">
+    <br>
+    <section class="search-panel">
+        <div style="display: flex;justify-content: space-between;align-items: baseline;">
+            <div ms-on-tap="closePop">
+                返回
+            </div>
+            <div style="height: 40px;width: 58vw;">
+                <span class="mui-icon mui-icon-search" style="position: absolute; margin: 4.5px 12.5px;"></span>
+                <input id="tipinput" type="search" style="text-align: center;" placeholder="搜索" autofocus="autofocus">
+            </div>
+            <div onClick="javascript:location.href='../city.html';">
+                搜索
+            </div>
+        </div>
+        <hr>
+        <section class="search-panel" style="padding: 20px 0 0; text-align: left;">
+            <span class="bs-text-small bs-text-153">酒店推荐</span>
+            <div class="bs-text-small bs-text-black" style="margin: 10px 0;">
+                上海迪斯尼店
+            </div>
+            <div class="bs-text-small bs-text-black" style="margin: 10px 0;">惠南店</div>
+            <div class="bs-text-small bs-text-black" style="margin: 10px 0;">
+                上海迪斯尼店
+            </div>
+            <div class="bs-text-small bs-text-black" style="margin: 10px 0;">惠南店</div>
+            <div class="bs-text-small bs-text-black" style="margin: 10px 0;">
+                上海迪斯尼店
+            </div>
+            <div class="bs-text-small bs-text-black" style="margin: 10px 0;">惠南店</div>
+            <div class="bs-text-small bs-text-black" style="margin: 10px 0;">
+                上海迪斯尼店
+            </div>
+            <div class="bs-text-small bs-text-black" style="margin: 10px 0;">惠南店</div>
         </section>
     </section>
 </article>
