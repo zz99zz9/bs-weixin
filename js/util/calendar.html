@@ -58,6 +58,18 @@
     left: 50%;
     margin-left:-20px;
 }
+
+.showClockArrow{
+    background-image: url(./img/icon/right-arrow.svg);
+    background-repeat: no-repeat;
+    transform: rotate(270deg);
+    height: 40px;
+    width: 40px;
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    margin-left:-20px;
+}
 </style>
 <div id="modal-text-content" ms-controller="calendar">
     <section class="modal-content-title">
@@ -65,7 +77,7 @@
         <div class="modal-save bs-text-x-larger" ms-click="closeModal">保存</div>
     </section>
     <section>
-        <div style="margin: 0 10px;background: none;" ms-visible="statusControl.isCalendarShow">
+        <div style="margin: 0 10px;background: none;">
             <div class="calendar" style="border-bottom: 1px solid gainsboro;padding-bottom: 10px;">
                 <b>日</b><b>一</b><b>二</b><b>三</b><b>四</b><b>五</b><b>六</b>
             </div>
@@ -92,13 +104,16 @@
     <!-- filter -->
     <div class="timeHour">
         <div class="start">
+            <div id="startDay" ms-visible="false"></div>
             <div id="startHour"></div>
         </div>
         <div class="end">
+            <div id="endDay" ms-visible="false"></div>
             <div id="endHour"></div>
         </div>
     </div>
     <canvas id="clock" ms-visible="isShowClock"></canvas>
 
     <div class="hideClockArrow" ms-visible="isShowClock" ms-on-tap="hideClock"></div>
+    <div class="showClockArrow" ms-visible="!isShowClock&&startIndex!=-1" ms-on-tap="showClock"></div>
 </div>

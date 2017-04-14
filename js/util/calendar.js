@@ -40,56 +40,110 @@ var bookDateList = null,
         todayIndex: 0,
         clickDate: function(index) {
             stopSwipeSkip.do(function() {
-                $('#calendarPanel').height(50);
-                $('#calendarPanel').scrollTop(index/7*45-20);
-
-                vmCalendar.isShowClock = true;
-
                 var date = vmCalendar.$model.calendar[index];
                 if (vmCalendar.calendar[index].isDisabled == false) {
                     //开始，结束，index相当于分配到开始或结束前的cache
                     if (vmCalendar.startIndex == -1) {
                         vmCalendar.startIndex = index;
                         vmCalendar.endIndex = index + 1;
-                    } else if (vmCalendar.startIndex != -1 && vmCalendar.endIndex == -1 && vmCalendar.startIndex != index) {
+                    } else if (vmCalendar.startIndex != -1 
+                        && vmCalendar.endIndex == -1 
+                        && vmCalendar.startIndex != index) {
                         if (index < vmCalendar.startIndex) {
                             vmCalendar.endIndex = vmCalendar.startIndex;
                             vmCalendar.startIndex = index;
                         } else {
                             vmCalendar.endIndex = index;
                         }
-                    } else if (vmCalendar.startIndex != -1 && vmCalendar.endIndex != -1 && vmCalendar.startIndex != index && vmCalendar.endIndex != index) {
+                    } else if (vmCalendar.startIndex != -1 
+                        && vmCalendar.endIndex != -1 
+                        && vmCalendar.startIndex != index 
+                        && vmCalendar.endIndex != index) {
                         if (index == vmCalendar.startIndex - 1 || index == vmCalendar.startIndex + 1) {
                             vmCalendar.startIndex = index;
                         } else if (index == vmCalendar.endIndex - 1 || index == vmCalendar.endIndex + 1) {
                             vmCalendar.endIndex = index;
                         } else {
-                            vmCalendar.startIndex = index;
-                            vmCalendar.endIndex = -1;
+                            if(index < vmCalendar.startIndex) {
+                                vmCalendar.startIndex = index;
+                            } else if (index > vmCalendar.endIndex) {
+                                vmCalendar.endIndex = index;
+                            } else {
+                                vmCalendar.startIndex = index;
+                                vmCalendar.endIndex = index + 1;
+                            }
                         }
                     }
+                    vmCalendar.foldCalendar(index);
+                    vmCalendar.isShowClock = true;
                 }
             });
         },
         startTime: "", //夜房入住时间, 格式: 08:00
         nightPrice: 0, //根据入住时间确定的夜房价格
-      closeModal: function() {
-        modalClose();
-        vmCalendar.isShowClock = false;
-      },
-      save: function(callback) {
-        modalClose();
-        vmCalendar.isShowClock = false;
-        callback();
-      },
-      isShowClock: false,
-      hideClock: function() {
-        vmCalendar.isShowClock = false;
-        $('#calendarPanel').height($(window).height() - 230);
-      }
-    });
+        closeModal: function() {
+            modalClose();
+            vmCalendar.isShowClock = false;
 
-var dayNum = 1;
+            //保存选中的小时
+            $.extend(newOrder.day, {
+                startHour: clockObj.getStartHour(),
+                endHour: clockObj.getEndHour(),
+                start: clockObj.getStart(),
+                end: clockObj.getEnd(),
+                timeSpan: clockObj.getTimeSpan()
+            });
+            Storage.set("newOrder", newOrder);
+
+            if (typeof(vmCity) != 'undefined') {
+                Storage.set("newOrder", newOrder);
+                saveStorage();
+                vmCity.getHotelPosition(mapObj);
+            }
+            if (typeof(vmHotel) != 'undefined') {
+                Storage.set("newOrder", newOrder);
+                saveStorage();
+                vmHotel.getRoomTypeList();
+            }
+            if (typeof(vmRoom) != 'undefined') {
+                vmRoom.showDate();
+                saveStorage();
+                vmRoom.startIndex = vmCalendar.startIndex;
+            }
+        },
+        save: function(callback) {
+            modalClose();
+            vmCalendar.isShowClock = false;
+            callback();
+        },
+        isShowClock: false,
+        showClock: function() {
+            vmCalendar.isShowClock = true;
+
+            vmCalendar.foldCalendar(vmCalendar.startIndex);
+        },
+        foldCalendar: function(index) {
+            //折叠日历，显示表盘
+            if (vmCalendar.startIndex != -1) {
+                $('#calendarPanel').height(screen.height * (0.15 * screen.height / 450));
+                $('#calendarPanel').scrollTop(index / 7 * 45 - 30);
+
+                var startObj, endObj;
+                startObj = vmCalendar.calendar[vmCalendar.startIndex];
+                clockObj.setStart(startObj.month, startObj.day);
+
+                if (vmCalendar.endIndex == -1) {
+                    vmCalendar.endIndex = vmCalendar.startIndex + 1;
+                }
+                endObj = vmCalendar.calendar[vmCalendar.endIndex];
+                clockObj.setEnd(endObj.month, endObj.day);
+            }
+        },
+        hideClock: function() {
+            vmCalendar.isShowClock = false;
+            $('#calendarPanel').height($(window).height() - 230);
+        }
+    });
 
 //先读取本地session
 if (newOrder && newOrder.day) {
@@ -140,7 +194,7 @@ function getCalendar(serverTime) {
 
         //当前时间6点前的话，可以订昨天的夜房
         if (getHourIndex() < 13 && (i == temp - 1)) {
-        // if (getHourIndex() < 13 && (i == temp)) {
+            // if (getHourIndex() < 13 && (i == temp)) {
             list[i - 1].isDisabled = false;
         }
     }
@@ -200,7 +254,8 @@ vmCalendar.$watch('startIndex', function(a) {
         startObj = vmCalendar.calendar[a];
         if (startObj) {
             sIndex = a;
-            startShow = startObj.month + '月' + startObj.day + '日' + '<br><br>' + getWeekday(startObj.date);
+            startShow = startObj.month + '月' + startObj.day + '日' + '<br>'
+            + clockObj.getStartHour() + ':00<br>' + getWeekday(startObj.date);
         }
     }
 
@@ -217,24 +272,7 @@ vmCalendar.$watch('startIndex', function(a) {
     });
     Storage.set("newOrder", newOrder);
 
-    dayNum = (vmCalendar.endIndex - vmCalendar.startIndex)||1;
-    
-    if(typeof(vmCity)!='undefined'){
-        Storage.set("newOrder", newOrder);
-        saveStorage();
-        vmCity.getHotelPosition(mapObj);
-    }
-    if(typeof(vmHotel)!='undefined'){
-        Storage.set("newOrder", newOrder);
-        saveStorage();
-        vmHotel.getRoomTypeList();
-    }
-    if(typeof(vmRoom)!='undefined') {
-        vmRoom.showDate();
-        saveStorage();
-        vmRoom.startIndex = vmCalendar.startIndex;
-    }
-
+    clockObj.setStart(startObj.month, startObj.day);
 });
 
 vmCalendar.$watch('endIndex', function(a) {
@@ -246,7 +284,8 @@ vmCalendar.$watch('endIndex', function(a) {
         endObj = vmCalendar.calendar[a];
         if (endObj) {
             eIndex = a;
-            endShow = endObj.month + '月' + endObj.day + '日' + '<br><br>' + getWeekday(endObj.date);
+            endShow = endObj.month + '月' + endObj.day + '日' + '<br>'
+            + clockObj.getEndHour() + ':00<br>' + getWeekday(endObj.date);
         }
     }
 
@@ -263,22 +302,25 @@ vmCalendar.$watch('endIndex', function(a) {
     });
     Storage.set("newOrder", newOrder);
 
-    dayNum = (vmCalendar.endIndex - vmCalendar.startIndex)||1;
+    clockObj.setEnd(endObj.month, endObj.day);
+});
 
-    if(typeof(vmCity)!='undefined'){
-        Storage.set("newOrder", newOrder);
-        saveStorage();
-        vmCity.getHotelPosition(mapObj);
+Observer.regist('startChange', function(e) {
+    var start = e.args.date,
+        delta = e.args.delta;
+    if (delta > 0) {
+        vmCalendar.startIndex++;
+    } else {
+        vmCalendar.startIndex--;
     }
-    if(typeof(vmHotel)!='undefined'){
-        Storage.set("newOrder", newOrder);
-        saveStorage();
-        vmHotel.getRoomTypeList();
+});
+
+Observer.regist('endChange', function(e) {
+    var start = e.args.date,
+        delta = e.args.delta;
+    if (delta > 0) {
+        vmCalendar.endIndex++;
+    } else {
+        vmCalendar.endIndex--;
     }
-    if(typeof(vmRoom)!='undefined') {
-        vmRoom.showDate();
-        saveStorage();
-        vmRoom.startIndex = vmCalendar.startIndex;
-    }
-    
 });

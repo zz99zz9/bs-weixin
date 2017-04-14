@@ -447,8 +447,8 @@ function getStartTime(type) {
     if (type == 1) {
         var today = new Date();
         return today.getFullYear() + "-" + ((today.getMonth() + 1) < 10 ? ('0' + (today.getMonth() + 1)) : (today.getMonth() + 1)) + "-" + today.getDate() + " " + vmPart.partTimeStart;
-    } else if (type == 0){
-        return getDate(vmCalendar.startIndex);
+    } else if (type == 0) {
+        return getDate(vmCalendar.startIndex) + ' ' + clockObj.getStartHour() + ":00";;
     } else if (type == 2) {
         return getToday();
     }
@@ -458,14 +458,14 @@ function getStartTime(type) {
 function getEndTime(type) {
     var today = new Date(),
         date = today.getFullYear() + "-" + ((today.getMonth() + 1) < 10 ? ('0' + (today.getMonth() + 1)) : (today.getMonth() + 1)) + "-" + today.getDate();
-    
+
     if (type == 1) {
         return date + " " + vmPart.partTimeEnd;
     } else if (type == 0) {
         //夜房默认退房时间
-        return getDate(vmCalendar.endIndex) + " 14:00";
+        return getDate(vmCalendar.endIndex) + ' ' + clockObj.getEndHour() + ":00";
     } else if (type == 2) {
-        return date + " 14:00"; 
+        return date + " 14:00";
     }
 }
 
@@ -640,3 +640,38 @@ function modalShow(url, type, callback) {
 function modalClose() {
     $('.mask').hide();
 }
+
+var Observer = (function() {
+    var _message = {};
+    return {
+        regist: function(type, fn) {
+            if (typeof _message[type] === 'undefined') {
+                _message[type] = [fn];
+            } else {
+                _message[type].push(fn);
+            }
+        },
+        fire: function(type, args) {
+            if (!_message[type])
+                return;
+            var events = {
+                    type: type,
+                    args: args || {}
+                },
+                i = 0,
+                len = _message[type].length;
+
+            for (; i < len; i++) {
+                _message[type][i].call(this, events);
+            }
+        },
+        remove: function(type, fn) {
+            if (_message[type] instanceof Array) {
+                var i = _message[type].length - 1;
+                for (; i >= 0; i--) {
+                    _message[type][i] === fn && _message[type].splice(i, 1);
+                }
+            }
+        }
+    }
+})();

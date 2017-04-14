@@ -50,17 +50,17 @@
                 <span class="bs-text-large bs-text-51">入住时间</span>
                 <span class="bs-text-large bs-text-51" style="float: right">退房时间</span>
             </p>
-            <div class="" style="padding: 0 10px 20px; display: flex; justify-content: space-between;align-items: center;" ms-on-tap="openTimePanel">
+            <div class="" style="padding: 0 10px 20px; display: flex; justify-content: space-between;text-align: center;" ms-on-tap="openTimePanel">
                 <div class="bs-text-large bs-text-red" style="">
                     {{start|html}}
                 </div>
-                <div style="text-align: center;font-size: 12px;">
+                <div style="font-size: 12px;">
                     <div>|</div>
-                    <span class="bs-text-large bs-text-red">{{amount + (type?'小时':'晚')}}</span>
+                    <span class="bs-text-large bs-text-red">{{timeSpan}}</span>
                     <br>
                     <div>|</div>
                 </div>
-                <div class="bs-text-large bs-text-red" style="text-align: right;">
+                <div class="bs-text-large bs-text-red">
                     {{end|html}}
                 </div>
             </div>
