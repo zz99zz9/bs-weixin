@@ -1,12 +1,14 @@
 <style>
 .gradient {
-    height: 360px;
-    background-image: linear-gradient(135deg, #169488, #006457);
+    height: 220px;
+    margin: 16px 0;
+    padding: 30px 0;
+    background-color: white;
 }
 
 .img-ul {
-    height: 45px;
-    width: 45px;
+    height: 24px;
+    width: 24px;
 }
 
 .img-ur {
@@ -24,43 +26,42 @@
 .device-r {
     height: 130px;
     text-align: center;
-    padding: 33px 0 16px 0;
+    padding: 30px 0 16px 0;
 }
 
 .device-c {
     height: 230px;
-    padding: 48px 0 24px 0;
+    color: white;
+    font-size: bold;
     border-top: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .prompt {
     opacity: 0.9;
-    color: #b3dfdb;
     text-align: center;
-    margin-top: 30px;
+    margin-top: 24px;
 }
 
 .cirque {
-    width: 108px;
-    height: 108px;
+    width: 120px;
+    height: 120px;
     margin: 0 auto;
     text-align: center;
-    line-height: 108px;
-    color: #fcc02f;
+    line-height: 120px;
     border-radius: 100px;
-    border: 2px solid #fcc02f;
     font-size: 20px;
+    box-shadow: 0 0 3px 3px #ccc;
 }
 
 .content-prompt {
     font-size: 20px;
     line-height: 32px;
     color: #444;
-    margin-bottom: 13px;
+    margin-bottom: 35px;
 }
 
 .content-infor {
-    margin-top: 7px;
+    margin-bottom: 35px;
     color: #444;
     font-weight: bold;
 }
@@ -76,35 +77,36 @@
 
 .arrow {
     position: absolute;
-    top: 89px;
+    top: 40px;
     float: right;
     right: 38px;
-    height: 30px;
-    width: 30px;
+    height: 40px;
+    width: 40px;
+    padding: 10px;
 }
 </style>
 <div class="" ms-controller="serviceReady">
-    <div class="mui-content gradient">
-        <div class="mui-row">
-            <div class="mui-col-sm-6 mui-col-xs-6 device-l">
-                <img src="../img/icon/air_conditioning.svg" class="img-ul">
-                <div class="bs-text-larger" style="color: #b3dfdb;margin-top: 12px;">
-                    18°C
-                </div>
-            </div>
-            <div class="mui-col-sm-6 mui-col-xs-6 device-r">
-                <img src="../img/icon/humidity.svg" class="img-ur">
-                <div class="bs-text-larger" style="color: #b3dfdb;margin-top: 19px;">
-                    30%RH
-                </div>
+    <div style="display: flex;height: 64px;padding: 20px 24px;background-color: white;">
+        <div class="mui-col-sm-3 mui-col-xs-3" style="display: flex;justify-content: flex-start;margin-right: 25px;">
+            <img src="../img/icon/air_conditioning.svg" class="img-ul">
+            <div class="bs-text-smaller bs-text-444" style="margin-left: 8px;">
+                18°C
             </div>
         </div>
-        <div class="device-c mui-col-sm-12">
-            <div class="cirque" ms-on-tap="goTem">
-                {{temperature}}
-                <img src="../img/icon/right-arrow.svg" class="arrow" ms-on-tap="goOpendoor">
+        <div class="mui-col-sm-3 mui-col-xs-3" style="display: flex;justify-content: flex-start;">
+            <img src="../img/icon/humidity.svg" class="img-ul">
+            <div class="bs-text-smaller bs-text-444" style="margin-left: 8px;">
+                30%RH
             </div>
-            <div class="bs-text-smaller prompt">
+        </div>
+    </div>
+    <div class="mui-content gradient">
+        <div class="device-c mui-col-sm-12">
+            <div class="cirque bs-bg-169488" ms-on-tap="goTem">
+                {{temperature}}
+            </div>
+                <img src="../img/icon/right-arrow.svg" class="arrow" ms-on-tap="goOpendoor">
+            <div class="bs-text-smaller prompt bs-text-444">
                 {{timePrompt}}
             </div>
         </div>
@@ -122,13 +124,13 @@
     </div>
     <div style="height: 308px;margin-top:16px;padding-top:18px;background-color: white;">
         <div style="margin: 0 30px 18px;color: #444;font-size: 18px;">
-            酒店所在位置
+            <img src="../img/icon/mapNavigation.svg" style="position: relative;top: 5px;margin-right: 8px;">或许您还需要导航
         </div>
         <div ms-on-tap="openNav">
-            <img src="../img/service-hotelPlace.png" style="height: 200px;width: 100vw;">
+            <img src="../img/service-hotelPlace.png" style="height: 240px;width: 100vw;">
         </div>
     </div>
-    <div style="height: 14px;">
+    <div style="height: 54px;">
     </div>
     <nav class="mui-bar mui-bar-tab" style="background: white !important;height: 56px;padding: 8px 0 5px;">
         <a class="mui-tab-item" ms-on-tap="goIndex">
@@ -143,7 +145,7 @@
             <span class="mui-icon"><img src="/img/icon/icon-dingdan.svg" class="nav-ico"></span>
             <span class="mui-tab-label">订单</span>
         </a>
-        <a class="mui-tab-item" ms-on-tap="goUser">
+        <a class="mui-tab-item" ms-on-tap="goMore">
             <span class="mui-icon"><img src="/img/icon/icon-more.svg" class="nav-ico"></span>
             <span class="mui-tab-label">我的</span>
         </a>

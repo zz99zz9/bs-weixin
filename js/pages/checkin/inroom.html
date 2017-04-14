@@ -1,17 +1,4 @@
 <style>
-.mui-content,
-body {
-    background: white !important;
-}
-
-.mui-slider-title {
-    color: white !important;
-}
-
-.switch-button {
-    margin: 16px 20px 16px 16px;
-}
-
 .grid-item {
     height: 130px;
     background: #006457 !important;
@@ -75,130 +62,162 @@ body {
     margin-left: 12px;
     line-height: 30px;
 }
+
+.header {
+    height: 64px;
+    background-color: white;
+    padding: 0 20px;
+}
+
+.header-l {
+    position: relative;
+    top: 23px;
+}
+
+.header-r {
+    position: relative;
+    float: right;
+    top: 26px;
+}
+
+.device-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 64px;
+}
+
+.cirque {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto;
+    text-align: center;
+    line-height: 80px;
+    border-radius: 80px;
+    box-shadow: 0 0 3px 3px #ccc;
+}
+
+.img-word {
+    position: absolute;
+    float: left;
+    top: 12px;
+    left: 12px;
+}
+
+div .mui-popup-buttons .mui-popup-button {
+    font-size: 15px;
+    color: #169488;
+}
 </style>
-<ul class="mui-table-view">
-    <li class="mui-table-view-cell">
-        <span class="mui-icon mui-icon-home"></span><span class="bs-text-small">于明早上午8:00叫醒</span>
-        <div class="mui-switch">
+<div ms-controller="inroom">
+    <div class="header">
+        <div class="mui-icon mui-icon-home header-l" ms-if="isNight==1"><span class="bs-text-small">于明早上午8:00叫醒</span></div>
+        <div class="bs-text-small bs-text-444 header-r" style="right: 48px;">睡眠模式</div>
+        <div id="night" class="mui-switch mui-switch-mini header-r" style="top: 20px;right: -60px;">
             <div class="mui-switch-handle"></div>
         </div>
-    </li>
-</ul>
-<ul class="mui-table-view mui-grid-view mui-grid-9" style="border-left: 0px;margin-top: 16px" ms-controller="inroom">
-    <li class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6 grid-item" style="border-right:1px solid #b3dfdb;border-bottom:1px solid #b3dfdb;">
-        <a href="#" style="margin: 25px auto">
-            <img src="../img/icon/icon-shidu.svg" style="width: 50px;height: 50px">
-            <br>
-            <span style="color: #b3dfdb;font-size: 10px;font-family: 'Microsoft Yahei'">25℃</span>
-        </a>
-    </li>
-    <li class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6 grid-item" style="border-right:0px solid #b3dfdb;border-bottom:1px solid #b3dfdb;">
-        <a href="#" style="margin: 25px auto">
-            <img src="../img/icon/icon-kongtiao.svg" style="width: 50px;height: 50px">
-            <br>
-            <span style="color: #b3dfdb;font-size: 10px;font-family: 'Microsoft Yahei'">35% RH</span>
-        </a>
-    </li>
-    <li class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6 grid-item" style="border-right:1px solid #b3dfdb;border-bottom:0px solid #b3dfdb;">
-        <a href="#" style="margin: 3px auto">
-            <div style="height: 80px;width: 80px;border: 4px solid #fcc02f;border-color: rgba(252,192,47,0.6);border-radius: 68px;margin: 0px auto;display: table" ms-on-tap="goOpendoor">
-                <span style="display:table-cell;vertical-align: middle;color: #fcc02f;font-size: 12px;font-family: 'Microsoft Yahei';">点击开门</span>
-            </div>
-            <div style="display: flex;flex-direction: column;justify-content: center">
-                <span style="color: #b3dfdb;font-size: 8px;font-family: 'Microsoft Yahei';margin-top: 8px">请观察圈中的影像再开门</span>
-            </div>
-        </a>
-    </li>
-    <li class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6 grid-item" style="border-right:0px solid #b3dfdb;border-bottom:0px solid #b3dfdb;">
-            <div style="margin: 0px auto;margin-top: 24px;" ms-on-tap="goCheckout">
-            <img src="../img/icon/checkOut.svg" class="">
-                <div class="bs-text-smaller" style="color: #fcc02f;font-family: 'Microsoft Yahei';">点击退房</div>
-            </div>
-            <div style="display: flex;flex-direction: column;justify-content: center">
-                <span style="color: #b3dfdb;font-size: 8px;font-family: 'Microsoft Yahei';margin-top: 7px">将于明日11:00退房</span>
-            </div>
-    </li>
-</ul>
-<div class="intro-title">
-    <span>设备控制</span>
-</div>
-<div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted" style="height: 114px;background: white">
-    <div class="mui-scroll">
-        <a class="mui-control-item city-list-item" style="margin-left: 10px !important;">
-            <div><img src="../img/icon/icon-yingshi.svg" class="city-list-location"></div>
-            <label class="city-list-item-txt">影视</label>
-        </a>
-        <a class="mui-control-item city-list-item">
-            <div><img src="../img/icon/icon-guangzhao.svg" class="city-list-location"></div>
-            <label class="city-list-item-txt">光照</label>
-        </a>
-        <a class="mui-control-item city-list-item" style="margin-right: 10px !important;">
-            <div><img src="../img/icon/icon-wendu.svg" class="city-list-location"></div>
-            <label class="city-list-item-txt">温度</label>
-        </a>
     </div>
-</div>
-<div class="intro-title">
-    <span>服务预约</span>
-</div>
-<div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted" style="height: 120px;background: white">
-    <div class="mui-scroll">
-        <a class="mui-control-item service-list-item" style="margin-left: 10px !important;">
-            <div class="service-list-item-img" style="background: url('../img/qietu-zaocan.png');">
-                <label class="service-list-item-txt">预约早餐</label>
+    <div style="display: flex;height: 64px;margin: 16px 0;padding: 20px 24px;background-color: white;">
+        <div class="mui-col-sm-3 mui-col-xs-3" style="display: flex;justify-content: flex-start;margin-right: 25px;">
+            <img src="../img/icon/air_conditioning.svg" class="img-ul">
+            <div class="bs-text-smaller bs-text-444" style="margin-left: 8px;">
+                18°C
             </div>
-        </a>
-        <a class="mui-control-item service-list-item">
-            <div class="service-list-item-img" style="background: url('../img/qietu-xiyi.png');">
-                <label class="service-list-item-txt">洗衣服务</label>
+        </div>
+        <div class="mui-col-sm-3 mui-col-xs-3" style="display: flex;justify-content: flex-start;">
+            <img src="../img/icon/humidity.svg" class="img-ul">
+            <div class="bs-text-smaller bs-text-444" style="margin-left: 8px;">
+                30%RH
             </div>
-        </a>
-        <a class="mui-control-item service-list-item" style="margin-right: 10px !important;">
-            <div class="service-list-item-img" style="background: url('../img/qietu-dajia.png');">
-                <label class="service-list-item-txt">专车代驾</label>
-            </div>
-        </a>
+        </div>
     </div>
-</div>
-<div class="intro-title">
-    <span>周边推荐</span>
-</div>
-<div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted" style="height: 180px;background: white;">
-    <div class="mui-scroll">
-        <a class="mui-control-item service-list-item" style="margin-left: 10px !important;">
-            <div class="service-list-item-img" style="background: url('../img/qietu-yeshengdongwuyuan.png');">
-                <label class="service-list-item-txt">上海野生动物园</label>
+    <div class="bs-text-normal bs-text-444" style="padding: 24px 24px 0;background-color: white;">
+        <div class="bs-text-18" style="margin-bottom: 25px;">
+            设备控制
+        </div>
+        <div class="device-content">
+            <div>影视</div>
+            <div>
+                <img src="../img/icon/movie.svg" alt="">
             </div>
-        </a>
-        <a class="mui-control-item service-list-item">
-            <div class="service-list-item-img" style="background: url('../img/qietu-disini.png');">
-                <label class="service-list-item-txt">迪士尼乐园</label>
+        </div>
+        <div class="device-content" style="border-top: 1px solid #eee;border-bottom: 1px solid #eee;">
+            <div>光照</div>
+            <div>
+                <img src="../img/icon/sunshine.svg" alt="">
             </div>
-        </a>
-        <a class="mui-control-item service-list-item" style="margin-right: 10px !important;">
-            <div class="service-list-item-img" style="background: url('../img/qietu-xiaochi.png');">
-                <label class="service-list-item-txt">周边小吃</label>
+        </div>
+        <div class="device-content">
+            <div>温度</div>
+            <div>
+                <img src="../img/icon/temperature.svg" alt="" style="position: relative;right: 8px;">
             </div>
-        </a>
+        </div>
     </div>
-    <div style="height: 50px;">
+    <div style="display: flex;background-color: white;height: 170px;padding: 8vw 4vw;margin: 8px 0 16px;">
+        <div style="width: 46vw;border-right: 1px solid #eee;">
+            <div class="cirque bs-text-normal bs-text-white bs-bg-169488" ms-on-tap="goOpendoor">
+                点击开门
+            </div>
+            <div class="bs-text-x-smaller prompt bs-text-444" style="margin-top: 20px;text-align: center;">
+                请观察圈中的影像再开门
+            </div>
+        </div>
+        <div style="width: 46vw;margin-top: 10px;">
+            <div style="margin: 0px auto;text-align: center;" ms-on-tap="goCheckout">
+                <img src="../img/icon/checkOut.svg" class="">
+                <div class="bs-text-smaller bs-text-169488" style="font-family: 'Microsoft Yahei';">点击退房</div>
+            </div>
+            <div class="bs-text-x-smaller prompt bs-text-444" style="margin-top: 20px;text-align: center;">
+                此时退房将获得200时币
+            </div>
+        </div>
     </div>
+    <div style="background-color: white;padding-bottom: 20px;margin-bottom: 20px;">
+        <div class="bs-text-444" style="font-weight: bold;padding: 23px 16px;">
+            预约服务
+        </div>
+        <div class="swiper-container swiper1" style="height: 120px; z-index: 10;bottom: 0;background-color: white;">
+            <div class="swiper-wrapper" style="padding-left: 15px;background-color: white;">
+                <div class="swiper-slide swiper-slide-marker" ms-repeat="serviceList" data-repeat-rendered="swiper1Render">
+                    <div ms-css-background-image="linear-gradient(rgba(0, 0, 0, .3), rgba(0, 0, 0, .5)), url({{el.coverUrl}})" style="height: 100%;background-size: cover;width: inherit;position: relative;"><span class="bs-text-white img-word bs-text-normal">{{el.name}}</span>
+                    </div>
+                </div>
+                <div class="swiper-scrollbar"></div>
+            </div>
+        </div>
+    </div>
+    <div style="background-color: white;padding-bottom: 20px">
+        <div class="bs-text-444" style="font-weight: bold;padding: 23px 16px;">
+            周边推荐
+        </div>
+        <div class="swiper-container swiper1" style="height: 120px; z-index: 10;bottom: 0;background-color: white;">
+            <div class="swiper-wrapper" style="padding-left: 15px;background-color: white;">
+                <div class="swiper-slide swiper-slide-marker" ms-repeat="peripheryList" data-repeat-rendered="swiper1Render">
+                    <div ms-css-background-image="linear-gradient(rgba(0, 0, 0, .3), rgba(0, 0, 0, .5)), url({{el.coverUrl}})" style="height: 100%;background-size: cover;width: inherit;position: relative;"><span class="bs-text-white img-word bs-text-normal">{{el.name}}</span>
+                    </div>
+                </div>
+                <div class="swiper-scrollbar"></div>
+            </div>
+        </div>
+    </div>
+    <div style="height: 55px;"></div>
+    <nav class="mui-bar mui-bar-tab" style="background: white !important;">
+        <a class="mui-tab-item" ms-on-tap="goIndex">
+            <span class="mui-icon"><img src="/img/icon/icon-home.svg" class="nav-ico"></span>
+            <span class="mui-tab-label">首页</span>
+        </a>
+        <a class="mui-tab-item">
+            <span class="mui-icon"><img src="/img/icon/icon-ruzhu-select.svg" class="nav-ico"></span>
+            <span class="mui-tab-label">入住</span>
+        </a>
+        <a class="mui-tab-item" ms-on-tap="goOrder">
+            <span class="mui-icon"><img src="/img/icon/icon-dingdan.svg" class="nav-ico"></span>
+            <span class="mui-tab-label">订单</span>
+        </a>
+        <a class="mui-tab-item" ms-on-tap="goMore">
+            <span class="mui-icon"><img src="/img/icon/icon-more.svg" class="nav-ico"></span>
+            <span class="mui-tab-label">我的</span>
+        </a>
+    </nav>
 </div>
-<nav class="mui-bar mui-bar-tab" style="background: white !important;" ms-controller="inroom">
-    <a class="mui-tab-item" ms-on-tap="goIndex">
-        <span class="mui-icon"><img src="/img/icon/icon-home.svg" class="nav-ico"></span>
-        <span class="mui-tab-label">首页</span>
-    </a>
-    <a class="mui-tab-item">
-        <span class="mui-icon"><img src="/img/icon/icon-ruzhu-select.svg" class="nav-ico"></span>
-        <span class="mui-tab-label">入住</span>
-    </a>
-    <a class="mui-tab-item" ms-on-tap="goOrder">
-        <span class="mui-icon"><img src="/img/icon/icon-dingdan.svg" class="nav-ico"></span>
-        <span class="mui-tab-label">订单</span>
-    </a>
-    <a class="mui-tab-item" ms-on-tap="goUser">
-        <span class="mui-icon"><img src="/img/icon/icon-more.svg" class="nav-ico"></span>
-        <span class="mui-tab-label">我的</span>
-    </a>
-</nav>

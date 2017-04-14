@@ -51,7 +51,6 @@
     height: auto;
     text-align: center;
     line-height: 130% !important;
-    padding: 15px 0px 15px 21px !important;
     display: flex;
     flex-direction: column;
 }
@@ -87,7 +86,7 @@
 
 .intro-ul {
     padding: 0 !important;
-    margin-bottom: 50px;
+    margin-bottom: 16px;
 }
 
 .intro-item {
@@ -116,71 +115,118 @@
     width: 30px;
     height: 30px;
 }
+
+.search {
+    height: 50px;
+    background-color: rgba(179, 223, 219, 0.2);
+    margin: 12px 10px;
+    padding-top: 16px;
+    border-radius: 30px;
+    font-size: 18px;
+}
+
+.intro-back1 {
+    height: 280px;
+    width: 100vw;
+}
+
+.distance {
+    float: right;
+    margin: 10px 0;
+    padding: 5px 10px;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.3);
+}
 </style>
 <div ms-controller="index2">
     <div class="index-top">
-        <img src="/img/icon/logo.svg" class="index-top-logo">
+        <img src="/img/icon/logo.svg" style="position: absolute;margin: 20px 10px;" class="index-top-logo">
+        <img class="intro-back1" src="../img/index-background.png">
         <div class="index-top-div">
-            <span>您好，Echo</span>
-            <div class="mui-input-row mui-search">
+            <div>您好，Echo</div>
+            <marquee direction="up" scrolldelay="100" scrollamount="1"  height="159" width="302">滚动的内容<br>滚动的内容<br>滚动的内容<br>滚动的内容<br>滚动的内容<br>滚动的内容</marquee>
+            <!-- <div class="mui-input-row mui-search" ms-on-tap="openPop">
                 <input type="search" class="mui-input-clear index-top-search" placeholder="搜索">
+            </div> -->
+            <div class="bs-bg-white bs-text-153 search" ms-on-tap="openPop">
+                <img src="../img/icon/icon-sousuo.svg" alt="" style="width: 18px;position: relative;top: 1px;">
+                <span style="position: relative;top: -2px;margin-left: 4px; color: white;">搜索</span>
             </div>
         </div>
     </div>
-    <div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted" style="height: 114px;background: white">
-        <div class="mui-scroll">
-            <a class="mui-control-item city-list-item" style="padding-left: 10px !important;" ms-on-tap="goCity">
-                <div><img src="/img/icon/icon-dingwei1.svg" class="city-list-location"></div>
-                <label class="city-list-item-txt">附近</label>
-            </a>
-            <a class="mui-control-item city-list-item" ms-on-tap="goCity">
-                <div><img src="/img/qietu-shanghai.png" class="city-list-location"></div>
-                <label class="city-list-item-txt">上海</label>
-            </a>
-            <a class="mui-control-item city-list-item">
-                <div><img src="/img/qietu-hangzhou.png" class="city-list-location"></div>
-                <label class="city-list-item-txt">杭州</label>
-            </a>
-            <a class="mui-control-item city-list-item">
-                <div><img src="/img/qietu-nanjing.png" class="city-list-location"></div>
-                <label class="city-list-item-txt">南京</label>
-            </a>
-            <a class="mui-control-item city-list-item" style="padding-right: 10px !important;">
-                <div><img src="/img/qietu-suzhou.png" class="city-list-location"></div>
-                <label class="city-list-item-txt">苏州</label>
-            </a>
+    <div class="swiper-slide-item">
+        <div class="swiper-container swiper1 hotel-room-amenity bs-bg-white" style="height: 114px;border-bottom: 0.5px solid #ccc">
+            <div class="swiper-wrapper" style="display: flex; padding-left: 0;">
+                <div class="swiper-slide hotel-room-amenity-item" ms-repeat-cl="data" data-repeat-rendered="swiper1Render" style="display: flex;flex-direction: column;margin-left: 10px;">
+                    <img ms-attr-src="cl.ico" ms-attr-alt="cl.name" style="width: 60px;height: 60px;margin-left: 5px;margin-bottom: 10px;" />
+                    <label class="bs-text-smaller hotel-room-amenity-text bs-text-444">{{cl.name}}</label>
+                </div>
+                <div class="swiper-scrollbar"></div>
+            </div>
         </div>
     </div>
     <div class="intro-title">
-        <span>为您介绍</span>
+        <span>了解更多</span>
     </div>
     <ul class="mui-table-view mui-grid-view intro-ul">
         <li class="mui-table-view-cell mui-media mui-col-xs-6 intro-item" style="padding-right: 1px !important;">
-            <a href="#">
-                <img class="mui-media-object" src="/img/qietu-haocai.png">
-                <span class="intro-item-spn">布草/耗材</span>
+            <a href="###">
+                <img class="mui-media-object" src="/img/index-aboutUs.png">
+                <span class="intro-item-spn">关于我们</span>
+                <!-- <em style="position:absolute;left:0;top:0; display:block;width:100%;height:96%; background:rgba(0,0,0,0.5);"></em> -->
             </a>
         </li>
         <li class="mui-table-view-cell mui-media mui-col-xs-6 intro-item" style="padding-left: 1px !important;">
-            <a href="#">
-                <img class="mui-media-object" src="/img/qietu-yingyin.png">
-                <span class="intro-item-spn">影音系统</span>
+            <a href="###">
+                <img class="mui-media-object" src="/img/index-partner.png">
+                <span class="intro-item-spn">城市合伙人</span>
+                <!-- <em style="position:absolute;left:0;top:0; display:block;width:100%;height:96%; background:rgba(0,0,0,0.5);"></em> -->
             </a>
         </li>
         <li class="mui-table-view-cell mui-media mui-col-xs-6 intro-item" style="padding-right: 1px !important;">
-            <a href="#">
-                <img class="mui-media-object" src="/img/qietu-kekong.png">
-                <span class="intro-item-spn">智能客控</span>
+            <a href="###">
+                <img class="mui-media-object" src="/img/index-cooperation.png">
+                <span class="intro-item-spn">酒店合作</span>
             </a>
         </li>
         <li class="mui-table-view-cell mui-media mui-col-xs-6 intro-item" style="padding-left: 1px !important;">
-            <a href="#">
-                <img class="mui-media-object" src="/img/qietu-jiaju.png">
-                <span class="intro-item-spn">床垫/家具</span>
+            <a href="###">
+                <img class="mui-media-object" src="/img/index-invited.png">
+                <span class="intro-item-spn">要您参与</span>
             </a>
         </li>
     </ul>
-    <div style="height: 15px;">
+    <div class="bs-text-large" style="width: 100%;padding: 10px 0 14px 10px;margin: 0 auto;background-color: white;">更多推荐</div>
+    <!-- <div class="swiper-container swiper2" style="padding-left: 10px;background-color: white;">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide" ms-repeat="list" data-repeat-rendered="swiper2Render"> -->
+    <!--         </div>
+            <div class="swiper-pagination"></div>
+        </div>
+    </div> -->
+    <div class="swiper-container swiper4" style="height: 200px; z-index: 10;bottom: 0;">
+        <div class="swiper-wrapper" style="padding-left: 15px;background-color: white;">
+            <div class="swiper-slide swiper-slide-marker" ms-repeat="hotelMarkers" data-repeat-rendered="swiper4Render">
+                <div ms-css-background-image="linear-gradient(rgba(0, 0, 0, .2), rgba(0, 0, 0, .2)), url({{urlAPINet + el.coverUrl}})" style="height: 136px;background-size: cover;width: inherit;position: relative;top: -32px;">
+                    <span class="distance bs-text-smaller">{{round(el.distance/1000)}}km</span>
+                    <div style="display: flex;width: 100%;position: absolute;bottom: 5px;">
+                        <div class="bs-text-white bs-bg-black price" style="height: 35px;width: 117px;">
+                            <span style="position: relative;top: 2px; right: -3px;color: #999;font-size: 15px">￥</span>
+                            <span class="bs-text-x-larger" style="position: relative;top: 7px;">150</span>
+                            <span class="bs-text-smaller bs-text-lighter" style="position: relative;top: 7px;">／晚起</span>
+                        </div>
+                    </div>
+                    <div class="hotelName" style="position: relative;width: 200px;text-align: left; top: 147px;left: 12px;">
+                        {{el.name}}
+                        <br>
+                        <span class="bs-text-smaller">{{el.address}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-scrollbar"></div>
+        </div>
+    </div>
+    <div style="height: 72px;">
     </div>
     <nav class="mui-bar mui-bar-tab" style="background: white !important;height: 56px;padding: 8px 0 5px;">
         <a class="mui-tab-item" ms-on-tap="goIndex">
@@ -195,7 +241,7 @@
             <span class="mui-icon"><img src="/img/icon/icon-dingdan.svg" class="nav-ico"></span>
             <span class="mui-tab-label">订单</span>
         </a>
-        <a class="mui-tab-item" ms-on-tap="goUser">
+        <a class="mui-tab-item" ms-on-tap="goMore">
             <span class="mui-icon"><img src="/img/icon/icon-more.svg" class="nav-ico"></span>
             <span class="mui-tab-label">我的</span>
         </a>

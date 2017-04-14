@@ -558,7 +558,6 @@ var clock = function(startH, endH) {
             getStartandEnd();
         },
         getTimeSpan: function() {
-            console.log(timeSpan);
             return timeSpan;
         }
     };

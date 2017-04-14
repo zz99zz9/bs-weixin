@@ -1,3 +1,6 @@
+
+
+
 <style>
 section {
     margin: 2px 0;
@@ -61,10 +64,10 @@ section {
 <section>
     <div class="row" ms-controller="serviceOrderList">
         <div class="item-text">
-            {{orderList.roomNo}}
+            1123
         </div>
         <div style="font-size: 18px;color: #169488;" onclick="javascript:location.href='process.html';">
-            去开门
+            去做些准备
         </div>
         <!-- <img src="../img/icon/service-send.svg" class="item-img"> -->
     </div>
@@ -73,8 +76,11 @@ section {
     <div class="mui-scroll">
         <div class="input-panel" style="margin: 16px 0;padding: 25px 30px;background-color: white;">
             <div>
-                <div style="color: #444;font-size: 18px;font-weight: bold;margin-bottom: 25px;">
-                    邀请入住
+                <div class="bs-text-444 bs-text-x-larger" style="font-weight: bold;margin-bottom: 16px;">
+                    发送订单
+                </div>
+                <div class="bs-text-444 bs-text-smaller" style="margin-bottom: 17px;">
+                    将您的订单发送给您的好友
                 </div>
                 <div class="content-infor" ms-repeat="data">
                     <div class="flex0 bs-text-x-smaller" style="-webkit-box-pack: justify;">{{el.orderNo}}</div>
@@ -104,7 +110,7 @@ section {
             <span class="mui-icon"><img src="/img/icon/icon-dingdan.svg" class="nav-ico"></span>
             <span class="mui-tab-label">订单</span>
         </a>
-        <a class="mui-tab-item" ms-on-tap="goUser">
+        <a class="mui-tab-item" ms-on-tap="goMore">
             <span class="mui-icon"><img src="/img/icon/icon-more.svg" class="nav-ico"></span>
             <span class="mui-tab-label">我的</span>
         </a>
@@ -112,13 +118,13 @@ section {
     <div style="padding: 20px;background-color: #fff;height: 100vh;">
         <div class="mask-fullscreen bs-text-white" ms-if="isSend" style="position: fixed; z-index: 11;">
             <img src="../img/icon/arrow-top-right.svg" style="width: 30px;">
-            <div class="bs-text-larger" style="padding-top: 30px;line-height: 25px;">
+            <div class="" style="padding-top: 30px;line-height: 25px;font-size: 20px;">
                 请点击右上角
-                <br> 分享给您的好友
-                <br> 邀请他来入住吧
+                <br> 把订单发送给您的好友
+                <br> 邀请他们前去办理入住吧
                 <br>
             </div>
-            <div ms-on-tap="send" class="bs-text-large" style="height: 100px;padding-top: 35px;">关闭
+            <div ms-on-tap="send" class="" style="height: 100px;padding-top: 50px;font-size: 20px;">关闭
                 <br>
             </div>
         </div>

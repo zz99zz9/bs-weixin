@@ -107,14 +107,14 @@ var vmServiceProcess = avalon.define({
             mui.alert('注意提醒您的小伙伴查收订单哦。', "发送成功");
         })
     },
-    goal: '',
+    goal: '目的是...',
     goalId: 0,
     goalList: [
         { value: 1, text: '旅游休闲' }, 
         { value: 2, text: '商务出差' },
         { value: 2, text: '临时入住' },
     ],
-    companion: '',
+    companion: '同伴是...',
     companionId: 0,
     companionList: [
         { value: 1, text: '一个人' }, 
@@ -123,7 +123,7 @@ var vmServiceProcess = avalon.define({
         { value: 2, text: '子女' },
         { value: 2, text: '朋友' },
     ],
-    vr: '',
+    vr: '关于',
     vrId: 0,
     vrList: [
         { value: 1, text: '体验一下' }, 
@@ -157,8 +157,7 @@ vmServiceProcess.goa1();
     $.ready(function() {
         var toolPicker2 = new $.PopPicker();
         toolPicker2.setData(vmServiceProcess.goalList);
-        var showUserPickerButton2 = doc.getElementById('goal');
-        showUserPickerButton2.addEventListener('tap', function(event) {
+        var showUserPickerButton2 = doc.getElementById('goal');        showUserPickerButton2.addEventListener('tap', function(event) {
             toolPicker2.show(function(items) {
                 vmServiceProcess.goalId = items[0].value;
                 vmServiceProcess.goal = items[0].text;

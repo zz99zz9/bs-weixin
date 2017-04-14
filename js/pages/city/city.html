@@ -33,11 +33,11 @@
     background-size: 26px 26px;
 }
 </style>
-<div ms-controller="index" style="height: 100vh;">
+<div ms-controller="city" style="height: 100vh;">
     <!-- 地图 -->
     <div id="container" style="z-index:1;height: 100%;" ms-visible="isShowMap"></div>
     <!-- 地图模式的酒店详情轮播 -->
-    <div class="swiper-container swiper1" style="height: 150px; z-index: 10;position: absolute;bottom: 0;" ms-visible="isShowHotelDetail">
+    <div class="swiper-container swiper1" style="height: 200px; z-index: 10;position: absolute;bottom: 0;" ms-visible="isShowHotelDetail">
         <div class="swiper-wrapper" style="padding-left: 15px;background-color: rgba(0,0,0,0.5);">
             <div class="swiper-slide swiper-slide-marker" ms-repeat="hotelMarkers" data-repeat-rendered="swiper1Render">
                 <div ms-css-background-image="url({{urlAPINet + el.coverUrl}})" style="height: 150px;background-size: cover;width: inherit;position: relative;" ms-on-tap="goHotel(el.id)">
@@ -48,7 +48,14 @@
                             <span class="bs-text-x-larger">{{type==1?round(el.minPrice*6):el.minPrice}}</span>
                             <span class="bs-text-smaller bs-text-lighter">{{type==0?"/晚起":(type==1?"/3小时起":"")}}</span>
                         </div>
-                        <div class="hotelName">{{el.name}}</div>
+                    </div>
+                </div>
+                <div class="hotelName bs-text-444" style="display: flex;flex-direction: column;background-color: white;">
+                    <div style="height: 20px;font-weight: bold;">
+                        {{el.name}}
+                    </div>
+                    <div class="bs-text-smaller">
+                        {{el.address}}
                     </div>
                 </div>
             </div>

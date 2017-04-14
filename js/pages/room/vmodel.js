@@ -438,7 +438,7 @@ vmRoom = avalon.define({
         if (newOrder.day.timeSpan) {
             vmRoom.timeSpan = newOrder.day.timeSpan;
         }
-        console.log(vmRoom.timeSpan)
+
         dateDataToSession();
     },
     //显示时租房的入住时间
