@@ -327,7 +327,7 @@ vmRoom = avalon.define({
                 url: urls.submitOrder,
                 data: {
                     tid: roomTypeId,
-                    startTime: vmRoom.type ? newOrder.partTime.start : (newOrder.day.start + " " + newOrder.day.startTime + ":00"),
+                    startTime: vmRoom.type ? newOrder.partTime.start : (newOrder.day.start),
                     endTime: vmRoom.type ? newOrder.partTime.end : newOrder.day.end,
                     isPartTime: vmRoom.type,
                     cids: newOrder.contact.map(function(o) {
