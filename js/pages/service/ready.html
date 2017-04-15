@@ -84,6 +84,33 @@
     width: 40px;
     padding: 10px;
 }
+
+.footer-nav {
+    position: fixed;
+    display: flex;
+    justify-content: space-around;
+    height: 56px;
+    width: 100vw;
+    bottom: 0;
+    z-index: 10;
+    background-color: white;
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.footer-content img {
+    height: 30px;
+    width: 30px;
+}
+
+.footer-content div {
+    font-size: 8px;
+}
 </style>
 <div class="" ms-controller="serviceReady">
     <div style="display: flex;height: 64px;padding: 20px 24px;background-color: white;">
@@ -132,22 +159,22 @@
     </div>
     <div style="height: 54px;">
     </div>
-    <nav class="mui-bar mui-bar-tab" style="background: white !important;height: 56px;padding: 8px 0 5px;">
-        <a class="mui-tab-item" ms-on-tap="goIndex">
-            <span class="mui-icon"><img src="/img/icon/icon-home.svg" class="nav-ico"></span>
-            <span class="mui-tab-label">首页</span>
-        </a>
-        <a class="mui-tab-item">
-            <span class="mui-icon"><img src="/img/icon/icon-ruzhu-select.svg" class="nav-ico"></span>
-            <span class="mui-tab-label">入住</span>
-        </a>
-        <a class="mui-tab-item" ms-on-tap="goOrder">
-            <span class="mui-icon"><img src="/img/icon/icon-dingdan.svg" class="nav-ico"></span>
-            <span class="mui-tab-label">订单</span>
-        </a>
-        <a class="mui-tab-item" ms-on-tap="goMore">
-            <span class="mui-icon"><img src="/img/icon/icon-more.svg" class="nav-ico"></span>
-            <span class="mui-tab-label">我的</span>
-        </a>
-    </nav>
+    <div class="footer-nav">
+        <div class="footer-content" ms-on-tap="goIndex">
+            <img src="/img/icon/icon-home.svg" class="">
+            <div class="">主页</div>
+        </div>
+        <div class="footer-content">
+            <img src="/img/icon/icon-ruzhu-select.svg" class="">
+            <div class="">入住</div>
+        </div>
+        <div class="footer-content" ms-on-tap="goOrder">
+            <img src="/img/icon/icon-dingdan.svg" class="">
+            <div class="">订单</div>
+        </div>
+        <div class="footer-content" ms-on-tap="goMore">
+            <img src="/img/icon/icon-more.svg" class="">
+            <div class="">more</div>
+        </div>
+    </div>
 </div>
