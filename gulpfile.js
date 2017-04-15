@@ -3171,6 +3171,28 @@ function inroom() {
         .pipe(gulp.dest('./src'));
 }
 
+//控制——光照
+function illumination() {
+    return gulp.src('./js/layout/shell.html')
+        .pipe(replace({
+            regex: '<!-- title -->',
+            replace: '<title>光照</title>'
+        }))
+        .pipe(replace({
+            regex: '<!-- content -->',
+            replace: '<!--include "../pages/checkin/illumination.html"-->'
+        }))
+        .pipe(replace({
+            regex: '<!-- js -->',
+            replace: '<script src="../js/pages/checkin/illumination.js"></script>'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('illumination.html'))
+        .pipe(gulp.dest('./src/inroom'));
+}
+
 //开门
 function opendoor() {
     return gulp.src('./js/layout/shell.html')
@@ -3511,7 +3533,8 @@ gulp.task('html', gulp.parallel(
     serviceProcess,
     serviceReady,
     more,
-    setting
+    setting,
+    illumination
 ));
 
 function watchForReload() {
