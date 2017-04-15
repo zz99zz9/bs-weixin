@@ -90,7 +90,9 @@ var bookDateList = null,
                 startHour: clockObj.getStartHour(),
                 endHour: clockObj.getEndHour(),
                 start: clockObj.getStart(),
+                startShow: clockObj.getStartShow(),
                 end: clockObj.getEnd(),
+                endShow: clockObj.getEndShow(),
                 timeSpan: clockObj.getTimeSpan()
             });
             Storage.set("newOrder", newOrder);
