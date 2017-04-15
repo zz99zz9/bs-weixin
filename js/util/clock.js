@@ -32,7 +32,7 @@ var clock = function(startH, endH) {
         isTouchDot1 = false,
         isTouchDot2 = false,
         hourCoord = [],
-        _tempDate,
+        _tempDate = null,
         colorArray = ["rgb(238,238,238)", "rgb(216,229,227)", "rgb(194,220,217)", "rgb(173,211,207)", "rgb(151,202,197)", "rgb(130,193,187)", "rgb(108,184,177)", "rgb(86,175,167)", "rgb(65,166,157)", "rgb(43,157,147)"];
 
     iniCanvas();
@@ -65,7 +65,7 @@ var clock = function(startH, endH) {
             t1 = dateAdd(beforeTouchT1, 'h', deltaHour1);
             h1 = clock.time;
 
-            if (isChangeDay(beforeTouchT1, deltaHour1)) {
+            if (isChangeDay(beforeTouchT1, deltaHour1, h1)) {
                 //天数出现变动，发布消息
                 //日历calendar.js会订阅
                 Observer.fire('startChange', {
@@ -455,9 +455,13 @@ var clock = function(startH, endH) {
         };
     }
 
-    function isChangeDay(date, deltaHour) {
+    //判断是否跨天
+    function isChangeDay(date, deltaHour, hour) {
         var newDate = dateAdd(date, 'h', deltaHour),
             isChange = false;
+            console.log('newDate: '+newDate);
+            console.log('date: '+date);
+            console.log('_tempDate: '+_tempDate);
         if (!isSameDay(newDate, date)) {
             if (_tempDate) {
                 if (!isSameDay(newDate, _tempDate)) {
@@ -467,8 +471,14 @@ var clock = function(startH, endH) {
                 isChange = true;
             }
             _tempDate = newDate;
+        } else {
+            if (_tempDate) {
+                if (!isSameDay(newDate, _tempDate)) {
+                    isChange = true;
+                }
+            }
+            _tempDate = newDate;
         }
-
         return isChange;
     }
 
@@ -559,6 +569,14 @@ var clock = function(startH, endH) {
         },
         getTimeSpan: function() {
             return timeSpan;
+        },
+        getStartShow: function() {
+            return (t1.getMonth() + 1) + '月' + t1.getDate() + '日' + '<br>'
+            + t1.getHours()+ ':00<br>' + getWeekday(formatDate(t1, 'yyyy-mm-dd'));
+        },
+        getEndShow: function() {
+            return (t2.getMonth() + 1) + '月' + t2.getDate() + '日' + '<br>'
+            + t2.getHours()+ ':00<br>' + getWeekday(formatDate(t2, 'yyyy-mm-dd'));
         }
     };
 };
