@@ -1,0 +1,188 @@
+<style>
+.header {
+    height: 64px;
+    background-color: white;
+    padding: 0 20px;
+}
+
+.header-l {
+    position: relative;
+    padding: 25px 30px;
+    top: 0;
+    left: -20px;
+}
+
+.header-r {
+    position: relative;
+    float: right;
+    top: 26px;
+}
+
+.curtain {
+    padding: 24px;
+    margin: 16px 0;
+    background-color: white;
+}
+
+.curtain-title {
+    margin-bottom: 30px;
+    font-weight: bold;
+}
+
+.curtain-content {
+    display: flex;
+    justify-content: space-around;
+}
+
+.content {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    bottom: 0;
+    background-color: white;
+}
+
+.content-big {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    bottom: 0;
+    background-color: white;
+}
+
+
+.content-unit {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    /*justify-content: flex-end;*/
+    align-items: center;
+    margin-right: 7vw;
+}
+
+.content-unit-big {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    align-items: center;
+}
+
+.content-unit img {
+    height: 48px;
+    width: 48px;
+}
+
+.content-unit div {
+    margin-top: 8px;
+    font-size: 12px;
+}
+
+.content-unit-big img {
+    height: 26vw;
+    width: 26vw;
+}
+</style>
+<div ms-controller="illumination">
+    <div class="header">
+        <img class="header-l" src="../img/icon/icon-back-444.svg" alt="" onclick="javascript:history.go(-1);">
+        <div class="bs-text-small bs-text-444 header-r" style="right: 48px;">场景模式</div>
+        <div id="night" class="mui-switch mui-switch-mini header-r" style="top: 20px;right: -60px;">
+            <div class="mui-switch-handle"></div>
+        </div>
+    </div>
+    <div class="curtain">
+        <div class="curtain-title bs-text-large">
+            窗帘控制
+        </div>
+        <div class="content">
+            <div class="content-unit" ms-on-tap="start">
+                <img ms-if="isStart==0" src="/img/icon/start-444.svg" class="">
+                <img ms-if="isStart==1" src="/img/icon/started-444.svg" class="">
+                <div class="">开始</div>
+            </div>
+            <div class="content-unit" ms-on-tap="pause">
+                <img ms-if="isPause==0" src="/img/icon/pause-444.svg" class="">
+                <img ms-if="isPause==1" src="/img/icon/paused-444.svg" class="">
+                <div class="">暂停</div>
+            </div>
+            <div class="content-unit" ms-on-tap="close">
+                <img ms-if="isClose==0" src="/img/icon/close-444.svg" class="">
+                <img ms-if="isClose==1" src="/img/icon/closed-444.svg" class="">
+                <div class="">关闭</div>
+            </div>
+        </div>
+    </div>
+    <div ms-if="isScene==0" class="curtain">
+        <div class="curtain-title bs-text-large">
+            灯光控制
+        </div>
+        <div class="content">
+            <div class="content-unit" ms-on-tap="openZoulang">
+                <img ms-if="isShow1==0" src="/img/icon/icon-zoulangdeng.svg" class="">
+                <img ms-if="isShow1==1" src="/img/icon/icon-zoulangdeng-select.svg" class="">
+                <div class="">走廊灯</div>
+            </div>
+            <div class="content-unit" ms-on-tap="openTaipen">
+                <img ms-if="isShow2==0" src="/img/icon/icon-taipendeng.svg" class="">
+                <img ms-if="isShow2==1" src="/img/icon/icon-taipendeng-select.svg" class="">
+                <div class="">台盆灯</div>
+            </div>
+        </div>
+        <div class="content">
+            <div class="content-unit" ms-on-tap="openYugang">
+                <img ms-if="isShow3==0" src="/img/icon/icon-yugangdeng.svg" class="">
+                <img ms-if="isShow3==1" src="/img/icon/icon-yugangdeng-select.svg" class="">
+                <div class="">浴缸灯带</div>
+            </div>
+            <div class="content-unit" ms-on-tap="openLinyu">
+                <img ms-if="isShow4==0" src="/img/icon/icon-linyu.svg" class="">
+                <img ms-if="isShow4==1" src="/img/icon/icon-linyu-select.svg" class="">
+                <div class="">淋雨灯</div>
+            </div>
+            <div class="content-unit" ms-on-tap="openMatong">
+                <img ms-if="isShow5==0" src="/img/icon/icon-matongdeng.svg" class="">
+                <img ms-if="isShow5==1" src="/img/icon/icon-matongdeng-select.svg" class="">
+                <div class="">马桶灯</div>
+            </div>
+            <div class="content-unit" ms-on-tap="openTongfeng">
+                <img ms-if="isShow6==0" src="/img/icon/icon-tongfengdeng.svg" class="">
+                <img ms-if="isShow6==1" src="/img/icon/icon-tongfengdeng-select.svg" class="">
+                <div class="">通风</div>
+            </div>
+            <div class="content-unit" ms-on-tap="openYuedu">
+                <img ms-if="isShow7==0" src="/img/icon/icon-yuedudeng.svg" class="">
+                <img ms-if="isShow7==1" src="/img/icon/icon-yuedudeng-select.svg" class="">
+                <div class="">阅读灯</div>
+            </div>
+            <div class="content-unit" ms-on-tap="openChuangtou">
+                <img ms-if="isShow8==0" src="/img/icon/icon-chuangtoudeng.svg" class="">
+                <img ms-if="isShow8==1" src="/img/icon/icon-chuangtoudeng-select.svg" class="">
+                <div class="">床头灯</div>
+            </div>
+            <div class="content-unit" ms-on-tap="openTouping">
+                <img ms-if="isShow9==0" src="/img/icon/icon-toupingdeng.svg" class="">
+                <img ms-if="isShow9==1" src="/img/icon/icon-toupingdeng-select.svg" class="">
+                <div class="">弧形屏灯</div>
+            </div>
+        </div>
+    </div>
+    <div ms-if="isScene==1" class="curtain" style="height: 56vh;">
+        <div class="curtain-title bs-text-large">
+            场景模式
+        </div>
+        <div class="content-big">
+            <div class="content-unit-big" ms-on-tap="movie">
+                <img ms-if="isShow10==0" src="/img/icon/movies.svg" class="">
+                <img ms-if="isShow10==1" src="/img/icon/movies-select.svg" class="">
+            </div>
+            <div class="content-unit-big" ms-on-tap="reading">
+                <img ms-if="isShow11==0" src="/img/icon/reading.svg" class="">
+                <img ms-if="isShow11==1" src="/img/icon/reading-select.svg" class="">
+            </div>
+            <div class="content-unit-big" ms-on-tap="allClose">
+                <img ms-if="isShow12==0" src="/img/icon/allClose.svg" class="">
+                <img ms-if="isShow12==1" src="/img/icon/allClose-select.svg" class="">
+            </div>
+        </div>
+    </div>
+</div>
