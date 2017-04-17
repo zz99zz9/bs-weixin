@@ -96,7 +96,33 @@ var vmIndex2 = avalon.define({
             freeModeSticky: true,
             freeModeMomentumRatio: 3,
         });
-    }
+    },
+    //问候语swiper翻转效果
+    greetList: [
+        { name: '你  好'},
+        { name: 'Hello'},
+        { name: 'Bonjour'},
+        { name: 'Guten Tag'},
+        { name: 'こんにちは'},
+        { name: '안녕하세요'},
+        { name: 'illāc'},
+        { name: 'ciao'},
+        { name: 'Olá'},
+        { name: 'Hola'},
+        { name: 'Saluton'}
+    ],
+    greetSwiper: function() {
+        swiper = new Swiper('.swiper', {
+            direction: 'vertical',
+            autoplay: 2000,
+            autoplayDisableOnInteraction: false,
+            loop: true,
+            slidesPerView: 1,
+            width: window.innerWidth,
+            height: 32,
+            noSwiping : true
+        });
+    },
 });
 
 //更多房间

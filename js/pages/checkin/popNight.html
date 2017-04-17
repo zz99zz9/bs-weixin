@@ -1,7 +1,7 @@
 <style>
 .frame {
     position: relative;
-    height: 450px;
+    height: 400px;
     width: 80vw;
     padding: 10vw 4vw;
     background-color: white;
@@ -32,8 +32,8 @@
 }
 
 .checkBox {
-    top: 7px !important;
-    left: 80px !important;
+    top: 5px !important;
+    left: 0 !important;
 }
 
 .arrow {
@@ -51,15 +51,23 @@
     line-height: 6px;
     background: #b3dfdb;
 }
+
+.mui-checkbox input[type=checkbox]:before {
+    font-size: 19px;
+}
 </style>
 <article ms-controller="popNight" class="frame bs-text-normal">
     <div class="bs-text-larger content">
         正在为您关闭窗帘
     </div>
-    <div class="bs-text-larger content">
+    <div class="bs-text-normal content" style="display: flex;justify-content: center;align-items: center;">
         <div class="mui-input-row mui-checkbox mui-left">
-            <label>保留投影</label>
+            <label style="padding: 11px 14px 11px 24px;">保留投影</label>
             <input name="checkbox1" class="checkBox" value="Item 1" type="checkbox" checked>
+        </div>
+        <div class="mui-input-row mui-checkbox mui-left">
+            <label style="padding: 11px 6px 11px 20px">保留床头灯</label>
+            <input name="checkbox1" class="checkBox" value="Item 2" type="checkbox" checked>
         </div>
     </div>
     <div class="bs-text-larger content">
@@ -71,10 +79,6 @@
                 <button id='light' type='button' class="mui-btn mui-btn-block button bs-text-normal">{{light}}</button>
                 <img src="../img/icon/pickerArrow.svg" class="arrow">
             </div>
-        </div>
-        <div class="mui-input-row mui-checkbox mui-left">
-            <label>保留床头灯</label>
-            <input name="checkbox1" class="checkBox" value="Item 2" type="checkbox" checked>
         </div>
     </div>
     <div class="bs-text-larger content">
