@@ -1177,6 +1177,10 @@ hr {
     font-size: 17px;
 }
 
+.bs-text-large-16 {
+    font-size: 16px;
+}
+
 .bs-text-large {
     font-size: 15px;
 }
@@ -1304,6 +1308,16 @@ hr {
 .bs-bg-169488{
     background-color: #169488;
 }
+
+.bs-bg-f2{
+    background-color: #f2f2f2;
+}
+
+.bs-bg-bd{
+    background-color: #bdbdbd;
+}
+
+
 
 .bs-type-tab {
     display: inline-table;

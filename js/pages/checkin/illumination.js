@@ -151,13 +151,38 @@ var vmIllumination = avalon.define({
             }
         })
     },
+    curtainList: [
+
+    ],
 });
 
 document.getElementById("night").addEventListener("toggle", function(event) {
     if (event.detail.isActive) {
         vmIllumination.isScene = 1;
-        console.log(vmIllumination.isScene);
     } else {
         vmIllumination.isScene = 0;
     }
-})
+});
+
+// var obj = document.getElementById("kaishi");
+// obj.addEventListener("touchstart", function(event) {
+//     console.log(event);
+//     if (event.targetTouches.length == 1) {
+//         console.log(111);
+//         // vmIllumination.isStart = 1;
+//         $("#kaishi").css("background-color", "blue");
+//     } else {
+//         console.log(222);
+//     }
+// });
+
+// obj.addEventListener("touchend", function(event) {
+//     console.log(event);
+//     if (event.targetTouches.length == 1) {
+//         console.log(333);
+//     } else {
+//         console.log(444);
+//         // vmIllumination.isStart = 0;
+//         $("#kaishi").css("background-color", "green");
+//     }
+// });
