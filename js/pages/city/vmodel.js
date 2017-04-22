@@ -169,6 +169,7 @@ var vmCity = avalon.define({
     toggleMap: function() { //切换地图模式和列表模式
         stopSwipeSkip.do(function() {
             vmCity.isShowMap = !vmCity.isShowMap;
+            vmCity.isSort = 0;
             if(vmCity.isShowMap) {
                 vmTop.sd();
                 vmBottom.su();
@@ -221,7 +222,7 @@ var vmCity = avalon.define({
             spaceBetween: 10,
             freeMode: true,
             freeModeSticky: true,
-            freeModeMomentumRatio: 3,
+            freeModeMomentumRatio: 0.4,
             onSlideChangeEnd: function(swiper) {
                 var marker = hotelMarkersOnMap[swiper.activeIndex];
                 marker.getMap().setCenter(marker.getPosition());

@@ -259,6 +259,50 @@ var vmGraph = avalon.define({
             vmGraph.isDisabled2 = true;
         }
     },
+    
+    //画布初始化
+    canvasIni: function(ob) {
+        var $circle = $("#circleGolden" + ob.id).get(0);//取到html对应id的canvas
+        if ($circle) {
+            var context = $circle.getContext('2d');
+            $circle.height = 160;
+            $circle.width = window.innerWidth;
+            return { $circle: $circle, context: context };
+        } else {
+            return false;
+        }
+    },
+    //画圈
+    drawCircle: function(context, color, step) { //传参为context，填充颜色，度数
+        context.beginPath();
+        context.arc((window.innerWidth) / 2,
+            95,
+            75, getRadians(135), getRadians(135 + step * 22.5), false);
+        context.lineWidth = 7;
+        context.strokeStyle = color;
+        context.stroke();
+    },
+    //动画画圈
+    animation: function(index) {
+        var ob = vmGraph.$model.list[index]; //选定第几个
+        var canvasIni = vmGraph.canvasIni(ob);
+        if (canvasIni) {
+            var x = ob.finishedCount;
+            var y = parseFloat((ob.finishedCount / 400).toFixed(3));//完成期数除以400
+            function go() {
+                canvasIni.context.clearRect(0, 0, canvasIni.$circle.width, 160);//清除一下
+                vmGraph.drawCircle(canvasIni.context, "grey", -4); //先画第一个灰
+                vmGraph.drawCircle(canvasIni.context, "rgb(186,160,113)", y); //画金色的
+                y = y + parseFloat((ob.finishedCount / 400).toFixed(3));
+                if (y < x) {
+                    setTimeout(function() {
+                        go()
+                    }, 5);
+                }
+            }
+            go();
+        }
+    }
 })
 
 var swiper = new Swiper('.swiper', {

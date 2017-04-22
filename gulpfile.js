@@ -194,10 +194,10 @@ function index() {
 //城市页
 function city() {
     return gulp.src('./js/layout/shell-index.html')
-        .pipe(replace({
-            regex: '<!-- top -->',
-            replace: '<!--include "../layout/top.html"-->'
-        }))
+        //.pipe(replace({
+        //    regex: '<!-- top -->',
+        //    replace: '<!--include "../layout/top.html"-->'
+        //}))
         .pipe(replace({
             regex: '<!-- content -->',
             replace: '<!--include "../pages/city/city.html"-->'
@@ -3193,6 +3193,50 @@ function illumination() {
         .pipe(gulp.dest('./src/inroom'));
 }
 
+//控制——温度
+function temperature() {
+    return gulp.src('./js/layout/shell.html')
+        .pipe(replace({
+            regex: '<!-- title -->',
+            replace: '<title>温度</title>'
+        }))
+        .pipe(replace({
+            regex: '<!-- content -->',
+            replace: '<!--include "../pages/checkin/temperature.html"-->'
+        }))
+        .pipe(replace({
+            regex: '<!-- js -->',
+            replace: '<script src="../js/pages/checkin/temperature.js"></script>'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('temperature.html'))
+        .pipe(gulp.dest('./src/inroom'));
+}
+
+//控制——遥控器
+function telecontroller() {
+    return gulp.src('./js/layout/shell.html')
+        .pipe(replace({
+            regex: '<!-- title -->',
+            replace: '<title>温度</title>'
+        }))
+        .pipe(replace({
+            regex: '<!-- content -->',
+            replace: '<!--include "../pages/checkin/telecontroller.html"-->'
+        }))
+        .pipe(replace({
+            regex: '<!-- js -->',
+            replace: '<script src="../js/pages/checkin/telecontroller.js"></script>'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('telecontroller.html'))
+        .pipe(gulp.dest('./src/inroom'));
+}
+
 //开门
 function opendoor() {
     return gulp.src('./js/layout/shell.html')
@@ -3534,7 +3578,9 @@ gulp.task('html', gulp.parallel(
     serviceReady,
     more,
     setting,
-    illumination
+    illumination,
+    temperature,
+    telecontroller
 ));
 
 function watchForReload() {
