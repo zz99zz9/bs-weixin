@@ -2,26 +2,21 @@
 var bookDateList = null,
     vmCalendar = avalon.define({
         $id: 'calendar',
-        statusControl: {
-            isStartEdit: false, //选择夜房入住日期
-            isEndEdit: false, //选择夜房退房日期
-            isCalendarShow: false, //日历是否显示
-            isCalendarEdit: false, //日历是否可点
-            //isStartTimeShow: false, //选择夜房入住时间段
-            isStartTimeEdit: false, //夜房入住时间修改
-            //isTimeListShow: false, //时租房时间列表是否显示
-            //isTypeShow: false, //房间系列是否显示
-            //isMoreBtnShow: true,
-            //isRoomListShow: true, //房间列表
-        },
-        startClick: function() {
-            vmCalendar.statusControl.isCalendarShow = true;
-            vmCalendar.statusControl.isCalendarEdit = true;
-        },
-        endClick: function() {
-            vmCalendar.statusControl.isCalendarShow = true;
-            vmCalendar.statusControl.isCalendarEdit = true;
-        },
+        // statusControl: {
+        //     isStartEdit: false, //选择夜房入住日期
+        //     isEndEdit: false, //选择夜房退房日期
+        //     isCalendarShow: false, //日历是否显示
+        //     isCalendarEdit: false, //日历是否可点
+        //     isStartTimeEdit: false, //夜房入住时间修改
+        // },
+        // startClick: function() {
+        //     vmCalendar.statusControl.isCalendarShow = true;
+        //     vmCalendar.statusControl.isCalendarEdit = true;
+        // },
+        // endClick: function() {
+        //     vmCalendar.statusControl.isCalendarShow = true;
+        //     vmCalendar.statusControl.isCalendarEdit = true;
+        // },
         isSelected: function(index) {
             if (vmCalendar.startIndex == -1 && vmCalendar.endIndex == -1) {
                 return false;
@@ -34,20 +29,22 @@ var bookDateList = null,
             }
             return (index >= vmCalendar.startIndex) && (index <= vmCalendar.endIndex);
         },
-        calendar: [],
+        calendar: [], //显示交互用，按月份存储
+        calendarNum: 0,
+        calendarDates: [], //存储数据用，按天存储
         startIndex: -1,
         endIndex: -1,
         todayIndex: 0,
-        clickDate: function(index) {
+        clickDate: function(data, clickIndex) {
             stopSwipeSkip.do(function() {
-                var date = vmCalendar.$model.calendar[index];
-                if (vmCalendar.calendar[index].isDisabled == false) {
+                data = data.$model;
+                var index = data.index;
+                if (data.isDisabled == false) {
                     //开始，结束，index相当于分配到开始或结束前的cache
                     if (vmCalendar.startIndex == -1) {
                         vmCalendar.startIndex = index;
-                        vmCalendar.endIndex = index + 1;
-                    } else if (vmCalendar.startIndex != -1 
-                        && vmCalendar.endIndex == -1 
+                        vmCalendar.endIndex = index;
+                    } else if (vmCalendar.endIndex == -1 
                         && vmCalendar.startIndex != index) {
                         if (index < vmCalendar.startIndex) {
                             vmCalendar.endIndex = vmCalendar.startIndex;
@@ -55,27 +52,31 @@ var bookDateList = null,
                         } else {
                             vmCalendar.endIndex = index;
                         }
-                    } else if (vmCalendar.startIndex != -1 
-                        && vmCalendar.endIndex != -1 
-                        && vmCalendar.startIndex != index 
-                        && vmCalendar.endIndex != index) {
+                    } else if (vmCalendar.endIndex != -1 
+                        && vmCalendar.startIndex != index
+                        && vmCalendar.endIndex != index
+                        && vmCalendar.startIndex != vmCalendar.endIndex
+                        ) {
                         if (index == vmCalendar.startIndex - 1 || index == vmCalendar.startIndex + 1) {
                             vmCalendar.startIndex = index;
                         } else if (index == vmCalendar.endIndex - 1 || index == vmCalendar.endIndex + 1) {
                             vmCalendar.endIndex = index;
                         } else {
-                            if(index < vmCalendar.startIndex) {
-                                vmCalendar.startIndex = index;
-                            } else if (index > vmCalendar.endIndex) {
+                            vmCalendar.startIndex = index;
+                            vmCalendar.endIndex = index;
+                        }
+                    } else {
+                        if(index >= vmCalendar.startIndex) {
+                            if(vmCalendar.endIndex != index) {
                                 vmCalendar.endIndex = index;
                             } else {
                                 vmCalendar.startIndex = index;
-                                vmCalendar.endIndex = index + 1;
                             }
-                        }
+                        } else if (index <= vmCalendar.endIndex) {
+                            vmCalendar.startIndex = index;
+                        } 
                     }
-                    vmCalendar.foldCalendar(index);
-                    vmCalendar.isShowClock = true;
+                    // vmCalendar.foldCalendar(data, clickIndex);
                 }
             });
         },
@@ -124,21 +125,25 @@ var bookDateList = null,
 
             vmCalendar.foldCalendar(vmCalendar.startIndex);
         },
-        foldCalendar: function(index) {
+        foldCalendar: function(data) {
+            var index = data.calendarNum,
+                monthTitleNum = data.month - vmCalendar.$model.calendar[0].month;
+            vmCalendar.isShowClock = true;
+
             //折叠日历，显示表盘
             if (vmCalendar.startIndex != -1) {
                 $('#calendarPanel').height(screen.height * (0.15 * screen.height / 450));
-                $('#calendarPanel').scrollTop(index / 7 * 45 - 30);
+                $('#calendarPanel').scrollTop(index / 7 * 45 + monthTitleNum * 50 - 30);
 
-                var startObj, endObj;
-                startObj = vmCalendar.calendar[vmCalendar.startIndex];
-                clockObj.setStart(startObj.month, startObj.day);
+                // var startObj, endObj;
+                // startObj = vmCalendar.calendarDates[vmCalendar.startIndex];
+                // clockObj.setStart(startObj.month, startObj.day);
 
-                if (vmCalendar.endIndex == -1) {
-                    vmCalendar.endIndex = vmCalendar.startIndex + 1;
-                }
-                endObj = vmCalendar.calendar[vmCalendar.endIndex];
-                clockObj.setEnd(endObj.month, endObj.day);
+                // if (vmCalendar.endIndex == -1) {
+                //     vmCalendar.endIndex = vmCalendar.startIndex + 1;
+                // }
+                // endObj = vmCalendar.calendarDates[vmCalendar.endIndex];
+                // clockObj.setEnd(endObj.month, endObj.day);
             }
         },
         hideClock: function() {
@@ -160,104 +165,124 @@ getServerTime(getCalendar);
 //日历初始化
 function getCalendar(serverTime) {
     var d = new Date(serverTime.replace(/-/g, '/')),
-        year, month, day,
-        weekday = d.getDay(),
-        temp,
-        list = [],
-        isDisabled = false;
+        month = d.getMonth() + 1,
+        today = new Date(serverTime.replace(/-/g, '/')),
+        list = [];
 
-    // if (weekday == 0) {
-    //     weekday = 7;
-    // }
-    temp = weekday;
-
-    //如果是周一，就多往前显示一周
-    // if (temp == 1) {
-    //     temp = temp + 7;
-    // }
-
-    // d.setDate(d.getDate() - (temp - 1));
-    d.setDate(d.getDate() - temp);
-    for (var i = 0; i < temp; i++) {
-        year = d.getFullYear();
-        month = d.getMonth() + 1;
-        day = d.getDate();
-        weekday = d.getDay();
+    //显示几个月
+    for (var i = 0; i < 7; i++) {
         list.push({
-            year: year,
-            month: month,
-            day: day,
-            weekday: weekday,
-            isDisabled: true,
-            date: year + '-' + (month < 10 ? ('0' + month) : month) + '-' + (day < 10 ? ('0' + day) : day)
+            month: month + i,
+            days: addMonth(d, today)
         });
-        d.setDate(d.getDate() + 1);
-        // d.setDate(d.getDate());
-
-        //当前时间6点前的话，可以订昨天的夜房
-        if (getHourIndex() < 13 && (i == temp - 1)) {
-            // if (getHourIndex() < 13 && (i == temp)) {
-            list[i - 1].isDisabled = false;
-        }
-    }
-    vmCalendar.todayIndex = list.length;
-
-    d = new Date();
-    for (var i = 0; i < 90; i++) {
-        year = d.getFullYear();
-        month = d.getMonth() + 1;
-        day = d.getDate();
-        weekday = d.getDay();
-        date = year + '-' + (month < 10 ? ('0' + month) : month) + '-' + (day < 10 ? ('0' + day) : day);
-
-        list.push({
-            year: year,
-            month: month,
-            day: day,
-            weekday: weekday,
-            isDisabled: isDisabled,
-            date: date
-        });
-
-        d.setDate(day + 1);
-        // d.setDate(day);
-    }
-
-    // if (weekday == 0) {
-    //     weekday = 7;
-    // }
-    temp = weekday;
-    for (var i = 1; i < 7 - temp; i++) {
-        year = d.getFullYear();
-        month = d.getMonth() + 1;
-        day = d.getDate();
-        weekday = d.getDay();
-        list.push({
-            year: year,
-            month: month,
-            day: day,
-            weekday: weekday,
-            isDisabled: true,
-            date: year + '-' + (month < 10 ? ('0' + month) : month) + '-' + (day < 10 ? ('0' + day) : day)
-        });
-        d.setDate(day + 1);
-        // d.setDate(day);
     }
 
     vmCalendar.calendar = list;
 }
 
+//添加指定日期所在的一个整月
+function addMonth(date, today) {
+    var year = date.getFullYear(),
+        month = date.getMonth() + 1,
+        dayNum = getDayNum(year, month),
+        temp,
+        list = [];
+
+    //d为当月第一天，补齐当月第一天所在的一星期天数
+    date.setDate(1);
+    temp = date.getDay();
+    date.setDate(1 - temp);
+
+    addDate(list, date, temp, today, month, -1);
+
+    //补齐当月的天数
+    addDate(list, date, dayNum, today, month, 0);
+
+    temp = date.getDay();
+    //如果下月第一天不是周日，则补齐当月最后一天所在的一星期天数
+    if (temp != 0) {
+        dateAdd(date, 'd', -1);
+        temp = date.getDay();
+        dateAdd(date, 'd', 1);
+
+        addDate(list, date, 7 - temp, today, month, -1);
+    }
+    return list;
+}
+
+//添加指定日期开始，指定数量的天数
+function addDate(list, date, num, today, renderMonth, index) {
+    var isDisabled = false,
+        isShowDay = 0,
+        year, month, day, weekday,
+        formatedDate = '';
+
+    for (var i = 0; i < num; i++) {
+        year = date.getFullYear();
+        month = date.getMonth() + 1;
+        day = date.getDate();
+        weekday = date.getDay();
+        formatedDate = year + '-' + (month < 10 ? ('0' + month) : month) + '-' + (day < 10 ? ('0' + day) : day);
+
+        if (month == renderMonth) {
+            isShowDay = day;
+            isDisabled = false;
+
+            if (month == today.getMonth() + 1) {
+                if (day < today.getDate()) {
+                    isDisabled = true;
+                } else {
+                    isDisabled = false;
+                }
+            }
+        } else {
+            isShowDay = 0;
+            isDisabled = true;
+        }
+
+        if (index >= 0) {
+            vmCalendar.calendarDates.push({
+                year: year,
+                month: month,
+                day: isShowDay,
+                weekday: weekday,
+                isDisabled: isDisabled,
+                date: formatedDate,
+            })
+        }
+        list.push({
+            year: year,
+            month: month,
+            day: isShowDay,
+            weekday: weekday,
+            isDisabled: isDisabled,
+            date: formatedDate,
+            index: index >= 0 ? vmCalendar.$model.calendarDates.length - 1 : -1,
+            calendarNum: vmCalendar.calendarNum
+        });
+
+        date.setDate(day + 1);
+
+        vmCalendar.calendarNum++;
+        // //当前时间6点前的话，可以订昨天的夜房
+        // if (getHourIndex() < 13 && (i == num - 1)) {
+        //     // if (getHourIndex() < 13 && (i == num)) {
+        //     list[i - 1].isDisabled = false;
+        // }
+    }
+}
+
 vmCalendar.$watch('startIndex', function(a) {
+    console.log(a)
     var startObj, sIndex, startShow, amount;
 
     if (a == -1) {
         startShow = '<br>请选择';
     } else {
-        startObj = vmCalendar.calendar[a];
+        startObj = vmCalendar.calendarDates[a];
         if (startObj) {
             sIndex = a;
-            startShow = startObj.month + '月' + startObj.day + '日' + '<br>'
-            + clockObj.getStartHour() + ':00<br>' + getWeekday(startObj.date);
+            startShow = startObj.month + '月' + startObj.day + '日' + '<br>' + clockObj.getStartHour() + ':00<br>' + getWeekday(startObj.date);
         }
     }
 
@@ -274,20 +299,26 @@ vmCalendar.$watch('startIndex', function(a) {
     });
     Storage.set("newOrder", newOrder);
 
+    if(vmCalendar.startIndex == vmCalendar.endIndex) {
+        clockObj.setPartTimeEnd(startObj.month, startObj.day);
+    } 
+    
     clockObj.setStart(startObj.month, startObj.day);
 });
 
 vmCalendar.$watch('endIndex', function(a) {
-    var endObj, eIndex, endShow, amount;
+    var endObj = {
+        month: null,
+        day: null
+    }, eIndex, endShow, amount;
 
     if (a == -1) {
         endShow = '<br>请选择';
     } else {
-        endObj = vmCalendar.calendar[a];
+        endObj = vmCalendar.calendarDates[a];
         if (endObj) {
             eIndex = a;
-            endShow = endObj.month + '月' + endObj.day + '日' + '<br>'
-            + clockObj.getEndHour() + ':00<br>' + getWeekday(endObj.date);
+            endShow = endObj.month + '月' + endObj.day + '日' + '<br>' + clockObj.getEndHour() + ':00<br>' + getWeekday(endObj.date);
         }
     }
 
@@ -302,9 +333,14 @@ vmCalendar.$watch('endIndex', function(a) {
         endShow: endShow,
         amount: amount
     });
+
     Storage.set("newOrder", newOrder);
 
-    clockObj.setEnd(endObj.month, endObj.day);
+    if(vmCalendar.startIndex == vmCalendar.endIndex) {
+        clockObj.setPartTimeEnd(endObj.month, endObj.day);
+    } else {
+        clockObj.setEnd(endObj.month, endObj.day);
+    }
 });
 
 Observer.regist('startChange', function(e) {

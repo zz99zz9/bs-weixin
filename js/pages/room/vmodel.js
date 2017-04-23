@@ -144,9 +144,9 @@ vmRoom = avalon.define({
                     }
 
                     //初始状态打开选择入住时间
-                    if (!(vmCalendar.statusControl.isEndEdit || vmCalendar.statusControl.isStartEdit)) {
-                        vmCalendar.startClick();
-                    }
+                    // if (!(vmCalendar.statusControl.isEndEdit || vmCalendar.statusControl.isStartEdit)) {
+                    //     vmCalendar.startClick();
+                    // }
                     newOrder.day.todayIndex = vmCalendar.todayIndex;
                     vmRoom.todayIndex = vmCalendar.todayIndex;
                     // if (!bookDateList) {

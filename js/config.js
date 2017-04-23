@@ -139,6 +139,27 @@ var controlCore = {
     }
 }
 
+function dateAdd(date, strInterval, number) {
+    switch (strInterval) {
+        case 's':
+            return new Date(Date.parse(date) + (1000 * number));
+        case 'n':
+            return new Date(Date.parse(date) + (60000 * number));
+        case 'h':
+            return new Date(Date.parse(date) + (3600000 * number));
+        case 'd':
+            return new Date(Date.parse(date) + (86400000 * number));
+        case 'w':
+            return new Date(Date.parse(date) + ((86400000 * 7) * number));
+        case 'q':
+            return new Date(date.getFullYear(), (date.getMonth()) + number * 3, date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds());
+        case 'm':
+            return new Date(date.getFullYear(), (date.getMonth()) + number, date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds());
+        case 'y':
+            return new Date((date.getFullYear() + number), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds());
+    }
+}
+
 //传入完整时间，返回 MM月DD日
 function formatDate(str) {
     var date = new Date(str.replace(/-/g, "/"));
@@ -475,7 +496,7 @@ function getDate(index) {
     if (index == -1) {
         return "";
     } else {
-        date = vmCalendar.calendar[index];
+        date = vmCalendar.calendarDates[index];
         return date.year + '-' + (date.month < 10 ? ('0' + date.month) : date.month) + '-' + (date.day < 10 ? ('0' + date.day) : date.day);
     }
 }

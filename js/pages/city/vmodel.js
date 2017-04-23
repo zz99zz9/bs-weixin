@@ -193,9 +193,9 @@ var vmCity = avalon.define({
                         $('#calendarPanel').scrollTop(vmCalendar.startIndex / 7 * 25);
                     }
                     //初始状态打开`入住时间
-                    if (!(vmCalendar.statusControl.isEndEdit || vmCalendar.statusControl.isStartEdit)) {
-                        vmCalendar.startClick();
-                    }
+                    // if (!(vmCalendar.statusControl.isEndEdit || vmCalendar.statusControl.isStartEdit)) {
+                    //     vmCalendar.startClick();
+                    // }
 
                     clockObj = clock();
                 });
