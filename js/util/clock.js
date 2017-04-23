@@ -35,6 +35,15 @@ var clock = function(startH, endH) {
         _tempDate = null,
         colorArray = ["rgb(238,238,238)", "rgb(216,229,227)", "rgb(194,220,217)", "rgb(173,211,207)", "rgb(151,202,197)", "rgb(130,193,187)", "rgb(108,184,177)", "rgb(86,175,167)", "rgb(65,166,157)", "rgb(43,157,147)"];
 
+
+    //步进模式，记录步进点的坐标
+    for (var i = 1; i <= 12; i++) {
+        hourCoord.push({
+            x: r * Math.cos((i - 3) / 12 * 2 * Math.PI),
+            y: r * Math.sin((i - 3) / 12 * 2 * Math.PI)
+        });
+    }
+
     iniCanvas();
 
     //触摸事件绑定
@@ -94,33 +103,36 @@ var clock = function(startH, endH) {
 
         // if (isDot2Touched(tx, ty) && isTouchDot2 && !isTouchDot1) {//手指要沿着圆拖动
         if (isTouchDot2 && !isTouchDot1) {
-            clock = calHour(h2, tx, ty);
-            deltaHour2 += clock.deltaHour;
-            t2 = dateAdd(beforeTouchT2, 'h', deltaHour2);
-            h2 = clock.time;
+            if(t1.getDate() == t2.getDate()) {
+                clock = calHour(h2, tx, ty);
+                deltaHour2 += clock.deltaHour;
+                console.log(deltaHour2);
+                t2 = dateAdd(beforeTouchT2, 'h', deltaHour2);
+                h2 = clock.time;
+                console.log('2:',t2.toString(),h2)
+                if (isChangeDay(beforeTouchT2, deltaHour2, h2)) {
+                    Observer.fire('endChange', {
+                        date: t2,
+                        delta: clock.deltaHour,
+                    });
+                }
 
-            if (isChangeDay(beforeTouchT2, deltaHour2)) {
-                Observer.fire('endChange', {
-                    date: t2,
-                    delta: clock.deltaHour,
-                });
-            }
+                if (t2 <= t1) {
+                    t1 = dateAdd(t1, 'd', -1);
+                    Observer.fire('startChange', {
+                        date: t1,
+                        delta: -1,
+                    });
+                }
 
-            if (t1 >= t2) {
-                t1 = dateAdd(t2, 'd', -1);
-                Observer.fire('endChange', {
-                    date: t1,
-                    delta: -1,
-                });
-            }
-
-            //沿着圆平滑移动
-            newDx2 = tx * r / Math.sqrt(tx * tx + ty * ty);
-            newDy2 = ty * r / Math.sqrt(tx * tx + ty * ty);
-            draw(dx1, dy1, newDx2, newDy2);
-            //步进模式
-            // newCoord = clockStep(tx, ty);
-            // draw(dx1, dy1, newCoord.x, newCoord.y);
+                //沿着圆平滑移动
+                newDx2 = tx * r / Math.sqrt(tx * tx + ty * ty);
+                newDy2 = ty * r / Math.sqrt(tx * tx + ty * ty);
+                draw(dx1, dy1, newDx2, newDy2);
+                //步进模式
+                // newCoord = clockStep(tx, ty);
+                // draw(dx1, dy1, newCoord.x, newCoord.y);
+                }
         }
 
         getStartandEnd();
@@ -140,14 +152,6 @@ var clock = function(startH, endH) {
         canvas.width = cw;
         canvas.height = ch;
         ctx.translate(cw / 2, ch / 2); //画布原点移到 0，0
-
-        //步进模式，记录步进点的坐标
-        for (var i = 1; i <= 12; i++) {
-            hourCoord.push({
-                x: r * Math.cos((i - 3) / 12 * 2 * Math.PI),
-                y: r * Math.sin((i - 3) / 12 * 2 * Math.PI)
-            });
-        }
 
         //先读取本地session
         if (newOrder && newOrder.day) {
@@ -195,19 +199,21 @@ var clock = function(startH, endH) {
         }
 
         return {
-            x: x, y: y
+            x: x,
+            y: y
         }
     }
 
     function getStartandEnd() {
         // $('#startDay').innerHTML = (t1.getMonth() + 1) + '月' + t1.getDate() + '日';
         $('#startDay').innerHTML = t1.toString();
-
         $('#startHour').innerHTML = h1 + ':00';
+
 
         // $('#endDay').innerHTML = (t2.getMonth() + 1) + '月' + t2.getDate() + '日';
         $('#endDay').innerHTML = t2.toString();
         $('#endHour').innerHTML = h2 + ':00';
+
     }
 
     function calHour(hour, tx, ty) {
@@ -368,13 +374,18 @@ var clock = function(startH, endH) {
         ctx.font = "18px serif";
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
-        var dayNum = Math.floor((Date.parse(t2) - Date.parse(t1))/86400000);
-            h = 0;
+        var dayNum = Math.floor((Date.parse(t2) - Date.parse(t1)) / 86400000);
+        h = 0;
 
-        if(dayNum > 0) {
+        if (dayNum > 0) {
             h = (dayNum * 24 + h2 - h1) % 24;
         } else {
-            h = Math.floor((Date.parse(t2) - Date.parse(t1))/3600000);
+            // h = Math.floor((Date.parse(t2) - Date.parse(t1)) / 3600000);
+
+            h = h2 - h1;
+            if (h <= 0) {
+                h = 24 + h;
+            }
         }
 
         if (dayNum > 0) {
@@ -382,6 +393,7 @@ var clock = function(startH, endH) {
             ctx.fillText(dayNum + "天 " + h + "小时", 0, 0);
             timeSpan = dayNum + "天 " + h + "小时";
         } else {
+            circleColor = colorArray[0];
             ctx.fillText(h + "小时", 0, 0);
             timeSpan = h + "小时";
         }
@@ -459,9 +471,7 @@ var clock = function(startH, endH) {
     function isChangeDay(date, deltaHour, hour) {
         var newDate = dateAdd(date, 'h', deltaHour),
             isChange = false;
-            console.log('newDate: '+newDate);
-            console.log('date: '+date);
-            console.log('_tempDate: '+_tempDate);
+
         if (!isSameDay(newDate, date)) {
             if (_tempDate) {
                 if (!isSameDay(newDate, _tempDate)) {
@@ -488,52 +498,44 @@ var clock = function(startH, endH) {
             a.getDate() == b.getDate();
     }
 
-    function dateAdd(date, strInterval, number) {
-        switch (strInterval) {
-            case 's':
-                return new Date(Date.parse(date) + (1000 * number));
-            case 'n':
-                return new Date(Date.parse(date) + (60000 * number));
-            case 'h':
-                return new Date(Date.parse(date) + (3600000 * number));
-            case 'd':
-                return new Date(Date.parse(date) + (86400000 * number));
-            case 'w':
-                return new Date(Date.parse(date) + ((86400000 * 7) * number));
-            case 'q':
-                return new Date(date.getFullYear(), (date.getMonth()) + number * 3, date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds());
-            case 'm':
-                return new Date(date.getFullYear(), (date.getMonth()) + number, date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds());
-            case 'y':
-                return new Date((date.getFullYear() + number), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds());
-        }
-    }
-
     function formatDate(date, type) {
         switch (type) {
             case 'yyyy-mm-dd hh:00':
-                return date.getFullYear() + '-' 
-                + (date.getMonth() + 1) + '-' 
-                + date.getDate() + ' ' 
-                + date.getHours() + ':00';
+                return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + ' ' + date.getHours() + ':00';
             case 'yyyy-mm-dd':
-                return date.getFullYear() + '-' 
-                + (date.getMonth() + 1) + '-' 
-                + date.getDate();
+                return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
         }
     }
 
     return {
-        setStart: function(month, day, hour) {
+        setStart: function(month, day) {
             t1.setMonth(month - 1);
             t1.setDate(day);
             getStartandEnd();
             draw(dx1, dy1, dx2, dy2);
         },
-        setEnd: function(month, day, hour) {
+        setEnd: function(month, day) {
             t2.setMonth(month - 1);
             t2.setDate(day);
-            getStartandEnd();
+            // this.setEndHour(12); //夜房固定12点退房
+            draw(dx1, dy1, dx2, dy2);
+        },
+        setPartTimeEnd: function(month, day) {
+            t2.setMonth(month - 1);
+            t2.setDate(day);
+
+            if ((h1 > 6) && (h1 + 6 < 24)) { //6点以前，18点以后不能订钟点
+                this.setEndHour(h1 + 3); //钟点房最短间隔3个小时
+            } else if (h1 <= 6) {
+                this.setEndHour(12);
+            } else {
+                dateAdd(t2, 'd', 1);
+                Observer.fire('endChange', {
+                    date: t2,
+                    delta: 1,
+                });
+            }
+
             draw(dx1, dy1, dx2, dy2);
         },
         getStartHour: function() {
@@ -550,7 +552,7 @@ var clock = function(startH, endH) {
         },
         setStartHour: function(hour) {
             t1.setHours(hour);
-            console.log(hour, t1.toString())
+
             h1 = hour;
             var coord = getCoordByHour(hour);
             dx1 = coord.x;
@@ -559,7 +561,6 @@ var clock = function(startH, endH) {
         },
         setEndHour: function(hour) {
             t2.setHours(hour);
-            console.log(hour, t2.toString())
 
             h2 = hour;
             var coord = getCoordByHour(hour);
@@ -571,12 +572,10 @@ var clock = function(startH, endH) {
             return timeSpan;
         },
         getStartShow: function() {
-            return (t1.getMonth() + 1) + '月' + t1.getDate() + '日' + '<br>'
-            + t1.getHours()+ ':00<br>' + getWeekday(formatDate(t1, 'yyyy-mm-dd'));
+            return (t1.getMonth() + 1) + '月' + t1.getDate() + '日' + '<br>' + t1.getHours() + ':00<br>' + getWeekday(formatDate(t1, 'yyyy-mm-dd'));
         },
         getEndShow: function() {
-            return (t2.getMonth() + 1) + '月' + t2.getDate() + '日' + '<br>'
-            + t2.getHours()+ ':00<br>' + getWeekday(formatDate(t2, 'yyyy-mm-dd'));
+            return (t2.getMonth() + 1) + '月' + t2.getDate() + '日' + '<br>' + t2.getHours() + ':00<br>' + getWeekday(formatDate(t2, 'yyyy-mm-dd'));
         }
     };
 };

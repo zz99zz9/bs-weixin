@@ -235,12 +235,9 @@ button {
     display: inline-block;
     width: 14.285%;
     height: 45px;
-    /*padding: 5px;*/
     box-sizing: border-box;
-    border: 1px solid transparent;
-    /*border-top: none;*/
-    border-right: none;
-    border-right: none;
+    border-top: 0.5px solid #fff;
+    border-bottom: 0.5px solid #fff;
     text-align: center;
     line-height: 45px;
     position: relative;
@@ -260,15 +257,11 @@ button {
 .calendar i,
 .calendar .disabled,
 .calendar .disabled:active {
-    background: gainsboro;
-    color: gray;
-    border: 1px solid gainsboro;
-    border-right: none;
-    border-bottom: none;
+    color: #BDBDBD;
 }
 
 .calendar a {
-    color: gray;
+    color: #444;
     background: #fff;
 }
 
@@ -304,6 +297,18 @@ button {
     /*background: #baa071;*/
     background: #169488;
     color: white;
+    border-top: 0.5px solid;
+    border-bottom: 0.5px solid;
+}
+
+.calendar .start {
+    border-top-left-radius: 50%;
+    border-bottom-left-radius: 50%;
+}
+
+.calendar .end {
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
 }
 
 .calendar a:active sup,
@@ -347,20 +352,10 @@ button {
     color: #DD524D;
 }
 
-.calendar .split-bottom {
-    border-bottom: 1px solid lightgray;
-}
-
-.calendar .split-right {
-    border-right: 1px solid lightgray;
-}
-
-.calendar .split-top {
-    border-top: 1px solid lightgray;
-}
-
-.calendar .split-left {
-    border-left: 1px solid lightgray;
+/*放在最后保证生效*/
+.calendar .notThisMonth {
+    background: #fff;
+    border: none;
 }
 
 .swiper-container {
