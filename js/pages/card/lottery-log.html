@@ -12,7 +12,7 @@
             <span ms-if="el.name=='现金红包'">{{el.amount}}元</span>
             <span ms-if="el.name!='现金红包'">{{el.quantity}}个</span>
             <br>
-            <span class="bs-text-small bs-text-153">{{el.createTime}}</span>
+            <span class="bs-text-small bs-text-gray">{{el.createTime}}</span>
         </div>
     </div>
     <button ms-if="showLoadmore" ms-click="getList" ms-class="bs-text-white bs-bg-black" style="width: 100%;margin-top: 15px">加载更多</button>

@@ -698,7 +698,7 @@ var Observer = (function() {
 })();
 
 ajaxJsonp({
-    url: urlAPI + '/usr/user/loginPwd',
+    url: urlAPI + '/web/usr/user/loginPwd',
     data: {
         username: 18321958468,
         password: 123456

@@ -194,10 +194,10 @@ function index() {
 //城市页
 function city() {
     return gulp.src('./js/layout/shell-index.html')
-        //.pipe(replace({
-        //    regex: '<!-- top -->',
-        //    replace: '<!--include "../layout/top.html"-->'
-        //}))
+        .pipe(replace({
+            regex: '<!-- top -->',
+            replace: '<!--include "../layout/top.html"-->'
+        }))
         .pipe(replace({
             regex: '<!-- content -->',
             replace: '<!--include "../pages/city/city.html"-->'

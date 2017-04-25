@@ -110,7 +110,7 @@
                                 <div ms-css-background-image="'url(' + urlAPINet + el.imgUrl+')'" ms-attr-data-preview-src="urlAPINet + el.imgUrl" data-preview-group="1" ms-data-tag="el.imgDesc"></div>
                             </a>
                             <div class="mui-text-left" style="padding: 12.5px 0;">
-                                <span class="bs-text-larger bs-text-red">&emsp;¥ {{el.inStoreSalePrice}}</span>
+                                <span class="bs-text-larger bs-text-fdd942">&emsp;¥ {{el.inStoreSalePrice}}</span>
                                 <span class="bs-text-normal bs-text-black">&emsp;{{el.name}}</span>
                             </div>
                         </div>
@@ -118,7 +118,7 @@
                     <div class="swiper-pagination"></div>
                 </div>
             </div>
-            <div class="bs-text-large bs-text-153 service-hotel" ms-if="list.length>0">店内服务</div>
+            <div class="bs-text-large bs-text-gray service-hotel" ms-if="list.length>0">店内服务</div>
             <div class="service-ctrl" ms-if="data.length>1">
                 <div class="control-item" ms-repeat="data" ms-on-tap="call(el)">
                     <div class="grid-img">
@@ -127,7 +127,7 @@
                     <div class="grid-text">{{el.name}}</div>
                 </div>
             </div>
-            <div class="bs-text-large bs-text-153 service-social">
+            <div class="bs-text-large bs-text-gray service-social">
                 <div style="margin-bottom: 15px;">社会化服务</div>
                 <div class="service" style="">
                     <div class="mui-col-xs-6 mui-col-sm-3 service-grid" style="border: 0 5px 5px 0;" ms-repeat="socialList" ms-css-background-image="'url(' + urlAPINet + el.picUrl+')'" ms-on-tap="social($index)">
