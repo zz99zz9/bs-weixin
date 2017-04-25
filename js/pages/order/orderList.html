@@ -34,9 +34,9 @@
             点击退房之后，才可以开发票哦！
         </span>
     </div>
-    <span class="order-title order-ud bs-text-large bs-text-153">当前订单</span>
+    <span class="order-title order-ud bs-text-large bs-text-gray">当前订单</span>
     <ul class="order-list" style="margin-bottom: 0px;">
-        <li class="order-item bs-text-large bs-text-153" style="margin-top: 0px;" ms-if="list1.length == 0">暂无订单
+        <li class="order-item bs-text-large bs-text-gray" style="margin-top: 0px;" ms-if="list1.length == 0">暂无订单
         </li>
         <li class="order-item" style="padding-bottom: 15px;" ms-repeat="list1" ms-if="list1.length!=0" ms-click="goDetail(el.id)">
             <span class="status bs-text-smaller bs-text-white">{{showStatus(el.status)}}</span>
@@ -56,12 +56,12 @@
                 </span>
             </h5>
             <button class="bs-text-small" type="button" ms-click="goDetail(el.id)">{{showActionText(el.status)}}</button>
-            <span class="bs-text-large bs-text-red order-money" ms-if="el.needAmount>0">¥{{el.needAmount}}</span>
+            <span class="bs-text-large bs-text-fdd942 order-money" ms-if="el.needAmount>0">¥{{el.needAmount}}</span>
         </li>
     </ul>
-    <span class="order-title bs-text-large bs-text-153" style="margin: 10px 0 0px 10px;">历史订单</span>
+    <span class="order-title bs-text-large bs-text-gray" style="margin: 10px 0 0px 10px;">历史订单</span>
     <ul class="order-list" style="margin-bottom: 0px;">
-        <li class="order-item bs-text-large bs-text-153" style="margin-top: 10px;" ms-if="list2.length == 0">暂无订单
+        <li class="order-item bs-text-large bs-text-gray" style="margin-top: 10px;" ms-if="list2.length == 0">暂无订单
         </li>
         <li class="order-item" style="padding-bottom: 15px;" ms-repeat="list2" ms-if="list2.length!=0" ms-click="goDetail(el.id)">
             <span class="status bs-text-smaller bs-text-white">{{showStatus(el.status)}}</span>
@@ -81,7 +81,7 @@
                 </span>
             </h5>
             <button class="bs-text-small" type="button" ms-if="!(el.status==4&&el.iscomment==1)" ms-click="goDetail(el.id)">{{showActionText(el.status)}}</button>
-            <span class="bs-text-large bs-text-red order-money">¥{{el.needAmount}}</</span>
+            <span class="bs-text-large bs-text-fdd942 order-money">¥{{el.needAmount}}</</span>
         </li>
     </ul>
 </div>

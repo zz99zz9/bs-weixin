@@ -79,8 +79,10 @@ var vmServiceReady = avalon.define({
             vmServiceReady.timeDiffer = vmServiceReady.orderList.startTime - parseInt(vmServiceReady.blankTime.substring(0, 2));
             vmServiceReady.timeDiffer = vmServiceReady.timeDiffer + ":" + vmServiceReady.blankTime.substring(3, 5);
             if (vmServiceReady.temperature == "一键预温" && parseInt(vmServiceReady.timeDiffer.substring(0, 1)) >= 0) {
-                mui.alert('<div style="text-align:left;">您的房间将于19:30-20:00开启空调，若您20:00前未能办理入住，我们将关闭空调，谢谢您的谅解。</div>', '已为您预约', '<span style="color: blue;">知道了</span>', null, 'div');
-                vmServiceReady.temperature = "19:30开始";
+                vmServiceReady.temperature = "远程预温";
+                mui.alert('<div style="text-align:left;">您的房间将于19:30-20:00开启空调，若您20:00前未能办理入住，我们将关闭空调，谢谢您的谅解。</div>', '已为您预约', '<span style="color: blue;">知道了</span>', function(e) {
+                    vmServiceReady.temperature = "已预约";
+                }, 'div');
                 // vmServiceReady.timePrompt = "将于 " + vmServiceReady.timeDiffer + " 后自启动预温";
                 vmServiceReady.timePrompt = "已预约";
                 $(".cirque").css("background-color", "#fcc02f");
@@ -89,7 +91,7 @@ var vmServiceReady = avalon.define({
             } else {
                 vmServiceReady.temperature = "一键预温";
                 vmServiceReady.timePrompt = "请在19:30之前点击开启";
-                $(".cirque").css("background-color", "#169488");
+                $(".cirque").css("background-color", "#444");
                 $(".cirque").css("box-shadow", "0 0 3px 3px #ccc");
                 $(".cirque").css("border", "none");
             }

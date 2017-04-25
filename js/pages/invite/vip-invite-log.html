@@ -4,7 +4,7 @@
     </div>
     <div ms-if="count!==0" style="margin-bottom: 30px;">
       <div class="bs-text-x-larger bs-text-bolder" style="margin-bottom: 12px;">您已邀请{{count}}名好友</div>
-      <div class="bs-text-51 bs-text-smaller">累计获得 <span class="bs-text-red">{{awardAmount}}</span> 元现金回馈</div>
+      <div class="bs-text-51 bs-text-smaller">累计获得 <span class="bs-text-fdd942">{{awardAmount}}</span> 元现金回馈</div>
     </div>
     <div class="bs-text-smaller bs-text-51" ms-repeat="list" ms-if="count!==0" style="display: flex;justify-content: space-between;align-items: center;border-bottom: 1px solid #ddd;height: 54px;">
         <img ms-attr-src="urlAPINet+el.invitee.headUrl" alt="" style="border-radius: 50%;width: 35px;">
@@ -13,12 +13,12 @@
             {{el.invitee.nickname||el.invitee.name}}
              购买{{el.name}}
           </div>
-          <div class="bs-text-153">
+          <div class="bs-text-gray">
             {{el.payTime.slice(0,10)}}
           </div>
         </div>
         <div ms-if="el.type!=5">
-            <span class="bs-text-red">+</span> {{el.kickback}} 元
+            <span class="bs-text-fdd942">+</span> {{el.kickback}} 元
         </div>
         <div ms-if="el.type==5">
             {{el.remarks}}

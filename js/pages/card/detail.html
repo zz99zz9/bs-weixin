@@ -20,7 +20,7 @@
                     <img src="img/card/card_log.svg" alt="" style="width: 18.5px;" :on-tap="@goLog(index)" :if="el.accountAmount>0">
                 </div>
                 <div style="margin-bottom: 15vw;">
-                    <div class="bs-text-xx-larger bs-text-gold bs-text-bolder">{{el.accountAmount}}</div>
+                    <div class="bs-text-xx-larger bs-text-graybs-text-bolder">{{el.accountAmount}}</div>
                     <div class="bs-text-x-smaller" style="padding-top: 0.6vh;">
                         账户余额
                     </div>
@@ -34,7 +34,7 @@
                 <div class="bs-text-x-smaller" style="padding-top: 0.6vh;">
                     可用余额
                 </div>
-                <button type="button" class="bs-text-gold bs-text-large cash-btn" :on-tap="@openWithdraw(index, el.cashAmount)">提现</button>
+                <button type="button" class="bs-text-graybs-text-large cash-btn" :on-tap="@openWithdraw(index, el.cashAmount)">提现</button>
             </div>
 
             <div style="display: flex; justify-content: space-around;width: 100%;">

@@ -1,19 +1,17 @@
 <div style="height: 34vh;background-size: cover;background-position: center;position: relative;" ms-css-background-image="'url(' + urlAPINet + el.coverUrl+')'" ms-on-tap="goHotel(el.id)">
-  <div class="bs-text-white bs-text-smaller" style="display: inline-block;float: right;margin-top: 15px;padding: 0 12px;background: rgba(0,0,0,0.5);">
-    <span style="position: relative;top: 1px;">{{round(el.distance/1000)}} km</span>
-  </div>
-  <label class="hotel-price-lable" style="padding-right: 15px;padding-left: 10px;bottom: 15px;">
-      <span style="position: relative;top: -6px;right: -3px;color: #999;">￥</span>
-      <span class="hotel-price-span">{{type?round(el.minPrice*6):el.minPrice}}</span>
-      <span>{{type==0?"/晚起":(type==1?"/3小时起":"")}}</span>
-  </label>
+    <div class="bs-text-white bs-text-smaller" style="display: inline-block;float: right;margin-top: 12px;padding: 0 12px;background: rgba(0,0,0,0.5);">
+        <span style="position: relative;top: 1px;">{{round(el.distance/1000)}} km</span>
+    </div>
+    <label class="hotel-price-lable" style="height: 35px;padding-right: 15px;padding-left: 10px;bottom: 15px;background: rgba(0,0,0,.5);">
+        <span class="bs-text-18" style="font-weight: bold;">￥{{type?round(el.minPrice*6):el.minPrice}}</span>
+        <span>{{type==0?"/晚起":(type==1?"/3小时起":"")}}</span>
+    </label>
 </div>
-<div class="bs-bg-white" style="height: 90px;padding: 23px 0 16px 20px;">
-  <span class="bs-text-x-larger" style="font-weight: 900;" ms-on-tap="goHotel(el.id)">{{el.name}}&nbsp;</span>
-  <span class="bs-text-larger" style="font-weight: 100;" ms-on-tap="goHotel(el.id)">{{el.alias}}</span>
-  <br />
-  <div class="bs-text-small bs-text-gold" style="max-width: 90%;margin-top: 10px;white-space: normal;" ms-on-tap="openNav(el.lng,el.lat,el.name,el.address)">
-      <img src="img/icon/position.png" alt="" style="width: 17px;position: relative;top: 2px;">
-    {{el.address}}
-  </div>
+<div class="bs-bg-white" style="height: 100px;padding: 16px 0 16px;">
+    <span class="bs-text-20 bs-text-444" style="font-weight: 900;" ms-on-tap="goHotel(el.id)">{{el.name}}&nbsp;</span>
+    <span class="bs-text-20 bs-text-444" style="font-weight: 100;" ms-on-tap="goHotel(el.id)">{{el.alias}}</span>
+    <br />
+    <div class="bs-text-smaller bs-text-gray" style="max-width: 90%;margin-top: 10px;white-space: normal;" ms-on-tap="openNav(el.lng,el.lat,el.name,el.address)">
+        <img src="img/icon/position.png" alt="" style="width: 17px;position: relative;top: 2px;"> {{el.address}}
+    </div>
 </div>

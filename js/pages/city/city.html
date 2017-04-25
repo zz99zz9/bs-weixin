@@ -23,6 +23,7 @@
     text-align: -webkit-right;
     padding-top: 2px;
 }
+
 .mui-bar-tab .mui-icon {
     padding-bottom: 0;
 }
@@ -31,6 +32,13 @@
     border--radius: none;
     box-shadow: none;
     background-size: 26px 26px;
+}
+
+.search {
+    height: 32px;
+    margin: 8px 16px;
+    padding-top: 3px;
+    border-radius: 30px;
 }
 </style>
 <div ms-controller="city" style="height: 100vh;">
@@ -65,7 +73,7 @@
     <!-- 列表模式 -->
     <div ms-visible="!isShowMap" ms-on-swipeup="su" ms-on-swipedown="sd">
         <!-- 城市图片轮播 -->
-        <div class="bs-city">上海</div>
+        <!-- <div class="bs-city">上海</div>
         <div class="swiper-container swiper2" style="height: 250px;margin-bottom: 15px;">
             <div class="swiper-wrapper">
                 <div class="swiper-slide" ms-repeat="galleryList" data-repeat-rendered="swiper2Render">
@@ -74,13 +82,13 @@
                 </div>
                 <div class="swiper-pagination"></div>
             </div>
-        </div>
+        </div> -->
         <!-- <div style="position: relative;">
             <img src="../img/sort.png" style="width: 23px;margin-left: 5px;" alt="">
             <div class="bs-text-gold" style="position: relative;top: -5px;left: -8px;display: inline-block;" ms-on-tap="changeSort(2)" ms-if="sort==1">距离最近</div>
             <div class="bs-text-gold" style="position: relative;top: -5px;left: -8px;display: inline-block;" ms-on-tap="changeSort(1)" ms-if="sort==2">价格最低</div>
         </div> -->
-        <div id="hotelList" style="padding-bottom: 40px;">
+        <div id="hotelList" class="bs-bg-white" style="padding: 16px 24px 46px;margin-top: 48px;">
             <div ms-repeat="hotelMarkers">
                 <!-- roomSlide -->
             </div>
@@ -91,7 +99,7 @@
         <button type="button" class="calender-icon bs-bg-eee" ms-css-background-image="type?'url(img/icon/clock-333.svg)':'url(img/icon/calendar-333.svg)'" ms-on-tap="openTimePanel" ms-visible="type<=1">
             <div class="bs-text-51 bs-text-smaller" ms-if="!type" style="line-height: 46px;">{{getToday('day')}}</div>
         </button>
-        <button type="button" class="calender-icon bs-bg-red" ms-css-background-image="isShowMap?'url(img/icon/list.svg)':'url(img/icon/map.svg)'" style="margin-left: 10px;" ms-on-tap="toggleMap">
+        <button type="button" class="calender-icon bs-bg-fdd942" ms-css-background-image="isShowMap?'url(img/icon/list.svg)':'url(img/icon/map.svg)'" style="margin-left: 10px;" ms-on-tap="toggleMap">
         </button>
     </div> -->
     <div class="footer-select" ms-if="isSort==1 && isShowMap==false">
@@ -124,16 +132,19 @@
         </div>
     </div>
     <nav class="mui-bar mui-bar-tab footer" style="display: flex;justify-content: space-between;align-items: center;padding: 5px 0 5px 25px;background-color:white !important;font-size: 8px;" ms-if="!isShowHotelDetail">
-        <div id="functionBtns">
-            <button type="button" class="calender-icon bs-bg-eee" style="background-color: white;" ms-css-background-image="type?'url(img/icon/clock-333.svg)':'url(img/icon/calendar-333.svg)'" ms-on-tap="openTimePanel" ms-visible="type<=1">
-                <div class="bs-text-51 bs-text-smaller" ms-if="!type" style="line-height: 46px;">{{getToday('day')}}</div>
-            </button>
+        <a class="" ms-on-tap="goSort" style="width: 18vw" ms-if="isShowMap==false">
+            <div class="mui-icon" style="top: 6px;"><img src="../img/icon/icon-paixu.svg" class="nav-ico" style="height: 24px; width: 24px;"></div>
+            <div style="position: relative;left: 5px;top: -3px;margin-bottom: 3px;">排序</div>
+        </a>
+        <div ms-if="isShowMap==true" style="width: 18vw;">
+            
         </div>
-        <div style="display: flex;justify-content: space-around;align-items: center;">
-            <a class="" ms-on-tap="goSort" style="width: 18vw" ms-if="isShowMap==false">
-                <div class="mui-icon" style="top: 6px;"><img src="../img/icon/icon-paixu.svg" class="nav-ico" style="height: 24px; width: 24px;"></div>
-                <div style="position: relative;left: 5px;top: -3px;margin-bottom: 3px;">排序</div>
-            </a>
+        <div style="display: flex;justify-content: space-between;align-items: center;width: 60vw;">
+            <div id="functionBtns">
+                <button type="button" class="calender-icon bs-bg-eee" style="background-color: white;" ms-css-background-image="type?'url(img/icon/clock-333.svg)':'url(img/icon/calendar-333.svg)'" ms-on-tap="openTimePanel" ms-visible="type<=1">
+                    <div class="bs-text-51 bs-text-smaller" ms-if="!type" style="line-height: 46px;">{{getToday('day')}}</div>
+                </button>
+            </div>
             <a class="" ms-on-tap="toggleMap" style="width: 18vw">
                 <div class="mui-icon" style="top: 6px;"><img src="../img/icon/icon-liebiao.svg" class="nav-ico" style="height: 24px; width: 24px;"></div>
                 <div style="position: relative;left: 3px;top: -3px;margin-bottom: 3px;" ms-if="isShowMap==true">地图</div>

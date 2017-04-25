@@ -1,24 +1,28 @@
 <!--顶部-->
-<header id="header-nav" ms-controller="top"  class="mui-bar mui-bar-nav mui-text-center" style="height: 48px;background-color:rgba(0,0,0,0.5);padding: 0;    background-image: linear-gradient(180deg, #006457, #169488);">
-
+<header id="header-nav" ms-if="!isShowMap" ms-controller="top" class="mui-bar mui-bar-nav mui-text-center" style="height: 48px;background-color: rgba(0,0,0,.5);padding: 0;box-shadow: none;">
     <!-- <div id="midnight" class="bs-bg-black bs-text-white" style="z-index: 3;width: 100vw;text-align: left;line-height: 32px;" ms-on-tap="goMidnight">
         <img src="img/midnight.png" alt="" style="width: 24px;float: left;margin: 4px 0 0 8px;">
         &nbsp;<strong>午夜特价房</strong> 震撼来袭！！！<span class="mui-icon mui-icon-closeempty" style="float: right;font-size: 32px;padding: 0px;margin: 0px;" ms-on-tap="closeMidnight"></span>
     </div> -->
-    <div class="bs-header">
+
         <!-- <div id="menu">
             <img class="headImg" ms-attr-src="headImg" alt="" style="margin-left: 0;margin-top: 4px;">
         </div> -->
-        <a href="javascript:history.go(-1);">
+
+        <!-- <a href="javascript:history.go(-1);">
             <img src="../img/icon/icon-back.svg" alt="" style="padding-right: 25px;margin-top: 4px;">
         </a>
-        <div class="bs-bg-white bs-text-153 bs-text-smaller bs-search" style="height:28px;background-color: rgba(179,223,219,0.2);margin: 0;border-radius: 2px;" ms-on-tap="openPop">
+        <div class="bs-bg-white bs-text-gray bs-text-smaller bs-search" style="height:28px;background-color: rgba(179,223,219,0.2);margin: 0;border-radius: 2px;" ms-on-tap="openPop">
             <img src="../img/icon/search.svg" alt="" style="width: 19px;position: relative;top: 3px;">
             <span style="position: relative;top: -2px;margin-left: 4px; color: white;">搜索</span>
             <img src="../img/icon/icon-clear.svg" alt="" style="position: absolute;float: right;top: 20px;right: 30px; height: 10px; width: 10px;">
-        </div>
+        </div> -->
+
         <!-- <div ms-on-tap="goDiscover">
             <img src="../img/discover/discover.png" alt="" style="width: 33px;margin-top: 4px;">
         </div> -->
-    </div>      
+
+        <div class="bs-bg-white bs-text-444 bs-text-smaller search" ms-on-tap="openPop">
+            <div style=""><img src="../img/icon/search-444.svg" alt="" style="position: relative;top: 2px;width: 18px;"> 搜索商圈、地标或景点</div>
+        </div>
 </header>

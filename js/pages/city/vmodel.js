@@ -9,6 +9,7 @@ var user, newOrder, bensue, actionType,
 var vmTop = avalon.define({
     $id: 'top',
     headImg: 'img/defaultHeadImg.png', //左上角头像
+    isShowMap: true,
     goDiscover: function() {
         stopSwipeSkip.do(function() {
             location.href = "discover.html";
@@ -169,6 +170,7 @@ var vmCity = avalon.define({
     toggleMap: function() { //切换地图模式和列表模式
         stopSwipeSkip.do(function() {
             vmCity.isShowMap = !vmCity.isShowMap;
+            vmTop.isShowMap = vmCity.isShowMap;
             vmCity.isSort = 0;
             if(vmCity.isShowMap) {
                 vmTop.sd();

@@ -22,19 +22,19 @@
         </div>
         <img class="card-buy-img" :attr="{src:@data.imgUrl}" alt="">
         <section style="padding: 10px 0 5px 10px;">
-            <div class="bs-text-red bs-text-larger" style="padding-top: 5px; padding-bottom: 15px;">
+            <div class="bs-text-fdd942 bs-text-larger" style="padding-top: 5px; padding-bottom: 15px;">
                 ¥ {{@data.amount}}
-                <div class="bs-text-gold bs-text-smaller" style="float: right;" :on-tap="@goSafe" :visible="@data.type!=5">VIP会员的推广奖金如何保障？</div>
+                <div class="bs-text-graybs-text-smaller" style="float: right;" :on-tap="@goSafe" :visible="@data.type!=5">VIP会员的推广奖金如何保障？</div>
             </div>
             <div class="card-buy-item">
                 <div class="card-buy-left">
                     <div class="card-buy-circle bs-text-small">
                         <div class="card-buy-fan" :if="@data.type<5">
-                            <div class="bs-text-red">{{@data.monthReturnAmount + @data.everyTimeAward * @data.monthShareTimes}}元/月</div>
+                            <div class="bs-text-fdd942">{{@data.monthReturnAmount + @data.everyTimeAward * @data.monthShareTimes}}元/月</div>
                             <div class="bs-text-gray" style="font-size: 8px;">推广奖励</div>
                         </div>
                         <div class="card-buy-fan" :if="@data.type==5">
-                            <div class="bs-text-red">全额退款</div>
+                            <div class="bs-text-fdd942">全额退款</div>
                             <div class="bs-text-gray" style="font-size: 8px;">入住满6次或满一年后</div>
                         </div>
                     </div>
@@ -46,14 +46,14 @@
                         <div style="margin-left: 10px;">
                             预定酒店
                             <br>
-                            <span class="card-buy-right-down bs-text-red">{{@round(@data.discount*10, 1)}}折</span>
+                            <span class="card-buy-right-down bs-text-fdd942">{{@round(@data.discount*10, 1)}}折</span>
                         </div>
                     </div>
                     <div class="card-buy-con3">
                         <div style="margin-left: 10px;">
                             抽奖次数加速
                             <br>
-                            <span class="card-buy-right-down bs-text-red">×{{@data.lotteryShareTimes}}</span>
+                            <span class="card-buy-right-down bs-text-fdd942">×{{@data.lotteryShareTimes}}</span>
                         </div>
                     </div>
                 </div>

@@ -1,7 +1,7 @@
 <style>
 .gradient {
     height: 220px;
-    margin: 16px 0;
+    margin: 8px 0;
     padding: 30px 0;
     background-color: white;
 }
@@ -63,7 +63,6 @@
 .content-infor {
     margin-bottom: 35px;
     color: #444;
-    font-weight: bold;
 }
 
 .nav-ico {
@@ -130,28 +129,45 @@ div .mui-popup-buttons .mui-popup-button {
     line-height: 55px;
     color: #169488;
 }
+
+.header {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    height: 48px;
+    padding-left: 24px;
+}
+
+.header-content {
+    display: flex;
+    justify-content: flex-start;
+    margin-right: 15px;
+}
 </style>
 <div class="" ms-controller="serviceReady">
-    <div style="display: flex;height: 64px;padding: 20px 24px;background-color: white;">
-        <div class="mui-col-sm-3 mui-col-xs-3" style="display: flex;justify-content: flex-start;margin-right: 25px;">
+    <div class="bs-text-smaller bs-text-444 bs-bg-white header">
+        <div class="bs-text-normal header-content">
+            房间状态：
+        </div>
+        <div class="header-content">
             <img src="../img/icon/air_conditioning.svg" class="img-ul">
-            <div class="bs-text-smaller bs-text-444" style="margin-left: 8px;">
+            <div style="margin-left: 8px;">
                 18°C
             </div>
         </div>
-        <div class="mui-col-sm-3 mui-col-xs-3" style="display: flex;justify-content: flex-start;">
+        <div class="header-content">
             <img src="../img/icon/humidity.svg" class="img-ul">
-            <div class="bs-text-smaller bs-text-444" style="margin-left: 8px;">
+            <div style="margin-left: 8px;">
                 30%RH
             </div>
         </div>
     </div>
     <div class="mui-content gradient">
         <div class="device-c mui-col-sm-12">
-            <div class="cirque bs-bg-169488" ms-on-tap="goTem">
+            <div class="cirque bs-bg-444" ms-on-tap="goTem">
                 {{temperature}}
             </div>
-                <img src="../img/icon/right-arrow.svg" class="arrow" ms-on-tap="goOpendoor">
+            <img src="../img/icon/right-arrow.svg" class="arrow" ms-on-tap="goOpendoor">
             <div class="bs-text-smaller prompt bs-text-444">
                 {{timePrompt}}
             </div>
@@ -161,10 +177,10 @@ div .mui-popup-buttons .mui-popup-button {
         <div class="content-prompt">
             亲爱的xxx，根据您的入住信息，KKL已免费为您准备了一下服务：
         </div>
-        <div class="content-infor bs-text-normal" ms-repeat="data">
+        <div class="content-infor bs-text-16" ms-repeat="data">
             {{el.information}};
         </div>
-        <div class="bs-text-normal" style="color: #169488;margin-top: 16px;" ms-on-tap="addService">
+        <div class="bs-text-16 bs-text-eca022 " style="margin-top: 16px;" ms-on-tap="addService">`
             您需要的更多的服务
         </div>
     </div>
