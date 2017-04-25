@@ -2,21 +2,142 @@
 var bookDateList = null,
     vmCalendar = avalon.define({
         $id: 'calendar',
-        // statusControl: {
-        //     isStartEdit: false, //选择夜房入住日期
-        //     isEndEdit: false, //选择夜房退房日期
-        //     isCalendarShow: false, //日历是否显示
-        //     isCalendarEdit: false, //日历是否可点
-        //     isStartTimeEdit: false, //夜房入住时间修改
-        // },
-        // startClick: function() {
-        //     vmCalendar.statusControl.isCalendarShow = true;
-        //     vmCalendar.statusControl.isCalendarEdit = true;
-        // },
-        // endClick: function() {
-        //     vmCalendar.statusControl.isCalendarShow = true;
-        //     vmCalendar.statusControl.isCalendarEdit = true;
-        // },
+        status: {
+            key: 1,
+            chooseType: 1,
+            calendar: 2,
+            dayClock: 3,
+            partTimeClock: 4
+        },
+        setType: function(type) {
+            if (typeof(vmCity) != 'undefined') {
+                vmCity.type = type;
+            }
+            if (typeof(vmHotel) != 'undefined') {
+                vmHotel.type = type;
+            }
+            if (typeof(vmRoom) != 'undefined') {
+                vmRoom.type = type;
+            }
+        },
+        goDay: function() { //订全天房
+            vmCalendar.status.key = vmCalendar.status.calendar;
+            vmCalendar.changeStatusBtnText = "去订时租房";
+            vmCalendar.nextBtnText = "选择到店时间";
+            $.extend(bensue, {
+                type: 0
+            });
+            Storage.set("bensue", bensue);
+            vmCalendar.setType(0);
+        },
+        goDayClock: function() {
+            vmCalendar.status.key = vmCalendar.status.dayClock;
+            vmCalendar.changeStatusBtnText = "修改日期";
+            vmCalendar.nextBtnText = "确定";
+            clockObj.setStatus(vmCalendar.status.dayClock);
+        },
+        goPartTime: function() { //订时租房
+            var time = new Date(),
+                hour = time.getHours();
+            if (hour >= 7 && hour <= 18) {
+                vmCalendar.status.key = vmCalendar.status.partTimeClock;
+                vmCalendar.changeStatusBtnText = "去订全天房";
+                vmCalendar.nextBtnText = "确定";
+
+                $.extend(bensue, {
+                    type: 1
+                });
+                Storage.set("bensue", bensue);
+                vmCalendar.setType(1);
+
+                //更新表盘状态
+                clockObj.setPartTimeStart(hour);
+                clockObj.setPartTimeEnd(hour);
+                clockObj.setStatus(vmCalendar.status.partTimeClock);
+            } else {
+                mui.alert('时租房可预订时间为7:00-18:00', function() {
+                    vmCalendar.goDay();
+                });
+            }
+        },
+        changeStatusBtnText: '',
+        changeStatus: function() {
+            switch (vmCalendar.status.key) {
+                case vmCalendar.status.calendar:
+                    vmCalendar.goPartTime();
+                    break;
+                case vmCalendar.status.dayClock:
+                case vmCalendar.status.partTimeClock:
+                    vmCalendar.goDay();
+                    break;
+            }
+        },
+        isNextBtnDisabled: true,
+        nextBtnText: '',
+        goNext: function() {
+            if (!vmCalendar.isNextBtnDisabled) {
+                switch (vmCalendar.status.key) {
+                    case vmCalendar.status.calendar:
+                        vmCalendar.goDayClock();
+                        break;
+                    case vmCalendar.status.dayClock:
+                        //保存选中的小时
+                        $.extend(newOrder.day, {
+                            start: clockObj.getStart(),
+                            end: clockObj.getEnd(),
+                            startHour: clockObj.getStartHour(),
+                            endHour: clockObj.getEndHour(),
+                            startShow: clockObj.getStartShow(),
+                            endShow: clockObj.getEndShow(),
+                            timeSpan: clockObj.getTimeSpan()
+                        });
+                        Storage.set("newOrder", newOrder);
+
+                        modalClose();
+                        vmCalendar.status.key = vmCalendar.status.calendar;
+                        vmCalendar.changeStatusBtnText = "去订时租房";
+                        vmCalendar.save();
+                        break;
+                    case vmCalendar.status.partTimeClock:
+                        var startShow, endShow, amount,
+                            start = clockObj.getStart(),
+                            end = clockObj.getEnd();
+
+                        if (start) {
+                            startShow = '今日<br><br>' + clockObj.getStartHour() + ":00";
+                        } else {
+                            startShow = '<br>请选择';
+                        }
+
+                        if (end) {
+                            endShow = '今日<br><br>' + clockObj.getEndHour() + ":00";
+                        } else {
+                            endShow = '<br>请选择';
+                        }
+                        if (start && end) {
+                            amount = clockObj.getEndHour() - clockObj.getStartHour();
+                        } else {
+                            amount = '?';
+                        }
+
+                        $.extend(newOrder.partTime, {
+                            start: start,
+                            end: end,
+                            startHour: clockObj.getStartHour(),
+                            endHour: clockObj.getEndHour(),
+                            startShow: startShow,
+                            endShow: endShow,
+                            timeSpan: clockObj.getTimeSpan(),
+                            amount: amount
+                        });
+                        Storage.set("newOrder", newOrder);
+
+                        modalClose();
+                        vmCalendar.save();
+                        break;
+                }
+            }
+        },
         isSelected: function(index) {
             if (vmCalendar.startIndex == -1 && vmCalendar.endIndex == -1) {
                 return false;
@@ -43,38 +164,35 @@ var bookDateList = null,
                     //开始，结束，index相当于分配到开始或结束前的cache
                     if (vmCalendar.startIndex == -1) {
                         vmCalendar.startIndex = index;
-                        vmCalendar.endIndex = index;
-                    } else if (vmCalendar.endIndex == -1 
-                        && vmCalendar.startIndex != index) {
+                        vmCalendar.endIndex = -1;
+                    } else if (vmCalendar.endIndex == -1 && vmCalendar.startIndex != index) {
                         if (index < vmCalendar.startIndex) {
                             vmCalendar.endIndex = vmCalendar.startIndex;
                             vmCalendar.startIndex = index;
                         } else {
                             vmCalendar.endIndex = index;
                         }
-                    } else if (vmCalendar.endIndex != -1 
-                        && vmCalendar.startIndex != index
-                        && vmCalendar.endIndex != index
-                        && vmCalendar.startIndex != vmCalendar.endIndex
-                        ) {
+                    } else if (vmCalendar.endIndex != -1 && vmCalendar.startIndex != index && vmCalendar.endIndex != index
+                        // && vmCalendar.startIndex != vmCalendar.endIndex
+                    ) {
                         if (index == vmCalendar.startIndex - 1 || index == vmCalendar.startIndex + 1) {
                             vmCalendar.startIndex = index;
                         } else if (index == vmCalendar.endIndex - 1 || index == vmCalendar.endIndex + 1) {
                             vmCalendar.endIndex = index;
                         } else {
                             vmCalendar.startIndex = index;
-                            vmCalendar.endIndex = index;
+                            vmCalendar.endIndex = -1;
                         }
                     } else {
-                        if(index >= vmCalendar.startIndex) {
-                            if(vmCalendar.endIndex != index) {
-                                vmCalendar.endIndex = index;
-                            } else {
-                                vmCalendar.startIndex = index;
-                            }
-                        } else if (index <= vmCalendar.endIndex) {
-                            vmCalendar.startIndex = index;
-                        } 
+                        // if(index >= vmCalendar.startIndex) {
+                        //     if(vmCalendar.endIndex != index) {
+                        //         vmCalendar.endIndex = index;
+                        //     } else {
+                        //         vmCalendar.startIndex = index;
+                        //     }
+                        // } else if (index <= vmCalendar.endIndex) {
+                        //     vmCalendar.startIndex = index;
+                        // } 
                     }
                     // vmCalendar.foldCalendar(data, clickIndex);
                 }
@@ -84,72 +202,66 @@ var bookDateList = null,
         nightPrice: 0, //根据入住时间确定的夜房价格
         closeModal: function() {
             modalClose();
-            vmCalendar.isShowClock = false;
+            // vmCalendar.isShowClock = false;
 
-            //保存选中的小时
-            $.extend(newOrder.day, {
-                startHour: clockObj.getStartHour(),
-                endHour: clockObj.getEndHour(),
-                start: clockObj.getStart(),
-                startShow: clockObj.getStartShow(),
-                end: clockObj.getEnd(),
-                endShow: clockObj.getEndShow(),
-                timeSpan: clockObj.getTimeSpan()
-            });
-            Storage.set("newOrder", newOrder);
-
+            if (vmCalendar.key == vmCalendar.status.dayClock) {
+                vmCalendar.status.key = vmCalendar.status.calendar;
+            }
+        },
+        save: function() {
             if (typeof(vmCity) != 'undefined') {
-                Storage.set("newOrder", newOrder);
-                saveStorage();
+                // Storage.set("newOrder", newOrder);
+                // saveStorage();
                 vmCity.getHotelPosition(mapObj);
             }
             if (typeof(vmHotel) != 'undefined') {
-                Storage.set("newOrder", newOrder);
-                saveStorage();
+                // Storage.set("newOrder", newOrder);
+                // saveStorage();
                 vmHotel.getRoomTypeList();
             }
             if (typeof(vmRoom) != 'undefined') {
-                vmRoom.showDate();
-                saveStorage();
+                if(vmCalendar.status.key == vmCalendar.status.partTimeClock) {
+                    vmRoom.showPartTime();
+                } else {
+                    vmRoom.showDate();
+                }
+                // saveStorage();
+                vmRoom.getData();
                 vmRoom.startIndex = vmCalendar.startIndex;
             }
         },
-        save: function(callback) {
-            modalClose();
-            vmCalendar.isShowClock = false;
-            callback();
-        },
-        isShowClock: false,
-        showClock: function() {
-            vmCalendar.isShowClock = true;
 
-            vmCalendar.foldCalendar(vmCalendar.startIndex);
-        },
-        foldCalendar: function(data) {
-            var index = data.calendarNum,
-                monthTitleNum = data.month - vmCalendar.$model.calendar[0].month;
-            vmCalendar.isShowClock = true;
+        // isShowClock: false,
+        // showClock: function() {
+        //     vmCalendar.isShowClock = true;
 
-            //折叠日历，显示表盘
-            if (vmCalendar.startIndex != -1) {
-                $('#calendarPanel').height(screen.height * (0.15 * screen.height / 450));
-                $('#calendarPanel').scrollTop(index / 7 * 45 + monthTitleNum * 50 - 30);
+        //     vmCalendar.foldCalendar(vmCalendar.startIndex);
+        // },
+        // foldCalendar: function(data) {
+        //     var index = data.calendarNum,
+        //         monthTitleNum = data.month - vmCalendar.$model.calendar[0].month;
+        //     vmCalendar.isShowClock = true;
 
-                // var startObj, endObj;
-                // startObj = vmCalendar.calendarDates[vmCalendar.startIndex];
-                // clockObj.setStart(startObj.month, startObj.day);
+        //     //折叠日历，显示表盘
+        //     if (vmCalendar.startIndex != -1) {
+        //         $('#calendarPanel').height(screen.height * (0.15 * screen.height / 450));
+        //         $('#calendarPanel').scrollTop(index / 7 * 45 + monthTitleNum * 50 - 30);
 
-                // if (vmCalendar.endIndex == -1) {
-                //     vmCalendar.endIndex = vmCalendar.startIndex + 1;
-                // }
-                // endObj = vmCalendar.calendarDates[vmCalendar.endIndex];
-                // clockObj.setEnd(endObj.month, endObj.day);
-            }
-        },
-        hideClock: function() {
-            vmCalendar.isShowClock = false;
-            $('#calendarPanel').height($(window).height() - 230);
-        }
+        //         // var startObj, endObj;
+        //         // startObj = vmCalendar.calendarDates[vmCalendar.startIndex];
+        //         // clockObj.setStart(startObj.month, startObj.day);
+
+        //         // if (vmCalendar.endIndex == -1) {
+        //         //     vmCalendar.endIndex = vmCalendar.startIndex + 1;
+        //         // }
+        //         // endObj = vmCalendar.calendarDates[vmCalendar.endIndex];
+        //         // clockObj.setEnd(endObj.month, endObj.day);
+        //     }
+        // },
+        // hideClock: function() {
+        //     vmCalendar.isShowClock = false;
+        //     $('#calendarPanel').height($(window).height() - 230);
+        // }
     });
 
 //先读取本地session
@@ -157,6 +269,10 @@ if (newOrder && newOrder.day) {
     if (newOrder.day.startIndex > -1) {
         vmCalendar.startIndex = newOrder.day.startIndex;
         vmCalendar.endIndex = newOrder.day.endIndex;
+
+        if (vmCalendar.startIndex > -1 && vmCalendar.endIndex > -1) {
+            vmCalendar.isNextBtnDisabled = false;
+        }
     }
 }
 
@@ -169,8 +285,8 @@ function getCalendar(serverTime) {
         today = new Date(serverTime.replace(/-/g, '/')),
         list = [];
 
-    //显示几个月
-    for (var i = 0; i < 7; i++) {
+    //生成几个月的日历
+    for (var i = 0; i < 6; i++) {
         list.push({
             month: month + i,
             days: addMonth(d, today)
@@ -273,7 +389,6 @@ function addDate(list, date, num, today, renderMonth, index) {
 }
 
 vmCalendar.$watch('startIndex', function(a) {
-    console.log(a)
     var startObj, sIndex, startShow, amount;
 
     if (a == -1) {
@@ -283,34 +398,39 @@ vmCalendar.$watch('startIndex', function(a) {
         if (startObj) {
             sIndex = a;
             startShow = startObj.month + '月' + startObj.day + '日' + '<br>' + clockObj.getStartHour() + ':00<br>' + getWeekday(startObj.date);
+
+
+            //设置表盘的日期
+            // if(vmCalendar.startIndex == vmCalendar.endIndex) {
+            //     clockObj.setPartTimeEnd(startObj.month, startObj.day);
+            // } 
+            clockObj.setStart(startObj.month, startObj.day);
         }
     }
 
     if (sIndex && (vmCalendar.endIndex > -1)) {
         amount = vmCalendar.endIndex - sIndex;
+        vmCalendar.isNextBtnDisabled = false;
     } else {
         amount = '?';
+        vmCalendar.isNextBtnDisabled = true;
     }
 
     $.extend(newOrder.day, {
         startIndex: a,
         startShow: startShow,
-        amount: amount
+        amount: amount,
+        start: clockObj.getStart()
     });
     Storage.set("newOrder", newOrder);
-
-    if(vmCalendar.startIndex == vmCalendar.endIndex) {
-        clockObj.setPartTimeEnd(startObj.month, startObj.day);
-    } 
-    
-    clockObj.setStart(startObj.month, startObj.day);
 });
 
 vmCalendar.$watch('endIndex', function(a) {
     var endObj = {
-        month: null,
-        day: null
-    }, eIndex, endShow, amount;
+            month: null,
+            day: null
+        },
+        eIndex, endShow, amount;
 
     if (a == -1) {
         endShow = '<br>请选择';
@@ -319,46 +439,51 @@ vmCalendar.$watch('endIndex', function(a) {
         if (endObj) {
             eIndex = a;
             endShow = endObj.month + '月' + endObj.day + '日' + '<br>' + clockObj.getEndHour() + ':00<br>' + getWeekday(endObj.date);
+
+            //设置表盘的日期
+            // if(vmCalendar.startIndex == vmCalendar.endIndex) {
+            //     clockObj.setPartTimeEnd(endObj.month, endObj.day);
+            // } else {
+            clockObj.setEnd(endObj.month, endObj.day);
+            // }
         }
     }
 
     if (eIndex && (vmCalendar.startIndex > -1)) {
         amount = eIndex - vmCalendar.startIndex;
+        vmCalendar.isNextBtnDisabled = false;
     } else {
         amount = '?';
+        vmCalendar.isNextBtnDisabled = true;
     }
 
     $.extend(newOrder.day, {
         endIndex: a,
         endShow: endShow,
-        amount: amount
+        amount: amount,
+        end: clockObj.getEnd()
     });
 
     Storage.set("newOrder", newOrder);
-
-    if(vmCalendar.startIndex == vmCalendar.endIndex) {
-        clockObj.setPartTimeEnd(endObj.month, endObj.day);
-    } else {
-        clockObj.setEnd(endObj.month, endObj.day);
-    }
 });
 
+//注册表盘日期改变事件
 Observer.regist('startChange', function(e) {
-    var start = e.args.date,
-        delta = e.args.delta;
-    if (delta > 0) {
-        vmCalendar.startIndex++;
-    } else {
-        vmCalendar.startIndex--;
-    }
+    // var start = e.args.date,
+    //     delta = e.args.delta;
+    // if (delta > 0) {
+    //     vmCalendar.startIndex++;
+    // } else {
+    //     vmCalendar.startIndex--;
+    // }
 });
 
 Observer.regist('endChange', function(e) {
-    var start = e.args.date,
-        delta = e.args.delta;
-    if (delta > 0) {
-        vmCalendar.endIndex++;
-    } else {
-        vmCalendar.endIndex--;
-    }
+    // var start = e.args.date,
+    //     delta = e.args.delta;
+    // if (delta > 0) {
+    //     vmCalendar.endIndex++;
+    // } else {
+    //     vmCalendar.endIndex--;
+    // }
 });

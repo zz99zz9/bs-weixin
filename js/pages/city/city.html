@@ -138,10 +138,9 @@
         </a>
         <div ms-if="isShowMap==true" style="width: 18vw;">
             
-        </div>
         <div style="display: flex;justify-content: space-between;align-items: center;width: 60vw;">
             <div id="functionBtns">
-                <button type="button" class="calender-icon bs-bg-eee" style="background-color: white;" ms-css-background-image="type?'url(img/icon/clock-333.svg)':'url(img/icon/calendar-333.svg)'" ms-on-tap="openTimePanel" ms-visible="type<=1">
+                <button type="button" class="calender-icon bs-bg-eee" style="background-color: white;" ms-css-background-image="type?'url(img/icon/clock-333.svg)':'url(img/icon/calendar-333.svg)'" ms-click="openTimePanel" ms-visible="type<=1">
                     <div class="bs-text-51 bs-text-smaller" ms-if="!type" style="line-height: 46px;">{{getToday('day')}}</div>
                 </button>
             </div>
