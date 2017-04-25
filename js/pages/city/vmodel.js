@@ -180,32 +180,43 @@ var vmCity = avalon.define({
     },
     type: 0,
     openTimePanel: function() {
-        stopSwipeSkip.do(function() {
+        // stopSwipeSkip.do(function() {
+        //tap会穿透，触发弹窗上的点击事件，换成 click
+        vmBtn.useCheck = 1;
+        if (vmCity.type == 0) {
+            vmBtn.type = 'date';
+        } else {
+            vmBtn.type = 'partTime';
+            // popover('./util/partTime.html', 1, function() {
+            //     $('.select-time').height($(window).height() - 150);
+            //     loadSessionPartTime();
+            // });
+        }
 
-            vmBtn.useCheck = 1;
-            if (vmCity.type == 0) {
-                vmBtn.type = 'date';
-                modalShow('./util/calendar.html', 1, function() {
-                    $('#calendarPanel').height($(window).height() - 230);
-                    
-                    if(vmCalendar.startIndex > 0) {
-                        $('#calendarPanel').scrollTop(vmCalendar.startIndex / 7 * 25);
-                    }
-                    //初始状态打开`入住时间
-                    // if (!(vmCalendar.statusControl.isEndEdit || vmCalendar.statusControl.isStartEdit)) {
-                    //     vmCalendar.startClick();
-                    // }
+        modalShow('./util/calendar.html', 1, function() {
+            $('#calendarPanel').height($(window).height() - 250);
+            clockObj = clock();
 
-                    clockObj = clock();
-                });
-            } else {
-                vmBtn.type = 'partTime';
-                popover('./util/partTime.html', 1, function() {
-                    $('.select-time').height($(window).height() - 150);
-                    loadSessionPartTime();
-                });
+            if(vmCalendar.status.key == vmCalendar.status.calendar) {
+                var index = vmCalendar.startIndex, monthTitleNum;
+                if(index > 0) {
+                    monthTitleNum = vmCalendar.$model.calendarDates[index].month - vmCalendar.$model.calendar[0].month;
+                    $('#calendarPanel').scrollTop(index / 7 * 45 + monthTitleNum * 50 - 30);
+                }
+            }
+
+            if(vmCalendar.status.key == vmCalendar.status.partTimeClock) {
+                var dateTemp = new Date(), hourTemp = dateTemp.getHours();
+                clockObj.setStatus(vmCalendar.status.partTimeClock);
+                
+                if (hourTemp < 7 || hourTemp > 18) {
+                    mui.alert('时租房可预订时间为7:00-18:00', function() {
+                        vmCalendar.goDay();
+                    });
+                }
             }
         });
+        // });
     },
     hotelMarkers: [],
     selectedHid: 0,
@@ -653,3 +664,8 @@ function iniMarkers() {
     setMarkers();
 }
 
+//监听 type 变化
+vmCity.$watch('type', function(a) {
+    vmCity.getHotelPosition(mapObj);
+    vmCity.getCityGallery();
+});

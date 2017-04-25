@@ -49,23 +49,22 @@ var clock = function(startH, endH) {
             y: r * Math.sin((i - 3) / 12 * 2 * Math.PI)
         });
     }
-    var bensue = Storage.get("bensue"),
-        newOrder = Storage.get("newOrder");
 
-    console.log(bensue)
-    console.log(newOrder)
-
-    if(bensue.type){
-        status.key = bensue.type?status.partTimeClock:status.dayClock;
-    }
-    getSessionData(status.key);
+    getSessionData();
 
     iniCanvas();
 
-    function getSessionData(type) {
-        var coord = {};
+    //读取本地储存
+    function getSessionData() {
+        var coord = {},
+            bensue = Storage.get("bensue"),
+            newOrder = Storage.get("newOrder");
 
-        switch(type){
+        if(bensue.type){
+            status.key = bensue.type?status.partTimeClock:status.dayClock;
+        }
+
+        switch(status.key){
             case status.dayClock: 
                 if (newOrder && newOrder.day) {
                     if (newOrder.day.start) {
@@ -95,27 +94,28 @@ var clock = function(startH, endH) {
                 if (newOrder && newOrder.partTime) {
                     if (newOrder.partTime.start) {
                         t1 = new Date(newOrder.partTime.start.replace(/-/g, "/"));
-                    }
-                    if (newOrder.partTime.end) {
                         t2 = new Date(newOrder.partTime.end.replace(/-/g, "/"));
+                    } else {
+                        //如果首次直接加载 partTimeClock
+                        //退房时间比入住时间晚3个小时
+                        h2 = t1.getHours() + 3
+                        t2.setDate(t1.getDate());
+                        t2.setHours(h2);
                     }
-
+ 
                     if (newOrder.partTime.startHour) {
                         h1 = newOrder.partTime.startHour;
-                        console.log(h1)
                         t1.setHours(h1);
-                        coord = getCoordByHour(h1);
-                        dx1 = coord.x;
-                        dy1 = coord.y;
-                    }
-                    if (newOrder.partTime.endHour) {
                         h2 = newOrder.partTime.endHour;
-                        console.log(h2)
                         t2.setHours(h2);
-                        coord = getCoordByHour(h2);
-                        dx2 = coord.x;
-                        dy2 = coord.y;
                     }
+
+                    coord = getCoordByHour(h1);
+                    dx1 = coord.x;
+                    dy1 = coord.y;
+                    coord = getCoordByHour(h2);
+                    dx2 = coord.x;
+                    dy2 = coord.y;
                 }
                 break;
         }
@@ -629,11 +629,12 @@ var clock = function(startH, endH) {
 
     return {
         setStatus: function(key) {
+
             status.key = key;
             if (key == status.dayClock) {
                 this.setEndHour(12); //夜房固定12点退房
             }
-            getSessionData(status.key);
+            getSessionData();
 
             getStartandEnd();
             draw(dx1, dy1, dx2, dy2);

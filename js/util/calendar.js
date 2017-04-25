@@ -55,7 +55,9 @@ var bookDateList = null,
                 clockObj.setPartTimeEnd(hour);
                 clockObj.setStatus(vmCalendar.status.partTimeClock);
             } else {
-                mui.alert('时租房可预订时间为7:00-18:00')
+                mui.alert('时租房可预订时间为7:00-18:00', function() {
+                    vmCalendar.goDay();
+                });
             }
         },
         changeStatusBtnText: '',
@@ -208,17 +210,21 @@ var bookDateList = null,
         },
         save: function() {
             if (typeof(vmCity) != 'undefined') {
-                Storage.set("newOrder", newOrder);
+                // Storage.set("newOrder", newOrder);
                 // saveStorage();
                 vmCity.getHotelPosition(mapObj);
             }
             if (typeof(vmHotel) != 'undefined') {
-                Storage.set("newOrder", newOrder);
+                // Storage.set("newOrder", newOrder);
                 // saveStorage();
                 vmHotel.getRoomTypeList();
             }
             if (typeof(vmRoom) != 'undefined') {
-                vmRoom.showDate();
+                if(vmCalendar.status.key == vmCalendar.status.partTimeClock) {
+                    vmRoom.showPartTime();
+                } else {
+                    vmRoom.showDate();
+                }
                 // saveStorage();
                 vmRoom.getData();
                 vmRoom.startIndex = vmCalendar.startIndex;
@@ -383,7 +389,6 @@ function addDate(list, date, num, today, renderMonth, index) {
 }
 
 vmCalendar.$watch('startIndex', function(a) {
-    console.log(a)
     var startObj, sIndex, startShow, amount;
 
     if (a == -1) {

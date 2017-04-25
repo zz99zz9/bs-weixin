@@ -38,9 +38,9 @@
     font-size: 24px;
     color: #444;
     text-align: left;
-    border-color:#fff;
+    border-color: #fff;
     border-style: solid;
-    border-width: 20px 0 10px 10px;
+    border-width: 25px 0 0 10px;
     background: #fff;
 }
 
@@ -97,20 +97,21 @@
 
 .typeBtn {
     margin-top: 60px;
-    height: 25vh;
-    width: 70vw;
-    border: 1px solid gray;
-    border-radius: 20px;
+    height: 56px;
+    width: 87vw;
+    background-color: #F2F2F2;
+    border-radius: 100px;
     color: #444;
-    font-size: 24px;
+    font-size: 20px;
+    font-weight: lighter;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 .typeBtn:active {
-    background: #eee;
-    border-color: #eee;
+    background-color: #BDBDBD;
 }
+
 .nextBtn {
     display: block;
     width: 100vw;
@@ -136,14 +137,15 @@
     
     <!-- 模式选择 -->
     <div class="chooseType" ms-visible="status.key == status.chooseType">
-        <a href="###" class="typeBtn" ms-click="goDay">订全天房</a>
-        <a href="###" class="typeBtn" ms-click="goPartTime">订时租房</a>
+        <div style="color: #444;font-size: 24px;font-weight: bolder;    margin-top: 60px;text-align: left;width: 80vw;margin-bottom: 5vh;">您需要的是</div>
+        <a href="###" class="typeBtn" ms-click="goDay">全天房</a>
+        <a href="###" class="typeBtn" ms-click="goPartTime">时租房</a>
     </div>
 
     <!-- 日历 -->
     <div ms-visible="status.key == status.calendar">
         <section>
-            <div style="margin: 0 10px;background: none;">
+            <div style="margin: 0 10px;">
                 <div class="calendar" style="border-bottom: 1px solid gainsboro;padding-bottom: 10px;">
                     <b>日</b><b>一</b><b>二</b><b>三</b><b>四</b><b>五</b><b>六</b>
                 </div>
