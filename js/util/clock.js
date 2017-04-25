@@ -21,8 +21,8 @@ var clock = function(startH, endH) {
         lw = 40, //线宽
         circleColor = "#eee",
         tColor = "#ccc",
-        arcColor = "#169488",
-        dr = 28, //点半径
+        arcColor = "#444",
+        dr = 20, //点半径
         dx1, dy1, //点1的位置
         timeSpan = '',
         t1 = new Date(),
@@ -34,12 +34,12 @@ var clock = function(startH, endH) {
         h2 = 12,
         deltaHour2 = 0,
         beforeTouchT2,
-        dotColor = "#B3DFDB",
+        dotColor = "#f2f2f2",
         isTouchDot1 = false,
         isTouchDot2 = false,
         hourCoord = [],
         _tempDate = null,
-        colorArray = ["rgb(238,238,238)", "rgb(216,229,227)", "rgb(194,220,217)", "rgb(173,211,207)", "rgb(151,202,197)", "rgb(130,193,187)", "rgb(108,184,177)", "rgb(86,175,167)", "rgb(65,166,157)", "rgb(43,157,147)"];
+        colorArray = ["rgb(238,238,238)","rgb(221,221,221)","rgb(204,204,204)","rgb(187,187,187)","rgb(170,170,170)","rgb(153,153,153)","rgb(136,136,136)","rgb(119,119,119)","rgb(102,102,102)","rgb(85,85,85)"];
 
 
     //步进模式，记录步进点的坐标
@@ -426,18 +426,20 @@ var clock = function(startH, endH) {
         drawTime();
         drawArc();
 
-        drawDot(x2, y2);
+        
         if (status.key == status.dayClock) {
-            drawDotText("退房", x2, y2, true);
+            drawDot(x2, y2, true);
+            drawDotText("退", x2, y2, true);
         } else {
-            drawDotText("退房", x2, y2);
+            drawDot(x2, y2, false);
+            drawDotText("退", x2, y2, false);
         }
         //记录点2的最新位置
         dx2 = x2;
         dy2 = y2;
 
-        drawDot(x1, y1);
-        drawDotText("入住", x1, y1);
+        drawDot(x1, y1, false);
+        drawDotText("入", x1, y1, false);
         //记录点1的最新位置
         dx1 = x1;
         dy1 = y1;
@@ -534,21 +536,28 @@ var clock = function(startH, endH) {
         ctx.stroke();
     }
 
-    function drawDot(x, y) {
+    function drawDot(x, y, isDisabled) {
+
         ctx.beginPath();
         ctx.arc(x, y, dr, 0, 2 * Math.PI, true);
-        ctx.fillStyle = dotColor;
+        if(isDisabled) {
+            ctx.fillStyle = arcColor; 
+        } else {
+            ctx.fillStyle = dotColor;     
+        }
         ctx.fill();
 
-        // ctx.arc(x, y, dr, 0, 2 * Math.PI, true);
-        // ctx.strokeStyle = arcColor;
-        // ctx.lineWidth = 1;
-        // ctx.stroke();
+        if(!isDisabled){
+            ctx.arc(x, y, dr, 0, 2 * Math.PI, true);
+            ctx.strokeStyle = arcColor;
+            ctx.lineWidth = 2;
+            ctx.stroke();
+        }
     }
 
     function drawDotText(text, x, y, isDisabled) {
         if (isDisabled) {
-            ctx.fillStyle = "#999";
+            ctx.fillStyle = "#fff";
         } else {
             ctx.fillStyle = arcColor;
         }
