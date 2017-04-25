@@ -101,7 +101,7 @@ var vmTop = avalon.define({
 
 var vmHotel = avalon.define({
     $id: 'hotel',
-    type: 0, //0 全天房, 1 夜房
+    type: 0, //0 全天房, 1 时租房
     alias: '',
     name: '',
     tel: '',
@@ -120,25 +120,23 @@ var vmHotel = avalon.define({
             vmBtn.useCheck = 1;
             if (roomType == 0) {
                 vmBtn.type = 'date';
-                modalShow('./util/calendar.html', 1, function() {
-                    $('#calendarPanel').height($(window).height() - 230);
-                    if(vmCalendar.startIndex > 0) {
-                        $('#calendarPanel').scrollTop(vmCalendar.startIndex / 7 * 25);
-                    }
-                    //初始状态打开`入住时间
-                    // if (!(vmCalendar.statusControl.isEndEdit || vmCalendar.statusControl.isStartEdit)) {
-                    //     vmCalendar.startClick();
-                    // }
-
-                    clockObj = clock();
-                });
+               
             } else {
                 vmBtn.type = 'partTime';
-                modalShow('./util/partTime.html', 1, function() {
-                    $('.select-time').height($(window).height() - 150);
-                    loadSessionPartTime();
-                });
+                // modalShow('./util/partTime.html', 1, function() {
+                //     $('.select-time').height($(window).height() - 150);
+                //     loadSessionPartTime();
+                // });
+
             }
+            modalShow('./util/calendar.html', 1, function() {
+                $('#calendarPanel').height($(window).height() - 250);
+                if(vmCalendar.startIndex > 0) {
+                    $('#calendarPanel').scrollTop(vmCalendar.startIndex / 7 * 25);
+                }
+
+                clockObj = clock();
+            });
         });
     },
     getHotelDetail: function() {

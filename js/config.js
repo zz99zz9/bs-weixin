@@ -100,12 +100,13 @@ function ajaxJsonp(param) {
             param.data.openId = openid;
 
             $.ajax({
-                type: "get",
+                type: "post",
                 async: param.async || true,
                 // url: param.url + "?accessToken=" + token + "&openId=" + openid,
                 url: param.url,
-                dataType: "jsonp",
-                jsonp: "jsonpcallback",
+                dataType: "json",
+                // dataType: "jsonp",
+                // jsonp: "jsonpcallback",
                 data: param.data,
                 success: function(json) {
                     if (json.status === -1) {

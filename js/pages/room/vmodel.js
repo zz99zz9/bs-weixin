@@ -833,8 +833,6 @@ function saveStorage() {
     }
 
     Storage.set("newOrder", newOrder);
-
-    vmRoom.getData();
 }
 
 //注册导航接口

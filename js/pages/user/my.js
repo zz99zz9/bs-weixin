@@ -177,11 +177,13 @@ var vmSide = avalon.define({
         var openid = userInfo.openId || '';
 
         $.ajax({
-            type: "get",
+            // type: "get",
+            type: "post",
             async: true,
             url: urls.userInfotUrl + "?accessToken=" + token + "&openId=" + openid,
-            dataType: "jsonp",
-            jsonp: "jsonpcallback",
+            dataType: "json",
+            // dataType: "jsonp",
+            // jsonp: "jsonpcallback",
             success: function (json) {
                 if (json.status === -1) {
                     vmSide.nickName = ' 未登录 ';
