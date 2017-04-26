@@ -29,18 +29,17 @@
     color: #444;
     clear: both;
     line-height: 50px;
-    border-radius: 10px;
+    border-radius: 100px;
 }
 
 .answer {
-    background: #b3dfdb;
     height: 50px;
     width: 0;
     margin: 10px 8px;
     float: right;
     overflow: hidden;
     clear: both;
-    border-radius: 10px;
+    border-radius: 100px;
 }
 
 .arrow {
@@ -57,16 +56,44 @@
     padding: 0;
     margin: 0;
     border: 0;
-    background: #b3dfdb;
+    background: #bdbdbd;
+}
+
+.jump {
+    text-align: right;
+    margin-left: 75vw;
+    padding: 24px 12px 0;
 }
 </style>
-<div ms-controller="serviceProcess" class="bs-text-normal" style="margin: 40px 12px;">
-    <div class="oneLine">
+<div ms-controller="serviceProcess" class="bs-text-normal" style="margin: 0 12px;">
+    <div class="bs-text-normal bs-text-gray jump" onclick="javascript:location.href='../service/ready.html'">
+        跳过
+    </div>
+    <div ms-repeat="prelist">
+        <div class="oneLine">
+            <div class="online-height">
+                <img ms-attr-id="{{'l' + el.id}}" src="../img/icon/service-staff.svg" class="item-img" style="display: none;">
+            </div>
+            <div ms-attr-id="{{'q' + el.id}}" class="question">
+                <span class="ask1 typed-cursor" style="margin-left: 20px;">{{prelist[$index].preService.serviceProblem}}</span>
+            </div>
+        </div>
+        <div class="oneLine" style="float: right;">
+            <div ms-attr-id="{{'a' + el.id}}" class="answer bs-text-normal">
+                <button ms-attr-id="{{'picker' + el.id}}" type='button' class="mui-btn mui-btn-block button bs-text-normal" ms-repeat-dl="selectList">{{dl}}</button>
+                <img src="../img/icon/pickerArrow.svg" class="arrow">
+            </div>
+            <div class="online-height">
+                <img ms-attr-id="{{'r' + el.id}}" src="../img/icon/service-user.svg" class="item-img-r" style="display: none;">
+            </div>
+        </div>
+    </div>
+    <!-- <div class="oneLine">
         <div class="online-height">
             <img id="l1" src="../img/icon/service-staff.svg" class="item-img" style="display: none;">
         </div>
         <div id="q1" class="question">
-            <span class="ask1 typed-cursor" style="margin-left: 20px;"></span>
+            <span class="ask1 typed-cursor" style="margin-left: 20px;">{{prelist[0].preService.serviceProblem}}</span>
         </div>
     </div>
     <div class="oneLine" style="float: right;">
@@ -83,7 +110,7 @@
             <img id="l2" src="../img/icon/service-staff.svg" class="item-img" style="display: none;">
         </div>
         <div id="q2" class="question">
-            <span class="ask2" style="margin-left: 20px;"></span>
+            <span class="ask2" style="margin-left: 20px;">{{prelist[1].preService.serviceProblem}}</span>
         </div>
     </div>
     <div class="oneLine" style="float: right;">
@@ -100,7 +127,7 @@
             <img id="l3" src="../img/icon/service-staff.svg" class="item-img" style="display: none;">
         </div>
         <div id="q3" class="question">
-            <span class="ask3" style="margin-left: 20px;"></span>
+            <span class="ask3" style="margin-left: 20px;">{{prelist[2].preService.serviceProblem}}</span>
         </div>
     </div>
     <div class="oneLine" style="float: right;">
@@ -111,7 +138,7 @@
         <div class="online-height">
             <img id="r3" src="../img/icon/service-user.svg" class="item-img-r" style="display: none;">
         </div>
-    </div>
+    </div> -->
     <!-- <div class="oneLine">
         <div>
             <img id="l4" src="../img/icon/service-staff.svg" class="item-img" style="display: none;">

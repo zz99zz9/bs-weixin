@@ -13,13 +13,13 @@
         <section style="margin: -10px auto; margin-top: -14px;">
             <div class="hotel">
                 <div style="position: absolute;top: -25px;z-index: 10;right: 0;padding-right: 5px;display: none;">
-                    <button type="button" class="calender-icon bs-bg-red" style="background-image:url(../img/icon/filter.png);" ms-on-tap="openFilter">
+                    <button type="button" class="calender-icon bs-bg-fdd942" style="background-image:url(../img/icon/filter.png);" ms-on-tap="openFilter">
                     </button>
                 </div>
                 <div>
                     <span class="room-name bs-text-x-larger bs-text-51"> {{room.name}}</span>
                     <span class="room-name bs-text-x-larger bs-text-51" ms-if="typeof room.restRoomCount != 'undefined'"> 
-                        (剩余<span class="bs-text-red">{{room.restRoomCount}}</span>间)</span>
+                        (剩余<span class="bs-text-fdd942">{{room.restRoomCount}}</span>间)</span>
                     <p class="bs-text-small bs-text-gold" style="margin: 8px 0 0;white-space: normal;">{{room.introduction}}
                     </p>
                 </div>
@@ -51,16 +51,16 @@
                 <span class="bs-text-large bs-text-51" style="float: right">退房时间</span>
             </p>
             <div class="" style="padding: 0 10px 20px; display: flex; justify-content: space-between;text-align: center;" ms-on-tap="openTimePanel">
-                <div class="bs-text-large bs-text-red" style="">
+                <div class="bs-text-large bs-text-fdd942" style="">
                     {{start|html}}
                 </div>
                 <div style="font-size: 12px;">
                     <div>|</div>
-                    <span class="bs-text-large bs-text-red">{{timeSpan}}</span>
+                    <span class="bs-text-large bs-text-fdd942">{{timeSpan}}</span>
                     <br>
                     <div>|</div>
                 </div>
-                <div class="bs-text-large bs-text-red">
+                <div class="bs-text-large bs-text-fdd942">
                     {{end|html}}
                 </div>
             </div>

@@ -6,7 +6,7 @@ var hid,
     isexpand = false,
     isSuccess = false,
     user,
-    clockObj = {};
+    clockObj = null;
 
 hid = getParam("id");
 if (hid != "") {
@@ -29,9 +29,9 @@ bensue = Storage.get("bensue");
 if (bensue) {
     roomType = bensue.type;
 
-    if (bensue.type == 2) {
-        midnightDiscount = bensue.midnightDiscount;
-    }
+    // if (bensue.type == 2) {
+    //     midnightDiscount = bensue.midnightDiscount;
+    // }
 } else {
     //第一次加载
     roomType = 0;
@@ -101,7 +101,7 @@ var vmTop = avalon.define({
 
 var vmHotel = avalon.define({
     $id: 'hotel',
-    type: 0, //0 全天房, 1 夜房
+    type: roomType, //0 全天房, 1 时租房
     alias: '',
     name: '',
     tel: '',
@@ -118,27 +118,40 @@ var vmHotel = avalon.define({
     openTimePanel: function() {
         stopSwipeSkip.do(function() {
             vmBtn.useCheck = 1;
-            if (roomType == 0) {
+            if (vmHotel.type == 0) {
                 vmBtn.type = 'date';
-                modalShow('./util/calendar.html', 1, function() {
-                    $('#calendarPanel').height($(window).height() - 230);
-                    if(vmCalendar.startIndex > 0) {
-                        $('#calendarPanel').scrollTop(vmCalendar.startIndex / 7 * 25);
-                    }
-                    //初始状态打开`入住时间
-                    if (!(vmCalendar.statusControl.isEndEdit || vmCalendar.statusControl.isStartEdit)) {
-                        vmCalendar.startClick();
-                    }
-
-                    clockObj = clock();
-                });
             } else {
                 vmBtn.type = 'partTime';
-                modalShow('./util/partTime.html', 1, function() {
-                    $('.select-time').height($(window).height() - 150);
-                    loadSessionPartTime();
-                });
+                // modalShow('./util/partTime.html', 1, function() {
+                //     $('.select-time').height($(window).height() - 150);
+                //     loadSessionPartTime();
+                // });
+
             }
+
+            modalShow('./util/calendar.html', 1, function() {
+                $('#calendarPanel').height($(window).height() - 250);
+                clockObj = clock();
+
+                if(vmCalendar.status.key == vmCalendar.status.calendar) {
+                    var index = vmCalendar.startIndex, monthTitleNum;
+                    if(index > 0) {
+                        monthTitleNum = vmCalendar.$model.calendarDates[index].month - vmCalendar.$model.calendar[0].month;
+                        $('#calendarPanel').scrollTop(index / 7 * 45 + monthTitleNum * 50 - 30);
+                    }
+                }
+
+                if(vmCalendar.status.key == vmCalendar.status.partTimeClock) {
+                    var dateTemp = new Date(), hourTemp = dateTemp.getHours();
+                    clockObj.setStatus(vmCalendar.status.partTimeClock);
+                    
+                    if (hourTemp < 7 || hourTemp > 18) {
+                        mui.alert('时租房可预订时间为7:00-18:00', function() {
+                            vmCalendar.goDay();
+                        });
+                    }
+                }
+            });
         });
     },
     getHotelDetail: function() {
@@ -148,7 +161,7 @@ var vmHotel = avalon.define({
                 hid: hid,
                 lng: myLng,
                 lat: myLat,
-                isPartTime: roomType
+                isPartTime: vmHotel.type
             },
             successCallback: function(json) {
                 if (json.status == 1) {
@@ -294,10 +307,10 @@ var vmHotel = avalon.define({
         ajaxJsonp({
             url: urls.getRoomTypeList,
             data: {
-                startTime: roomType ? newOrder.partTime.start : (newOrder.day.start == getToday('date') ? getToday() : newOrder.day.start),
-                endTime: roomType ? newOrder.partTime.end : newOrder.day.end,
+                startTime: vmHotel.type ? newOrder.partTime.start : (newOrder.day.start == getToday('date') ? getToday() : newOrder.day.start),
+                endTime: vmHotel.type ? newOrder.partTime.end : newOrder.day.end,
                 hid: hid,
-                isPartTime: roomType,
+                isPartTime: vmHotel.type,
                 discount: midnightDiscount
             },
             successCallback: function(json) {
@@ -442,16 +455,21 @@ function reload() {
 
 //保存到本地
 function saveStorage() {
-    if (roomType) {
+    if (vmHotel.type) {
         $.extend(newOrder.partTime, {
-            start: getStartTime(roomType),
-            end: getEndTime(roomType)
+            start: getStartTime(vmHotel.type),
+            end: getEndTime(vmHotel.type)
         });
     } else {
         $.extend(newOrder.day, {
-            start: getStartTime(roomType),
-            end: getEndTime(roomType)
+            start: getStartTime(vmHotel.type),
+            end: getEndTime(vmHotel.type)
         });
     }
     Storage.set("newOrder", newOrder);
 }
+
+vmHotel.$watch('type', function(a) {
+    vmHotel.getHotelDetail();
+    vmHotel.getRoomTypeList();
+});

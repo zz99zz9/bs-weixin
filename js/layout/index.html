@@ -47,7 +47,7 @@
                 <!-- 打开日历按钮 -->
                 <div class="bs-btn-icon" style="top: 100vw;right: 60px;">
                     <button type="button" class="calender-icon" ms-css-background-image="type?'url(img/clock.png)':'url(img/calender.png)'" style="top: 20px;" ms-on-tap="openTimePanel">
-                        <div class="bs-text-red" ms-if="!type" style="margin: 8px 1px 0 0">{{getToday('day')}}</div>
+                        <div class="bs-text-fdd942" ms-if="!type" style="margin: 8px 1px 0 0">{{getToday('day')}}</div>
                     </button>
                 </div>
                 <!-- 打开地图按钮 -->
@@ -70,10 +70,10 @@
 
                 <section>
                     <div>
-                        <span class="bs-text-large bs-text-gold bs-btn-sort" ms-if="sort==1" ms-on-tap="sortBy(2)">
+                        <span class="bs-text-large bs-text-graybs-btn-sort" ms-if="sort==1" ms-on-tap="sortBy(2)">
                             距离最近
                         </span>
-                        <span class="bs-text-large bs-text-gold bs-btn-sort" ms-if="sort==2" ms-on-tap="sortBy(1)">
+                        <span class="bs-text-large bs-text-graybs-btn-sort" ms-if="sort==2" ms-on-tap="sortBy(1)">
                             价格最低
                         </span>
                         <img src="img/sort.png" alt="" style="width: 22px;height: 22px;position: relative;top: 6px;right: 5px;"/>

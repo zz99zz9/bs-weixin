@@ -9,7 +9,7 @@
 <div id="pullrefresh" class="mui-scroll-wrapper bs-bg-white" ms-controller="hotel" ms-on-swipeup="vmTop.su" ms-on-swipedown="vmTop.sd">
     <div class="mui-scroll">
         <div style="position: absolute;top: 40vh;z-index: 10;right: 0;padding-right: 10px;" ms-if="type!==2">
-            <button type="button" class="calender-icon bs-bg-red" ms-css-background-image="type?'url(img/icon/clock-white.svg)':'url(img/icon/calendar-white.svg)'" ms-on-tap="openTimePanel">
+            <button type="button" class="calender-icon bs-bg-fdd942" ms-css-background-image="type?'url(img/icon/clock-white.svg)':'url(img/icon/calendar-white.svg)'" ms-on-tap="openTimePanel">
             <div class="bs-text-white bs-text-smaller" ms-if="!type" style="line-height: 46px;">{{getToday('day')}}</div>
             </button>
         </div>
@@ -63,7 +63,7 @@
         
         <!-- 房型筛选 -->
         <div class="typeFilter bs-text-large">
-            <div class="bs-bg-gold typeFilter-item" style="margin-right: 7px;">
+            <div class="bs-bg-graytypeFilter-item" style="margin-right: 7px;">
             </div>
             <div class="typeFilter-item bs-text-51" style="flex-grow: 1;">房型筛选
             </div>

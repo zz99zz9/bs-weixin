@@ -32,7 +32,7 @@
             <!-- 未开通 -->
                 <section :if="el.status==1">
                     <div>
-                        <div class="bs-text-larger bs-text-gold bs-text-bolder">推广内容</div>
+                        <div class="bs-text-larger bs-text-graybs-text-bolder">推广内容</div>
                         <div class="promotion-detail-content">
                             每月转发
                             <span :if="!@isNormal">
@@ -45,13 +45,13 @@
                         </div>
                     </div>
                     <div :if="!@isNormal">
-                        <div class="bs-text-larger bs-text-gold bs-text-bolder">时效</div>
+                        <div class="bs-text-larger bs-text-graybs-text-bolder">时效</div>
                         <div class="promotion-detail-content">
                             本活动共计<span class="bs-text-gold">12个月</span>，以开通之日为起始，12个月后结束。
                         </div>
                     </div>
                     <div :if="!@isNormal">
-                        <div class="bs-text-larger bs-text-gold bs-text-bolder">收入</div>
+                        <div class="bs-text-larger bs-text-graybs-text-bolder">收入</div>
                         <div class="promotion-detail-content">
                             <div>年收入&nbsp; <span class="bs-text-gold">¥{{@round(el.totalAward+el.userBuyCard.monthReturnAmount*12, 0)}}</span></div>
                             <div>月收入&nbsp; <span class="bs-text-gold">¥{{@round(el.monthAward+el.userBuyCard.monthReturnAmount, 0)}}</span></div>
@@ -59,7 +59,7 @@
                         </div>
                     </div>
                     <div :if="@isNormal">
-                        <div class="bs-text-larger bs-text-gold bs-text-bolder">奖励</div>
+                        <div class="bs-text-larger bs-text-graybs-text-bolder">奖励</div>
                         <div class="promotion-detail-content">
                             <div>推广一次，增加抽奖机会&nbsp; <span class="bs-text-gold">X2</span></div>
                         </div>
