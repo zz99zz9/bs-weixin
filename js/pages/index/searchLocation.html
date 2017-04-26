@@ -5,6 +5,16 @@
     padding: 10px 12.5px 10px 12.5px;
 }
 
+.hot-hotel-recommend {
+    border: 1px solid #eee;
+    border-radius: 12px;
+    height: 24px;
+    text-align: center;
+    display: inline-block;
+    margin-left: 24px;
+    margin-bottom: 16px;
+}
+
 
 /*input[type="search"] {
      height: 40px;
@@ -66,39 +76,50 @@ hr {
     </section>
 </article> -->
 <article ms-controller="search" style="height: 100vh;width: 100vw;">
-    <br>
-    <section class="search-panel">
-        <div style="display: flex;justify-content: space-between;align-items: baseline;">
-            <div ms-on-tap="closePop">
-                返回
+    <section style="width: 100%;color: #000;background-color: #fff;">
+        <div style="display: flex;justify-content: space-between;align-items: center; padding: 10px 24px; border-color: #eee;background-color: #eee;">
+            <div ms-on-tap="closePop" style="height: 23px;">
+                <img src="../img/icon/icon-back-444.svg">
             </div>
-            <div style="height: 40px;width: 58vw;">
-                <span class="mui-icon mui-icon-search" style="position: absolute; margin: 4.5px 12.5px;"></span>
-                <input id="tipinput" type="search" style="text-align: center;" placeholder="搜索" autofocus="autofocus">
+            <div style="height: 34px;width: 58vw;">
+                <span class="mui-icon" style="position: absolute; margin: 5px 12.5px;">
+                    <img src="../img/icon/search-444.svg">
+                </span>
+                <input id="tipinput" type="search" style="text-align: left;border-radius: 17px; font-size: 12px;background-color: #fff;" placeholder="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;搜索地标或街道" autofocus="autofocus">
             </div>
-            <div onClick="javascript:location.href='../city.html';">
+            <div onClick="javascript:location.href='../city.html';" style="font-size: 14px;">
                 搜索
             </div>
         </div>
-        <hr>
-        <section class="search-panel" style="padding: 20px 0 0; text-align: left;">
-            <span class="bs-text-small bs-text-153">酒店推荐</span>
-            <div class="bs-text-small bs-text-black" style="margin: 10px 0;">
-                上海迪斯尼店
+        <section style="display: flex;justify-content: baseline;align-items: center;padding: 20px 24px;">
+            <div><img src="" style="width: 16px;height: 16px;"></div>
+            <div style="font-size: 14px;">&nbsp;&nbsp;定位当前位置</div>
+        </section>
+        <section style="text-align: left;">
+            <div class="bs-text-small bs-text-153" style="font-size: 12px;margin-bottom: 24px;padding-left: 24px;">热门酒店推荐</div>
+            <div>
+                <div class="bs-text-small bs-text-black hot-hotel-recommend">&nbsp;&nbsp;&nbsp;&nbsp;上海迪斯尼店&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                <div class="bs-text-small bs-text-black hot-hotel-recommend">&nbsp;&nbsp;&nbsp;&nbsp;惠南店&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                <div class="bs-text-small bs-text-black hot-hotel-recommend">&nbsp;&nbsp;&nbsp;&nbsp;野生动物园店&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                <div class="bs-text-small bs-text-black hot-hotel-recommend">&nbsp;&nbsp;&nbsp;&nbsp;陆家嘴店&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                <div class="bs-text-small bs-text-black hot-hotel-recommend">&nbsp;&nbsp;&nbsp;&nbsp;浦东机场店&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                <div class="bs-text-small bs-text-black hot-hotel-recommend">&nbsp;&nbsp;&nbsp;&nbsp;虹桥机场店&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                <div class="bs-text-small bs-text-black hot-hotel-recommend">&nbsp;&nbsp;&nbsp;&nbsp;虹桥火车站店&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                <div class="bs-text-small bs-text-black hot-hotel-recommend">&nbsp;&nbsp;&nbsp;&nbsp;上海火车站店&nbsp;&nbsp;&nbsp;&nbsp;</div>
             </div>
-            <div class="bs-text-small bs-text-black" style="margin: 10px 0;">惠南店</div>
-            <div class="bs-text-small bs-text-black" style="margin: 10px 0;">
-                上海迪斯尼店
+        </section>
+        <section style="padding: 0px 24px;text-align: left;margin-top: 8px;">
+            <div class="bs-text-small bs-text-153" style="font-size: 12px;margin-bottom: 24px;">历史搜索记录</div>
+            <div>
+                <div class="bs-text-small bs-text-balck" style="display: flex;justify-content: space-between;align-content: center;margin-bottom: 16px;">
+                    <div style="font-size: 14px;">上海迪斯尼店</div>
+                    <div style="height: 24px;"><img src="../img/delete.png" style="width: 24px;height: 24px;"></div>
+                </div>
+                <div class="bs-text-small bs-text-balck" style="display: flex;justify-content: space-between;align-content: center;margin-bottom: 16px;">
+                    <div style="font-size: 14px;">上海迪斯尼店</div>
+                    <div style="height: 24px;"><img src="../img/delete.png" style="width: 24px;height: 24px;"></div>
+                </div>
             </div>
-            <div class="bs-text-small bs-text-black" style="margin: 10px 0;">惠南店</div>
-            <div class="bs-text-small bs-text-black" style="margin: 10px 0;">
-                上海迪斯尼店
-            </div>
-            <div class="bs-text-small bs-text-black" style="margin: 10px 0;">惠南店</div>
-            <div class="bs-text-small bs-text-black" style="margin: 10px 0;">
-                上海迪斯尼店
-            </div>
-            <div class="bs-text-small bs-text-black" style="margin: 10px 0;">惠南店</div>
         </section>
     </section>
 </article>
