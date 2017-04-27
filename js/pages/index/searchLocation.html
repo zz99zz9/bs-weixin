@@ -11,10 +11,26 @@
     height: 35px;
     text-align: center;
     display: inline-block;
-    margin: 0 0 16px 24px;
+    margin-bottom: 16px;
     padding: 5px 13px;
+    margin-right: 8px;
 }
 
+.searchlocation-searchhistory{
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    margin-bottom: 16px;
+}
+
+.searchlocation-searchbox{
+    display: flex;
+    justify-content: space-between;
+    align-items: center; 
+    padding: 10px 24px; 
+    border-color: #eee;
+    background-color: #eee;
+}
 
 /*input[type="search"] {
      height: 40px;
@@ -77,7 +93,7 @@ hr {
 </article> -->
 <article ms-controller="search" style="height: 100vh;width: 100vw;">
     <section style="width: 100%;color: #000;background-color: #fff;">
-        <div style="display: flex;justify-content: space-between;align-items: center; padding: 10px 24px; border-color: #eee;background-color: #eee;">
+        <div class="searchlocation-searchbox">
             <div ms-on-tap="closePop" style="height: 23px;">
                 <img src="../img/icon/icon-back-444.svg">
             </div>
@@ -85,19 +101,19 @@ hr {
                 <span class="mui-icon" style="position: absolute; margin: 5px 12.5px;">
                     <img src="../img/icon/search-444.svg">
                 </span>
-                <input id="tipinput" type="search" style="text-align: left;border-radius: 17px; font-size: 12px;background-color: #fff;" placeholder="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;搜索地标或街道" autofocus="autofocus">
+                <input id="tipinput" type="search" style="text-align: left;border-radius: 17px; font-size: 12px;background-color: #fff;padding-left: 50px;" placeholder="搜索地标或街道" autofocus="autofocus">
             </div>
             <div onClick="javascript:location.href='../city.html';" style="font-size: 14px;">
                 搜索
             </div>
         </div>
         <section style="display: flex;justify-content: baseline;align-items: center;padding: 20px 24px;">
-            <div><img src="" style="width: 16px;height: 16px;"></div>
-            <div style="font-size: 14px;">&nbsp;&nbsp;定位当前位置</div>
+            <img src="../img/icon/icon-geo.svg" style="width: 16px;height: 16px;">
+            <div style="font-size: 14px;padding-left: 16px;">定位当前位置</div>
         </section>
         <section style="text-align: left;">
             <div class="bs-text-small bs-text-gray" style="font-size: 12px;margin-bottom: 24px;padding-left: 24px;">热门酒店推荐</div>
-            <div>
+            <div style="display: flex;flex-wrap: wrap;justify-content: flex-start;padding: 0 24px;">
                 <div class="bs-text-small bs-text-black hot-hotel-recommend">上海迪斯尼店</div>
                 <div class="bs-text-small bs-text-black hot-hotel-recommend">惠南店</div>
                 <div class="bs-text-small bs-text-black hot-hotel-recommend">野生动物园店</div>
@@ -111,13 +127,13 @@ hr {
         <section style="padding: 0px 24px;text-align: left;margin-top: 8px;">
             <div class="bs-text-small bs-text-gray" style="font-size: 12px;margin-bottom: 24px;">历史搜索记录</div>
             <div>
-                <div class="bs-text-small bs-text-balck" style="display: flex;justify-content: space-between;align-content: center;margin-bottom: 16px;">
-                    <div style="font-size: 14px;">上海迪斯尼店</div>
-                    <div style="height: 24px;"><img src="../img/delete.png" style="width: 24px;height: 24px;"></div>
+                <div class="bs-text-small bs-text-balck searchlocation-searchhistory">
+                    <div class="bs-text-normal">上海迪斯尼店</div>
+                    <div style="height: 24px;"><img src="../img/icon/close_black.svg" style="width: 14px;height: 14px;"></div>
                 </div>
-                <div class="bs-text-small bs-text-balck" style="display: flex;justify-content: space-between;align-content: center;margin-bottom: 16px;">
-                    <div style="font-size: 14px;">上海迪斯尼店</div>
-                    <div style="height: 24px;"><img src="../img/delete.png" style="width: 24px;height: 24px;"></div>
+                <div class="bs-text-small bs-text-balck searchlocation-searchhistory">
+                    <div class="bs-text-normal">上海迪斯尼店</div>
+                    <div style="height: 24px;"><img src="../img/icon/close_black.svg" style="width: 14px;height: 14px;"></div>
                 </div>
             </div>
         </section>
