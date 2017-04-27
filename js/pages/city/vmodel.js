@@ -83,17 +83,17 @@ var vmBottom = avalon.define({
             }
         });
     },
-    midnightDiscountList: [{discount: 0.3}, {discount: 0.4}, {discount: 0.5}, {discount: 0.6}],
-    getMidnightDiscount: function() {
-        ajaxJsonp({
-            url: urls.getMidnightDiscount,
-            successCallback: function(json) {
-                if (json.status == 1) {
-                    vmBottom.midnightDiscountList = json.data;
-                }
-            }
-        });
-    },
+    // midnightDiscountList: [{discount: 0.3}, {discount: 0.4}, {discount: 0.5}, {discount: 0.6}],
+    // getMidnightDiscount: function() {
+    //     ajaxJsonp({
+    //         url: urls.getMidnightDiscount,
+    //         successCallback: function(json) {
+    //             if (json.status == 1) {
+    //                 vmBottom.midnightDiscountList = json.data;
+    //             }
+    //         }
+    //     });
+    // },
     midnightBannerShowTime: 0,
     selectType: function(type) {
         vmCity.type = type;
@@ -183,8 +183,9 @@ var vmCity = avalon.define({
     },
     type: 0,
     openTimePanel: function() {
-        // stopSwipeSkip.do(function() {
         //tap会穿透，触发弹窗上的点击事件，换成 click
+        // stopSwipeSkip.do(function() {
+        
         vmBtn.useCheck = 1;
         if (vmCity.type == 0) {
             vmBtn.type = 'date';
@@ -197,27 +198,7 @@ var vmCity = avalon.define({
         }
 
         modalShow('./util/calendar.html', 1, function() {
-            $('#calendarPanel').height($(window).height() - 250);
-            clockObj = clock();
-
-            if(vmCalendar.status.key == vmCalendar.status.calendar) {
-                var index = vmCalendar.startIndex, monthTitleNum;
-                if(index > 0) {
-                    monthTitleNum = vmCalendar.$model.calendarDates[index].month - vmCalendar.$model.calendar[0].month;
-                    $('#calendarPanel').scrollTop(index / 7 * 45 + monthTitleNum * 50 - 30);
-                }
-            }
-
-            if(vmCalendar.status.key == vmCalendar.status.partTimeClock) {
-                var dateTemp = new Date(), hourTemp = dateTemp.getHours();
-                clockObj.setStatus(vmCalendar.status.partTimeClock);
-                
-                if (hourTemp < 7 || hourTemp > 18) {
-                    mui.alert('时租房可预订时间为7:00-18:00', function() {
-                        vmCalendar.goDay();
-                    });
-                }
-            }
+            vmCalendar.iniCalendarModal();
         });
         // });
     },
@@ -238,6 +219,7 @@ var vmCity = avalon.define({
             freeModeMomentumRatio: 0.4,
             onSlideChangeEnd: function(swiper) {
                 var marker = hotelMarkersOnMap[swiper.activeIndex];
+                marker.setTop(true);
                 marker.getMap().setCenter(marker.getPosition());
                 vmCity.selectedHid = marker.getExtData().hid;
                 setMarkers();
@@ -249,29 +231,6 @@ var vmCity = avalon.define({
             location.href = "hotel.html?id=" + id;
         })
     },
-    // sort: 1, //1按距离，2按价格   原始的
-    // changeSort: function(type) {
-    //     stopSwipeSkip.do(function() {
-    //         vmCity.sort = type;
-    //         ajaxJsonp({
-    //             url: urls.getHotelByPosition,
-    //             data: {
-    //                 lng: vmCity.lng,
-    //                 lat: vmCity.lat,
-    //                 isPartTime: vmCity.type,
-    //                 discount: vmBottom.midnightDiscount,
-    //                 distance: 100000,
-    //                 sort: vmCity.sort,
-    //                 pageCount: 20,
-    //             },
-    //             successCallback: function(json) {
-    //                 if (json.status == 1) {
-    //                     vmCity.hotelMarkers = json.data;
-    //                 }
-    //             }
-    //         });
-    //     });
-    // },
     sort: 1, //1高到低，2低到高   3近到远    为2.0-demo而生的
     changeSort: function(type) {
         stopSwipeSkip.do(function() {
@@ -316,10 +275,13 @@ var vmCity = avalon.define({
                 lng: vmCity.lng,
                 lat: vmCity.lat,
                 isPartTime: vmCity.type,
+                startTime: vmCity.type ? newOrder.partTime.start : newOrder.day.start,
+                endTime: vmCity.type ? newOrder.partTime.end : newOrder.day.end,
                 discount: vmBottom.midnightDiscount,
                 distance: 100000,
                 sort: vmCity.sort,
                 pageCount: 20,
+                loading: true,
             },
             successCallback: function(json) {
                 if (json.status == 1) {
@@ -330,7 +292,7 @@ var vmCity = avalon.define({
 
                         var marker = new AMap.Marker({
                             map: mapObj,
-                            // icon: "http://webapi.amap.com/theme/v1.3/markers/n/mark_b.png",
+                            // icon: "./img/icon/icon-hotelInMap.svg",
                             position: [marker.lng, marker.lat],
                             offset: new AMap.Pixel(-34, -46),
                             content: domMarker,
@@ -338,6 +300,9 @@ var vmCity = avalon.define({
                         }).on('click', function() {
                             vmCity.selectedHid = this.getExtData().hid;
                             vmCity.isShowHotelDetail = true;
+
+                            //点击酒店，marker置顶
+                            this.setTop(true);
 
                             //点击酒店，在地图里居中
                             this.getMap().setCenter(this.getPosition());
@@ -393,6 +358,40 @@ var vmCity = avalon.define({
             }
         });
     },
+    bottomBartStartTime: '',
+    bottomBartEndTime: '',
+    setBottomBarTime: function() {
+        var newOrder = Storage.get('newOrder'),
+            start = '', 
+            end = '',
+            arr1 = [], arr2 = [],
+            now = new Date();
+
+        if(!vmCity.type){
+            if(newOrder && newOrder.day && newOrder.day.startShow) {
+                arr1 = newOrder.day.startShow.split('<br>');
+                start = arr1[0] + ' ' + arr1[1];
+
+                arr2 = newOrder.day.endShow.split('<br>');
+                end = arr2[0] + ' ' + arr2[1];
+
+            } else {
+                start = (now.getMonth() + 1) + '月' + now.getDate() + '日 ' + now.getHours() + ':00';
+                end = formatDate(getDates(1)) + ' 12:00';
+            }
+        } else {
+            if(newOrder && newOrder.partTime && newOrder.partTime.startHour) {
+                start = '今日 ' + newOrder.partTime.startHour + ':00';
+                end = '今日 ' + newOrder.partTime.endHour + ':00';
+            } else {
+                start = '今日 ' + now.getHours() + ':00';
+                end = '今日 ' + now.getHours()+3>=24?((now.getHours()+3-24) + ':00'):((now.getHours()+3) + ':00');
+            }
+        }
+
+        vmCity.bottomBartStartTime = start;
+        vmCity.bottomBartEndTime = end;
+    }
 });
 
 //弹出框的确定按钮
@@ -430,9 +429,9 @@ if (bensue && bensue.type) {
     vmBottom.type = bensue.type;
     vmCity.type = bensue.type;
 
-    if (bensue.type == 2) {
-        vmBottom.midnightDiscount = bensue.midnightDiscount || vmBottom.midnightDiscountList[0].discount;
-    }
+    // if (bensue.type == 2) {
+    //     vmBottom.midnightDiscount = bensue.midnightDiscount || vmBottom.midnightDiscountList[0].discount;
+    // }
 } else {
     bensue = { type: 0 };
     Storage.set("bensue", bensue);
@@ -486,11 +485,12 @@ mapObj.plugin('AMap.Geolocation', function() {
         convert: true, //自动偏移坐标，偏移后的坐标为高德坐标，默认：true
         showButton: true, //显示定位按钮，默认：true
         buttonPosition: 'LB', //定位按钮停靠位置，默认：'LB'，左下角
-        buttonOffset: new AMap.Pixel(10, 20), //定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)
+        buttonOffset: new AMap.Pixel(16, 20), //定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)
+        buttonDom: getGeoBtnDom(), 
         showMarker: true, //定位成功后在定位到的位置显示点标记，默认：true
         showCircle: true, //定位成功后用圆圈表示定位精度范围，默认：true
         panToLocation: true, //定位成功后将定位到的位置作为地图中心点，默认：true
-        zoomToAccuracy: false //定位成功后调整地图视野范围使定位位置及精度范围视野内可见，默认：false
+        zoomToAccuracy: false, //定位成功后调整地图视野范围使定位位置及精度范围视野内可见，默认：false
     });
     mapObj.addControl(geolocation);
 
@@ -516,7 +516,8 @@ myMarker = new AMap.Marker({
     offset: new AMap.Pixel(-12, -36)
 });
 
-vmBottom.getMidnightDiscount();
+vmCity.setBottomBarTime();
+// vmBottom.getMidnightDiscount();
 vmCity.getHotelPosition(mapObj);
 vmCity.getCityGallery();
 registerWeixinConfig();
@@ -643,20 +644,33 @@ function setMarkers() {
 //设置某个 Maker 的 content
 function createMarker(hid, price) {
     var domMarker = document.createElement('div');
-    domMarker.className = 'bs-marker';
 
-    var domMarkerPrice = document.createElement('div');
     if (hid != vmCity.selectedHid) {
-        domMarkerPrice.className = 'bs-marker-price';
+        domMarker.className = 'bs-marker';
     } else {
-        domMarkerPrice.className = 'bs-marker-price selected';
+        domMarker.className = 'bs-marker selected';
     }
-    domMarkerPrice.innerHTML = '¥' + price;
-    domMarker.appendChild(domMarkerPrice);
 
-    var domMarkerPoint = document.createElement('div');
-    domMarkerPoint.className = 'bs-marker-point';
-    domMarker.appendChild(domMarkerPoint);
+    // var domMarkerPrice = document.createElement('div');
+    // if (hid != vmCity.selectedHid) {
+    //     domMarkerPrice.className = 'bs-marker-price';
+    // } else {
+    //     domMarkerPrice.className = 'bs-marker-price selected';
+    // }
+    // domMarkerPrice.innerHTML = '¥' + price;
+    // domMarker.appendChild(domMarkerPrice);
+
+    // var domMarkerPoint = document.createElement('div');
+    // domMarkerPoint.className = 'bs-marker-point';
+    // domMarker.appendChild(domMarkerPoint);
+
+    return domMarker;
+}
+
+function getGeoBtnDom(){
+    var domMarker = document.createElement('div');
+
+    domMarker.className = 'bs-GeoBtn';
 
     return domMarker;
 }
