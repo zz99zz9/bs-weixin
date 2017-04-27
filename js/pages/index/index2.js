@@ -7,16 +7,16 @@ var vmIndex2 = avalon.define({
     list: [],
     list1: [],
     data: [
-        { name: '附近', ico: '/img/icon/location.png' },
-        { name: '上海', ico: '/img/qietu-shanghai.png' },
-        { name: '杭州', ico: '/img/qietu-hangzhou.png' },
-        { name: '南京', ico: '/img/qietu-nanjing.png' },
-        { name: '苏州', ico: '/img/qietu-suzhou.png' },
-        { name: '上海', ico: '/img/qietu-shanghai.png' },
-        { name: '杭州', ico: '/img/qietu-hangzhou.png' },
-        { name: '南京', ico: '/img/qietu-nanjing.png' },
-        { name: '苏州', ico: '/img/qietu-suzhou.png' },
-        { name: '所有城市', ico: '/img/qietu-suoyouchengshi.svg' }
+        { name: '附近', ico: '../img/icon/location.svg' },
+        { name: '上海', ico: '../img/qietu-shanghai.png' },
+        { name: '杭州', ico: '../img/qietu-hangzhou.png' },
+        { name: '南京', ico: '../img/qietu-nanjing.png' },
+        { name: '苏州', ico: '../img/qietu-suzhou.png' },
+        { name: '上海', ico: '../img/qietu-shanghai.png' },
+        { name: '杭州', ico: '../img/qietu-hangzhou.png' },
+        { name: '南京', ico: '../img/qietu-nanjing.png' },
+        { name: '苏州', ico: '../img/qietu-suzhou.png' },
+        { name: '所有城市', ico: '../img/icon/allCity.svg' }
     ],
     hotelMarkers: [],
     goToUrl: function(url) {
@@ -90,11 +90,11 @@ var vmIndex2 = avalon.define({
         }
         swiper4 = new Swiper('.swiper4', {
             slidesPerView: 1,
-            width: window.innerWidth - 30,
+            width: window.innerWidth - 100,
             spaceBetween: 10,
             freeMode: true,
             freeModeSticky: true,
-            freeModeMomentumRatio: 3,
+            freeModeMomentumRatio: 0.4,
         });
     },
     //问候语swiper翻转效果
@@ -152,9 +152,7 @@ ajaxJsonp({
     },
     successCallback: function(json) {
         if (json.status == 1) {
-            console.log(111);
             vmIndex2.hotelMarkers = json.data;
-            console.log(vmIndex2.$model.hotelMarkers);
         }
     }
 });

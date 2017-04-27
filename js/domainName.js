@@ -7,7 +7,7 @@ var urln = {
 
 //测试环境
 var urlWeixin = "http://testweixin.bensue.com"; //微信域名
-var urlAPI = "http://web.api.bensue.com/test"; //接口根目录
+var urlAPI = "https://api.bensue.com/test"; //接口根目录
 
 // 生产环境
 // var urlWeixin = "http://weixin.bensue.com";

@@ -115,11 +115,11 @@ input[type=checkbox] {
             </li>
         </ul>
         <div class="bs-text-large" style="text-align: center;margin-top: -14px;background: #fff;height: 40px;line-height: 40px;" ms-click="goHotelById(data.hotel.id)" ms-if="data.status==1">
-            <span class="mui-icon mui-icon-plusempty bs-text-red" style="font-size: 32px;position: relative;top: 3px;"></span>预定更多房间
+            <span class="mui-icon mui-icon-plusempty bs-text-fdd942" style="font-size: 32px;position: relative;top: 3px;"></span>预定更多房间
         </div>
         <!-- <div class="order-panel" ms-if="data.status==1"> -->
         <div class="order-panel" ms-if="data.status==1&&fundList.$model.length>0">
-            <div class="order-panel-title bs-text-large bs-text-153">优惠券</div>
+            <div class="order-panel-title bs-text-large bs-text-gray">优惠券</div>
             <div class="order-fundList">
                 <div class="order-fund bs-text-normal bs-text-gold" ms-click="selectFund($index, el.type)" ms-repeat="fundList" ms-class="selected: $index == fundIndex" ms-if-loop="el.isValid">
                     <div ms-if="el.type==1">¥<span class="bs-text-x-large">{{el.money}}</span>
@@ -129,7 +129,7 @@ input[type=checkbox] {
             </div>
         </div>
         <div class="order-panel bs-text-normal bs-text-102">
-            <div class="order-panel-title bs-text-large bs-text-153">订单信息</div>
+            <div class="order-panel-title bs-text-large bs-text-gray">订单信息</div>
             <div style="clear: both;">
                 <span class="info-left">订单编号</span>
                 <span class="info-right bs-text-black">{{data.orderNo}}</span>
@@ -166,7 +166,7 @@ input[type=checkbox] {
 
             <div style="clear: both;">
                 <span class="info-left">实付金额</span>
-                <span class="info-right bs-text-red">
+                <span class="info-right bs-text-fdd942">
                 ¥<!-- {{round(needAmount-fund)<0?0:round(needAmount-fund)}} -->
                 {{data.status!=1?data.paidAmount:(round(needAmount-fund)<0?0:round((needAmount-fund)*discount))}}
                 </span>
@@ -175,7 +175,7 @@ input[type=checkbox] {
         </div>
 
         <div class="order-panel bs-text-small" ms-if="data.status==1">
-            <div class="order-panel-title bs-text-large bs-text-153">支付方式</div>
+            <div class="order-panel-title bs-text-large bs-text-gray">支付方式</div>
             <!-- <div ms-if="discount<1" ms-click="selectPayType(6)" style="margin-bottom: 10px;">
                 <div class="hiddenbox">
                     <div class="check-icon" ms-class-1="unchecked:payType!=6" ms-class-2="checked:payType==6" style="position: absolute; right: 5px;"></div>

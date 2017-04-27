@@ -14,7 +14,7 @@
         padding: 20px;
         position: relative;
         border-radius: 2px;
-        background: url("../img/icon/icon-xiangyoukaisuo.svg") no-repeat center;
+        background: url("../img/icon/slideRock-right.svg") no-repeat center;
         overflow: hidden;
         text-align: center;
         height: 60px;
@@ -44,27 +44,48 @@
     .slideunlock-content {
         height: 60px;
         width: 100%;
-        position: absolute;
-        bottom: 80px;
+    }
+
+    .picture {
+        height: 40vh;
+        background-image: url(../img/alliance.svg);
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    .roomNo {
+        margin: 9vh 0 13vh;
+        text-align: center;
+        line-height: 47px;
+        letter-spacing: 3px;
+    }
+
+    .footer-word {
+        margin: 5vh 0 9vh;
+        text-align: center;
     }
 </style>
 
-<div ms-controller="opendoor">
+<div ms-controller="opendoor" class="bs-bg-white" style="height: 100vh;">
     <!-- <div style="text-align: right">
         <div id="mySwitch" class="mui-switch" style="margin: 24px 30px 24px auto;float: right">
             <div class="mui-switch-handle"></div>
         </div>
         <span style="margin: 24px 16px 24px auto;color: white;float: right;line-height: 30px">AR模式</span>
-    </div>
-
-    <div id="divYx" style="text-align: center" ms-if="showType==1">
-        <img src="../img/km-yx-1.png">
-    </div>
-
-    <div id="divAr" style="text-align: center" ms-if="showType==2">
-        <img src="../img/km-yx-2.png">
     </div> -->
 
+    <!-- <div id="divYx" style="text-align: center" ms-if="showType==1">
+        <img src="../img/km-yx-1.png">
+    </div> -->
+
+    <!-- <div id="divAr" style="text-align: center" ms-if="showType==2">
+        <img src="../img/km-yx-2.png">
+    </div> -->
+    <div class="picture">    
+    </div>
+    <div class="roomNo bs-text-444 bs-text-xxx-larger">
+        8339
+    </div>
     <div class="slideunlock-content">
         <div class="slideunlock-wrapper">
             <input type="hidden" value="" class="slideunlock-lockable"/>
@@ -74,6 +95,9 @@
             </div>
             <img class="slideunlock-lock" src="../img/icon/icon-lock.svg">
         </div>
+    </div>
+    <div class="footer-word bs-text-444 bs-text-smaller">
+        欢迎入住 滑动开门
     </div>
 </div>
 

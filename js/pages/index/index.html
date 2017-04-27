@@ -3,24 +3,25 @@
     /*background: url('/img/qietu-shouyebgr.png');*/
     background-image: -webkit-linear-gradient(45deg, #169488, #006457);
     background-image: linear-gradient(45deg, #169488, #006457);
-    height: 280px;
+    height: 45vh;
     background-size: cover;
     position: relative;
 }
 
 .index-top-logo {
-    margin: 10px 10px;
+    position: absolute;
+    margin: 8px 16px;
+    height: 30px;
+    width: 80.45px;
 }
 
 .index-top-div {
     position: absolute;
     bottom: 0px;
-    padding-left: 10px;
-    padding-right: 10px;
     width: 100%;
     color: #b3dfdb;
     opacity: 0.9;
-    font-size: 14px;
+    font-size: 12px;
     text-align: center;
 }
 
@@ -75,8 +76,9 @@
 }
 
 .intro-title {
-    margin-top: 16px;
+    margin-top: 8px;
     font-size: 16px;
+    height: 48px;
     color: #444444;
     font-family: "Microsoft Yahei";
     padding: 15px 0px 15px 10px;
@@ -117,23 +119,21 @@
 }
 
 .search {
-    height: 45px;
-    background-color: rgba(255,255,255, 0.3);
-    margin: 12px 10px;
-    padding-top: 12px;
+    height: 50px;
+    margin: 0 8px 30px;
+    padding-top: 14px;
     border-radius: 30px;
-    font-size: 18px;
 }
 
 .intro-back1 {
-    height: 280px;
+    height: 45vh;
     width: 100vw;
 }
 
 .distance {
     float: right;
-    margin: 10px 0;
-    padding: 5px 10px;
+    margin: 15px 0;
+    padding: 0 4px;
     color: white;
     background-color: rgba(0, 0, 0, 0.3);
 }
@@ -146,6 +146,7 @@
     width: 100vw;
     bottom: 0;
     z-index: 10;
+    border-top: 1px solid #eee;
     background-color: white;
 }
 
@@ -166,61 +167,122 @@
 }
 
 .swiper-container {
-    height: 32px;
+    height: 31px;
 }
+
+.hotel-room-amenity-text {
+    margin-left: 13px;
+}
+
+.hotelName {
+    position: relative;
+    width: 86vw;
+    text-align: left; 
+    top: 152px;
+    font-size: 16px;
+}
+
+.hotelAddress {
+    color: #999;
+    white-space: nowrap;
+}
+
+.picture {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    height: 75vw;
+    padding: 0 2vw;
+}
+
+.picture-unit {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    height: 33vw;
+    width: 47.5vw;
+    background-size: cover;
+    margin-bottom: 1vw;
+}
+
 </style>
 <div ms-controller="index2">
     <div class="index-top">
-        <img src="/img/icon/logo.svg" style="position: absolute;margin: 20px 10px;" class="index-top-logo">
+        <img src="/img/icon/logo.svg" class="index-top-logo">
         <img class="intro-back1" src="../img/index-background.png">
         <div class="index-top-div">
-            <div style="display: flex;justify-content: center;align-items: center;">
-                <div style="position: relative;width: 94px;">
+            <div style="display: flex;justify-content: center;align-items: center;font-weight: bold;">
+                <div style="width: 94px;">
                     <div class="swiper-container swiper">
                         <div class="swiper-wrapper">
-                            <div class="swiper-slide bs-text-smaller swiper-no-swiping" style="background-color: transparent;" ms-repeat="greetList" data-repeat-rendered="greetSwiper">
-                                <div class="bs-text-larger bs-text-white" style="line-height: 32px;width: 100%;text-align: right;margin-right: 5px;">
+                            <div class="swiper-slide swiper-no-swiping" style="background-color: transparent;" ms-repeat="greetList" data-repeat-rendered="greetSwiper">
+                                <div class="bs-text-smaller bs-text-fdd942" style="line-height: 32px;width: 100%;text-align: right;margin-right: 5px;">
                                     {{el.name}}
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="bs-text-white" style="margin-right: 8vw;">,Echo</div>
+                <div class="bs-text-white" style="width: 94px;text-align: left;"> 鸭梨先生</div>
             </div>
-            <div class="bs-bg-white bs-text-153 search" ms-on-tap="openPop">
-                <img src="../img/icon/icon-sousuo.svg" alt="" style="width: 18px;position: relative;float: left;top: 1px;left: 17px;">
-                <span style="position: relative;top: 1px; color: white;">搜索</span>
+            <div class="bs-bg-white bs-text-444 bs-text-normal search" ms-on-tap="openPop">
+                <div style=""><img src="../img/icon/search-444.svg" alt="" style="position: relative;top: 2px;width: 18px;"> 搜索目的地/目标或城市</div>
             </div>
         </div>
     </div>
-    <div class="swiper-slide-item">
-        <div class="swiper-container swiper1 hotel-room-amenity bs-bg-white" style="height: 114px;border-bottom: 0.5px solid #ccc">
+    <div class="swiper-slide-item" style="margin-bottom: 8px;">
+        <div class="swiper-container swiper1 hotel-room-amenity bs-bg-white" style="height: 102px;padding-top: 10px;">
             <div class="swiper-wrapper" style="display: flex; padding-left: 0;">
-                <div class="swiper-slide hotel-room-amenity-item" ms-repeat-cl="data" data-repeat-rendered="swiper1Render" style="display: flex;flex-direction: column;margin-left: 10px;">
-                    <img ms-attr-src="cl.ico" ms-attr-alt="cl.name" style="width: 60px;height: 60px;margin-left: 5px;margin-bottom: 10px;" />
-                    <label class="bs-text-smaller hotel-room-amenity-text bs-text-444">{{cl.name}}</label>
+                <div class="swiper-slide hotel-room-amenity-item" ms-repeat-cl="data" data-repeat-rendered="swiper1Render" style="display: flex;flex-direction: column;justify-content: flex-start;margin-left: 13px;">
+                    <img ms-attr-src="cl.ico" ms-attr-alt="cl.name" style="width: 56px;height: 56px;margin-left: 5px;margin-bottom: 6px;" />
+                    <label class="bs-text-x-smaller hotel-room-amenity-text bs-text-444">{{cl.name}}</label>
                 </div>
                 <div class="swiper-scrollbar"></div>
             </div>
         </div>
     </div>
+    <div class="bs-text-444" style="height: 40px;width: 100%;margin-top: 8px;padding: 18px 0 0 10px;margin: 0 auto;font-size: 16px;background-color: white;">
+        更多推荐
+        <div class="bs-text-smaller" style="position: relative;float: right;right: 8px;color: #999;">
+            更多
+        </div>
+    </div>
+    <div class="swiper-container swiper4" style="height: 234px; z-index: 10;bottom: 0; background-color: white;">
+        <div class="swiper-wrapper" style="padding-left: 8px;">
+            <div class="swiper-slide swiper-slide-marker" ms-repeat="hotelMarkers" data-repeat-rendered="swiper4Render">
+                <div ms-css-background-image="linear-gradient(rgba(0, 0, 0, .2), rgba(0, 0, 0, .2)), url({{urlAPINet + el.coverUrl}})" style="height: 143px;background-size: cover;width: inherit;position: relative;top: -32px;">
+                    <span class="distance bs-text-x-smaller">{{round(el.distance/1000)}}km</span>
+                    <div style="display: flex;width: 100%;position: absolute;bottom: 5px;">
+                        <div class="bs-text-white bs-bg-black price" style="display: flex;justify-content: flex-start; height: 24px;width: 72px;margin-bottom: 10px;padding-top: 2px;">
+                            <div class="bs-text-normal" style="left: -13px;font-weight: bold;">￥150</div>
+                            <div class="bs-text-smaller bs-text-lighter" style="font-weight: lighter;">/晚起</div>
+                        </div>
+                    </div>
+                    <div class="hotelName bs-text-444">
+                        <div style="font-weight: bold;">{{el.name}}</div>
+                        <div class="hotelAddress bs-text-smaller">{{el.address}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-scrollbar"></div>
+        </div>
+    </div>
     <div class="intro-title">
         <span>了解更多</span>
     </div>
-    <ul class="mui-table-view mui-grid-view intro-ul">
+    <!-- <ul class="mui-table-view mui-grid-view intro-ul">
         <li class="mui-table-view-cell mui-media mui-col-xs-6 intro-item" style="padding-right: 1px !important;">
             <a href="###">
                 <img class="mui-media-object" src="/img/index-aboutUs.png">
                 <span class="intro-item-spn">关于我们</span>
-                <!-- <em style="position:absolute;left:0;top:0; display:block;width:100%;height:96%; background:rgba(0,0,0,0.5);"></em> -->
             </a>
         </li>
         <li class="mui-table-view-cell mui-media mui-col-xs-6 intro-item" style="padding-left: 1px !important;">
             <a href="###">
                 <img class="mui-media-object" src="/img/index-partner.png">
                 <span class="intro-item-spn">城市合伙人</span>
-                <!-- <em style="position:absolute;left:0;top:0; display:block;width:100%;height:96%; background:rgba(0,0,0,0.5);"></em> -->
             </a>
         </li>
         <li class="mui-table-view-cell mui-media mui-col-xs-6 intro-item" style="padding-right: 1px !important;">
@@ -235,38 +297,26 @@
                 <span class="intro-item-spn">邀您参与</span>
             </a>
         </li>
-    </ul>
-    <div class="bs-text-large" style="width: 100%;padding: 10px 0 14px 10px;margin: 0 auto;background-color: white;">更多推荐</div>
-    <!-- <div class="swiper-container swiper2" style="padding-left: 10px;background-color: white;">
-        <div class="swiper-wrapper">
-            <div class="swiper-slide" ms-repeat="list" data-repeat-rendered="swiper2Render"> -->
-    <!--         </div>
-            <div class="swiper-pagination"></div>
+    </ul> -->
+    <div class="picture bs-bg-white">
+        <div class="picture-unit" style="background-image: linear-gradient(rgba(0, 0, 0, .2), rgba(0, 0, 0, .2)), url(../img/index-aboutUs.png);">
+            <div class="bs-text-white bs-text-larger">关于我们</div>
+            <div class="bs-text-white bs-text-smaller">About us</div>
         </div>
-    </div> -->
-    <div class="swiper-container swiper4" style="height: 200px; z-index: 10;bottom: 0;">
-        <div class="swiper-wrapper" style="padding-left: 15px;background-color: white;">
-            <div class="swiper-slide swiper-slide-marker" ms-repeat="hotelMarkers" data-repeat-rendered="swiper4Render">
-                <div ms-css-background-image="linear-gradient(rgba(0, 0, 0, .2), rgba(0, 0, 0, .2)), url({{urlAPINet + el.coverUrl}})" style="height: 136px;background-size: cover;width: inherit;position: relative;top: -32px;">
-                    <span class="distance bs-text-smaller">{{round(el.distance/1000)}}km</span>
-                    <div style="display: flex;width: 100%;position: absolute;bottom: 5px;">
-                        <div class="bs-text-white bs-bg-black price" style="height: 35px;width: 117px;">
-                            <span style="position: relative;top: 2px; right: -3px;color: #999;font-size: 15px">￥</span>
-                            <span class="bs-text-x-larger" style="position: relative;top: 7px;">150</span>
-                            <span class="bs-text-smaller bs-text-lighter" style="position: relative;top: 7px;">／晚起</span>
-                        </div>
-                    </div>
-                    <div class="hotelName" style="position: relative;width: 86vw;text-align: left; top: 147px;left: 12px;">
-                        {{el.name}}
-                        <br>
-                        <span class="bs-text-smaller">{{el.address}}</span>
-                    </div>
-                </div>
-            </div>
-            <div class="swiper-scrollbar"></div>
+        <div class="picture-unit" style="background-image: linear-gradient(rgba(0, 0, 0, .2), rgba(0, 0, 0, .2)), url(../img/index-partner.png);">
+            <div class="bs-text-white bs-text-larger">城市合伙人</div>
+            <div class="bs-text-white bs-text-smaller">City partners</div>
+        </div>
+        <div class="picture-unit" style="background-image: linear-gradient(rgba(0, 0, 0, .2), rgba(0, 0, 0, .2)), url(../img/index-cooperation.png);">
+            <div class="bs-text-white bs-text-larger">酒店合作</div>
+            <div class="bs-text-white bs-text-smaller">Hotel cooperation</div>
+        </div>
+        <div class="picture-unit" style="background-image: linear-gradient(rgba(0, 0, 0, .2), rgba(0, 0, 0, .2)), url(../img/index-invited.png);">
+            <div class="bs-text-white bs-text-larger">邀您参与</div>
+            <div class="bs-text-white bs-text-smaller">Invites joining</div>
         </div>
     </div>
-    <div style="height: 72px;">
+    <div style="height: 55px;">
     </div>
     <div class="footer-nav">
         <div class="footer-content" ms-on-tap="goIndex">
@@ -283,7 +333,7 @@
         </div>
         <div class="footer-content" ms-on-tap="goMore">
             <img src="/img/icon/icon-more.svg" class="">
-            <div class="">more</div>
+            <div class="">更多</div>
         </div>
     </div>
 </div>

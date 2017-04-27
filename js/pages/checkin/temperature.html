@@ -1,0 +1,134 @@
+<style>
+.header-l {
+    position: relative;
+    padding: 25px 30px;
+    top: 0;
+}
+
+.header-r {
+    position: relative;
+    float: right;
+    top: 26px;
+}
+
+.curtain {
+    height: 100%;
+    background-color: white;
+}
+
+.curtain-content {
+    display: flex;
+    justify-content: space-around;
+}
+
+.press {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    bottom: 0;
+    background-color: white;
+    margin: 0 8vw;
+}
+
+.press-unit {
+    display: flex;
+    flex-direction: column;
+    /*justify-content: flex-end;*/
+    align-items: center;
+    margin: 0 3vw 4vh;
+}
+
+.press-unit img {
+    height: 48px;
+    width: 48px;
+}
+
+.press-unit div {
+    margin-top: 8px;
+    font-size: 12px;
+}
+
+.switch {
+    position: absolute;
+    bottom: 10vh;
+    text-align: center;
+    width: 100vw;
+}
+
+.switch img {
+    height: 48px;
+    width: 48px;
+}
+
+.wendujia {
+    display: block;
+    height: 48px;
+    width: 48px;
+    background-image: url(../img/icon/icon-wendujia.svg);
+}
+
+.wendujia:active {
+    display: block;
+    height: 48px;
+    width: 48px;
+    background-image: url(../img/icon/icon-wendujia-select.svg);
+}
+
+.wendujian {
+    display: block;
+    height: 48px;
+    width: 48px;
+    background-image: url(../img/icon/icon-wendujian.svg);
+}
+
+.wendujian:active {
+    display: block;
+    height: 48px;
+    width: 48px;
+    background-image: url(../img/icon/icon-wendujian-select.svg);
+}
+</style>
+<div ms-controller="temperature" style="height: 100vh;">
+    <div class="curtain">
+        <img class="header-l" src="../img/icon/icon-back-444.svg" alt="" onclick="javascript:history.go(-1);">
+        <div style="margin: 12vh 0 14vh;font-size: 48px;text-align: center;font-weight: bold;">
+            {{temPoint}} ˚C
+        </div>
+        <div class="press">
+            <div class="press-unit" ms-on-tap="tongfeng">
+                <img ms-if="isTongfeng==0" src="../img/icon/icon-tongfengmoshi.svg" class="">
+                <img ms-if="isTongfeng==1" src="../img/icon/icon-tongfengmoshi-select.svg" class="">
+            </div>
+            <div class="press-unit" ms-on-tap="zhire">
+                <img ms-if="isZhire==0" src="../img/icon/icon-zhiremoshi.svg" class="">
+                <img ms-if="isZhire==1" src="../img/icon/icon-zhiremoshi-select.svg" class="">
+            </div>
+            <div class="press-unit" ms-on-tap="zhileng">
+                <img ms-if="isZhileng==0" src="../img/icon/icon-zhilengmoshi.svg" class="">
+                <img ms-if="isZhileng==1" src="../img/icon/icon-zhilengmoshi-select.svg" class="">
+            </div>
+            <div class="press-unit" ms-click="wendujia">
+                <a class="wendujia" href="###" title="升温" ></a>
+            </div>
+            <div class="press-unit" ms-on-tap="small">
+                <img ms-if="isSmall==0" src="../img/icon/icon-fengliangxiao.svg" class="">
+                <img ms-if="isSmall==1" src="../img/icon/icon-fengliangxiao-select.svg" class="">
+            </div>
+            <div class="press-unit" ms-on-tap="middle">
+                <img ms-if="isMiddle==0" src="../img/icon/icon-fengliangzhong.svg" class="">
+                <img ms-if="isMiddle==1" src="../img/icon/icon-fengliangzhong-select.svg" class="">
+            </div>
+            <div class="press-unit" ms-on-tap="large">
+                <img ms-if="isLarge==0" src="../img/icon/icon-fengliangda.svg" class="">
+                <img ms-if="isLarge==1" src="../img/icon/icon-fengliangda-select.svg" class="">
+            </div>
+            <div class="press-unit" ms-click="wendujian">
+                <a class="wendujian" href="###" title="降温" ></a>
+            </div>
+        </div>
+        <div class="switch" ms-on-tap="kaiguan">
+            <img ms-if="isSwitch==0" src="../img/icon/icon-kaiguan.svg" class="">
+            <img ms-if="isSwitch==1" src="../img/icon/icon-kaiguan-select.svg" class="">
+        </div>
+    </div>
+</div>

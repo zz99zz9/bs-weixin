@@ -123,7 +123,7 @@
         </div>
     </div>
 
-    <div style="display: flex;" class="bs-bg-white bs-text-red bs-text-large">
+    <div style="display: flex;" class="bs-bg-white bs-text-fdd942 bs-text-large">
         <div class="lottery-btn-log" ms-click="openLog">中奖记录</div>
         <div class="lottery-btn-rule" ms-click="openRule">活动规则</div>
     </div>
@@ -137,12 +137,12 @@
             <div class="bs-text-larger" style="margin-top: 3px;">
                 {{el.name}}会员
                 <span class="bs-text-smaller">
-                    &nbsp;&nbsp;赠送<span class="bs-text-red">{{el.lotteryDefaultTimes}}</span>次
+                    &nbsp;&nbsp;赠送<span class="bs-text-fdd942">{{el.lotteryDefaultTimes}}</span>次
                 </span>
             </div>
             <div class="bs-text-102 bs-text-small" style="    margin: 3px 0;">转发本宿相关文章到朋友圈，完成一次推广任务</div>
             <div class="bs-text-large">
-                +<span class="bs-text-red" style="padding-top: 10px;">{{el.lotteryShareTimes}}</span> 次抽奖机会</div>
+                +<span class="bs-text-fdd942" style="padding-top: 10px;">{{el.lotteryShareTimes}}</span> 次抽奖机会</div>
         </section>
         <div class="flex-column">
             <button type="button" ms-if="cardTypeList.indexOf(4)>-1||cardTypeList.indexOf(el.type)>-1" class="lottery-btn-go bs-text-small bs-bg-black bs-text-white">去{{getText(el.type)}}</button>

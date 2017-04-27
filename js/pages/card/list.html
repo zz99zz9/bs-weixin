@@ -3,7 +3,7 @@
         <div class="bs-text-x-larger bs-text-bolder bs-text-51">
             升级成为VIP会员
         </div>
-        <div class="bs-text-153 bs-text-smaller" style="margin-top: 10px;">
+        <div class="bs-text-gray bs-text-smaller" style="margin-top: 10px;">
             了解更多，请点击：<a class="bs-text-gold" href="card-introduce.html">本宿会员介绍</a>
         </div>
     </section>
@@ -14,13 +14,13 @@
                 <img src="img/icon/right-arrow.svg" style="width: 13px;" alt="">
             </div>
             <div class="bs-text-51 bs-text-smaller" :on-tap="@goBuyCard(el.id)">
-                入住任意本宿酒店即可享受<span class="bs-text-red">{{el.discount*10}}折</span>优惠
+                入住任意本宿酒店即可享受<span class="bs-text-fdd942">{{el.discount*10}}折</span>优惠
                 <br>
                 <span :visible="el.type<4">
                 加入本宿推广奖励计划，可获得丰厚现金奖励
                 <br>
                 </span>
-                抽奖次数加速 <span class="bs-text-red">x{{el.lotteryShareTimes}}</span>
+                抽奖次数加速 <span class="bs-text-fdd942">x{{el.lotteryShareTimes}}</span>
             </div>
         </div>
         <img class="card-list-img" :attr="{src:el.imgUrl}" alt="" :on-tap="@goBuyCard(el.id)">

@@ -1,0 +1,241 @@
+<style>
+.back {
+    position: relative;
+    padding: 25px 30px;
+    top: 0;
+}
+
+.curtain {
+    height: 100vh;
+    background-color: white;
+}
+
+.press {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    bottom: 0;
+    background-color: white;
+    margin: 0 12vw;
+}
+
+.press-unit {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 48px;
+    width: 48px;
+    margin: 0 0 4vh;
+    border-radius: 50%;
+}
+
+.press-unit div {
+    margin-top: 8px;
+    font-size: 12px;
+}
+
+.volumeDown {
+    height: 48px;
+    width: 48px;
+    background-color: #f2f2f2;
+}
+
+.volumeDown:active {
+    height: 48px;
+    width: 48px;
+    background-color: #bdbdbd;
+}
+
+.volumeUp {
+    height: 48px;
+    width: 48px;
+    background-color: #f2f2f2;
+}
+
+.volumeUp:active {
+    height: 48px;
+    width: 48px;
+    background-color: #bdbdbd;
+}
+
+.homepage {
+    height: 48px;
+    width: 48px;
+    background-color: #f2f2f2;
+}
+
+.homepage:active {
+    height: 48px;
+    width: 48px;
+    background-color: #bdbdbd;
+}
+
+.list {
+    height: 48px;
+    width: 48px;
+    background-color: #f2f2f2;
+}
+
+.list:active {
+    height: 48px;
+    width: 48px;
+    background-color: #bdbdbd;
+}
+
+.return {
+    height: 48px;
+    width: 48px;
+    background-color: #f2f2f2;
+}
+
+.return:active {
+    height: 48px;
+    width: 48px;
+    background-color: #bdbdbd;
+}
+
+.circle-big {
+    position: absolute;
+    top: 46vw;
+    left: 18vw;
+    height: 64vw;
+    width: 64vw;
+    border: 1px solid #bdbdbd;
+    border-radius: 50%;
+    margin: 0 auto;
+    text-align: center;
+    background-color: rgba(242,242,242,0.5);
+}
+
+.circle-big:active {
+    position: absolute;
+    top: 46vw;
+    left: 18vw;
+    height: 64vw;
+    width: 64vw;
+    border: 1px solid #bdbdbd;
+    border-radius: 50%;
+    margin: 0 auto;
+    text-align: center;
+    background-color: rgba(189,189,189,0.5);
+}
+
+.circle-small {
+    position: absolute;
+    top: 64vw;
+    left: 36vw;
+    height: 28vw;
+    width: 28vw;
+    border: 1px solid #444;
+    border-radius: 50%;
+    background-color: white;
+    text-align: center;
+}
+
+.circle-small:active {
+    position: absolute;
+    top: 64vw;
+    left: 36vw;
+    height: 28vw;
+    width: 28vw;
+    border: 1px solid #444;
+    border-radius: 50%;
+    background-color: rgba(189,189,189,0.5);
+}
+
+.arrow {
+    position: absolute;
+    height: 48vw;
+    width: 50vw;
+    top: 54vw;
+    left: 25vw;
+}
+
+.triangle-up {
+    position: relative;
+    width: 0;
+    height: 0;
+    top: 0;
+    left: 23vw;
+    border-left: 2vw solid transparent;
+    border-right: 2vw solid transparent;
+    border-bottom: 2vw solid #444;
+}
+
+.triangle-right {
+    position: relative;
+    width: 0;
+    height: 0;
+    top: 20vw;
+    left: 48vw;
+    border-top: 2vw solid transparent;
+    border-left: 2vw solid #444;
+    border-bottom: 2vw solid transparent;
+}
+
+.triangle-down {
+    position: relative;
+    width: 0;
+    height: 0;
+    top: 42vw;
+    left: 23vw;
+    border-left: 2vw solid transparent;
+    border-right: 2vw solid transparent;
+    border-top: 2vw solid #444;
+}
+
+.triangle-left {
+    position: relative;
+    width: 0;
+    height: 0;
+    top: 14.5vw;
+    left: 0;
+    border-top: 2vw solid transparent;
+    border-bottom: 2vw solid transparent;
+    border-right: 2vw solid #444;
+}
+</style>
+<div ms-controller="telecontroller" style="height: 100vh;">
+    <div class="curtain">
+        <img class="back" src="../img/icon/icon-back-444.svg" alt="" onclick="javascript:history.go(-1);">
+        <div class="press">
+            <div id="switch1" class="press-unit bs-bg-bd" ms-on-tap="switch1">
+                <img src="../img/icon/switch.svg" class="">
+            </div>
+            <div id="threeD" class="press-unit bs-bg-f2" ms-on-tap="threeD">
+                <img src="../img/icon/3d.svg" class="">
+            </div>
+        </div>
+        <div class="arrow">
+            <div class="triangle-up"></div>
+            <div class="triangle-right"></div>
+            <div class="triangle-down"></div>
+            <div class="triangle-left"></div>
+        </div>
+        <div class="circle-big">
+        </div>
+        <div class="circle-small">
+            <div style="font-size: 20px;line-height: 28vw;">ok</div>
+        </div>
+        <div class="press" style="margin: 47vh 12vw 0;">
+            <div class="press-unit bs-bg-f2 homepage">
+                <img src="../img/icon/homepage.svg" class="">
+            </div>
+            <div class="press-unit bs-bg-f2 list">
+                <img src="../img/icon/telecontroller-list.svg" class="">
+            </div>
+        </div>
+        <div class="press">
+            <div class="press-unit bs-bg-f2 volumeDown" style="margin: 0;">
+                <img src="../img/icon/volume--.svg" class="">
+            </div>
+            <div class="press-unit bs-bg-f2 return" style="margin: 0;">
+                <img src="../img/icon/return.svg" class="">
+            </div>
+            <div id="volumeUp" style="margin: 0;" class="press-unit bs-bg-f2 volumeUp">
+                <img src="../img/icon/volume++.svg" class="">
+            </div>
+        </div>
+    </div>
+</div>
