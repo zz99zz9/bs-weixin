@@ -214,7 +214,7 @@ var urls = {
     promoteTaskList: urlAPI + '/web/vip/userCardMarketPackageTask/currentMonth', //当前任务列表
     submitPromoteTaskList: urlAPI + '/web/vip/userCardMarketPackageTask/submit', //提交任务
     getAccountList: urlAPI + '/web/vip/userCardAccount/accountList', //会员卡账户列表
-    getDiscountList: urlAPI + '/w`eb/vip/userBuyCard/discountList', //会员卡折扣列表
+    getDiscountList: urlAPI + '/web/vip/userBuyCard/discountList', //会员卡折扣列表
     getCardOrderInfo: urlAPI + '/web/vip/userBuyCardOrderInfo/detail', //会员卡订单详情
     getAllArea: urlAPI + '/web/sys/area/getAllTree', //获取所有地区数据
     getPrize: urlAPI + '/web/vip/lottery/luck', //抽奖
@@ -233,6 +233,8 @@ var urls = {
     getAuditList: urlAPI + '/web/vip/userCardMarketPackageTask/auditList', //查询待审核任务列表
     getAuditSuccess: urlAPI + '/web/vip/userCardMarketPackageTask/auditSuccess', //审核任务通过或不通过
     getPreServiceList: urlAPI + '/ordercenter/svr/hotelPreService/findListPreService', //前置服务列表
+    savePreService: urlAPI + '/ordercenter/svr/userService/saveUserService', //添加前置服务
+    getPreService: urlAPI + '/ordercenter/svr/userService/findListByUidOrid', //获取用户选择的服务
 
     //公益
     commonwealList: urlAPI + '/web/bnf/nonprofitFoundationInfo/findListEnabled', //查询公益信息列表

@@ -3426,7 +3426,8 @@ function popHtml() {
             './js/pages/card/ETF.html',
             './js/pages/cms/foundation-withdraw.html',
             './js/pages/service/popMoreService.html',
-            './js/pages/checkin/popNight.html'
+            './js/pages/checkin/popNight.html',
+            './js/pages/checkin/popService.html'
         ])
         .pipe(gulp.dest('./dist/util/'));
 }
