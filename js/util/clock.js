@@ -14,9 +14,9 @@ var clock = function(startH, endH) {
             dayClock: 3,
             partTimeClock: 4
         },
-        partTimeStart = 7, //时租房预定的起始时间最早7点
-        partTimeEnd = 18, //时租房预定的起始时间最晚18点
-        partTimeInterval = 3, //时租房间隔最少3小时
+        partTimeStart = 0, //时租房预定的起始时间最早7点
+        partTimeEnd = 22, //时租房预定的起始时间最晚18点
+        partTimeInterval = 1, //时租房间隔最少3小时
         r = 120, //圆半径
         lw = 40, //线宽
         circleColor = "#eee",
@@ -60,7 +60,7 @@ var clock = function(startH, endH) {
             bensue = Storage.get("bensue"),
             newOrder = Storage.get("newOrder");
 
-        if(bensue.type){
+        if(bensue){
             status.key = bensue.type?status.partTimeClock:status.dayClock;
         }
 
@@ -152,42 +152,48 @@ var clock = function(startH, endH) {
                 //日期联动
                 // deltaHour1 += clock.deltaHour;
                 // t1 = dateAdd(beforeTouchT1, 'h', deltaHour1);
-                h1 = clock1.time;
-                t1.setHours(h1);
 
-                // if (isChangeDay(beforeTouchT1, deltaHour1, h1)) {
-                //     //天数出现变动，发布消息
-                //     //日历calendar.js会订阅
-                //     Observer.fire('startChange', {
-                //         date: t1,
-                //         delta: clock.deltaHour,
-                //     });
-                // }
+                var today = new Date();
+                if((isSameDay(t1, today)&&clock1.time >= getNowHour())
+                    ||!isSameDay(t1, today)) {
+                
+                    h1 = clock1.time;
+                    t1.setHours(h1);
 
-                // if (t1 >= t2) {
-                //     t2 = dateAdd(t2, 'd', 1);
-                //     Observer.fire('endChange', {
-                //         date: t2,
-                //         delta: 1,
-                //     });
-                // }
+                    // if (isChangeDay(beforeTouchT1, deltaHour1, h1)) {
+                    //     //天数出现变动，发布消息
+                    //     //日历calendar.js会订阅
+                    //     Observer.fire('startChange', {
+                    //         date: t1,
+                    //         delta: clock.deltaHour,
+                    //     });
+                    // }
 
-                //沿着圆平滑移动
-                newDx1 = tx * r / Math.sqrt(tx * tx + ty * ty);
-                newDy1 = ty * r / Math.sqrt(tx * tx + ty * ty);
+                    // if (t1 >= t2) {
+                    //     t2 = dateAdd(t2, 'd', 1);
+                    //     Observer.fire('endChange', {
+                    //         date: t2,
+                    //         delta: 1,
+                    //     });
+                    // }
 
-                //步进模式
-                // newCoord = clockStep(tx, ty);
-                // draw(newCoord.x, newCoord.y, dx2, dy2);
+                    //沿着圆平滑移动
+                    newDx1 = tx * r / Math.sqrt(tx * tx + ty * ty);
+                    newDy1 = ty * r / Math.sqrt(tx * tx + ty * ty);
 
-                draw(newDx1, newDy1, dx2, dy2);
+                    //步进模式
+                    // newCoord = clockStep(tx, ty);
+                    // draw(newCoord.x, newCoord.y, dx2, dy2);
+
+                    draw(newDx1, newDy1, dx2, dy2);
+                }
             }
 
             //时租房
             if(status.key == status.partTimeClock) {
                 //入住时间应该在预定范围内
                 //入住时间不能早于当前时间
-                if(clock1.time >=partTimeStart && clock1.time<=partTimeEnd && clock1.time >= getNowHour()) {
+                if(clock1.time >= partTimeStart && clock1.time <= partTimeEnd && clock1.time >= getNowHour()) {
                     h1 = clock1.time;
                     t1.setHours(h1);
 
@@ -195,7 +201,7 @@ var clock = function(startH, endH) {
                     newDx1 = tx * r / Math.sqrt(tx * tx + ty * ty);
                     newDy1 = ty * r / Math.sqrt(tx * tx + ty * ty);
 
-                    //如果间隔小于3小时，自动调整退房时间
+                    //如果小于时间间隔，自动调整退房时间
                     if (h2 - h1 < partTimeInterval) {
                         h2 = h1 + partTimeInterval;
                         t2.setHours(h2);
@@ -243,7 +249,7 @@ var clock = function(startH, endH) {
                 // newCoord = clockStep(tx, ty);
                 // draw(dx1, dy1, newCoord.x, newCoord.y);
 
-                //如果间隔小于3小时，自动调整入住房时间
+                //如果小于时间间隔，自动调整入住房时间
                 if (h2 - h1 < partTimeInterval) {
                     h1 = h2 - partTimeInterval;
                     t1.setHours(h1);
@@ -424,13 +430,14 @@ var clock = function(startH, endH) {
         drawClock();
 
         drawTime();
-        drawArc();
-
         
+        //全天房的退房时间固定
         if (status.key == status.dayClock) {
-            drawDot(x2, y2, true);
-            drawDotText("退", x2, y2, true);
+            //全天房退房按钮不渲染
+            // drawDot(x2, y2, true);
+            // drawDotText("退", x2, y2, true);
         } else {
+            drawArc();
             drawDot(x2, y2, false);
             drawDotText("退", x2, y2, false);
         }

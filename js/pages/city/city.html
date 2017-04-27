@@ -29,9 +29,7 @@
 }
 
 .calender-icon {
-    border--radius: none;
     box-shadow: none;
-    background-size: 26px 26px;
 }
 
 .search {
@@ -102,7 +100,25 @@
         <button type="button" class="calender-icon bs-bg-fdd942" ms-css-background-image="isShowMap?'url(img/icon/list.svg)':'url(img/icon/map.svg)'" style="margin-left: 10px;" ms-on-tap="toggleMap">
         </button>
     </div> -->
-    <div class="footer-select" ms-if="isSort==1 && isShowMap==false">
+
+
+    <!-- 地图模式下的底部功能栏 -->
+    <div ms-if="!isShowHotelDetail&&isShowMap">
+        <button type="button" class="calendarBtn bs-bg-white" ms-click="openTimePanel">
+            <div class="bs-text-51 bs-text-smaller calendar-icon" ms-css-background-image="type?'url(img/icon/clock-333.svg)':'url(img/icon/calendar-333.svg)'">
+                <span ms-if="!type">{{getToday('day')}}</span>
+            </div>
+            <div class="bs-text-smaller bottomBarTime">
+                <div>{{bottomBartStartTime}}</div>
+                <div>-</div>
+                <div style="min-width: 45px;">{{bottomBartEndTime}}</div>
+            </div>
+        </button>
+        <div class="mapToListBtn calendar-icon bs-bg-white" ms-on-tap="toggleMap"></div>
+    </div>
+
+    <!-- 列表模式下的底部筛选栏 -->
+    <div class="footer-select" ms-if="isSort==1 && !isShowMap">
         <div ms-on-tap="changeSort(1)">
             <a class="mui-tab-item">
                 <span class="mui-icon">
@@ -131,24 +147,30 @@
             </a>
         </div>
     </div>
-    <nav class="mui-bar mui-bar-tab footer" style="display: flex;justify-content: space-between;align-items: center;padding: 5px 0 5px 25px;background-color:white !important;font-size: 8px;" ms-if="!isShowHotelDetail">
-        <a class="" ms-on-tap="goSort" style="width: 18vw" ms-if="!isShowMap">
-            <div class="mui-icon" style="top: 6px;"><img src="../img/icon/icon-paixu.svg" class="nav-ico" style="height: 24px; width: 24px;"></div>
+
+    <!-- 列表模式下的底部功能栏 -->
+    <nav class="mui-bar mui-bar-tab footer" style="display: flex;justify-content: space-around;align-items: center;background-color:white !important;font-size: 8px;" ms-if="!isShowMap">
+        <div ms-on-tap="goSort">
+            <div class="mui-icon" style="top: 6px;">
+                <img src="../img/icon/icon-paixu.svg" class="nav-ico" style="height: 24px; width: 24px;"
+            ></div>
             <div style="position: relative;left: 5px;top: -3px;margin-bottom: 3px;">排序</div>
-        </a>
-        <div ms-if="isShowMap" style="width: 18vw;"></div>
-            
-        <div style="display: flex;justify-content: space-between;align-items: center;width: 60vw;">
-            <div id="functionBtns">
-                <button type="button" class="calender-icon bs-bg-eee" style="background-color: white;" ms-css-background-image="type?'url(img/icon/clock-333.svg)':'url(img/icon/calendar-333.svg)'" ms-click="openTimePanel">
-                    <div class="bs-text-51 bs-text-smaller" ms-if="!type" style="line-height: 46px;">{{getToday('day')}}</div>
-                </button>
+        </div>
+        <div class="calendarBtnInList" ms-click="openTimePanel">
+            <div class="bs-text-51 bs-text-smaller calendar-icon" ms-css-background-image="type?'url(img/icon/clock-333.svg)':'url(img/icon/calendar-333.svg)'">
+                <span ms-if="!type">{{getToday('day')}}</span>
             </div>
-            <a class="" ms-on-tap="toggleMap" style="width: 18vw">
-                <div class="mui-icon" style="top: 6px;"><img src="../img/icon/icon-liebiao.svg" class="nav-ico" style="height: 24px; width: 24px;"></div>
-                <div style="position: relative;left: 3px;top: -3px;margin-bottom: 3px;" ms-if="isShowMap">列表</div>
-                <div style="position: relative;left: 3px;top: -3px;margin-bottom: 3px;" ms-if="!isShowMap">地图</div>
-            </a>
+            <div class="bs-text-smaller bottomBarTime">
+                <div>{{bottomBartStartTime}}</div>
+                <div>-</div>
+                <div style="min-width: 45px;">{{bottomBartEndTime}}</div>
+            </div>
+        </div>
+        <div ms-on-tap="toggleMap">
+            <div class="mui-icon" style="top: 6px;">
+                <img src="../img/icon/icon-map.svg" class="nav-ico" style="height: 24px; width: 24px;">
+            </div>
+            <div style="position: relative;left: 3px;top: -3px;margin-bottom: 3px;">地图</div>
         </div>
     </nav>
 </div>
