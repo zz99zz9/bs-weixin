@@ -38,7 +38,7 @@ var vmFooter = avalon.define({
             vmFooter.headUrl = vmFooter.list[0].url;
         } else if (vmFooter.address.indexOf('service/orderList.html')>0 || vmFooter.address.indexOf('service/ready.html')>0 || vmFooter.address.indexOf('inroom.html')>0) {
             vmFooter.checkinUrl = vmFooter.list[1].url;
-        } else if (vmFooter.address.indexOf('newOrderList.html') > 0) {
+        } else if (vmFooter.address.indexOf('newOrderList.html') > 0 || vmFooter.address.indexOf('checkOut.html') > 0) {
             vmFooter.orderUrl = vmFooter.list[2].url;
         } else if (vmFooter.address.indexOf('more.html') > 0) {
             vmFooter.moreUrl = vmFooter.list[3].url;
