@@ -136,8 +136,18 @@ var vmServiceProcess = avalon.define({
         $("#a" + id).show();
         $("#a" + id).animate({ width: "150px" }, 1000);
     },
+    goNextStep: function() {
+        stopSwipeSkip.do(function() {
+            vmServiceProcess.selectContent = vmServiceProcess.selectValue.join(",");
+            console.log(vmServiceProcess.selectContent);
+            vmServiceProcess.savePreService();
+            //location.href = '../service/ready.html';
+        })
+    },
     prelist: [],
-    selectList: [],
+    selectList: [],  //存放显示的名称
+    selectValue: [],  //存放服务内容，最后要转换成字符串，进行传输
+    selectContent: '',
     listNum: 0, //数组的数量
     getPreList: function() {
         ajaxJsonp({
@@ -151,6 +161,7 @@ var vmServiceProcess = avalon.define({
                     vmServiceProcess.listNum = json.data.length;
                     json.data.map(function(a, m) {
                         vmServiceProcess.selectList.push('选择');
+                        vmServiceProcess.selectValue.push('0');
                         a.preService.serviceReplyContentList.map(function(e) {
                             e.value = e.serviceContent;
                             e.text = e.serviceReply;
@@ -160,7 +171,7 @@ var vmServiceProcess = avalon.define({
                     })
                     vmServiceProcess.prelist = json.data;
                     console.log(vmServiceProcess.$model.prelist);
-                    console.log(vmServiceProcess.$model.selectList);
+                    console.log(vmServiceProcess.$model.selectValue);
                     // vmServiceProcess.prelist[0].preService.serviceReplyContentList.map(function(e) {
                     //     vmServiceProcess.goalList.push({ value: e.serviceContent, text: e.serviceReply });
                     // });
@@ -215,7 +226,22 @@ var vmServiceProcess = avalon.define({
         vmServiceProcess.vrList = [];
         vmServiceProcess.oldList = [];
         vmServiceProcess.otherList = [];
-    }
+    },
+    savePreService: function() {
+        ajaxJsonp({
+            url: urls.savePreService,
+            data: {
+                hid: 1,
+                orid: 1527,
+                contents: vmServiceProcess.selectContent
+            },
+            successCallback: function(json) {
+                if (json.status === 1) {
+                    console.log(111);
+                }
+            }
+        });
+    },
 });
 
 vmServiceProcess.getPreList();
@@ -233,14 +259,13 @@ setTimeout(function() {
                 }
                 var showUserPickerButton1 = doc.getElementById('picker' + vmServiceProcess.prelist[i].id),
                     a = i;
-                console.log(i);
                 showUserPickerButton1.addEventListener('tap', function(event) {
                     toolPicker1.show(function(items) {
-                        //vmServiceProcess.goalId = items[0].value;
-                        vmServiceProcess.selectList[a] = items[0].text;
-                        showUserPickerButton1.innerHTML = items[0].text;
+                        vmServiceProcess.selectValue[a] = items[0].value;
+                        showUserPickerButton1.innerHTML = items[0].text;  //用原生的写，直接付给值，显示不出来。
                         vmServiceProcess.goQuestion(id);
                         vmServiceProcess.goAnswer(id);
+                        console.log(vmServiceProcess.selectValue);
                     });
                 }, false);
             });
@@ -250,6 +275,6 @@ setTimeout(function() {
 }, 500);
 
 setTimeout(function() {
-    vmServiceProcess.goQuestion(8);
-    vmServiceProcess.goAnswer(8);
+    vmServiceProcess.goQuestion(vmServiceProcess.prelist[0].id);
+    vmServiceProcess.goAnswer(vmServiceProcess.prelist[0].id);
 }, 1000);

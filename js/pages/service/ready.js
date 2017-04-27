@@ -25,7 +25,7 @@ var vmServiceReady = avalon.define({
     pageNo: 1,
     pageSize: 10,
     data: [],
-    temperature: "一键预温",
+    temperature: "远程预温",
     orderList: {
         roomNo: 1123,
         startTime: 22,
@@ -72,30 +72,53 @@ var vmServiceReady = avalon.define({
     },
     blankTime: '', //当前时间
     timeDiffer: 0, //时间差值
+    isCirqueShow: 0, //预温是否可点击  0-可点击  1-不可点击
     timePrompt: '请在19:30之前点击开启', //提示
     goTem: function() { //一键预温
         stopSwipeSkip.do(function() {
             vmServiceReady.blankTime = getToday("time").substring(0, 5);
             vmServiceReady.timeDiffer = vmServiceReady.orderList.startTime - parseInt(vmServiceReady.blankTime.substring(0, 2));
             vmServiceReady.timeDiffer = vmServiceReady.timeDiffer + ":" + vmServiceReady.blankTime.substring(3, 5);
-            if (vmServiceReady.temperature == "一键预温" && parseInt(vmServiceReady.timeDiffer.substring(0, 1)) >= 0) {
-                vmServiceReady.temperature = "远程预温";
+            if (vmServiceReady.temperature == "远程预温" && parseInt(vmServiceReady.timeDiffer.substring(0, 1)) >= 0) {
+                vmServiceReady.temperature = "预温中";
                 mui.alert('<div style="text-align:left;">您的房间将于19:30-20:00开启空调，若您20:00前未能办理入住，我们将关闭空调，谢谢您的谅解。</div>', '已为您预约', '<span style="color: blue;">知道了</span>', function(e) {
-                    vmServiceReady.temperature = "已预约";
+                    vmServiceReady.temperature = "预温中";
                 }, 'div');
                 // vmServiceReady.timePrompt = "将于 " + vmServiceReady.timeDiffer + " 后自启动预温";
                 vmServiceReady.timePrompt = "已预约";
-                $(".cirque").css("background-color", "#fcc02f");
-                $(".cirque").css("box-shadow", "none");
-                $(".cirque").css("border", "2px solid #ccc");
+                $(".cirque").css("color", "white");
+                $(".cirque").css("background-color", "#fdd942");
+                $(".cirque").css("box-shadow", "0 3px 3px 0 rgba(253,217,66,.24)");
+                $(".cirque").css("border-color", "rgba(255,255,255,.5)");
             } else {
-                vmServiceReady.temperature = "一键预温";
+                vmServiceReady.temperature = "远程预温";
                 vmServiceReady.timePrompt = "请在19:30之前点击开启";
-                $(".cirque").css("background-color", "#444");
-                $(".cirque").css("box-shadow", "0 0 3px 3px #ccc");
-                $(".cirque").css("border", "none");
+                // $(".cirque").css("background-color", "#444");
+                // $(".cirque").css("box-shadow", "0 0 3px 3px #ccc");
+                // $(".cirque").css("border", "none");
+                $(".cirque").css("color", "#fdd942");
+                $(".cirque").css("background-color", "white");
+                $(".cirque").css("box-shadow", "none");
+                $(".cirque").css("border-color", "#fdd942");
             }
         })
+    },
+    serviceList: [],
+    getPreService: function() { //获取用户前置选择的服务
+        ajaxJsonp({
+            url: urls.getPreService,
+            data: {
+                hid: hid,
+                orid: 1527
+            },
+            successCallback: function(json) {
+                if (json.status == 1) {
+                    vmServiceReady.serviceList = json.data
+                } else {
+                    mui.alert(json.message);
+                }
+            }
+        });
     },
     getHotelDetail: function() {
         ajaxJsonp({
@@ -151,6 +174,7 @@ var vmServiceReady = avalon.define({
     },
 });
 vmServiceReady.data = vmServiceReady.list;
+vmServiceReady.getPreService();
 registerWeixinConfig();
 // wx.ready(function() {
 //     wx.getLocation({
@@ -171,9 +195,29 @@ registerWeixinConfig();
 // 
 var vmMoreService = avalon.define({
     $id: 'moreService',
+    addContent: '',
     closePop: function() {
         stopSwipeSkip.do(function() {
             modalClose();
+        })
+    },
+    addService: function() {
+        stopSwipeSkip.do(function() {
+            ajaxJsonp({
+                url: urls.savePreService,
+                data: {
+                    hid: 1,
+                    orid: 1527,
+                    contents: vmMoreService.addContent
+                },
+                successCallback: function(json) {
+                    if (json.status === 1) {
+                        console.log(111);
+                    } else {
+                        mui.alert(json.message);
+                    }
+                }
+            });
         })
     }
 });
