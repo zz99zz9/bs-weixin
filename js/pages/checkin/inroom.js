@@ -4,26 +4,6 @@
 var swiper1, swiper2;
 var vmInroom = avalon.define({
     $id: 'inroom',
-    goIndex: function() {
-        stopSwipeSkip.do(function() {
-            location.href = "../index.html";
-        })
-    },
-    goRoom: function() {
-        stopSwipeSkip.do(function() {
-            location.href = "service/orderList.html";
-        })
-    },
-    goOrder: function() {
-        stopSwipeSkip.do(function() {
-            location.href = "../newOrderList.html";
-        })
-    },
-    goMore: function() {
-        stopSwipeSkip.do(function() {
-            location.href = "../more.html";
-        })
-    },
     goOpendoor: function() {
         stopSwipeSkip.do(function() {
             mui.confirm(" ", "是否开门", ["回去看", "确定，开门"], function(e) {

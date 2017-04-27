@@ -22,26 +22,6 @@ var vmIndex2 = avalon.define({
     goToUrl: function(url) {
         location.href = url;
     },
-    goIndex: function() {
-        stopSwipeSkip.do(function() {
-            location.href = "../index.html";
-        })
-    },
-    goRoom: function() {
-        stopSwipeSkip.do(function() {
-            location.href = "service/orderList.html";
-        })
-    },
-    goOrder: function() {
-        stopSwipeSkip.do(function() {
-            location.href = "../newOrderList.html";
-        })
-    },
-    goMore: function() {
-        stopSwipeSkip.do(function() {
-            location.href = "../more.html";
-        })
-    },
     goCity: function() {
         stopSwipeSkip.do(function() {
             location.href = "../city.html";

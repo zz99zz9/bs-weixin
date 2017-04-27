@@ -39,26 +39,6 @@ var vmCheckOut = avalon.define({
         }
         s.innerHTML = s.innerHTML * 1 - 1;
     },
-    goIndex: function() {
-        stopSwipeSkip.do(function() {
-            location.href = "../index.html";
-        })
-    },
-    goRoom: function() {
-        stopSwipeSkip.do(function() {
-            location.href = "service/orderList.html";
-        })
-    },
-    goOrder: function() {
-        stopSwipeSkip.do(function() {
-            location.href = "../newOrderList.html";
-        })
-    },
-    goMore: function() {
-        stopSwipeSkip.do(function() {
-            location.href = "../more.html";
-        })
-    },
     isSend: 0, //0-不显示  1-显示
     send: function() { //发送订单
         stopSwipeSkip.do(function() {
