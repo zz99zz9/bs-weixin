@@ -1,3 +1,35 @@
+.bs-GeoBtn {
+  width: 48px;
+  height: 48px;
+  border-radius: 100%;
+  background-color: #fff;
+  background-image: url('../img/icon/icon-geo.svg');
+  background-size: 24px;
+  background-position: center;
+  background-repeat: no-repeat;
+  box-shadow: 0 1px 2px 0px #BDBDBD;
+}
+
+.bs-GeoBtn:active, .calendarBtn:active, .mapToListBtn:active {
+  background-color: #BDBDBD;
+}
+
+.bs-marker {
+  background-image: url('../img/icon/icon-hotelInMap.svg');
+  background-position: center;
+  margin-top: -10px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 48px;
+  height: 55px;
+}
+.bs-marker.selected {
+  margin-top: -21px;
+  margin-left: -3.5px;
+  width: 55px;
+  height: 66px;
+}
+
 .bs-marker-price {
   color: #e93b39;
   background-color: #fff;
@@ -63,4 +95,62 @@
   right: 0;
   z-index: 9;
   float: right;
+}
+
+.calendarBtn {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    margin-left: -90px;
+    width: 180px;
+    height: 48px;
+    border-radius: 25px;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 99;
+    box-shadow: 0 1px 2px 0px #BDBDBD;
+}
+.calendarBtnInList {
+    width: 180px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.calendar-icon {
+    width: 30px;
+    height: 30px;
+    background-size: 26px 26px;
+    background-position: center;
+    background-repeat: no-repeat;
+    line-height: 37px;
+    text-align: center;
+    margin-left: 10px;
+}
+.bottomBarTime {
+  display: flex;
+  align-items: center;
+  font-size: 11px;
+  width: 100px;
+  margin-top: 3px;
+}
+.bottomBarTime div{
+  white-space: normal;
+  line-height: 14px;
+}
+
+.mapToListBtn {
+  position: absolute;
+  bottom: 20px;
+  right: 16px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-image: url('../img/icon/icon-liebiao.svg');
+  z-index: 99;
+  box-shadow: 0 1px 2px 0px #BDBDBD;
 }

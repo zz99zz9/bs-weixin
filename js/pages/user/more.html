@@ -1,5 +1,7 @@
 <style>
 .content {
+    display: flex;
+    justify-content: space-between;
     height: 60px;
     width: 100vw;
     padding: 21px 30px 25px;
@@ -33,16 +35,36 @@
 .footer-content div {
     font-size: 8px;
 }
+
+.icon {
+    height: 15px;
+    width: 15px;
+}
 </style>
 <div class="mui-page" ms-controller="more">
-    <div class="content bs-text-444 bs-text-normal mui-navigate-right" onclick="javascript:location.href='../user-info.html';">
-        会员中心
+    <div class="content bs-text-444 bs-text-normal" onclick="javascript:location.href='../user-info.html';">
+        <div>
+            会员中心
+        </div>
+        <div style="height: 15px;">
+            <img src="../img/icon/right-arrow.svg" class="icon" alt="">
+        </div>
     </div>
-    <div class="content bs-text-444 bs-text-normal mui-navigate-right" onclick="javascript:location.href='../commonweal-introduce.html';">
-        本宿公益
+    <div class="content bs-text-444 bs-text-normal" onclick="javascript:location.href='../commonweal-introduce.html';">
+        <div>
+            本宿公益
+        </div>
+        <div style="height: 15px;">
+            <img src="../img/icon/right-arrow.svg" class="icon" alt="">
+        </div>
     </div>
-    <div class="content bs-text-444 bs-text-normal mui-navigate-right" onclick="javascript:location.href='../setting.html';">
-        设置
+    <div class="content bs-text-444 bs-text-normal" onclick="javascript:location.href='../setting.html';">
+        <div>
+            设置
+        </div>
+        <div style="height: 15px;">
+            <img src="../img/icon/right-arrow.svg" class="icon" alt="">
+        </div>
     </div>
     <div class="footer-nav">
         <div class="footer-content" ms-on-tap="goIndex">

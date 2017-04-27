@@ -1197,6 +1197,10 @@ hr {
     font-size: 10px;
 }
 
+.bs-text-bold {
+    font-weight: bold;
+}
+
 .bs-text-bolder {
     font-weight: bolder;
 }

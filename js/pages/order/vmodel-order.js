@@ -152,6 +152,7 @@ var vmOrder = avalon.define({
                             vmOrder.payType = 6;
 
                             vmSelectCard.cardList = json.data;
+                            console.log(vmSelectCard.$model.cardList);
                             //设置默认支付卡
                             vmSelectCard.selectCardID = json.data[0].id;
                         }
@@ -191,7 +192,7 @@ var vmOrder = avalon.define({
         vmOrder.btn2Disabled = true;
         if(vmOrder.data.status ==1 ) {
             //待付款-支付订单
-            //payOrder();
+            payOrder();
             location.href = '../service/orderList.html';
         } else {
             if(showCheckoutBtn > 1) {
