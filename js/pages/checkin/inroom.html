@@ -80,11 +80,71 @@
     top: 26px;
 }
 
-.device-content {
+.device-movie {
     display: flex;
     justify-content: space-between;
     align-items: center;
     height: 64px;
+    padding: 0 24px;
+}
+
+.device-movie:active {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 64px;
+    padding: 0 24px;
+    background-color: #eee;
+}
+
+.img-movie {
+    background-image: url(../img/icon/movie-444.svg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 48px;
+    width: 48px;
+}
+
+.img-movie:acitve {
+    background-image: url(../img/icon/movie-fdd942.svg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 48px;
+    width: 48px;
+}
+
+.device-sunshine {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 64px;
+    padding: 0 24px;
+}
+
+.device-sunshine:active {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 64px;
+    padding: 0 24px;
+    background-color: #eee;
+}
+
+.device-temperature {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 64px;
+    padding: 0 24px;
+}
+
+.device-temperature:active {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 64px;
+    padding: 0 24px;
+    background-color: #eee;
 }
 
 .cirque {
@@ -106,7 +166,7 @@
 
 div .mui-popup-buttons .mui-popup-button {
     font-size: 15px;
-    color: #169488;
+    color: #999;
 }
 
 .footer-nav {
@@ -135,16 +195,95 @@ div .mui-popup-buttons .mui-popup-button {
 .footer-content div {
     font-size: 8px;
 }
+
+.header-status {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    height: 48px;
+    margin-bottom: 8px;
+    padding: 5px 0 0 24px;
+}
+
+.header-content {
+    display: flex;
+    justify-content: flex-start;
+    margin-right: 15px;
+}
+
+.picture-unit {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    height: 38vw;
+    width: 38vw;
+    background-size: cover;
+    margin-bottom: 1vw;
+}
+
+.door {
+    display: flex;
+    height: 160px;
+    margin: 8px 0 8px;
+}
+
+.door-open {
+    width: 50vw;
+    padding-top: 40px;
+}
+
+.door-open:active {
+    width: 50vw;
+    padding-top: 40px;
+    background-color: #eee;
+}
+
+.door-checkout {
+    width: 50vw;
+    padding-top: 40px;
+}
+
+.door-checkout:active {
+    width: 50vw;
+    padding-top: 40px;
+    background-color: #eee;
+}
+
+.door-unit {
+    margin: 0px auto;
+    text-align: center;
+}
+
+.door-explain-left {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.door-explain-left:active {
+    margin-top: 20px;
+    text-align: center;
+    color: #999;
+}
+
+.door-explain-right {
+    margin: 10px auto;
+    text-align: center;
+    width: 91px;
+    color: #999;
+    line-height: 15px;
+}
+
 </style>
 <div ms-controller="inroom">
-    <div class="header">
+    <!-- <div class="header">
         <div class="mui-icon mui-icon-home header-l" ms-if="isNight==1"><span class="bs-text-small">于明早上午8:00叫醒</span></div>
         <div class="bs-text-small bs-text-444 header-r" style="right: 48px;">睡眠模式</div>
         <div id="night" class="mui-switch mui-switch-mini header-r" style="top: 20px;right: -60px;">
             <div class="mui-switch-handle"></div>
         </div>
-    </div>
-    <div style="display: flex;height: 64px;margin: 16px 0;padding: 20px 24px;background-color: white;">
+    </div> -->
+    <!-- <div style="display: flex;height: 48px;margin: 0 0 8px;padding: 20px 24px;background-color: white;">
         <div class="mui-col-sm-3 mui-col-xs-3" style="display: flex;justify-content: flex-start;margin-right: 25px;">
             <img src="../img/icon/air_conditioning.svg" class="img-ul">
             <div class="bs-text-smaller bs-text-444" style="margin-left: 8px;">
@@ -157,60 +296,88 @@ div .mui-popup-buttons .mui-popup-button {
                 30%RH
             </div>
         </div>
+    </div> -->
+    <div class="bs-text-smaller bs-text-444 bs-bg-white header-status">
+        <div class="bs-text-normal header-content">
+            房间状态：
+        </div>
+        <div class="header-content">
+            <img src="../img/icon/air_conditioning.svg" class="img-ul">
+            <div style="margin-left: 8px;">
+                18°C
+            </div>
+        </div>
+        <div class="header-content">
+            <img src="../img/icon/humidity.svg" class="img-ul">
+            <div style="margin-left: 8px;">
+                30%RH
+            </div>
+        </div>
     </div>
-    <div class="bs-text-normal bs-text-444" style="padding: 24px 24px 0;background-color: white;">
-        <div class="bs-text-18" style="margin-bottom: 25px;">
+    <div class="bs-text-normal bs-text-444" style="margin-bottom: 8px;padding-top: 24px;background-color: white;">
+        <div class="bs-text-larger bs-text-bold" style="margin-bottom: 25px;padding: 0 24px;">
             设备控制
         </div>
-        <div class="device-content" onclick="javascript:location.href='../inroom/telecontroller.html';">
+        <!-- <div class="device-movie" onclick="javascript:location.href='../inroom/telecontroller.html';"> -->
+        <div class="device-movie">
             <div>影视</div>
-            <div>
-                <img src="../img/icon/movie.svg" alt="">
+            <div class="img-movie">
+                <!-- <img src="../img/icon/movie-444.svg" alt=""> -->
             </div>
         </div>
-        <div class="device-content" style="border-top: 1px solid #eee;border-bottom: 1px solid #eee;" onclick="javascript:location.href='../inroom/illumination.html';">
+        <div class="device-sunshine" style="border-top: 1px solid #eee;border-bottom: 1px solid #eee;" onclick="javascript:location.href='../inroom/illumination.html';">
             <div>光照</div>
             <div>
-                <img src="../img/icon/sunshine.svg" alt="">
+                <img src="../img/icon/sunshine-444.svg" alt="">
             </div>
         </div>
-        <div class="device-content" onclick="javascript:location.href='../inroom/temperature.html';">
+        <div class="device-temperature" onclick="javascript:location.href='../inroom/temperature.html';">
             <div>温度</div>
             <div>
-                <img src="../img/icon/temperature.svg" alt="" style="position: relative;right: 8px;">
+                <img src="../img/icon/temperature-444.svg" alt="">
             </div>
         </div>
     </div>
-    <div style="display: flex;background-color: white;height: 170px;padding: 8vw 4vw;margin: 8px 0 16px;">
-        <div style="width: 46vw;border-right: 1px solid #eee;">
+    <div style="background-color: white;padding-bottom: 20px;margin-bottom: 8px;">
+        <div class="bs-text-444" style="font-weight: bold;padding: 23px 16px;">
+            预约服务
+        </div>
+        <div class="swiper-container swiper1" style="height: 140px; z-index: 10;bottom: 0;background-color: white;">
+            <div class="swiper-wrapper" style="padding-left: 15px;background-color: white;">
+                <div class="swiper-slide swiper-slide-marker" ms-repeat="serviceList" data-repeat-rendered="swiper1Render">
+                    <div class="picture-unit" ms-css-background-image="linear-gradient(rgba(0, 0, 0, .1), rgba(0, 0, 0, .2)), url({{el.coverUrl}})" ms-on-tap="openPop(el.type)">
+                        <div class="bs-text-white bs-text-16">{{el.name}}</div>
+                        <div class="bs-text-white bs-text-smaller">{{el.engName}}</div>
+                    </div>
+                </div>
+                <div class="swiper-scrollbar"></div>
+            </div>
+        </div>
+    </div>
+    <div class="door bs-bg-white">
+        <!-- <div style="width: 46vw;border-right: 1px solid #eee;">
             <div class="cirque bs-text-normal bs-text-white bs-bg-444" ms-on-tap="goOpendoor">
                 点击开门
             </div>
             <div class="bs-text-x-smaller prompt bs-text-444" style="margin-top: 20px;text-align: center;">
                 请观察圈中的影像再开门
             </div>
+        </div> -->
+        <div class="door-open bs-text-bold" style="border-right: 1px solid #eee;">
+            <div class="door-unit" ms-on-tap="goOpendoor">
+                <img src="../img/icon/openDoor.svg" class="">
+                <div class="bs-text-smaller bs-text-444" style="font-family: 'Microsoft Yahei';">点击开门</div>
+            </div>
+            <div class="door-explain-left bs-text-x-smaller prompt bs-text-444">
+            </div>
         </div>
-        <div style="width: 46vw;margin-top: 10px;">
-            <div style="margin: 0px auto;text-align: center;" ms-on-tap="goCheckout">
+        <div class="door-checkout">
+            <div class="door-unit" ms-on-tap="goCheckout">
                 <img src="../img/icon/checkOut.svg" class="">
                 <div class="bs-text-smaller bs-text-444" style="font-family: 'Microsoft Yahei';">点击退房</div>
             </div>
-            <div class="bs-text-x-smaller prompt bs-text-444" style="margin-top: 20px;text-align: center;">
-                此时退房将获得200时币
-            </div>
-        </div>
-    </div>
-    <div style="background-color: white;padding-bottom: 20px;margin-bottom: 20px;">
-        <div class="bs-text-444" style="font-weight: bold;padding: 23px 16px;">
-            预约服务
-        </div>
-        <div class="swiper-container swiper1" style="height: 120px; z-index: 10;bottom: 0;background-color: white;">
-            <div class="swiper-wrapper" style="padding-left: 15px;background-color: white;">
-                <div class="swiper-slide swiper-slide-marker" ms-repeat="serviceList" data-repeat-rendered="swiper1Render">
-                    <div ms-css-background-image="linear-gradient(rgba(0, 0, 0, .3), rgba(0, 0, 0, .5)), url({{el.coverUrl}})" style="height: 100%;background-size: cover;width: inherit;position: relative;"><span class="bs-text-white img-word bs-text-normal">{{el.name}}</span>
-                    </div>
-                </div>
-                <div class="swiper-scrollbar"></div>
+            <div class="door-explain-right bs-text-x-smaller prompt bs-text-444">
+                支持D&K节能环保提前退房获时币奖励
             </div>
         </div>
     </div>
@@ -218,10 +385,11 @@ div .mui-popup-buttons .mui-popup-button {
         <div class="bs-text-444" style="font-weight: bold;padding: 23px 16px;">
             周边推荐
         </div>
-        <div class="swiper-container swiper1" style="height: 120px; z-index: 10;bottom: 0;background-color: white;">
+        <div class="swiper-container swiper1" style="height: 140px; z-index: 10;bottom: 0;background-color: white;">
             <div class="swiper-wrapper" style="padding-left: 15px;background-color: white;">
                 <div class="swiper-slide swiper-slide-marker" ms-repeat="peripheryList" data-repeat-rendered="swiper1Render">
-                    <div ms-css-background-image="linear-gradient(rgba(0, 0, 0, .3), rgba(0, 0, 0, .5)), url({{el.coverUrl}})" style="height: 100%;background-size: cover;width: inherit;position: relative;"><span class="bs-text-white img-word bs-text-normal">{{el.name}}</span>
+                    <div class="picture-unit" ms-css-background-image="linear-gradient(rgba(0, 0, 0, .1), rgba(0, 0, 0, .2)), url({{el.coverUrl}})">
+                    <div class="bs-text-white bs-text-16">{{el.name}}</div>
                     </div>
                 </div>
                 <div class="swiper-scrollbar"></div>
