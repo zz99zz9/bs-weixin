@@ -108,6 +108,11 @@ function ajaxJsonp(param) {
                 // dataType: "jsonp",
                 // jsonp: "jsonpcallback",
                 data: param.data,
+                beforeSend: function() {
+                    if(param.data.loading) {
+                        console.log(123);
+                    }
+                },
                 success: function(json) {
                     if (json.status === -1) {
                         if (!param.noSkip) {
@@ -443,7 +448,7 @@ function getDateByDays(date, days) {
     return year + "-" + month + "-" + day;
 }
 
-//时租房的本地数据读取呈现
+//时租房的本地数据读取呈现-老的
 function loadSessionPartTime() {
     var index, number;
 

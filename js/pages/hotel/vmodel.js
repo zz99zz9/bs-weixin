@@ -130,27 +130,7 @@ var vmHotel = avalon.define({
             }
 
             modalShow('./util/calendar.html', 1, function() {
-                $('#calendarPanel').height($(window).height() - 250);
-                clockObj = clock();
-
-                if(vmCalendar.status.key == vmCalendar.status.calendar) {
-                    var index = vmCalendar.startIndex, monthTitleNum;
-                    if(index > 0) {
-                        monthTitleNum = vmCalendar.$model.calendarDates[index].month - vmCalendar.$model.calendar[0].month;
-                        $('#calendarPanel').scrollTop(index / 7 * 45 + monthTitleNum * 50 - 30);
-                    }
-                }
-
-                if(vmCalendar.status.key == vmCalendar.status.partTimeClock) {
-                    var dateTemp = new Date(), hourTemp = dateTemp.getHours();
-                    clockObj.setStatus(vmCalendar.status.partTimeClock);
-                    
-                    if (hourTemp < 7 || hourTemp > 18) {
-                        mui.alert('时租房可预订时间为7:00-18:00', function() {
-                            vmCalendar.goDay();
-                        });
-                    }
-                }
+                vmCalendar.iniCalendarModal();
             });
         });
     },
@@ -472,4 +452,6 @@ function saveStorage() {
 vmHotel.$watch('type', function(a) {
     vmHotel.getHotelDetail();
     vmHotel.getRoomTypeList();
+
+    bensue.type = a;
 });
