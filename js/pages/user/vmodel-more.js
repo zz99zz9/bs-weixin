@@ -16,24 +16,24 @@
 
 var vmMore = avalon.define({
     $id: 'more',
-    goIndex: function() {
-        stopSwipeSkip.do(function() {
-            location.href = "../index.html";
-        })
-    },
-    goRoom: function() {
-        stopSwipeSkip.do(function() {
-            location.href = "service/orderList.html";
-        })
-    },
-    goOrder: function() {
-        stopSwipeSkip.do(function() {
-            location.href = "../newOrderList.html";
-        })
-    },
-    goMore: function() {
-        stopSwipeSkip.do(function() {
-            location.href = "../more.html";
-        })
-    },
+    // goIndex: function() {
+    //     stopSwipeSkip.do(function() {
+    //         location.href = "../index.html";
+    //     })
+    // },
+    // goRoom: function() {
+    //     stopSwipeSkip.do(function() {
+    //         location.href = "service/orderList.html";
+    //     })
+    // },
+    // goOrder: function() {
+    //     stopSwipeSkip.do(function() {
+    //         location.href = "../newOrderList.html";
+    //     })
+    // },
+    // goMore: function() {
+    //     stopSwipeSkip.do(function() {
+    //         location.href = "../more.html";
+    //     })
+    // },
 });

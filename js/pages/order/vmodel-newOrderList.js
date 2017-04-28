@@ -61,26 +61,6 @@ var vmOrders = avalon.define({
                 return "已取消";
         }
     },
-    goIndex: function() {
-        stopSwipeSkip.do(function() {
-            location.href = "../index.html";
-        })
-    },
-    goRoom: function() {
-        stopSwipeSkip.do(function() {
-            location.href = "service/orderList.html";
-        })
-    },
-    goOrder: function() {
-        stopSwipeSkip.do(function() {
-            location.href = "../newOrderList.html";
-        })
-    },
-    goMore: function() {
-        stopSwipeSkip.do(function() {
-            location.href = "../more.html";
-        })
-    },
 });
 
 //show1();

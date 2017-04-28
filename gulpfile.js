@@ -171,7 +171,7 @@ function index() {
         }))
         .pipe(replace({
             regex: '<!-- js -->',
-            replace: '<script src="js/lib/swiper.min.js"></script>\n' + '<script src="js/pages/index/index2.js"></script>\n' + '<script src="js/lib/mui.zoom.js"></script>\n' + '<script src="js/lib/mui.previewimage.js"></script>\n' + '<script src="js/util/partTime.js"></script>\n' + '<script src="js/util/contactList.js"></script>'
+            replace: '<script src="js/lib/swiper.min.js"></script>\n' + '<script src="js/pages/index/index2.js"></script>\n' + '<script src="js/lib/mui.zoom.js"></script>\n' + '<script src="js/lib/mui.previewimage.js"></script>\n' + '<script src="js/util/partTime.js"></script>\n' + '<script src="js/util/contactList.js"></script>' + '<script src="../js/pages/footer/footer.js"></script>'
         }))
         .pipe(replace({
             regex: '<!-- content -->',
@@ -183,6 +183,13 @@ function index() {
         .pipe(replace({
             regex: '<!-- roomSlide -->',
             replace: '<!--include "../util/roomSlide-type.html"-->'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(replace({
+            regex: '<!-- footer -->',
+            replace: '<!--include "../pages/footer/footer.html"-->'
         }))
         .pipe(contentIncluder({
             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
@@ -216,11 +223,7 @@ function city() {
         }))
         .pipe(replace({
             regex: '<!-- js -->',
-            replace: '<script src="js/lib/swiper.min.js"></script>\n' 
-            + '<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=0743dafb590f3622f52d0d4218a9f1f7"></script>\n' 
-            + '<script src="js/pages/city/vmodel.js"></script>\n' 
-            + '<script src="js/util/calendar.js"></script>\n' 
-            + '<script src="js/util/clock.js"></script>'
+            replace: '<script src="js/lib/swiper.min.js"></script>\n' + '<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=0743dafb590f3622f52d0d4218a9f1f7"></script>\n' + '<script src="js/pages/city/vmodel.js"></script>\n' + '<script src="js/util/calendar.js"></script>\n' + '<script src="js/util/clock.js"></script>'
         }))
         .pipe(contentIncluder({
             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
@@ -264,10 +267,7 @@ function hotel() {
         }))
         .pipe(replace({
             regex: '<!-- js -->',
-            replace: '<script src="js/lib/swiper.min.js"></script>\n' 
-            + '<script src="js/pages/hotel/vmodel.js"></script>\n' 
-            + '<script src="js/util/calendar.js"></script>\n'
-            + '<script src="js/util/clock.js"></script>'
+            replace: '<script src="js/lib/swiper.min.js"></script>\n' + '<script src="js/pages/hotel/vmodel.js"></script>\n' + '<script src="js/util/calendar.js"></script>\n' + '<script src="js/util/clock.js"></script>'
         }))
         .pipe(contentIncluder({
             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
@@ -311,13 +311,7 @@ function room() {
         }))
         .pipe(replace({
             regex: '<!-- js -->',
-            replace: '<script src="js/lib/mui.zoom.js"></script>\n'
-            + '<script src="js/lib/mui.previewimage.js"></script>\n'
-            + '<script src="js/lib/swiper.min.js"></script>\n' 
-            + '<script src="js/pages/room/vmodel.js"></script>\n'
-            + '<script src="js/util/calendar.js"></script>\n'
-            + '<script src="js/util/clock.js"></script>\n' 
-            + '<script src="js/util/contactList.js"></script>'
+            replace: '<script src="js/lib/mui.zoom.js"></script>\n' + '<script src="js/lib/mui.previewimage.js"></script>\n' + '<script src="js/lib/swiper.min.js"></script>\n' + '<script src="js/pages/room/vmodel.js"></script>\n' + '<script src="js/util/calendar.js"></script>\n' + '<script src="js/util/clock.js"></script>\n' + '<script src="js/util/contactList.js"></script>'
         }))
         .pipe(contentIncluder({
             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
@@ -3108,11 +3102,18 @@ function checkOut() {
         }))
         .pipe(replace({
             regex: '<!-- js -->',
-            replace: '<script src="../js/pages/checkout/checkOut.js"></script>'
+            replace: '<script src="../js/pages/checkout/checkOut.js"></script>' + '<script src="../js/pages/footer/footer.js"></script>'
         }))
         .pipe(contentIncluder({
             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
         }))
+        .pipe(replace({
+    regex: '<!-- footer -->',
+    replace: '<!--include "../pages/footer/footer.html"-->'
+}))
+.pipe(contentIncluder({
+    includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+}))
         .pipe(rename('checkOut.html'))
         .pipe(gulp.dest('./src'));
 }
@@ -3129,11 +3130,18 @@ function newOrderList() {
         }))
         .pipe(replace({
             regex: '<!-- js -->',
-            replace: '<script src="js/pages/order/vmodel-newOrderList.js"></script>'
+            replace: '<script src="js/pages/order/vmodel-newOrderList.js"></script>' + '<script src="../js/pages/footer/footer.js"></script>'
         }))
         .pipe(replace({
             regex: '<!-- content -->',
             replace: '<!--include "../pages/order/newOrderList.html"-->'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(replace({
+            regex: '<!-- footer -->',
+            replace: '<!--include "../pages/footer/footer.html"-->'
         }))
         .pipe(contentIncluder({
             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
@@ -3158,11 +3166,18 @@ function inroom() {
         }))
         .pipe(replace({
             regex: '<!-- js -->',
-            replace: '<script src="js/lib/swiper.min.js"></script>\n' + '<script src="js/pages/checkin/inroom.js"></script>\n' + '<script src="../js/lib/mui.picker.all.js"></script>\n' + '<script src="js/lib/mui.zoom.js"></script>\n' + '<script src="js/lib/mui.previewimage.js"></script>\n' + '<script src="js/util/partTime.js"></script>\n' + '<script src="js/util/contactList.js"></script>'
+            replace: '<script src="js/lib/swiper.min.js"></script>\n' + '<script src="js/pages/checkin/inroom.js"></script>\n' + '<script src="../js/lib/mui.picker.all.js"></script>\n' + '<script src="js/lib/mui.zoom.js"></script>\n' + '<script src="js/lib/mui.previewimage.js"></script>\n' + '<script src="js/util/partTime.js"></script>\n' + '<script src="js/util/contactList.js"></script>' + '<script src="../js/pages/footer/footer.js"></script>'
         }))
         .pipe(replace({
             regex: '<!-- content -->',
             replace: '<!--include "../pages/checkin/inroom.html"-->'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(replace({
+            regex: '<!-- footer -->',
+            replace: '<!--include "../pages/footer/footer.html"-->'
         }))
         .pipe(contentIncluder({
             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
@@ -3272,7 +3287,14 @@ function serviceOrderList() {
         }))
         .pipe(replace({
             regex: '<!-- js -->',
-            replace: '<script src="../js/pages/service/orderList.js"></script>'
+            replace: '<script src="../js/pages/service/orderList.js"></script>' + '<script src="../js/pages/footer/footer.js"></script>'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(replace({
+            regex: '<!-- footer -->',
+            replace: '<!--include "../pages/footer/footer.html"-->'
         }))
         .pipe(contentIncluder({
             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
@@ -3328,11 +3350,18 @@ function serviceReady() {
         }))
         .pipe(replace({
             regex: '<!-- js -->',
-            replace: '<script src="../js/pages/service/ready.js"></script>\n<script src="../js/lib/mui.picker.all.js"></script>'
+            replace: '<script src="../js/pages/service/ready.js"></script>\n<script src="../js/lib/mui.picker.all.js"></script>' + '<script src="../js/pages/footer/footer.js"></script>'
         }))
         .pipe(replace({
             regex: '<!-- pop -->',
             replace: '<!--include "../util/pop.html"-->'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(replace({
+            regex: '<!-- footer -->',
+            replace: '<!--include "../pages/footer/footer.html"-->'
         }))
         .pipe(contentIncluder({
             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
@@ -3344,21 +3373,28 @@ function serviceReady() {
 //更多页面
 function more() {
     return gulp.src('./js/layout/shell.html')
-    
-        //.pipe(replace({ regex: '<!-- pop -->', replace: '<!--include "../util/pop.html"-->' }))
-        .pipe(replace({
+
+    //.pipe(replace({ regex: '<!-- pop -->', replace: '<!--include "../util/pop.html"-->' }))
+    .pipe(replace({
             regex: '<!-- title -->',
             replace: '<title>更多</title>'
         }))
         .pipe(replace({
             regex: '<!-- js -->',
-            replace: '<script src="../js/pages/user/vmodel-more.js"></script>'
+            replace: '<script src="../js/pages/user/vmodel-more.js"></script>\n' + '<script src="../js/pages/footer/footer.js"></script>'
         }))
         .pipe(replace({
             regex: '<!-- content -->',
             replace: '<!--include "../pages/user/more.html"-->'
         }))
         // .pipe(replace({regex:'<h1 id="headerReplace" class="mui-title"></h1>', replace:'<h1 id="headerReplace" class="mui-title">个人信息</h1>'}))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(replace({
+            regex: '<!-- footer -->',
+            replace: '<!--include "../pages/footer/footer.html"-->'
+        }))
         .pipe(contentIncluder({
             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
         }))
