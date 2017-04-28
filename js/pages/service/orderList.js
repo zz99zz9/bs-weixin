@@ -17,29 +17,30 @@ var vmServiceOrderList = avalon.define({
     pageNo: 1,
     pageSize: 10,
     data: [],
-    orderList: {
-        roomNo: 1123,
-    },
-    list: [
-        { orderNo: "a-8301", name: "赵先生", mobile: 13511123123 },
-        { orderNo: "b-8301", name: "钱先生", mobile: 13511123123 },
-        { orderNo: "c-8301", name: "孙女士", mobile: 12364567897 },
-        { orderNo: "d-8301", name: "李先生", mobile: 13511123123 },
-        { orderNo: "e-8301", name: "周先生", mobile: 78789123135 },
-        { orderNo: "f-8301", name: "吴女士", mobile: 13511123123 },
-        { orderNo: "c-8301", name: "孙女士", mobile: 12364567897 },
-        { orderNo: "d-8301", name: "李先生", mobile: 13511123123 },
-    ],
-    isSend: 0, //0-不显示  1-显示
-    send: function() { //发送订单
-        stopSwipeSkip.do(function() {
-            // mui.alert('注意提醒您的小伙伴查收订单哦。', "发送成功");
-            if (vmServiceOrderList.isSend==0) {
-                vmServiceOrderList.isSend = 1;
-            } else {
-               vmServiceOrderList.isSend = 0; 
+    getData: function() {
+        ajaxJsonp({
+            url: urls.getWaitRoomList,
+            successCallback: function(json) {
+                if (json.status === 1) {
+                    vmServiceOrderList.data = json.data;
+                }
             }
-            
+        });
+    },
+    isSend: 0, //0-不显示  1-显示
+    sendBtnText: '发送订单',
+    send: function(isMe) { //发送订单
+        stopSwipeSkip.do(function() {
+            if(isMe) {
+                location.href = "process.html";
+            } else {
+                // mui.alert('注意提醒您的小伙伴查收订单哦。', "发送成功");
+                if (vmServiceOrderList.isSend==0) {
+                    vmServiceOrderList.isSend = 1;
+                } else {
+                   vmServiceOrderList.isSend = 0; 
+                }
+            }   
         })
     },
     goIndex: function() {
@@ -95,7 +96,8 @@ var vmServiceOrderList = avalon.define({
         }
     },
 });
-vmServiceOrderList.data = vmServiceOrderList.list;
+vmServiceOrderList.getData();
+
 // vmServiceOrderList.$watch("newActualQuantity", function(a) {
 //     if (a != vmServiceOrderList.actualQuantity && a != '') {
 //         vmServiceOrderList.isDisabled = false;
