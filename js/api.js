@@ -80,16 +80,24 @@ var urls = {
     payBalanceOrder: urlAPI + '/web/usr/pay/userBalanceOrderInfoPay/cashier', //支付余额充值订单
     getBalanceOrderDetail: urlAPI + '/web/usr/userBalanceOrderInfo/detail', //获取余额充值订单详情
     getBalanceLog: urlAPI + '/web/usr/userBalanceAccountOperateLog/list', //获取余额交易记录
-    //客控
+    //服务
     inStoreGoods: urlAPI + '/web/svr/inStoreGoods/list',//店内商品列表
     hotelService: urlAPI + '/web/svr/hotelService/list',//店内服务列表
     socialService: urlAPI + '/web/svr/socialServiceCategory/list',//社会化服务列表
     socialList: urlAPI + '/web/svr/hotelSocialStore/list',//社会化商铺列表
+    //客控
     openDoorList: urlAPI + '/web/trd/hotelControl/openDoorList',//查询当前登录用户开门列表
     checkOutDoorList: urlAPI + '/web/trd/hotelControl/checkOutList',//查询当前登录用户退房列表
     openDoor: urlAPI + '/web/trd/hotelControl/openDoor',// 微信开门
     checkOutDoor: urlAPI + '/web/trd/hotelControl/checkOut',//微信退房
-
+    getAirDeviceList: urlAPI + '/ordercenter/smk/airc/deviceList',//空调设备列表
+    closeAir: urlAPI + '/ordercenter/smk/airc/close',//空调关机
+    changeAirMode: urlAPI + '/ordercenter/smk/airc/changeMode',//空调切换模式
+    changeAirWind: urlAPI + '/ordercenter/smk/airc/changeSpeed',//空调切换风速
+    openAir: urlAPI + '/ordercenter/smk/airc/open',//空调开机
+    getAirStatus: urlAPI + '/ordercenter/smk/airc/status',//查询空调状态
+    AirTempDown: urlAPI + '/ordercenter/smk/airc/downTemp',//空调降低温度
+    AirTempUp: urlAPI + '/ordercenter/smk/airc/upTemp',//空调升高温度
     //管理
     //欢迎页
     getManager: urlAPI + '/web/mgr/hotelManagerNote/getByHid',//店长寄语
