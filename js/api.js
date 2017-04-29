@@ -74,6 +74,8 @@ var urls = {
     saveSub: urlAPI + '/web/trd/orderComment/save', //用户提交评论
     payOrder: urlAPI + '/web/trd/pay/orderInfoPay/cashier', //支付订单
     unsubscribeOrder: urlAPI + '/web/trd/refund/orderInfoRefund/refund', //退订订单
+    getWaitRoomList: urlAPI + '/ordercenter/trd/orderRoom/findByUidOrderRoomList', //根据用户查询待入住房间列表
+
     //余额
     getBalance: urlAPI + '/web/usr/userBalanceAccount/info', //查询用户余额详情
     submitBalanceOrder: urlAPI + '/web/usr/userBalanceOrderInfo/submit', //提交余额充值订单
