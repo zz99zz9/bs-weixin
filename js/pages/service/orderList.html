@@ -1,147 +1,62 @@
-
-
-
 <style>
-section {
-    margin: 2px 0;
-}
+    .row {
+        display: flex;
+        justify-content: space-between;
+        padding: 25px 30px;
+        background-color: #fff;
+        font-size: 15px;
+        border-bottom: 1px solid #ddd;
+    }
 
-.row {
-    display: flex;
-    justify-content: space-between;
-    padding: 25px 30px;
-    background-color: #fff;
-    font-size: 15px;
-    border-bottom: 1px solid #ddd;
-}
+    .arrow {
+        height: 15px;
+        opacity: 0.5;
+        margin: 3px;
+        position: relative;
+        top: 5px;
+    }
 
-.row:active {
-    background-color: #ddd;
-}
+    .content-infor {
+        display: flex;
+        justify-content: space-between;
+        height: 72px;
+        align-items: center;
+        border-bottom: 1px solid #ccc;
+        color: #444;
+    }
 
-.item-img {
-    position: relative;
-    top: 18px;
-    width: 24px;
-    height: 24px;
-    right: -25px;
-}
+    .sendBtn {
+        font-size: 14px;
+        color: #444;
+        width: 95px;
+        line-height: 35px;
+        border-radius: 20px;
+        border: 1px solid #fdd942;
+        text-align: center;
+    }
 
-.send-img {
-    height: 60px;
-    width: 100px;
-    padding: 0 15vw;
-}
-
-.arrow {
-    height: 15px;
-    opacity: 0.5;
-    margin: 3px;
-    position: relative;
-    top: 5px;
-}
-
-.item-text {
-    flex-grow: 1;
-    color: #444;
-    font-size: 18px;
-}
-
-.content-infor {
-    display: flex;
-    justify-content: space-between;
-    height: 60px;
-    align-items: center;
-    padding: 23px 0;
-    border-bottom: 1px solid #ccc;
-    color: #444;
-}
-
-.flex0 {
-    font-size: 10px;
-}
-
-.footer-nav {
-    position: fixed;
-    display: flex;
-    justify-content: space-around;
-    height: 56px;
-    width: 100vw;
-    bottom: 0;
-    z-index: 10;
-    background-color: white;
-}
-
-.footer-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: center;
-}
-
-.footer-content img {
-    height: 30px;
-    width: 30px;
-}
-
-.footer-content div {
-    font-size: 8px;
-}
+    .sendBtn:active {
+        background-color: #BDBDBD;
+    }
 </style>
-<section>
-    <div class="row" ms-controller="serviceOrderList">
-        <div class="item-text">
-            1123
-        </div>
-        <div style="font-size: 18px;color: #169488;" onclick="javascript:location.href='process.html';">
-            去做些准备
-        </div>
-        <!-- <img src="../img/icon/service-send.svg" class="item-img"> -->
-    </div>
-</section>
-<div id="pullrefresh" class="mui-scroll-wrapper" ms-controller="serviceOrderList" style="position: static;">
-    <div class="mui-scroll">
-        <div class="input-panel" style="margin: 16px 0;padding: 25px 30px;background-color: white;">
-            <div>
-                <div class="bs-text-444 bs-text-x-larger" style="font-weight: bold;margin-bottom: 16px;">
-                    发送订单
-                </div>
-                <div class="bs-text-444 bs-text-smaller" style="margin-bottom: 17px;">
-                    将您的订单发送给您的好友
-                </div>
+
+<div ms-controller="serviceOrderList">
+    <div id="pullrefresh" class="mui-scroll-wrapper" style="position: static;">
+        <div class="mui-scroll">
+            <div style="margin: 0 24px;">
                 <div class="content-infor" ms-repeat="data">
-                    <div class="flex0 bs-text-x-smaller" style="-webkit-box-pack: justify;">{{el.orderNo}}</div>
-                    <div class="flex1 bs-text-x-smaller">{{el.name}}</div>
-                    <!-- <div style="height: 33px;width: 100px;padding-left: 76px;">
-                        <img src="../img/icon/service-send.svg" class="item-img" ms-on-tap="send">
-                    </div> -->
-                    <div class="send-img" ms-on-tap="send">
-                        <img src="../img/icon/service-send.svg" class="item-img">
+                    <div class="bs-text-x-large">{{el.roomNo}}</div>
+                    <div class="bs-text-large">{{el.userName}}</div>
+                    <div class="sendBtn" ms-on-tap="send(el.CustomerStatus)">
+                        {{el.CustomerStatus==1?'去做准备':sendBtnText}}
                     </div>
                 </div>
             </div>
-        </div>
-        <div style="height: 22px;">
-        </div>
-    </div>
-    <div class="footer-nav">
-        <div class="footer-content" ms-on-tap="goIndex">
-            <img src="/img/icon/icon-home.svg" class="">
-            <div class="">主页</div>
-        </div>
-        <div class="footer-content">
-            <img src="/img/icon/icon-ruzhu-select.svg" class="">
-            <div class="">入住</div>
-        </div>
-        <div class="footer-content" ms-on-tap="goOrder">
-            <img src="/img/icon/icon-dingdan.svg" class="">
-            <div class="">订单</div>
-        </div>
-        <div class="footer-content" ms-on-tap="goMore">
-            <img src="/img/icon/icon-more.svg" class="">
-            <div class="">more</div>
+            <div style="height: 22px;">
+            </div>
         </div>
     </div>
+
     <div style="padding: 20px;background-color: #fff;height: 100vh;">
         <div class="mask-fullscreen bs-text-white" ms-if="isSend" style="position: fixed; z-index: 11;">
             <img src="../img/icon/arrow-top-right.svg" style="width: 30px;">
@@ -157,6 +72,7 @@ section {
         </div>
     </div>
 </div>
+<!-- footer -->
 <!-- <script>
 mui.init({
     pullRefresh: {

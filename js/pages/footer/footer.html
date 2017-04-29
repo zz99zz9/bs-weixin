@@ -1,0 +1,47 @@
+<style>
+.footer-nav {
+    position: fixed;
+    display: flex;
+    justify-content: space-around;
+    height: 56px;
+    width: 100vw;
+    bottom: 0;
+    z-index: 10;
+    background-color: white;
+    border-top: 1px solid #eee;
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.footer-content img {
+    height: 30px;
+    width: 30px;
+}
+
+.footer-content div {
+    font-size: 8px;
+}
+</style>
+<div class="footer-nav" ms-controller="footer">
+    <div class="footer-content" ms-on-tap="goIndex">
+        <img ms-attr-src="{{headUrl}}" class="">
+        <div class="">主页</div>
+    </div>
+    <div class="footer-content" ms-on-tap="goRoom">
+        <img ms-attr-src="{{checkinUrl}}" class="">
+        <div class="">入住</div>
+    </div>
+    <div class="footer-content" ms-on-tap="goOrder">
+        <img ms-attr-src="{{orderUrl}}" class="">
+        <div class="">订单</div>
+    </div>
+    <div class="footer-content" ms-on-tap="goMore">
+        <img ms-attr-src="{{moreUrl}}" class="">
+        <div class="">更多</div>
+    </div>
+</div>
