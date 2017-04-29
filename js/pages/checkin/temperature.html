@@ -95,40 +95,40 @@
             {{temPoint}} ˚C
         </div>
         <div class="press">
-            <div class="press-unit" ms-on-tap="tongfeng">
-                <img ms-if="isTongfeng==0" src="../img/icon/icon-tongfengmoshi.svg" class="">
-                <img ms-if="isTongfeng==1" src="../img/icon/icon-tongfengmoshi-select.svg" class="">
+            <div class="press-unit" ms-on-tap="changeMode(3)">
+                <img ms-if="isMode!=3" src="../img/icon/icon-tongfengmoshi.svg" class="">
+                <img ms-if="isMode==3" src="../img/icon/icon-tongfengmoshi-select.svg" class="">
             </div>
-            <div class="press-unit" ms-on-tap="zhire">
-                <img ms-if="isZhire==0" src="../img/icon/icon-zhiremoshi.svg" class="">
-                <img ms-if="isZhire==1" src="../img/icon/icon-zhiremoshi-select.svg" class="">
+            <div class="press-unit" ms-on-tap="changeMode(4)">
+                <img ms-if="isMode!=4" src="../img/icon/icon-zhiremoshi.svg" class="">
+                <img ms-if="isMode==4" src="../img/icon/icon-zhiremoshi-select.svg" class="">
             </div>
-            <div class="press-unit" ms-on-tap="zhileng">
-                <img ms-if="isZhileng==0" src="../img/icon/icon-zhilengmoshi.svg" class="">
-                <img ms-if="isZhileng==1" src="../img/icon/icon-zhilengmoshi-select.svg" class="">
+            <div class="press-unit" ms-on-tap="changeMode(1)">
+                <img ms-if="isMode!=1" src="../img/icon/icon-zhilengmoshi.svg" class="">
+                <img ms-if="isMode==1" src="../img/icon/icon-zhilengmoshi-select.svg" class="">
             </div>
-            <div class="press-unit" ms-click="wendujia">
+            <div class="press-unit" ms-click="tempUp">
                 <a class="wendujia" href="###" title="升温" ></a>
             </div>
-            <div class="press-unit" ms-on-tap="small">
-                <img ms-if="isSmall==0" src="../img/icon/icon-fengliangxiao.svg" class="">
-                <img ms-if="isSmall==1" src="../img/icon/icon-fengliangxiao-select.svg" class="">
+            <div class="press-unit" ms-on-tap="changeWind(1)">
+                <img ms-if="isWind!=1" src="../img/icon/icon-fengliangxiao.svg" class="">
+                <img ms-if="isWind==1" src="../img/icon/icon-fengliangxiao-select.svg" class="">
             </div>
-            <div class="press-unit" ms-on-tap="middle">
-                <img ms-if="isMiddle==0" src="../img/icon/icon-fengliangzhong.svg" class="">
-                <img ms-if="isMiddle==1" src="../img/icon/icon-fengliangzhong-select.svg" class="">
+            <div class="press-unit" ms-on-tap="changeWind(2)">
+                <img ms-if="isWind!=2" src="../img/icon/icon-fengliangzhong.svg" class="">
+                <img ms-if="isWind==2" src="../img/icon/icon-fengliangzhong-select.svg" class="">
             </div>
-            <div class="press-unit" ms-on-tap="large">
-                <img ms-if="isLarge==0" src="../img/icon/icon-fengliangda.svg" class="">
-                <img ms-if="isLarge==1" src="../img/icon/icon-fengliangda-select.svg" class="">
+            <div class="press-unit" ms-on-tap="changeWind(3)">
+                <img ms-if="isWind!=3" src="../img/icon/icon-fengliangda.svg" class="">
+                <img ms-if="isWind==3" src="../img/icon/icon-fengliangda-select.svg" class="">
             </div>
-            <div class="press-unit" ms-click="wendujian">
+            <div class="press-unit" ms-click="tempDown">
                 <a class="wendujian" href="###" title="降温" ></a>
             </div>
         </div>
-        <div class="switch" ms-on-tap="kaiguan">
-            <img ms-if="isSwitch==0" src="../img/icon/icon-kaiguan.svg" class="">
-            <img ms-if="isSwitch==1" src="../img/icon/icon-kaiguan-select.svg" class="">
+        <div class="switch" ms-on-tap="getPower">
+            <img ms-if="!isOpen" src="../img/icon/icon-kaiguan.svg" class="">
+            <img ms-if="isOpen" src="../img/icon/icon-kaiguan-select.svg" class="">
         </div>
     </div>
 </div>

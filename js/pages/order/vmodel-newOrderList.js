@@ -30,7 +30,7 @@ var vmOrders = avalon.define({
         } else if (status == 1) {
             location.href = "order.html?&id=" + id;
         }
-
+        vmOrders.saveRoom();
     },
     showActionText: function(status) {
         switch (status) {
@@ -60,6 +60,9 @@ var vmOrders = avalon.define({
             case 9:
                 return "已取消";
         }
+    },
+    saveRoom: function() {  //存储要开的房间信息，session里
+        Storage.set("currentRoom", { roomId: 1, roomName: '一号' });
     },
 });
 
@@ -99,3 +102,4 @@ function show2() {
         }
     });
 }
+

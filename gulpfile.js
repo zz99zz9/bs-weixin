@@ -3108,12 +3108,12 @@ function checkOut() {
             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
         }))
         .pipe(replace({
-    regex: '<!-- footer -->',
-    replace: '<!--include "../pages/footer/footer.html"-->'
-}))
-.pipe(contentIncluder({
-    includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
-}))
+            regex: '<!-- footer -->',
+            replace: '<!--include "../pages/footer/footer.html"-->'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
         .pipe(rename('checkOut.html'))
         .pipe(gulp.dest('./src'));
 }
