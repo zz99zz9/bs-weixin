@@ -7,17 +7,30 @@ var vmIndex2 = avalon.define({
     list: [],
     list1: [],
     data: [
-        { name: '附近', ico: '../img/icon/location.svg' },
-        { name: '上海', ico: '../img/qietu-shanghai.png' },
-        { name: '杭州', ico: '../img/qietu-hangzhou.png' },
-        { name: '南京', ico: '../img/qietu-nanjing.png' },
-        { name: '苏州', ico: '../img/qietu-suzhou.png' },
-        { name: '上海', ico: '../img/qietu-shanghai.png' },
-        { name: '杭州', ico: '../img/qietu-hangzhou.png' },
-        { name: '南京', ico: '../img/qietu-nanjing.png' },
-        { name: '苏州', ico: '../img/qietu-suzhou.png' },
-        { name: '所有城市', ico: '../img/icon/allCity.svg' }
+        { name: '附近', imgUrl: '../img/icon/location.svg' },
+        { name: '上海', imgUrl: '../img/qietu-shanghai.png' },
+        { name: '杭州', imgUrl: '../img/qietu-hangzhou.png' },
+        { name: '南京', imgUrl: '../img/qietu-nanjing.png' },
+        { name: '苏州', imgUrl: '../img/qietu-suzhou.png' },
+        { name: '上海', imgUrl: '../img/qietu-shanghai.png' },
+        { name: '杭州', imgUrl: '../img/qietu-hangzhou.png' },
+        { name: '南京', imgUrl: '../img/qietu-nanjing.png' },
+        { name: '苏州', imgUrl: '../img/qietu-suzhou.png' },
+        { name: '所有城市', imgUrl: '../img/icon/allCity.svg' }
     ],
+    getCityImgList: function() {
+        ajaxJsonp({
+            url: urls.getCityImgList,
+            data: {},
+            successCallback: function(json) {
+                if (json.status === 1) {
+                    vmIndex2.data = json.data;
+                } else {
+                    console.log(json.message);
+                }
+            }
+        });
+    },
     hotelMarkers: [],
     goToUrl: function(url) {
         location.href = url;
@@ -38,7 +51,7 @@ var vmIndex2 = avalon.define({
             scrollbarHide: true,
             slidesPerView: 'auto',
             onClick: function(swiper) {
-                if (swiper.clickedIndex==9) {
+                if (swiper.clickedIndex == 9) {
                     modalShow('./util/searchLocation.html', 1);
                 } else {
                     location.href = "../city.html";
@@ -79,17 +92,17 @@ var vmIndex2 = avalon.define({
     },
     //问候语swiper翻转效果
     greetList: [
-        { name: '你  好'},
-        { name: 'Hello'},
-        { name: 'Bonjour'},
-        { name: 'Guten Tag'},
-        { name: 'こんにちは'},
-        { name: '안녕하세요'},
-        { name: 'illāc'},
-        { name: 'ciao'},
-        { name: 'Olá'},
-        { name: 'Hola'},
-        { name: 'Saluton'}
+        { name: '你  好' },
+        { name: 'Hello' },
+        { name: 'Bonjour' },
+        { name: 'Guten Tag' },
+        { name: 'こんにちは' },
+        { name: '안녕하세요' },
+        { name: 'illāc' },
+        { name: 'ciao' },
+        { name: 'Olá' },
+        { name: 'Hola' },
+        { name: 'Saluton' }
     ],
     greetSwiper: function() {
         swiper = new Swiper('.swiper', {
@@ -100,7 +113,7 @@ var vmIndex2 = avalon.define({
             slidesPerView: 1,
             width: window.innerWidth,
             height: 32,
-            noSwiping : true
+            noSwiping: true
         });
     },
 });
@@ -136,6 +149,7 @@ ajaxJsonp({
         }
     }
 });
+vmIndex2.getCityImgList();
 
 var vmSearch = avalon.define({
     $id: 'search',
