@@ -167,11 +167,11 @@ function index() {
         }))
         .pipe(replace({
             regex: '<!-- css -->',
-            replace: '<link rel="stylesheet" href="css/swiper.min.css">\n<link rel="stylesheet" href="css/room.css">'
+            replace: '<link rel="stylesheet" href="css/swiper.min.css">\n<link rel="stylesheet" href="css/room.css">\n<link rel="stylesheet" href="css/index.css">'
         }))
         .pipe(replace({
             regex: '<!-- js -->',
-            replace: '<script src="js/lib/swiper.min.js"></script>\n' + '<script src="js/pages/index/index2.js"></script>\n' + '<script src="js/lib/mui.zoom.js"></script>\n' + '<script src="js/lib/mui.previewimage.js"></script>\n' + '<script src="js/util/partTime.js"></script>\n' + '<script src="js/util/contactList.js"></script>' + '<script src="../js/pages/footer/footer.js"></script>'
+            replace: '<script src="js/lib/swiper.min.js"></script>\n' + '<script src="js/pages/index/index.js"></script>\n' + '<script src="js/lib/mui.zoom.js"></script>\n' + '<script src="js/lib/mui.previewimage.js"></script>\n' + '<script src="js/util/partTime.js"></script>\n' + '<script src="js/util/contactList.js"></script>' + '<script src="../js/pages/footer/footer.js"></script>'
         }))
         .pipe(replace({
             regex: '<!-- content -->',
@@ -3108,12 +3108,12 @@ function checkOut() {
             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
         }))
         .pipe(replace({
-    regex: '<!-- footer -->',
-    replace: '<!--include "../pages/footer/footer.html"-->'
-}))
-.pipe(contentIncluder({
-    includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
-}))
+            regex: '<!-- footer -->',
+            replace: '<!--include "../pages/footer/footer.html"-->'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
         .pipe(rename('checkOut.html'))
         .pipe(gulp.dest('./src'));
 }

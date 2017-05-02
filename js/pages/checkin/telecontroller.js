@@ -1,3 +1,5 @@
+var currentRoom = Storage.get("currentRoom"),
+    roomId = currentRoom.roomId;
 var vmTelecontroller = avalon.define({
     $id: 'telecontroller',
     isSwitch: 0,  //默认不启动  0-不启动  1-启动
