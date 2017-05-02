@@ -33,7 +33,7 @@ var vmFooter = avalon.define({
     address: '',
     judgeSelect: function() {
         vmFooter.address = window.location.href;
-        console.log(vmFooter.address);
+        // console.log(vmFooter.address);
         if (vmFooter.address.indexOf('index.html') > 0) {
             vmFooter.headUrl = vmFooter.list[0].url;
         } else if (vmFooter.address.indexOf('service/orderList.html')>0 || vmFooter.address.indexOf('service/ready.html')>0 || vmFooter.address.indexOf('inroom.html')>0) {

@@ -27,7 +27,7 @@ var urls = {
     getHotelByPosition: urlAPI + '/web/res/hotel/aroundList', //查找周边酒店列表
     getRecentViewLog: urlAPI + '/web/usr/viewLog/roomList', //最近浏览
     getFilter: urlAPI + '/web/res/searchCriteriaAmenity/list', //筛选条件
-
+    getRecommendHotelList: urlAPI + '/ordercenter/res/hotel/recommendList', //获取热门酒店
     getINIrecommendURL: urlAPI + '/web/res/room/recommendList',
     getHotelInfoList: urlAPI + '/web/res/hotel/localList', //根据地区获取酒店信息列表
     getUserFundURL: urlAPI + '/web/usr/userFund/list', //用户基金列表

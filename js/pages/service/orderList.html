@@ -1,4 +1,7 @@
 <style>
+    body {
+        background-color: #fff;
+    }
     .row {
         display: flex;
         justify-content: space-between;
@@ -48,11 +51,11 @@
                     <div class="bs-text-x-large">{{el.roomNo}}</div>
                     <div class="bs-text-large">{{el.userName}}</div>
                     <div class="sendBtn" ms-on-tap="send(el.CustomerStatus)">
-                        {{el.CustomerStatus==1?'去做准备':sendBtnText}}
+                        {{el.customerStatus==1?'去做准备':sendBtnText}}
                     </div>
                 </div>
             </div>
-            <div style="height: 22px;">
+            <div style="height: 65px;">
             </div>
         </div>
     </div>
