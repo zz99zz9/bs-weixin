@@ -23,6 +23,7 @@ var urls = {
 
     //首页
     getCityGallery: urlAPI + '/web/res/cityImage/list', //城市图片列表
+    getCityImgList: urlAPI + '/ordercenter/res/cityImage/cityList', //订单系统的城市图片列表
     getHotelByPosition: urlAPI + '/web/res/hotel/aroundList', //查找周边酒店列表
     getRecentViewLog: urlAPI + '/web/usr/viewLog/roomList', //最近浏览
     getFilter: urlAPI + '/web/res/searchCriteriaAmenity/list', //筛选条件
