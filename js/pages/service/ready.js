@@ -10,6 +10,8 @@
 // } else {
 //     articleid = 0;
 // }
+var currentRoom = Storage.get("currentRoom"),
+    orid = currentRoom.roomId;
 var hid = 1,
     roomType = 0,
     midnightDiscount = 1,
@@ -89,11 +91,11 @@ var vmServiceReady = avalon.define({
             url: urls.getPreService,
             data: {
                 hid: hid,
-                orid: 1527
+                orid: 1527  //只1527有伪数据
             },
             successCallback: function(json) {
                 if (json.status == 1) {
-                    vmServiceReady.serviceList = json.data
+                    vmServiceReady.serviceList = json.data;
                 } else {
                     mui.alert(json.message);
                 }
@@ -192,7 +194,9 @@ var vmMoreService = avalon.define({
                 },
                 successCallback: function(json) {
                     if (json.status === 1) {
-                        console.log(111);
+                        mui.alert(json.message);
+                        modalClose();
+                        vmServiceReady.getPreService();
                     } else {
                         mui.alert(json.message);
                     }
