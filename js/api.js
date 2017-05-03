@@ -100,6 +100,17 @@ var urls = {
     getAirStatus: urlAPI + '/ordercenter/smk/airc/status',//查询空调状态
     AirTempDown: urlAPI + '/ordercenter/smk/airc/downTemp',//空调降低温度
     AirTempUp: urlAPI + '/ordercenter/smk/airc/upTemp',//空调升高温度
+    controlTele3d: urlAPI + 'ordercenter/smk/tv/operate',//遥控器3D
+    getTeleDeviceList: urlAPI + '/ordercenter/smk/tv/deviceList',//tv设备列表
+    curtainOpen: urlAPI + '/ordercenter/smk/curtain/open',//打开窗帘
+    curtainPause: urlAPI + '/ordercenter/smk/curtain/stop',//暂停窗帘
+    curtainClose: urlAPI + '/ordercenter/smk/curtain/close',//关闭窗帘
+    getCurtainDeviceList: urlAPI + '/ordercenter/smk/curtain/deviceList',//窗帘设备列表
+    getScePageDeviceList: urlAPI + '/ordercenter/smk/scePage/deviceList',//场景设备列表
+    ScePageOperate: urlAPI + '/ordercenter/smk/scePage/operate',//操作场景
+    getLightDeviceList: urlAPI + '/ordercenter/smk/light/deviceList',//灯设备列表
+    closeLight: urlAPI + '/ordercenter/smk/light/close',//关灯
+    openLight: urlAPI + '/ordercenter/smk/light/open',//开灯
     //管理
     //欢迎页
     getManager: urlAPI + '/web/mgr/hotelManagerNote/getByHid',//店长寄语
