@@ -163,7 +163,7 @@ function index() {
         }))
         .pipe(replace({
             regex: '<!-- pop -->',
-            replace: '<!--include "../util/pop.html"--><!--include "../pages/user/popover.html"--><!--include "../util/modal.html"-->'
+            replace: '<!--include "../util/modal.html"-->'
         }))
         .pipe(replace({
             regex: '<!-- css -->',
@@ -171,7 +171,11 @@ function index() {
         }))
         .pipe(replace({
             regex: '<!-- js -->',
-            replace: '<script src="js/lib/swiper.min.js"></script>\n' + '<script src="js/pages/index/index.js"></script>\n' + '<script src="js/lib/mui.zoom.js"></script>\n' + '<script src="js/lib/mui.previewimage.js"></script>\n' + '<script src="js/util/partTime.js"></script>\n' + '<script src="js/util/contactList.js"></script>' + '<script src="../js/pages/footer/footer.js"></script>'
+            replace: '<script src="js/lib/swiper.min.js"></script>\n' 
+            + '<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=0743dafb590f3622f52d0d4218a9f1f7"></script>\n'
+            + '<script src="js/pages/index/index.js"></script>\n'
+            + '<script src="js/pages/index/searchLocation.js"></script>\n'
+            + '<script src="../js/pages/footer/footer.js"></script>'
         }))
         .pipe(replace({
             regex: '<!-- content -->',
@@ -209,21 +213,22 @@ function city() {
             regex: '<!-- content -->',
             replace: '<!--include "../pages/city/city.html"-->'
         }))
-        //.pipe(replace({
-        //   regex: '<!-- bottom -->',
-        //   replace: '<!--include "../layout/bottom.html"-->'
-        //}))
         .pipe(replace({
             regex: '<!-- css -->',
             replace: '<link rel="stylesheet" href="css/swiper.min.css">\n<link rel="stylesheet" href="css/city.css">'
         }))
         .pipe(replace({
             regex: '<!-- pop -->',
-            replace: '<!--include "../util/pop.html"--><!--include "../pages/user/popover.html"--><!--include "../util/modal.html"-->'
+            replace: '<!--include "../util/modal.html"-->'
         }))
         .pipe(replace({
             regex: '<!-- js -->',
-            replace: '<script src="js/lib/swiper.min.js"></script>\n' + '<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=0743dafb590f3622f52d0d4218a9f1f7"></script>\n' + '<script src="js/pages/city/vmodel.js"></script>\n' + '<script src="js/util/calendar.js"></script>\n' + '<script src="js/util/clock.js"></script>'
+            replace: '<script src="js/lib/swiper.min.js"></script>\n' 
+            + '<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=0743dafb590f3622f52d0d4218a9f1f7"></script>\n' 
+            + '<script src="js/pages/city/vmodel.js"></script>\n' 
+            + '<script src="js/pages/index/searchLocation.js"></script>\n'
+            + '<script src="js/util/calendar.js"></script>\n' 
+            + '<script src="js/util/clock.js"></script>'
         }))
         .pipe(contentIncluder({
             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
@@ -231,13 +236,6 @@ function city() {
         .pipe(replace({
             regex: '<!-- roomSlide -->',
             replace: '<!--include "../util/roomSlide-hotel.html"-->'
-        }))
-        .pipe(contentIncluder({
-            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
-        }))
-        .pipe(replace({
-            regex: '<button class="popover-closeButton"></button>',
-            replace: '<!--include "../util/popoverBtnOK.html"-->'
         }))
         .pipe(contentIncluder({
             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
