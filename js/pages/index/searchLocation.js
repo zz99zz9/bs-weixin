@@ -79,15 +79,26 @@ var vmSearch = avalon.define({
         vmSearch.isShowTipList = false;
     },
     saveCityMode: function(city, cid) {
-        $.extend(position, {
-            mode: {
-                value: positionIniData.mode.city,
-                city: positionIniData.mode.city, 
-                center: positionIniData.mode.center, 
-                nearby: positionIniData.mode.nearby
-            },
-            city: {name: city, cid: cid}
-        });
+        if(city) {
+            $.extend(position, {
+                mode: {
+                    value: positionIniData.mode.city,
+                    city: positionIniData.mode.city, 
+                    center: positionIniData.mode.center, 
+                    nearby: positionIniData.mode.nearby
+                },
+                city: {name: city, cid: cid}
+            });
+        } else {
+            $.extend(position, {
+                mode: {
+                    value: positionIniData.mode.nearby,
+                    city: positionIniData.mode.city, 
+                    center: positionIniData.mode.center, 
+                    nearby: positionIniData.mode.nearby
+                }
+            });
+        }
         Storage.set("position", position);
     },
     saveCenterMode: function(name, lng, lat) {
