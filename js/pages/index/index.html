@@ -30,11 +30,11 @@
     <div class="swiper-slide-item" style="margin-bottom: 8px;">
         <div class="swiper-container swiper1 hotel-room-amenity bs-bg-white" style="height: 102px;padding-top: 10px;">
             <div class="swiper-wrapper" style="display: flex; padding-left: 0;">
-                <div class="swiper-slide hotel-room-amenity-item city-slide" ms-on-tap="goCity('附近')">
+                <div class="swiper-slide hotel-room-amenity-item city-slide" ms-on-tap="goCity(0)">
                     <img class="city-img" src="../img/icon/location.svg" alt="附近"/>
                     <label class="bs-text-x-smaller hotel-room-amenity-text bs-text-444">附近</label>
                 </div>
-                <div class="swiper-slide hotel-room-amenity-item city-slide" ms-repeat-cl="cityList" data-repeat-rendered="swiper1Render" ms-on-tap="goCity(cl.name)">
+                <div class="swiper-slide hotel-room-amenity-item city-slide" ms-repeat-cl="cityList" data-repeat-rendered="swiper1Render" ms-on-tap="goCity(cl.name, cl.cid)">
                     <img class="city-img" ms-attr-src="urlAPINet + cl.imgUrl" ms-attr-alt="cl.name" style="" />
                     <label class="bs-text-x-smaller hotel-room-amenity-text bs-text-444">{{cl.name}}</label>
                 </div>
@@ -55,12 +55,12 @@
     </div>
     <div class="swiper-container swiperMoreHotel" style="height: 234px; z-index: 10;bottom: 0; background-color: white;">
         <div class="swiper-wrapper" style="padding-left: 8px;">
-            <div class="swiper-slide swiper-slide-marker" ms-repeat="moreHotel" data-repeat-rendered="swiperMoreHotelRender">
-                <div ms-css-background-image="linear-gradient(rgba(0, 0, 0, .2), rgba(0, 0, 0, .2)), url({{urlAPINet + el.logoUrl}})" style="height: 143px;background-size: cover;width: inherit;position: relative;top: -32px;">
+            <div class="swiper-slide swiper-slide-marker" ms-repeat="moreHotel" data-repeat-rendered="swiperMoreHotelRender" ms-on-tap="goHotel(el.id)">
+                <div ms-css-background-image="linear-gradient(rgba(0, 0, 0, .2), rgba(0, 0, 0, .2)), url({{urlAPINet + el.coverUrl}})" style="height: 143px;background-size: cover;width: inherit;position: relative;top: -32px;">
                     <span class="distance bs-text-x-smaller">{{round(el.distance/1000)}}km</span>
                     <div style="display: flex;width: 100%;position: absolute;bottom: 5px;">
                         <div class="bs-text-white bs-bg-black hotelImg">
-                            <div class="bs-text-normal" style="left: -13px;font-weight: bold;">￥150</div>
+                            <div class="bs-text-normal" style="left: -13px;font-weight: bold;">￥{{el.minPrice}}</div>
                             <div class="bs-text-smaller bs-text-lighter" style="font-weight: lighter;">/晚起</div>
                         </div>
                     </div>
