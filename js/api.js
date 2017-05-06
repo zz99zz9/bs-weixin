@@ -24,10 +24,13 @@ var urls = {
     //首页
     getCityGallery: urlAPI + '/web/res/cityImage/list', //城市图片列表
     getCityImgList: urlAPI + '/ordercenter/res/cityImage/cityList', //订单系统的城市图片列表
-    getHotelByPosition: urlAPI + '/web/res/hotel/aroundList', //查找周边酒店列表
+    getHotelByPosition: urlAPI + '/ordercenter/res/hotel/aroundList', //查找指定位置周边酒店列表
+    getHotelByCity: urlAPI + '/ordercenter/res/hotel/localList', //查找指定城市酒店列表
+
     getRecentViewLog: urlAPI + '/web/usr/viewLog/roomList', //最近浏览
     getFilter: urlAPI + '/web/res/searchCriteriaAmenity/list', //筛选条件
     getRecommendHotelList: urlAPI + '/ordercenter/res/hotel/recommendList', //获取热门酒店
+    
     getINIrecommendURL: urlAPI + '/web/res/room/recommendList',
     getHotelInfoList: urlAPI + '/web/res/hotel/localList', //根据地区获取酒店信息列表
     getUserFundURL: urlAPI + '/web/usr/userFund/list', //用户基金列表

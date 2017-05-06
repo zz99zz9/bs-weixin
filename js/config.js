@@ -64,6 +64,22 @@ var Storage = {
         }
     }
 };
+
+var positionIniData = {
+    mode: {
+        value: 1, 
+        city: 1, 
+        center: 2, 
+        nearby: 3
+    },
+    center: {
+        name: '盘古创业',
+        lng: 121.516546,
+        lat: 31.217467
+    },
+    city: {name: '上海市', cid: 803}
+};
+
 //获取参数
 function getParam(paramName) {
     var paramList = location.search.replace("?", "").split("&");

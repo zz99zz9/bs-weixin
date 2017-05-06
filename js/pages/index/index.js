@@ -3,7 +3,7 @@
  * Edited by Michael on 2017/5/2
  */
 
-var user = Storage.getLocal("user");
+var user = Storage.getLocal("user"), autocomplete;
 var vmIndex = avalon.define({
     $id: 'index',
     userName: '先生/女士',
@@ -42,7 +42,6 @@ var vmIndex = avalon.define({
     getCityImgList: function() {
         ajaxJsonp({
             url: urls.getCityImgList,
-            data: {},
             successCallback: function(json) {
                 if (json.status === 1) {
                     vmIndex.cityList = json.data;
@@ -62,9 +61,17 @@ var vmIndex = avalon.define({
     goToUrl: function(url) {
         location.href = url;
     },
-    goCity: function(cityName) {
+    goCity: function(city, cid) {
         stopSwipeSkip.do(function() {
-            location.href = "../city.html?position=" + cityName;
+
+            vmSearch.saveCityMode(city, cid);
+
+            location.href = "../city.html";
+        })
+    },
+    goHotel: function(id) {
+        stopSwipeSkip.do(function() {
+            location.href = "../hotel.html?id=" + id;
         })
     },
     moreHotel: [],
@@ -103,20 +110,6 @@ var vmIndex = avalon.define({
 if (user && user.nickname) {
     vmIndex.userName = user.nickname;
 }
+
 vmIndex.getCityImgList();
 vmIndex.getMoreHote();
-
-var vmSearch = avalon.define({
-    $id: 'search',
-    city: '上海',
-    currentLocation: '正在定位...',
-    getCurrentPosition: function() {
-        vmSearch.currentLocation = '正在定位...';
-        geolocation.getCurrentPosition();
-    },
-    closePop: function() {
-        stopSwipeSkip.do(function() {
-            modalClose();
-        })
-    }
-});
