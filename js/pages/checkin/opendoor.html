@@ -1,71 +1,71 @@
 <style>
-    .mui-content, body {
-        background: black;
-    }
+.mui-content,
+body {
+    background: black;
+}
 
-    .slideunlock-wrapper {
-        width: 80%;
-        height: 60px;
-        position: relative;
-        margin: 0 auto;
-    }
+.slideunlock-wrapper {
+    width: 80%;
+    height: 60px;
+    position: relative;
+    margin: 0 auto;
+}
 
-    .slideunlock-slider {
-        padding: 20px;
-        position: relative;
-        border-radius: 2px;
-        background: url("../img/icon/slideRock-right.svg") no-repeat center;
-        overflow: hidden;
-        text-align: center;
-        height: 60px;
-    }
+.slideunlock-slider {
+    padding: 20px;
+    position: relative;
+    border-radius: 2px;
+    background: url("../img/icon/slideRock-right.svg") no-repeat center;
+    overflow: hidden;
+    text-align: center;
+    height: 60px;
+}
 
-    .slideunlock-label {
-        width: 60px;
-        height: 60px;
-        position: absolute;
-        left: 0;
-        top: 0;
-        z-index: 999;
-        border-radius: 2px;
-        cursor: pointer;
-    }
+.slideunlock-label {
+    width: 60px;
+    height: 60px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 999;
+    border-radius: 2px;
+    cursor: pointer;
+}
 
-    .slideunlock-lock {
-        position: absolute;
-        top: 0px;
-        right: 0px;
-    }
+.slideunlock-lock {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+}
 
-    .slideunlock-label-tip {
-        z-index: 9;
-    }
+.slideunlock-label-tip {
+    z-index: 9;
+}
 
-    .slideunlock-content {
-        height: 60px;
-        width: 100%;
-    }
+.slideunlock-content {
+    height: 60px;
+    width: 100%;
+}
 
-    .picture {
-        height: 40vh;
-        background-image: url(../img/alliance.svg);
-        background-repeat: no-repeat;
-        background-size: cover;
-    }
+.picture {
+    height: 40vh;
+    background-image: url(../img/alliance.svg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
 
-    .roomNo {
-        margin: 9vh 0 13vh;
-        text-align: center;
-        line-height: 47px;
-        letter-spacing: 3px;
-    }
+.roomNo {
+    margin: 9vh 0 13vh;
+    text-align: center;
+    line-height: 47px;
+    letter-spacing: 3px;
+}
 
-    .footer-word {
-        margin: 5vh 0 9vh;
-        text-align: center;
-    }
+.footer-word {
+    margin: 5vh 0 9vh;
+    text-align: center;
+}
 </style>
-
 <div ms-controller="opendoor" class="bs-bg-white" style="height: 100vh;">
     <!-- <div style="text-align: right">
         <div id="mySwitch" class="mui-switch" style="margin: 24px 30px 24px auto;float: right">
@@ -73,22 +73,20 @@
         </div>
         <span style="margin: 24px 16px 24px auto;color: white;float: right;line-height: 30px">AR模式</span>
     </div> -->
-
     <!-- <div id="divYx" style="text-align: center" ms-if="showType==1">
         <img src="../img/km-yx-1.png">
     </div> -->
-
     <!-- <div id="divAr" style="text-align: center" ms-if="showType==2">
         <img src="../img/km-yx-2.png">
     </div> -->
-    <div class="picture">    
+    <div class="picture">
     </div>
     <div class="roomNo bs-text-444 bs-text-xxx-larger">
         8339
     </div>
     <div class="slideunlock-content">
         <div class="slideunlock-wrapper">
-            <input type="hidden" value="" class="slideunlock-lockable"/>
+            <input type="hidden" value="" class="slideunlock-lockable" />
             <div class="slideunlock-slider">
                 <img class="slideunlock-label" src="../img/icon/icon-key.svg">
                 <span class="slideunlock-lable-tip">右滑解锁</span>
@@ -100,20 +98,32 @@
         欢迎入住 滑动开门
     </div>
 </div>
-
 <script type="text/javascript" src="/js/lib/slideunlock.js"></script>
 <script type="text/javascript">
-    window.onload = function () {
-        var slider = new SliderUnlock(".slideunlock-slider", {
-            labelTip: '',
-            successLabelTip: ''
-        }, function () {
-            //vmOpenDoor.open();
-            //location.href = 'inroom.html';
-        }, function () {
-            var info = "index:" + slider.index + "， max:" + slider.max + ",lableIndex:" + slider.lableIndex + ",value:" + document.querySelector(".slideunlock-lockable").value + " date:" + new Date().getUTCDate();
-            console.log(info);
+window.onload = function() {
+    var slider = new SliderUnlock(".slideunlock-slider", {
+        labelTip: '',
+        successLabelTip: ''
+    }, function() {
+        //vmOpenDoor.open();
+        ajaxJsonp({
+            url: urls.openRoomDoor,
+            data: {
+                rid: 1
+            },
+            successCallback: function(json) {
+                if (json.status === 1) {
+                    mui.alert(json.message);
+                } else {
+                    mui.alert(json.message);
+                }
+            }
         });
-        slider.init();
-    }
+        location.href = 'inroom.html';
+    }, function() {
+        var info = "index:" + slider.index + "， max:" + slider.max + ",lableIndex:" + slider.lableIndex + ",value:" + document.querySelector(".slideunlock-lockable").value + " date:" + new Date().getUTCDate();
+        console.log(info);
+    });
+    slider.init();
+}
 </script>

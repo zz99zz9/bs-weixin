@@ -32,10 +32,13 @@ var vmServiceOrderList = avalon.define({
     send: function(isMe) { //发送订单
         stopSwipeSkip.do(function() {
             if(isMe) {
+                console.log(1);
                 location.href = "process.html";
             } else {
                 // mui.alert('注意提醒您的小伙伴查收订单哦。', "发送成功");
                 if (vmServiceOrderList.isSend==0) {
+            console.log(22);
+
                     vmServiceOrderList.isSend = 1;
                 } else {
                    vmServiceOrderList.isSend = 0; 

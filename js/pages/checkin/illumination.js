@@ -3,7 +3,16 @@ var currentRoom = Storage.get("currentRoom"),
     did,
     movie_id,
     reading_id,
-    allclose_id;
+    allclose_id,
+    lightZoulangId,
+    lightTaipenId,
+    lightYugangdaiId,
+    lightLinyuId,
+    lightMatongId,
+    TongfengId,
+    lightYueduId,
+    lightChuangtouId,
+    lightHuxingpingId;
 var vmIllumination = avalon.define({
     $id: 'illumination',
     isScene: 0, //默认关  0-场景模式关   1-场景模式开
@@ -75,8 +84,38 @@ var vmIllumination = avalon.define({
         stopSwipeSkip.do(function() {
             if (vmIllumination.isShow1 == 0) {
                 vmIllumination.isShow1 = 1;
+                ajaxJsonp({
+                    url: urls.openLight,
+                    data: {
+                        rid: roomId,
+                        did: lightZoulangId
+                    },
+                    successCallback: function(json) {
+                        if (json.status === 1) {
+                            console.log(json.data);
+                            mui.alert(json.message);
+                        } else {
+                            mui.alert(json.message);
+                        }
+                    }
+                });
             } else {
                 vmIllumination.isShow1 = 0;
+                ajaxJsonp({
+                    url: urls.closeLight,
+                    data: {
+                        rid: roomId,
+                        did: lightZoulangId
+                    },
+                    successCallback: function(json) {
+                        if (json.status === 1) {
+                            console.log(json.data);
+                            mui.alert(json.message);
+                        } else {
+                            mui.alert(json.message);
+                        }
+                    }
+                });
             }
         })
     },
@@ -85,8 +124,38 @@ var vmIllumination = avalon.define({
         stopSwipeSkip.do(function() {
             if (vmIllumination.isShow2 == 0) {
                 vmIllumination.isShow2 = 1;
+                ajaxJsonp({
+                    url: urls.openLight,
+                    data: {
+                        rid: roomId,
+                        did: lightTaipenId
+                    },
+                    successCallback: function(json) {
+                        if (json.status === 1) {
+                            console.log(json.data);
+                            mui.alert(json.message);
+                        } else {
+                            mui.alert(json.message);
+                        }
+                    }
+                });
             } else {
                 vmIllumination.isShow2 = 0;
+                ajaxJsonp({
+                    url: urls.closeLight,
+                    data: {
+                        rid: roomId,
+                        did: lightTaipenId
+                    },
+                    successCallback: function(json) {
+                        if (json.status === 1) {
+                            console.log(json.data);
+                            mui.alert(json.message);
+                        } else {
+                            mui.alert(json.message);
+                        }
+                    }
+                });
             }
         })
     },
@@ -95,8 +164,38 @@ var vmIllumination = avalon.define({
         stopSwipeSkip.do(function() {
             if (vmIllumination.isShow3 == 0) {
                 vmIllumination.isShow3 = 1;
+                ajaxJsonp({
+                    url: urls.openLight,
+                    data: {
+                        rid: roomId,
+                        did: lightYugangdaiId
+                    },
+                    successCallback: function(json) {
+                        if (json.status === 1) {
+                            console.log(json.data);
+                            mui.alert(json.message);
+                        } else {
+                            mui.alert(json.message);
+                        }
+                    }
+                });
             } else {
                 vmIllumination.isShow3 = 0;
+                ajaxJsonp({
+                    url: urls.closeLight,
+                    data: {
+                        rid: roomId,
+                        did: lightYugangdaiId
+                    },
+                    successCallback: function(json) {
+                        if (json.status === 1) {
+                            console.log(json.data);
+                            mui.alert(json.message);
+                        } else {
+                            mui.alert(json.message);
+                        }
+                    }
+                });
             }
         })
     },
@@ -105,8 +204,38 @@ var vmIllumination = avalon.define({
         stopSwipeSkip.do(function() {
             if (vmIllumination.isShow4 == 0) {
                 vmIllumination.isShow4 = 1;
+                ajaxJsonp({
+                    url: urls.openLight,
+                    data: {
+                        rid: roomId,
+                        did: lightLinyuId
+                    },
+                    successCallback: function(json) {
+                        if (json.status === 1) {
+                            console.log(json.data);
+                            mui.alert(json.message);
+                        } else {
+                            mui.alert(json.message);
+                        }
+                    }
+                });
             } else {
                 vmIllumination.isShow4 = 0;
+                ajaxJsonp({
+                    url: urls.closeLight,
+                    data: {
+                        rid: roomId,
+                        did: lightLinyuId
+                    },
+                    successCallback: function(json) {
+                        if (json.status === 1) {
+                            console.log(json.data);
+                            mui.alert(json.message);
+                        } else {
+                            mui.alert(json.message);
+                        }
+                    }
+                });
             }
         })
     },
@@ -115,8 +244,38 @@ var vmIllumination = avalon.define({
         stopSwipeSkip.do(function() {
             if (vmIllumination.isShow5 == 0) {
                 vmIllumination.isShow5 = 1;
+                ajaxJsonp({
+                    url: urls.openLight,
+                    data: {
+                        rid: roomId,
+                        did: lightMatongId
+                    },
+                    successCallback: function(json) {
+                        if (json.status === 1) {
+                            console.log(json.data);
+                            mui.alert(json.message);
+                        } else {
+                            mui.alert(json.message);
+                        }
+                    }
+                });
             } else {
                 vmIllumination.isShow5 = 0;
+                ajaxJsonp({
+                    url: urls.closeLight,
+                    data: {
+                        rid: roomId,
+                        did: lightMatongId
+                    },
+                    successCallback: function(json) {
+                        if (json.status === 1) {
+                            console.log(json.data);
+                            mui.alert(json.message);
+                        } else {
+                            mui.alert(json.message);
+                        }
+                    }
+                });
             }
         })
     },
@@ -125,8 +284,38 @@ var vmIllumination = avalon.define({
         stopSwipeSkip.do(function() {
             if (vmIllumination.isShow6 == 0) {
                 vmIllumination.isShow6 = 1;
+                ajaxJsonp({
+                    url: urls.openLight,
+                    data: {
+                        rid: roomId,
+                        did: TongfengId
+                    },
+                    successCallback: function(json) {
+                        if (json.status === 1) {
+                            console.log(json.data);
+                            mui.alert(json.message);
+                        } else {
+                            mui.alert(json.message);
+                        }
+                    }
+                });
             } else {
                 vmIllumination.isShow6 = 0;
+                ajaxJsonp({
+                    url: urls.closeLight,
+                    data: {
+                        rid: roomId,
+                        did: TongfengId
+                    },
+                    successCallback: function(json) {
+                        if (json.status === 1) {
+                            console.log(json.data);
+                            mui.alert(json.message);
+                        } else {
+                            mui.alert(json.message);
+                        }
+                    }
+                });
             }
         })
     },
@@ -135,8 +324,38 @@ var vmIllumination = avalon.define({
         stopSwipeSkip.do(function() {
             if (vmIllumination.isShow7 == 0) {
                 vmIllumination.isShow7 = 1;
+                ajaxJsonp({
+                    url: urls.openLight,
+                    data: {
+                        rid: roomId,
+                        did: lightYueduId
+                    },
+                    successCallback: function(json) {
+                        if (json.status === 1) {
+                            console.log(json.data);
+                            mui.alert(json.message);
+                        } else {
+                            mui.alert(json.message);
+                        }
+                    }
+                });
             } else {
                 vmIllumination.isShow7 = 0;
+                ajaxJsonp({
+                    url: urls.closeLight,
+                    data: {
+                        rid: roomId,
+                        did: lightYueduId
+                    },
+                    successCallback: function(json) {
+                        if (json.status === 1) {
+                            console.log(json.data);
+                            mui.alert(json.message);
+                        } else {
+                            mui.alert(json.message);
+                        }
+                    }
+                });
             }
         })
     },
@@ -145,8 +364,38 @@ var vmIllumination = avalon.define({
         stopSwipeSkip.do(function() {
             if (vmIllumination.isShow8 == 0) {
                 vmIllumination.isShow8 = 1;
+                ajaxJsonp({
+                    url: urls.openLight,
+                    data: {
+                        rid: roomId,
+                        did: lightChuangtouId
+                    },
+                    successCallback: function(json) {
+                        if (json.status === 1) {
+                            console.log(json.data);
+                            mui.alert(json.message);
+                        } else {
+                            mui.alert(json.message);
+                        }
+                    }
+                });
             } else {
                 vmIllumination.isShow8 = 0;
+                ajaxJsonp({
+                    url: urls.closeLight,
+                    data: {
+                        rid: roomId,
+                        did: lightChuangtouId
+                    },
+                    successCallback: function(json) {
+                        if (json.status === 1) {
+                            console.log(json.data);
+                            mui.alert(json.message);
+                        } else {
+                            mui.alert(json.message);
+                        }
+                    }
+                });
             }
         })
     },
@@ -155,8 +404,38 @@ var vmIllumination = avalon.define({
         stopSwipeSkip.do(function() {
             if (vmIllumination.isShow9 == 0) {
                 vmIllumination.isShow9 = 1;
+                ajaxJsonp({
+                    url: urls.openLight,
+                    data: {
+                        rid: roomId,
+                        did: lightHuxingpingId
+                    },
+                    successCallback: function(json) {
+                        if (json.status === 1) {
+                            console.log(json.data);
+                            mui.alert(json.message);
+                        } else {
+                            mui.alert(json.message);
+                        }
+                    }
+                });
             } else {
                 vmIllumination.isShow9 = 0;
+                ajaxJsonp({
+                    url: urls.closeLight,
+                    data: {
+                        rid: roomId,
+                        did: lightHuxingpingId
+                    },
+                    successCallback: function(json) {
+                        if (json.status === 1) {
+                            console.log(json.data);
+                            mui.alert(json.message);
+                        } else {
+                            mui.alert(json.message);
+                        }
+                    }
+                });
             }
         })
     },
@@ -264,11 +543,15 @@ var vmIllumination = avalon.define({
             },
             successCallback: function(json) {
                 if (json.status === 1) {
-                    console.log(json.data[0],json.data[1],json.data[2]);
-                    movie_id = json.data[0].id;
-                    reading_id = json.data[1].id;
-                    allclose_id = json.data[2].id;
-                    console.log(movie_id, reading_id, allclose_id)
+                    json.data.map(function(e) {
+                        if (e.sce_name == '影视') {
+                            movie_id = e.id;
+                        } else if (e.sce_name == '阅读') {
+                            reading_id = e.id;
+                        } else if (e.sce_name == '一键全关') {
+                            allclose_id = e.id;
+                        }
+                    });
                 } else {
                     mui.alert(json.message)
                 }
@@ -283,8 +566,28 @@ var vmIllumination = avalon.define({
             },
             successCallback: function(json) {
                 if (json.status === 1) {
-                    console.log(json.data[0]);
-                    console.log(json.message)
+                    console.log(json.data);
+                    json.data.map(function(e) {
+                        if (e.rename == '走廊灯') {
+                            lightZoulangId = e.id;
+                        } else if (e.rename == '台盆灯') {
+                            lightTaipenId = e.id;
+                        } else if (e.rename == '鱼缸灯带') {
+                            lightYugangdaiId = e.id;
+                        } else if (e.rename == '淋浴灯') {
+                            lightLinyuId = e.id;
+                        } else if (e.rename == '马桶灯') {
+                            lightMatongId = e.id;
+                        } else if (e.rename == '排风') {
+                            TongfengId = e.id;
+                        } else if (e.rename == '阅读灯') {
+                            lightYueduId = e.id;
+                        } else if (e.rename == '床头灯') {
+                            lightChuangtouId = e.id;
+                        } else if (e.rename == '弧形屏灯') {
+                            lightHuxingpingId = e.id;
+                        }
+                    });
                 } else {
                     mui.alert(json.message)
                 }
@@ -302,6 +605,7 @@ document.getElementById("night").addEventListener("toggle", function(event) {
 
 vmIllumination.getCurtainDeviceList();
 vmIllumination.getScePageDeviceList();
+vmIllumination.getLightDeviceList();
 // var obj = document.getElementById("kaishi");
 // obj.addEventListener("touchstart", function(event) {
 //     console.log(event);

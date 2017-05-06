@@ -16,30 +16,25 @@ var vmOpenDoor = avalon.define({
     //         }
     //     })
     // },
-    did: 0,
-    getDid: function() {
-        ajaxJsonp({
-            url: urls.getDoorDeviceList,
-            data: {
-                hid: 1
-            },
-            successCallback: function(json) {
-                if (json.status === 1) {
-                    vmOpenDoor.did = json.data[0].id;
-                    console.log( vmOpenDoor.did);
-                    mui.alert(json.message);
-                } else {
-                    mui.alert(json.message);
-                }
-            }
-        });
-    },
+    // did: 0,
+    // getDid: function() {
+    //     ajaxJsonp({
+    //         url: urls.getDoorDeviceList,
+    //         data: {},
+    //         successCallback: function(json) {
+    //             if (json.status === 1) {
+    //                 alert("sdkjf");
+    //             } else {
+    //                 mui.alert(json.message);
+    //             }
+    //         }
+    //     });
+    // },
     open: function() {
         ajaxJsonp({
             url: urls.openRoomDoor,
             data: {
-                rid: roomId,
-                did: allclose_id
+                rid: roomId
             },
             successCallback: function(json) {
                 if (json.status === 1) {

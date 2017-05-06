@@ -35,21 +35,37 @@
 </style>
 <article ms-controller="popService" style="height: 136vw;width: 86vw;">
     <div class="pop bs-text-444">
-        <div class="picture" ms-css-background-image="url({{popList.url}})"></div>
+        <div class="picture" ms-css-background-image="url({{urlAPINet + popList.inStoreService.picUrl}})"></div>
         <div class="serviceName bs-text-18">
-            <div style="margin-right: 4vw;">{{popList.name}}</div>
-            <div class="bs-text-normal">{{popList.engName}}</div>
+            <div style="margin-right: 4vw;">{{popList.inStoreService.name}}</div>
+            <!-- <div class="bs-text-normal">{{popList.engName}}</div> -->
         </div>
         <div class="bs-text-smaller" style="text-align: left">
-            {{popList.brief}}
+            {{popList.inStoreService.intro}}
         </div>
     </div>
     <div class="footer bs-text-normal bs-text-bold">
-        <div class="footer-call" ms-on-tap="callService">
-            呼叫
+        <div class="footer-call" ms-on-tap="callService" >
+            {{reservatename}}
         </div>
         <div class="bs-text-gray footer-close" ms-on-tap="closePop">
             取消
         </div>
     </div>
+<!--     <div class="footer bs-text-normal bs-text-bold" ms-if='isReservated==1'>
+        <div class="footer-call" ms-on-tap="affirmService">
+            等待确认
+        </div>
+        <div class="bs-text-gray footer-close" ms-on-tap="closePop">
+            取消
+        </div>
+    </div>
+    <div class="footer bs-text-normal bs-text-bold" ms-if='isReservated==2'>
+        <div class="footer-call" ms-on-tap="expediteService">
+            催一催
+        </div>
+                <div class="bs-text-gray footer-close" ms-on-tap="closePop">
+            取消
+        </div>
+    </div> -->
 </article>

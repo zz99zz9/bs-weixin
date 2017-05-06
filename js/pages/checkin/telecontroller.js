@@ -49,7 +49,7 @@ var vmTelecontroller = avalon.define({
             },
             successCallback: function(json) {
                 if (json.status === 1) {
-                    console.log(json.$model.data);
+                    console.log(json.data);
                     json.data.map(function(e) {
                         if(e.func_name=="主页") {
                             vmTelecontroller.homePageId = e.id;

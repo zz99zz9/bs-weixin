@@ -234,7 +234,7 @@ div .mui-popup-buttons .mui-popup-button {
 .door-explain-right {
     margin: 10px auto;
     text-align: center;
-    width: 91px;
+    width: 80%;
     color: #999;
     line-height: 15px;
 }
@@ -310,9 +310,9 @@ div .mui-popup-buttons .mui-popup-button {
         <div class="swiper-container swiper1" style="height: 140px; z-index: 10;bottom: 0;background-color: white;">
             <div class="swiper-wrapper" style="padding-left: 15px;background-color: white;">
                 <div class="swiper-slide swiper-slide-marker" ms-repeat="serviceList" data-repeat-rendered="swiper1Render">
-                    <div class="picture-unit" ms-css-background-image="linear-gradient(rgba(0, 0, 0, .1), rgba(0, 0, 0, .2)), url({{el.coverUrl}})" ms-on-tap="openPop(el.type)">
-                        <div class="bs-text-white bs-text-16">{{el.name}}</div>
-                        <div class="bs-text-white bs-text-smaller">{{el.engName}}</div>
+                    <div class="picture-unit" ms-css-background-image="linear-gradient(rgba(0, 0, 0, .1), rgba(0, 0, 0, .2)), url({{urlAPINet + el.inStoreService.picUrl}})" ms-on-tap="openPop(el.sid)">
+                        <div class="bs-text-white bs-text-16">{{el.inStoreService.name}}</div>
+                        <!-- <div class="bs-text-white bs-text-smaller">{{el.engName}}</div> -->
                     </div>
                 </div>
                 <div class="swiper-scrollbar"></div>
@@ -353,7 +353,7 @@ div .mui-popup-buttons .mui-popup-button {
         <div class="swiper-container swiper1" style="height: 140px; z-index: 10;bottom: 0;background-color: white;">
             <div class="swiper-wrapper" style="padding-left: 15px;background-color: white;">
                 <div class="swiper-slide swiper-slide-marker" ms-repeat="peripheryList" data-repeat-rendered="swiper1Render">
-                    <div class="picture-unit" ms-css-background-image="linear-gradient(rgba(0, 0, 0, .1), rgba(0, 0, 0, .2)), url({{el.coverUrl}})">
+                    <div class="picture-unit" ms-css-background-image="linear-gradient(rgba(0, 0, 0, .1), rgba(0, 0, 0, .2)), url({{urlAPINet + el.imgUrl}})">
                     <div class="bs-text-white bs-text-16">{{el.name}}</div>
                     </div>
                 </div>
