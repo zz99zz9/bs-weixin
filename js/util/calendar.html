@@ -186,12 +186,12 @@
     <div ms-visible="status.key == status.partTimeClock || status.key == status.dayClock">
         <div class="timeClock">
             <div class="start">
-                <div id="startDay" ms-if="status.key == status.dayClock"></div>
+                <div id="startDay" ms-visible="status.key == status.dayClock"></div>
                 <div ms-if="status.key == status.partTimeClock">今日</div>
                 <div id="startHour"></div>
             </div>
             <div class="end">
-                <div id="endDay" ms-if="status.key == status.dayClock"></div>
+                <div id="endDay" ms-visible="status.key == status.dayClock"></div>
                 <div ms-if="status.key == status.partTimeClock">今日</div>
                 <div id="endHour"></div>
             </div>

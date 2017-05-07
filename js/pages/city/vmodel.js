@@ -285,6 +285,7 @@ var vmCity = avalon.define({
     }
 });
 
+//模式变化，设置地图中心
 Observer.regist('mapModeChange', function(e) {
     // var start = e.args.date,
     //     delta = e.args.delta;
@@ -296,6 +297,10 @@ Observer.regist('mapModeChange', function(e) {
         var center = mapObj.getCenter();
         vmCity.lng = center.lng;
         vmCity.lat = center.lat;
+        
+        setTimeout(function() {
+            vmSearch.saveCenterMode("", center.lng, center.lat);
+        }, 100);
     } else if (positionInStorage.mode.value == positionInStorage.mode.center) {
         //中心模式，地图中心=本地储存中的地标
         mapObj.setCenter([positionInStorage.center.lng, positionInStorage.center.lat]);
@@ -306,6 +311,10 @@ Observer.regist('mapModeChange', function(e) {
         var center = mapObj.getCenter();
         vmCity.lng = center.lng;
         vmCity.lat = center.lat;
+
+        setTimeout(function() {
+            vmSearch.saveCenterMode("", center.lng, center.lat);
+        }, 100);
     }
 
     vmCity.getHotelPosition(mapObj);

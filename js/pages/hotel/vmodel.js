@@ -5,7 +5,6 @@ var hid,
     bensue, roomType, newOrder,
     isexpand = false,
     isSuccess = false,
-    user,
     clockObj = null;
 
 hid = getParam("id");
@@ -19,10 +18,10 @@ if (hid != "") {
     location.href = "index.html";
 }
 
-myPosition = Storage.getLocal("position");
+myPosition = Storage.get("position");
 if (myPosition) {
-    myLng = myPosition.lng || "";
-    myLat = myPosition.lat || "";
+    myLng = myPosition.center.lng || "";
+    myLat = myPosition.center.lat || "";
 }
 
 bensue = Storage.get("bensue");
@@ -155,7 +154,7 @@ var vmHotel = avalon.define({
                     vmHotel.lat = json.data.lat;
 
                     if (json.data.distance > 0) {
-                        vmHotel.distance = round(json.data.distance / 1000, 1);
+                        vmHotel.distance = round(json.data.distance / 1000, 2);
                     }
                     //顶部轮播导入图片数据
                     vmHotel.galleryList = json.data.hotelGalleryList;
@@ -374,39 +373,27 @@ var vmBtn = avalon.define({
     }
 })
 
-user = Storage.getLocal("user");
-//更换登录用户头像
-if (user) {
-    if (user.logState && user.headImg) {
-        vmTop.headImg = urlAPINet + user.headImg;
-    }
-
-    if (user.openUserInfo) {
-        vmSide.show();
-    }
-}
-
 vmHotel.type = roomType;
 
 registerWeixinConfig();
 
 //获得用户的位置
-wx.ready(function() {
-    wx.getLocation({
-        type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
-        success: function(res) {
-            console.log(res);
-            myLat = res.latitude; // 纬度，浮点数，范围为90 ~ -90
-            myLng = res.longitude; // 经度，浮点数，范围为180 ~ -180。
-            vmHotel.getHotelDetail();
+// wx.ready(function() {
+//     wx.getLocation({
+//         type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
+//         success: function(res) {
+//             console.log(res);
+//             myLat = res.latitude; // 纬度，浮点数，范围为90 ~ -90
+//             myLng = res.longitude; // 经度，浮点数，范围为180 ~ -180。
+//             vmHotel.getHotelDetail();
 
-            Storage.setLocal("position", {
-                lat: myLat,
-                lng: myLng
-            });
-        }
-    });
-});
+//             Storage.setLocal("position", {
+//                 lat: myLat,
+//                 lng: myLng
+//             });
+//         }
+//     });
+// });
 
 vmHotel.getHotelDetail();
 vmHotel.getAssess();
