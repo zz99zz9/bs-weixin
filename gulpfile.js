@@ -309,7 +309,13 @@ function room() {
         }))
         .pipe(replace({
             regex: '<!-- js -->',
-            replace: '<script src="js/lib/mui.zoom.js"></script>\n' + '<script src="js/lib/mui.previewimage.js"></script>\n' + '<script src="js/lib/swiper.min.js"></script>\n' + '<script src="js/pages/room/vmodel.js"></script>\n' + '<script src="js/util/calendar.js"></script>\n' + '<script src="js/util/clock.js"></script>\n' + '<script src="js/util/contactList.js"></script>'
+            replace: '<script src="js/lib/mui.zoom.js"></script>\n' 
+            + '<script src="js/lib/mui.previewimage.js"></script>\n' 
+            + '<script src="js/lib/swiper.min.js"></script>\n' 
+            + '<script src="js/pages/room/vmodel.js"></script>\n' 
+            + '<script src="js/util/calendar.js"></script>\n' 
+            + '<script src="js/util/clock.js"></script>\n' 
+            + '<script src="js/util/contactList.js"></script>'
         }))
         .pipe(contentIncluder({
             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g

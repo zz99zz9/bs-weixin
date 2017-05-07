@@ -53,8 +53,8 @@ var urls = {
     getDeliveryAddress: urlAPI + '/web/usr/deliveryAddress/get', //获取收货地址
     getInvoiceExpressFee: urlAPI + '/web/usr/invoiceLog/invoiceExpressFee', //获取发票快递费用
     //房间相关
-    getRoomTypeList: urlAPI + '/web/res/roomType/list', //房间类型列表
-    getRoomTypeDetail: urlAPI + '/web/res/roomType/detail', //房间类型详情
+    getRoomTypeList: urlAPI + '/ordercenter/res/roomType/list', //房间类型列表
+    getRoomTypeDetail: urlAPI + '/ordercenter/res/roomType/detail', //房间类型详情
     getRoomList: urlAPI + '/web/res/room/list', //房间列表
     getRoomDetail: urlAPI + '/web/res/room/detail', //房间详情
     getRoomAssess: urlAPI + '/web/trd/orderComment/list', //房间评价列表
@@ -67,7 +67,8 @@ var urls = {
     getRoomNightDiscount: urlAPI + '/web/res/nightDiscount/list', //查询房间夜房优惠价格
     getNightDiscount: urlAPI + '/web/res/nightDiscount/times', //查询搜索时，要显示的夜房优惠价格列表
     getMidnightDiscount: urlAPI + '/web/res/midnightDiscount/list', //午夜特价房折扣列表
-    
+    getRoomPrice: urlAPI + '/ordercenter/res/room/amount', //查询房间金额
+
     //设计师相关
     getDesigner: urlAPI + '/web/usr/designer/get', //设计师详情
     //订单相关
