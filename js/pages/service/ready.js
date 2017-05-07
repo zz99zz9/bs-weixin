@@ -1,4 +1,4 @@
-//var hotel = controlCore.getHotel();
+// var hotel = controlCore.getHotel();
 
 // var articleid = getParam("id");
 // if (articleid != "") {
