@@ -1,0 +1,228 @@
+
+.city-img {
+    width: 56px;
+    height: 56px;
+    margin-left: 5px;
+    margin-bottom: 6px;
+    border-radius: 50%;
+}
+
+.city-list-item {
+    width: 60px;
+    height: auto;
+    text-align: center;
+    line-height: 130% !important;
+    display: flex;
+    flex-direction: column;
+}
+
+.city-list-item-txt {
+    font-size: 14px;
+    color: #444444;
+    margin: 0px;
+    padding: 0px;
+}
+
+.city-list-location {
+    width: 60px;
+    height: 60px;
+    border-radius: 30px;
+    background: #b3dfdb;
+    text-align: center;
+}
+
+.city-slide {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-left: 13px;
+}
+
+.distance {
+    float: right;
+    margin: 15px 0;
+    padding: 0 4px;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.greeting {
+    width: 100%;
+    text-align: right;
+    margin-right: 5px;
+    line-height: 32px;
+}
+
+.hotel-room-amenity-text {
+    margin-left: 13px;
+}
+
+.hotelName {
+    position: relative;
+    width: 86vw;
+    text-align: left;
+    top: 152px;
+    font-size: 16px;
+}
+
+.hotelAddress {
+    color: #999;
+    white-space: nowrap;
+}
+
+.hotelImg {
+    display: flex;
+    justify-content: flex-start;
+    height: 24px;
+    width: 72px;
+    margin-bottom: 10px;
+    padding-top: 2px;
+}
+
+.index-top {
+    /*background: url('/img/qietu-shouyebgr.png');*/
+    background-image: -webkit-linear-gradient(45deg, #169488, #006457);
+    background-image: linear-gradient(45deg, #169488, #006457);
+    height: 45vh;
+    background-size: cover;
+    position: relative;
+}
+
+.index-top-logo {
+    position: absolute;
+    margin: 8px 16px;
+    height: 30px;
+    width: 80.45px;
+}
+
+.index-top-div {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    color: #b3dfdb;
+    opacity: 0.9;
+    font-size: 12px;
+    text-align: center;
+}
+
+.index-top-search {
+    color: white;
+    height: 50px !important;
+    font-size: 18px !important;
+    border-radius: 34px !important;
+}
+
+.intro-title {
+    margin-top: 8px;
+    font-size: 16px;
+    height: 48px;
+    color: #444444;
+    font-family: "Microsoft Yahei";
+    padding: 15px 0px 15px 10px;
+    font-weight: bold;
+    background: white;
+}
+
+.intro-ul {
+    padding: 0 !important;
+    margin-bottom: 16px;
+}
+
+.intro-back1 {
+    height: 45vh;
+    width: 100vw;
+}
+
+.intro-item {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.intro-item > a {
+    margin: 0 !important;
+}
+
+.intro-item-spn {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 12px;
+    color: #ffffff;
+}
+
+.more-recommend {
+    height: 40px;
+    width: 100%;
+    margin-top: 8px;
+    padding: 18px 0 0 10px;
+    margin: 0 auto;
+    font-size: 16px;
+    background-color: white;
+}
+
+.mui-search .mui-placeholder {
+    height: 50px !important;
+    font-size: 18px !important;
+    line-height: 50px;
+    color: #ffffff;
+}
+
+.mui-search {
+    margin-top: 12px !important;
+}
+
+.mui-icon {
+    color: white !important;
+}
+
+.mui-active {
+    border-bottom: none !important;
+}
+
+.mui-table-view:after,
+.mui-table-view:before {
+    height: 0px !important;
+}
+
+.nav-ico {
+    width: 30px;
+    height: 30px;
+}
+
+.picture {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    height: 75vw;
+    padding: 0 2vw;
+}
+
+.picture-unit {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    height: 33vw;
+    width: 47.5vw;
+    background-size: cover;
+    margin-bottom: 1vw;
+}
+
+.search {
+    height: 50px;
+    margin: 0 8px 30px;
+    padding-top: 14px;
+    border-radius: 30px;
+}
+
+.swiper-container {
+    height: 31px;
+}
+
+.welcome {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+}

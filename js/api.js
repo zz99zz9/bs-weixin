@@ -24,10 +24,13 @@ var urls = {
     //首页
     getCityGallery: urlAPI + '/web/res/cityImage/list', //城市图片列表
     getCityImgList: urlAPI + '/ordercenter/res/cityImage/cityList', //订单系统的城市图片列表
-    getHotelByPosition: urlAPI + '/web/res/hotel/aroundList', //查找周边酒店列表
+    getHotelByPosition: urlAPI + '/ordercenter/res/hotel/aroundList', //查找指定位置周边酒店列表
+    getHotelByCity: urlAPI + '/ordercenter/res/hotel/localList', //查找指定城市酒店列表
+
     getRecentViewLog: urlAPI + '/web/usr/viewLog/roomList', //最近浏览
     getFilter: urlAPI + '/web/res/searchCriteriaAmenity/list', //筛选条件
-
+    getRecommendHotelList: urlAPI + '/ordercenter/res/hotel/recommendList', //获取热门酒店
+    
     getINIrecommendURL: urlAPI + '/web/res/room/recommendList',
     getHotelInfoList: urlAPI + '/web/res/hotel/localList', //根据地区获取酒店信息列表
     getUserFundURL: urlAPI + '/web/usr/userFund/list', //用户基金列表
@@ -50,8 +53,8 @@ var urls = {
     getDeliveryAddress: urlAPI + '/web/usr/deliveryAddress/get', //获取收货地址
     getInvoiceExpressFee: urlAPI + '/web/usr/invoiceLog/invoiceExpressFee', //获取发票快递费用
     //房间相关
-    getRoomTypeList: urlAPI + '/web/res/roomType/list', //房间类型列表
-    getRoomTypeDetail: urlAPI + '/web/res/roomType/detail', //房间类型详情
+    getRoomTypeList: urlAPI + '/ordercenter/res/roomType/list', //房间类型列表
+    getRoomTypeDetail: urlAPI + '/ordercenter/res/roomType/detail', //房间类型详情
     getRoomList: urlAPI + '/web/res/room/list', //房间列表
     getRoomDetail: urlAPI + '/web/res/room/detail', //房间详情
     getRoomAssess: urlAPI + '/web/trd/orderComment/list', //房间评价列表
@@ -64,7 +67,8 @@ var urls = {
     getRoomNightDiscount: urlAPI + '/web/res/nightDiscount/list', //查询房间夜房优惠价格
     getNightDiscount: urlAPI + '/web/res/nightDiscount/times', //查询搜索时，要显示的夜房优惠价格列表
     getMidnightDiscount: urlAPI + '/web/res/midnightDiscount/list', //午夜特价房折扣列表
-    
+    getRoomPrice: urlAPI + '/ordercenter/res/room/amount', //查询房间金额
+
     //设计师相关
     getDesigner: urlAPI + '/web/usr/designer/get', //设计师详情
     //订单相关
@@ -101,6 +105,18 @@ var urls = {
     getAirStatus: urlAPI + '/ordercenter/smk/airc/status',//查询空调状态
     AirTempDown: urlAPI + '/ordercenter/smk/airc/downTemp',//空调降低温度
     AirTempUp: urlAPI + '/ordercenter/smk/airc/upTemp',//空调升高温度
+    controlTele3d: urlAPI + 'ordercenter/smk/tv/operate',//遥控器3D
+    getTeleDeviceList: urlAPI + '/ordercenter/smk/tv/deviceList',//tv设备列表
+    curtainOpen: urlAPI + '/ordercenter/smk/curtain/open',//打开窗帘
+    curtainPause: urlAPI + '/ordercenter/smk/curtain/stop',//暂停窗帘
+    curtainClose: urlAPI + '/ordercenter/smk/curtain/close',//关闭窗帘
+    getCurtainDeviceList: urlAPI + '/ordercenter/smk/curtain/deviceList',//窗帘设备列表
+    getScePageDeviceList: urlAPI + '/ordercenter/smk/scePage/deviceList',//场景设备列表
+    ScePageOperate: urlAPI + '/ordercenter/smk/scePage/operate',//操作场景
+    getLightDeviceList: urlAPI + '/ordercenter/smk/light/deviceList',//灯设备列表
+    closeLight: urlAPI + '/ordercenter/smk/light/close',//关灯
+    openLight: urlAPI + '/ordercenter/smk/light/open',//开灯
+    openRoomDoor: urlAPI + '/ordercenter/smk/door/open',//打开房间门
     //管理
     //欢迎页
     getManager: urlAPI + '/web/mgr/hotelManagerNote/getByHid',//店长寄语
@@ -246,6 +262,11 @@ var urls = {
     getPreServiceList: urlAPI + '/ordercenter/svr/hotelPreService/findListPreService', //前置服务列表
     savePreService: urlAPI + '/ordercenter/svr/userService/saveUserService', //添加前置服务
     getPreService: urlAPI + '/ordercenter/svr/userService/findListByUidOrid', //获取用户选择的服务
+    getReservationServiceList: urlAPI + '/ordercenter/svr/hotelService/findListByHid',//获取店内服务
+    getHotelRecommendedAround: urlAPI + '/ordercenter/svr/hotelRecommendedAround/findListByHid',//获取酒店周边推荐
+    getSaveUserService: urlAPI + '/ordercenter/svr/userShopService/saveUserService',//添加用户店内服务
+    getSaveStatus: urlAPI + '/ordercenter/svr/userShopService/saveStatus',//修改用户服务状态
+    getFindByOridSid: urlAPI + '/ordercenter/svr/userShopService/findByOridSid',//获取订单房间服务状态
 
     //公益
     commonwealList: urlAPI + '/web/bnf/nonprofitFoundationInfo/findListEnabled', //查询公益信息列表

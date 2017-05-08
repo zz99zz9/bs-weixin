@@ -45,7 +45,7 @@
                 <button class="mui-btn" style="width: 120px;height: 40px;margin-bottom: 30px; border-radius: 0;" ms-on-tap="openDesigner">阅读全部</button>
             </div>
         </section>
-        <section class="room-time" ms-if="type!=2">
+        <section class="room-time">
             <p style="margin-bottom: 0;">
                 <span class="bs-text-large bs-text-51">入住时间</span>
                 <span class="bs-text-large bs-text-51" style="float: right">退房时间</span>
@@ -64,23 +64,8 @@
                     {{end|html}}
                 </div>
             </div>
-            <hr ms-if="type==10" style="width: 95%;margin-top: 0px;margin-bottom: 20px;">
-            <div class="time-clock" ms-if="type==10">
-                <span class="bs-text-smaller" style="color: #fff;background-color: #000;    display: inline-block;width: 61px;text-align: center;margin: 0 10px;">教你省钱</span>
-                <span class="bs-text-small">越晚入住越省钱哦！</span>
-                <br>
-                <div>
-                    <div ms-repeat="roomNightDiscount" ms-on-tap="selectDiscount($index, el.startTime)" ms-class-1="discount-disabled:disableCheckinTime(startIndex, el.startTime)" ms-class-2="discount-selected:$index == startTimeIndex">
-                        <img ms-attr-src="getClock($index, startTimeIndex, startIndex, el.startTime)" alt="">
-                        <br>
-                        <span class="bs-text-smaller">{{el.startTime}}:00后</span>
-                        <br>
-                        <span class="bs-text-large">¥ {{el.discount}}</span>
-                    </div>
-                </div>
-            </div>
         </section>
-        <div ms-if="type==2" style="height: 15px;background-color: #ccc;"></div>
+
         <section class="checkin" style="display: flex;align-items: center;" ms-on-tap="openCheckin">
             <div class="bs-text-large bs-text-51" style="display: inline;">
                 入住人信息：
@@ -96,10 +81,7 @@
         <section>
             <div style="padding: 20px 10px 22px 10px;">
                 <span class="bs-text-large bs-text-51">合计金额</span>
-                <span class="bs-text-x-larger" style="float: right;">￥ {{showTotalPrice(price, amount)}}</span>
-                <span style="font-weight: 100;float: right;margin-right: 15px;" ms-if="type==0">
-                    <del class="bs-text-small bs-text-51">￥ {{showTotalPrice(roomNightDiscount[0].discount,amount)}}</del>
-                </span>
+                <span class="bs-text-x-larger" style="float: right;">￥ {{price}}</span>
             </div>
         </section>
         <div class="bs-text-smaller" style="width: 95%;margin: 10px auto;padding: 10px" ms-on-tap="clickIsAgree">
