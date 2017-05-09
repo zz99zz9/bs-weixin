@@ -1,30 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="29px" height="24px" viewBox="0 0 29 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
-    <title>icon-home</title>
+<svg width="22px" height="22px" viewBox="0 0 22 22" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 43.2 (39069) - http://www.bohemiancoding.com/sketch -->
+    <title>Group 42 Copy 4</title>
     <desc>Created with Sketch.</desc>
-    <defs>
-        <rect id="path-1" x="0" y="0" width="375" height="56"></rect>
-        <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-2">
-            <feOffset dx="0" dy="0.5" in="SourceAlpha" result="shadowOffsetInner1"></feOffset>
-            <feComposite in="shadowOffsetInner1" in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1" result="shadowInnerInner1"></feComposite>
-            <feColorMatrix values="0 0 0 0 0.698039216   0 0 0 0 0.698039216   0 0 0 0 0.698039216  0 0 0 1 0" type="matrix" in="shadowInnerInner1"></feColorMatrix>
-        </filter>
-    </defs>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="入住-前置" transform="translate(-33.000000, -1014.000000)">
-            <rect id="Rectangle-31" fill="#FFFFFF" x="0" y="0" width="375" height="1060"></rect>
-            <g id="Bottom-Bar/Tab-Bar-Copy" transform="translate(0.000000, 1004.000000)">
-                <g id="Bar">
-                    <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"></use>
-                    <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
-                </g>
-                <g id="Group" transform="translate(25.000000, 11.900000)"></g>
-                <g id="首页" transform="translate(33.000000, 10.000000)" fill="#444444">
-                    <g>
-                        <path d="M28.6320044,12.6096596 L14.8132842,0.147678918 C14.5952667,-0.0492263059 14.1962866,-0.0492263059 13.9783678,0.147678918 L0.160569072,12.6092758 C-0.0598835982,12.8091972 -0.0525450572,13.1259292 0.17771431,13.3174052 C0.407611666,13.5087167 0.774539167,13.5023003 0.995485475,13.3027902 L2.82798397,11.6501409 L2.82798397,23.4990858 C2.82798397,23.7757567 3.08657736,24 3.40651183,24 L10.3476284,24 C10.6670692,24 10.9261563,23.7757567 10.9261563,23.4990858 L10.9261562,15.4882982 L17.866845,15.4882982 L17.866845,23.4990584 C17.866845,23.7757293 18.1254055,23.9999726 18.4453071,23.9999726 L25.3859958,23.9999726 C25.7059303,23.9999726 25.9644908,23.7757293 25.9644908,23.4990584 L25.9644908,11.6504699 L27.7970881,13.303174 C27.9104571,13.4056711 28.0624935,13.4568923 28.2145627,13.4568923 C28.3582403,13.4568923 28.5030697,13.4109907 28.6148921,13.3177891 C28.8450857,13.126313 28.8528191,12.8091972 28.6320044,12.6096596 Z M24.8076984,22.998583 L19.0237691,22.998583 L19.0237691,14.9877954 C19.0237691,14.7113164 18.7647479,14.4869086 18.4452742,14.4869086 L10.3476284,14.4869086 C10.0279572,14.4869086 9.76910054,14.7113164 9.76910054,14.9877954 L9.76910054,22.998583 L3.98487512,22.998583 L3.98487512,10.6067982 L14.3958096,1.217537 L24.8076984,10.6072644 L24.8076984,22.998583 Z" fill-rule="nonzero"></path>
-                    </g>
-                </g>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="Group-42-Copy-4" transform="translate(-1.000000, -1.000000)" stroke="#999999">
+            <g id="Group-34" transform="translate(2.000000, 2.000000)">
+                <path d="M3.00281812,0 L17.0023846,0 L17.0023846,18.057339 L20,18.057339 L20,20.0635811 L0,20.0635811 L0,18.057339 L3.00281812,18.057339 L3.00281812,0 Z M11.8737848,15.6896874 L13.8733512,15.6896874 L13.8733512,3.6513648 L11.8737848,3.6513648 L11.8737848,15.6896874 Z M5.87364028,5.65760693 L7.8737848,5.65760693 L7.8737848,3.6513648 L5.87364028,3.6513648 L5.87364028,5.65760693 Z M5.87364028,10.6762568 L7.8737848,10.6762568 L7.8737848,8.67001471 L5.87364028,8.67001471 L5.87364028,10.6762568 Z M5.87364028,15.6896874 L7.8737848,15.6896874 L7.8737848,13.6831554 L5.87364028,13.6831554 L5.87364028,15.6896874 Z" id="Combined-Shape"></path>
             </g>
         </g>
     </g>
