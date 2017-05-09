@@ -1,3 +1,8 @@
+/**
+ * Created by zwh on 2017/4/20
+ * Edited by zwh on 2017/5/8
+ */
+
 var vmFooter = avalon.define({
     $id: 'footer',
     headUrl: '../img/icon/icon-home.svg',
