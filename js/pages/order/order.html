@@ -51,22 +51,27 @@ input[type=checkbox] {
 }
 
 .order-btn {
-    width: 50%;
+    flex-grow: 1;
     border: none;
     border-radius: 0;
     height: 50px;
 }
 .width30 {
-    width: 30%;
+    width: 30vw;
 }
 .width70 {
-    width: 70%;
+    width: 70vw;
 }
 .width100 {
-    width: 100%;
+    width: 100vw;
 }
 .visible-hidden {
     visibility: hidden;
+}
+
+.orderBar {
+    position: fixed;
+    bottom: 0;
 }
 </style>
 <div ms-controller="order">
@@ -240,10 +245,12 @@ input[type=checkbox] {
         </ul>
     </div>
 
-    <nav class="mui-bar mui-bar-tab" ms-if="btn1Text!=''||btn2Text!=''">
-        <button type="button" class="order-btn bs-text-white" ms-click="btn1Click" ms-if="btn1Text!=''" ms-attr-disabled="btn1Disabled" ms-class-1="bs-bg-gray:data.status==1||data.status==2" ms-class-2="bs-bg-gold:data.status==3||data.staus==4" ms-class-3="width100:data.status==2||data.status==4">{{btn1Text}}</button>
-        <button type="button" class="order-btn bs-text-white bs-bg-black" ms-click="btn2Click" ms-if="btn2Text!=''" ms-attr-disabled="btn2Disabled">{{btn2Text}}</button>
+    <div class="orderBar" ms-if="btn1Text!=''||btn2Text!=''">
+        <div style="display: flex;">
+            <button type="button" class="order-btn bs-text-white" ms-click="btn1Click" ms-if="btn1Text!=''" ms-attr-disabled="btn1Disabled" ms-class-1="bs-bg-gray:data.status==1||data.status==2" ms-class-2="bs-bg-gold:data.status==3||data.staus==4" ms-class-3="width100:data.status==2||data.status==4">{{btn1Text}}</button>
+            <button type="button" class="order-btn bs-text-white bs-bg-black" ms-click="btn2Click" ms-if="btn2Text!=''" ms-attr-disabled="btn2Disabled">{{btn2Text}}</button>
         <!--  ms-class="visible-hidden:btn1Text==''
             ms-class="visible-hidden:btn2Text==''" -->
-    </nav>
+        </div>
+    </div>
 </div>
