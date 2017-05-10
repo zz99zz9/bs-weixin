@@ -3447,7 +3447,7 @@ function tokensRecharge() {
 }
 
 //邀请好友
-function inviteFriend() {
+function rechargeInvite() {
         return gulp.src('./js/layout/shell.html')
         .pipe(replace({
             regex: '<!-- title -->',
@@ -3455,19 +3455,40 @@ function inviteFriend() {
         }))
         .pipe(replace({
             regex: '<!-- js -->',
-            replace: '<script src="js/pages/invite/invitefriend.js"></script>'
+            replace: '<script src="js/pages/invite/recharge-invite.js"></script>'
         }))
         .pipe(replace({
             regex: '<!-- content -->',
-            replace: '<!--include "../pages/invite/invitefriend.html"-->'
+            replace: '<!--include "../pages/invite/recharge-invite.html"-->'
         }))
         .pipe(contentIncluder({
             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
         }))
-        .pipe(rename('invitefriend.html'))
+        .pipe(rename('recharge-invite.html'))
         .pipe(gulp.dest('./src'));
 }
 
+//邀请好友充值
+function inviteToRecharge(){
+    return gulp.src('./js/layout/shell.html')
+        .pipe(replace({
+            regex: '<!-- title -->',
+            replace: '<title>邀请好友</title>'
+        }))
+        .pipe(replace({
+            regex: '<!-- js -->',
+            replace: '<script src="js/pages/invite/inviteToRecharge.js"></script>'
+        }))
+        .pipe(replace({
+            regex: '<!-- content -->',
+            replace: '<!--include "../pages/invite/inviteToRecharge.html"-->'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('inviteToRecharge.html'))
+        .pipe(gulp.dest('./src'));
+}
 /**
  * 输出弹框相关页面
  */
@@ -3663,7 +3684,8 @@ gulp.task('html', gulp.parallel(
     temperature,
     telecontroller,
     tokensRecharge,
-    inviteFriend
+    rechargeInvite,
+    inviteToRecharge
 ));
 
 function watchForReload() {

@@ -1,0 +1,70 @@
+<style>
+.mask {
+    padding-right: 3vw;
+    z-index: 999;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+}
+
+.invitePrompt {
+    position: relative;
+    padding-top: 3vh;
+    line-height: 25px;
+}
+
+.rechargeFriendImg {
+    height: 375px;
+    background: url(../img/invitefriend.jpg);
+    background-position: center;
+    background-size: auto 375px;
+}
+
+.rechargeFriendMessage {
+    padding-top: 48px;
+    padding-left: 44px;
+    padding-right: 44px;
+    font-size: 16px;
+    color: #444;
+    text-align: center;
+    padding-bottom: 100px;
+    background-color: white;
+}
+
+.recommend {
+    position: fixed;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    background-color: white;
+}
+
+.recommend div {
+    border-radius: 3px;
+    background-color: #FDD942;
+    color: #FFF;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 48px;
+    margin: 0 24px 16px 24px;
+}
+</style>
+<div ms-controller="rechargeFriend" class="bs-bg-white" style="height: 100vh;">
+    <div class="mask-fullscreen bs-text-white mask" ms-if="isShowMask" ms-click="sendInvition">
+        <img src="../img/icon/arrow_top.gif" style="width: 30px;">
+        <div class="bs-text-larger invitePrompt">
+            邀请好友成为本宿VIP会员
+        </div>
+    </div>
+    <div class="rechargeFriendImg">
+    </div>
+    <div class="rechargeFriendMessage">
+        推荐好友注册，并充值成为D&K会员，您将获得丰厚的时币奖励。
+    </div>
+    <div class="recommend">
+        <div ms-click="sendInvition">马上推荐给TA</div>
+    </div>
+</div>

@@ -47,11 +47,11 @@
     <div class="swiper-slide-item" style="margin-bottom: 8px;">
         <div class="swiper-container swiper1 hotel-room-amenity bs-bg-white" style="height: 102px;padding-top: 10px;">
             <div class="swiper-wrapper" style="display: flex; padding-left: 0;">
-                <div class="swiper-slide hotel-room-amenity-item city-slide" ms-on-tap="goCity('附近')">
+                <div class="swiper-slide hotel-room-amenity-item city-slide" ms-on-tap="goCity(0,1)">
                     <img class="city-img" src="../img/icon/location.svg" alt="附近" />
                     <label class="bs-text-x-smaller hotel-room-amenity-text bs-text-444">附近</label>
                 </div>
-                <div class="swiper-slide hotel-room-amenity-item city-slide" ms-repeat-cl="cityList" data-repeat-rendered="swiper1Render" ms-on-tap="goCity(cl.name,cl.status)">
+                <div class="swiper-slide hotel-room-amenity-item city-slide" ms-repeat-cl="cityList" data-repeat-rendered="swiper1Render" ms-on-tap="goCity(cl.name,cl.cid,cl.status)">
                     <!-- <img class="city-img" ms-attr-src="urlAPINet + cl.imgUrl" ms-attr-alt="cl.name" style="" /> -->
                     <div ms-css-background-image="url({{urlAPINet + cl.imgUrl}})" class="cityimage" ms-attr-alt="cl.name" style="margin-left: 5px;margin-bottom: 6px;">
                         <div class="open-soon" ms-if="cl.status==0">

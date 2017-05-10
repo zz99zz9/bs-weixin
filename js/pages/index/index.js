@@ -62,14 +62,34 @@ var vmIndex = avalon.define({
     goToUrl: function(url) {
         location.href = url;
     },
-    goCity: function(cityName,sh) {
+    
+    goCity: function(city, cid,status) {
         stopSwipeSkip.do(function() {
-            console.log(sh);
-            if(sh === 1){
-            location.href = "../city.html?position=" + cityName;
-         }
+            console.log(status);
+            if (status === 1) {
+                vmSearch.saveCityMode(city, cid);
+                location.href = "../city.html";
+            }
         });
     },
+
+    goHotel: function(id) {
+        stopSwipeSkip.do(function() {
+            location.href = "../city.html?position=" + cityName;
+        });
+        location.href = "../hotel.html?id=" + id;
+    },
+
+    // goCity: function(cityName, sh,city,cid) {
+    //     stopSwipeSkip.do(function() {
+    //         console.log(sh);
+    //         if (sh === 1) {
+    //             location.href = "../city.html?position=" + cityName;
+    //         }
+    //     });
+    // },
+
+
     moreHotel: [],
     getMoreHote: function() {
         //热门酒店推荐
@@ -109,17 +129,3 @@ if (user && user.nickname) {
 vmIndex.getCityImgList();
 vmIndex.getMoreHote();
 
-var vmSearch = avalon.define({
-    $id: 'search',
-    city: '上海',
-    currentLocation: '正在定位...',
-    getCurrentPosition: function() {
-        vmSearch.currentLocation = '正在定位...';
-        geolocation.getCurrentPosition();
-    },
-    closePop: function() {
-        stopSwipeSkip.do(function() {
-            modalClose();
-        });
-    }
-});
