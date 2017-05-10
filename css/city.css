@@ -1,116 +1,145 @@
 .mapCenter {
-  background-image: url('../img/icon/icon-mapCenter.svg');
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-size: contain;
-  width: 36px;
-  height: 36px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  margin-left: -18px;
-  margin-top: -30px;
-  z-index: 9;
+    background-image: url('../img/icon/icon-mapCenter.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-size: contain;
+    width: 36px;
+    height: 36px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -18px;
+    margin-top: -30px;
+    z-index: 9;
 }
 
 .bs-GeoBtn {
-  width: 48px;
-  height: 48px;
-  border-radius: 100%;
-  background-color: #fff;
-  background-image: url('../img/icon/icon-geo.svg');
-  background-size: 24px;
-  background-position: center;
-  background-repeat: no-repeat;
-  box-shadow: 0 1px 2px 0px #BDBDBD;
+    width: 36px;
+    height: 36px;
+    border-radius: 100%;
+    background-color: #fff;
+    background-image: url('../img/icon/icon-geo.svg');
+    background-size: 24px;
+    background-position: center;
+    background-repeat: no-repeat;
+    box-shadow: 0 2px 2px 2px #BDBDBD;
 }
 
-.bs-GeoBtn:active, .calendarBtn:active, .mapToListBtn:active {
-  background-color: #BDBDBD;
+.bs-GeoBtn:active,
+.mapToListBtn:active {
+    background-color: #BDBDBD;
+}
+
+.calendarBtn:active {
+    background-color: #222;
 }
 
 .bs-marker {
-  background-image: url('../img/icon/icon-hotelInMap.svg');
-  background-position: center;
-  margin-top: -10px;
-  background-repeat: no-repeat;
-  background-size: cover;
-  width: 48px;
-  height: 55px;
+    background-image: url('../img/icon/icon-hotelInMap.svg');
+    background-position: center;
+    margin-top: -10px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 48px;
+    height: 55px;
 }
+
 .bs-marker.selected {
-  margin-top: -21px;
-  margin-left: -3.5px;
-  width: 55px;
-  height: 66px;
+    margin-top: -21px;
+    margin-left: -3.5px;
+    width: 55px;
+    height: 66px;
 }
 
 .bs-marker-price {
-  color: #e93b39;
-  background-color: #fff;
-  border: solid #e93b39 1px;
-  border-radius: 3px;
-  width: 60px;
-  text-align: center;
-  height: 22px;
-  font-size: 12px;
+    color: #e93b39;
+    background-color: #fff;
+    border: solid #e93b39 1px;
+    border-radius: 3px;
+    width: 60px;
+    text-align: center;
+    height: 22px;
+    font-size: 12px;
 }
+
 .bs-marker-price.selected {
-  color: #fff;
-  background-color: #baa071;
-  border: solid #fff 1px;
+    color: #fff;
+    background-color: #baa071;
+    border: solid #fff 1px;
 }
+
 .bs-marker-point {
-  width: 22px;
-  height: 22px;
-  margin: 0 auto;
-  background-image: url('../img/icon/mapPoint.svg');
-  background-position: center;
-  background-repeat: no-repeat;
+    width: 22px;
+    height: 22px;
+    margin: 0 auto;
+    background-image: url('../img/icon/mapPoint.svg');
+    background-position: center;
+    background-repeat: no-repeat;
 }
+
 .swiper-slide-marker {
-  position: relative;
-  display: block;
-  white-space: normal;
-  height: 100%;
-  font-size: 14px;
-  vertical-align: top;
+    position: relative;
+    display: block;
+    white-space: normal;
+    height: 100%;
+    background: transparent;
+    font-size: 14px;
+    vertical-align: top;
 }
-.swiper-slide-marker .price{
-  line-height: 26px;
-  padding-top: 5px;
-  padding-right: 10px;
+
+.swiper-slide-marker .price {
 }
+
+.swiper-slide-marker .pirce-unit {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 97px;
+    background-color: rgba(0,0,0,.75);
+    padding: 4px 10px;
+}
+
+.swiper-slide-marker .pirce-money {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
 .swiper-slide-marker .price span {
-  display: inline-block;
+    display: inline-block;
 }
-.swiper-slide-marker .hotelName
-{
-  text-align: left;
-  font-size: 18px;
-  font-weight: 200;
-  color: #000;
-  background-color: rgba(0,0,0,0.2);
-  line-height: 26px;
-  padding-top: 5px;
-  padding-left: 10px;
-  flex-grow: 1;
+
+.swiper-slide-marker .hotelName {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: left;
+    font-size: 18px;
+    font-weight: 200;
+    background-color: rgba(68, 68, 68, .8);
+    line-height: 26px;
+    padding-top: 5px;
+    padding-left: 10px;
+    flex-grow: 1;
 }
+
 .distance {
-  display: inline-block;
-  background-color: rgba(0,0,0,0.5);
-  color: #fff;
-  font-size: 12px;
-  font-weight: 100;
-  padding: 0 10px;
-  padding-top: 3px;
-  line-height: 15px;
-  position: relative;
-  top: 10px;
-  right: 0;
-  z-index: 9;
-  float: right;
+    position: absolute;
+    right: 0;
+    top: 10px;
+    width: 55px;
+    padding: 3px 8px;
+    background-color: rgba(0, 0, 0, 0.75);
+}
+
+.guestFull {
+    position: absolute;
+    right: 55px;
+    top: 10px;
+    width: 55px;
+    padding: 3px 8px;
+    background-color: rgba(253,217,66, 0.75);
 }
 
 .calendarBtn {
@@ -126,8 +155,10 @@
     align-items: center;
     justify-content: center;
     z-index: 99;
-    box-shadow: 0 1px 2px 0px #BDBDBD;
+    background-color: #444;
+    box-shadow: 0 2px 2px 1px #BDBDBD;
 }
+
 .calendarBtnInList {
     width: 180px;
     height: 48px;
@@ -135,6 +166,9 @@
     align-items: center;
     justify-content: center;
     text-align: center;
+    border-radius: 25px;
+    background-color: #444;
+    box-shadow: 0 2px 2px 1px #BDBDBD;
 }
 
 .calendar-icon {
@@ -147,26 +181,37 @@
     text-align: center;
     margin-left: 10px;
 }
+
 .bottomBarTime {
-  display: flex;
-  align-items: center;
-  font-size: 11px;
-  width: 100px;
-  margin-top: 3px;
+    display: flex;
+    align-items: center;
+    font-size: 10px;
+    width: 100px;
 }
-.bottomBarTime div{
-  white-space: normal;
-  line-height: 14px;
+
+.bottomBarTime div {
+    white-space: normal;
+    line-height: 14px;
 }
 
 .mapToListBtn {
-  position: absolute;
-  bottom: 20px;
-  right: 16px;
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  background-image: url('../img/icon/icon-liebiao.svg');
-  z-index: 99;
-  box-shadow: 0 1px 2px 0px #BDBDBD;
+    position: absolute;
+    bottom: 25px;
+    right: 25px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-image: url('../img/icon/icon-liebiao.svg');
+    z-index: 99;
+    background-size: 50%;
+    box-shadow: 0 2px 2px 2px #BDBDBD;
+}
+
+.hotel-picture {
+    height: 150px;
+    background-size: cover;
+    width: inherit;
+    position: relative;
+    border: 3px solid rgba(68, 68, 68, .8);
+    border-bottom: none;
 }
