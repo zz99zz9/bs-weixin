@@ -193,7 +193,6 @@ var vmOrder = avalon.define({
         if(vmOrder.data.status ==1 ) {
             //待付款-支付订单
             payOrder();
-            location.href = '../service/orderList.html';
         } else {
             if(showCheckoutBtn > 1) {
                 vmOrder.sheetType = 2;
