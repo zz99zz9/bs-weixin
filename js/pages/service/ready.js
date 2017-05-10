@@ -41,16 +41,16 @@ var vmServiceReady = avalon.define({
     addService: function() { //添加更多定制服务
         stopSwipeSkip.do(function() {
             modalShow('../util/popMoreService.html', 1);
-        })
+        });
     },
     goOpendoor: function() {
         stopSwipeSkip.do(function() {
             mui.confirm("您已成功开启此趟旅程，请跟随我的脚步～", "follow me", ["去开门"], function(e) {
-                if (e.index == 0) {
+                if (e.index === 0) {
                     location.href = "../opendoor.html";
                 }
             }, "div");
-        })
+        });
     },
     blankTime: '', //当前时间
     timeDiffer: 0, //时间差值
@@ -62,28 +62,137 @@ var vmServiceReady = avalon.define({
             vmServiceReady.timeDiffer = vmServiceReady.orderList.startTime - parseInt(vmServiceReady.blankTime.substring(0, 2));
             vmServiceReady.timeDiffer = vmServiceReady.timeDiffer + ":" + vmServiceReady.blankTime.substring(3, 5);
             if (vmServiceReady.temperature == "远程预温" && parseInt(vmServiceReady.timeDiffer.substring(0, 1)) >= 0) {
-                vmServiceReady.temperature = "预温中";
-                mui.alert('<div style="text-align:left;">您的房间将于19:30-20:00开启空调，若您20:00前未能办理入住，我们将关闭空调，谢谢您的谅解。</div>', '已为您预约', '<span style="color: blue;">知道了</span>', function(e) {
-                    vmServiceReady.temperature = "预温中";
-                }, 'div');
+                mui.confirm("预温时间只有30分钟", "是否开启远程预温？", ["确认预温", "取消"], function(e) {
+                    if (e.index === 0) {
+                        vmServiceReady.temperature = "预温中";
+                        vmServiceReady.getAirStatus();
+                        vmServiceReady.getAirDeviceList();
+                        //vmServiceReady.goDevice();
+                        vmServiceReady.isCirqueShow = 1;
+                    }
+                });
+                // mui.alert('<div style="text-align:left;">您的房间将于19:30-20:00开启空调，若您20:00前未能办理入住，我们将关闭空调，谢谢您的谅解。</div>', '已为您预约', '<span style="color: blue;">知道了</span>', function(e) {
+                //     vmServiceReady.temperature = "预温中";
+                // }, 'div');
                 // vmServiceReady.timePrompt = "将于 " + vmServiceReady.timeDiffer + " 后自启动预温";
-                vmServiceReady.timePrompt = "已预约";
-                $(".cirque").css("color", "white");
-                $(".cirque").css("background-color", "#fdd942");
-                $(".cirque").css("box-shadow", "0 3px 3px 0 rgba(253,217,66,.24)");
-                $(".cirque").css("border-color", "rgba(255,255,255,.5)");
-            } else {
-                vmServiceReady.temperature = "远程预温";
-                vmServiceReady.timePrompt = "请在19:30之前点击开启";
-                // $(".cirque").css("background-color", "#444");
-                // $(".cirque").css("box-shadow", "0 0 3px 3px #ccc");
-                // $(".cirque").css("border", "none");
-                $(".cirque").css("color", "#fdd942");
-                $(".cirque").css("background-color", "white");
-                $(".cirque").css("box-shadow", "none");
-                $(".cirque").css("border-color", "#fdd942");
+                //vmServiceReady.timePrompt = "取消预约";
+                // $(".cirque").css("color", "white");
+                // $(".cirque").css("background-color", "#fdd942");
+                // $(".cirque").css("box-shadow", "0 3px 3px 0 rgba(253,217,66,.24)");
+                // $(".cirque").css("border-color", "rgba(255,255,255,.5)");
+            } //else {
+            //vmServiceReady.temperature = "远程预温";
+            // vmServiceReady.timePrompt = "请在19:30之前点击开启";
+            // // $(".cirque").css("background-color", "#444");
+            // // $(".cirque").css("box-shadow", "0 0 3px 3px #ccc");
+            // // $(".cirque").css("border", "none");
+            // $(".cirque").css("color", "#fdd942");
+            // $(".cirque").css("background-color", "white");
+            // $(".cirque").css("box-shadow", "none");
+            // $(".cirque").css("border-color", "#fdd942");
+            // }
+        });
+    },
+    airStatusList: [], //空调状态列表
+    isOpen: 0,
+    temPoint: 25,
+    isMode: 0, //  1-制冷  3-送风  4-制热
+    isWind: 0,
+    getAirStatus: function() {
+        ajaxJsonp({
+            url: urls.getAirStatus,
+            data: {
+                rid: orid,
+                t: new Date()
+            },
+            successCallback: function(json) {
+                if (json.status === 1) {
+                    vmServiceReady.airStatusList = json.data;
+                    vmServiceReady.isOpen = vmServiceReady.airStatusList[10];
+                    vmServiceReady.temPoint = vmServiceReady.airStatusList[1] + 16;
+                    vmServiceReady.isMode = vmServiceReady.airStatusList[0];
+                    vmServiceReady.isWind = vmServiceReady.airStatusList[2];
+                } else {
+                    mui.alert(json.message);
+                }
             }
-        })
+        });
+    },
+    airTempUpId: 0,
+    airTempDownId: 0,
+    airWindId: 0,
+    airModeId: 0,
+    airPowerId: 0,
+    getAirDeviceList: function() { //设备id列表
+        ajaxJsonp({
+            url: urls.getAirDeviceList,
+            data: {
+                rid: orid
+            },
+            successCallback: function(json) {
+                if (json.status === 1) {
+                    console.log(json.data);
+                    json.data.map(function(e) {
+                        if (e.rename == '模式') {
+                            vmServiceReady.airModeId = e.id;
+                        } else if (e.rename == '温度-') {
+                            vmServiceReady.airTempDownId = e.id;
+                        } else if (e.rename == '温度+') {
+                            vmServiceReady.airTempUpId = e.id;
+                        }
+                    });
+                } else {
+                    mui.alert(json.message);
+                }
+            }
+        });
+    },
+    goDevice: function(url, did, mode, speed) { //设备控制接口，需要传接口地址和设备id；mode和speed两个是可选的，都传，用url和did来判断是哪个接口。
+        ajaxJsonp({
+            url: url,
+            data: {
+                rid: orid,
+                did: did,
+                mode: mode,
+                speed: speed
+            },
+            successCallback: function(json) {
+                if (json.status === 1) {
+                    mui.alert(json.message);
+                } else {
+                    if (url == urls.AirTempUp) {
+                        vmServiceReady.temPoint--;
+                    } else if (url == urls.airTempDown) {
+                        vmServiceReady.temPoint++;
+                    } else if (url == urls.changeAirMode) {
+                        vmServiceReady.isMode = mode;
+                    } else if (url == urls.changeAirMode) {
+                        vmServiceReady.isWind = speed;
+                    }
+                    mui.alert(json.message);
+                }
+            }
+        });
+    },
+    tempUp: function() { //升高温度
+        if (vmServiceReady.temPoint < 31) {
+        vmServiceReady.temPoint++;
+        vmServiceReady.goDevice(urls.AirTempUp, vmServiceReady.airTempUpId);
+    }else{
+        mui.confirm("最高温度为31℃", "提醒", ["知道了"],function(e){
+
+        });
+    }
+    },
+    tempDown: function() { //降低温度
+        vmServiceReady.temPoint--;
+        vmServiceReady.goDevice(urls.AirTempDown, vmServiceReady.airTempUpId);
+    },
+    changeMode: function(value) {
+        stopSwipeSkip.do(function() {
+            vmServiceReady.isMode = value;
+            vmServiceReady.goDevice(urls.changeAirMode, vmServiceReady.airModeId, value, -1);
+        });
     },
     serviceList: [],
     getPreService: function() { //获取用户前置选择的服务
@@ -91,7 +200,7 @@ var vmServiceReady = avalon.define({
             url: urls.getPreService,
             data: {
                 hid: hid,
-                orid: 1527  //只1527有伪数据
+                orid: 1527 //只1527有伪数据
             },
             successCallback: function(json) {
                 if (json.status == 1) {
@@ -154,7 +263,17 @@ var vmServiceReady = avalon.define({
             // }
         });
     },
+    isAdvertisement: 0,
+    hidAdvertisement: function() {
+        if (vmServiceReady.isAdvertisement === 0) {
+            $('.advertisement').css("display","none");
+            isAdvertisement = 1;
+        } else {
+
+        }
+    }
 });
+vmServiceReady.getAirDeviceList();
 vmServiceReady.data = vmServiceReady.list;
 vmServiceReady.getPreService();
 registerWeixinConfig();
@@ -181,7 +300,7 @@ var vmMoreService = avalon.define({
     closePop: function() {
         stopSwipeSkip.do(function() {
             modalClose();
-        })
+        });
     },
     addService: function() {
         stopSwipeSkip.do(function() {
@@ -202,6 +321,6 @@ var vmMoreService = avalon.define({
                     }
                 }
             });
-        })
+        });
     }
 });

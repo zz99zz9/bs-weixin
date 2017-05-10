@@ -36,7 +36,7 @@ var vmIndex = avalon.define({
     openSearch: function() {
         stopSwipeSkip.do(function() {
             modalShow('./util/searchLocation.html', 1);
-        })
+        });
     },
     cityList: [],
     getCityImgList: function() {
@@ -62,10 +62,13 @@ var vmIndex = avalon.define({
     goToUrl: function(url) {
         location.href = url;
     },
-    goCity: function(cityName) {
+    goCity: function(cityName,sh) {
         stopSwipeSkip.do(function() {
+            console.log(sh);
+            if(sh === 1){
             location.href = "../city.html?position=" + cityName;
-        })
+         }
+        });
     },
     moreHotel: [],
     getMoreHote: function() {
@@ -117,6 +120,6 @@ var vmSearch = avalon.define({
     closePop: function() {
         stopSwipeSkip.do(function() {
             modalClose();
-        })
+        });
     }
 });

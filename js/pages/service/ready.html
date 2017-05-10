@@ -64,7 +64,7 @@
     border-radius: 100px;
     font-size: 20px;
     border: 10px solid;
-    border-color: rgba(255,255,255,.5);
+    border-color: rgba(255, 255, 255, .5);
 }
 
 .content-prompt {
@@ -150,6 +150,76 @@ div .mui-popup-buttons .mui-popup-button {
     padding: 5px 0 0 24px;
     background-color: #eee;
 }
+
+.press-unit {
+    display: flex;
+    flex-direction: column;
+    /*justify-content: flex-end;*/
+    align-items: center;
+    margin: 0 3vw 5vh;
+    background-color: rgba(248, 248, 248, 0.7);
+    height: 48px;
+    width: 48px;
+    border-radius: 50%;
+}
+
+.press-unit img {
+    margin: auto;
+}
+
+.press-unit div {
+    margin-top: 8px;
+    font-size: 12px;
+}
+
+.advertisement {
+    background-color: black;
+    color: #FFF;
+    font-size: 12px;
+    padding: 2px 12px 2px 24px;
+    display: flex;
+    justify-content: space-between;
+    position: fixed;
+    bottom: 56px;
+    width: 100%;
+}
+
+.closeAdvertisement {
+    width: 12px;
+    height: 12px;
+    background-image: url(../img/icon/icon-chacha12_12.svg);
+    background-size: 12px;
+    margin-top: 5px;
+    margin-left: 6px;
+}
+
+.wendujia {
+    display: block;
+    height: 48px;
+    width: 48px;
+    background-image: url(../img/icon/icon-wendujia.svg);
+}
+
+.wendujia:active {
+    display: block;
+    height: 48px;
+    width: 48px;
+    background-image: url(../img/icon/icon-wendujia-select.svg);
+}
+
+.wendujian {
+    display: block;
+    height: 48px;
+    width: 48px;
+    background-image: url(../img/icon/icon-wendujian.svg);
+}
+
+.wendujian:active {
+    display: block;
+    height: 48px;
+    width: 48px;
+    background-image: url(../img/icon/icon-wendujian-select.svg);
+}
 </style>
 <div class="" ms-controller="serviceReady">
     <div class="bs-text-smaller bs-text-444 bs-bg-white header">
@@ -169,7 +239,7 @@ div .mui-popup-buttons .mui-popup-button {
             </div>
         </div>
     </div>
-    <div class="bs-text-smaller bs-text-444 header-nav"  ms-on-tap="openNav">
+    <div class="bs-text-smaller bs-text-444 header-nav" ms-on-tap="openNav">
         <div class="bs-text-normal header-content">
             <img src="../img/icon/mapNavigation.svg" style="margin-right: 8px;">
         </div>
@@ -177,7 +247,7 @@ div .mui-popup-buttons .mui-popup-button {
             导航
         </div>
     </div>
-    <div class="mui-content gradient" ms-if="isCirqueShow==0">
+    <!--     <div class="mui-content gradient" ms-if="isCirqueShow==0">
         <div class="device-c mui-col-sm-12">
             <div class="cirque" ms-on-tap="goTem">
                 {{temperature}}
@@ -198,6 +268,63 @@ div .mui-popup-buttons .mui-popup-button {
                 {{timePrompt}}
             </div>
         </div>
+    </div> -->
+    <div class="mui-content gradient" style="display: flex;flex-direction: column;align-items: center;height: 324px;">
+        <div style="px;font-size: 12px;">预设温度</div>
+        <div style="padding-top: 8px;font-size: 48px;height: 48px;line-height: 48px;font-weight: bold;color: #eee;" ms-if="isCirqueShow==0">
+            {{temPoint}}
+            <span style="padding-left: 6px;">℃</span>
+        </div>
+        <div style="padding-top: 8px;font-size: 48px;height: 48px;line-height: 48px;font-weight: bold;" ms-if="isCirqueShow==1">
+            {{temPoint}}
+            <span style="padding-left: 6px;">℃</span>
+        </div>
+        <div style="padding-top: 46px;display: flex;height: 132px;">
+            <div ms-if="isCirqueShow==0">
+                <div style="display: flex;justify-content: space-between;align-items: center;">
+                    <div class="press-unit">
+                        <img src="../img/icon/icon-zhilengmoshi-444.svg" class="">
+                    </div>
+                    <div class="press-unit">
+                        <img src="../img/icon/icon-zhiremoshi-444444.svg" class="">
+                    </div>
+                </div>
+                <div style="display: flex;justify-content: space-between;align-items: center;">
+                    <div class="press-unit">
+                        <img src="../img/icon/icon-wendujia-444.svg" class="">
+                    </div>
+                    <div class="press-unit" style="">
+                        <img src="../img/icon/icon-wendujian-444.svg" class="">
+                    </div>
+                </div>
+            </div>
+            <div ms-if="isCirqueShow==1">
+                <div style="display: flex;justify-content: space-between;align-items: center;">
+                    <div class="press-unit" ms-on-tap="changeMode(1)">
+                        <img ms-if="isMode!=1" src="../img/icon/icon-zhilengmoshi.svg" class="">
+                        <img ms-if="isMode==1" src="../img/icon/icon-zhilengmoshi-select.svg" class="">
+                    </div>
+                    <div class="press-unit" ms-on-tap="changeMode(4)">
+                        <img ms-if="isMode!=4" src="../img/icon/icon-zhiremoshi.svg" class="">
+                        <img ms-if="isMode==4" src="../img/icon/icon-zhiremoshi-select.svg" class="">
+                    </div>
+                </div>
+                <div style="display: flex;justify-content: space-between;align-items: center;">
+                    <div class="press-unit" ms-click="tempUp">
+                        <a class="wendujia" href="###" title="升温"></a>
+                    </div>
+                    <div class="press-unit" ms-click="tempDown">
+                        <a class="wendujian" href="###" title="降温"></a>
+                    </div>
+                </div>
+            </div>
+            <div style="width: 48px;border-radius: 24px;height: 128px;background-color: #FDC442;display: flex;flex-direction: column;align-items: center;">
+                <div style="padding: 12px 12px 0px 12px;">
+                    <img src="../img/icon/icon-kaiguan24_24.svg" style="width: 24px;">
+                </div>
+                <div style="text-align: center; width: 14px;font-size: 14px;" ms-on-tap="goTem">{{temperature}}</div>
+            </div>
+        </div>
     </div>
     <div class="mui-content" style="padding: 32px 30px 20px;background-color: white;">
         <div class="content-prompt">
@@ -209,6 +336,14 @@ div .mui-popup-buttons .mui-popup-button {
         <div class="bs-text-16 bs-text-eca022 " style="margin-top: 16px;" ms-on-tap="addService">
             您需要的更多的服务
         </div>
+    </div>
+    <div class="advertisement" ms-if="isAdvertisement==0">
+        <div style="padding-top:2px;">
+        <img src="../img/icon/icon-laba24_24.svg">
+        </div>
+        <div style="padding-left: 8px;">在节能和舒适之间，我们选择入住前半小时远程预温
+        </div>
+        <div class="closeAdvertisement" ms-on-tap="hidAdvertisement"></div>
     </div>
     <!-- <div style="height: 308px;margin-top:16px;padding-top:18px;background-color: white;">
         <div style="margin: 0 30px 18px;color: #444;font-size: 18px;">
