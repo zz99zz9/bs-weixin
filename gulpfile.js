@@ -3312,7 +3312,7 @@ function serviceProcess() {
     return gulp.src('./js/layout/shell.html')
         .pipe(replace({
             regex: '<!-- title -->',
-            replace: '<title>做些准备...</title>'
+            replace: '<title>做些准备</title>'
         }))
         .pipe(replace({
             regex: '<!-- css -->',
