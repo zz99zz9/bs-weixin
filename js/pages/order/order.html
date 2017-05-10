@@ -42,12 +42,12 @@ input[type=checkbox] {
 }
 
 .info-left {
-    float: left;
+    display: inline-block;
     margin-bottom: 8px;
+    width: 60px; 
 }
 .info-right {
-     float: right;
-     margin-right: 10px;
+    display: inline-block;
 }
 
 .order-btn {
@@ -75,7 +75,7 @@ input[type=checkbox] {
 }
 </style>
 <div ms-controller="order">
-    <div style="margin: 0 auto;width: 95%;">
+    <div style="margin: 0 auto;" class="bs-bg-white">
         <div class="hotel">
             <!-- <div ms-on-tap="goHotelById(hotel.id)"> -->
             <div>
@@ -94,8 +94,8 @@ input[type=checkbox] {
                     <div ms-visible="data.status==1" class="check-icon" ms-class-1="unchecked:selectedList.indexOf($index)<0" ms-class-2="checked:selectedList.indexOf($index)>-1" style="position: absolute; right: 5px;"></div>
                 </div>
                 <!-- 右上角房间状态 -->
-                <span class="status bs-text-smaller bs-text-white" ms-if="data.status>1" style="right: 9px;">{{getStatus(el.status)}}</span>
-                <div id="triangle" ms-if="data.status>1"></div>
+                <span class="status bs-text-smaller bs-text-444 bs-bg-yellow" ms-if="data.status>1">{{getStatus(el.status)}}</span>
+                <!-- <div id="triangle" ms-if="data.status>1"></div> -->
                 <span class="order-panel-title bs-text-large bs-text-51">{{el.roomType.name + ' ' + el.name}}</span>
                 <h5 class="bs-text-small bs-text-102" style="margin: 0 0 20px 0;">
                     <span style="margin-bottom: 8px; display: inline-block;">
@@ -112,7 +112,7 @@ input[type=checkbox] {
                     <!-- 是否评论 -->
                     <span class="bs-text-large bs-text-black" style="float: left; margin-top: 20px;" ms-if="(el.status==3||el.status==4)&&(el.isComment)">已评价</span>
                     <!-- 操作按钮 -->
-                    <button class="bs-text-small" type="button" ms-on-tap="orderRoomAction(el.id, el.status)" ms-if="el.status>=3&&el.status<=4&&!el.isComment" style="float: left;margin: 0px;margin-top: 12px;">{{showActionText(el.status)}}</button>
+                    <button class="bs-text-smaller bs-bg-black bs-text-yellow" type="button" ms-on-tap="orderRoomAction(el.id, el.status)" ms-if="el.status>=3&&el.status<=4&&!el.isComment" style="float: left;margin: 0px;margin-top: 12px;">{{showActionText(el.status)}}</button>
                     <!-- 房间价格 -->
                     <span class="bs-text-large bs-text-black" style="float: right; margin: 20px 15px 0 0;">¥{{el.amount}}</</span>
                 </h5>
@@ -120,7 +120,7 @@ input[type=checkbox] {
             </li>
         </ul>
         <div class="bs-text-large" style="text-align: center;margin-top: -14px;background: #fff;height: 40px;line-height: 40px;" ms-click="goHotelById(data.hotel.id)" ms-if="data.status==1">
-            <span class="mui-icon mui-icon-plusempty bs-text-fdd942" style="font-size: 32px;position: relative;top: 3px;"></span>预定更多房间
+            <span class="mui-icon mui-icon-plusempty" style="font-size: 32px;position: relative;top: 3px;"></span>预定更多房间
         </div>
         <!-- <div class="order-panel" ms-if="data.status==1"> -->
         <div class="order-panel" ms-if="data.status==1&&fundList.$model.length>0">
@@ -133,47 +133,46 @@ input[type=checkbox] {
                 </div>
             </div>
         </div>
-        <div class="order-panel bs-text-normal bs-text-102">
-            <div class="order-panel-title bs-text-large bs-text-gray">订单信息</div>
-            <div style="clear: both;">
-                <span class="info-left">订单编号</span>
+        <div class="order-panel bs-text-small bs-text-444">
+            <div class="order-panel-title bs-text-larger">订单信息</div>
+            <div>
+                <span class="info-left">订单编号:</span>
                 <span class="info-right bs-text-black">{{data.orderNo}}</span>
             </div>
-            <div style="clear: both;">
-                <span class="info-left">订单状态</span>
+            <div>
+                <span class="info-left">订单状态:</span>
                 <span class="info-right bs-text-black">{{getStatus(data.status)}}</span>
             </div>
-            <div style="clear: both;">
-                <span class="info-left">订单总额</span>
-                <span class="info-right bs-text-black">¥{{round(needAmount)}}</span>
+            <div>
+                <span class="info-left">订单总额:</span>
+                <span class="info-right bs-text-black">{{round(needAmount)}}元</span>
             </div>
 
             <!-- 支付时的优惠金额显示 -->
-            <div style="clear: both;" ms-if="fund>0&&fund<9999">
-                <span class="info-left">优惠券</span>
-                <span class="info-right bs-text-black" style="text-align: right;">-¥{{fund}}</span>
+            <div ms-if="fund>0&&fund<9999">
+                <span class="info-left">优惠券:</span>
+                <span class="info-right bs-text-black" style="text-align: right;">- {{fund}}元</span>
             </div>
-            <div style="clear: both;" ms-if="(discount<1)&&(needAmount-fund>0)">
+            <div ms-if="(discount<1)&&(needAmount-fund>0)">
                 <span class="info-left">{{discountCard}}{{discount*10}}折</span>
                 <span class="info-right bs-text-black">
-                -¥{{round((needAmount-fund)*(1-discount))}}</span>
+                - {{round((needAmount-fund)*(1-discount))}}元</span>
             </div>
 
             <!-- 支付成功后的优惠金额显示 -->
-            <div style="clear: both;" ms-if="data.fundAmount">
-                <span class="info-left">优惠券</span>
-                <span class="info-right bs-text-black">-¥{{data.fundAmount}}</span>
+            <div ms-if="data.fundAmount">
+                <span class="info-left">优惠券:</span>
+                <span class="info-right bs-text-black">- {{data.fundAmount}}元</span>
             </div>
-            <div style="clear: both;" ms-if="data.discountAmount">
-                <span class="info-left">VIP折扣</span>
-                <span class="info-right bs-text-black">-¥{{data.discountAmount}}</span>
+            <div ms-if="data.discountAmount">
+                <span class="info-left">VIP折扣:</span>
+                <span class="info-right bs-text-black">- {{data.discountAmount}}元</span>
             </div>
 
-            <div style="clear: both;">
-                <span class="info-left">实付金额</span>
-                <span class="info-right bs-text-fdd942">
-                ¥<!-- {{round(needAmount-fund)<0?0:round(needAmount-fund)}} -->
-                {{data.status!=1?data.paidAmount:(round(needAmount-fund)<0?0:round((needAmount-fund)*discount))}}
+            <div>
+                <span class="info-left">实付金额:</span>
+                <span class="info-right">
+                {{data.status!=1?data.paidAmount:(round(needAmount-fund)<0?0:round((needAmount-fund)*discount))}}元
                 </span>
             </div>
             <div>&nbsp;</div>
@@ -218,8 +217,6 @@ input[type=checkbox] {
                 <span class="bs-text-normal bs-text-black">支付宝支付（请在浏览器中打开）</span>
             </div>
         </div>
-        <br>
-        <br>
         <br>
     </div>
 
