@@ -42,22 +42,30 @@
 <div ms-controller="city" style="height: 100vh;">
     <!-- 地图 -->
     <div id="container" style="z-index:1;height: 100%;" ms-visible="isShowMap"></div>
-    <div class="mapCenter" ms-visible="isShowMap"></div>    
+    <div class="mapCenter" ms-visible="isShowMap"></div>
     <!-- 地图模式的酒店详情轮播 -->
-    <div class="swiper-container swiper1" style="height: 200px; z-index: 10;position: absolute;bottom: 0;" ms-visible="isShowHotelDetail">
+    <div class="swiper-container swiper1" style="height: 200px; z-index: 10;position: absolute;bottom: 1vh;" ms-visible="isShowHotelDetail">
         <div class="swiper-wrapper" style="padding-left: 15px;background-color: rgba(0,0,0,0);">
             <div class="swiper-slide swiper-slide-marker" ms-repeat="hotelMarkers" data-repeat-rendered="swiper1Render">
-                <div ms-css-background-image="url({{urlAPINet + el.coverUrl}})" style="height: 150px;background-size: cover;width: inherit;position: relative;" ms-on-tap="goHotel(el.id)">
-                    <span class="distance">{{round(el.distance/1000)}}km</span>
+                <div ms-css-background-image="url({{urlAPINet + el.coverUrl}})" class="hotel-picture" ms-on-tap="goHotel(el.id)">
+                    <div class="guestFull bs-text-x-smaller">满&emsp;房</div>
+                    <div class="distance bs-text-white bs-text-x-smaller">{{round(el.distance/1000)}}km</div>
                     <div style="display: flex;width: 100%;position: absolute;bottom: 5px;">
-                        <div class="bs-text-white bs-bg-black price">
-                            <span style="position: relative;top: -6px;right: -3px;color: #999;font-size: 15px">￥</span>
+                        <div class="bs-text-white bs-text-x-smaller">
+                            <div class="pirce-unit">
+                                <div class="pirce-money">
+                                    <div class="bs-text-small bs-text-bold" style="border-bottom: 1px solid #999;">180元</div>
+                                    <div class="bs-text-fdd942 bs-text-small bs-text-bold">15时币</div>
+                                </div>
+                                <div>/晚起</div>
+                            </div>
+                            <!-- <span style="position: relative;top: -6px;right: -3px;color: #999;font-size: 15px">￥</span>
                             <span class="bs-text-x-larger">{{type==1?round(el.minPrice*6):el.minPrice}}</span>
-                            <span class="bs-text-smaller bs-text-lighter">{{type==0?"/晚起":(type==1?"/3小时起":"")}}</span>
+                            <span class="bs-text-smaller bs-text-lighter">{{type==0?"/晚起":(type==1?"/3小时起":"")}}</span> -->
                         </div>
                     </div>
                 </div>
-                <div class="hotelName bs-text-444" style="display: flex;flex-direction: column;background-color: white;">
+                <div class="hotelName bs-text-white" style="display: flex;flex-direction: column;">
                     <div style="height: 20px;font-weight: bold;">
                         {{el.name}}
                     </div>
@@ -101,12 +109,10 @@
         <button type="button" class="calender-icon bs-bg-fdd942" ms-css-background-image="isShowMap?'url(img/icon/list.svg)':'url(img/icon/map.svg)'" style="margin-left: 10px;" ms-on-tap="toggleMap">
         </button>
     </div> -->
-
-
     <!-- 地图模式下的底部功能栏 -->
     <div ms-if="!isShowHotelDetail&&isShowMap">
-        <button type="button" class="calendarBtn bs-bg-white" ms-click="openTimePanel">
-            <div class="bs-text-51 bs-text-smaller calendar-icon" ms-css-background-image="type?'url(img/icon/clock-333.svg)':'url(img/icon/calendar-333.svg)'">
+        <button type="button" class="calendarBtn bs-text-white" ms-click="openTimePanel">
+            <div class="bs-text-smaller calendar-icon bs-text-fdd942" ms-css-background-image="type?'url(img/icon/clock-333.svg)':'url(img/icon/calendar-yellow.svg)'">
                 <span ms-if="!type">{{getToday('day')}}</span>
             </div>
             <div class="bs-text-smaller bottomBarTime">
@@ -117,9 +123,8 @@
         </button>
         <div class="mapToListBtn calendar-icon bs-bg-white" ms-on-tap="toggleMap"></div>
     </div>
-
     <!-- 列表模式下的底部筛选栏 -->
-    <div class="footer-select" ms-if="isSort==1 && !isShowMap">
+    <!-- <div class="footer-select" ms-if="isSort==1 && !isShowMap">
         <div ms-on-tap="changeSort(1)">
             <a class="mui-tab-item">
                 <span class="mui-icon">
@@ -147,19 +152,25 @@
                 <span style="position: relative;top: -1px;">由近及远</span>
             </a>
         </div>
-    </div>
-
+    </div> -->
     <!-- 列表模式下的底部功能栏 -->
     <nav class="mui-bar mui-bar-tab footer" style="display: flex;justify-content: space-around;align-items: center;background-color:white !important;font-size: 8px;" ms-if="!isShowMap">
-        <div ms-on-tap="goSort">
+        <!-- <div ms-on-tap="goSort">
             <div class="mui-icon" style="top: 6px;">
                 <img src="../img/icon/icon-paixu.svg" class="nav-ico" style="height: 24px; width: 24px;"
             ></div>
             <div style="position: relative;left: 5px;top: -3px;margin-bottom: 3px;">排序</div>
+        </div> -->
+        <div ms-on-tap="goSort">
+            <div class="mui-icon" style="top: 6px;">
+                <img ms-if="!isSort" src="../img/icon/icon-di-gao.svg" class="nav-ico" style="height: 24px; width: 24px;">
+                <img ms-if="isSort"src="../img/icon/icon-gao-di.svg" class="nav-ico" style="height: 24px; width: 24px;">
+            </div>
+            <div style="position: relative;left: 5px;top: -3px;margin-bottom: 3px;">价格</div>
         </div>
-        <div class="calendarBtnInList" ms-click="openTimePanel">
-            <div class="bs-text-51 bs-text-smaller calendar-icon" ms-css-background-image="type?'url(img/icon/clock-333.svg)':'url(img/icon/calendar-333.svg)'">
-                <span ms-if="!type">{{getToday('day')}}</span>
+        <div class="calendarBtnInList bs-text-white" ms-click="openTimePanel">
+            <div class="bs-text-smaller calendar-icon" ms-css-background-image="type?'url(img/icon/clock-333.svg)':'url(img/icon/calendar-yellow.svg)'" style="margin-right: 10px;">
+                <span class="bs-text-fdd942" ms-if="!type">{{getToday('day')}}</span>
             </div>
             <div class="bs-text-smaller bottomBarTime">
                 <div>{{bottomBartStartTime}}</div>

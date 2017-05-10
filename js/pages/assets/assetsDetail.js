@@ -6,7 +6,7 @@ var vmAssetsDetail = avalon.define({
     pageSize: 10,
     getList: function() {
         ajaxJsonp({
-            url: urls.fraLogList,
+            url: urls.getTotalAssetsRecord,
             data: { 
                 pageNo: vmAssetsDetail.pageNo,
                 pageSize: vmAssetsDetail.pageSize
@@ -14,6 +14,28 @@ var vmAssetsDetail = avalon.define({
             successCallback: function(json) {
                 if (json.status === 1) {
                     vmAssetsDetail.pageNo = 2;
+                    json.data.list.map(function(e) {
+                        switch(e.source) {
+                            case 1: 
+                                e.source = "提前退房";
+                                break;
+                            case 2: 
+                                e.source = "邀请奖励";
+                                break;
+                            case 3: 
+                                e.source = "现金兑换";
+                                break;
+                            case 4: 
+                                e.source = "订单取消";
+                                break;
+                            case 5: 
+                                e.source = "服务消费";
+                                break;
+                            default: 
+                                e.source = "";
+                                break;
+                        }
+                    });
                     vmAssetsDetail.list.push.apply(vmAssetsDetail.list, json.data.list);
                 }
             }
@@ -50,7 +72,7 @@ function reload() {
     vmAssetsDetail.list = [];
 
     ajaxJsonp({
-            url: urls.fraLogList,
+            url: urls.getTotalAssetsRecord,
             data: {
                 pageSize: vmAssetsDetail.pageSize,
                 pageNo: vmAssetsDetail.pageNo
@@ -58,6 +80,28 @@ function reload() {
             successCallback: function(json) {
                 if (json.status === 1) {
                     vmAssetsDetail.pageNo = 2;
+                    json.data.list.map(function(e) {
+                        switch(e.source) {
+                            case 1: 
+                                e.source = "提前退房";
+                                break;
+                            case 2: 
+                                e.source = "邀请奖励";
+                                break;
+                            case 3: 
+                                e.source = "现金兑换";
+                                break;
+                            case 4: 
+                                e.source = "订单取消";
+                                break;
+                            case 5: 
+                                e.source = "服务消费";
+                                break;
+                            default: 
+                                e.source = "";
+                                break;
+                        }
+                    });
                     vmAssetsDetail.list.push.apply(vmAssetsDetail.list, json.data.list);
                     
                     mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
@@ -72,7 +116,7 @@ function reload() {
 //mui 上拉加载
 function loadmore() {
     ajaxJsonp({
-        url: urls.fraLogList,
+        url: urls.getTotalAssetsRecord,
         data: {
             pageSize: vmAssetsDetail.pageSize,
             pageNo: vmAssetsDetail.pageNo
@@ -80,6 +124,28 @@ function loadmore() {
         successCallback: function(json) {
             if (json.status == 1) {
                 vmAssetsDetail.pageNo++;
+                json.data.list.map(function(e) {
+                        switch(e.source) {
+                            case 1: 
+                                e.source = "提前退房";
+                                break;
+                            case 2: 
+                                e.source = "邀请奖励";
+                                break;
+                            case 3: 
+                                e.source = "现金兑换";
+                                break;
+                            case 4: 
+                                e.source = "订单取消";
+                                break;
+                            case 5: 
+                                e.source = "服务消费";
+                                break;
+                            default: 
+                                e.source = "";
+                                break;
+                        }
+                    });
                 vmAssetsDetail.list.push.apply(vmAssetsDetail.list, json.data.list);
                 if (vmAssetsDetail.pageNo <= json.data.pageCount) {
                     mui("#pullrefresh").pullRefresh().endPullupToRefresh(false);

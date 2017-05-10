@@ -1,3 +1,4 @@
+// edited by zwh on 2017/05/10
 var newOrder, bensue, positionInStorage, 
     myMarker, mapOption, mapObj, geolocation, autocomplete,
     swiper1, swiper2,
@@ -111,34 +112,35 @@ var vmCity = avalon.define({
     sort: 1, //1高到低，2低到高   3近到远    为2.0-demo而生的
     changeSort: function(type) {
         stopSwipeSkip.do(function() {
-            vmCity.sort = type;
+            if (type==true) {
+                vmCity.sort = 2;
+            } else if (type==false) {
+                vmCity.sort = 1;
+            }
             ajaxJsonp({
                 url: urls.getHotelByPosition,
                 data: {
                     lng: vmCity.lng,
                     lat: vmCity.lat,
                     isPartTime: vmCity.type,
-                    discount: vmBottom.midnightDiscount,
+                    // discount: vmBottom.midnightDiscount,
                     distance: 100000,
                     sort: vmCity.sort,
                     pageCount: 20,
                 },
                 successCallback: function(json) {
                     if (json.status == 1) {
-                        vmCity.hotelMarkers = json.data;
+                        vmCity.hotelMarkers = json.data.list;
                     }
                 }
             });
         });
     },
-    isSort: 0,  //默认不展开  1-展开
+    isSort: 0,  //0-低到高  true-高到低
     goSort: function() {
         stopSwipeSkip.do(function() {
-            if (vmCity.isSort==1) {
-                vmCity.isSort = 0;
-            } else {
-                vmCity.isSort = 1;
-            }
+            vmCity.isSort = !vmCity.isSort;
+            vmCity.changeSort(vmCity.isSort);
         });
     },
     getHotelPositionUrl: function() {
@@ -389,7 +391,7 @@ mapObj.plugin('AMap.Geolocation', function() {
         convert: true, //自动偏移坐标，偏移后的坐标为高德坐标，默认：true
         showButton: true, //显示定位按钮，默认：true
         buttonPosition: 'LB', //定位按钮停靠位置，默认：'LB'，左下角
-        buttonOffset: new AMap.Pixel(16, 20), //定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)
+        buttonOffset: new AMap.Pixel(25, 25), //定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)
         buttonDom: getGeoBtnDom(), 
         showMarker: true, //定位成功后在定位到的位置显示点标记，默认：true
         showCircle: true, //定位成功后用圆圈表示定位精度范围，默认：true
