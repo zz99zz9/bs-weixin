@@ -309,13 +309,7 @@ function room() {
         }))
         .pipe(replace({
             regex: '<!-- js -->',
-            replace: '<script src="js/lib/mui.zoom.js"></script>\n' 
-            + '<script src="js/lib/mui.previewimage.js"></script>\n' 
-            + '<script src="js/lib/swiper.min.js"></script>\n' 
-            + '<script src="js/pages/room/vmodel.js"></script>\n' 
-            + '<script src="js/util/calendar.js"></script>\n' 
-            + '<script src="js/util/clock.js"></script>\n' 
-            + '<script src="js/util/contactList.js"></script>'
+            replace: '<script src="js/lib/mui.zoom.js"></script>\n' + '<script src="js/lib/mui.previewimage.js"></script>\n' + '<script src="js/lib/swiper.min.js"></script>\n' + '<script src="js/pages/room/vmodel.js"></script>\n' + '<script src="js/util/calendar.js"></script>\n' + '<script src="js/util/clock.js"></script>\n' + '<script src="js/util/contactList.js"></script>'
         }))
         .pipe(contentIncluder({
             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
@@ -344,8 +338,7 @@ function orderList() {
         }))
         .pipe(replace({
             regex: '<!-- js -->',
-            replace: '<script src="js/pages/order/vmodel-orderList.js"></script>\n'
-            + '<script src="../js/pages/footer/footer.js"></script>'
+            replace: '<script src="js/pages/order/vmodel-orderList.js"></script>\n' + '<script src="../js/pages/footer/footer.js"></script>'
         }))
         .pipe(replace({
             regex: '<!-- content -->',
@@ -3440,6 +3433,24 @@ function setting() {
         .pipe(gulp.dest('./src'));
 }
 
+//时币充值
+function tokensRecharge() {
+    return gulp.src('./js/layout/shell.html')
+        .pipe(replace({
+            regex: '<!-- title -->',
+            replace: '<title>充值</title>'
+        }))
+        .pipe(replace({
+            regex: '<!-- js -->',
+            replace: '<script src="js/pages/recharge/tokensRecharge.js"></script>'
+        }))
+        .pipe(replace({
+            regex: '<!-- content -->',
+            replace: '<!--include "../pages/recharge/tokensRecharge.html"-->'
+        }))
+        .pipe(rename('tokensRecharge.html'))
+        .pipe(gulp.dest('./src'));
+}
 //总资产显示页面
 function totalAssets() {
     return gulp.src('./js/layout/shell.html')
@@ -3460,7 +3471,28 @@ function totalAssets() {
         }))
         .pipe(rename('totalAssets.html'))
         .pipe(gulp.dest('./src'));
+
 }
+
+//邀请好友
+function inviteFriend() {
+    return gulp.src('./js/layout/shell.html')
+        .pipe(replace({
+            regex: '<!-- title -->',
+            replace: '<title>邀请好友</title>'
+        }))
+        .pipe(replace({
+            regex: '<!-- js -->',
+            replace: '<script src="js/pages/invite/invitefriend.js"></script>'
+        }))
+        .pipe(replace({
+            regex: '<!-- content -->',
+            replace: '<!--include "../pages/invite/invitefriend.html"-->'
+        }))
+        .pipe(rename('invitefriend.html'))
+        .pipe(gulp.dest('./src'));
+}
+
 
 //总资产收支明细
 function totalAssetsDetail() {
@@ -3483,7 +3515,6 @@ function totalAssetsDetail() {
         .pipe(rename('totalAssetsDetail.html'))
         .pipe(gulp.dest('./src'));
 }
-
 
 /**
  * 输出弹框相关页面
@@ -3679,6 +3710,8 @@ gulp.task('html', gulp.parallel(
     illumination,
     temperature,
     telecontroller,
+    tokensRecharge,
+    inviteFriend,
     totalAssets,
     totalAssetsDetail
 ));
