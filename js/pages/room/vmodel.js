@@ -36,6 +36,7 @@ vmRoom = avalon.define({
     timeSpan: '',
     unit: '',
     price: 0,
+    timeCoin: 0,
     room: {
         hotel: {
             name: '',
@@ -367,28 +368,6 @@ if (newOrder) {
 
 room_init();
 
-//用pullRefresh防止穿透
-mui.init({
-    pullRefresh: {
-        container: '#pullrefresh',
-        down: {
-            height: 50, //可选,默认50.触发下拉刷新拖动距离,
-            auto: true, //可选,默认false.自动下拉刷新一次
-            contentdown: "下拉可以刷新", //可选，在下拉可刷新状态时，下拉刷新控件上显示的标题内容
-            contentover: "释放立即刷新", //可选，在释放可刷新状态时，下拉刷新控件上显示的标题内容
-            contentrefresh: "正在刷新...", //可选，正在刷新状态时，下拉刷新控件上显示的标题内容
-            callback: reload //必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
-        },
-    }
-});
-
-//下拉刷新
-function reload() {
-    //room_init();
-    mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
-    mui('#pullrefresh').pullRefresh().refresh(true);
-}
-
 /*
  **函数声明
  */
@@ -407,6 +386,7 @@ function room_init() {
         successCallback: function(json) {
             if (json.status == 1) {
                 vmRoom.price = json.data.amount;
+                vmRoom.timeCoin = json.data.timeCoin;
             }
         }
     });

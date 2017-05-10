@@ -1,103 +1,106 @@
-<div ms-controller="room" id="pullrefresh" class="mui-scroll-wrapper" style="background-color: #ccc">
-    <div class="mui-scroll">
-
-        <div class="swiper-container swiper1" style="z-index: 0;height: 275px;">
+<div ms-controller="room" style="background-color: #eee">
+    <div class="swiper-container swiper1" style="z-index: 0;height: 275px;">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide" ms-repeat="room.roomGalleryList" data-repeat-rendered="swiper1Render">
+                <div style="width: 100%;height: 100%;background-size: cover;background-position: center;" ms-css-background-image="'url(' + urlAPINet + el.imgUrl+')'" ms-attr-data-preview-src="urlAPINet + el.imgUrl" data-preview-group="1">
+                </div>
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+    </div>
+    <section style="margin: -10px auto; margin-top: -14px;">
+        <div class="hotel">
+            <div style="position: absolute;top: -25px;z-index: 10;right: 0;padding-right: 5px;display: none;">
+                <button type="button" class="calender-icon bs-bg-fdd942" style="background-image:url(../img/icon/filter.png);" ms-on-tap="openFilter">
+                </button>
+            </div>
+            <div>
+                <span class="room-name bs-text-x-larger bs-text-51"> {{room.name}}</span>
+                <span class="room-name bs-text-x-larger bs-text-51" ms-if="typeof room.restRoomCount != 'undefined'"> 
+                    (剩余<span class="bs-text-fdd942">{{room.restRoomCount}}</span>间)</span>
+                <p class="bs-text-small bs-text-gold" style="margin: 8px 0 0;white-space: normal;">{{room.introduction}}
+                </p>
+            </div>
+        </div>
+        <hr style="width: 95%;margin-top: 0px;margin-bottom: 0;">
+        <div class="swiper-container swiper4 room-amenity" style="padding: 0 10px;">
             <div class="swiper-wrapper">
-                <div class="swiper-slide" ms-repeat="room.roomGalleryList" data-repeat-rendered="swiper1Render">
-                    <div style="width: 100%;height: 100%;background-size: cover;background-position: center;" ms-css-background-image="'url(' + urlAPINet + el.imgUrl+')'" ms-attr-data-preview-src="urlAPINet + el.imgUrl" data-preview-group="1">
-                    </div>
+                <div class="swiper-slide room-amenity-item" ms-repeat="room.amenityList" ms-if-loop="el.isShow" data-repeat-rendered="swiper4Render">
+                    <img ms-attr-src="urlAPINet + el.ico" ms-attr-alt="el.name" style="width: 28px;height: 28px;margin-left: 10px" />
+                    <label class="bs-text-small room-amenity-text">{{el.name}}</label>
                 </div>
-                <div class="swiper-pagination"></div>
+                <div class="swiper-scrollbar"></div>
             </div>
         </div>
-        <section style="margin: -10px auto; margin-top: -14px;">
-            <div class="hotel">
-                <div style="position: absolute;top: -25px;z-index: 10;right: 0;padding-right: 5px;display: none;">
-                    <button type="button" class="calender-icon bs-bg-fdd942" style="background-image:url(../img/icon/filter.png);" ms-on-tap="openFilter">
-                    </button>
-                </div>
-                <div>
-                    <span class="room-name bs-text-x-larger bs-text-51"> {{room.name}}</span>
-                    <span class="room-name bs-text-x-larger bs-text-51" ms-if="typeof room.restRoomCount != 'undefined'"> 
-                        (剩余<span class="bs-text-fdd942">{{room.restRoomCount}}</span>间)</span>
-                    <p class="bs-text-small bs-text-gold" style="margin: 8px 0 0;white-space: normal;">{{room.introduction}}
-                    </p>
-                </div>
+        <div style="height: 5px;background-color: #ccc;"></div>
+        <div class="mui-text-center" style="background: white;padding: 0 10px;">
+            <div style="margin-top: 35px" class="circle photo" ms-css-background-image="'url('+urlAPINet + room.designer.portraitUrl+')'">
+                &nbsp;
             </div>
-            <hr style="width: 95%;margin-top: 0px;margin-bottom: 0;">
-            <div class="swiper-container swiper4 room-amenity" style="padding: 0 10px;">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide room-amenity-item" ms-repeat="room.amenityList" ms-if-loop="el.isShow" data-repeat-rendered="swiper4Render">
-                        <img ms-attr-src="urlAPINet + el.ico" ms-attr-alt="el.name" style="width: 28px;height: 28px;margin-left: 10px" />
-                        <label class="bs-text-small room-amenity-text">{{el.name}}</label>
-                    </div>
-                    <div class="swiper-scrollbar"></div>
-                </div>
+            <br />
+            <h4 style="display: inline;margin-right: 10px;">{{room.designer.name}}</h4><small style="color:#999;">试睡师</small>
+            <div class="room-designer-message">{{room.designer.message | truncate(50,'...')}}</div>
+            <button class="mui-btn" style="width: 120px;height: 40px;margin-bottom: 30px; border-radius: 0;" ms-on-tap="openDesigner">阅读全部</button>
+        </div>
+    </section>
+    <section class="room-time">
+        <p style="margin-bottom: 0;">
+            <span class="bs-text-large bs-text-51">入住时间</span>
+            <span class="bs-text-large bs-text-51" style="float: right">退房时间</span>
+        </p>
+        <div class="" style="padding: 0 10px 20px; display: flex; justify-content: space-between;text-align: center;" ms-on-tap="openTimePanel">
+            <div class="bs-text-large bs-text-fdd942" style="">
+                {{start|html}}
             </div>
-            <div style="height: 5px;background-color: #ccc;"></div>
-            <div class="mui-text-center" style="background: white;padding: 0 10px;">
-                <div style="margin-top: 35px" class="circle photo" ms-css-background-image="'url('+urlAPINet + room.designer.portraitUrl+')'">
-                    &nbsp;
-                </div>
-                <br />
-                <h4 style="display: inline;margin-right: 10px;">{{room.designer.name}}</h4><small style="color:#999;">试睡师</small>
-                <div class="room-designer-message">{{room.designer.message | truncate(50,'...')}}</div>
-                <button class="mui-btn" style="width: 120px;height: 40px;margin-bottom: 30px; border-radius: 0;" ms-on-tap="openDesigner">阅读全部</button>
+            <div style="font-size: 12px;">
+                <div>|</div>
+                <span class="bs-text-large bs-text-fdd942">{{timeSpan}}</span>
+                <br>
+                <div>|</div>
             </div>
-        </section>
-        <section class="room-time">
-            <p style="margin-bottom: 0;">
-                <span class="bs-text-large bs-text-51">入住时间</span>
-                <span class="bs-text-large bs-text-51" style="float: right">退房时间</span>
-            </p>
-            <div class="" style="padding: 0 10px 20px; display: flex; justify-content: space-between;text-align: center;" ms-on-tap="openTimePanel">
-                <div class="bs-text-large bs-text-fdd942" style="">
-                    {{start|html}}
-                </div>
-                <div style="font-size: 12px;">
-                    <div>|</div>
-                    <span class="bs-text-large bs-text-fdd942">{{timeSpan}}</span>
-                    <br>
-                    <div>|</div>
-                </div>
-                <div class="bs-text-large bs-text-fdd942">
-                    {{end|html}}
-                </div>
+            <div class="bs-text-large bs-text-fdd942">
+                {{end|html}}
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section class="checkin" style="display: flex;align-items: center;" ms-on-tap="openCheckin">
-            <div class="bs-text-large bs-text-51" style="display: inline;">
-                入住人信息：
-            </div>
-            <div class="bs-text-large bs-text-gold" ms-repeat="checkinList">
-                {{el.name}}
-            </div>
-            <div style="position: absolute;right: 10px;">
-                <img src="img/icon/edit_red.png" alt="" />
-            </div>
-        </section>
-        <div style="height: 5px;"></div>
-        <section>
-            <div style="padding: 20px 10px 22px 10px;">
-                <span class="bs-text-large bs-text-51">合计金额</span>
-                <span class="bs-text-x-larger" style="float: right;">￥ {{price}}</span>
-            </div>
-        </section>
-        <div class="bs-text-smaller" style="width: 95%;margin: 10px auto;padding: 10px" ms-on-tap="clickIsAgree">
-            <span class="isAgree" ms-class-1="unchecked: !isAgree" ms-class-2="checked:isAgree"></span> 我同意
-            <span class="bs-text-gold" ms-on-tap="openRule">《入住条款》</span>
+    <section class="checkin" style="display: flex;align-items: center;" ms-on-tap="openCheckin">
+        <div class="bs-text-large bs-text-51" style="display: inline;">
+            入住人信息：
         </div>
-        <button id="only" type="button" class="mui-btn mui-pull-right bs-text-large bs-text-white bs-bg-black" style="font-weight: bold;margin-bottom: 3vh;" ms-click="goNext" ms-attr-disabled="isGoNext">立即预订</button>
-        <div class="bs-text-large" style="width: 95%;padding: 10px 0 14px 10px;margin: 0 auto;">更多房型</div>
-        <div class="swiper-container swiper2">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide" ms-repeat="list" data-repeat-rendered="swiper2Render">
-                    <!-- roomSlide -->
-                </div>
-                <div class="swiper-pagination"></div>
-            </div>
+        <div class="bs-text-large bs-text-gold" ms-repeat="checkinList">
+            {{el.name}}
         </div>
-        <br>
+        <div style="position: absolute;right: 10px;">
+            <img src="img/icon/edit.svg" alt="" />
+        </div>
+    </section>
+    <div style="height: 5px;"></div>
+    <section ms-on-tap="clickIsAgree">
+        <div style="padding: 20px 10px 22px 10px;">
+            <span class="bs-text-large bs-text-51" ms-on-tap="openRule">《入住条款》</span>
+            <span class="isAgree" ms-class-1="unchecked: !isAgree" ms-class-2="checked:isAgree" style="float: right;"></span>
+            <span class="bs-text-large bs-text-fdd942" style="float: right;line-height: 24px;margin-right: 8px;">我同意</span>
+        </div>
+    </section>
+    
+    <br>
+    <div class="bs-text-large" style="width: 95%;padding: 10px 0 14px 10px;margin: 0 auto;">更多房型</div>
+    <div class="swiper-container swiper2" style="margin-bottom: 70px;">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide" ms-repeat="list" data-repeat-rendered="swiper2Render">
+                <!-- roomSlide -->
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+    </div>
+
+    <div style="position: fixed;bottom:0;z-index: 9;width: 100vw;box-shadow: 0 1px 2px 1px #BDBDBD;">
+        <div class="bs-bg-white" style="height: 64px;display: flex;justify-content: space-between;align-items: center;padding: 0 10px;">
+            <div style="font-size: 20px;font-weight: bold;">
+                {{price}}<span class="bs-text-large">元</span>/{{timeCoin}}<span class="bs-text-large">时币</span>
+            </div>
+            <button type="button" class="mui-btn bs-text-larger bs-text-fdd942 bs-bg-black" style="width: 120px;height: 48px;padding: 0;" ms-click="goNext" ms-attr-disabled="isGoNext">立即预订</button>
+        </div>
     </div>
 </div>
