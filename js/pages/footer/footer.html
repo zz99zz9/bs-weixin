@@ -26,22 +26,30 @@
 .footer-content div {
     font-size: 8px;
 }
+
+.footer-picture{
+    height: 24px;
+    width: 24px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
 </style>
 <div class="footer-nav" ms-controller="footer">
     <div class="footer-content" ms-on-tap="goIndex">
-        <img ms-attr-src="{{headUrl}}" class="">
+        <div class="footer-picture" ms-css-background-image="url({{headUrl}})"></div>
         <div class="">主页</div>
     </div>
     <div class="footer-content" ms-on-tap="goRoom">
-        <img ms-attr-src="{{checkinUrl}}" class="">
-        <div class="">入住</div>
+        <div class="footer-picture" ms-css-background-image="url({{checkinUrl}})"></div>
+        <div class="" style="margin-right: 1px;">入住</div>
     </div>
     <div class="footer-content" ms-on-tap="goOrder">
-        <img ms-attr-src="{{orderUrl}}" class="">
-        <div class="">订单</div>
+        <div class="footer-picture" ms-css-background-image="url({{orderUrl}})"></div>
+        <div class="" style="margin-right: 1px;">订单</div>
     </div>
     <div class="footer-content" ms-on-tap="goMore">
-        <img ms-attr-src="{{moreUrl}}" class="">
+        <div class="footer-picture" ms-css-background-image="url({{moreUrl}})"></div>
         <div class="">更多</div>
     </div>
 </div>

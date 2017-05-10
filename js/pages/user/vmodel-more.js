@@ -16,6 +16,21 @@
 
 var vmMore = avalon.define({
     $id: 'more',
+    isVip: 0,  //根据是否买卡来判断  0-不是  1-是
+    getCardList: function() {
+        ajaxJsonp({
+            url: urls.getCardList,
+            successCallback: function(json) {
+                if (json.status == 1) {
+                    // json.data.map(function(o) {
+                    //     vmMore.cardTypeList.push(o.type);
+                    // });
+                    vmMore.isVip = json.data.length;
+                    console.log(vmMore.isVip);
+                }
+            }
+        });
+    },
     // goIndex: function() {
     //     stopSwipeSkip.do(function() {
     //         location.href = "../index.html";
@@ -37,3 +52,5 @@ var vmMore = avalon.define({
     //     })
     // },
 });
+
+vmMore.getCardList();

@@ -27,7 +27,7 @@ var vmFooter = avalon.define({
     },
     goOrder: function() {
         stopSwipeSkip.do(function() {
-            location.href = "../newOrderList.html";
+            location.href = "../orderList.html";
         })
     },
     goMore: function() {
@@ -41,7 +41,7 @@ var vmFooter = avalon.define({
             vmFooter.headUrl = vmFooter.list[0].url;
         } else if (path.indexOf('service/orderList.html') > -1 || path.indexOf('service/ready.html') > -1 || path.indexOf('inroom.html') > -1) {
             vmFooter.checkinUrl = vmFooter.list[1].url;
-        } else if (path.indexOf('newOrderList.html') > -1 || path.indexOf('checkOut.html') > -1) {
+        } else if (path.indexOf('orderList.html') > -1 || path.indexOf('checkOut.html') > -1) {
             vmFooter.orderUrl = vmFooter.list[2].url;
         } else if (path.indexOf('more.html') > -1) {
             vmFooter.moreUrl = vmFooter.list[3].url;

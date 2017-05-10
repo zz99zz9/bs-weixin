@@ -355,7 +355,8 @@ var vmAvatar = avalon.define({
     cancelEdit: function() {
         // vmAvatar.isEdit = false;
         // bs_cropper.stopCropper();
-        location.href = "index.html";
+        history.go(-1);
+        // location.href = "index.html";
     },
     isUpload: false,
     upload: function() {
@@ -406,8 +407,8 @@ var vmAvatar = avalon.define({
                                         headImg: data.Data.thuUrl,
                                     };
                                     Storage.setLocal('user', user);
-
-                                    location.href = "index.html";
+                                    history.go(-1);
+                                    //location.href = "index.html";
                                 } else {
                                     alert(json.message);
                                     vmAvatar.isUpload = false;
