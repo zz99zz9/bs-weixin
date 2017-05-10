@@ -338,11 +338,18 @@ function orderList() {
         }))
         .pipe(replace({
             regex: '<!-- js -->',
-            replace: '<script src="js/pages/order/vmodel-orderList.js"></script>'
+            replace: '<script src="js/pages/order/vmodel-orderList.js"></script>\n' + '<script src="../js/pages/footer/footer.js"></script>'
         }))
         .pipe(replace({
             regex: '<!-- content -->',
             replace: '<!--include "../pages/order/orderList.html"-->'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(replace({
+            regex: '<!-- footer -->',
+            replace: '<!--include "../pages/footer/footer.html"-->'
         }))
         .pipe(contentIncluder({
             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
@@ -3070,8 +3077,12 @@ function avatar() {
             replace: '<link rel="stylesheet" href="css/cropper.min.css">'
         }))
         .pipe(replace({
+            regex: '<!-- js before avalon -->',
+            replace: '<script src="../js/lib/cropper.min.js"></script>'
+        }))
+        .pipe(replace({
             regex: '<!-- js -->',
-            replace: '<script src="js/lib/cropper.min.js"></script>\n<script src="js/pages/user/avatar.js"></script>'
+            replace: '<script src="js/pages/user/avatar.js"></script>'
         }))
         .pipe(replace({
             regex: '<!-- content -->',
@@ -3306,7 +3317,7 @@ function serviceProcess() {
     return gulp.src('./js/layout/shell.html')
         .pipe(replace({
             regex: '<!-- title -->',
-            replace: '<title>做些准备...</title>'
+            replace: '<title>做些准备</title>'
         }))
         .pipe(replace({
             regex: '<!-- css -->',
@@ -3437,16 +3448,35 @@ function tokensRecharge() {
             regex: '<!-- content -->',
             replace: '<!--include "../pages/recharge/tokensRecharge.html"-->'
         }))
+        .pipe(rename('tokensRecharge.html'))
+        .pipe(gulp.dest('./src'));
+}
+//总资产显示页面
+function totalAssets() {
+    return gulp.src('./js/layout/shell.html')
+        .pipe(replace({
+            regex: '<!-- title -->',
+            replace: '<title>总资产</title>'
+        }))
+        .pipe(replace({
+            regex: '<!-- js -->',
+            replace: '<script src="../js/pages/assets/information.js"></script>'
+        }))
+        .pipe(replace({
+            regex: '<!-- content -->',
+            replace: '<!--include "../pages/assets/information.html"-->'
+        }))
         .pipe(contentIncluder({
             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
         }))
-        .pipe(rename('tokensRecharge.html'))
+        .pipe(rename('totalAssets.html'))
         .pipe(gulp.dest('./src'));
+
 }
 
 //邀请好友
 function inviteFriend() {
-        return gulp.src('./js/layout/shell.html')
+    return gulp.src('./js/layout/shell.html')
         .pipe(replace({
             regex: '<!-- title -->',
             replace: '<title>邀请好友</title>'
@@ -3459,10 +3489,30 @@ function inviteFriend() {
             regex: '<!-- content -->',
             replace: '<!--include "../pages/invite/invitefriend.html"-->'
         }))
+        .pipe(rename('invitefriend.html'))
+        .pipe(gulp.dest('./src'));
+}
+
+
+//总资产收支明细
+function totalAssetsDetail() {
+    return gulp.src('./js/layout/shell.html')
+        .pipe(replace({
+            regex: '<!-- title -->',
+            replace: '<title>收支明细</title>'
+        }))
+        .pipe(replace({
+            regex: '<!-- js -->',
+            replace: '<script src="../js/pages/assets/assetsDetail.js"></script>'
+        }))
+        .pipe(replace({
+            regex: '<!-- content -->',
+            replace: '<!--include "../pages/assets/assetsDetail.html"-->'
+        }))
         .pipe(contentIncluder({
             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
         }))
-        .pipe(rename('invitefriend.html'))
+        .pipe(rename('totalAssetsDetail.html'))
         .pipe(gulp.dest('./src'));
 }
 
@@ -3661,7 +3711,9 @@ gulp.task('html', gulp.parallel(
     temperature,
     telecontroller,
     tokensRecharge,
-    inviteFriend
+    inviteFriend,
+    totalAssets,
+    totalAssetsDetail
 ));
 
 function watchForReload() {

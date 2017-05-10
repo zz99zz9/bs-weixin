@@ -1612,3 +1612,7 @@ hr {
     text-align: left;
     border-radius: 18px;
 }
+
+.layout-center {
+    text-align: center;
+}

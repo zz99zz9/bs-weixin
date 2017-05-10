@@ -86,6 +86,12 @@ var vmCalendar = avalon.define({
                     case vmCalendar.status.calendar:
                         setStart(vmCalendar.startIndex);
                         setEnd(vmCalendar.endIndex);
+                        clockObj.setPrice();
+
+                         $.extend(newOrder.day, {
+                            timeSpan: clockObj.getTimeSpan()
+                        });
+                        Storage.set("newOrder", newOrder);
                         vmCalendar.goDayClock();
                         break;
                     case vmCalendar.status.dayClock:
@@ -213,11 +219,17 @@ var vmCalendar = avalon.define({
             // vmCalendar.isShowClock = false;
             if (typeof(vmCity) != 'undefined') {
                 vmCity.setBottomBarTime();
+                vmCity.getHotelPosition(mapObj);
             }
-
+            if (typeof(vmRoom) != 'undefined') {
+                sessionToDateData()
+                vmRoom.getData();
+                vmRoom.startIndex = vmCalendar.startIndex;
+            }
             if (vmCalendar.key == vmCalendar.status.dayClock) {
                 vmCalendar.status.key = vmCalendar.status.calendar;
             }
+
         },
         save: function() {
             if (typeof(vmCity) != 'undefined') {
@@ -232,19 +244,21 @@ var vmCalendar = avalon.define({
                 vmHotel.getRoomTypeList();
             }
             if (typeof(vmRoom) != 'undefined') {
-                if(vmCalendar.status.key == vmCalendar.status.partTimeClock) {
-                    vmRoom.showPartTime();
-                } else {
-                    vmRoom.showDate();
-                }
+                // if(vmCalendar.status.key == vmCalendar.status.partTimeClock) {
+                //     vmRoom.showPartTime();
+                // } else {
+                //     vmRoom.showDate();
+                // }
                 // saveStorage();
+                sessionToDateData()
                 vmRoom.getData();
                 vmRoom.startIndex = vmCalendar.startIndex;
+                vmRoom.price = clockObj.getPrice();
             }
         },
-        iniCalendarModal: function() {
+        iniCalendarModal: function(tid) {
             $('#calendarPanel').height($(window).height() - 250);
-            clockObj = clock();
+            clockObj = clock(tid);
 
             //有缓存的时候
             if(bensue) {
