@@ -138,6 +138,21 @@ var vmSave = avalon.define({
         vmSave.newNickname = vmSave.nickname;
         vmSave.newMobile = vmSave.mobile;
     },
+    changeImg: function() {
+        stopSwipeSkip.do(function() {
+            ajaxJsonp({
+                url: urls.userInfotUrl,
+                data: {},
+                successCallback: function(json) {
+                    if (json.status == 1) { //已登录
+                        location.href = '../avatar.html';
+                    } else {
+                        mui.alert(json.message);
+                    }
+                }
+            });
+        });
+    },
     save: function() {
         if(vmSave.isNameChange || vmSave.isNicknameChange || vmSave.isMobileChange) {
             var reg = /^(((13[0-9]{1})|(15[0-9]{1})|(17[0-9]{1})|(18[0-9]{1}))+\d{8})$/;

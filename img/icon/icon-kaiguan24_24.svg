@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="28px" height="27px" viewBox="0 0 28 27" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 43.2 (39069) - http://www.bohemiancoding.com/sketch -->
+    <title>Group 3</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <filter x="-13.5%" y="-4.3%" width="127.1%" height="110.2%" filterUnits="objectBoundingBox" id="filter-1">
+            <feOffset dx="0" dy="1" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.24 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="SourceGraphic"></feMergeNode>
+            </feMerge>
+        </filter>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="入住-前置-调温状态" transform="translate(-254.000000, -348.000000)">
+            <g id="Group-2" filter="url(#filter-1)" transform="translate(244.000000, 337.000000)">
+                <g id="Group-3" transform="translate(12.000000, 12.000000)">
+                    <rect id="Path" x="0" y="0" width="24" height="24"></rect>
+                    <path d="M18.5177558,4.21430888 L18.4995573,4.23191769 L18.1724686,3.9411598 C18.0925689,3.87008737 17.9596524,3.78546078 17.780197,3.78546078 C17.4688372,3.78546078 17.2117696,4.03625128 17.2070934,4.34583439 C17.2034091,4.54891505 17.2926814,4.66578585 17.3206169,4.69733497 C19.5239817,6.33215541 20.7871537,8.7768077 20.7871537,11.4094226 C20.7871537,16.0949514 16.8340123,19.9068744 11.9750105,19.9068744 C7.1160087,19.9068744 3.162928,16.0949514 3.162928,11.4094226 C3.162928,8.77609332 4.4250069,6.33230988 6.62699514,4.69914992 C6.7234942,4.5973972 6.7763288,4.46587171 6.7763288,4.32596653 C6.7763288,4.02126833 6.51922066,3.7733354 6.20322521,3.7733354 C5.97419431,3.7733354 5.81858528,3.90069041 5.79275502,3.92322274 L5.78143911,3.9357729 L5.75220802,3.95851761 C3.36762666,5.81101548 2,8.52673159 2,11.4094226 C2,16.7132681 6.47482744,21.0282587 11.9750307,21.0282587 C17.4752745,21.0282587 21.9500008,16.7132681 21.9500008,11.4094226 C21.9500008,8.66049684 20.7042783,6.0601069 18.5177558,4.21430888 L18.5177558,4.21430888 Z M11.9750307,12.0969195 C12.2956214,12.0969195 12.5564745,11.8454532 12.5564745,11.5362562 L12.5564745,2.56066322 C12.5564745,2.25150489 12.2956214,2 11.9750307,2 C11.6544401,2 11.393587,2.2515049 11.393587,2.56066322 L11.393587,11.5342096 C11.393587,11.8445457 11.6544199,12.0969195 11.9750307,12.0969195 Z" id="Shape" fill="#444444" fill-rule="nonzero"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
