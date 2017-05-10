@@ -3,7 +3,8 @@
  * Edited by Michael on 2017/5/2
  */
 
-var user = Storage.getLocal("user"), autocomplete;
+var user = Storage.getLocal("user"),
+    autocomplete;
 var vmIndex = avalon.define({
     $id: 'index',
     userName: '先生/女士',
@@ -61,28 +62,26 @@ var vmIndex = avalon.define({
     goToUrl: function(url) {
         location.href = url;
     },
-<<<<<<< HEAD
-    goCity: function(city, cid) {
-        stopSwipeSkip.do(function() {
+    // goCity: function(city, cid) {
+    //     stopSwipeSkip.do(function() {
 
-            vmSearch.saveCityMode(city, cid);
+    //         vmSearch.saveCityMode(city, cid);
 
-            location.href = "../city.html";
-        })
-    },
+    //         location.href = "../city.html";
+    //     })
+    // },
     goHotel: function(id) {
         stopSwipeSkip.do(function() {
             location.href = "../hotel.html?id=" + id;
-        })
-=======
-    goCity: function(cityName,sh) {
+        });
+    },
+    goCity: function(cityName, sh) {
         stopSwipeSkip.do(function() {
             console.log(sh);
-            if(sh === 1){
-            location.href = "../city.html?position=" + cityName;
-         }
+            if (sh === 1) {
+                location.href = "../city.html?position=" + cityName;
+            }
         });
->>>>>>> jj
     },
     moreHotel: [],
     getMoreHote: function() {
@@ -123,8 +122,6 @@ if (user && user.nickname) {
 
 vmIndex.getCityImgList();
 vmIndex.getMoreHote();
-<<<<<<< HEAD
-=======
 
 var vmSearch = avalon.define({
     $id: 'search',
@@ -140,4 +137,3 @@ var vmSearch = avalon.define({
         });
     }
 });
->>>>>>> jj
