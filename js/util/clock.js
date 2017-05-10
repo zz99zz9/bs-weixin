@@ -40,7 +40,8 @@ var clock = function(roomTypeId) {
         hourCoord = [],
         _tempDate = null,
         tid = roomTypeId || 0, //房型id，非0才查询房价
-        price = 0, //房价
+        price = 0, //现金价
+        timeCoin = 0, //时币价
         colorArray = ["rgb(238,238,238)","rgb(221,221,221)","rgb(204,204,204)","rgb(187,187,187)","rgb(170,170,170)","rgb(153,153,153)","rgb(136,136,136)","rgb(119,119,119)","rgb(102,102,102)","rgb(85,85,85)"];
 
 
@@ -125,10 +126,10 @@ var clock = function(roomTypeId) {
     }
 
     //触摸事件绑定
-    canvas.ontouchstart = function(e) {
+    canvas.addEventListener("touchstart", function(e) {
         e.preventDefault();
 
-        var coord = getCoord(e.touches[0].pageX, e.touches[0].pageY, cw, ch, canvas.offsetLeft, canvas.offsetTop),
+        var coord = getCoord(e.touches[0].clientX, e.touches[0].clientY, cw, ch, canvas.offsetLeft, canvas.offsetTop),
             tx = coord.x,
             ty = coord.y;
 
@@ -136,10 +137,10 @@ var clock = function(roomTypeId) {
         beforeTouchT1 = t1;
         isTouchDot2 = isDot2Touched(tx, ty);
         beforeTouchT2 = t2;
-    }
+    });
 
-    canvas.ontouchmove = function(e) {
-        var coord = getCoord(e.touches[0].pageX, e.touches[0].pageY, cw, ch, canvas.offsetLeft, canvas.offsetTop),
+    canvas.addEventListener("touchmove", function(e) {
+        var coord = getCoord(e.touches[0].clientX, e.touches[0].clientY, cw, ch, canvas.offsetLeft, canvas.offsetTop),
             tx = coord.x,
             ty = coord.y,
             clock1 = {},
@@ -159,13 +160,11 @@ var clock = function(roomTypeId) {
                 var today = new Date();
                 if((isSameDay(t1, today)&&clock1.time >= getNowHour())
                     ||!isSameDay(t1, today)) {
-                    
                     if(h1 != clock1.time) {
                         h1 = clock1.time;
                         t1.setHours(h1);
                         getPrice();
                     }
-
                     // if (isChangeDay(beforeTouchT1, deltaHour1, h1)) {
                     //     //天数出现变动，发布消息
                     //     //日历calendar.js会订阅
@@ -277,9 +276,9 @@ var clock = function(roomTypeId) {
         }
 
         getStartandEnd();
-    }
+    });
 
-    canvas.ontouchend = function(e) {
+    canvas.addEventListener("touchend", function(e) {
         isTouchDot1 = false;
         isTouchDot2 = false;
 
@@ -287,7 +286,7 @@ var clock = function(roomTypeId) {
         deltaHour2 = 0;
 
         _tempDate = null;
-    }
+    });
 
     //画布初始化
     function iniCanvas() {
@@ -685,7 +684,8 @@ var clock = function(roomTypeId) {
                 successCallback: function(json) {
                     if (json.status == 1) {
                         price = json.data.amount;
-                        console.log(price);
+                        timeCoin = json.data.timeCoin;
+
                         draw(dx1, dy1, dx2, dy2);
                     }
                 }
@@ -785,7 +785,7 @@ var clock = function(roomTypeId) {
             getPrice();
         },
         getPrice: function() {
-            return price;
+            return {price: price, timeCoin: timeCoin};
         }
     };
 };

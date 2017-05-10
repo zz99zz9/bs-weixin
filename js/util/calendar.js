@@ -253,7 +253,8 @@ var vmCalendar = avalon.define({
                 sessionToDateData()
                 vmRoom.getData();
                 vmRoom.startIndex = vmCalendar.startIndex;
-                vmRoom.price = clockObj.getPrice();
+                vmRoom.price = clockObj.getPrice().price;
+                vmRoom.timeCoin = clockObj.getPrice().timeCoin;
             }
         },
         iniCalendarModal: function(tid) {

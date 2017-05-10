@@ -77,7 +77,7 @@ var urls = {
     submitOrder: urlAPI + '/web/trd/orderInfo/submit', //提交订单
     cancelOrder: urlAPI + '/web/trd/orderInfo/cancel', //取消订单
     saveSub: urlAPI + '/web/trd/orderComment/save', //用户提交评论
-    payOrder: urlAPI + '/web/trd/pay/orderInfoPay/cashier', //支付订单
+    payOrder: urlAPI + '/ordercenter/trd/pay/orderInfoPay/cashier', //支付订单
     unsubscribeOrder: urlAPI + '/web/trd/refund/orderInfoRefund/refund', //退订订单
     getWaitRoomList: urlAPI + '/ordercenter/trd/orderRoom/findByUidOrderRoomList', //根据用户查询待入住房间列表
 
