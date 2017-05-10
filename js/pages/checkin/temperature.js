@@ -8,7 +8,7 @@ var vmTemperature = avalon.define({
         stopSwipeSkip.do(function() {
             vmTemperature.isOpen = !vmTemperature.isOpen;
             vmTemperature.goDevice(vmTemperature.isOpen ? urls.openAir : urls.closeAir, vmTemperature.airPowerId); //上行的开关判断已经调换了，所以这行也要调换，即非零调关机接口，0调开机接口
-        })
+        });
     },
     airTempUpId: 0,
     airTempDownId: 0,
@@ -38,7 +38,7 @@ var vmTemperature = avalon.define({
                         }
                     });
                 } else {
-                    mui.alert(json.message)
+                    mui.alert(json.message);
                 }
             }
         });
@@ -104,14 +104,14 @@ var vmTemperature = avalon.define({
         stopSwipeSkip.do(function() {
             vmTemperature.isMode = value;
             vmTemperature.goDevice(urls.changeAirMode, vmTemperature.airModeId, value, -1);
-        })
+        });
     },
     isWind: 0, //  1-低  2-中  3-高
     changeWind: function(value) {
         stopSwipeSkip.do(function() {
             vmTemperature.isWind = value;
             vmTemperature.goDevice(urls.changeAirWind, vmTemperature.airWindId, -1, value);
-        })
+        });
     },
 });
 
