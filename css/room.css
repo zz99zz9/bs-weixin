@@ -249,7 +249,7 @@ section {
     padding-left: 10px;
 }
 .checkin div img {
-    width: 15px;
+    width: 24px;
     float: right;
     right: 10px;
     position: relative;
@@ -270,10 +270,4 @@ section {
 .mui-toast-message {
     color: #fff;
     background-color: #dd524d;
-}
-
-#only {
-    width: 95%;
-    height: 49px;
-    margin: 0 2.5vw;
 }
