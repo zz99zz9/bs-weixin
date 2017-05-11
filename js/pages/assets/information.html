@@ -26,9 +26,8 @@
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    margin-top: 5vh;
+    margin-top: 2vh;
     border-top: 1px solid #ccc;
-    border-bottom: 1px solid #ccc;
 }
 
 .profit-title {
@@ -45,6 +44,7 @@
     height: 10vh;
     width: 50%;
     border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
 }
 
 .profit-right {
@@ -53,6 +53,7 @@
     align-items: center;
     height: 10vh;
     width: 50%;
+    border-bottom: 1px solid #ccc;
 }
 
 .unit-spacing {
@@ -78,33 +79,17 @@
             </div>
         </div>
         <div class="profit-block">
-            <div class="profit-left" style="border-bottom: 1px solid #ccc;">
+            <div ms-repeat="list" ms-class-1="profit-left: $index%2!=1" ms-class-2="profit-right: $index%2==1">
                 <div class="unit-spacing">
-                    提前退房
+                    {{el.description}}
                 </div>
                 <div>
-                    +20.00
-                </div>
-            </div>
-            <div class="profit-right" style="border-bottom: 1px solid #ccc;">
-                <div class="unit-spacing">
-                    现金兑换
-                </div>
-                <div>
-                    +60.00
-                </div>
-            </div>
-            <div class="profit-left">
-                <div class="unit-spacing">
-                    邀请奖励
-                </div>
-                <div>
-                    +20.00
+                    {{(el.amount>=0?'+':'-') + ' ' + el.amount}}
                 </div>
             </div>
         </div>
     </div>
-    <div class="btn bs-text-bold bs-text-18 bs-bg-white layout-center">
+    <div class="btn bs-text-bold bs-text-18 bs-bg-white layout-center" ms-on-tap="goRecharge">
         充值
     </div>
 </div>

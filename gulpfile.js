@@ -3448,6 +3448,9 @@ function tokensRecharge() {
             regex: '<!-- content -->',
             replace: '<!--include "../pages/recharge/tokensRecharge.html"-->'
         }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
         .pipe(rename('tokensRecharge.html'))
         .pipe(gulp.dest('./src'));
 }
