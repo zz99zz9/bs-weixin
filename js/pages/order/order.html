@@ -5,7 +5,8 @@
     border-radius: 5px;
     box-shadow: 0px 1px 3px 0px #bdbdbd;
 }
-.order-info .order-item {
+/*订单页的order-item不要阴影*/
+.order-list .order-item {
     box-shadow: none;
 }
 
@@ -13,7 +14,7 @@
     background-color: #f2f2f2;
     border-radius: 5px;
     text-align: center;
-    margin: 5px 15px;
+    margin: 5px 24px;
     margin-top: -7px;
     height: 40px;
     line-height: 40px;
@@ -72,9 +73,9 @@ input[type=checkbox] {
 
 .orderBar {
     width: 100vw;
-    position: fixed;
+    /*position: fixed;
     bottom: 0;
-    box-shadow: 0px 1px 3px 0px #bdbdbd;
+    box-shadow: 0px 1px 3px 0px #bdbdbd;*/
 }
 .order-btn {
     width: 45vw;
@@ -109,7 +110,7 @@ input[type=checkbox] {
         </div>
 
         <ul class="order-list">
-            <li class="order-item" ms-repeat="data.orderRoomList" ms-data-index="$index" ms-click="selectRoom($index, el.status)" style="padding: 8px 0 8px 10px;">
+            <li class="order-item" ms-repeat="data.orderRoomList" ms-data-index="$index" ms-on-tap="selectRoom($index, el.status)" style="padding: 8px 0 8px 10px;">
                 <div class="hiddenbox">
                     <input type="checkbox" style="display: none;" ms-duplex-number="selectedList" ms-attr-value="$index" />
                     <div ms-visible="data.status==1" class="check-icon" ms-class-1="unchecked:selectedList.indexOf($index)<0" ms-class-2="checked:selectedList.indexOf($index)>-1" style="position: absolute; right: 5px;top: 7px;"></div>
@@ -140,14 +141,14 @@ input[type=checkbox] {
                 <span style="clear: both;">&nbsp;</span>
             </li>
         </ul>
-        <div class="bs-text-large bookMore" ms-click="goHotelById(data.hotel.id)" ms-if="data.status==1">
+        <div class="bs-text-large bookMore" ms-on-tap="goHotelById(data.hotel.id)" ms-if="data.status==1">
             <span class="mui-icon mui-icon-plusempty" style="font-size: 32px;position: relative;top: 3px;"></span>预定更多房间
         </div>
         <!-- <div class="order-panel" ms-if="data.status==1"> -->
         <div class="order-panel" ms-if="data.status==1&&fundList.$model.length>0">
             <div class="order-panel-title bs-text-large bs-text-gray">优惠券</div>
             <div class="order-fundList">
-                <div class="order-fund bs-text-normal bs-text-gold" ms-click="selectFund($index, el.type)" ms-repeat="fundList" ms-class="selected: $index == fundIndex" ms-if-loop="el.isValid">
+                <div class="order-fund bs-text-normal bs-text-gold" ms-on-tap="selectFund($index, el.type)" ms-repeat="fundList" ms-class="selected: $index == fundIndex" ms-if-loop="el.isValid">
                     <div ms-if="el.type==1">¥<span class="bs-text-x-large">{{el.money}}</span>
                     </div>
                     <div ms-if="el.type==2" style="width: 68px;margin: 9px auto;line-height: 17px;white-space: normal;">{{el.remarks}}</div>
@@ -193,7 +194,7 @@ input[type=checkbox] {
             <div>
                 <span class="info-left">实付金额:</span>
                 <span class="info-right">
-                    {{data.status!=1?data.paidAmount:(round(needAmount-fund)<0?0:round((needAmount-fund)*discount))}}元
+                    {{getPrice(needAmount, fund, discount)}}元
                 </span>
             </div>
         </div>
@@ -202,29 +203,29 @@ input[type=checkbox] {
     <div class="order-info bs-text-small" ms-if="data.status==1">
         <div class="order-panel bs-text-small bs-text-444">
             <div class="order-panel-title bs-text-larger">支付方式</div>
-            <div ms-click="selectPayType(6)" class="payTypeRow">
+            <div ms-on-tap="selectPayType(6)" class="payTypeRow" ms-if="discount<1">
                 <div class="hiddenbox">
                     <div class="check-icon" ms-class-1="unchecked:payType!=6" ms-class-2="checked:payType==6"></div>
                 </div>
                 <span class="bs-text-normal bs-text-black">钱包支付</span>
             </div>
-            <div ms-click="selectPayType(8)" class="payTypeRow">
+            <div ms-on-tap="selectPayType(8)" class="payTypeRow">
                 <div class="hiddenbox">
                     <div class="check-icon" ms-class-1="unchecked:payType!=8" ms-class-2="checked:payType==8"></div>
                 </div>
                 <span class="bs-text-normal bs-text-black">时币支付</span>
             </div>
-            <div ms-click="selectPayType(2)" class="payTypeRow">
+            <div ms-on-tap="selectPayType(2)" class="payTypeRow">
                 <div class="hiddenbox">
                     <div class="check-icon" ms-class-1="unchecked:payType!=2" ms-class-2="checked:payType==2"></div>
                 </div>
                 <span class="bs-text-normal bs-text-black">微信支付</span>
             </div>
-            <div ms-click="selectPayType(1)" class="payTypeRow">
+            <div ms-on-tap="selectPayType(1)" class="payTypeRow">
                 <div class="hiddenbox">
                     <div class="check-icon" ms-class-1="unchecked:payType!=1" ms-class-2="checked:payType==1"></div>
                 </div>
-                <span class="bs-text-normal bs-text-black">支付宝支付（请在浏览器中打开）</span>
+                <span class="bs-text-normal bs-text-black">支付宝支付</span>
             </div>
         </div>
     </div>
@@ -250,14 +251,12 @@ input[type=checkbox] {
           </li>
         </ul>
     </div>
-    <br>
-    <br>
-    <br>
-    <div class="orderBar bs-bg-white" ms-if="btn1Text!=''||btn2Text!=''">
+
+    <div class="orderBar" ms-if="btn1Text!=''||btn2Text!=''">
         <div style="display: flex;justify-content: space-around;">
-            <button type="button" class="order-btn bs-text-444 bs-text-larger" ms-click="btn1Click" ms-if="btn1Text!=''" ms-attr-disabled="btn1Disabled" ms-class-1="bs-bg-bd:data.status==1||data.status==2" ms-class-2="bs-bg-gold:data.status==3||data.staus==4">{{btn1Text}}
+            <button type="button" class="order-btn bs-text-444 bs-text-larger" ms-on-tap="btn1Click" ms-if="btn1Text!=''" ms-attr-disabled="btn1Disabled" ms-class-1="bs-bg-bd:data.status==1||data.status==2" ms-class-2="bs-bg-gold:data.status==3||data.staus==4">{{btn1Text}}
             </button>
-            <button type="button" class="order-btn bs-text-yellow bs-text-larger bs-bg-black" ms-click="btn2Click" ms-if="btn2Text!=''" ms-attr-disabled="btn2Disabled">{{btn2Text}}</button>
+            <button type="button" class="order-btn bs-text-yellow bs-text-larger bs-bg-black" ms-on-tap="btn2Click" ms-if="btn2Text!=''" ms-attr-disabled="btn2Disabled">{{btn2Text}}</button>
         <!--  ms-class="visible-hidden:btn1Text==''
             ms-class="visible-hidden:btn2Text==''" -->
         </div>

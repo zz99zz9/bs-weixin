@@ -72,15 +72,15 @@ var urls = {
     //设计师相关
     getDesigner: urlAPI + '/web/usr/designer/get', //设计师详情
     //订单相关
-    getOrderList: urlAPI + '/web/trd/orderInfo/list', //订单列表
-    getOrderDetail: urlAPI + '/web/trd/orderInfo/detail', //订单详情
-    submitOrder: urlAPI + '/web/trd/orderInfo/submit', //提交订单
+    getOrderList: urlAPI + '/ordercenter/trd/orderInfo/list', //订单列表
+    getOrderDetail: urlAPI + '/ordercenter/trd/orderInfo/detail', //订单详情
+    submitOrder: urlAPI + '/ordercenter/trd/orderInfo/submit', //提交订单
     cancelOrder: urlAPI + '/web/trd/orderInfo/cancel', //取消订单
     saveSub: urlAPI + '/web/trd/orderComment/save', //用户提交评论
     payOrder: urlAPI + '/ordercenter/trd/pay/orderInfoPay/cashier', //支付订单
-    unsubscribeOrder: urlAPI + '/web/trd/refund/orderInfoRefund/refund', //退订订单
+    unsubscribeOrder: urlAPI + '/ordercenter/trd/refund/orderInfoRefund/refund', //退订订单
     getWaitRoomList: urlAPI + '/ordercenter/trd/orderRoom/findByUidOrderRoomList', //根据用户查询待入住房间列表
-
+    checkOut: urlAPI + '/ordercenter/trd/orderInfo/checkOut', //退房
     //余额
     getBalance: urlAPI + '/web/usr/userBalanceAccount/info', //查询用户余额详情
     submitBalanceOrder: urlAPI + '/web/usr/userBalanceOrderInfo/submit', //提交余额充值订单
@@ -94,9 +94,9 @@ var urls = {
     socialList: urlAPI + '/web/svr/hotelSocialStore/list',//社会化商铺列表
     //客控
     openDoorList: urlAPI + '/web/trd/hotelControl/openDoorList',//查询当前登录用户开门列表
-    checkOutDoorList: urlAPI + '/web/trd/hotelControl/checkOutList',//查询当前登录用户退房列表
-    openDoor: urlAPI + '/web/trd/hotelControl/openDoor',// 微信开门
-    checkOutDoor: urlAPI + '/web/trd/hotelControl/checkOut',//微信退房
+    // checkOutDoorList: urlAPI + '/web/trd/hotelControl/checkOutList',//查询当前登录用户退房列表
+    // openDoor: urlAPI + '/web/trd/hotelControl/openDoor',// 微信开门
+    // checkOutDoor: urlAPI + '/web/trd/hotelControl/checkOut',//微信退房
     getAirDeviceList: urlAPI + '/ordercenter/smk/airc/deviceList',//空调设备列表
     closeAir: urlAPI + '/ordercenter/smk/airc/close',//空调关机
     changeAirMode: urlAPI + '/ordercenter/smk/airc/changeMode',//空调切换模式
