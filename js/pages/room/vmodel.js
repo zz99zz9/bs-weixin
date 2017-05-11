@@ -226,7 +226,7 @@ vmRoom = avalon.define({
 
                         location.href = "order.html?id=" + json.data.id;
                     } else {
-                        alert(json.message);
+                        mui.alert(json.message);
                         vmRoom.isGoNext = false;
                     }
                 }

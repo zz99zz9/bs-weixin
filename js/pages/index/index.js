@@ -62,25 +62,18 @@ var vmIndex = avalon.define({
     goToUrl: function(url) {
         location.href = url;
     },
-    // goCity: function(city, cid) {
-    //     stopSwipeSkip.do(function() {
-
-    //         vmSearch.saveCityMode(city, cid);
-
-    //         location.href = "../city.html";
-    //     })
-    // },
+    goCity: function(city, cid, status) {
+        stopSwipeSkip.do(function() {
+            console.log(city, cid, status);
+            if (status === 1) {
+                vmSearch.saveCityMode(city, cid);
+                location.href = "../city.html";
+            }
+        });
+    },
     goHotel: function(id) {
         stopSwipeSkip.do(function() {
             location.href = "../hotel.html?id=" + id;
-        });
-    },
-    goCity: function(cityName, sh) {
-        stopSwipeSkip.do(function() {
-            console.log(sh);
-            if (sh === 1) {
-                location.href = "../city.html?position=" + cityName;
-            }
         });
     },
     moreHotel: [],
@@ -113,7 +106,11 @@ var vmIndex = avalon.define({
             freeModeMomentumRatio: 0.4,
         });
     },
-
+    goGetTimecoins: function() {
+        stopSwipeSkip.do(function() {
+            location.href = "../getTimeCoins.html";
+        });
+    }
 });
 
 if (user && user.nickname) {
@@ -123,17 +120,3 @@ if (user && user.nickname) {
 vmIndex.getCityImgList();
 vmIndex.getMoreHote();
 
-var vmSearch = avalon.define({
-    $id: 'search',
-    city: '上海',
-    currentLocation: '正在定位...',
-    getCurrentPosition: function() {
-        vmSearch.currentLocation = '正在定位...';
-        geolocation.getCurrentPosition();
-    },
-    closePop: function() {
-        stopSwipeSkip.do(function() {
-            modalClose();
-        });
-    }
-});
