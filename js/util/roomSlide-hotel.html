@@ -1,11 +1,38 @@
+<style>
+.pirce-unit {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    position: absolute;
+    width: 97px;
+    background-color: rgba(0, 0, 0, .75);
+    padding: 4px 10px;
+    bottom: 10px;
+}
+
+.pirce-money {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+</style>
 <div style="height: 34vh;background-size: cover;background-position: center;position: relative;" ms-css-background-image="'url(' + urlAPINet + el.coverUrl+')'" ms-on-tap="goHotel(el.id)">
-    <div class="bs-text-white bs-text-smaller" style="display: inline-block;float: right;margin-top: 12px;padding: 0 12px;background: rgba(0,0,0,0.5);">
+    <!-- <div class="bs-text-white bs-text-smaller" style="display: inline-block;float: right;margin-top: 12px;padding: 0 12px;background: rgba(0,0,0,0.5);">
         <span style="position: relative;top: 1px;">{{round(el.distance/1000)}} km</span>
-    </div>
-    <label class="hotel-price-lable" style="height: 35px;padding-right: 15px;padding-left: 10px;bottom: 15px;background: rgba(0,0,0,.5);">
+    </div> -->
+    <div class="guestFull bs-text-x-smaller layout-center">满&emsp;房</div>
+    <div class="distance bs-text-white bs-text-x-smaller layout-center">{{round(el.distance/1000)}}km</div>
+    <!-- <label class="hotel-price-lable" style="height: 35px;padding-right: 15px;padding-left: 10px;bottom: 15px;background: rgba(0,0,0,.5);">
         <span class="bs-text-18" style="font-weight: bold;">￥{{type?round(el.minPrice*6):el.minPrice}}</span>
         <span>{{type==0?"/晚起":(type==1?"/3小时起":"")}}</span>
-    </label>
+    </label> -->
+    <div class="pirce-unit bs-text-white bs-text-x-smaller">
+        <div class="pirce-money">
+            <div class="bs-text-small bs-text-bold" style="border-bottom: 1px solid #999;">180元</div>
+            <div class="bs-text-fdd942 bs-text-small bs-text-bold">15时币</div>
+        </div>
+        <div>/晚起</div>
+    </div>
 </div>
 <div class="bs-bg-white" style="height: 100px;padding: 16px 0 16px;">
     <span class="bs-text-20 bs-text-444" style="font-weight: 900;" ms-on-tap="goHotel(el.id)">{{el.name}}&nbsp;</span>

@@ -375,7 +375,7 @@ function order() {
         }))
         .pipe(replace({
             regex: '<!-- pop -->',
-            replace: '<!--include "../pages/user/popover.html"-->'
+            replace: '<!--include "../pages/user/popover.html"--><!--include "../util/modal.html"-->'
         }))
         .pipe(contentIncluder({
             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
@@ -3583,6 +3583,7 @@ function popHtml() {
             './js/util/code.html',
             './js/util/card-select.html',
             './js/util/pay.html', //支付方式选择弹框
+            './js/util/beforePay.html', //支付前弹框
             './js/pages/user/frequent-contact-add.html',
             './js/pages/user/delivery-address-add.html',
             './js/pages/room/note.html',
