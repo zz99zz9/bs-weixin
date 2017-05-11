@@ -18,12 +18,38 @@ var vmFooter = avalon.define({
     goIndex: function() {
         stopSwipeSkip.do(function() {
             location.href = "../index.html";
-        })
+        });
     },
     goRoom: function() {
         stopSwipeSkip.do(function() {
-            location.href = "../service/orderList.html";
-        })
+            ajaxJsonp({
+                url: urls.getWaitRoomList,
+                successCallback: function(json) {
+                    if (json.status === 1) {
+                        var length = json.data.length;
+                        if (length == 0) { //没订房的
+                            location.href = "../goBooking.html";
+                        } else {
+                            json.data.map(function(e) {
+                                if (e.customerStatus == 1) {
+                                    if (e.processStatus == 3) {  
+                                        Storage.set('guest', {orid: e.id});
+                                        location.href = "../inroom.html";
+                                    } else if (e.processStatus == 2) { 
+                                        Storage.set('guest', {orid: e.id});
+                                        location.href = "../service/ready.html";
+                                    } else {
+                                        Storage.set('guest', {orid: e.id});
+                                        location.href = "../service/orderList.html";
+                                    }
+                                }
+                            });
+                            location.href = "../service/orderList.html";
+                        }
+                    }
+                }
+            });
+        });
     },
     goOrder: function() {
         stopSwipeSkip.do(function() {
