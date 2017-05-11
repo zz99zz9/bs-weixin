@@ -1,5 +1,5 @@
-var currentRoom = Storage.get("currentRoom"),
-    roomId = currentRoom.roomId,
+var currentRoom = Storage.get("guest"),
+    roomId = currentRoom.orid,
     did,
     movie_id,
     reading_id,

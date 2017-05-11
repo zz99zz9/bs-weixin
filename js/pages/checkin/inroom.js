@@ -1,11 +1,12 @@
 /**
  * Created by lyh on 2017/4/4/004.
+ * edited by zwh on 2017/05/11
  */
 // var hotel = controlCore.getHotel();
 // console.log(13);
 var swiper1, swiper2,
-    currentRoom = Storage.get("currentRoom"),
-    roomId = currentRoom.roomId;
+    currentRoom = Storage.get("guest"),
+    roomId = currentRoom.orid;
 var vmInroom = avalon.define({
     $id: 'inroom',
     goOpendoor: function() {
@@ -38,18 +39,18 @@ var vmInroom = avalon.define({
                     ajaxJsonp({
                         url: urls.checkOutDoor,
                         data: {
-                            id: roomId,
+                            orid: roomId,
                         },
                         successCallback: function(json) {
                             if (json.status === 1) {
                                 console.log(json.data);
                                 mui.alert(json.message);
+                                location.href = "../checkOut.html";
                             } else {
                                 mui.alert(json.message);
                             }
                         }
                     });
-                    //location.href = "../checkOut.html";
                 }
             }, "div");
         });
@@ -123,7 +124,9 @@ var vmInroom = avalon.define({
                     console.log(json.data);
                     console.log(vmPopService.serviceState);
                     switch (vmPopService.serviceState) {
-                        case 0:case 4:case 5:
+                        case 0:
+                        case 4:
+                        case 5:
                             vmPopService.reservatename = "预约";
                             vmPopService.nextservicestatus = 1;
                             break;
@@ -131,7 +134,8 @@ var vmInroom = avalon.define({
                             vmPopService.reservatename = "等待确认";
                             vmPopService.nextservicestatus = 2;
                             break;
-                        case 2:case 3:
+                        case 2:
+                        case 3:
                             vmPopService.reservatename = "催一催";
                             vmPopService.nextservicestatus = 3;
                             break;
@@ -206,23 +210,23 @@ var vmPopService = avalon.define({
     callService: function() {
         stopSwipeSkip.do(function() {
             console.log(vmPopService.nextservicestatus);
-                ajaxJsonp({
-                    url: urls.getSaveStatus,
-                    data: {
-                        rid: roomId,
-                        status: vmPopService.nextservicestatus,
-                        id: vmPopService.popList.sid
-                    },
-                    successCallback: function(json) {
-                        if (json.status === 1) {
-                            console.log(json.data);
-                            mui.alert(json.message);
-                            vmInroom.getfindByoridsid();
-                        } else {
-                            mui.alert(json.message);
-                        }
+            ajaxJsonp({
+                url: urls.getSaveStatus,
+                data: {
+                    rid: roomId,
+                    status: vmPopService.nextservicestatus,
+                    id: vmPopService.popList.sid
+                },
+                successCallback: function(json) {
+                    if (json.status === 1) {
+                        console.log(json.data);
+                        mui.alert(json.message);
+                        vmInroom.getfindByoridsid();
+                    } else {
+                        mui.alert(json.message);
                     }
-                });           
+                }
+            });
             modalClose();
         });
     },
