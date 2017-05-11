@@ -163,7 +163,7 @@ function index() {
         }))
         .pipe(replace({
             regex: '<!-- pop -->',
-            replace: '<!--include "../util/pop.html"--><!--include "../pages/user/popover.html"--><!--include "../util/modal.html"-->'
+            replace: '<!--include "../util/modal.html"-->'
         }))
         .pipe(replace({
             regex: '<!-- css -->',
@@ -171,7 +171,11 @@ function index() {
         }))
         .pipe(replace({
             regex: '<!-- js -->',
-            replace: '<script src="js/lib/swiper.min.js"></script>\n' + '<script src="js/pages/index/index.js"></script>\n' + '<script src="js/lib/mui.zoom.js"></script>\n' + '<script src="js/lib/mui.previewimage.js"></script>\n' + '<script src="js/util/partTime.js"></script>\n' + '<script src="js/util/contactList.js"></script>' + '<script src="../js/pages/footer/footer.js"></script>'
+            replace: '<script src="js/lib/swiper.min.js"></script>\n' 
+            + '<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=0743dafb590f3622f52d0d4218a9f1f7"></script>\n'
+            + '<script src="js/pages/index/index.js"></script>\n'
+            + '<script src="js/pages/index/searchLocation.js"></script>\n'
+            + '<script src="../js/pages/footer/footer.js"></script>'
         }))
         .pipe(replace({
             regex: '<!-- content -->',
@@ -209,21 +213,22 @@ function city() {
             regex: '<!-- content -->',
             replace: '<!--include "../pages/city/city.html"-->'
         }))
-        //.pipe(replace({
-        //   regex: '<!-- bottom -->',
-        //   replace: '<!--include "../layout/bottom.html"-->'
-        //}))
         .pipe(replace({
             regex: '<!-- css -->',
             replace: '<link rel="stylesheet" href="css/swiper.min.css">\n<link rel="stylesheet" href="css/city.css">'
         }))
         .pipe(replace({
             regex: '<!-- pop -->',
-            replace: '<!--include "../util/pop.html"--><!--include "../pages/user/popover.html"--><!--include "../util/modal.html"-->'
+            replace: '<!--include "../util/modal.html"-->'
         }))
         .pipe(replace({
             regex: '<!-- js -->',
-            replace: '<script src="js/lib/swiper.min.js"></script>\n' + '<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=0743dafb590f3622f52d0d4218a9f1f7"></script>\n' + '<script src="js/pages/city/vmodel.js"></script>\n' + '<script src="js/util/calendar.js"></script>\n' + '<script src="js/util/clock.js"></script>'
+            replace: '<script src="js/lib/swiper.min.js"></script>\n' 
+            + '<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=0743dafb590f3622f52d0d4218a9f1f7"></script>\n' 
+            + '<script src="js/pages/city/vmodel.js"></script>\n' 
+            + '<script src="js/pages/index/searchLocation.js"></script>\n'
+            + '<script src="js/util/calendar.js"></script>\n' 
+            + '<script src="js/util/clock.js"></script>'
         }))
         .pipe(contentIncluder({
             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
@@ -231,13 +236,6 @@ function city() {
         .pipe(replace({
             regex: '<!-- roomSlide -->',
             replace: '<!--include "../util/roomSlide-hotel.html"-->'
-        }))
-        .pipe(contentIncluder({
-            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
-        }))
-        .pipe(replace({
-            regex: '<button class="popover-closeButton"></button>',
-            replace: '<!--include "../util/popoverBtnOK.html"-->'
         }))
         .pipe(contentIncluder({
             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
@@ -340,11 +338,18 @@ function orderList() {
         }))
         .pipe(replace({
             regex: '<!-- js -->',
-            replace: '<script src="js/pages/order/vmodel-orderList.js"></script>'
+            replace: '<script src="js/pages/order/vmodel-orderList.js"></script>\n' + '<script src="../js/pages/footer/footer.js"></script>'
         }))
         .pipe(replace({
             regex: '<!-- content -->',
             replace: '<!--include "../pages/order/orderList.html"-->'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(replace({
+            regex: '<!-- footer -->',
+            replace: '<!--include "../pages/footer/footer.html"-->'
         }))
         .pipe(contentIncluder({
             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
@@ -3072,8 +3077,12 @@ function avatar() {
             replace: '<link rel="stylesheet" href="css/cropper.min.css">'
         }))
         .pipe(replace({
+            regex: '<!-- js before avalon -->',
+            replace: '<script src="../js/lib/cropper.min.js"></script>'
+        }))
+        .pipe(replace({
             regex: '<!-- js -->',
-            replace: '<script src="js/lib/cropper.min.js"></script>\n<script src="js/pages/user/avatar.js"></script>'
+            replace: '<script src="js/pages/user/avatar.js"></script>'
         }))
         .pipe(replace({
             regex: '<!-- content -->',
@@ -3308,7 +3317,7 @@ function serviceProcess() {
     return gulp.src('./js/layout/shell.html')
         .pipe(replace({
             regex: '<!-- title -->',
-            replace: '<title>做些准备...</title>'
+            replace: '<title>做些准备</title>'
         }))
         .pipe(replace({
             regex: '<!-- css -->',
@@ -3445,6 +3454,28 @@ function tokensRecharge() {
         .pipe(rename('tokensRecharge.html'))
         .pipe(gulp.dest('./src'));
 }
+//总资产显示页面
+function totalAssets() {
+    return gulp.src('./js/layout/shell.html')
+        .pipe(replace({
+            regex: '<!-- title -->',
+            replace: '<title>总资产</title>'
+        }))
+        .pipe(replace({
+            regex: '<!-- js -->',
+            replace: '<script src="../js/pages/assets/information.js"></script>'
+        }))
+        .pipe(replace({
+            regex: '<!-- content -->',
+            replace: '<!--include "../pages/assets/information.html"-->'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('totalAssets.html'))
+        .pipe(gulp.dest('./src'));
+
+}
 
 //邀请好友
 function rechargeInvite() {
@@ -3461,10 +3492,30 @@ function rechargeInvite() {
             regex: '<!-- content -->',
             replace: '<!--include "../pages/invite/recharge-invite.html"-->'
         }))
+        .pipe(rename('invitefriend.html'))
+        .pipe(gulp.dest('./src'));
+}
+
+
+//总资产收支明细
+function totalAssetsDetail() {
+    return gulp.src('./js/layout/shell.html')
+        .pipe(replace({
+            regex: '<!-- title -->',
+            replace: '<title>收支明细</title>'
+        }))
+        .pipe(replace({
+            regex: '<!-- js -->',
+            replace: '<script src="../js/pages/assets/assetsDetail.js"></script>'
+        }))
+        .pipe(replace({
+            regex: '<!-- content -->',
+            replace: '<!--include "../pages/assets/assetsDetail.html"-->'
+        }))
         .pipe(contentIncluder({
             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
         }))
-        .pipe(rename('recharge-invite.html'))
+        .pipe(rename('totalAssetsDetail.html'))
         .pipe(gulp.dest('./src'));
 }
 
@@ -3487,6 +3538,28 @@ function inviteToRecharge(){
             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
         }))
         .pipe(rename('inviteToRecharge.html'))
+        .pipe(gulp.dest('./src'));
+}
+
+//获取时币
+function getTimeCoins(){
+    return gulp.src('./js/layout/shell.html')
+         .pipe(replace({
+            regex: '<!-- title -->',
+            replace: '<title>获取时币</title>'
+        }))
+        .pipe(replace({
+            regex: '<!-- js -->',
+            replace: '<script src="../js/pages/assess/getTimeCoins.js"></script>'
+        }))
+        .pipe(replace({
+            regex: '<!-- content -->',
+            replace: '<!--include "../pages/assess/getTimeCoins.html"-->'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('getTimeCoins.html'))
         .pipe(gulp.dest('./src'));
 }
 /**
@@ -3528,7 +3601,9 @@ function popHtml() {
             './js/pages/cms/foundation-withdraw.html',
             './js/pages/service/popMoreService.html',
             './js/pages/checkin/popNight.html',
-            './js/pages/checkin/popService.html'
+            './js/pages/checkin/popService.html',
+            './js/pages/service/popPre-temperature.html'
+
         ])
         .pipe(gulp.dest('./dist/util/'));
 }
@@ -3685,7 +3760,10 @@ gulp.task('html', gulp.parallel(
     telecontroller,
     tokensRecharge,
     rechargeInvite,
-    inviteToRecharge
+    inviteToRecharge,
+    totalAssets,
+    totalAssetsDetail,
+    getTimeCoins
 ));
 
 function watchForReload() {

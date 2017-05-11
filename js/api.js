@@ -24,10 +24,13 @@ var urls = {
     //首页
     getCityGallery: urlAPI + '/web/res/cityImage/list', //城市图片列表
     getCityImgList: urlAPI + '/ordercenter/res/cityImage/cityList', //订单系统的城市图片列表
-    getHotelByPosition: urlAPI + '/web/res/hotel/aroundList', //查找周边酒店列表
+    getHotelByPosition: urlAPI + '/ordercenter/res/hotel/aroundList', //查找指定位置周边酒店列表
+    getHotelByCity: urlAPI + '/ordercenter/res/hotel/localList', //查找指定城市酒店列表
+
     getRecentViewLog: urlAPI + '/web/usr/viewLog/roomList', //最近浏览
     getFilter: urlAPI + '/web/res/searchCriteriaAmenity/list', //筛选条件
     getRecommendHotelList: urlAPI + '/ordercenter/res/hotel/recommendList', //获取热门酒店
+    
     getINIrecommendURL: urlAPI + '/web/res/room/recommendList',
     getHotelInfoList: urlAPI + '/web/res/hotel/localList', //根据地区获取酒店信息列表
     getUserFundURL: urlAPI + '/web/usr/userFund/list', //用户基金列表
@@ -50,8 +53,8 @@ var urls = {
     getDeliveryAddress: urlAPI + '/web/usr/deliveryAddress/get', //获取收货地址
     getInvoiceExpressFee: urlAPI + '/web/usr/invoiceLog/invoiceExpressFee', //获取发票快递费用
     //房间相关
-    getRoomTypeList: urlAPI + '/web/res/roomType/list', //房间类型列表
-    getRoomTypeDetail: urlAPI + '/web/res/roomType/detail', //房间类型详情
+    getRoomTypeList: urlAPI + '/ordercenter/res/roomType/list', //房间类型列表
+    getRoomTypeDetail: urlAPI + '/ordercenter/res/roomType/detail', //房间类型详情
     getRoomList: urlAPI + '/web/res/room/list', //房间列表
     getRoomDetail: urlAPI + '/web/res/room/detail', //房间详情
     getRoomAssess: urlAPI + '/web/trd/orderComment/list', //房间评价列表
@@ -64,7 +67,8 @@ var urls = {
     getRoomNightDiscount: urlAPI + '/web/res/nightDiscount/list', //查询房间夜房优惠价格
     getNightDiscount: urlAPI + '/web/res/nightDiscount/times', //查询搜索时，要显示的夜房优惠价格列表
     getMidnightDiscount: urlAPI + '/web/res/midnightDiscount/list', //午夜特价房折扣列表
-    
+    getRoomPrice: urlAPI + '/ordercenter/res/room/amount', //查询房间金额
+
     //设计师相关
     getDesigner: urlAPI + '/web/usr/designer/get', //设计师详情
     //订单相关
@@ -73,7 +77,7 @@ var urls = {
     submitOrder: urlAPI + '/web/trd/orderInfo/submit', //提交订单
     cancelOrder: urlAPI + '/web/trd/orderInfo/cancel', //取消订单
     saveSub: urlAPI + '/web/trd/orderComment/save', //用户提交评论
-    payOrder: urlAPI + '/web/trd/pay/orderInfoPay/cashier', //支付订单
+    payOrder: urlAPI + '/ordercenter/trd/pay/orderInfoPay/cashier', //支付订单
     unsubscribeOrder: urlAPI + '/web/trd/refund/orderInfoRefund/refund', //退订订单
     getWaitRoomList: urlAPI + '/ordercenter/trd/orderRoom/findByUidOrderRoomList', //根据用户查询待入住房间列表
 

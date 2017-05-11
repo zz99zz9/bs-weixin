@@ -1,186 +1,99 @@
 <style>
-.item-img {
-    width: 40px;
-    height: 40px;
+.all {
+    padding: 24px;
+    height: 100%;
+    background-color: white;
 }
 
-.item-img-r {
-    width: 40px;
-    height: 40px;
-}
+.block-brief {}
 
-.oneLine {
+.block-content {
     display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    clear: both;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
-.online-height {
-    height: 40px;
+.block-img {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: 58px;
+    width: 58px;
+    margin: 0 10px -8px;
+    border: 1px solid #bdbdbd;
+    border-radius: 50%;
 }
 
-.question {
-    background: white;
-    height: 50px;
-    width: 0px;
-    margin: 10px 8px;
-    overflow: hidden;
-    color: #444;
-    clear: both;
-    line-height: 50px;
-    border-radius: 100px;
+.block-title {
+    margin: 8px 0 48px;
 }
 
-.answer {
-    height: 50px;
-    width: 0;
-    margin: 10px 8px;
-    float: right;
-    overflow: hidden;
-    clear: both;
-    border-radius: 100px;
+.block-unit {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 40px;
 }
 
-.arrow {
-    height: 15px;
-    margin: 5px;
+.block-unit-img {
+    height: 100%;
+}
+
+.btn-over {
+    width: 120px;
+    height: 32px;
+    margin: 18px auto 56px;
+    border: 1px solid #fdd942;
+}
+
+.btn-word {
+    line-height: 32px;
+}
+
+.header-title {
+    background-position: center;
+    height: 21px;
+    background-repeat: no-repeat;
+    width: 66%;
+    margin: 24px auto 48px;
+}
+
+.select {
+    border: 1px solid #fdd942;
+}
+
+.selectCheck {
+    visibility: visible !important;
     position: relative;
-    top: -37px;
+    top: -12px;
     float: right;
-    right: 10px;
+    right: -20px;
 }
 
-.button {
-    height: 50px;
-    padding: 0;
-    margin: 0;
-    border: 0;
-    background: #bdbdbd;
-}
-
-.jump {
-    text-align: right;
-    margin-left: 75vw;
-    padding: 24px 12px 0;
-}
 </style>
-<div ms-controller="serviceProcess" class="bs-text-normal" style="margin: 0 12px;">
-    <div class="bs-text-normal bs-text-gray jump" onclick="javascript:location.href='../service/ready.html'">
-        跳过
+<div ms-controller="serviceProcess" class="all">
+    <div class="header-title bs-text-bold layout-center" ms-css-background-image="url({{headerUrl}})">
     </div>
-    <div ms-repeat="prelist">
-        <div class="oneLine">
-            <div class="online-height">
-                <img ms-attr-id="{{'l' + el.id}}" src="../img/icon/service-staff.svg" class="item-img" style="display: none;">
-            </div>
-            <div ms-attr-id="{{'q' + el.id}}" class="question">
-                <span class="ask1 typed-cursor" style="margin-left: 20px;">{{prelist[$index].preService.serviceProblem}}</span>
-            </div>
+    <div ms-repeat="list" class="bs-text-normal">
+        <div class="block-title layout-center">
+            {{el.preService.serviceProblem}}
         </div>
-        <div class="oneLine" style="float: right;">
-            <div ms-attr-id="{{'a' + el.id}}" class="answer bs-text-normal">
-                <button ms-attr-id="{{'picker' + el.id}}" type='button' class="mui-btn mui-btn-block button bs-text-normal" ms-repeat-dl="selectList">{{dl}}</button>
-                <img src="../img/icon/pickerArrow.svg" class="arrow">
-            </div>
-            <div class="online-height">
-                <img ms-attr-id="{{'r' + el.id}}" src="../img/icon/service-user.svg" class="item-img-r" style="display: none;">
+        <div class="block-content">
+            <div class="block-unit layout-center" ms-repeat-cl="el.preService.serviceReplyContentList" ms-on-tap="select(el.sid, cl.id, $outer.$index,$index,cl.serviceContent)" ms-class="selectPic: $index==el.selectIndex">
+                <div ms-attr-id="{{cl.id}}" class="block-img" ms-class="select: $index==el.selectIndex">
+                    <img class="block-unit-img" ms-attr-src="urlAPINet + cl.imgUrl">
+                    </img>
+                </div>
+                    <img src="../img/icon/select-check.svg" alt="选" style="visibility: hidden;" ms-class="selectCheck: $index==el.selectIndex">
+
+                <div class="bs-text-smaller bs-text-444">
+                    {{cl.serviceReply}}
+                </div>
             </div>
         </div>
     </div>
-    <!-- <div class="oneLine">
-        <div class="online-height">
-            <img id="l1" src="../img/icon/service-staff.svg" class="item-img" style="display: none;">
-        </div>
-        <div id="q1" class="question">
-            <span class="ask1 typed-cursor" style="margin-left: 20px;">{{prelist[0].preService.serviceProblem}}</span>
-        </div>
-    </div>
-    <div class="oneLine" style="float: right;">
-        <div id="a1" class="answer bs-text-normal">
-            <button id='goal' type='button' class="mui-btn mui-btn-block button bs-text-normal">{{goal}}</button>
-            <img src="../img/icon/pickerArrow.svg" class="arrow">
-        </div>
-        <div class="online-height">
-            <img id="r1" src="../img/icon/service-user.svg" class="item-img-r" style="display: none;">
-        </div>
-    </div>
-    <div class="oneLine">
-        <div class="online-height">
-            <img id="l2" src="../img/icon/service-staff.svg" class="item-img" style="display: none;">
-        </div>
-        <div id="q2" class="question">
-            <span class="ask2" style="margin-left: 20px;">{{prelist[1].preService.serviceProblem}}</span>
-        </div>
-    </div>
-    <div class="oneLine" style="float: right;">
-        <div id="a2" class="answer bs-text-normal">
-            <button id='companion' type='button' class="mui-btn mui-btn-block button bs-text-normal">{{companion}}</button>
-            <img src="../img/icon/pickerArrow.svg" class="arrow">
-        </div>
-        <div class="online-height">
-            <img id="r2" src="../img/icon/service-user.svg" class="item-img-r" style="display: none;">
-        </div>
-    </div>
-    <div class="oneLine">
-        <div class="online-height">
-            <img id="l3" src="../img/icon/service-staff.svg" class="item-img" style="display: none;">
-        </div>
-        <div id="q3" class="question">
-            <span class="ask3" style="margin-left: 20px;">{{prelist[2].preService.serviceProblem}}</span>
-        </div>
-    </div>
-    <div class="oneLine" style="float: right;">
-        <div id="a3" class="answer bs-text-normal">
-            <button id='vr' type='button' class="mui-btn mui-btn-block button bs-text-normal">{{vr}}</button>
-            <img src="../img/icon/pickerArrow.svg" class="arrow">
-        </div>
-        <div class="online-height">
-            <img id="r3" src="../img/icon/service-user.svg" class="item-img-r" style="display: none;">
-        </div>
-    </div> -->
-    <!-- <div class="oneLine">
-        <div>
-            <img id="l4" src="../img/icon/service-staff.svg" class="item-img" style="display: none;">
-        </div>
-        <div id="q4" class="question">
-            <span class="ask4" style="margin-left: 20px;"></span>
-        </div>
-    </div>
-    <div class="oneLine" style="float: right;">
-        <div id="a4" class="answer bs-text-normal">
-            <button id='old' type='button' class="mui-btn mui-btn-block button bs-text-normal">{{old}}</button>
-            <img src="../img/icon/pickerArrow.svg" class="arrow">
-        </div>
-        <div>
-            <img id="r4" src="../img/icon/service-user.svg" class="item-img-r" style="display: none;">
-        </div>
-    </div>
-    <div class="oneLine">
-        <div>
-            <img id="l5" src="../img/icon/service-staff.svg" class="item-img" style="display: none;">
-        </div>
-        <div id="q5" class="question">
-            <span class="ask5" style="margin-left: 20px;"></span>
-        </div>
-    </div>
-    <div class="oneLine" style="float: right;">
-        <div id="a5" class="answer bs-text-normal">
-            <button id='other' type='button' class="mui-btn mui-btn-block button bs-text-normal">{{other}}</button>
-            <img src="../img/icon/pickerArrow.svg" class="arrow">
-        </div>
-        <div>
-            <img id="r5" src="../img/icon/service-user.svg" class="item-img-r" style="display: none;">
-        </div>
-    </div> -->
-    <div class="oneLine">
-        <div>
-            <img id="lEnd" src="../img/icon/service-staff.svg" class="item-img" style="display: none;">
-        </div>
-        <div id="end" class="question" ms-on-tap="goNextStep">
-            <span class="askEnd" style="margin-left: 20px;"></span>
+    <div class="btn-over layout-center">
+        <div class="btn-word bs-text-smaller" ms-on-tap="over">
+            完成
         </div>
     </div>
 </div>
-<br>
-<br>

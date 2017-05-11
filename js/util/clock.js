@@ -1,4 +1,4 @@
-var clock = function(startH, endH) {
+var clock = function(roomTypeId) {
 
     var $ = function(selector) {
         return document.querySelector(selector);
@@ -39,6 +39,9 @@ var clock = function(startH, endH) {
         isTouchDot2 = false,
         hourCoord = [],
         _tempDate = null,
+        tid = roomTypeId || 0, //房型id，非0才查询房价
+        price = 0, //现金价
+        timeCoin = 0, //时币价
         colorArray = ["rgb(238,238,238)","rgb(221,221,221)","rgb(204,204,204)","rgb(187,187,187)","rgb(170,170,170)","rgb(153,153,153)","rgb(136,136,136)","rgb(119,119,119)","rgb(102,102,102)","rgb(85,85,85)"];
 
 
@@ -53,7 +56,8 @@ var clock = function(startH, endH) {
     getSessionData();
 
     iniCanvas();
-
+    getPrice();
+    
     //读取本地储存
     function getSessionData() {
         var coord = {},
@@ -122,10 +126,10 @@ var clock = function(startH, endH) {
     }
 
     //触摸事件绑定
-    canvas.ontouchstart = function(e) {
+    canvas.addEventListener("touchstart", function(e) {
         e.preventDefault();
 
-        var coord = getCoord(e.touches[0].pageX, e.touches[0].pageY, cw, ch, canvas.offsetLeft, canvas.offsetTop),
+        var coord = getCoord(e.touches[0].clientX, e.touches[0].clientY, cw, ch, canvas.offsetLeft, canvas.offsetTop),
             tx = coord.x,
             ty = coord.y;
 
@@ -133,10 +137,10 @@ var clock = function(startH, endH) {
         beforeTouchT1 = t1;
         isTouchDot2 = isDot2Touched(tx, ty);
         beforeTouchT2 = t2;
-    }
+    });
 
-    canvas.ontouchmove = function(e) {
-        var coord = getCoord(e.touches[0].pageX, e.touches[0].pageY, cw, ch, canvas.offsetLeft, canvas.offsetTop),
+    canvas.addEventListener("touchmove", function(e) {
+        var coord = getCoord(e.touches[0].clientX, e.touches[0].clientY, cw, ch, canvas.offsetLeft, canvas.offsetTop),
             tx = coord.x,
             ty = coord.y,
             clock1 = {},
@@ -150,16 +154,17 @@ var clock = function(startH, endH) {
             //全天房
             if(status.key == status.dayClock) {
                 //日期联动
-                // deltaHour1 += clock.deltaHour;
+                // deltaHour1 += clock1.deltaHour;
                 // t1 = dateAdd(beforeTouchT1, 'h', deltaHour1);
 
                 var today = new Date();
                 if((isSameDay(t1, today)&&clock1.time >= getNowHour())
                     ||!isSameDay(t1, today)) {
-                
-                    h1 = clock1.time;
-                    t1.setHours(h1);
-
+                    if(h1 != clock1.time) {
+                        h1 = clock1.time;
+                        t1.setHours(h1);
+                        getPrice();
+                    }
                     // if (isChangeDay(beforeTouchT1, deltaHour1, h1)) {
                     //     //天数出现变动，发布消息
                     //     //日历calendar.js会订阅
@@ -184,7 +189,7 @@ var clock = function(startH, endH) {
                     //步进模式
                     // newCoord = clockStep(tx, ty);
                     // draw(newCoord.x, newCoord.y, dx2, dy2);
-
+                    
                     draw(newDx1, newDy1, dx2, dy2);
                 }
             }
@@ -194,9 +199,11 @@ var clock = function(startH, endH) {
                 //入住时间应该在预定范围内
                 //入住时间不能早于当前时间
                 if(clock1.time >= partTimeStart && clock1.time <= partTimeEnd && clock1.time >= getNowHour()) {
-                    h1 = clock1.time;
-                    t1.setHours(h1);
-
+                    if(h1 != clock1.time) {
+                        h1 = clock1.time;
+                        t1.setHours(h1);
+                        getPrice();
+                    }
                     //沿着圆平滑移动
                     newDx1 = tx * r / Math.sqrt(tx * tx + ty * ty);
                     newDy1 = ty * r / Math.sqrt(tx * tx + ty * ty);
@@ -205,6 +212,8 @@ var clock = function(startH, endH) {
                     if (h2 - h1 < partTimeInterval) {
                         h2 = h1 + partTimeInterval;
                         t2.setHours(h2);
+                        getPrice();
+
                         newCoord = getCoordByHour(h2);
                         dx2 = newCoord.x;
                         dy2 = newCoord.y;
@@ -225,8 +234,11 @@ var clock = function(startH, endH) {
                 //日期联动
                 // deltaHour2 += clock.deltaHour;
                 // t2 = dateAdd(beforeTouchT2, 'h', deltaHour2);
-                h2 = clock2.time;
-                t2.setHours(h2);
+                 if(h2 != clock2.time){   
+                    h2 = clock2.time;
+                    t2.setHours(h2);
+                    getPrice();
+                }
                 // if (isChangeDay(beforeTouchT2, deltaHour2, h2)) {
                 //     Observer.fire('endChange', {
                 //         date: t2,
@@ -253,6 +265,7 @@ var clock = function(startH, endH) {
                 if (h2 - h1 < partTimeInterval) {
                     h1 = h2 - partTimeInterval;
                     t1.setHours(h1);
+                    getPrice();
                     newCoord = getCoordByHour(h1);
                     dx1 = newCoord.x;
                     dy1 = newCoord.y;
@@ -263,9 +276,9 @@ var clock = function(startH, endH) {
         }
 
         getStartandEnd();
-    }
+    });
 
-    canvas.ontouchend = function(e) {
+    canvas.addEventListener("touchend", function(e) {
         isTouchDot1 = false;
         isTouchDot2 = false;
 
@@ -273,7 +286,7 @@ var clock = function(startH, endH) {
         deltaHour2 = 0;
 
         _tempDate = null;
-    }
+    });
 
     //画布初始化
     function iniCanvas() {
@@ -429,7 +442,7 @@ var clock = function(startH, endH) {
         ctx.fillRect(-cw / 2, -ch / 2, cw, ch);
         drawClock();
 
-        drawTime();
+        drawTimeAndPrice();
         
         //全天房的退房时间固定
         if (status.key == status.dayClock) {
@@ -488,10 +501,10 @@ var clock = function(startH, endH) {
         }
     }
 
-    function drawTime() {
+    function drawTimeAndPrice() {
         //写时间
         ctx.fillStyle = "black";
-        ctx.font = "18px serif";
+        ctx.font = "21px serif";
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
         var dayNum = Math.floor((Date.parse(t2) - Date.parse(t1)) / 86400000);
@@ -508,15 +521,13 @@ var clock = function(startH, endH) {
             }
         }
 
-        if (dayNum > 0) {
-            circleColor = colorArray[dayNum < 10 ? dayNum : 9];
-            ctx.fillText(dayNum + "天 " + h + "小时", 0, 0);
-            timeSpan = dayNum + "天 " + h + "小时";
+        if(price == 0) {
+            drawTime(dayNum, h, 0, 0)
         } else {
-            circleColor = colorArray[0];
-            ctx.fillText(h + "小时", 0, 0);
-            timeSpan = h + "小时";
+            drawTime(dayNum, h, 0, -10)
+            ctx.fillText(price + "元", 0, 20); 
         }
+        
 
         //画圆环
         ctx.beginPath();
@@ -524,6 +535,23 @@ var clock = function(startH, endH) {
         ctx.strokeStyle = circleColor;
         ctx.lineWidth = lw;
         ctx.stroke();
+    }
+
+    function drawTime(dayNum, h, x, y) {
+        if (dayNum > 0) {
+            circleColor = colorArray[dayNum < 10 ? dayNum : 9];
+            if(h) {
+                ctx.fillText(dayNum + "天 " + h + "小时", x, y);
+                timeSpan = dayNum + "天 " + h + "小时";
+            } else {
+                ctx.fillText(dayNum + "天 ", x, y);
+                timeSpan = dayNum + "天 ";
+            }
+        } else {
+            circleColor = colorArray[0];
+            ctx.fillText(h + "小时", x, y);
+            timeSpan = h + "小时";
+        }
     }
 
     //画弧线
@@ -643,6 +671,28 @@ var clock = function(startH, endH) {
         return date.getHours();
     }
 
+    function getPrice() {
+        if(tid) {
+            ajaxJsonp({
+                url: urls.getRoomPrice,
+                data: {
+                    tid: tid,
+                    startTime: formatDate(t1, 'yyyy-mm-dd hh:00'),
+                    endTime: formatDate(t2, 'yyyy-mm-dd hh:00'),
+                    isPartTime: status.key == status.partTimeClock? 1:0,
+                },
+                successCallback: function(json) {
+                    if (json.status == 1) {
+                        price = json.data.amount;
+                        timeCoin = json.data.timeCoin;
+
+                        draw(dx1, dy1, dx2, dy2);
+                    }
+                }
+            });
+        }
+    }
+
     return {
         setStatus: function(key) {
 
@@ -730,6 +780,12 @@ var clock = function(startH, endH) {
         },
         getCoord: function(index) {
             return hourCoord[index];
+        },
+        setPrice: function() {
+            getPrice();
+        },
+        getPrice: function() {
+            return {price: price, timeCoin: timeCoin};
         }
     };
 };

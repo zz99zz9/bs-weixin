@@ -3,7 +3,8 @@
  * Edited by Michael on 2017/5/2
  */
 
-var user = Storage.getLocal("user");
+var user = Storage.getLocal("user"),
+    autocomplete;
 var vmIndex = avalon.define({
     $id: 'index',
     userName: '先生/女士',
@@ -42,7 +43,6 @@ var vmIndex = avalon.define({
     getCityImgList: function() {
         ajaxJsonp({
             url: urls.getCityImgList,
-            data: {},
             successCallback: function(json) {
                 if (json.status === 1) {
                     vmIndex.cityList = json.data;
@@ -62,34 +62,20 @@ var vmIndex = avalon.define({
     goToUrl: function(url) {
         location.href = url;
     },
-    
-    goCity: function(city, cid,status) {
+    goCity: function(city, cid, status) {
         stopSwipeSkip.do(function() {
-            console.log(status);
+            console.log(city, cid, status);
             if (status === 1) {
                 vmSearch.saveCityMode(city, cid);
                 location.href = "../city.html";
             }
         });
     },
-
     goHotel: function(id) {
         stopSwipeSkip.do(function() {
-            location.href = "../city.html?position=" + cityName;
+            location.href = "../hotel.html?id=" + id;
         });
-        location.href = "../hotel.html?id=" + id;
     },
-
-    // goCity: function(cityName, sh,city,cid) {
-    //     stopSwipeSkip.do(function() {
-    //         console.log(sh);
-    //         if (sh === 1) {
-    //             location.href = "../city.html?position=" + cityName;
-    //         }
-    //     });
-    // },
-
-
     moreHotel: [],
     getMoreHote: function() {
         //热门酒店推荐
@@ -126,6 +112,7 @@ var vmIndex = avalon.define({
 if (user && user.nickname) {
     vmIndex.userName = user.nickname;
 }
+
 vmIndex.getCityImgList();
 vmIndex.getMoreHote();
 

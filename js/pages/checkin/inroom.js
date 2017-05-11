@@ -6,6 +6,7 @@
 var swiper1, swiper2,
     currentRoom = Storage.get("currentRoom"),
     roomId = currentRoom.roomId;
+    console.log(roomId);
 var vmInroom = avalon.define({
     $id: 'inroom',
     goOpendoor: function() {
