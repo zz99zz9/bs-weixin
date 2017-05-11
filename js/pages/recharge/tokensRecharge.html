@@ -45,6 +45,9 @@
 }
 
 .shibicharater-number {
+    flex: 0 0 30%;
+    flex-grow: 1;
+    margin: 3px;
     border: 1px solid;
     text-align: center;
     width: 104px;
@@ -53,6 +56,7 @@
     flex-direction: column;
     justify-content: center;
     border-radius: 3px;
+
 }
 
 .shibicharater-number-big {
@@ -75,7 +79,8 @@
 
 .shibicharater-number-inlay {
     display: flex;
-    justify-content: space-between;
+    flex-flow: row wrap;
+    align-content: flex-start;
 }
 
 .seconde-content-recharge {
@@ -99,11 +104,11 @@
 	<div class="content-bg">
     <div class="account-information">
         <div class="item-name">账户昵称</div>
-        <div class="item-content">小朱</div>
+        <div class="item-content">{{nickname}}</div>
     </div>
     <div class="account-information second-item">
         <div class="item-name">当前余额</div>
-        <div class="item-content"><span>100</span>时币</div>
+        <div class="item-content"><span>{{balance}}</span>时币</div>
     </div>
 </div>
 <div class="content-bg second-content">
@@ -113,23 +118,11 @@
     </div>
     <div class="shibicharater-number-normal">
         <div class="shibicharater-number-inlay">
-            <div class="shibicharater-number">
-                <div class="shibicharater">30时币</div>
-                <div class="shibinumber">100元</div>
-            </div>
-            <div class="shibicharater-number">
-                <div class="shibicharater">50时币</div>
-                <div class="shibinumber">199元</div>
-            </div>
-            <div class="shibicharater-number">
-                <div class="shibicharater">120时币</div>
-                <div class="shibinumber">396元</div>
+            <div class="shibicharater-number" ms-repeat="list" ms-class="bs-bg-f2:selectedID==el.id" ms-on-tap="select(el.id)">
+                <div class="shibicharater">{{el.timeCoin}}时币</div>
+                <div class="shibinumber">{{el.price}}元</div>
             </div>
         </div>
-    </div>
-    <div class="shibicharater-number-big">
-        <div class="shibicharater">260时币</div>
-        <div class="shibinumber">590元</div>
     </div>
 </div>
 </div>

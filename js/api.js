@@ -90,6 +90,9 @@ var urls = {
     getTotalAssets: urlAPI + '/ordercenter/usr/userTimeCoinAccount/info', //总资产余额
     getTotalAssetsContent: urlAPI + '/ordercenter/usr/userTimeCoinAccountOperateLog/statistics', //总资产钱包累计
     getTotalAssetsRecord: urlAPI + '/ordercenter/usr/userTimeCoinAccountOperateLog/list', //总资产收支明细
+    getTimeCoinProductList: urlAPI + '/ordercenter/tmc/timeCoinProduct/list', //时币充值产品列表
+    submitTimeCoinRechargeOrder: urlAPI + '/ordercenter/usr/userTimeCoinOrderInfo/submit', //提交时币充值订单
+    payTimeCoinRechargeOrder: urlAPI + '/ordercenter/usr/pay/userTimeCoinOrderInfoPay/cashier', //支付时币充值订单
     //服务
     inStoreGoods: urlAPI + '/web/svr/inStoreGoods/list',//店内商品列表
     hotelService: urlAPI + '/web/svr/hotelService/list',//店内服务列表

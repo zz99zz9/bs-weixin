@@ -3441,6 +3441,10 @@ function tokensRecharge() {
             replace: '<title>充值</title>'
         }))
         .pipe(replace({
+            regex: '<!-- pop -->',
+            replace: '<!--include "../util/modal.html"-->'
+        }))
+        .pipe(replace({
             regex: '<!-- js -->',
             replace: '<script src="js/pages/recharge/tokensRecharge.js"></script>'
         }))
