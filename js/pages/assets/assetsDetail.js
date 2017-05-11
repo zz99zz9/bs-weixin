@@ -14,28 +14,6 @@ var vmAssetsDetail = avalon.define({
             successCallback: function(json) {
                 if (json.status === 1) {
                     vmAssetsDetail.pageNo = 2;
-                    json.data.list.map(function(e) {
-                        switch(e.source) {
-                            case 1: 
-                                e.source = "提前退房";
-                                break;
-                            case 2: 
-                                e.source = "邀请奖励";
-                                break;
-                            case 3: 
-                                e.source = "现金兑换";
-                                break;
-                            case 4: 
-                                e.source = "订单取消";
-                                break;
-                            case 5: 
-                                e.source = "服务消费";
-                                break;
-                            default: 
-                                e.source = "";
-                                break;
-                        }
-                    });
                     vmAssetsDetail.list.push.apply(vmAssetsDetail.list, json.data.list);
                 }
             }

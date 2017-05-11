@@ -11,9 +11,19 @@
 //     location.href = "index.html";
 // }
 
-var vmAssets= avalon.define({
+var vmAssets = avalon.define({
     $id: "totalAssets",
     list: [],
+    data: [{
+        amount: 329.4,
+        source: 1
+    }, {
+        amount: 60,
+        source: 2
+    }, {
+        amount: 60,
+        source: 3
+    }],
     name: "dskj",
     money: 30000.00,
     getTotalAssets: function() {
@@ -22,22 +32,17 @@ var vmAssets= avalon.define({
             data: {},
             successCallback: function(json) {
                 if (json.status === 1) {
-                    json.data.map(function(e) {
-                        switch(e.source) {
-                            case 1:
-                                e.source = "提前退房";
-                                break;
-                            case 2:
-                                e.source = "邀请奖励";
-                                break;
-                            case 3:
-                                e.source = "现金兑换";
-                                break;
-                            default: 
-                                e.source = "";
-                                break;
-                        }
-                    });
+                    vmAssets.money = json.data.availableCoin;
+                }
+            }
+        });
+    },
+    getTotalAssetsContent: function() {
+        ajaxJsonp({
+            url: urls.getTotalAssetsContent,
+            data: {},
+            successCallback: function(json) {
+                if (json.status === 1) {
                     vmAssets.list = json.data;
                 }
             }
@@ -46,5 +51,12 @@ var vmAssets= avalon.define({
     goDetail: function() {
         location.href = "../totalAssetsDetail.html";
     },
+    goRecharge: function() {
+        stopSwipeSkip.do(function() {
+            location.href = "../tokensRecharge.html";
+        });
+    },
 });
 vmAssets.getTotalAssets();
+vmAssets.getTotalAssetsContent();
+//vmAssets.list = vmAssets.data;

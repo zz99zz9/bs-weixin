@@ -30,7 +30,6 @@
 
     .sendBtn {
         font-size: 14px;
-        color: #444;
         width: 95px;
         line-height: 35px;
         border-radius: 20px;
@@ -50,7 +49,7 @@
                 <div class="content-infor" ms-repeat="data">
                     <div class="bs-text-x-large">{{el.roomNo}}</div>
                     <div class="bs-text-large">{{el.userName}}</div>
-                    <div class="sendBtn" ms-on-tap="send(el.customerStatus)">
+                    <div class="sendBtn bs-text-yellow bs-bg-444" ms-on-tap="send(el.customerStatus)">
                         {{el.customerStatus==1?'去做准备':sendBtnText}}
                     </div>
                 </div>

@@ -87,8 +87,9 @@ var urls = {
     payBalanceOrder: urlAPI + '/web/usr/pay/userBalanceOrderInfoPay/cashier', //支付余额充值订单
     getBalanceOrderDetail: urlAPI + '/web/usr/userBalanceOrderInfo/detail', //获取余额充值订单详情
     getBalanceLog: urlAPI + '/web/usr/userBalanceAccountOperateLog/list', //获取余额交易记录
-    getTotalAssets: urlAPI + '/ordercenter/usr/userTimeCoinAccountOperateLog/userTotalCoin', //总资产钱包累计
-    getTotalAssetsRecord: urlAPI + '/ordercenter/usr/userTimeCoinAccountOperateLog/findListByUid', //总资产收支明细
+    getTotalAssets: urlAPI + '/ordercenter/usr/userTimeCoinAccount/info', //总资产余额
+    getTotalAssetsContent: urlAPI + '/ordercenter/usr/userTimeCoinAccountOperateLog/statistics', //总资产钱包累计
+    getTotalAssetsRecord: urlAPI + '/ordercenter/usr/userTimeCoinAccountOperateLog/list', //总资产收支明细
     //服务
     inStoreGoods: urlAPI + '/web/svr/inStoreGoods/list',//店内商品列表
     hotelService: urlAPI + '/web/svr/hotelService/list',//店内服务列表
