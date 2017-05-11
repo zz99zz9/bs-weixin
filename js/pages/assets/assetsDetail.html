@@ -12,12 +12,15 @@
             <div class="bs-bg-white bs-text-large ms-controller" ms-controller="assetsDetail">
                 <div ms-if="list.length>0" class="detail" style="" ms-repeat="list">
                     <div class="today-list-item" style="margin-left: 24px;">
-                        {{el.source}}
+                        {{el.description}}
                         <br>
                         <span class="bs-text-smaller bs-text-gray">{{el.createTime}}</span>
                     </div>
-                    <div class="today-list-item" style="line-height: 43px;margin-right: 24px;">
+                    <!-- <div class="today-list-item" style="line-height: 43px;margin-right: 24px;">
                         {{(el.type==1?'+':'-') + ' ' + el.amount}}
+                    </div> -->
+                    <div class="today-list-item" style="line-height: 43px;margin-right: 24px;">
+                        {{(el.amount>=0?'+':'-') + ' ' + el.amount}}
                     </div>
                 </div>
                 <div ms-if="list.length<1" class="bs-text-20 layout-center" style="height: 90vh; padding: 30vh 0;">
