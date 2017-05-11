@@ -106,7 +106,11 @@ var vmIndex = avalon.define({
             freeModeMomentumRatio: 0.4,
         });
     },
-
+    goGetTimecoins: function() {
+        stopSwipeSkip.do(function() {
+            location.href = "../getTimeCoins.html";
+        });
+    }
 });
 
 if (user && user.nickname) {

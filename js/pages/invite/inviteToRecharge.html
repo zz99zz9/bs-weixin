@@ -101,12 +101,12 @@ function onTopClick() {
     window.location.hash = "#firstIntr";
 }
 </script> -->
-<div /*ms-controller="rechargeFriend" */ style="background: #fff;">
+<div ms-controller="rechargeFriend" style="background: #fff;">
     <div>
         <div class="inviteFriend">
             <div class="yourFriend">你的好友邀请你</div>
             <div class="experienceRoom">体验D&K客房</div>
-            <div class="goLook" ms-click="goRecharge">去看看</div>
+            <div class="goLook" ms-on-tap="goRecharge">去看看</div>
             <a  href="#firstIntr"><div class="upIcon"></div></a>
         </div>
         <div>

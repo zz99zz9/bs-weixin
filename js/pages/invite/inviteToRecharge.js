@@ -36,16 +36,19 @@ var vmInviteToRecharge = avalon.define({
         });
     },
     goRecharge: function() {
-        ajaxJsonp({
-            url: urls.goWeixin,
-            data: { url: urlWeixin + "/tokensRecharge.html" },
-            successCallback: function(json) {
-                if (json.status === 1) {
-                    location.href = json.data;
-                } else {
-                    mui.alert(json.data.message);
-                }
-            }
+        // ajaxJsonp({
+        //     url: urls.goWeixin,
+        //     data: { url: urlWeixin + "/tokensRecharge.html" },
+        //     successCallback: function(json) {
+        //         if (json.status === 1) {
+        //             location.href = json.data;
+        //         } else {
+        //             mui.alert(json.data.message);
+        //         }
+        //     }
+        // });
+        stopSwipeSkip.do(function() {
+            location.href = "../tokensRecharge.html";
         });
     }
 });

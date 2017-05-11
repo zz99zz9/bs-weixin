@@ -3562,6 +3562,49 @@ function getTimeCoins(){
         .pipe(rename('getTimeCoins.html'))
         .pipe(gulp.dest('./src'));
 }
+
+//成为会员
+function toBeVip(){
+    return gulp.src('./js/layout/shell.html')
+         .pipe(replace({
+            regex: '<!-- title -->',
+            replace: '<title>成为会员</title>'
+        }))
+        .pipe(replace({
+            regex: '<!-- js -->',
+            replace: '<script src="../js/pages/discover/toBeVip.js"></script>'
+        }))
+        .pipe(replace({
+            regex: '<!-- content -->',
+            replace: '<!--include "../pages/discover/toBeVip.html"-->'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('toBeVip.html'))
+        .pipe(gulp.dest('./src'));
+}
+//提前退房
+function checkOutEarly(){
+    return gulp.src('./js/layout/shell.html')
+         .pipe(replace({
+            regex: '<!-- title -->',
+            replace: '<title>成为会员</title>'
+        }))
+        .pipe(replace({
+            regex: '<!-- js -->',
+            replace: '<script src="../js/pages/discover/checkoutEarly.js"></script>'
+        }))
+        .pipe(replace({
+            regex: '<!-- content -->',
+            replace: '<!--include "../pages/discover/checkoutEarly.html"-->'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('checkoutEarly.html'))
+        .pipe(gulp.dest('./src'));
+}
 /**
  * 输出弹框相关页面
  */
@@ -3764,7 +3807,9 @@ gulp.task('html', gulp.parallel(
     inviteToRecharge,
     totalAssets,
     totalAssetsDetail,
-    getTimeCoins
+    getTimeCoins,
+    toBeVip,
+    checkOutEarly
 ));
 
 function watchForReload() {
