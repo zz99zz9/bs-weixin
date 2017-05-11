@@ -1,0 +1,131 @@
+<style>
+.inviteFriend {
+    background: url(../img/invitefriend.jpg);
+    height: 100vh;
+    background-repeat: no-repeat;
+    position: relative;
+    background-size: auto 80vh;
+}
+
+.yourFriend {
+    font-size: 18px;
+    color: #fff;
+    padding-left: 24px;
+    position: relative;
+    top: 62vh;
+}
+
+.experienceRoom {
+    font-size: 32px;
+    color: #fff;
+    padding-left: 24px;
+    position: relative;
+    top: 65vh;
+}
+
+.goLook {
+    background-color: #FDD942;
+    border-radius: 3px;
+    height: 64px;
+    margin-left: 24px;
+    margin-right: 24px;
+    font-size: 20px;
+    line-height: 64px;
+    text-align: center;
+    position: relative;
+    top: 70vh;
+    color: #444;
+}
+
+.upIcon {
+    background-image: url(../img/icon/icon-xiangshang48_48.svg);
+    height: 48px;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: relative;
+    top: 73vh;
+    width: 100vw;
+}
+
+.newCkenInImg {
+    height: 60vh;
+    background: url(../img/qietu-quanxinruzhu700-700.jpg);
+    background-size: auto 60vh;
+    background-repeat: no-repeat;
+}
+
+.title {
+    font-size: 30px;
+    padding-left: 24px;
+    padding-top: 30px;
+    color: #444;
+    line-height: 36px;
+}
+
+.content-1 {
+    font-size: 16px;
+    color: #444;
+    padding-left: 24px;
+    line-height: 36px;
+}
+
+.content-namorl {
+    font-size: 18px;
+    color: #444;
+    padding-left: 24px;
+    line-height: 36px;
+}
+
+.content-namorl-2 {
+    padding-bottom: 30px;
+}
+
+.keJiImg {
+    background: url(../img/qietu-kejiganbaopeng700-700.jpg);
+    height: 60vh;
+    width: 100vw;
+    background-size: auto 60vh;
+    background-repeat: no-repeat;
+}
+
+.lianHeImg {
+    height: 60vh;
+    width: 100vw;
+    background: url(../img/qietu-kefanglianhe700-700.jpg);
+    background-size: auto 60vh;
+    background-repeat: no-repeat;
+}
+</style>
+<!-- <script>
+function onTopClick() {
+    window.location.hash = "#firstIntr";
+}
+</script> -->
+<div ms-controller="rechargeFriend" style="background: #fff;">
+    <div>
+        <div class="inviteFriend">
+            <div class="yourFriend">你的好友邀请你</div>
+            <div class="experienceRoom">体验D&K客房</div>
+            <div class="goLook" ms-on-tap="goRecharge">去看看</div>
+            <a  href="#firstIntr"><div class="upIcon"></div></a>
+        </div>
+        <div>
+            <a  id="firstIntr"><div class="newCkenInImg"></div></a>
+            <div class="title">全新入住</div>
+            <div class="content-1">摒弃传统酒店收费模式，住多久就付多少</div>
+            <div class="content-namorl ontent-namorl-2">提前退房返时币，下次入住再抵扣</div>
+        </div>
+        <div>
+            <div class="keJiImg"></div>
+            <div class="title">科技感爆棚</div>
+            <div class="content-namorl">远程预温/无卡开门/场景定制</div>
+            <div class="content-namorl content-namorl-2">更有VR体验/120寸影院级观影等惊叫元素</div>
+        </div>
+        <div>
+            <div class="lianHeImg"></div>
+            <div class="title">D&K·优质客房联合</div>
+            <div class="content-namorl">我们有一间客房</div>
+            <div class="content-namorl">面朝大海</div>
+            <div class="content-namorl content-namorl-2">春暖花开</div>
+        </div>
+    </div>

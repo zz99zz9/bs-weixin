@@ -1,0 +1,53 @@
+<style>
+.firstContent{
+    width: 80vw;
+     background-color: white;
+     font-size: 14px;
+     color: #444;
+     text-align: left;
+     height: 130vw;
+}
+.yuWenImg{
+    background-image: url(../img/yuwen-2.jpg);
+    height: 67vw;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: relative;
+    margin: 0 8vw;
+    background-size: 67vw;
+}
+.yuWenTitle{
+    position: absolute;
+    left: 22px;
+    top: 16px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #fff;
+}
+.yuWenContent{
+    padding-top: 3vw;
+    padding-left: 8vw;
+    padding-right: 8vw;
+}
+.secondContent{
+    background-color: #444;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin: 5vw auto;
+}
+</style>
+<article ms-controller="preTemperature" style="height: 130vw">
+    <div class="firstContent">
+        <div style="padding-top: 7vw;">
+            <div class="yuWenImg">
+                <div class="yuWenTitle">提前半小时预温</div>
+            </div>
+            <!-- <div>提前半小时预温</div> <--></-->
+            <div class="yuWenContent">开启预温后，我们将为您开启空调半小时。</div>
+            <div class="yuWenContent">半小时后，如果您未能到店办理入住，出于节能考虑我们将关闭空调。</div>
+            <div class="yuWenContent">请安排好出行时间，谢谢配合！</div>
+        </div>
+    </div>
+    <div class="secondContent" ><img src="../img/icon/icon-tanchuangchacha30_30.svg" style="margin: 3vw;" ms-on-tap="closePopPre"></div>
+</article>

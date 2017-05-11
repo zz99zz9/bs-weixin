@@ -375,7 +375,7 @@ function order() {
         }))
         .pipe(replace({
             regex: '<!-- pop -->',
-            replace: '<!--include "../pages/user/popover.html"-->'
+            replace: '<!--include "../pages/user/popover.html"--><!--include "../util/modal.html"-->'
         }))
         .pipe(contentIncluder({
             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
@@ -3478,19 +3478,19 @@ function totalAssets() {
 }
 
 //邀请好友
-function inviteFriend() {
-    return gulp.src('./js/layout/shell.html')
+function rechargeInvite() {
+        return gulp.src('./js/layout/shell.html')
         .pipe(replace({
             regex: '<!-- title -->',
             replace: '<title>邀请好友</title>'
         }))
         .pipe(replace({
             regex: '<!-- js -->',
-            replace: '<script src="js/pages/invite/invitefriend.js"></script>'
+            replace: '<script src="js/pages/invite/recharge-invite.js"></script>'
         }))
         .pipe(replace({
             regex: '<!-- content -->',
-            replace: '<!--include "../pages/invite/invitefriend.html"-->'
+            replace: '<!--include "../pages/invite/recharge-invite.html"-->'
         }))
         .pipe(rename('invitefriend.html'))
         .pipe(gulp.dest('./src'));
@@ -3540,7 +3540,92 @@ function goBooking() {
         .pipe(rename('goBooking.html'))
         .pipe(gulp.dest('./src'));
 }
+//邀请好友充值
+function inviteToRecharge(){
+    return gulp.src('./js/layout/shell.html')
+        .pipe(replace({
+            regex: '<!-- title -->',
+            replace: '<title>邀请好友</title>'
+        }))
+        .pipe(replace({
+            regex: '<!-- js -->',
+            replace: '<script src="js/pages/invite/inviteToRecharge.js"></script>'
+        }))
+        .pipe(replace({
+            regex: '<!-- content -->',
+            replace: '<!--include "../pages/invite/inviteToRecharge.html"-->'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('inviteToRecharge.html'))
+        .pipe(gulp.dest('./src'));
+}
 
+//获取时币
+function getTimeCoins(){
+    return gulp.src('./js/layout/shell.html')
+         .pipe(replace({
+            regex: '<!-- title -->',
+            replace: '<title>获取时币</title>'
+        }))
+        .pipe(replace({
+            regex: '<!-- js -->',
+            replace: '<script src="../js/pages/assess/getTimeCoins.js"></script>'
+        }))
+        .pipe(replace({
+            regex: '<!-- content -->',
+            replace: '<!--include "../pages/assess/getTimeCoins.html"-->'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('getTimeCoins.html'))
+        .pipe(gulp.dest('./src'));
+}
+
+//成为会员
+function toBeVip(){
+    return gulp.src('./js/layout/shell.html')
+         .pipe(replace({
+            regex: '<!-- title -->',
+            replace: '<title>成为会员</title>'
+        }))
+        .pipe(replace({
+            regex: '<!-- js -->',
+            replace: '<script src="../js/pages/discover/toBeVip.js"></script>'
+        }))
+        .pipe(replace({
+            regex: '<!-- content -->',
+            replace: '<!--include "../pages/discover/toBeVip.html"-->'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('toBeVip.html'))
+        .pipe(gulp.dest('./src'));
+}
+//提前退房
+function checkOutEarly(){
+    return gulp.src('./js/layout/shell.html')
+         .pipe(replace({
+            regex: '<!-- title -->',
+            replace: '<title>成为会员</title>'
+        }))
+        .pipe(replace({
+            regex: '<!-- js -->',
+            replace: '<script src="../js/pages/discover/checkoutEarly.js"></script>'
+        }))
+        .pipe(replace({
+            regex: '<!-- content -->',
+            replace: '<!--include "../pages/discover/checkoutEarly.html"-->'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('checkoutEarly.html'))
+        .pipe(gulp.dest('./src'));
+}
 /**
  * 输出弹框相关页面
  */
@@ -3562,6 +3647,7 @@ function popHtml() {
             './js/util/code.html',
             './js/util/card-select.html',
             './js/util/pay.html', //支付方式选择弹框
+            './js/util/beforePay.html', //支付前弹框
             './js/pages/user/frequent-contact-add.html',
             './js/pages/user/delivery-address-add.html',
             './js/pages/room/note.html',
@@ -3580,7 +3666,9 @@ function popHtml() {
             './js/pages/cms/foundation-withdraw.html',
             './js/pages/service/popMoreService.html',
             './js/pages/checkin/popNight.html',
-            './js/pages/checkin/popService.html'
+            './js/pages/checkin/popService.html',
+            './js/pages/service/popPre-temperature.html'
+
         ])
         .pipe(gulp.dest('./dist/util/'));
 }
@@ -3736,10 +3824,14 @@ gulp.task('html', gulp.parallel(
     temperature,
     telecontroller,
     tokensRecharge,
-    inviteFriend,
+    rechargeInvite,
+    inviteToRecharge,
     totalAssets,
     totalAssetsDetail,
-    goBooking
+    goBooking,
+    getTimeCoins,
+    toBeVip,
+    checkOutEarly
 ));
 
 function watchForReload() {

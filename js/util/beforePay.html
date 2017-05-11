@@ -1,0 +1,97 @@
+<style>
+#modal-text-content {
+    width: 90vw;
+    position: fixed;
+    bottom: 0;
+    left: 5vw;
+}
+
+.modal-content-title {
+    text-align: left;
+    line-height: 48px;
+    font-size: 18px;
+    padding-left: 20px;
+}
+
+.modal-close {
+    width: 20px;
+    height: 20px;
+    background-image: url(../img/icon/close_black.svg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: inline-block;
+    box-sizing: content-box;
+    border: 13px solid transparent;
+    top: 1px;
+    right: 3px;
+    position: absolute;
+}
+.modal-content-text {
+    margin: 40px 0;
+}
+.row {
+    display: flex;
+    justify-content: space-between;
+    height: 40px;
+    width: 240px;
+    margin: 0 auto;
+}
+.modal-commit-button {
+    line-height: 40px;
+    width: 80vw;
+    margin: 10px auto;
+    border-radius: 5px;
+}
+.mui-switch.mui-active {
+    border-color: #fdd942;
+    background-color: #fdd942;
+}
+</style>
+<div id="modal-text-content" class="bs-text-444 bs-bg-white bs-text-large" ms-controller="beforePay">
+    <section class="modal-content-title bs-text-larger">
+        {{title}}
+        <div class="modal-close" ms-on-tap="closeModal"></div>
+    </section>
+    <section class="modal-content-text" ms-if="type==1">
+        <div class="row">
+            <div style="margin-right: 20px;">时币价格</div>
+            <div class="bs-text-x-larger">{{timeCoinPrice}}<span class="bs-text-large">时币</span></div>
+        </div>
+        <div class="row">
+            <div style="margin-right: 20px;">时币账户</div>
+            <div class="bs-text-x-larger">{{timeCoinBalance}}<span class="bs-text-large">时币</span></div>
+        </div>
+    </section>
+
+    <section class="modal-content-text" ms-if="type!==1">
+        <div class="row">
+            <div style="margin-right: 20px;">现金价格</div>
+            <div class="bs-text-x-larger" ms-if="isDeduction">
+                <span style="text-decoration: line-through;color: #999;font-size: 14px;">{{cashPrice}}元</span>
+                {{round(cashPrice-deduction)}}<span class="bs-text-large">元</span>
+            </div>
+            <div class="bs-text-x-larger" ms-if="!isDeduction">
+                {{cashPrice}}<span class="bs-text-large">元</span>
+            </div>
+        </div>
+        <div class="row">
+            <div style="margin-right: 20px;">时币账户余额</div>
+            <div class="bs-text-x-larger">{{timeCoinBalance}}<span class="bs-text-large">时币</span></div>
+        </div>
+        <div class="row">
+            <div style="margin-right: 20px;">
+                时币抵扣{{deduction}}元
+            </div>
+            <div>
+                <div class="mui-switch mui-switch-mini" ms-class="mui-active: isDeduction" ms-on-tap="toggleDeduction">
+                  <div class="mui-switch-handle"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="modal-commit-button bs-text-yellow bs-bg-51" ms-click="go">
+            {{btnText}}
+        </div>
+    </section>
+</div>

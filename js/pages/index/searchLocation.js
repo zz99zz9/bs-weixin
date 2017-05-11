@@ -3,9 +3,18 @@ var position = Storage.get('position'),
 
 var vmSearch = avalon.define({
     $id: 'search',
-    mode: positionIniData.mode,
-    city: positionIniData.city,
-    center: positionIniData.center,
+    mode:  {
+        value: 1, 
+        city: 1, 
+        center: 2, 
+        nearby: 3
+    },
+    city: {
+        name: '盘古创业',
+        lng: 121.516546,
+        lat: 31.217467
+    },
+    center: {name: '上海市', cid: 803},
     position: '上海市', //所在的城市
     search: '', //搜索输入的内容
     searchCityIndex: -1,

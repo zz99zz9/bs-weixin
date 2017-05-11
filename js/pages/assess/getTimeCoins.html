@@ -1,0 +1,38 @@
+<style>
+.charater-bg {
+    height: 25vh;
+    margin-top: 2vh;
+    position: relative;
+    text-align: center;
+    line-height: 25vh;
+    color: #fff;
+    font-size: 20px;
+    font-family: "MicrosoftYaHei";
+}
+
+.friend-img {
+    background: url(../img/qietu-haoyoutuijian702-340.jpg);
+    background-size: 90vw auto;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.early-img {
+    background: url(../img/qietu-tiqiantuifang702-340.jpg);
+    background-size: 90vw auto;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.vip-img {
+    background: url(../img/qietu-chengweihuiyuan702-340.jpg);
+    background-size: 90vw auto;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+</style>
+<div ms-controller="getTimeCoins">
+    <div class="charater-bg friend-img" ms-on-tap="goInviteFriend">好友推荐</div>
+    <div class="charater-bg early-img" ms-on-tap="goCheckourEarly">提前退房</div>
+    <div class="charater-bg vip-img" ms-on-tap="goToBeVip">成为会员</div>
+</div>
