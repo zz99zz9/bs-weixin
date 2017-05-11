@@ -43,6 +43,11 @@ var vmServiceReady = avalon.define({
             modalShow('../util/popMoreService.html', 1);
         });
     },
+    openTem: function() { //添加更多定制服务
+        stopSwipeSkip.do(function() {
+            modalShow('../util/popPre-temperature.html', 1);
+        });
+    },
     goOpendoor: function() {
         stopSwipeSkip.do(function() {
             mui.confirm("您已成功开启此趟旅程，请跟随我的脚步～", "follow me", ["去开门"], function(e) {
@@ -176,13 +181,13 @@ var vmServiceReady = avalon.define({
     },
     tempUp: function() { //升高温度
         if (vmServiceReady.temPoint < 31) {
-        vmServiceReady.temPoint++;
-        vmServiceReady.goDevice(urls.AirTempUp, vmServiceReady.airTempUpId);
-    }else{
-        mui.confirm("最高温度为31℃", "提醒", ["知道了"],function(e){
+            vmServiceReady.temPoint++;
+            vmServiceReady.goDevice(urls.AirTempUp, vmServiceReady.airTempUpId);
+        } else {
+            mui.confirm("最高温度为31℃", "提醒", ["知道了"], function(e) {
 
-        });
-    }
+            });
+        }
     },
     tempDown: function() { //降低温度
         vmServiceReady.temPoint--;
@@ -266,17 +271,19 @@ var vmServiceReady = avalon.define({
     isAdvertisement: 0,
     hidAdvertisement: function() {
         if (vmServiceReady.isAdvertisement === 0) {
-            $('.advertisement').css("display","none");
+            $('.advertisement').css("display", "none");
             isAdvertisement = 1;
         } else {
 
         }
-    }
+    },
 });
 vmServiceReady.getAirDeviceList();
 vmServiceReady.data = vmServiceReady.list;
 vmServiceReady.getPreService();
 registerWeixinConfig();
+modalShow('../util/popPre-temperature.html', 1);
+//modalShow('./util/popPre-temperature.html', 1);
 // wx.ready(function() {
 //     wx.getLocation({
 //         type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
@@ -323,4 +330,36 @@ var vmMoreService = avalon.define({
             });
         });
     }
+});
+var vmPopPreTemperature = avalon.define({
+    $id: 'preTemperature',
+    closePopPre: function() {
+        stopSwipeSkip.do(function() {
+            modalClose();
+        });
+    },
+    // light: '不关闭',
+    // lightId: 0,
+    // lightList: [
+    //     //     { type: 0, value: 1, name: '呼叫前台', engName: 'Call Reception', brief: '我们提供24小时前台呼叫服务。', url: '../img/reception-bg.jpg' },
+    //     //     { type: 1, value: 2, name: '更换客用品', engName: 'Change Supplies', brief: '我们提供24小时前台呼叫服务。', url: '../img/changeSupplies-bg.jpg' },
+    //     //     { type: 2, value: 3, name: '早餐服务', engName: 'Breakfast', brief: '我们提供24小时前台呼叫服务。', url: '../img/breakfast-bg.jpg' },
+    //     //     { type: 3, value: 4, name: '清洁服务', engName: 'Cleaning', brief: '我们提供24小时前台呼叫服务。', url: '../img/clean-bg.jpg' },
+    // ],
+    // getlightList: function() {
+    //     ajaxJsonp({
+    //         url: urls.getReservationServiceList,
+    //         data: {
+    //             hid: 1,
+    //         },
+    //         successCallback: function(json) {
+    //             if (json.status === 1) {
+    //                 vmPopService.lightList = json.data;
+    //             } else {
+    //                 console.log(json.message);
+    //             }
+    //         }
+    //     });
+    // },
+    popList: {},
 });

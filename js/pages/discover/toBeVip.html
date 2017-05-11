@@ -1,0 +1,48 @@
+<style>
+.rechargeFriendImg {
+    height: 375px;
+    background: url(../img/qietu-chegnweihuiyuan700-700.jpg);
+    background-position: center;
+    background-size: auto 375px;
+}
+
+.rechargeFriendMessage {
+    padding-top: 48px;
+    padding-left: 44px;
+    padding-right: 44px;
+    font-size: 16px;
+    color: #444;
+    text-align: center;
+    padding-bottom: 100px;
+    background-color: white;
+}
+
+.recommend {
+    position: fixed;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    background-color: white;
+}
+
+.recommend div {
+    border-radius: 3px;
+    background-color: #FDD942;
+    color: #FFF;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 48px;
+    margin: 0 24px 16px 24px;
+}
+</style>
+<div ms-controller="toBeVip" class="bs-bg-white" style="height: 100vh;">
+    <div class="rechargeFriendImg">
+    </div>
+    <div class="rechargeFriendMessage">
+        充值时币，成为D&K会员，享受时币专享优惠价格，最低九折起！
+    </div>
+    <div class="recommend">
+        <div ms-on-tap="beVip">成为会员</div>
+    </div>
+</div>
