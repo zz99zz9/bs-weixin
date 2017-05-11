@@ -1,5 +1,5 @@
-var currentRoom = Storage.get("currentRoom"),
-    roomId = currentRoom.roomId;
+var currentRoom = Storage.get("guest"),
+    roomId = currentRoom.orid;
 var vmTemperature = avalon.define({
     $id: 'temperature',
     temPoint: 25, //温度数值

@@ -286,8 +286,10 @@ var vmHotel = avalon.define({
         ajaxJsonp({
             url: urls.getRoomTypeList,
             data: {
-                startTime: vmHotel.type ? newOrder.partTime.start : (newOrder.day.start == getToday('date') ? getToday() : newOrder.day.start),
-                endTime: vmHotel.type ? newOrder.partTime.end : newOrder.day.end,
+                // startTime: vmHotel.type ? newOrder.partTime.start : (newOrder.day.start == getToday('date') ? getToday() : newOrder.day.start),
+                // endTime: vmHotel.type ? newOrder.partTime.end : newOrder.day.end,
+                startTime: "2017-05-08",
+                endTime: "2017-05-11",
                 hid: hid,
                 isPartTime: vmHotel.type,
                 discount: midnightDiscount

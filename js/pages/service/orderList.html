@@ -46,7 +46,7 @@
     <div id="pullrefresh" class="mui-scroll-wrapper" style="position: static;">
         <div class="mui-scroll">
             <div style="margin: 0 24px;">
-                <div class="content-infor" ms-repeat="data">
+                <div class="content-infor" ms-repeat="data" ms-if-loop="el.processStatus==1">
                     <div class="bs-text-x-large">{{el.roomNo}}</div>
                     <div class="bs-text-large">{{el.userName}}</div>
                     <div class="sendBtn bs-text-yellow bs-bg-444" ms-on-tap="send(el.customerStatus)">
