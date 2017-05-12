@@ -75,36 +75,3 @@
     </div>
 </div>
 <!-- footer -->
-<!-- <script>
-mui.init({
-    pullRefresh: {
-        container: '#pullrefresh',
-        up: {
-            contentrefresh: '正在加载...',
-            contentnomore: "没有更多数据了",
-            callback: loadmore
-        }
-    }
-});
-
-function loadmore() {
-    var vm = listData.vm,
-        url = listData.url;
-
-    listData.data.pageNo = vm.pageNo;
-    listData.data.pageSize = vm.pageSize;
-    ajaxJsonp({
-        url: url,
-        data: listData.data,
-        successCallback: function(json) {
-            if (json.data.count + json.data.pageSize > (vm.pageNo * json.data.pageSize) && json.data.list.length > 0) {
-                vm.pageNo++;
-                vm.list.push.apply(vmArticle.list, json.data.list);
-                mui("#pullrefresh").pullRefresh().endPullupToRefresh(false);
-            } else {
-                mui("#pullrefresh").pullRefresh().endPullupToRefresh(true);
-            }
-        }
-    });
-}
-</script> -->
