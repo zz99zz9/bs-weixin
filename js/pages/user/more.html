@@ -1,11 +1,18 @@
 <style>
 .content {
     display: flex;
-    justify-content: space-between;
     height: 60px;
     width: 100vw;
     padding: 21px 30px 25px;
     background-color: white;
+    align-items: center;
+}
+
+.gap {
+    margin-bottom: 1px;
+}
+
+.gap-large {
     margin-bottom: 12px;
 }
 
@@ -14,46 +21,80 @@
     width: 15px;
 }
 </style>
-<div class="mui-page" ms-controller="more">
-    <div class="content bs-text-444 bs-text-normal" onclick="javascript:location.href='../user-info.html';">
-        <div>
+<div class="mui-page" ms-controller="more" style="height: 102vh;">
+    <div class="content bs-text-444 bs-text-normal gap-large mui-navigate-right" onclick="javascript:location.href='../user-info.html';">
+        <div style="height: 24px;"><img src="../img/icon/icon-huiyuanzhongxin.svg"></div>
+        <div style="margin-left: 10px;">
             会员中心
         </div>
-        <div style="height: 15px;">
+        <!-- <div style="height: 15px;">
             <img src="../img/icon/right-arrow.svg" class="icon" alt="">
-        </div>
+        </div> -->
     </div>
-    <div class="content bs-text-444 bs-text-normal" onclick="javascript:location.href='../commonweal-introduce.html';">
-        <div>
+    <div class="content bs-text-444 bs-text-normal gap-large mui-navigate-right" onclick="javascript:location.href='../totalAssets.html';">
+        <div style="height: 24px;"><img src="../img/icon/icon-shibiqianbao.svg"></div>
+        <div style="margin-left: 10px;">
+            时币钱包
+        </div>
+        <!-- <div style="height: 15px;">
+            <img src="../img/icon/right-arrow.svg" class="icon" alt="">
+        </div> -->
+    </div>
+    <div ms-if="isVip>0" class="content bs-text-444 bs-text-normal gap-large mui-navigate-right" onclick="javascript:location.href='../commonweal-introduce.html';">
+        <div style="height: 24px;"><img src="../img/icon/icon-bensuegongyi.svg"></div>
+        <div style="margin-left: 10px;">
             本宿公益
         </div>
-        <div style="height: 15px;">
+        <!-- <div style="height: 15px;">
             <img src="../img/icon/right-arrow.svg" class="icon" alt="">
-        </div>
+        </div> -->
     </div>
-    <div ms-if="isVip>0" class="content bs-text-444 bs-text-normal" onclick="javascript:location.href='../promotion-detail.html';">
-        <div>
-            推广奖励
+    <div class="gap-large">
+        <div ms-if="isVip>0" class="content bs-text-444 bs-text-normal gap mui-navigate-right" onclick="javascript:location.href='../card-detail.html';">
+            <div style="height: 24px;"><img src="../img/icon/icon-qianbao.svg"></div>
+            <div style="margin-left: 10px;">
+                钱包
+            </div>
+            <!-- <div style="height: 15px;">
+                <img src="../img/icon/right-arrow.svg" class="icon" alt="">
+            </div> -->
         </div>
-        <div style="height: 15px;">
-            <img src="../img/icon/right-arrow.svg" class="icon" alt="">
+        <div ms-if="isVip>0" class="content bs-text-444 bs-text-normal gap mui-navigate-right" onclick="javascript:location.href='../promotion-detail.html';">
+            <div style="height: 24px;"><img src="../img/icon/icon-tuiguangjiangli.svg"></div>
+            <div style="margin-left: 10px;">
+                推广奖励
+            </div>
+            <!-- <div style="height: 15px;">
+                <img src="../img/icon/right-arrow.svg" class="icon" alt="">
+            </div> -->
         </div>
+        <div ms-if="isVip>0" class="content bs-text-444 bs-text-normal gap mui-navigate-right" onclick="javascript:location.href='../recharge-invite.html';">
+            <div style="height: 24px;"><img src="../img/icon/icon-yaoqingruzhu.svg"></div>
+            <div style="margin-left: 10px;">
+                邀请好友
+            </div>
+            <!-- <div style="height: 15px;">
+                <img src="../img/icon/right-arrow.svg" class="icon" alt="">
+            </div> -->
+        </div>
+        <!-- <div class="content bs-text-444 bs-text-normal gap" onclick="javascript:location.href='../user-info.html';">
+            <div style="height: 24px;"><img src="../img/icon/icon-fankui.svg"></div>
+            <div style="margin-left: -50vw;padding-right: 24px;">
+                反馈
+            </div>
+            <div style="height: 15px;">
+                <img src="../img/icon/right-arrow.svg" class="icon" alt="">
+            </div>
+        </div> -->
     </div>
-    <div ms-if="isVip>0" class="content bs-text-444 bs-text-normal" onclick="javascript:location.href='../vip-invite.html';">
-        <div>
-            邀请好友
-        </div>
-        <div style="height: 15px;">
-            <img src="../img/icon/right-arrow.svg" class="icon" alt="">
-        </div>
-    </div>
-    <div class="content bs-text-444 bs-text-normal" onclick="javascript:location.href='../setting.html';">
-        <div>
+    <div class="content bs-text-444 bs-text-normal mui-navigate-right" onclick="javascript:location.href='../setting.html';">
+        <div style="height: 24px;"><img src="../img/icon/icon-shezhi.svg"></div>
+        <div style="margin-left: 10px;">
             设置
         </div>
-        <div style="height: 15px;">
+        <!-- <div style="height: 15px;">
             <img src="../img/icon/right-arrow.svg" class="icon" alt="">
-        </div>
+        </div> -->
     </div>
     <!-- <div class="footer-nav">
         <div class="footer-content" ms-on-tap="goIndex">
@@ -75,4 +116,3 @@
     </div> -->
 </div>
 <!-- footer -->
-
