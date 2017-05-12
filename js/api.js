@@ -237,7 +237,7 @@ var urls = {
     payCardOrder: urlAPI + '/web/vip/pay/userBuyCardOrderInfoPay/cashier', //会员卡订单支付
     getCardAccountList: urlAPI + '/web/vip/userCardAccount/list', //钱包会员卡列表
     getDefaultCashAccount: urlAPI + '/web/vip/userCardAccountApplyCashAccount/defaultAccount', //获取默认提现帐号
-    bindCashAccountSMS: urlAPI + '/web/usr/sms/bindApplyCashAcccount', //绑定提现帐号验证码
+    bindCashAccountSMS: urlAPI + '/web/usr/sms/bindApplyashAcccount', //绑定提现帐号验证码
     bindCashAccount: urlAPI + '/web/vip/userCardAccountApplyCashAccount/bind', //绑定提现帐号
     withdrawCash: urlAPI + '/web/vip/userCardAccountApplyCashLog/apply', //申请提现
     getAccountLogList: urlAPI + '/web/vip/userCardAccountOperateLog/list', //账户资金记录

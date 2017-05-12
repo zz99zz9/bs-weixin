@@ -42,34 +42,35 @@ section {
     line-height: 36px;
     font-weight: bold;
     width: 40vw;
-    border-radius:5px;
+    border-radius: 5px;
+}
+.isValid {
+    color: #ffa000;
 }
 
+.noValid {
+    color: gray;
+}
 </style>
 <div ms-controller="checkOut" class="bs-text-444">
-    
     <section style="padding-top: 10px;padding-bottom: 28px;">
         <div class="title-margin1 bs-text-444 bs-text-bolder" style="font-size: 20px;">
             获得{{tb}}时币 可抵{{round(tb*tbRate)}}元
         </div>
         <div class="title-margin1 bs-text-smaller">
             此次入住提前{{tbTime}}小时退房，获得节能奖励{{tb}}时币，下次入住可抵用{{round(tb*tbRate)}}元。
-        </div>
-
+        </div>  
         <div class="title-margin1 bs-text-smaller">
             可以在“我的时币”查看到账情况。
-            <br>
-            感谢您对本宿环保公益的支持。
+            <br> 感谢您对本宿环保公益的支持。
         </div>
     </section>
-
-    <section style="margin-top: 8px;padding-top: 26px;">
+    <section style="margin-top: 8px;padding-top: 26px;" ms-if="isHealth=false">
         <div style="display: flex;justify-content: space-between;">
             <div class="bs-text-444 title-margin1 bs-text-bolder" style="font-size: 20px;">您的健康指数报告</div>
             <div class="title-margin2 bs-text-bolder bs-text-normal bs-text-fdd942" ms-on-tap="send">保存&分享</div>
         </div>
         <div class="back-color bs-text-normal title-margin1">{{nowDate}}</div>
-
         <div style="padding: 5px 0 5px 0;">
             <div class="bs-text-large" ms-repeat="list">
                 <div class="title-margin1 bs-text-bolder" style="font-size: 18px;">{{el.name}}</div>
@@ -86,12 +87,22 @@ section {
             </div>
         </div>
     </section>
-
-
     <section style="margin-top: 8px;padding-top: 8px;">
         <div class="bs-text-bolder title-margin1">服务评价</div>
+        <ul style="padding-left: 30px;">
+            <li style="overflow: hidden;">
+                <table>
+                    <tr ms-repeat="scoreList">
+                        <td class="flex0 bs-text-small bs-text-gray" style="padding: 0 0 13.5px 0;">{{el.name}}</td>
+                        <td style="position: absolute; right: 30px;">
+                            <span style="font-size: 22px;margin-left:5px;" ms-repeat-cl="el.list" ms-class-1="isValid:el.s>(cl-1)" ms-class-2="noValid:el.s<cl" ms-click="click(el.r,cl)">★</span>
+                        </td>
+                    </tr>
+                </table>
+            </li>
+        </ul>
         <div class="title-margin1" style="margin: 0 8vw;">
-            <textarea style="background-color: #F2F2F2;color: #444;padding-left: 15px;padding-top: 5px;" class="comment" placeholder="写下您的评价，我们将第一时间为你反馈~"></textarea>
+            <textarea style="background-color: #F2F2F2;color: #444;padding-left: 15px;padding-top: 5px;" class="comment" placeholder="写下您的评价，我们将第一时间为你反馈~" ms-duplex="content"></textarea>
             <div style="display: flex;justify-content: space-between;">
                 <div class="evaluation-botton" ms-click="alert">
                     <span>提交</span>
@@ -102,7 +113,6 @@ section {
             </div>
         </div>
     </section>
-
     <div ms-if="isSend" style="padding: 20px;background-color: #fff;">
         <div class="mask-fullscreen bs-text-white" style="position: fixed; z-index: 11;">
             <img src="../img/icon/arrow-top-right.svg" style="width: 30px;">
