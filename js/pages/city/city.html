@@ -48,7 +48,7 @@
         <div class="swiper-wrapper" style="padding-left: 15px;background-color: rgba(0,0,0,0);">
             <div class="swiper-slide swiper-slide-marker" ms-repeat="hotelMarkers" data-repeat-rendered="swiper1Render">
                 <div ms-css-background-image="url({{urlAPINet + el.coverUrl}})" class="hotel-picture" ms-on-tap="goHotel(el.id)">
-                    <div class="guestFull bs-text-x-smaller">满&emsp;房</div>
+                    <div ms-if="el.restRoomCount==0" class="guestFull bs-text-x-smaller">满&emsp;房</div>
                     <div class="distance bs-text-white bs-text-x-smaller">{{round(el.distance/1000)}}km</div>
                     <div style="display: flex;width: 100%;position: absolute;bottom: 5px;">
                         <div class="bs-text-white bs-text-x-smaller">
@@ -95,7 +95,7 @@
             <div class="bs-text-gold" style="position: relative;top: -5px;left: -8px;display: inline-block;" ms-on-tap="changeSort(2)" ms-if="sort==1">距离最近</div>
             <div class="bs-text-gold" style="position: relative;top: -5px;left: -8px;display: inline-block;" ms-on-tap="changeSort(1)" ms-if="sort==2">价格最低</div>
         </div> -->
-        <div id="hotelList" class="bs-bg-white" style="padding: 16px 24px 46px;margin-top: 48px;">
+        <div id="hotelList" class="bs-bg-white" style="padding: 16px 24px 60px;margin-top: 48px;">
             <div ms-repeat="hotelMarkers">
                 <!-- roomSlide -->
             </div>

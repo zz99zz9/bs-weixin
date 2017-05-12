@@ -3441,6 +3441,10 @@ function tokensRecharge() {
             replace: '<title>充值</title>'
         }))
         .pipe(replace({
+            regex: '<!-- pop -->',
+            replace: '<!--include "../util/modal.html"-->'
+        }))
+        .pipe(replace({
             regex: '<!-- js -->',
             replace: '<script src="js/pages/recharge/tokensRecharge.js"></script>'
         }))
@@ -3519,6 +3523,27 @@ function totalAssetsDetail() {
         .pipe(gulp.dest('./src'));
 }
 
+//前去预定页面
+function goBooking() {
+    return gulp.src('./js/layout/shell.html')
+        .pipe(replace({
+            regex: '<!-- title -->',
+            replace: '<title>开启入住</title>'
+        }))
+        .pipe(replace({
+            regex: '<!-- js -->',
+            replace: '<script src="../js/pages/checkin/goBooking.js"></script>'
+        }))
+        .pipe(replace({
+            regex: '<!-- content -->',
+            replace: '<!--include "../pages/checkin/goBooking.html"-->'
+        }))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('goBooking.html'))
+        .pipe(gulp.dest('./src'));
+}
 //邀请好友充值
 function inviteToRecharge(){
     return gulp.src('./js/layout/shell.html')
@@ -3807,6 +3832,7 @@ gulp.task('html', gulp.parallel(
     inviteToRecharge,
     totalAssets,
     totalAssetsDetail,
+    goBooking,
     getTimeCoins,
     toBeVip,
     checkOutEarly

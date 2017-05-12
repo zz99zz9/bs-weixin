@@ -82,7 +82,7 @@
     
     <section ms-if="isShowTipList" style="margin: 0 auto;width: 95%;">
         <div ms-repeat="tipList" class="tipList" ms-on-tap="selectLocation(el.name, el.location.lng, el.location.lat, false)">
-            <div style="background:url('../img/icon/position.png') no-repeat center center;height: 20px;width: 20px;background-size: cover;"></div>
+            <div style="background:url('../img/icon/position.svg') no-repeat center center;height: 20px;width: 20px;background-size: cover;"></div>
             <div style="flex-grow: 1;padding-left: 20px;">
                 <div class="bs-text-large">{{el.name}}</div>
                 <div class="bs-text-small bs-text-gray">{{el.district + ' ' + el.address}}</div>

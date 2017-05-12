@@ -78,8 +78,8 @@ var urls = {
     cancelOrder: urlAPI + '/web/trd/orderInfo/cancel', //取消订单
     saveSub: urlAPI + '/web/trd/orderComment/save', //用户提交评论
     payOrder: urlAPI + '/ordercenter/trd/pay/orderInfoPay/cashier', //支付订单
+    getWaitRoomList: urlAPI + '/ordercenter/trd/orderRoom/userRoomList', //根据用户查询待入住房间列表
     unsubscribeOrder: urlAPI + '/ordercenter/trd/refund/orderInfoRefund/refund', //退订订单
-    getWaitRoomList: urlAPI + '/ordercenter/trd/orderRoom/findByUidOrderRoomList', //根据用户查询待入住房间列表
     checkOut: urlAPI + '/ordercenter/trd/orderInfo/checkOut', //退房
     //余额
     getBalance: urlAPI + '/web/usr/userBalanceAccount/info', //查询用户余额详情
@@ -90,6 +90,9 @@ var urls = {
     getTotalAssets: urlAPI + '/ordercenter/usr/userTimeCoinAccount/info', //总资产余额
     getTotalAssetsContent: urlAPI + '/ordercenter/usr/userTimeCoinAccountOperateLog/statistics', //总资产钱包累计
     getTotalAssetsRecord: urlAPI + '/ordercenter/usr/userTimeCoinAccountOperateLog/list', //总资产收支明细
+    getTimeCoinProductList: urlAPI + '/ordercenter/tmc/timeCoinProduct/list', //时币充值产品列表
+    submitTimeCoinRechargeOrder: urlAPI + '/ordercenter/usr/userTimeCoinOrderInfo/submit', //提交时币充值订单
+    payTimeCoinRechargeOrder: urlAPI + '/ordercenter/usr/pay/userTimeCoinOrderInfoPay/cashier', //支付时币充值订单
     //服务
     inStoreGoods: urlAPI + '/web/svr/inStoreGoods/list',//店内商品列表
     hotelService: urlAPI + '/web/svr/hotelService/list',//店内服务列表
@@ -97,9 +100,9 @@ var urls = {
     socialList: urlAPI + '/web/svr/hotelSocialStore/list',//社会化商铺列表
     //客控
     openDoorList: urlAPI + '/web/trd/hotelControl/openDoorList',//查询当前登录用户开门列表
-    // checkOutDoorList: urlAPI + '/web/trd/hotelControl/checkOutList',//查询当前登录用户退房列表
-    // openDoor: urlAPI + '/web/trd/hotelControl/openDoor',// 微信开门
-    // checkOutDoor: urlAPI + '/web/trd/hotelControl/checkOut',//微信退房
+    checkOutDoorList: urlAPI + '/web/trd/hotelControl/checkOutList',//查询当前登录用户退房列表
+    openDoor: urlAPI + '/web/trd/hotelControl/openDoor',// 微信开门
+    checkOutDoor: urlAPI + '/ordercenter/trd/orderInfo/checkOut',//微信退房
     getAirDeviceList: urlAPI + '/ordercenter/smk/airc/deviceList',//空调设备列表
     closeAir: urlAPI + '/ordercenter/smk/airc/close',//空调关机
     changeAirMode: urlAPI + '/ordercenter/smk/airc/changeMode',//空调切换模式

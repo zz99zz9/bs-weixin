@@ -1,0 +1,25 @@
+<style>
+.back {
+    height: 100vh;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.btn {
+    text-align: center;
+    position: absolute;
+    bottom: 20vh;
+    left: 25vw;
+    height: 42px;
+    width: 50vw;
+    line-height: 42px;
+    border: 1px solid #fdd942;
+    border-radius: 5px;
+}
+</style>
+<div ms-controller="goBooking" class="bs-bg-white back" ms-css-background-image="url({{goBooking}})">
+    <div class="btn bs-text-yellow bs-text-18" ms-click="goBook">
+        前去预定
+    </div>
+</div>
