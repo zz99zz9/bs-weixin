@@ -32,14 +32,14 @@ var vmFooter = avalon.define({
                         } else {
                             json.data.map(function(e) {
                                 if (e.customerStatus == 1) {
-                                    if (e.processStatus == 3) {  
-                                        Storage.set('guest', {orid: e.id});
+                                    if (e.processStatus == 3) {  //存订单房间id和房间id
+                                        Storage.set('guest', {orid: e.id, rid: e.rid});
                                         location.href = "../inroom.html";
                                     } else if (e.processStatus == 2) { 
-                                        Storage.set('guest', {orid: e.id});
+                                        Storage.set('guest', {orid: e.id, rid: e.rid});
                                         location.href = "../service/ready.html";
                                     } else {
-                                        Storage.set('guest', {orid: e.id});
+                                        Storage.set('guest', {orid: e.id, rid: e.rid});
                                         location.href = "../service/orderList.html";
                                     }
                                 }
