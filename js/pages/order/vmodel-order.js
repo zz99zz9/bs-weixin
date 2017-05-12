@@ -267,10 +267,17 @@ var vmOrder = avalon.define({
         })
     },
     cashPrice: 0,
-    timeCoinPrice: 30,
+    timeCoinPrice: 50,
     timeCoinBalance: 0,
     getTimeCoinBalance: function() {
-        vmOrder.timeCoinBalance = 20;
+        ajaxJsonp({
+            url: urls.getTotalAssets,
+            successCallback: function(json) {
+                if (json.status == 1) {
+                    vmOrder.timeCoinBalance = json.data.availableCoin;
+                }
+            }
+        });
     },
     getPrice: function(needAmount, fund, discount) {
         if(vmOrder.data.status!=1) {
@@ -369,6 +376,56 @@ var vmBeforePay = avalon.define({
     toggleDeduction: function() {
         stopSwipeSkip.do(function() {
             vmBeforePay.isDeduction = !vmBeforePay.isDeduction;
+        });
+    },
+    go: function() {
+        stopSwipeSkip.do(function() {
+            if(vmBeforePay.type == 1) {
+                if(vmBeforePay.timeCoinBalance < vmBeforePay.timeCoinPrice) {
+                    location.href = "tokensRecharge.html";
+                } 
+            }
+
+            ajaxJsonp({
+                url: urls.payOrder,
+                data: {
+                    oid: orderid,
+                    payType: vmOrder.payType,
+                    fid: vmOrder.fundIndex > -1 ? vmOrder.fundList[vmOrder.fundIndex].id : '',
+                    orids: vmOrder.orids.join(','),
+                    returnUrl: window.location.origin + "/closePage.html",
+                    cid: vmSelectCard.selectCardID,
+                    did: vmOrder.did,
+                    timeCoin: round(vmBeforePay.deduction/10)
+                },
+                successCallback: function(json) {
+                    if (json.status === 1) {
+                        if (json.data.payStatus == 0) {
+                            vmOrder.payinfo = json.data;
+                            if (vmOrder.payType == 1) { //支付宝支付
+                                location.href = 'alipay.html?oid=' + orderid + '&payUrl=' + encodeURIComponent(json.data.payUrl) + '&type=room';
+                            } else if (vmOrder.payType == 2) { //微信支付
+                                onBridgeReady();
+                            } else if (vmOrder.payType == 6 || vmOrder.payType == 8) { //钱包支付
+                                //location.href = '/payend.html?id=' + orderid;
+                                location.href = '../service/orderList.html';
+                            }
+                        } else if (json.data.payStatus == 1) {
+                            //付款已完成（比如用了大额的优惠券，把房费降为了0
+                            //location.href = '/payend.html?id=' + orderid;
+                            location.href = '../service/orderList.html';
+                        } else {
+                            mui.alert( "正在支付订单，请稍后", function() {
+                                vmOrder.btn2Disabled = false;
+                            });
+                        }
+                    } else {
+                        //调取后台接口不成功
+                        mui.alert(json.message, "支付订单");
+                        vmOrder.btn2Disabled = false;
+                    }
+                }
+            });
         });
     }
 });
@@ -489,46 +546,6 @@ function payOrder() {
     modalShow('./util/beforePay.html', 1, function() {
         vmBeforePay.setStatus(vmOrder.payType);
     });
-
-    // ajaxJsonp({
-    //     url: urls.payOrder,
-    //     data: {
-    //         oid: orderid,
-    //         payType: vmOrder.payType,
-    //         fid: vmOrder.fundIndex > -1 ? vmOrder.fundList[vmOrder.fundIndex].id : '',
-    //         orids: vmOrder.orids.join(','),
-    //         returnUrl: window.location.origin + "/closePage.html",
-    //         cid: vmSelectCard.selectCardID,
-    //         did: vmOrder.did,
-    //     },
-    //     successCallback: function(json) {
-    //         if (json.status === 1) {
-    //             if (json.data.payStatus == 0) {
-    //                 vmOrder.payinfo = json.data;
-    //                 if (vmOrder.payType == 1) { //支付宝支付
-    //                     location.href = 'alipay.html?oid=' + orderid + '&payUrl=' + encodeURIComponent(json.data.payUrl) + '&type=room';
-    //                 } else if (vmOrder.payType == 2) { //微信支付
-    //                     onBridgeReady();
-    //                 } else if (vmOrder.payType == 6) { //钱包支付
-    //                     //location.href = '/payend.html?id=' + orderid;
-    //                     location.href = '../service/orderList.html';
-    //                 }
-    //             } else if (json.data.payStatus == 1) {
-    //                 //付款已完成（比如用了大额的优惠券，把房费降为了0
-    //                 //location.href = '/payend.html?id=' + orderid;
-    //                 location.href = '../service/orderList.html';
-    //             } else {
-    //                 mui.alert( "正在支付订单，请稍后", function() {
-    //                     vmOrder.btn2Disabled = false;
-    //                 });
-    //             }
-    //         } else {
-    //             //调取后台接口不成功
-    //             mui.alert(json.message, "支付订单");
-    //             vmOrder.btn2Disabled = false;
-    //         }
-    //     }
-    // });
 }
 
 //取消订单

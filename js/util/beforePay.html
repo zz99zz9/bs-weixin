@@ -78,7 +78,7 @@
             <div style="margin-right: 20px;">时币账户余额</div>
             <div class="bs-text-x-larger">{{timeCoinBalance}}<span class="bs-text-large">时币</span></div>
         </div>
-        <div class="row">
+        <div class="row" ms-if="timeCoinBalance">
             <div style="margin-right: 20px;">
                 时币抵扣{{deduction}}元
             </div>
@@ -90,7 +90,7 @@
         </div>
     </section>
     <section>
-        <div class="modal-commit-button bs-text-yellow bs-bg-51" ms-click="go">
+        <div class="modal-commit-button bs-text-yellow bs-bg-51" ms-on-tap="go">
             {{btnText}}
         </div>
     </section>
