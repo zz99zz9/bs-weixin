@@ -93,6 +93,8 @@ var urls = {
     getTimeCoinProductList: urlAPI + '/ordercenter/tmc/timeCoinProduct/list', //时币充值产品列表
     submitTimeCoinRechargeOrder: urlAPI + '/ordercenter/usr/userTimeCoinOrderInfo/submit', //提交时币充值订单
     payTimeCoinRechargeOrder: urlAPI + '/ordercenter/usr/pay/userTimeCoinOrderInfoPay/cashier', //支付时币充值订单
+    getTimeCoinDiscount: urlAPI + '/ordercenter/tmc/timeCoinSetting/payOrderDiscount', //查询时币折扣
+
     //服务
     inStoreGoods: urlAPI + '/web/svr/inStoreGoods/list',//店内商品列表
     hotelService: urlAPI + '/web/svr/hotelService/list',//店内服务列表

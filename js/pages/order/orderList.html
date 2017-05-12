@@ -21,7 +21,7 @@
 
 .order-money {
     float: right; 
-    margin: 3px 10px 0 0;
+    margin: 1px 4px 0 0;
 }
 
 .order-list .order-item button {
@@ -58,7 +58,8 @@
                 </span>
             </h5>
             <button class="bs-text-smaller bs-bg-black bs-text-yellow" type="button" ms-click="goDetail(el.id)">{{showActionText(el.status)}}</button>
-            <span class="bs-text-large bs-text-444 order-money" ms-if="el.needAmount>0">¥{{el.needAmount}}</span>
+            
+            <span class="bs-text-large bs-text-444 order-money" ms-if="el.needAmount>0">/ {{el.needTimeCoin}}时币</span><span class="bs-text-large bs-text-444 order-money" ms-if="el.needAmount>0">{{el.needAmount}}元</span>
         </li>
     </ul>
 
@@ -84,7 +85,8 @@
                 </span>
             </h5>
             <button class="bs-text-smaller bs-bg-black bs-text-yellow" type="button" ms-if="!(el.status==4&&el.iscomment==1)" ms-click="goDetail(el.id)">{{showActionText(el.status)}}</button>
-            <span class="bs-text-large bs-text-fdd942 order-money">¥{{el.needAmount}}</</span>
+            
+            <span class="bs-text-large bs-text-444 order-money" ms-if="el.needAmount>0">/ {{el.needTimeCoin}}时币</span><span class="bs-text-large bs-text-444 order-money" ms-if="el.needAmount>0">{{el.needAmount}}元</span>
         </li>
     </ul>
     <br>

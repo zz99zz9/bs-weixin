@@ -19,9 +19,9 @@ var clock = function(roomTypeId) {
         partTimeInterval = 1, //时租房间隔最少3小时
         r = 120, //圆半径
         lw = 40, //线宽
-        circleColor = "#eee",
-        tColor = "#ccc",
-        arcColor = "#444",
+        circleColor = "#444", //圆环的颜色
+        tColor = "#ccc", //时间刻度的颜色
+        arcColor = "#fdd942", //连接两点的弧线颜色
         dr = 20, //点半径
         dx1, dy1, //点1的位置
         timeSpan = '',
@@ -34,15 +34,15 @@ var clock = function(roomTypeId) {
         h2 = 12,
         deltaHour2 = 0,
         beforeTouchT2,
-        dotColor = "#f2f2f2",
+        dotColor = "#fdd942",
         isTouchDot1 = false,
         isTouchDot2 = false,
         hourCoord = [],
         _tempDate = null,
         tid = roomTypeId || 0, //房型id，非0才查询房价
         price = 0, //现金价
-        timeCoin = 0, //时币价
-        colorArray = ["rgb(238,238,238)","rgb(221,221,221)","rgb(204,204,204)","rgb(187,187,187)","rgb(170,170,170)","rgb(153,153,153)","rgb(136,136,136)","rgb(119,119,119)","rgb(102,102,102)","rgb(85,85,85)"];
+        timeCoin = 0; //时币价
+    // colorArray = ["rgb(238,238,238)","rgb(221,221,221)","rgb(204,204,204)","rgb(187,187,187)","rgb(170,170,170)","rgb(153,153,153)","rgb(136,136,136)","rgb(119,119,119)","rgb(102,102,102)","rgb(85,85,85)"];
 
 
     //步进模式，记录步进点的坐标
@@ -57,19 +57,19 @@ var clock = function(roomTypeId) {
 
     iniCanvas();
     getPrice();
-    
+
     //读取本地储存
     function getSessionData() {
         var coord = {},
             bensue = Storage.get("bensue"),
             newOrder = Storage.get("newOrder");
 
-        if(bensue){
-            status.key = bensue.type?status.partTimeClock:status.dayClock;
+        if (bensue) {
+            status.key = bensue.type ? status.partTimeClock : status.dayClock;
         }
 
-        switch(status.key){
-            case status.dayClock: 
+        switch (status.key) {
+            case status.dayClock:
                 if (newOrder && newOrder.day) {
                     if (newOrder.day.start) {
                         t1 = new Date(newOrder.day.start.replace(/-/g, "/"));
@@ -106,7 +106,7 @@ var clock = function(roomTypeId) {
                         t2.setDate(t1.getDate());
                         t2.setHours(h2);
                     }
- 
+
                     if (newOrder.partTime.startHour) {
                         h1 = newOrder.partTime.startHour;
                         t1.setHours(h1);
@@ -152,15 +152,14 @@ var clock = function(roomTypeId) {
             clock1 = calHour(h1, tx, ty);
 
             //全天房
-            if(status.key == status.dayClock) {
+            if (status.key == status.dayClock) {
                 //日期联动
                 // deltaHour1 += clock1.deltaHour;
                 // t1 = dateAdd(beforeTouchT1, 'h', deltaHour1);
 
                 var today = new Date();
-                if((isSameDay(t1, today)&&clock1.time >= getNowHour())
-                    ||!isSameDay(t1, today)) {
-                    if(h1 != clock1.time) {
+                if ((isSameDay(t1, today) && clock1.time >= getNowHour()) || !isSameDay(t1, today)) {
+                    if (h1 != clock1.time) {
                         h1 = clock1.time;
                         t1.setHours(h1);
                         getPrice();
@@ -189,17 +188,17 @@ var clock = function(roomTypeId) {
                     //步进模式
                     // newCoord = clockStep(tx, ty);
                     // draw(newCoord.x, newCoord.y, dx2, dy2);
-                    
+
                     draw(newDx1, newDy1, dx2, dy2);
                 }
             }
 
             //时租房
-            if(status.key == status.partTimeClock) {
+            if (status.key == status.partTimeClock) {
                 //入住时间应该在预定范围内
                 //入住时间不能早于当前时间
-                if(clock1.time >= partTimeStart && clock1.time <= partTimeEnd && clock1.time >= getNowHour()) {
-                    if(h1 != clock1.time) {
+                if (clock1.time >= partTimeStart && clock1.time <= partTimeEnd && clock1.time >= getNowHour()) {
+                    if (h1 != clock1.time) {
                         h1 = clock1.time;
                         t1.setHours(h1);
                         getPrice();
@@ -228,13 +227,11 @@ var clock = function(roomTypeId) {
         if (isTouchDot2 && !isTouchDot1 && (status.key == status.partTimeClock)) {
             //只有时租房模式才能转动退房时间
             clock2 = calHour(h2, tx, ty);
-            if((clock2.time >= partTimeStart + partTimeInterval) 
-                && (clock2.time<= partTimeEnd + partTimeInterval)
-                && clock2.time >= getNowHour() + partTimeInterval) {
+            if ((clock2.time >= partTimeStart + partTimeInterval) && (clock2.time <= partTimeEnd + partTimeInterval) && clock2.time >= getNowHour() + partTimeInterval) {
                 //日期联动
                 // deltaHour2 += clock.deltaHour;
                 // t2 = dateAdd(beforeTouchT2, 'h', deltaHour2);
-                 if(h2 != clock2.time){   
+                if (h2 != clock2.time) {
                     h2 = clock2.time;
                     t2.setHours(h2);
                     getPrice();
@@ -279,6 +276,16 @@ var clock = function(roomTypeId) {
     });
 
     canvas.addEventListener("touchend", function(e) {
+        //触摸结束点恢复大小
+        if (isTouchDot1) {
+            isTouchDot1 = false;
+            draw(dx1, dy1, dx2, dy2);
+        }
+        if (isTouchDot2) {
+            isTouchDot2 = false;
+            draw(dx1, dy1, dx2, dy2);
+        }
+
         isTouchDot1 = false;
         isTouchDot2 = false;
 
@@ -443,23 +450,23 @@ var clock = function(roomTypeId) {
         drawClock();
 
         drawTimeAndPrice();
-        
+
         //全天房的退房时间固定
         if (status.key == status.dayClock) {
             //全天房退房按钮不渲染
-            // drawDot(x2, y2, true);
-            // drawDotText("退", x2, y2, true);
+            // drawDot(x2, y2);
+            // drawDotText("退", x2, y2);
         } else {
             drawArc();
-            drawDot(x2, y2, false);
-            drawDotText("退", x2, y2, false);
+            drawDot(x2, y2, 2);
+            drawDotText("退", x2, y2);
         }
         //记录点2的最新位置
         dx2 = x2;
         dy2 = y2;
 
-        drawDot(x1, y1, false);
-        drawDotText("入", x1, y1, false);
+        drawDot(x1, y1, 1);
+        drawDotText("入", x1, y1);
         //记录点1的最新位置
         dx1 = x1;
         dy1 = y1;
@@ -469,7 +476,11 @@ var clock = function(roomTypeId) {
     function drawClock() {
         ctx.beginPath();
         ctx.arc(0, 0, r, 0, 2 * Math.PI, true);
-        ctx.strokeStyle = circleColor;
+        if(status.key == status.partTimeClock) {
+            ctx.strokeStyle = "#f2f2f2";
+        } else {
+            ctx.strokeStyle = circleColor;
+        }
         ctx.lineWidth = lw;
         ctx.stroke();
 
@@ -521,26 +532,31 @@ var clock = function(roomTypeId) {
             }
         }
 
-        if(price == 0) {
+        if (price == 0) {
             drawTime(dayNum, h, 0, 0)
         } else {
             drawTime(dayNum, h, 0, -10)
-            ctx.fillText(price + "元", 0, 20); 
+            ctx.fillText(price + "元", 0, 20);
         }
-        
+
 
         //画圆环
         ctx.beginPath();
         ctx.arc(0, 0, r, 0, 2 * Math.PI, true);
-        ctx.strokeStyle = circleColor;
+
+        if(status.key == status.partTimeClock) {
+            ctx.strokeStyle = "#f2f2f2";
+        } else {
+            ctx.strokeStyle = circleColor;
+        }
         ctx.lineWidth = lw;
         ctx.stroke();
     }
 
     function drawTime(dayNum, h, x, y) {
         if (dayNum > 0) {
-            circleColor = colorArray[dayNum < 10 ? dayNum : 9];
-            if(h) {
+            // circleColor = colorArray[dayNum < 10 ? dayNum : 9];
+            if (h) {
                 ctx.fillText(dayNum + "天 " + h + "小时", x, y);
                 timeSpan = dayNum + "天 " + h + "小时";
             } else {
@@ -548,7 +564,7 @@ var clock = function(roomTypeId) {
                 timeSpan = dayNum + "天 ";
             }
         } else {
-            circleColor = colorArray[0];
+            // circleColor = colorArray[0];
             ctx.fillText(h + "小时", x, y);
             timeSpan = h + "小时";
         }
@@ -571,30 +587,33 @@ var clock = function(roomTypeId) {
         ctx.stroke();
     }
 
-    function drawDot(x, y, isDisabled) {
-
-        ctx.beginPath();
-        ctx.arc(x, y, dr, 0, 2 * Math.PI, true);
-        if(isDisabled) {
-            ctx.fillStyle = arcColor; 
+    function drawDot(x, y, index) {
+        if ((index == 1 && isTouchDot1) || (index == 2 && isTouchDot2)) {
+            newDr = dr + 5;
         } else {
-            ctx.fillStyle = dotColor;     
+            newDr = dr;
+        }
+        ctx.beginPath();
+        ctx.arc(x, y, newDr, 0, 2 * Math.PI, true);
+
+        if(status.key == status.partTimeClock) {
+            ctx.fillStyle = "#444";
+        } else {
+            ctx.fillStyle = dotColor;
         }
         ctx.fill();
+        // ctx.arc(x, y, newDr, 0, 2 * Math.PI, true);
+        // ctx.strokeStyle = "#ae9118";
+        // ctx.lineWidth = 2;
+        // ctx.stroke();
 
-        if(!isDisabled){
-            ctx.arc(x, y, dr, 0, 2 * Math.PI, true);
-            ctx.strokeStyle = arcColor;
-            ctx.lineWidth = 2;
-            ctx.stroke();
-        }
     }
 
-    function drawDotText(text, x, y, isDisabled) {
-        if (isDisabled) {
-            ctx.fillStyle = "#fff";
+    function drawDotText(text, x, y) {
+        if(status.key == status.partTimeClock) {
+            ctx.fillStyle = "#fdd942";
         } else {
-            ctx.fillStyle = arcColor;
+            ctx.fillStyle = circleColor;
         }
         ctx.font = "20px serif";
         ctx.textAlign = "center";
@@ -666,20 +685,20 @@ var clock = function(roomTypeId) {
         }
     }
 
-    function getNowHour(){
+    function getNowHour() {
         var date = new Date();
         return date.getHours();
     }
 
     function getPrice() {
-        if(tid) {
+        if (tid) {
             ajaxJsonp({
                 url: urls.getRoomPrice,
                 data: {
                     tid: tid,
                     startTime: formatDate(t1, 'yyyy-mm-dd hh:00'),
                     endTime: formatDate(t2, 'yyyy-mm-dd hh:00'),
-                    isPartTime: status.key == status.partTimeClock? 1:0,
+                    isPartTime: status.key == status.partTimeClock ? 1 : 0,
                 },
                 successCallback: function(json) {
                     if (json.status == 1) {
@@ -785,7 +804,7 @@ var clock = function(roomTypeId) {
             getPrice();
         },
         getPrice: function() {
-            return {price: price, timeCoin: timeCoin};
+            return { price: price, timeCoin: timeCoin };
         }
     };
 };

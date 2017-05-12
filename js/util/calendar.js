@@ -347,6 +347,10 @@ var vmCalendar = avalon.define({
         //     vmCalendar.isShowClock = false;
         //     $('#calendarPanel').height($(window).height() - 230);
         // }
+        isShowAd: true,
+        closeAd: function() {
+            vmCalendar.isShowAd = false;
+        }
     });
 
 getServerTime(getCalendar);
