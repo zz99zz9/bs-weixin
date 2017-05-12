@@ -2,7 +2,7 @@ var vmMoney = avalon.define({
     $id:'fund',
     fundList:[],
     goInvite: function() {
-        location.href = "vip-invite.html";
+        location.href = "recharge-invite.html";
     },
     getFuncList: function(){
         ajaxJsonp({

@@ -3496,7 +3496,10 @@ function rechargeInvite() {
             regex: '<!-- content -->',
             replace: '<!--include "../pages/invite/recharge-invite.html"-->'
         }))
-        .pipe(rename('invitefriend.html'))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('recharge-invite.html'))
         .pipe(gulp.dest('./src'));
 }
 

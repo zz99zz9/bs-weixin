@@ -1,4 +1,5 @@
 var currentRoom = Storage.get("guest"),
+    rid = currentRoom.rid,
     roomId = currentRoom.orid,
     did,
     movie_id,
@@ -23,7 +24,7 @@ var vmIllumination = avalon.define({
             ajaxJsonp({
                 url: urls.curtainOpen,
                 data: {
-                    rid: roomId,
+                    rid: rid,
                     did: did
                 },
                 successCallback: function(json) {
@@ -44,7 +45,7 @@ var vmIllumination = avalon.define({
             ajaxJsonp({
                 url: urls.curtainPause,
                 data: {
-                    rid: roomId,
+                    rid: rid,
                     did: did
                 },
                 successCallback: function(json) {
@@ -65,7 +66,7 @@ var vmIllumination = avalon.define({
             ajaxJsonp({
                 url: urls.curtainClose,
                 data: {
-                    rid: roomId,
+                    rid: rid,
                     did: did
                 },
                 successCallback: function(json) {
@@ -87,7 +88,7 @@ var vmIllumination = avalon.define({
                 ajaxJsonp({
                     url: urls.openLight,
                     data: {
-                        rid: roomId,
+                        rid: rid,
                         did: lightZoulangId
                     },
                     successCallback: function(json) {
@@ -104,7 +105,7 @@ var vmIllumination = avalon.define({
                 ajaxJsonp({
                     url: urls.closeLight,
                     data: {
-                        rid: roomId,
+                        rid: rid,
                         did: lightZoulangId
                     },
                     successCallback: function(json) {
@@ -127,7 +128,7 @@ var vmIllumination = avalon.define({
                 ajaxJsonp({
                     url: urls.openLight,
                     data: {
-                        rid: roomId,
+                        rid: rid,
                         did: lightTaipenId
                     },
                     successCallback: function(json) {
@@ -144,7 +145,7 @@ var vmIllumination = avalon.define({
                 ajaxJsonp({
                     url: urls.closeLight,
                     data: {
-                        rid: roomId,
+                        rid: rid,
                         did: lightTaipenId
                     },
                     successCallback: function(json) {
@@ -167,7 +168,7 @@ var vmIllumination = avalon.define({
                 ajaxJsonp({
                     url: urls.openLight,
                     data: {
-                        rid: roomId,
+                        rid: rid,
                         did: lightYugangdaiId
                     },
                     successCallback: function(json) {
@@ -184,7 +185,7 @@ var vmIllumination = avalon.define({
                 ajaxJsonp({
                     url: urls.closeLight,
                     data: {
-                        rid: roomId,
+                        rid: rid,
                         did: lightYugangdaiId
                     },
                     successCallback: function(json) {
@@ -207,7 +208,7 @@ var vmIllumination = avalon.define({
                 ajaxJsonp({
                     url: urls.openLight,
                     data: {
-                        rid: roomId,
+                        rid: rid,
                         did: lightLinyuId
                     },
                     successCallback: function(json) {
@@ -224,7 +225,7 @@ var vmIllumination = avalon.define({
                 ajaxJsonp({
                     url: urls.closeLight,
                     data: {
-                        rid: roomId,
+                        rid: rid,
                         did: lightLinyuId
                     },
                     successCallback: function(json) {
@@ -247,7 +248,7 @@ var vmIllumination = avalon.define({
                 ajaxJsonp({
                     url: urls.openLight,
                     data: {
-                        rid: roomId,
+                        rid: rid,
                         did: lightMatongId
                     },
                     successCallback: function(json) {
@@ -264,7 +265,7 @@ var vmIllumination = avalon.define({
                 ajaxJsonp({
                     url: urls.closeLight,
                     data: {
-                        rid: roomId,
+                        rid: rid,
                         did: lightMatongId
                     },
                     successCallback: function(json) {
@@ -287,7 +288,7 @@ var vmIllumination = avalon.define({
                 ajaxJsonp({
                     url: urls.openLight,
                     data: {
-                        rid: roomId,
+                        rid: rid,
                         did: TongfengId
                     },
                     successCallback: function(json) {
@@ -304,7 +305,7 @@ var vmIllumination = avalon.define({
                 ajaxJsonp({
                     url: urls.closeLight,
                     data: {
-                        rid: roomId,
+                        rid: rid,
                         did: TongfengId
                     },
                     successCallback: function(json) {
@@ -327,7 +328,7 @@ var vmIllumination = avalon.define({
                 ajaxJsonp({
                     url: urls.openLight,
                     data: {
-                        rid: roomId,
+                        rid: rid,
                         did: lightYueduId
                     },
                     successCallback: function(json) {
@@ -344,7 +345,7 @@ var vmIllumination = avalon.define({
                 ajaxJsonp({
                     url: urls.closeLight,
                     data: {
-                        rid: roomId,
+                        rid: rid,
                         did: lightYueduId
                     },
                     successCallback: function(json) {
@@ -367,7 +368,7 @@ var vmIllumination = avalon.define({
                 ajaxJsonp({
                     url: urls.openLight,
                     data: {
-                        rid: roomId,
+                        rid: rid,
                         did: lightChuangtouId
                     },
                     successCallback: function(json) {
@@ -384,7 +385,7 @@ var vmIllumination = avalon.define({
                 ajaxJsonp({
                     url: urls.closeLight,
                     data: {
-                        rid: roomId,
+                        rid: rid,
                         did: lightChuangtouId
                     },
                     successCallback: function(json) {
@@ -407,7 +408,7 @@ var vmIllumination = avalon.define({
                 ajaxJsonp({
                     url: urls.openLight,
                     data: {
-                        rid: roomId,
+                        rid: rid,
                         did: lightHuxingpingId
                     },
                     successCallback: function(json) {
@@ -424,7 +425,7 @@ var vmIllumination = avalon.define({
                 ajaxJsonp({
                     url: urls.closeLight,
                     data: {
-                        rid: roomId,
+                        rid: rid,
                         did: lightHuxingpingId
                     },
                     successCallback: function(json) {
@@ -447,7 +448,7 @@ var vmIllumination = avalon.define({
                 ajaxJsonp({
                     url: urls.ScePageOperate,
                     data: {
-                        rid: roomId,
+                        rid: rid,
                         did: movie_id
                     },
                     successCallback: function(json) {
@@ -472,7 +473,7 @@ var vmIllumination = avalon.define({
                 ajaxJsonp({
                     url: urls.ScePageOperate,
                     data: {
-                        rid: roomId,
+                        rid: rid,
                         did: reading_id
                     },
                     successCallback: function(json) {
@@ -497,7 +498,7 @@ var vmIllumination = avalon.define({
                 ajaxJsonp({
                     url: urls.ScePageOperate,
                     data: {
-                        rid: roomId,
+                        rid: rid,
                         did: allclose_id
                     },
                     successCallback: function(json) {
@@ -522,7 +523,7 @@ var vmIllumination = avalon.define({
         ajaxJsonp({
             url: urls.getCurtainDeviceList,
             data: {
-                rid: roomId
+                rid: rid
             },
             successCallback: function(json) {
                 if (json.status === 1) {
@@ -539,7 +540,7 @@ var vmIllumination = avalon.define({
         ajaxJsonp({
             url: urls.getScePageDeviceList,
             data: {
-                rid: roomId
+                rid: rid
             },
             successCallback: function(json) {
                 if (json.status === 1) {
@@ -562,7 +563,7 @@ var vmIllumination = avalon.define({
         ajaxJsonp({
             url: urls.getLightDeviceList,
             data: {
-                rid: roomId
+                rid: rid
             },
             successCallback: function(json) {
                 if (json.status === 1) {

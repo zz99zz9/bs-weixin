@@ -6,6 +6,7 @@
 // console.log(13);
 var swiper1, swiper2,
     currentRoom = Storage.get("guest"),
+    rid = currentRoom.rid
     roomId = currentRoom.orid;
 var vmInroom = avalon.define({
     $id: 'inroom',
@@ -18,7 +19,7 @@ var vmInroom = avalon.define({
                 ajaxJsonp({
                     url: urls.openRoomDoor,
                     data: {
-                        rid: roomId
+                        rid: rid
                     },
                     successCallback: function(json) {
                         if (json.status === 1) {
@@ -213,7 +214,7 @@ var vmPopService = avalon.define({
             ajaxJsonp({
                 url: urls.getSaveStatus,
                 data: {
-                    rid: roomId,
+                    rid: rid,
                     status: vmPopService.nextservicestatus,
                     id: vmPopService.popList.sid
                 },

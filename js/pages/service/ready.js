@@ -10,8 +10,9 @@
 // } else {
 //     articleid = 0;
 // }
-var currentRoom = Storage.get("currentRoom"),
-    orid = currentRoom.roomId;
+var currentRoom = Storage.get("guest"),
+    rid = currentRoom.rid,
+    orid = currentRoom.orid;
 var hid = 1,
     roomType = 0,
     midnightDiscount = 1,
@@ -107,7 +108,7 @@ var vmServiceReady = avalon.define({
         ajaxJsonp({
             url: urls.getAirStatus,
             data: {
-                rid: orid,
+                rid: rid,
                 t: new Date()
             },
             successCallback: function(json) {
@@ -132,7 +133,7 @@ var vmServiceReady = avalon.define({
         ajaxJsonp({
             url: urls.getAirDeviceList,
             data: {
-                rid: orid
+                rid: rid
             },
             successCallback: function(json) {
                 if (json.status === 1) {
@@ -156,7 +157,7 @@ var vmServiceReady = avalon.define({
         ajaxJsonp({
             url: url,
             data: {
-                rid: orid,
+                rid: rid,
                 did: did,
                 mode: mode,
                 speed: speed
@@ -205,7 +206,7 @@ var vmServiceReady = avalon.define({
             url: urls.getPreService,
             data: {
                 hid: hid,
-                orid: 1527 //只1527有伪数据
+                orid: orid //只orid有伪数据
             },
             successCallback: function(json) {
                 if (json.status == 1) {
@@ -315,7 +316,7 @@ var vmMoreService = avalon.define({
                 url: urls.savePreService,
                 data: {
                     hid: 1,
-                    orid: 1527,
+                    orid: orid,
                     contents: vmMoreService.addContent
                 },
                 successCallback: function(json) {
