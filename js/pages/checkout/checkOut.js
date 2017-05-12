@@ -6,11 +6,10 @@
 // assess_orid = verifyIntParam(assess_orid);
 // assess_hid = verifyIntParam(assess_hid);
 currentRoom = Storage.get("guest"),
-    rid = currentRoom.roomId;
-    orid = currentRoom.roomOid;
+    rid = currentRoom.rid,
+    orid = currentRoom.orid;
 var vmCheckOut = avalon.define({
     $id: 'checkOut',
-
     tb: 5,
     tbTime: 3,
     tbRate: 10,
@@ -44,12 +43,10 @@ var vmCheckOut = avalon.define({
         { name: '服务态度', r: 3, s: 5, list: [1, 2, 3, 4, 5] },
     ],
     alert: function() {
-            console.log(vmCheckOut.content);
-
-        // mui.alert('欢迎下次再来哦', '谢谢您的意见!', '<span id="ss" ms-on-tap="goIndex">3</span>', function() {
-        //     location.href = '../index.html';
-        // }, 'div');
-        //window.setInterval("vmCheckOut.run();", 1000)
+        mui.alert('欢迎下次再来哦', '谢谢您的意见!', '<span id="ss" ms-on-tap="goIndex">3</span>', function() {
+            location.href = '../index.html';
+        }, 'div');
+        window.setInterval("vmCheckOut.run();", 1000)
         vmCheckOut.addEvaluationContent();
     },
     click: function(r, s) {
@@ -59,26 +56,24 @@ var vmCheckOut = avalon.define({
     },
     content: "",
     addEvaluationContent: function(){
-            console.log(vmCheckOut.scoreList[0].s);
-            console.log(vmCheckOut.content);
-            // ajaxJsonp({
-            //     url: urls.saveSub,
-            //     data: {
-            //         oid: oid,
-            //         orid: orid,
-            //         content: vmCheckOut.content,
-            //         score1: vmCheckOut.scoreList[0].s,
-            //         score2: vmCheckOut.scoreList[1].s,
-            //         score3: vmCheckOut.scoreList[2].s
-            //     },
-            //     successCallback: function(json) {
-            //         if (json.status === 1) {
-            //             location.href = document.referrer || "index.html";
-            //         } else {
-            //             mui.alert(json.message);
-            //         }
-            //     }
-            // });
+            ajaxJsonp({
+                url: urls.saveSub,
+                data: {
+                    oid: oid,
+                    orid: orid,
+                    content: vmCheckOut.content,
+                    score1: vmCheckOut.scoreList[0].s,
+                    score2: vmCheckOut.scoreList[1].s,
+                    score3: vmCheckOut.scoreList[2].s
+                },
+                successCallback: function(json) {
+                    if (json.status === 1) {
+                        location.href = document.referrer || "index.html";
+                    } else {
+                        mui.alert(json.message);
+                    }
+                }
+            });
     },
     run: function() {
         var s = document.getElementById("ss");
@@ -94,7 +89,6 @@ var vmCheckOut = avalon.define({
     isSend: 0, //0-不显示  1-显示
     send: function() { //发送订单
         stopSwipeSkip.do(function() {
-            // mui.alert('注意提醒您的小伙伴查收订单哦。', "发送成功");
             if (vmCheckOut.isSend == 0) {
                 vmCheckOut.isSend = 1;
             } else {
