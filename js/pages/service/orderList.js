@@ -31,20 +31,22 @@ var vmServiceOrderList = avalon.define({
     sendBtnText: '发送订单',
     send: function(isMe) { //发送订单
         stopSwipeSkip.do(function() {
-            if(isMe) {
+            if (isMe) {
                 console.log(1);
                 location.href = "process.html";
             } else {
                 // mui.alert('注意提醒您的小伙伴查收订单哦。', "发送成功");
-                if (vmServiceOrderList.isSend==0) {
-            console.log(22);
-
+                if (vmServiceOrderList.isSend == 0) {
+                    console.log(22);
                     vmServiceOrderList.isSend = 1;
                 } else {
-                   vmServiceOrderList.isSend = 0; 
+                    vmServiceOrderList.isSend = 0;
                 }
-            }   
-        })
+            }
+        });
+    },
+    close: function() {
+        vmServiceOrderList.isSend = 0;
     },
     goIndex: function() {
         stopSwipeSkip.do(function() {

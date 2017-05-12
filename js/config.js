@@ -719,33 +719,33 @@ var Observer = (function() {
     }
 })();
 
-ajaxJsonp({
-    url: urlAPI + '/web/usr/user/loginPwd',
-    data: {
-        username: 18321958468,
-        password: 123456
-    },
-    successCallback: function(json) {
-        if (json.status !== 1) {
-            alert(json.message);
-            vmLogin.isDisabled = false;
-        } else {
-            var user = {
-                uid: json.data.id,
-                mobile: json.data.mobile,
-                openId: json.data.openId,
-                name: json.data.name,
-                nickname: json.data.nickname,
-                headImg: json.data.headUrl,
-                logState: 1,
-                accessToken: json.data.accessToken,
-                idUrl: json.data.idUrl,
-                idNo: json.data.idNo,
-                authStatus: json.data.authStatus,
-                invoiceMoney: json.data.invoiceMoney
-            };
-            Storage.setLocal('user', user);
-            //location.replace('../index.html');
-        }
-    }
-});
+// ajaxJsonp({  //测试所用，默认登录该账号
+//     url: urlAPI + '/web/usr/user/loginPwd',
+//     data: {
+//         username: 18321958468,
+//         password: 123456
+//     },
+//     successCallback: function(json) {
+//         if (json.status !== 1) {
+//             alert(json.message);
+//             vmLogin.isDisabled = false;
+//         } else {
+//             var user = {
+//                 uid: json.data.id,
+//                 mobile: json.data.mobile,
+//                 openId: json.data.openId,
+//                 name: json.data.name,
+//                 nickname: json.data.nickname,
+//                 headImg: json.data.headUrl,
+//                 logState: 1,
+//                 accessToken: json.data.accessToken,
+//                 idUrl: json.data.idUrl,
+//                 idNo: json.data.idNo,
+//                 authStatus: json.data.authStatus,
+//                 invoiceMoney: json.data.invoiceMoney
+//             };
+//             Storage.setLocal('user', user);
+//             //location.replace('../index.html');
+//         }
+//     }
+// });

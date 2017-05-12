@@ -1,4 +1,5 @@
 var currentRoom = Storage.get("guest"),
+    rid = currentRoom.rid
     roomId = currentRoom.orid;
 var vmTemperature = avalon.define({
     $id: 'temperature',
@@ -19,7 +20,7 @@ var vmTemperature = avalon.define({
         ajaxJsonp({
             url: urls.getAirDeviceList,
             data: {
-                rid: roomId
+                rid: rid
             },
             successCallback: function(json) {
                 if (json.status === 1) {
@@ -48,7 +49,7 @@ var vmTemperature = avalon.define({
         ajaxJsonp({
             url: urls.getAirStatus,
             data: {
-                rid: roomId,
+                rid: rid,
                 t: new Date()
             },
             successCallback: function(json) {
@@ -68,7 +69,7 @@ var vmTemperature = avalon.define({
         ajaxJsonp({
             url: url,
             data: {
-                rid: roomId,
+                rid: rid,
                 did: did,
                 mode: mode,
                 speed: speed
