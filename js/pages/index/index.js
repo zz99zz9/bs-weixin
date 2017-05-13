@@ -2,7 +2,7 @@
  * Created by lyh on 2017/4/5/005.
  * Edited by Michael on 2017/5/2
  */
-
+var indexStatus = Storage.get("indexStatus");
 var user = Storage.getLocal("user"),
     autocomplete;
 var vmIndex = avalon.define({
@@ -110,7 +110,18 @@ var vmIndex = avalon.define({
         stopSwipeSkip.do(function() {
             location.href = "../getTimeCoins.html";
         });
-    }
+    },
+    openIndex: function() { //前置预温提示
+        stopSwipeSkip.do(function() {
+            modalShow('../util/popPr-deposit.html', 1);
+        });
+    },
+    openPre: function () {
+        if (!indexStatus) {
+            modalShow('../util/popPr-deposit.html', 1);
+            Storage.set("indexStatus", {status: 1});
+        }
+    },
 });
 
 if (user && user.nickname) {
@@ -120,3 +131,13 @@ if (user && user.nickname) {
 vmIndex.getCityImgList();
 vmIndex.getMoreHote();
 
+var vmPopPrDeposit = avalon.define({
+    $id: 'prDeposit',
+    closePopPr: function() {
+        stopSwipeSkip.do(function() {
+            modalClose();
+        });
+    },
+    popList: {},
+});
+vmIndex.openPre();

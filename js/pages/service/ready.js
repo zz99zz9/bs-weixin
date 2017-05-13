@@ -44,7 +44,7 @@ var vmServiceReady = avalon.define({
             modalShow('../util/popMoreService.html', 1);
         });
     },
-    openTem: function() { //添加更多定制服务
+    openTem: function() { //前置预温提示
         stopSwipeSkip.do(function() {
             modalShow('../util/popPre-temperature.html', 1);
         });
@@ -339,28 +339,5 @@ var vmPopPreTemperature = avalon.define({
             modalClose();
         });
     },
-    // light: '不关闭',
-    // lightId: 0,
-    // lightList: [
-    //     //     { type: 0, value: 1, name: '呼叫前台', engName: 'Call Reception', brief: '我们提供24小时前台呼叫服务。', url: '../img/reception-bg.jpg' },
-    //     //     { type: 1, value: 2, name: '更换客用品', engName: 'Change Supplies', brief: '我们提供24小时前台呼叫服务。', url: '../img/changeSupplies-bg.jpg' },
-    //     //     { type: 2, value: 3, name: '早餐服务', engName: 'Breakfast', brief: '我们提供24小时前台呼叫服务。', url: '../img/breakfast-bg.jpg' },
-    //     //     { type: 3, value: 4, name: '清洁服务', engName: 'Cleaning', brief: '我们提供24小时前台呼叫服务。', url: '../img/clean-bg.jpg' },
-    // ],
-    // getlightList: function() {
-    //     ajaxJsonp({
-    //         url: urls.getReservationServiceList,
-    //         data: {
-    //             hid: 1,
-    //         },
-    //         successCallback: function(json) {
-    //             if (json.status === 1) {
-    //                 vmPopService.lightList = json.data;
-    //             } else {
-    //                 console.log(json.message);
-    //             }
-    //         }
-    //     });
-    // },
     popList: {},
 });
