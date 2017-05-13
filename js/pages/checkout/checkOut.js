@@ -5,9 +5,7 @@
 // assess_oid = verifyIntParam(assess_oid);
 // assess_orid = verifyIntParam(assess_orid);
 // assess_hid = verifyIntParam(assess_hid);
-currentRoom = Storage.get("guest"),
-    rid = currentRoom.rid,
-    orid = currentRoom.orid;
+var currentRoom = getGuest();
 var vmCheckOut = avalon.define({
     $id: 'checkOut',
     tb: 5,
@@ -59,8 +57,8 @@ var vmCheckOut = avalon.define({
             ajaxJsonp({
                 url: urls.saveSub,
                 data: {
-                    oid: oid,
-                    orid: orid,
+                    oid: currentRoom.oid,
+                    orid: currentRoom.orid,
                     content: vmCheckOut.content,
                     score1: vmCheckOut.scoreList[0].s,
                     score2: vmCheckOut.scoreList[1].s,

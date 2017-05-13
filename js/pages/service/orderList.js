@@ -10,10 +10,7 @@
 // } else {
 //     articleid = 0;
 // }
-
-// var currentRoom = Storage.get("guest"),
 var currentRoom = getGuest();
-
 
 var vmServiceOrderList = avalon.define({
     $id: 'serviceOrderList',
@@ -21,29 +18,44 @@ var vmServiceOrderList = avalon.define({
     pageNo: 1,
     pageSize: 10,
     data: [],
-    oid: 0,  //订单id
-    orid: 0,    //订单房间id
-    rid: 0,     //房间id
+    oid: 0, //订单id
+    orid: 0, //订单房间id
+    rid: 0, //房间id
     getData: function() {
         ajaxJsonp({
             url: urls.getWaitRoomList,
             successCallback: function(json) {
                 if (json.status === 1) {
-                    vmServiceOrderList.data = json.data;
+                    var length = json.data.length;
+                    if (length === 0) { //没订房的
+                        location.href = "../goBooking.html";
+                    } else {
+                        vmServiceOrderList.data = json.data;
+                        json.data.map(function(e) {
+                            if (e.customerStatus == 1) { //本人是入住人 存订单id、订单房间id、和房间id
+                                if (e.processStatus == 3) { //已开房
+                                    location.href = "../inroom.html";
+                                } else if (e.processStatus == 2) { //已回答问题，未开房
+                                    location.href = "../service/ready.html";
+                                }
+                            }
+                        });
+                    }
                 }
             }
         });
     },
     isSend: 0, //0-不显示  1-显示
     sendBtnText: '发送订单',
-    send: function(isMe,oid,orid,rid) { //发送订单
+    send: function(isMe, oid, orid, rid) { //发送订单
         stopSwipeSkip.do(function() {
-            if (isMe==1) {
+            if (isMe == 1) {
                 location.href = "process.html";
             } else {
                 vmServiceOrderList.oid = oid;
                 vmServiceOrderList.orid = orid;
                 vmServiceOrderList.rid = rid;
+                Storage.set('guest', { oid: oid, orid: id, rid: rid });
                 if (vmServiceOrderList.isSend === 0) {
                     vmServiceOrderList.isSend = 1;
                 } else {
@@ -64,10 +76,10 @@ registerWeixinConfig(function() {
         //隐藏菜单项
         wx.hideMenuItems({
             menuList: [
-                "menuItem:share:qq", // 分享到QQ
-                "menuItem:share:weiboApp", // 分享到Weibo
-                "menuItem:share:QZone" // 分享到 QQ 空间
-            ] // 要隐藏的菜单项，只能隐藏“传播类”和“保护类”按钮，所有menu项见附录3
+                    "menuItem:share:qq", // 分享到QQ
+                    "menuItem:share:weiboApp", // 分享到Weibo
+                    "menuItem:share:QZone" // 分享到 QQ 空间
+                ] // 要隐藏的菜单项，只能隐藏“传播类”和“保护类”按钮，所有menu项见附录3
         });
 
         wx.onMenuShareTimeline({

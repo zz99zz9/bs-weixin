@@ -1,7 +1,7 @@
 /**
  * Created by lyh on 2017/4/5/005.
  */
-
+var currentRoom = getGuest();
 var vmOpenDoor = avalon.define({
     $id: 'opendoor',
     // showType: 1,
@@ -34,7 +34,7 @@ var vmOpenDoor = avalon.define({
         ajaxJsonp({
             url: urls.openRoomDoor,
             data: {
-                rid: roomId
+                rid: currentRoom.rid
             },
             successCallback: function(json) {
                 if (json.status === 1) {
