@@ -44,7 +44,6 @@ var clock = function(roomTypeId) {
         timeCoin = 0; //时币价
     // colorArray = ["rgb(238,238,238)","rgb(221,221,221)","rgb(204,204,204)","rgb(187,187,187)","rgb(170,170,170)","rgb(153,153,153)","rgb(136,136,136)","rgb(119,119,119)","rgb(102,102,102)","rgb(85,85,85)"];
 
-
     //步进模式，记录步进点的坐标
     for (var i = 1; i <= 12; i++) {
         hourCoord.push({
@@ -297,8 +296,14 @@ var clock = function(roomTypeId) {
 
     //画布初始化
     function iniCanvas() {
-        canvas.width = cw;
-        canvas.height = ch;
+        var ratio = getPixelRatio(ctx);
+
+        canvas.width = cw*ratio;
+        canvas.height = ch*ratio;
+        canvas.style.width = cw + 'px';
+        canvas.style.height = ch + 'px';
+        ctx.scale(ratio, ratio);
+
         ctx.translate(cw / 2, ch / 2); //画布原点移到 0，0
 
         var coord = getCoordByHour(h1);
@@ -711,6 +716,17 @@ var clock = function(roomTypeId) {
             });
         }
     }
+
+    //解决高清屏模糊问题
+    function getPixelRatio(context) {
+        var backingStore = context.backingStorePixelRatio ||
+            context.webkitBackingStorePixelRatio ||
+            context.mozBackingStorePixelRatio ||
+            context.msBackingStorePixelRatio ||
+            context.oBackingStorePixelRatio ||
+            context.backingStorePixelRatio || 1;
+        return (window.devicePixelRatio || 1) / backingStore;
+    };
 
     return {
         setStatus: function(key) {
