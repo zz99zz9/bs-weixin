@@ -20,26 +20,26 @@ var vmFooter = avalon.define({
             location.href = "../index.html";
         });
     },
-    goRoom: function() {
+    goRoom: function() { 
         stopSwipeSkip.do(function() {
             ajaxJsonp({
                 url: urls.getWaitRoomList,
                 successCallback: function(json) {
                     if (json.status === 1) {
                         var length = json.data.length;
-                        if (length == 0) { //没订房的
+                        if (length === 0) { //没订房的
                             location.href = "../goBooking.html";
                         } else {
                             json.data.map(function(e) {
-                                if (e.customerStatus == 1) {
-                                    if (e.processStatus == 3) {  //存订单房间id和房间id
-                                        Storage.set('guest', {orid: e.id, rid: e.rid});
+                                if (e.customerStatus == 1) {  //本人是入住人 存订单id、订单房间id、和房间id
+                                    if (e.processStatus == 3) {   //已开房
+                                        Storage.set('guest', {oid: e.oid, orid: e.id, rid: e.rid});
                                         location.href = "../inroom.html";
-                                    } else if (e.processStatus == 2) { 
-                                        Storage.set('guest', {orid: e.id, rid: e.rid});
+                                    } else if (e.processStatus == 2) { //已回答问题，未开房
+                                        Storage.set('guest', {oid: e.oid, orid: e.id, rid: e.rid});
                                         location.href = "../service/ready.html";
-                                    } else {
-                                        Storage.set('guest', {orid: e.id, rid: e.rid});
+                                    } else {  //未回答问题
+                                        Storage.set('guest', {oid: e.oid, orid: e.id, rid: e.rid});
                                         location.href = "../service/orderList.html";
                                     }
                                 }
@@ -54,12 +54,12 @@ var vmFooter = avalon.define({
     goOrder: function() {
         stopSwipeSkip.do(function() {
             location.href = "../orderList.html";
-        })
+        });
     },
     goMore: function() {
         stopSwipeSkip.do(function() {
             location.href = "../more.html";
-        })
+        });
     },
     judgeSelect: function() {
         var path = window.location.pathname;

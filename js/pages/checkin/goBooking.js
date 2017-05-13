@@ -1,7 +1,7 @@
 // created by zwh on 2017/05/11
 
 // var currentRoom = Storage.get("guest"),
-//     rid = currentRoom.rid
+//     rid = currentRoom.rid,
 //     roomId = currentRoom.orid;
 var vmTemperature = avalon.define({
     $id: 'goBooking',

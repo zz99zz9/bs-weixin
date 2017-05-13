@@ -10,9 +10,7 @@
 // } else {
 //     articleid = 0;
 // }
-var currentRoom = Storage.get("guest"),
-    rid = currentRoom.rid,
-    orid = currentRoom.orid;
+var currentRoom = getGuest();
 var hid = 1,
     roomType = 0,
     midnightDiscount = 1,
@@ -77,26 +75,7 @@ var vmServiceReady = avalon.define({
                         vmServiceReady.isCirqueShow = 1;
                     }
                 });
-                // mui.alert('<div style="text-align:left;">您的房间将于19:30-20:00开启空调，若您20:00前未能办理入住，我们将关闭空调，谢谢您的谅解。</div>', '已为您预约', '<span style="color: blue;">知道了</span>', function(e) {
-                //     vmServiceReady.temperature = "预温中";
-                // }, 'div');
-                // vmServiceReady.timePrompt = "将于 " + vmServiceReady.timeDiffer + " 后自启动预温";
-                //vmServiceReady.timePrompt = "取消预约";
-                // $(".cirque").css("color", "white");
-                // $(".cirque").css("background-color", "#fdd942");
-                // $(".cirque").css("box-shadow", "0 3px 3px 0 rgba(253,217,66,.24)");
-                // $(".cirque").css("border-color", "rgba(255,255,255,.5)");
-            } //else {
-            //vmServiceReady.temperature = "远程预温";
-            // vmServiceReady.timePrompt = "请在19:30之前点击开启";
-            // // $(".cirque").css("background-color", "#444");
-            // // $(".cirque").css("box-shadow", "0 0 3px 3px #ccc");
-            // // $(".cirque").css("border", "none");
-            // $(".cirque").css("color", "#fdd942");
-            // $(".cirque").css("background-color", "white");
-            // $(".cirque").css("box-shadow", "none");
-            // $(".cirque").css("border-color", "#fdd942");
-            // }
+            } 
         });
     },
     airStatusList: [], //空调状态列表
@@ -108,7 +87,7 @@ var vmServiceReady = avalon.define({
         ajaxJsonp({
             url: urls.getAirStatus,
             data: {
-                rid: rid,
+                rid: currentRoom.rid,
                 t: new Date()
             },
             successCallback: function(json) {
@@ -133,7 +112,7 @@ var vmServiceReady = avalon.define({
         ajaxJsonp({
             url: urls.getAirDeviceList,
             data: {
-                rid: rid
+                rid: currentRoom.rid
             },
             successCallback: function(json) {
                 if (json.status === 1) {
@@ -157,7 +136,7 @@ var vmServiceReady = avalon.define({
         ajaxJsonp({
             url: url,
             data: {
-                rid: rid,
+                rid: currentRoom.rid,
                 did: did,
                 mode: mode,
                 speed: speed
@@ -206,7 +185,7 @@ var vmServiceReady = avalon.define({
             url: urls.getPreService,
             data: {
                 hid: hid,
-                orid: orid //只orid有伪数据
+                orid: currentRoom.orid //只orid有伪数据
             },
             successCallback: function(json) {
                 if (json.status == 1) {
@@ -316,7 +295,7 @@ var vmMoreService = avalon.define({
                 url: urls.savePreService,
                 data: {
                     hid: 1,
-                    orid: orid,
+                    orid: currentRoom.orid,
                     contents: vmMoreService.addContent
                 },
                 successCallback: function(json) {

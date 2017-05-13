@@ -16,9 +16,7 @@
 // } else {
 //     articleid = 0;
 // }
-var currentRoom = Storage.get("guest"),
-    rid = currentRoom.rid,
-    orid = currentRoom.orid;
+var currentRoom = getGuest();
 
 var vmServiceProcess = avalon.define({
     $id: 'serviceProcess',
@@ -204,7 +202,7 @@ var vmServiceProcess = avalon.define({
             url: urls.savePreService,
             data: {
                 hid: 1,
-                orid: orid, //房间号目前不通
+                orid: currentRoom.orid, //房间号目前不通
                 contents: vmServiceProcess.selectContent
             },
             successCallback: function(json) {

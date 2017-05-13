@@ -5,9 +5,8 @@
 // var hotel = controlCore.getHotel();
 // console.log(13);
 var swiper1, swiper2,
-    currentRoom = Storage.get("guest"),
-    rid = currentRoom.rid
-    roomId = currentRoom.orid;
+    currentRoom = getGuest();
+
 var vmInroom = avalon.define({
     $id: 'inroom',
     goOpendoor: function() {
@@ -19,7 +18,7 @@ var vmInroom = avalon.define({
                 ajaxJsonp({
                     url: urls.openRoomDoor,
                     data: {
-                        rid: rid
+                        rid: currentRoom.rid
                     },
                     successCallback: function(json) {
                         if (json.status === 1) {
@@ -40,7 +39,7 @@ var vmInroom = avalon.define({
                     ajaxJsonp({
                         url: urls.checkOutDoor,
                         data: {
-                            orid: roomId,
+                            orid: currentRoom.orid,
                         },
                         successCallback: function(json) {
                             if (json.status === 1) {
@@ -117,7 +116,7 @@ var vmInroom = avalon.define({
             url: urls.getFindByOridSid,
             data: {
                 sid: vmPopService.popList.sid,
-                orid: roomId
+                orid: currentRoom.orid
             },
             successCallback: function(json) {
                 if (json.status === 1) {
@@ -214,7 +213,7 @@ var vmPopService = avalon.define({
             ajaxJsonp({
                 url: urls.getSaveStatus,
                 data: {
-                    rid: rid,
+                    rid: currentRoom.rid,
                     status: vmPopService.nextservicestatus,
                     id: vmPopService.popList.sid
                 },

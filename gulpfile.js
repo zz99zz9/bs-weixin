@@ -3617,7 +3617,7 @@ function checkOutEarly(){
     return gulp.src('./js/layout/shell.html')
          .pipe(replace({
             regex: '<!-- title -->',
-            replace: '<title>成为会员</title>'
+            replace: '<title>提前退房</title>'
         }))
         .pipe(replace({
             regex: '<!-- js -->',

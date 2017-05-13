@@ -67,6 +67,13 @@
     align-items: center;
 }
 
+.content-scene-unit {
+    height: 80px;
+    width: 100px;
+    text-align: center;
+    line-height: 80px;
+}
+
 .content-unit img {
     height: 48px;
     width: 48px;
@@ -125,10 +132,7 @@
 <div ms-controller="illumination">
     <div class="header">
         <img class="header-l" src="../img/icon/icon-back-444.svg" alt="" onclick="javascript:history.go(-1);">
-        <div class="bs-text-small bs-text-444 header-r" style="right: 48px;">场景模式</div>
-        <div id="night" class="mui-switch mui-switch-mini header-r" style="top: 20px;right: -60px;">
-            <div class="mui-switch-handle"></div>
-        </div>
+        <!-- s -->
     </div>
     <div class="curtain">
         <div class="curtain-title bs-text-large">
@@ -207,7 +211,7 @@
         <div class="curtain-title bs-text-large">
             场景模式
         </div>
-        <div class="content-big">
+        <!-- <div class="content-big">
             <div class="content-unit-big" ms-on-tap="movie">
                 <img ms-if="isShow10==0" src="../img/icon/movies.svg" class="">
                 <img ms-if="isShow10==1" src="../img/icon/movies-select.svg" class="">
@@ -219,6 +223,11 @@
             <div class="content-unit-big" ms-on-tap="allClose">
                 <img ms-if="isShow12==0" src="../img/icon/allClose.svg" class="">
                 <img ms-if="isShow12==1" src="../img/icon/allClose-select.svg" class="">
+            </div>
+        </div> -->
+        <div class="content-big">
+            <div class="content-scene-unit" ms-on-tap="sceneClick(el.sce_name,el.id,el.status)" ms-repeat="sceneList">
+                {{el.sce_name}}
             </div>
         </div>
     </div>

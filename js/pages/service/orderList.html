@@ -49,7 +49,7 @@
                 <div class="content-infor" ms-repeat="data" ms-if-loop="el.processStatus==1">
                     <div class="bs-text-x-large">{{el.roomNo}}</div>
                     <div class="bs-text-large">{{el.userName}}</div>
-                    <div class="sendBtn bs-text-yellow bs-bg-444" ms-on-tap="send(el.customerStatus)">
+                    <div class="sendBtn bs-text-yellow bs-bg-444" ms-on-tap="send(el.customerStatus,el.oid,el.id,el.rid)">
                         {{el.customerStatus==1?'去做准备':sendBtnText}}
                     </div>
                 </div>
@@ -75,36 +75,3 @@
     </div>
 </div>
 <!-- footer -->
-<!-- <script>
-mui.init({
-    pullRefresh: {
-        container: '#pullrefresh',
-        up: {
-            contentrefresh: '正在加载...',
-            contentnomore: "没有更多数据了",
-            callback: loadmore
-        }
-    }
-});
-
-function loadmore() {
-    var vm = listData.vm,
-        url = listData.url;
-
-    listData.data.pageNo = vm.pageNo;
-    listData.data.pageSize = vm.pageSize;
-    ajaxJsonp({
-        url: url,
-        data: listData.data,
-        successCallback: function(json) {
-            if (json.data.count + json.data.pageSize > (vm.pageNo * json.data.pageSize) && json.data.list.length > 0) {
-                vm.pageNo++;
-                vm.list.push.apply(vmArticle.list, json.data.list);
-                mui("#pullrefresh").pullRefresh().endPullupToRefresh(false);
-            } else {
-                mui("#pullrefresh").pullRefresh().endPullupToRefresh(true);
-            }
-        }
-    });
-}
-</script> -->
