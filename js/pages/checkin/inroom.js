@@ -6,7 +6,7 @@
 // console.log(13);
 var swiper1, swiper2,
     currentRoom = Storage.get("guest"),
-    rid = currentRoom.rid
+    rid = currentRoom.rid,
     roomId = currentRoom.orid;
 var vmInroom = avalon.define({
     $id: 'inroom',

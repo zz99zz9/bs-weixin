@@ -3496,7 +3496,10 @@ function rechargeInvite() {
             regex: '<!-- content -->',
             replace: '<!--include "../pages/invite/recharge-invite.html"-->'
         }))
-        .pipe(rename('invitefriend.html'))
+        .pipe(contentIncluder({
+            includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
+        }))
+        .pipe(rename('recharge-invite.html'))
         .pipe(gulp.dest('./src'));
 }
 
@@ -3597,11 +3600,11 @@ function toBeVip(){
         }))
         .pipe(replace({
             regex: '<!-- js -->',
-            replace: '<script src="../js/pages/discover/toBeVip.js"></script>'
+            replace: '<script src="../js/pages/invite/toBeVip.js"></script>'
         }))
         .pipe(replace({
             regex: '<!-- content -->',
-            replace: '<!--include "../pages/discover/toBeVip.html"-->'
+            replace: '<!--include "../pages/invite/toBeVip.html"-->'
         }))
         .pipe(contentIncluder({
             includerReg: /<!\-\-include\s+"([^"]+)"\-\->/g
@@ -3614,7 +3617,7 @@ function checkOutEarly(){
     return gulp.src('./js/layout/shell.html')
          .pipe(replace({
             regex: '<!-- title -->',
-            replace: '<title>成为会员</title>'
+            replace: '<title>提前退房</title>'
         }))
         .pipe(replace({
             regex: '<!-- js -->',

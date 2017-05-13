@@ -13,7 +13,7 @@ var vmToBeVip = avalon.define({
         //     }
         // });
         stopSwipeSkip.do(function() {
-            location.href = "../recharge-invite.html";
+            location.href = "../tokensRecharge.html";
         });
     },
 });

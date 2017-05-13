@@ -81,22 +81,33 @@ var vmUser = avalon.define({
     goIndex: function() {
         stopSwipeSkip.do(function() {
             location.href = "../index.html";
-        })
+        });
     },
     goRoom: function() {
         stopSwipeSkip.do(function() {
             location.href = "service/orderList.html";
-        })
+        });
     },
     goOrder: function() {
         stopSwipeSkip.do(function() {
             location.href = "../newOrderList.html";
-        })
+        });
     },
     goMore: function() {
         stopSwipeSkip.do(function() {
             location.href = "../more.html";
-        })
+        });
+    },
+    TimeCoinBalance: 0,
+    getTimeCoinBalance: function(){
+        ajaxJsonp({
+            url: urls.getTotalAssets,
+            successCallback: function(json) {
+                if (json.status === 1) {
+                    vmUser.TimeCoinBalance = json.data.availableCoin;
+                } 
+            }
+        });
     },
 });
 
@@ -212,3 +223,4 @@ vmSave.$watch('newMobile', function(a) {
 vmUser.getUserInfo();
 vmSave.getUserInfo();
 vmUser.getBalance();
+vmUser.getTimeCoinBalance();

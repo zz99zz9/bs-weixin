@@ -104,7 +104,7 @@ input[type=checkbox] {
                 <p class="hotel-alias bs-text-larger bs-text-black">{{data.hotel.name}}</p>&nbsp;
                 <p class="room-name bs-text-larger bs-text-51">{{data.hotel.alias}}</p>
                 <p class="hotel-address bs-text-normal bs-text-gold" ms-on-tap="openNav(data.hotel.lat,data.hotel.lng,data.hotel.name,data.hotel.address)">
-                    <img src="img/icon/position.svg" alt="" style="width: 17px;position: relative;top: 2px;">{{data.hotel.address}}
+                    <img src="img/icon/position.svg" alt="" style="width: 17px;position: relative;top: 2px;margin-right: 5px;">{{data.hotel.address}}
                 </p>
             </div>
         </div>
@@ -134,9 +134,9 @@ input[type=checkbox] {
                     <!-- 是否评论 -->
                     <span class="bs-text-large bs-text-black" style="float: left; margin-top: 20px;" ms-if="(el.status==3||el.status==4)&&(el.isComment)">已评价</span>
                     <!-- 操作按钮 -->
-                    <button class="bs-text-smaller bs-bg-black bs-text-yellow" type="button" ms-on-tap="orderRoomAction(el.id, el.status)" ms-if="el.status>=3&&el.status<=4&&!el.isComment" style="float: left;margin: 0px;margin-top: 12px;">{{showActionText(el.status)}}</button>
+                    <button class="bs-text-smaller bs-bg-black bs-text-yellow" type="button" ms-on-tap="orderRoomAction(el.id, el.status,el.customerStatus)" ms-if="el.status>=2&&el.status<=4&&!el.isComment" style="float: left;margin: 0px;margin-top: 12px;">{{showActionText(el.status,el.customerStatus)}}</button>
                     <!-- 房间价格 -->
-                    <span class="bs-text-large bs-text-black" style="float: right; margin: 20px 15px 0 0;">¥{{el.amount}}</</span>
+                    <span class="bs-text-large bs-text-black" style="float: right; margin: 20px 15px 0 0;">{{el.amount}}元 / {{el.amountTimeCoin}}时币</</span>
                 </h5>
                 <span style="clear: both;">&nbsp;</span>
             </li>
@@ -192,9 +192,13 @@ input[type=checkbox] {
             </div>
 
             <div>
-                <span class="info-left">实付金额:</span>
+                <span class="info-left">支付方式:</span>
+                <span class="info-right bs-text-black">{{getPayType(payType, data.payType)}}</span>
+            </div>
+            <div>
+                <span class="info-left">实付:</span>
                 <span class="info-right">
-                    {{getPrice(needAmount, fund, discount)}}元
+                    {{getPrice(payType, needAmount, fund, discount)}}
                 </span>
             </div>
         </div>

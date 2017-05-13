@@ -13,8 +13,8 @@
 }
 
 .modal-close {
-    width: 30px;
-    height: 30px;
+    width: 20px;
+    height: 20px;
     background-image: url(../img/icon/close_black.svg);
     background-size: cover;
     background-repeat: no-repeat;
@@ -47,21 +47,15 @@
 
 .timeCalendar {
     display: flex;
-    margin-top: 35px;
-    margin-bottom: 10px;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
+    margin: 20px;
 }
 
 .timeClock {
     display: flex;
-    justify-content: space-around;
-    font-size: 24px;
-    margin-top: 20px;
-    margin-bottom: 1vh;
-}
-.timeClock div {
-    margin: 2vh 0;
+    justify-content: space-between;
+    margin: 20px 20px 5px;
 }
 
 .hideClockArrow{
@@ -121,16 +115,34 @@
     left: 6.5vw;
     line-height: 44px;
     font-size: 18px;
-    background: #f2f2f2;
     color: #444;
-    font-weight: lighter;
-    border-radius: 22px;
+    border: 2px solid #444;
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: bold;
 }
 .nextBtn:active {
     background-color: #BDBDBD;
 }
 .nextBtn.disabled {
     color: #999;
+}
+.noBorder {
+    border: none;
+}
+.ad {
+    position: absolute;
+    bottom: 75px;
+    width: 100vw;
+    text-align: left;
+    line-height: 32px;
+    font-size: 15px;
+    background: #000;
+    color: #fff;
+    padding-left: 40px;
+}
+.modal-content-title {
+    margin: 20px 20px 10px 8px !important;
 }
 </style>
 <div id="modal-text-content" ms-controller="calendar">
@@ -148,6 +160,20 @@
 
     <!-- 日历 -->
     <div ms-visible="status.key == status.calendar">
+        <section class="timeCalendar">
+            <div style="text-align: left;">
+                <div style="margin-bottom: 5px;font-size: 15px;">入住</div>
+                <a id="select_start" href="###">
+                    <small class="bs-text-444" style="font-size: 20px;">{{startIndex==-1?'入住日期':(calendarDates[startIndex]?formatDate(calendarDates[startIndex].date):'&nbsp;')}}</small>
+                </a>
+            </div>
+            <div style="text-align: right;">
+                <div style="margin-bottom: 5px;font-size: 15px;">退房</div>
+                <a id="select_end" href="###">
+                    <small class="bs-text-444" style="font-size: 20px;">{{endIndex==-1?'退房日期':(calendarDates[endIndex]?formatDate(calendarDates[endIndex].date):'&nbsp;')}}</small>
+                </a>
+            </div>
+        </section>
         <section>
             <div style="margin: 0 10px;">
                 <div class="calendar" style="border-bottom: 1px solid gainsboro;padding-bottom: 10px;">
@@ -172,40 +198,35 @@
                 </div>
             </div>
         </section>
-        <section class="timeCalendar">
-            <a id="select_start" href="###">
-                <small class="bs-text-444" style="font-size: 20px;">{{startIndex==-1?'入住日期':(calendarDates[startIndex]?formatDate(calendarDates[startIndex].date):'&nbsp;')}}</small>
-            </a>
-            <a id="select_end" href="###">
-                <small class="bs-text-444" style="font-size: 20px;">{{endIndex==-1?'退房日期':(calendarDates[endIndex]?formatDate(calendarDates[endIndex].date):'&nbsp;')}}</small>
-            </a>
-        </section>
     </div>
 
     <!-- 表盘 -->
     <div ms-visible="status.key == status.partTimeClock || status.key == status.dayClock">
-        <div class="timeClock">
-            <div class="start">
+        <div class="timeClock bs-text-large">
+            <div class="start" style="text-align: left;">
+                <div>入住</div>
                 <div id="startDay" ms-visible="status.key == status.dayClock"></div>
                 <div ms-if="status.key == status.partTimeClock">今日</div>
-                <div id="startHour"></div>
+                <div id="startHour" class="bs-text-x-larger" style="margin-top: 1vh;"></div>
             </div>
-            <div class="end">
+            <div class="end" style="text-align: right;">
+                <div>退房</div>    
                 <div id="endDay" ms-visible="status.key == status.dayClock"></div>
                 <div ms-if="status.key == status.partTimeClock">今日</div>
-                <div id="endHour"></div>
+                <div id="endHour" class="bs-text-x-larger" style="margin-top: 1vh;"></div>
             </div>
         </div>
         <canvas id="clock"></canvas>
     </div>
-    
-    <a href="#" class="nextBtn" ms-class="disabled: isNextBtnDisabled" ms-attr-disabled="isNextBtnDisabled" ms-visible="status.key!=status.chooseType" ms-click="goNext">
-        <div style="position: absolute;top: -36px;left: 43.5vw;margin-left: -78px;font-size: 12px;color: #999;" ms-visible="status.key==status.dayClock">逐时定价，越晚入住越多优惠</div> 
+
+    <div class="ad" ms-visible="status.key==status.dayClock&&isShowAd">
+        <img src="../img/horn.png" style="height: 30px;width: 30px;position: absolute;left: 10px;top: -1px;" alt="">逐时定价，越晚入住越多优惠
+        <img src="../img/icon/close_white.svg" style="height: 12px;width: 12px;position: absolute;right: 10px;margin: 9px;" alt="" ms-on-tap="closeAd">
+    </div>
+
+    <a href="#" class="nextBtn" ms-class-1="disabled: isNextBtnDisabled" ms-attr-disabled="isNextBtnDisabled" ms-visible="status.key!=status.chooseType" ms-click="goNext" ms-class-2="noBorder:status.key==status.calendar">
         {{nextBtnText}}
     </a>
-
-    <!-- <div class="hideClockArrow" ms-visible="isShowClock" ms-on-tap="hideClock"></div>
-    <div class="showClockArrow" ms-visible="!isShowClock&&startIndex!=-1" ms-on-tap="showClock"></div> -->
 
     <!-- filter -->
 </div>

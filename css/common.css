@@ -294,7 +294,7 @@ button {
 .calendar a:active {}
 
 .calendar .selected {
-    background: #eee;
+    background: #fdd942;
     font-weight: bold;
 }
 

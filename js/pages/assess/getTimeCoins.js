@@ -45,7 +45,7 @@ var vmGetTimeCoins = avalon.define({
         //     }
         // });
         stopSwipeSkip.do(function() {
-            location.href = "../tokensRecharge.html";
+            location.href = "../toBeVip.html";
         });
     },
 });

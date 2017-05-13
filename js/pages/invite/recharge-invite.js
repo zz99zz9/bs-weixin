@@ -3,7 +3,8 @@ var user = Storage.getLocal('user');
 var vmRechargeFriend = avalon.define({
 	$id: 'rechargeFriend',
 	code: '',
-    url: urlWeixin + '/inviteToRecharge.html',
+    //url: urlWeixin + '/inviteToRecharge.html',
+    url: '/inviteToRecharge.html',
     inviterName: user?(user.nickname?user.nickname:user.name):'好友',
     getInviteCode: function() {
         //获取邀请码
