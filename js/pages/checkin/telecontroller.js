@@ -1,6 +1,4 @@
-var currentRoom = Storage.get("guest"),
-    rid = currentRoom.rid,
-    roomId = currentRoom.orid;
+var currentRoom = getGuest();
 var vmTelecontroller = avalon.define({
     $id: 'telecontroller',
     isSwitch: 0, //默认不启动  0-不启动  1-启动
@@ -24,7 +22,7 @@ var vmTelecontroller = avalon.define({
                 ajaxJsonp({
                     url: urls.controlTele3d,
                     data: {
-                        rid: rid,
+                        rid: currentRoom.rid,
                         did: 0,
                     },
                     successCallback: function(json) {
@@ -46,7 +44,7 @@ var vmTelecontroller = avalon.define({
         ajaxJsonp({
             url: urls.getTeleDeviceList,
             data: {
-                rid: rid
+                rid: currentRoom.rid
             },
             successCallback: function(json) {
                 if (json.status === 1) {
