@@ -8,6 +8,13 @@ var vmCalendar = avalon.define({
             partTimeClock: 4
         },
         setType: function(type) {
+            bensue = Storage.get("bensue");
+            
+            $.extend(bensue, {
+                type: type
+            });
+            Storage.set("bensue", bensue);
+
             if (typeof(vmCity) != 'undefined') {
                 vmCity.type = type;
             }
@@ -28,10 +35,6 @@ var vmCalendar = avalon.define({
             vmCalendar.nextBtnText = "选择到店时间";
             vmCalendar.scrollCalendar(vmCalendar.startIndex);
 
-            $.extend(bensue, {
-                type: 0
-            });
-            Storage.set("bensue", bensue);
             vmCalendar.setType(0);
         },
         goDayClock: function() {
@@ -50,10 +53,6 @@ var vmCalendar = avalon.define({
                 vmCalendar.changeStatusBtnText = "去订全天房";
                 vmCalendar.nextBtnText = "确定";
 
-                $.extend(bensue, {
-                    type: 1
-                });
-                Storage.set("bensue", bensue);
                 vmCalendar.setType(1);
 
                 //更新表盘状态
@@ -261,42 +260,27 @@ var vmCalendar = avalon.define({
             $('#calendarPanel').height($(window).height() - 250);
             clockObj = clock(tid);
 
-            //有缓存的时候
-            if(bensue) {
-                if(bensue.type == 0) {
-                    //先读取本地session
-                    if (newOrder && newOrder.day) {
-                        if (newOrder.day.startIndex > -1) {
-                            vmCalendar.startIndex = newOrder.day.startIndex;
-                            vmCalendar.endIndex = newOrder.day.endIndex;
-
-                            if (vmCalendar.startIndex > -1 && vmCalendar.endIndex > -1) {
-                                vmCalendar.isNextBtnDisabled = false;
-                            }
-
-                            //已选过全天房，直接打开日历
-                            vmCalendar.goDay();
-                        }
-                    }
-                } else {
-                    if(newOrder && newOrder.partTime) {
-                        if(newOrder.partTime.start != '') {
-                            //已选过时租房，直接打开时租房表盘
-                            vmCalendar.goPartTime();
-                        }
-                    }
-                }
+            //没有amount，就是没有缓存，而且第一次打开日历
+            //默认是今天到明天
+            if(!newOrder.day.amount) {
+                vmCalendar.startIndex = vmCalendar.todayIndex;
+                vmCalendar.endIndex = vmCalendar.todayIndex + 1;
+                setStart(vmCalendar.todayIndex);
+                setEnd(vmCalendar.todayIndex + 1);
             }
 
             if(vmCalendar.status.key == vmCalendar.status.calendar) {
-                clockObj.setStatus(vmCalendar.status.calendar);
-                vmCalendar.scrollCalendar(vmCalendar.startIndex);
+                vmCalendar.goDay();
+                // clockObj.setStatus(vmCalendar.status.calendar);
+                // vmCalendar.scrollCalendar(vmCalendar.startIndex);
             }
 
             if(vmCalendar.status.key == vmCalendar.status.partTimeClock) {
-                var dateTemp = new Date(), 
-                    hourTemp = dateTemp.getHours();
-                clockObj.setStatus(vmCalendar.status.partTimeClock);
+                vmCalendar.goPartTime();
+
+                // var dateTemp = new Date(), 
+                //     hourTemp = dateTemp.getHours();
+                // clockObj.setStatus(vmCalendar.status.partTimeClock);
                 
                 // if (hourTemp < 7 || hourTemp > 18) {
                 //     mui.alert('时租房可预订时间为7:00-18:00', function() {
@@ -416,6 +400,10 @@ function addDate(list, date, num, today, renderMonth, index) {
         day = date.getDate();
         weekday = date.getDay();
         formatedDate = year + '-' + (month < 10 ? ('0' + month) : month) + '-' + (day < 10 ? ('0' + day) : day);
+
+        if(isSameDay(date, today)){
+            vmCalendar.todayIndex = vmCalendar.calendarNum - 1;
+        }
 
         if (month == renderMonth) {
             isShowDay = day;
@@ -553,7 +541,7 @@ vmCalendar.$watch('startIndex', function(a) {
             vmCalendar.isNextBtnDisabled = false;
         }
     }
-});
+});``
 
 vmCalendar.$watch('endIndex', function(a) {
     // setEnd(a);

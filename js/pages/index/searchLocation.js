@@ -162,14 +162,12 @@ ajaxJsonp({
         if (json.status === 1) {
             vmSearch.openCityList = json.data;
 
-            //根据 AMap.CitySearch 确定当前城市时稍等一下
-            // setTimeout(function() {
-                json.data.map(function(o, index) {
-                    if(o.name == vmSearch.city.name) {
-                        vmSearch.searchCityIndex = index;
-                    }
-                });
-            // }, 1000);
+
+            json.data.map(function(o, index) {
+                if(o.name == vmSearch.city.name) {
+                    vmSearch.searchCityIndex = index;
+                }
+            });
         } else {
             console.log(json.message);
         }

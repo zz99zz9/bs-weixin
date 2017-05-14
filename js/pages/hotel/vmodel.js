@@ -34,23 +34,11 @@ if (bensue) {
 } else {
     //第一次加载
     roomType = 0;
-    Storage.set("bensue", { type: 0 });
+    bensue = { type: 0 };
+    Storage.set("bensue", bensue);
 }
 
-newOrder = Storage.get("newOrder");
-if (!newOrder) {
-    newOrder = {
-        day: {
-            start: '',
-            end: ''
-        },
-        partTime: {
-            start: '',
-            end: ''
-        },
-    };
-    Storage.set("newOrder", newOrder);
-}
+newOrder = iniOrderTime();
 
 var vmTop = avalon.define({
     $id: 'top',

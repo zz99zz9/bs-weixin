@@ -4,7 +4,7 @@ var vmRechargeFriend = avalon.define({
 	$id: 'rechargeFriend',
 	code: '',
     //url: urlWeixin + '/inviteToRecharge.html',
-    url: '/inviteToRecharge.html',
+    url: urlWeixin + '/inviteToRecharge.html',
     inviterName: user?(user.nickname?user.nickname:user.name):'好友',
     getInviteCode: function() {
         //获取邀请码
@@ -26,7 +26,7 @@ var vmRechargeFriend = avalon.define({
                             });
 
                             wx.onMenuShareTimeline({
-                                title: '本宿VIP会员卡', // 分享标题
+                                title: '本宿VIP会员', // 分享标题
                                 link: vmRechargeFriend.url, // 分享链接
                                 imgUrl: urlWeixin + '/img/logo.jpg', // 分享图标
                                 success: function() {

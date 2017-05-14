@@ -67,9 +67,9 @@ var Storage = {
 
 var positionIniData = {
     mode: {
-        value: 1, 
-        city: 1, 
-        center: 2, 
+        value: 1,
+        city: 1,
+        center: 2,
         nearby: 3
     },
     center: {
@@ -77,7 +77,7 @@ var positionIniData = {
         lng: 121.516546,
         lat: 31.217467
     },
-    city: {name: '上海市', cid: 803}
+    city: { name: '上海市', cid: 803 }
 };
 
 //获取参数
@@ -125,7 +125,7 @@ function ajaxJsonp(param) {
                 // jsonp: "jsonpcallback",
                 data: param.data,
                 beforeSend: function() {
-                    if(param.data.loading) {
+                    if (param.data.loading) {
                         console.log(123);
                     }
                 },
@@ -187,6 +187,15 @@ function formatDate(str) {
     var date = new Date(str.replace(/-/g, "/"));
 
     return (date.getMonth() + 1) + "月" + date.getDate() + "日";
+}
+
+function formatDateObj(date, type) {
+    switch (type) {
+        case 'yyyy-mm-dd hh:00':
+            return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + ' ' + date.getHours() + ':00';
+        case 'yyyy-mm-dd':
+            return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+    }
 }
 
 //传入完整时间，返回 hh:mm
@@ -549,6 +558,12 @@ function getHourIndex() {
     return index;
 }
 
+function isSameDay(a, b) {
+    return a.getFullYear() == b.getFullYear() &&
+        a.getMonth() == b.getMonth() &&
+        a.getDate() == b.getDate();
+}
+
 //注册导航接口
 function registerWeixinConfig(callback) {
     ajaxJsonp({
@@ -718,6 +733,37 @@ var Observer = (function() {
         }
     }
 })();
+
+//初始化时间
+var iniOrderTime = function() {
+    var order = Storage.get('newOrder');
+    if (!newOrder) {
+        var now = new Date(),
+            h1 = now.getHours(), 
+            interval = 3;
+        if (23 - h1 < 3) {
+            interval = 23 - h1;
+        }
+
+        order = {
+            day: {
+                start: formatDateObj(now, 'yyyy-mm-dd hh:00'), //yyyy-mm-dd hh:mm
+                end: formatDateObj(dateAdd(now, 'd', 1), 'yyyy-mm-dd') + ' 12:00', //yyyy-mm-dd hh:mm
+                startHour: now.getHours(),
+                endHour: 12
+            },
+            partTime: {
+                start: formatDateObj(now, 'yyyy-mm-dd hh:00'), //yyyy-mm-dd hh:mm
+                end: formatDateObj(dateAdd(now, 'h', 3), 'yyyy-mm-dd hh:00'), //yyyy-mm-dd hh:mm
+                startHour: h1,
+                endHour: h1 + interval,
+                amount: interval
+            }
+        }
+        Storage.set('newOrder', order);
+    }
+    return order;
+}
 
 // ajaxJsonp({  //测试所用，默认登录该账号
 //     url: urlAPI + '/web/usr/user/loginPwd',
