@@ -1,6 +1,4 @@
-var currentRoom = Storage.get("guest"),
-    rid = currentRoom.rid,
-    roomId = currentRoom.orid,
+var currentRoom = getGuest(),
     did,
     movie_id,
     reading_id,
@@ -16,7 +14,7 @@ var currentRoom = Storage.get("guest"),
     lightHuxingpingId;
 var vmIllumination = avalon.define({
     $id: 'illumination',
-    isScene: 0, //默认关  0-场景模式关   1-场景模式开
+    isScene: 1, //默认关  0-场景模式关   1-场景模式开
     isStart: 0, //默认关闭  0-关闭   1-打开
     start: function() {
         stopSwipeSkip.do(function() {
@@ -24,7 +22,7 @@ var vmIllumination = avalon.define({
             ajaxJsonp({
                 url: urls.curtainOpen,
                 data: {
-                    rid: rid,
+                    rid: currentRoom.rid,
                     did: did
                 },
                 successCallback: function(json) {
@@ -45,7 +43,7 @@ var vmIllumination = avalon.define({
             ajaxJsonp({
                 url: urls.curtainPause,
                 data: {
-                    rid: rid,
+                    rid: currentRoom.rid,
                     did: did
                 },
                 successCallback: function(json) {
@@ -66,7 +64,7 @@ var vmIllumination = avalon.define({
             ajaxJsonp({
                 url: urls.curtainClose,
                 data: {
-                    rid: rid,
+                    rid: currentRoom.rid,
                     did: did
                 },
                 successCallback: function(json) {
@@ -88,7 +86,7 @@ var vmIllumination = avalon.define({
                 ajaxJsonp({
                     url: urls.openLight,
                     data: {
-                        rid: rid,
+                        rid: currentRoom.rid,
                         did: lightZoulangId
                     },
                     successCallback: function(json) {
@@ -105,7 +103,7 @@ var vmIllumination = avalon.define({
                 ajaxJsonp({
                     url: urls.closeLight,
                     data: {
-                        rid: rid,
+                        rid: currentRoom.rid,
                         did: lightZoulangId
                     },
                     successCallback: function(json) {
@@ -128,7 +126,7 @@ var vmIllumination = avalon.define({
                 ajaxJsonp({
                     url: urls.openLight,
                     data: {
-                        rid: rid,
+                        rid: currentRoom.rid,
                         did: lightTaipenId
                     },
                     successCallback: function(json) {
@@ -145,7 +143,7 @@ var vmIllumination = avalon.define({
                 ajaxJsonp({
                     url: urls.closeLight,
                     data: {
-                        rid: rid,
+                        rid: currentRoom.rid,
                         did: lightTaipenId
                     },
                     successCallback: function(json) {
@@ -168,7 +166,7 @@ var vmIllumination = avalon.define({
                 ajaxJsonp({
                     url: urls.openLight,
                     data: {
-                        rid: rid,
+                        rid: currentRoom.rid,
                         did: lightYugangdaiId
                     },
                     successCallback: function(json) {
@@ -185,7 +183,7 @@ var vmIllumination = avalon.define({
                 ajaxJsonp({
                     url: urls.closeLight,
                     data: {
-                        rid: rid,
+                        rid: currentRoom.rid,
                         did: lightYugangdaiId
                     },
                     successCallback: function(json) {
@@ -208,7 +206,7 @@ var vmIllumination = avalon.define({
                 ajaxJsonp({
                     url: urls.openLight,
                     data: {
-                        rid: rid,
+                        rid: currentRoom.rid,
                         did: lightLinyuId
                     },
                     successCallback: function(json) {
@@ -225,7 +223,7 @@ var vmIllumination = avalon.define({
                 ajaxJsonp({
                     url: urls.closeLight,
                     data: {
-                        rid: rid,
+                        rid: currentRoom.rid,
                         did: lightLinyuId
                     },
                     successCallback: function(json) {
@@ -248,7 +246,7 @@ var vmIllumination = avalon.define({
                 ajaxJsonp({
                     url: urls.openLight,
                     data: {
-                        rid: rid,
+                        rid: currentRoom.rid,
                         did: lightMatongId
                     },
                     successCallback: function(json) {
@@ -265,7 +263,7 @@ var vmIllumination = avalon.define({
                 ajaxJsonp({
                     url: urls.closeLight,
                     data: {
-                        rid: rid,
+                        rid: currentRoom.rid,
                         did: lightMatongId
                     },
                     successCallback: function(json) {
@@ -288,7 +286,7 @@ var vmIllumination = avalon.define({
                 ajaxJsonp({
                     url: urls.openLight,
                     data: {
-                        rid: rid,
+                        rid: currentRoom.rid,
                         did: TongfengId
                     },
                     successCallback: function(json) {
@@ -305,7 +303,7 @@ var vmIllumination = avalon.define({
                 ajaxJsonp({
                     url: urls.closeLight,
                     data: {
-                        rid: rid,
+                        rid: currentRoom.rid,
                         did: TongfengId
                     },
                     successCallback: function(json) {
@@ -328,7 +326,7 @@ var vmIllumination = avalon.define({
                 ajaxJsonp({
                     url: urls.openLight,
                     data: {
-                        rid: rid,
+                        rid: currentRoom.rid,
                         did: lightYueduId
                     },
                     successCallback: function(json) {
@@ -345,7 +343,7 @@ var vmIllumination = avalon.define({
                 ajaxJsonp({
                     url: urls.closeLight,
                     data: {
-                        rid: rid,
+                        rid: currentRoom.rid,
                         did: lightYueduId
                     },
                     successCallback: function(json) {
@@ -368,7 +366,7 @@ var vmIllumination = avalon.define({
                 ajaxJsonp({
                     url: urls.openLight,
                     data: {
-                        rid: rid,
+                        rid: currentRoom.rid,
                         did: lightChuangtouId
                     },
                     successCallback: function(json) {
@@ -385,7 +383,7 @@ var vmIllumination = avalon.define({
                 ajaxJsonp({
                     url: urls.closeLight,
                     data: {
-                        rid: rid,
+                        rid: currentRoom.rid,
                         did: lightChuangtouId
                     },
                     successCallback: function(json) {
@@ -408,7 +406,7 @@ var vmIllumination = avalon.define({
                 ajaxJsonp({
                     url: urls.openLight,
                     data: {
-                        rid: rid,
+                        rid: currentRoom.rid,
                         did: lightHuxingpingId
                     },
                     successCallback: function(json) {
@@ -425,7 +423,7 @@ var vmIllumination = avalon.define({
                 ajaxJsonp({
                     url: urls.closeLight,
                     data: {
-                        rid: rid,
+                        rid: currentRoom.rid,
                         did: lightHuxingpingId
                     },
                     successCallback: function(json) {
@@ -448,7 +446,7 @@ var vmIllumination = avalon.define({
                 ajaxJsonp({
                     url: urls.ScePageOperate,
                     data: {
-                        rid: rid,
+                        rid: currentRoom.rid,
                         did: movie_id
                     },
                     successCallback: function(json) {
@@ -473,7 +471,7 @@ var vmIllumination = avalon.define({
                 ajaxJsonp({
                     url: urls.ScePageOperate,
                     data: {
-                        rid: rid,
+                        rid: currentRoom.rid,
                         did: reading_id
                     },
                     successCallback: function(json) {
@@ -498,7 +496,7 @@ var vmIllumination = avalon.define({
                 ajaxJsonp({
                     url: urls.ScePageOperate,
                     data: {
-                        rid: rid,
+                        rid: currentRoom.rid,
                         did: allclose_id
                     },
                     successCallback: function(json) {
@@ -523,47 +521,57 @@ var vmIllumination = avalon.define({
         ajaxJsonp({
             url: urls.getCurtainDeviceList,
             data: {
-                rid: rid
+                rid: currentRoom.rid
             },
             successCallback: function(json) {
                 if (json.status === 1) {
-                    console.log(json.data[0]);
                     did = json.data[0].id;
-                    console.log(did)
+                } else {
+                    mui.alert(json.message);
+                }
+            }
+        });
+    },
+    sceneList: [],
+    getScePageDeviceList: function() {
+        ajaxJsonp({
+            url: urls.getScePageDeviceList,
+            data: {
+                rid: currentRoom.rid
+            },
+            successCallback: function(json) {
+                if (json.status === 1) {
+                    vmIllumination.sceneList = json.data;
                 } else {
                     mui.alert(json.message)
                 }
             }
         });
     },
-    getScePageDeviceList: function() {
-        ajaxJsonp({
-            url: urls.getScePageDeviceList,
-            data: {
-                rid: rid
-            },
-            successCallback: function(json) {
-                if (json.status === 1) {
-                    json.data.map(function(e) {
-                        if (e.sce_name == '影视') {
-                            movie_id = e.id;
-                        } else if (e.sce_name == '阅读') {
-                            reading_id = e.id;
-                        } else if (e.sce_name == '一键全关') {
-                            allclose_id = e.id;
-                        }
-                    });
-                } else {
-                    mui.alert(json.message)
+    sceneClick: function(name,did) {
+        stopSwipeSkip.do(function() {
+            ajaxJsonp({
+                url: urls.ScePageOperate,
+                data: {
+                    rid: currentRoom.rid,
+                    did: did
+                },
+                successCallback: function(json) {
+                    if (json.status === 1) {
+                        console.log(json.data);
+                        mui.alert(json.message);
+                    } else {
+                        mui.alert(json.message);
+                    }
                 }
-            }
+            });
         });
     },
     getLightDeviceList: function() {
         ajaxJsonp({
             url: urls.getLightDeviceList,
             data: {
-                rid: rid
+                rid: currentRoom.rid
             },
             successCallback: function(json) {
                 if (json.status === 1) {
@@ -596,13 +604,13 @@ var vmIllumination = avalon.define({
         });
     },
 });
-document.getElementById("night").addEventListener("toggle", function(event) {
-    if (event.detail.isActive) {
-        vmIllumination.isScene = 1;
-    } else {
-        vmIllumination.isScene = 0;
-    }
-});
+// document.getElementById("night").addEventListener("toggle", function(event) {
+//     if (event.detail.isActive) {
+//         vmIllumination.isScene = 1;
+//     } else {
+//         vmIllumination.isScene = 0;
+//     }
+// });
 
 vmIllumination.getCurtainDeviceList();
 vmIllumination.getScePageDeviceList();

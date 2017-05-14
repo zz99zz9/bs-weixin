@@ -90,6 +90,29 @@ function getParam(paramName) {
     return "";
 }
 
+//获取入住人id类信息
+function getGuest() {
+    var oid = getParam("oid"),
+        rid = getParam("rid"),
+        orid = getParam("orid");
+    if (oid != '') { //优先取链接的id
+        Storage.set('guest', { oid: oid, orid: orid, rid: rid });
+    } else { //其次storage中找
+        var guest = Storage.get("guest");
+        console.log(guest);
+        if (guest) {
+            oid = guest.oid;
+            rid = guest.rid;
+            orid = guest.orid;
+        } else {  //链接、storage均没有，
+            if (location.pathname.indexOf("service/orderList")<0) {
+                location.href = "../index.html";
+            }
+        }
+    }
+    return { oid: oid, orid: orid, rid: rid };
+}
+
 //获取连接令牌
 function getAccessToken(callback) {
     //先获取本地储存的 令牌

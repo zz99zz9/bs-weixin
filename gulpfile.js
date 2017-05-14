@@ -163,7 +163,7 @@ function index() {
         }))
         .pipe(replace({
             regex: '<!-- pop -->',
-            replace: '<!--include "../util/modal.html"-->'
+            replace: '<!--include "../util/pop.html"--><!--include "../pages/user/popover.html"--><!--include "../util/modal.html"-->'
         }))
         .pipe(replace({
             regex: '<!-- css -->',
@@ -3674,7 +3674,8 @@ function popHtml() {
             './js/pages/service/popMoreService.html',
             './js/pages/checkin/popNight.html',
             './js/pages/checkin/popService.html',
-            './js/pages/service/popPre-temperature.html'
+            './js/pages/service/popPre-temperature.html',
+            './js/pages/index/popPr-deposit.html'
 
         ])
         .pipe(gulp.dest('./dist/util/'));
