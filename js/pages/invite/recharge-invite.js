@@ -26,7 +26,7 @@ var vmRechargeFriend = avalon.define({
                             });
 
                             wx.onMenuShareTimeline({
-                                title: '本宿VIP会员', // 分享标题
+                                title: '成为D&K会员', // 分享标题
                                 link: vmRechargeFriend.url, // 分享链接
                                 imgUrl: urlWeixin + '/img/logo.jpg', // 分享图标
                                 success: function() {
@@ -41,7 +41,7 @@ var vmRechargeFriend = avalon.define({
                                 }
                             });
                             wx.onMenuShareAppMessage({
-                                title: '本宿会员邀请', // 分享标题
+                                title: 'D&K会员邀请', // 分享标题
                                 desc: vmRechargeFriend.inviterName + '邀请您成为D&K客房的会员，点击立即前往', // 分享描述
                                 link: vmRechargeFriend.url, // 分享链接
                                 imgUrl: urlWeixin + '/img/logo.jpg', // 分享图标

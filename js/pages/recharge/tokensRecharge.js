@@ -22,7 +22,7 @@ var vmTokensRecharge = avalon.define({
             url: urls.getTimeCoinProductList,
             successCallback: function(json) {
                 if (json.status == 1) {
-                    vmTokensRecharge.list = json.data.list;
+                    vmTokensRecharge.list = json.data;
                 }
             }
         });

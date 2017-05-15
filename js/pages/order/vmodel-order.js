@@ -26,7 +26,7 @@ var vmOrder = avalon.define({
             startTime: '',
             endTime: '',
             timeCount: '',
-            roomType: { name: ''},
+            roomType: { name: '' },
             orderCustomerList: [{ name: '' }]
         }]
     },
@@ -222,20 +222,21 @@ var vmOrder = avalon.define({
     showActionText: function(status, customerStatus) {
         switch (status) {
             case 2: //2未入住－可以退订
-                return customerStatus?'去做准备':'发送订单';
+                return customerStatus ? '去做准备' : '发送订单';
             case 3: //3已入住－评价
             case 4: //4已离店－评价
                 return '评价';
         }
     },
-    orderRoomAction: function(orid, status, customerStatus) {
+    orderRoomAction: function(orid, status, customerStatus, oid, rid) {
         switch (status) {
-            case 2: 
-                if(customerStatus) {
+            case 2:
+                if (customerStatus) {
                     //去做准备
+                    Storage.set('guest', { oid: oid, orid: orid, rid: rid });
                     location.href = "../service/process.html";
                 } else {
-                    
+
                 }
                 break;
             case 3: //3已入住－评价
