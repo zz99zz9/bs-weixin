@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="48px" height="48px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 43.1 (39012) - http://www.bohemiancoding.com/sketch -->
+    <title>icon-dakai48*48#444444 copy</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="入住-客控-光照-场景模式" transform="translate(-37.000000, -217.000000)">
+            <g id="icon-dakai48*48#444444-copy" transform="translate(37.000000, 217.000000)">
+                <ellipse id="Oval-7-Copy-12" fill="#444444" cx="24" cy="24" rx="24" ry="24"></ellipse>
+                <g id="Group" transform="translate(13.000000, 14.000000)" stroke="#FFFFFF">
+                    <path d="M3.29310345,17.8628188 L3.29085141,17.9031778 C3.24944569,18.6452145 2.64214726,19.2241379 1.89655172,19.2241379 C1.15121656,19.2241379 0.543370774,18.6482581 0.502235442,17.9034614 L0.5,17.8629864 L0.5,0.5 L3.29310345,0.5 L3.29310345,17.8628188 Z" id="Combined-Shape"></path>
+                    <path d="M21.5,17.8628188 L21.497748,17.9031778 C21.4563422,18.6452145 20.8490438,19.2241379 20.1034483,19.2241379 C19.3581131,19.2241379 18.7502673,18.6482581 18.709132,17.9034614 L18.7068966,17.8629864 L18.7068966,0.5 L21.5,0.5 L21.5,17.8628188 Z" id="Combined-Shape-Copy-2"></path>
+                    <rect id="Rectangle-3" x="3.53448276" y="0.5" width="14.9310345" height="2.03448276"></rect>
+                    <rect id="Rectangle-3" x="3.53448276" y="14.9137931" width="14.9310345" height="2.03448276"></rect>
+                    <path d="M6.44827586,4.17241379 L5.24879123,5.37189842" id="Line" stroke-linecap="round"></path>
+                    <path d="M8.37540439,4.52114733 L5.68965517,7.20689655" id="Line-Copy-6" stroke-linecap="round"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

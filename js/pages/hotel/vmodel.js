@@ -1,58 +1,53 @@
-var hid, actionType,
+var hid, 
+    roomType = 0, 
+    midnightDiscount = 1,
     myPosition, myLng, myLat,
     bensue, roomType, newOrder,
     isexpand = false,
     isSuccess = false,
-    user;
+    clockObj = null;
 
-hid = 1; //目前只有1家店
-// hid = getParam("id");
-// if (hid != "") {
-//     if (isNaN(hid)) {
-//         location.href = document.referrer || "index.html";
-//     } else {
-//         hid = parseInt(hid);
-//     }
-// } else {
-//     location.href = "index.html";
-// }
+hid = getParam("id");
+if (hid != "") {
+    if (isNaN(hid)) {
+        location.href = document.referrer || "index.html";
+    } else {
+        hid = parseInt(hid);
+    }
+} else {
+    location.href = "index.html";
+}
 
-// myPosition = Storage.getLocal("position");
-// if (myPosition) {
-//     myLng = myPosition.lng || "";
-//     myLat = myPosition.lat || "";
-// }
+myPosition = Storage.get("position");
+if (myPosition) {
+    myLng = myPosition.center.lng || "";
+    myLat = myPosition.center.lat || "";
+}
 
 bensue = Storage.get("bensue");
 if (bensue) {
-    roomType = bensue.type || 0;
+    roomType = bensue.type;
+
+    // if (bensue.type == 2) {
+    //     midnightDiscount = bensue.midnightDiscount;
+    // }
 } else {
     //第一次加载
     roomType = 0;
-    Storage.set("bensue", { type: 0 });
+    bensue = { type: 0 };
+    Storage.set("bensue", bensue);
 }
 
-newOrder = Storage.get("newOrder");
-if (!newOrder) {
-    newOrder = {
-        day: {
-            start: '',
-            end: ''
-        },
-        partTime: {
-            start: '',
-            end: ''
-        },
-    };
-    Storage.set("newOrder", newOrder);
-}
+newOrder = iniOrderTime();
 
 var vmTop = avalon.define({
     $id: 'top',
     headImg: 'img/defaultHeadImg.png', //左上角头像
+    type: 0,
     selectType: function(type) {
         stopSwipeSkip.do(function() {
             roomType = type;
+            vmTop.type = type;
             vmHotel.type = type;
             Storage.set("bensue", { type: type });
 
@@ -91,17 +86,9 @@ var vmTop = avalon.define({
     },
 });
 
-var vmBottom = avalon.define({
-    $id: 'bottom',
-    type: 0,
-    selectType: function(type) {
-        vmBottom.type = type;
-    }
-});
-
 var vmHotel = avalon.define({
     $id: 'hotel',
-    type: 0, //0 全天房, 1 夜房
+    type: roomType, //0 全天房, 1 时租房
     alias: '',
     name: '',
     tel: '',
@@ -118,22 +105,20 @@ var vmHotel = avalon.define({
     openTimePanel: function() {
         stopSwipeSkip.do(function() {
             vmBtn.useCheck = 1;
-            if (roomType == 0) {
+            if (vmHotel.type == 0) {
                 vmBtn.type = 'date';
-                popover('./util/calendar.html', 1, function() {
-                    $('#calendarPanel').height($(window).height() - 180);
-                    //初始状态打开`入住时间
-                    if (!(vmCalendar.statusControl.isEndEdit || vmCalendar.statusControl.isStartEdit)) {
-                        vmCalendar.startClick();
-                    }
-                });
             } else {
                 vmBtn.type = 'partTime';
-                popover('./util/partTime.html', 1, function() {
-                    $('.select-time').height($(window).height() - 150);
-                    loadSessionPartTime();
-                });
+                // modalShow('./util/partTime.html', 1, function() {
+                //     $('.select-time').height($(window).height() - 150);
+                //     loadSessionPartTime();
+                // });
+
             }
+
+            modalShow('./util/calendar.html', 1, function() {
+                vmCalendar.iniCalendarModal();
+            });
         });
     },
     getHotelDetail: function() {
@@ -143,7 +128,7 @@ var vmHotel = avalon.define({
                 hid: hid,
                 lng: myLng,
                 lat: myLat,
-                isPartTime: roomType
+                isPartTime: vmHotel.type
             },
             successCallback: function(json) {
                 if (json.status == 1) {
@@ -157,7 +142,7 @@ var vmHotel = avalon.define({
                     vmHotel.lat = json.data.lat;
 
                     if (json.data.distance > 0) {
-                        vmHotel.distance = round(json.data.distance / 1000, 1);
+                        vmHotel.distance = round(json.data.distance / 1000, 2);
                     }
                     //顶部轮播导入图片数据
                     vmHotel.galleryList = json.data.hotelGalleryList;
@@ -282,34 +267,31 @@ var vmHotel = avalon.define({
             }
         });
     },
+    midnightDiscount: 1,
     roomTypeList: [],
     tid: '', //房间类型，默认为全部
     getRoomTypeList: function() {
         ajaxJsonp({
             url: urls.getRoomTypeList,
             data: {
-                startTime: roomType ? newOrder.partTime.start : (newOrder.day.start == getToday('date') ? getToday() : newOrder.day.start),
-                endTime: roomType ? newOrder.partTime.end : newOrder.day.end,
+                // startTime: vmHotel.type ? newOrder.partTime.start : (newOrder.day.start == getToday('date') ? getToday() : newOrder.day.start),
+                // endTime: vmHotel.type ? newOrder.partTime.end : newOrder.day.end,
+                startTime: "2017-05-08",
+                endTime: "2017-05-11",
                 hid: hid,
-                isPartTime: roomType
+                isPartTime: vmHotel.type,
+                discount: midnightDiscount
             },
             successCallback: function(json) {
                 if (json.status == 1) {
-                    json.data.map(function(t) {
-                        switch (roomType) {
-                            case 0:
-                                t.coverUrl = t.coverUrl;
-                                break;
-                            case 1:
-                                t.coverUrl = t.coverUrl;
-                                break;
-                            case 2:
-                                t.coverUrl = t.coverUrl;
-                                break;
+
+                    vmHotel.roomTypeList = [];
+                    json.data.map(function(o) {
+                        if(o.minPrice) {
+                            vmHotel.roomTypeList.push(o);
+
                         }
                     });
-
-                    vmHotel.roomTypeList = json.data;
                 }
             }
         });
@@ -381,45 +363,27 @@ var vmBtn = avalon.define({
     }
 })
 
-//开门或者退房操作，打开面板
-actionType = getParam('type');
-if (actionType) {
-    vmSide.show();
-}
-
-user = Storage.getLocal("user");
-//更换登录用户头像
-if (user) {
-    if (user.logState && user.headImg) {
-        vmTop.headImg = urlAPINet + user.headImg;
-    }
-
-    if (user.openUserInfo) {
-        vmSide.show();
-    }
-}
-
 vmHotel.type = roomType;
 
 registerWeixinConfig();
 
 //获得用户的位置
-wx.ready(function() {
-    wx.getLocation({
-        type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
-        success: function(res) {
-            console.log(res);
-            myLat = res.latitude; // 纬度，浮点数，范围为90 ~ -90
-            myLng = res.longitude; // 经度，浮点数，范围为180 ~ -180。
-            vmHotel.getHotelDetail();
+// wx.ready(function() {
+//     wx.getLocation({
+//         type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
+//         success: function(res) {
+//             console.log(res);
+//             myLat = res.latitude; // 纬度，浮点数，范围为90 ~ -90
+//             myLng = res.longitude; // 经度，浮点数，范围为180 ~ -180。
+//             vmHotel.getHotelDetail();
 
-            Storage.setLocal("position", {
-                lat: myLat,
-                lng: myLng
-            });
-        }
-    });
-});
+//             Storage.setLocal("position", {
+//                 lat: myLat,
+//                 lng: myLng
+//             });
+//         }
+//     });
+// });
 
 vmHotel.getHotelDetail();
 vmHotel.getAssess();
@@ -448,16 +412,23 @@ function reload() {
 
 //保存到本地
 function saveStorage() {
-    if (roomType) {
+    if (vmHotel.type) {
         $.extend(newOrder.partTime, {
-            start: getStartTime(roomType),
-            end: getEndTime(roomType)
+            start: getStartTime(vmHotel.type),
+            end: getEndTime(vmHotel.type)
         });
     } else {
         $.extend(newOrder.day, {
-            start: getStartTime(roomType),
-            end: getEndTime(roomType)
+            start: getStartTime(vmHotel.type),
+            end: getEndTime(vmHotel.type)
         });
     }
     Storage.set("newOrder", newOrder);
 }
+
+vmHotel.$watch('type', function(a) {
+    vmHotel.getHotelDetail();
+    vmHotel.getRoomTypeList();
+
+    bensue.type = a;
+});

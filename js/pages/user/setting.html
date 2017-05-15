@@ -1,0 +1,48 @@
+<style>
+.content {
+    height: 60px;
+    width: 100vw;
+    padding: 21px 30px 25px;
+    background-color: white;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+}
+
+.logOff {
+    position: absolute;
+    width: 84vw;
+    bottom: 0;
+    margin: 4vw 8vw;
+    text-align: center;
+    font-size: 18px;
+    background-color: #BDBDBD;
+    border-radius: 3px;
+    color: #444;
+    height: 48px;
+    line-height: 48px;
+}
+</style>
+<div class="mui-page" ms-controller="setting">
+    <div class="content bs-text-444 bs-text-normal mui-navigate-right" onclick="javascript:location.href='../invoice-list.html';">
+        <div style="height: 24px;"><img src="../img/icon/icon-fapiaoguanli.svg"></div>
+        <div style="margin-left: 10px;">
+            发票管理
+        </div>
+    </div>
+    <div class="content bs-text-444 bs-text-normal mui-navigate-right" onclick="javascript:location.href='../frequent-contact-list.html';">
+        <div style="height: 24px;"><img src="../img/icon/icon-ruzhurenxinxi.svg"></div>
+        <div style="margin-left: 10px;">
+            入住人信息
+        </div>
+    </div>
+    <div class="content bs-text-444 bs-text-normal mui-navigate-right" onclick="javascript:location.href='../about.html';">
+        <div style="height: 24px;"><img src="../img/icon/icon-guanyuwomen.svg"></div>
+        <div style="margin-left: 10px;">
+            关于我们
+        </div>
+    </div>
+    <div class="logOff" ms-on-tap="logOff">
+        退出当前帐号
+    </div>
+</div>

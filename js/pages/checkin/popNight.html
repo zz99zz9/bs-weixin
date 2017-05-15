@@ -1,0 +1,133 @@
+<style>
+.frame {
+    position: relative;
+    height: 400px;
+    width: 80vw;
+    padding: 10vw 4vw;
+    background-color: white;
+}
+
+.search-panel {
+    color: #000;
+    background-color: #fff;
+    padding: 10px 12.5px 10px 12.5px;
+}
+
+.footer {
+    width: 80vw;
+    position: absolute;
+    float: left;
+    left: 0;
+    padding: 16px 0;
+    bottom: 0;
+    border: 1px solid #eee;
+}
+
+.content {
+    width: 72vw;
+    text-align: center;
+    margin-bottom: 5vw;
+    border-bottom: 1px solid #ccc;
+    padding: 10px 0;
+}
+
+.checkBox {
+    top: 5px !important;
+    left: 0 !important;
+}
+
+.arrow {
+    height: 15px;
+    position: relative;
+    top: -25px;
+    float: right;
+    right: 10px;
+}
+
+.button {
+    height: 34px;
+    padding: 0;
+    margin: 0;
+    line-height: 6px;
+    background: #b3dfdb;
+}
+
+.mui-checkbox input[type=checkbox]:before {
+    font-size: 19px;
+}
+</style>
+<article ms-controller="popNight" class="frame bs-text-normal">
+    <div class="bs-text-larger content">
+        正在为您关闭窗帘
+    </div>
+    <div class="bs-text-normal content" style="display: flex;justify-content: center;align-items: center;">
+        <div class="mui-input-row mui-checkbox mui-left">
+            <label style="padding: 11px 14px 11px 24px;">保留投影</label>
+            <input name="checkbox1" class="checkBox" value="Item 1" type="checkbox" checked>
+        </div>
+        <div class="mui-input-row mui-checkbox mui-left">
+            <label style="padding: 11px 6px 11px 20px">保留床头灯</label>
+            <input name="checkbox1" class="checkBox" value="Item 2" type="checkbox" checked>
+        </div>
+    </div>
+    <div class="bs-text-larger content">
+        <div style="display: flex;justify-content: center;align-items: center;margin-bottom: 2vh;">
+            <div class="bs-text-normal" style="margin-right: 4vw;">
+                灯光将于
+            </div>
+            <div id="light" class="answer bs-text-normal" style="height:37px;width: 120px;">
+                <button id='light' type='button' class="mui-btn mui-btn-block button bs-text-normal">{{light}}</button>
+                <img src="../img/icon/pickerArrow.svg" class="arrow">
+            </div>
+        </div>
+    </div>
+    <div class="bs-text-larger content">
+        <div style="display: flex;justify-content: center;align-items: center;margin-bottom: 2vh;">
+            <div class="bs-text-normal" style="margin-right: 4vw;">
+                将于明天
+            </div>
+            <div id="alarm" class="answer bs-text-normal" style="height:37px;width: 120px;">
+                <button id='alarm' type='button' class="mui-btn mui-btn-block button bs-text-normal">{{alarm}}</button>
+                <img src="../img/icon/pickerArrow.svg" class="arrow">
+            </div>
+        </div>
+    </div>
+    <div class="footer" ms-on-tap="closePop">
+        开始睡眠
+    </div>
+</article>
+
+<script>
+
+(function($, doc) {
+    $.init();
+    $.ready(function() {
+        var toolPicker2 = new $.PopPicker();
+        toolPicker2.setData(vmPopNight.lightList);
+        var showUserPickerButton2 = doc.getElementById('light');
+        showUserPickerButton2.addEventListener('tap', function(event) {
+            toolPicker2.show(function(items) {
+                vmPopNight.lightId = items[0].value;
+                vmPopNight.light = items[0].text;
+            });
+        }, false);
+    });
+})(mui, document);
+
+(function($, doc) {
+    $.init();
+    $.ready(function() {
+        var toolPicker2 = new $.PopPicker();
+        toolPicker2.setData(vmPopNight.alarmList);
+        var showUserPickerButton2 = doc.getElementById('alarm');
+        showUserPickerButton2.addEventListener('tap', function(event) {
+            toolPicker2.show(function(items) {
+                vmPopNight.alarmId = items[0].value;
+                vmPopNight.alarm = items[0].text;
+            });
+        }, false);
+    });
+})(mui, document);
+
+
+</script>

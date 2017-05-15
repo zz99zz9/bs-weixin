@@ -1,10 +1,10 @@
-var assess_oid = getParam("oid"), assess_orid = getParam("orid"),
-    assess_room = getParam("room"), assess_time = getParam("time"),
-    assess_hid = getParam("hid");
+// var assess_oid = getParam("oid"), assess_orid = getParam("orid"),
+//     assess_room = getParam("room"), assess_time = getParam("time"),
+//     assess_hid = getParam("hid");
 
-assess_oid = verifyIntParam(assess_oid);
-assess_orid = verifyIntParam(assess_orid);
-assess_hid = verifyIntParam(assess_hid);
+// assess_oid = verifyIntParam(assess_oid);
+// assess_orid = verifyIntParam(assess_orid);
+// assess_hid = verifyIntParam(assess_hid);
 
 var vmSub = avalon.define({
     $id: "sub",

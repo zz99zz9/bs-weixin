@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="56px" height="56px" viewBox="0 0 56 56" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 43.1 (39012) - http://www.bohemiancoding.com/sketch -->
+    <title>icon-suoyouchengshi</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icon-suoyouchengshi" transform="translate(28.000000, 28.000000) rotate(-270.000000) translate(-28.000000, -28.000000) translate(0.000000, -0.000000)">
+            <rect id="qietu-suzhou" fill="#BDBDBD" x="0" y="0" width="56" height="56" rx="28"></rect>
+            <path d="M28.0805645,31.4625269 C27.8333257,31.7136633 27.4326481,31.7136633 27.1854291,31.4625269 L27.1854291,31.4625269 C26.9381903,31.2113905 26.9381903,30.8043965 27.1854291,30.5532802 L33.4515744,24.1883523 C33.6988132,23.9372159 34.0994908,23.9372159 34.3467098,24.1883523 L34.3467098,24.1883523 C34.5939486,24.4394887 34.5939486,24.8464827 34.3467098,25.097599 L28.0805645,31.4625269 L28.0805645,31.4625269 Z" id="Shape" fill="#444444" fill-rule="nonzero" transform="translate(30.766069, 27.825440) scale(1, -1) translate(-30.766069, -27.825440) "></path>
+            <path d="M28.3467098,30.5532802 C28.5939486,30.8044166 28.5939486,31.2114106 28.3467098,31.4625269 L28.3467098,31.4625269 C28.099471,31.7136633 27.6987935,31.7136633 27.4515744,31.4625269 L21.1854291,25.097599 C20.9381903,24.8464626 20.9381903,24.4394686 21.1854291,24.1883523 L21.1854291,24.1883523 C21.4326679,23.9372159 21.8333454,23.9372159 22.0805645,24.1883523 L28.3467098,30.5532802 L28.3467098,30.5532802 Z" id="Shape" fill="#444444" fill-rule="nonzero" transform="translate(24.766069, 27.825440) scale(1, -1) translate(-24.766069, -27.825440) "></path>
+        </g>
+    </g>
+</svg>

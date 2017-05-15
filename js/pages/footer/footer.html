@@ -1,0 +1,55 @@
+<style>
+.footer-nav {
+    position: fixed;
+    display: flex;
+    justify-content: space-around;
+    height: 56px;
+    width: 100vw;
+    bottom: 0;
+    z-index: 10;
+    background-color: white;
+    border-top: 1px solid #eee;
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.footer-content img {
+    height: 30px;
+    width: 30px;
+}
+
+.footer-content div {
+    font-size: 8px;
+}
+
+.footer-picture{
+    height: 24px;
+    width: 24px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+</style>
+<div class="footer-nav" ms-controller="footer">
+    <div class="footer-content" ms-on-tap="goIndex">
+        <div class="footer-picture" ms-css-background-image="url({{headUrl}})"></div>
+        <div class="">主页</div>
+    </div>
+    <div class="footer-content" ms-on-tap="goRoom">
+        <div class="footer-picture" ms-css-background-image="url({{checkinUrl}})"></div>
+        <div class="" style="margin-right: 1px;">入住</div>
+    </div>
+    <div class="footer-content" ms-on-tap="goOrder">
+        <div class="footer-picture" ms-css-background-image="url({{orderUrl}})"></div>
+        <div class="" style="margin-right: 1px;">订单</div>
+    </div>
+    <div class="footer-content" ms-on-tap="goMore">
+        <div class="footer-picture" ms-css-background-image="url({{moreUrl}})"></div>
+        <div class="">更多</div>
+    </div>
+</div>

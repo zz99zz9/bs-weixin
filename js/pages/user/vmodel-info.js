@@ -21,6 +21,7 @@ var vmUser = avalon.define({
     mobile: '',
     idNo: '',
     nickname: '',
+    headUrl:'',
     getUserInfo: function() {
         ajaxJsonp({
             url: urls.userInfotUrl,
@@ -37,7 +38,7 @@ var vmUser = avalon.define({
         vmUser.mobile = user.mobile;
         vmUser.idNo = user.idNo;
         vmUser.nickname = user.nickname;
-
+		vmUser.headImg = user.headImg;
         vmSave.newName = vmUser.name;
         vmSave.newNickname = vmUser.nickname;
         vmSave.newMobile = vmUser.mobile;
@@ -77,6 +78,37 @@ var vmUser = avalon.define({
             }
         });
     },
+    goIndex: function() {
+        stopSwipeSkip.do(function() {
+            location.href = "../index.html";
+        });
+    },
+    goRoom: function() {
+        stopSwipeSkip.do(function() {
+            location.href = "service/orderList.html";
+        });
+    },
+    goOrder: function() {
+        stopSwipeSkip.do(function() {
+            location.href = "../newOrderList.html";
+        });
+    },
+    goMore: function() {
+        stopSwipeSkip.do(function() {
+            location.href = "../more.html";
+        });
+    },
+    TimeCoinBalance: 0,
+    getTimeCoinBalance: function(){
+        ajaxJsonp({
+            url: urls.getTotalAssets,
+            successCallback: function(json) {
+                if (json.status === 1) {
+                    vmUser.TimeCoinBalance = json.data.availableCoin;
+                } 
+            }
+        });
+    },
 });
 
 var c = Storage.getLocal('user').logState;
@@ -90,6 +122,48 @@ var vmSave = avalon.define({
     isNameChange: false,
     isNicknameChange: false,
     isMobileChange: false,
+    headImg: defaultHeadImg,
+    name: '',
+    mobile: '',
+    idNo: '',
+    nickname: '',
+    headUrl:'',
+    getUserInfo: function() {
+        ajaxJsonp({
+            url: urls.userInfotUrl,
+            data: {},
+            successCallback: function(json) {
+                if(json.status !== 0)
+                {
+                }
+            }
+        });
+        var user = Storage.getLocal('user');
+        vmSave.headImg = user.headImg;
+        vmSave.name = user.name;
+        vmSave.mobile = user.mobile;
+        vmSave.idNo = user.idNo;
+        vmSave.nickname = user.nickname;
+        vmSave.headImg = user.headImg;
+        vmSave.newName = vmSave.name;
+        vmSave.newNickname = vmSave.nickname;
+        vmSave.newMobile = vmSave.mobile;
+    },
+    changeImg: function() {
+        stopSwipeSkip.do(function() {
+            ajaxJsonp({
+                url: urls.userInfotUrl,
+                data: {},
+                successCallback: function(json) {
+                    if (json.status == 1) { //已登录
+                        location.href = '../avatar.html';
+                    } else {
+                        mui.alert(json.message);
+                    }
+                }
+            });
+        });
+    },
     save: function() {
         if(vmSave.isNameChange || vmSave.isNicknameChange || vmSave.isMobileChange) {
             var reg = /^(((13[0-9]{1})|(15[0-9]{1})|(17[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
@@ -147,4 +221,6 @@ vmSave.$watch('newMobile', function(a) {
 });
 
 vmUser.getUserInfo();
+vmSave.getUserInfo();
 vmUser.getBalance();
+vmUser.getTimeCoinBalance();

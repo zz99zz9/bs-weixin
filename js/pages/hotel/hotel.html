@@ -8,8 +8,8 @@
 </style>
 <div id="pullrefresh" class="mui-scroll-wrapper bs-bg-white" ms-controller="hotel" ms-on-swipeup="vmTop.su" ms-on-swipedown="vmTop.sd">
     <div class="mui-scroll">
-        <div style="position: absolute;top: 40vh;z-index: 10;right: 0;padding-right: 10px;">
-            <button type="button" class="calender-icon bs-bg-red" ms-css-background-image="type?'url(img/clock.png)':'url(img/calendar.svg)'" ms-on-tap="openTimePanel">
+        <div style="position: absolute;top: 40vh;z-index: 10;right: 0;padding-right: 10px;" ms-if="type!==2">
+            <button type="button" class="calender-icon bs-bg-fdd942" ms-css-background-image="type?'url(img/icon/clock-white.svg)':'url(img/icon/calendar-white.svg)'" ms-on-tap="openTimePanel">
             <div class="bs-text-white bs-text-smaller" ms-if="!type" style="line-height: 46px;">{{getToday('day')}}</div>
             </button>
         </div>
@@ -31,7 +31,7 @@
                         <td class="mui-ellipsis small" valign="top">
                             <i class="bs-text-x-larger" style="font-weight: 900;">{{name}}&nbsp;</i><i class="bs-text-larger" style="font-weight: 100;">{{alias}}</i><br />
                             <i class="bs-text-small bs-text-gold" style="max-width: 90%;margin-top: 4px;white-space: normal;" ms-on-tap="openNav">
-                                <img src="img/icon/position.png" alt="" style="width: 17px;position: relative;top: 2px;">
+                                <img src="img/icon/position.svg" alt="" style="width: 17px;position: relative;top: 2px;">
                             {{address}}
                             </i>
                         </td>
@@ -63,8 +63,7 @@
         
         <!-- 房型筛选 -->
         <div class="typeFilter bs-text-large">
-            <div class="bs-bg-gold typeFilter-item" style="margin-right: 7px;">
-            </div>
+            <img src="../img/icon/icon-biaotifuhao-444.svg" style="height: 16px;margin-top: 13px;margin-right: 7px;">
             <div class="typeFilter-item bs-text-51" style="flex-grow: 1;">房型筛选
             </div>
         </div>

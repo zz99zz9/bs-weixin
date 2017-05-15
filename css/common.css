@@ -40,9 +40,8 @@ button {
 }
 
 .headImg {
-    width: 36px;
-    height: 36px;
-    margin: 6px;
+    width: 34px;
+    height: 34px;
     border-radius: 50%;
     border: 2px solid white;
 }
@@ -227,6 +226,7 @@ button {
 
 .calendar {
     width: 100%;
+    background-color: white;
 }
 
 .calendar a,
@@ -234,17 +234,15 @@ button {
 .calendar b {
     display: inline-block;
     width: 14.285%;
-    height: 3rem;
-    /*padding: 5px;*/
+    height: 45px;
     box-sizing: border-box;
-    border: 1px solid transparent;
-    /*border-top: none;*/
-    border-right: none;
-    border-right: none;
+    border-top: 0.5px solid #fff;
+    border-bottom: 0.5px solid #fff;
     text-align: center;
-    line-height: 3rem;
+    line-height: 45px;
     position: relative;
     font-size: 16px;
+    color: black;
 }
 
 .calendar b {
@@ -259,22 +257,19 @@ button {
 .calendar i,
 .calendar .disabled,
 .calendar .disabled:active {
-    background: gainsboro;
-    color: gray;
-    border: 1px solid gainsboro;
-    border-right: none;
-    border-bottom: none;
+    color: #BDBDBD;
 }
 
 .calendar a {
-    color: gray;
+    color: #444;
     background: #fff;
 }
 
 .calendar a sup,
 .calendar i sup {
     font-size: 12px;
-    color: #cc9966;
+    /*color: #cc9966;*/
+    color: #169488;
     display: block;
     position: absolute;
     top: 5px;
@@ -299,13 +294,23 @@ button {
 .calendar a:active {}
 
 .calendar .selected {
-    background: #baa071;
-    color: white;
+    background: #fdd942;
+    font-weight: bold;
+}
+
+.calendar .start {
+    border-top-left-radius: 50%;
+    border-bottom-left-radius: 50%;
+}
+
+.calendar .end {
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
 }
 
 .calendar a:active sup,
 .calendar a:active sub,
-.calendar .selected sup .calendar .selected sub {
+.calendar .selected sup, .calendar .selected sub {
     color: white;
 }
 
@@ -344,20 +349,10 @@ button {
     color: #DD524D;
 }
 
-.calendar .split-bottom {
-    border-bottom: 1px solid lightgray;
-}
-
-.calendar .split-right {
-    border-right: 1px solid lightgray;
-}
-
-.calendar .split-top {
-    border-top: 1px solid lightgray;
-}
-
-.calendar .split-left {
-    border-left: 1px solid lightgray;
+/*放在最后保证生效*/
+.calendar .notThisMonth {
+    background: #fff;
+    border: none;
 }
 
 .swiper-container {
@@ -426,7 +421,8 @@ button {
     display: inline-block;
 }
 
-.swiper-slide-item a div label {
+.swiper-slide-item a div label, 
+.hotel-price-lable {
     position: absolute;
     bottom: 27px;
     left: 0px;
@@ -438,7 +434,8 @@ button {
     padding: 6px;
 }
 
-.swiper-slide-item .slide-price {
+.swiper-slide-item .slide-price, 
+.hotel-price-lable .hotel-price-span {
     font-weight: 200;
     font-size: 24px;
 }
@@ -501,7 +498,7 @@ button {
     position: fixed;
     width: 100vw;
     height: 100vh;
-    z-index: 9999;
+    z-index: 99;
     background: rgba(0, 0, 0, 0.7);
     top: 0;
     left: 0;
@@ -1021,9 +1018,10 @@ hr {
 
 .hotel {
     margin: 0 auto;
-    padding: 14px 10px 15px 10px;
+    padding: 10px 20px;
     position: relative;
     background-color: #fff;
+    padding-top: 25px;
 }
 
 .hotel div {
@@ -1102,20 +1100,29 @@ hr {
 
 .order-list {
     margin-top: 0;
-    padding-left: 0;
+    padding: 0 24px;
     list-style-type: none;
+    position: relative;
 }
 
 .order-list .order-item {
+    position: relative;
     display: block;
     margin: 10px 0;
-    padding: 10px 0 10px 10px;
-    background-color: #fff;
+    padding: 16px 12px;
+    background-color: #f2f2f2;
+    border-radius: 5px;
+    box-shadow: 0px 1px 3px 0px #bdbdbd;
 }
 
 .order-list .order-item .status {
     position: absolute;
-    right: 0px;
+    right: 0;
+    display: block;
+    margin-top: 5px;
+    width: 56px;
+    text-align: center;
+    opacity: 0.8;
 }
 
 .order-list .order-item h5 {
@@ -1124,17 +1131,16 @@ hr {
 }
 
 .order-list .order-item button {
-    width: 100px;
+    width: 88px;
     padding-top: 2px;
     padding-bottom: 2px;
     margin: -5px;
-    border-radius: 0;
+    border: none;
 }
 
 .order-panel {
     background: #fff;
-    padding: 10px;
-    margin: 10px 0;
+    padding: 25px 20px 15px 20px;
 }
 
 .order-panel-title {
@@ -1164,8 +1170,20 @@ hr {
     font-size: 24px;
 }
 
+.bs-text-20 {
+    font-size: 20px;
+}
+
+.bs-text-18 {
+    font-size: 18px;
+}
+
 .bs-text-larger {
-    font-size: 17px;
+    font-size: 18px;
+}
+
+.bs-text-16 {
+    font-size: 16px;
 }
 
 .bs-text-large {
@@ -1188,6 +1206,10 @@ hr {
     font-size: 10px;
 }
 
+.bs-text-bold {
+    font-weight: bold;
+}
+
 .bs-text-bolder {
     font-weight: bolder;
 }
@@ -1200,17 +1222,13 @@ hr {
     color: #fff !important;
 }
 
-.bs-text-gold {
-    color: #baa071 !important;
-}
-
 .bs-text-yellow {
-    color: #ffbc1b !important;
+    color: #fdd942 !important;
 }
 
-.bs-text-red {
+.bs-text-fdd942 {
     /*color: #b20e15 !important;*/
-    color: #e93b39 !important;
+    color: #fdd942 !important;
 }
 
 .bs-text-gray {
@@ -1219,10 +1237,6 @@ hr {
 
 .bs-text-51 {
     color: #333 !important;
-}
-
-.bs-text-153 {
-    color: #999 !important;
 }
 
 .bs-text-aaa {
@@ -1241,12 +1255,16 @@ hr {
     color: #008656 !important;
 }
 
-.bs-bg-gold {
-    background-color: #baa071;
+.bs-text-444 {
+    color: #444;
 }
 
-.bs-bg-red {
-    background-color: #e93b39;
+.bs-text-eca022 {
+    color: #eca022;
+}
+
+.bs-bg-fdd942 {
+    background-color: #fdd942;
 }
 
 .bs-bg-gray {
@@ -1255,10 +1273,6 @@ hr {
 
 .bs-bg-51 {
     background-color: #333;
-}
-
-.bs-bg-153 {
-    background-color: #999;
 }
 
 .bs-bg-102 {
@@ -1278,7 +1292,23 @@ hr {
 }
 
 .bs-bg-yellow {
-    background-color: #ffbc1b;
+    background-color: #fdd942;
+}
+
+.bs-bg-eee {
+    background-color: #eee;
+}
+
+.bs-bg-444{
+    background-color: #444;
+}
+
+.bs-bg-f2{
+    background-color: #f2f2f2;
+}
+
+.bs-bg-bd{
+    background-color: #bdbdbd;
 }
 
 .bs-type-tab {
@@ -1312,9 +1342,9 @@ hr {
 
 .bs-city {
     position: relative;
-    top: 190px;
+    top: 135px;
     color: #fff;
-    z-index: 10;
+    z-index: 2;
     font-size: 36px;
     height: 0;
     text-align: center;
@@ -1377,11 +1407,11 @@ hr {
 
 .isAgree {
     display: inline-block;
-    width: 12px;
-    height: 12px;
+    width: 20px;
+    height: 20px;
     position: relative;
     top: 1px;
-    margin-right: 10px;
+    margin-right: 4px;
     background-size: cover;
 }
 
@@ -1502,14 +1532,94 @@ hr {
     padding: 20px 10vw 0 0;
 }
 
+/*首页底部*/
 .bs-index-bottom {
     position: fixed;
     z-index: 5;
     bottom: 0;
-    height: 90px;
     width: 100%;
 }
-.bs-index-bottom-tab {
+.bs-index-bottom-title {
+    line-height: 38px;
+    border-bottom: solid 1px #eee;
+    font-size: 12px;
     display: flex;
-    justify-content: space-around;
+    text-align: center;
+    box-shadow: 0 -2px 6px -4px; 
+}
+.bs-index-bottom-title-left {
+    color: #666;
+    flex-grow: 1;
+}
+.bs-index-bottom-title-right {
+    color: #baa071;
+    background-color: #eee;
+    width: 35vw;
+}
+.bs-index-bottom-title-discount {
+    width: 25%;
+    font-size: 16px;
+    color: #baa071;
+    border-left: solid 1px #eee;
+}
+.bs-index-bottom-title-discount-selected {
+    color: white !important;
+    background-color: #baa071;
+    font-weight: bolder;
+}
+.bs-index-bottom-tab {
+    position: fixed;
+    z-index: 9;
+    bottom: 0;
+    width: 100%;
+    padding: 0 14px;
+    display: flex;
+    justify-content: space-between;
+}
+.bs-index-bottom-tab-item {
+    font-size: 13px;
+    padding-top: 55px;
+    padding-bottom: 20px;
+    width: 65px;
+    text-align: center;
+    position: relative;
+}
+.bs-index-bottom-tab-item-icon {
+    background-color: #fff;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    position: absolute;
+    top: 12px;
+    left: 13px;
+    box-shadow: 0px 2px 10px -5px;
+    background-size: 22px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.bs-index-bottom-tab-item-selected {
+    font-size: 11px;
+    display: inline-block;
+    position: relative;
+    top: 3px;
+}
+.bs-header {
+    padding: 0 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 48px;
+}
+.bs-search {
+    flex-grow: 1;
+    margin: 0px 20px;
+    padding-top: 3px;
+    padding-left: 15px;
+    height: 31px;
+    text-align: left;
+    border-radius: 18px;
+}
+
+.layout-center {
+    text-align: center;
 }

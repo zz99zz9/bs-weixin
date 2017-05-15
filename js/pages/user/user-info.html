@@ -27,26 +27,26 @@
 
 
 /*.mui-page-left {
-		-webkit-transform: translate3d(0, 0, 0);
-		transform: translate3d(0, 0, 0);
-	}
-	.mui-ios .mui-page-left {
-		-webkit-transform: translate3d(-20%, 0, 0);
-		transform: translate3d(-20%, 0, 0);
-	}
-	.mui-page-shadow {
-		position: absolute;
-		right: 100%;
-		top: 0;
-		width: 16px;
-		height: 100%;
-		z-index: -1;
-		content: '';
-	}
-	.mui-page-shadow {
-		background: -webkit-linear-gradient(left, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0) 10%, rgba(0, 0, 0, .01) 50%, rgba(0, 0, 0, .2) 100%);
-		background: linear-gradient(to right, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0) 10%, rgba(0, 0, 0, .01) 50%, rgba(0, 0, 0, .2) 100%);
-	}*/
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+    }
+    .mui-ios .mui-page-left {
+        -webkit-transform: translate3d(-20%, 0, 0);
+        transform: translate3d(-20%, 0, 0);
+    }
+    .mui-page-shadow {
+        position: absolute;
+        right: 100%;
+        top: 0;
+        width: 16px;
+        height: 100%;
+        z-index: -1;
+        content: '';
+    }
+    .mui-page-shadow {
+        background: -webkit-linear-gradient(left, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0) 10%, rgba(0, 0, 0, .01) 50%, rgba(0, 0, 0, .2) 100%);
+        background: linear-gradient(to right, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0) 10%, rgba(0, 0, 0, .01) 50%, rgba(0, 0, 0, .2) 100%);
+    }*/
 
 .mui-page {
     display: none;
@@ -83,6 +83,76 @@ div ul li {
     padding: 9px 15px;
     ;
 }
+
+.header {
+    height: 68px;
+    padding: 12px 30px;
+}
+
+.icon {
+    height: 15px;
+    width: 15px;
+}
+
+.gradeRank {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+    padding: 0 30px;
+    border-top: 1px solid #eee;
+}
+
+.grade {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    height: 100%;
+    width: 50%;
+    border-right: 1px solid #eee;
+}
+
+.ranking {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.assets {
+    height: 144px;
+    padding: 30px 30px 36px;
+    margin-top: 12px;
+}
+
+.assets:active {
+    height: 144px;
+    padding: 30px 30px 36px;
+    margin-top: 12px;
+    background-color: #f2f2f2;
+}
+
+.assets-number {
+    display: flex;
+    justify-content: space-between;
+}
+
+.credit {
+    height: 250px;
+    padding: 25px 30px 30px;
+}
+
+.content {
+    height: 60px;
+    width: 100vw;
+    padding: 0 30px;
+}
+
+.content a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+}
 </style>
 <div id="app" class="mui-views">
     <div class="mui-view">
@@ -90,73 +160,135 @@ div ul li {
         </div>
     </div>
 </div>
-<div id="infoPage" class="mui-page" ms-controller="info">
+<!-- <div id="infoPage" class="mui-page" ms-controller="info">
     <div class="mui-page-content bs-text-small">
         <ul class="mui-table-view">
             <li class="mui-table-view-cell">
-                <a href="#nick" class="mui-navigate-right">
-                    <span class="bs-text-gray nav-title">昵称</span>
-                    <span style="margin-right: 25px;">{{nickname}}</span>
+                <a href="#nick" class="mui-navigate-right" style="display: flex;justify-content: flex-start;align-items: center;">
+                    <div style="width: 44px;height: 44px;margin: 0 16px 0 15px;" class="photo" ms-css-background-image="'url('+urlAPINet + headImg+')'">
+                        &nbsp;
+                    </div>
+                    <div style="margin-right: 25px;">{{nickname}}</div>
                 </a>
             </li>
-            <li class="mui-table-view-cell">
-                <a href="#">
-                    <span class="bs-text-gray nav-title">手机号</span>
-                    <span>{{mobile}}</span>
-                </a>
-            </li>
-        </ul>
-        <ul class="mui-table-view">
+            <ul class="mui-table-view" style="margin-top: 5px;padding-left: 15px;border-bottom: 2px solid #eee;">
+                <li class="mui-table-view-cell">
+                    <a href="coupon.html" class="mui-navigate-right">
+                        <span class="bs-text-444 nav-title">优惠券</span>
+                    </a>
+                </li>
+            </ul>
+            <ul class="mui-table-view" style="margin-top: 5px;padding-left: 15px;border-bottom: 2px solid #eee;">
+                <li class="mui-table-view-cell">
+                    <a href="promotion-detail.html" class="mui-navigate-right">
+                        <span class="bs-text-444 nav-title">推广奖励</span>
+                    </a>
+                </li>
+            </ul>
+            <ul class="mui-table-view" style="margin-top: 5px;padding-left: 15px;border-bottom: 2px solid #eee;">
+                <li class="mui-table-view-cell">
+                    <a href="vip-invite.html" class="mui-navigate-right">
+                        <span class="bs-text-444 nav-title">邀请好友</span>
+                    </a>
+                </li>
+            </ul>
+        </ul> -->
+<!--<ul class="mui-table-view">
             <li class="mui-table-view-cell">
                 <a href="balance.html" class="mui-navigate-right">
                     <span class="bs-text-gray nav-title">余额</span>
-                    <span style="display: inline-block;margin-top: 7px;">¥{{balance}}</span>
+                    <span style="display: inline-block;margin5-top: 7px;">¥{{balance}}</span>
                 </a>
             </li>
-        </ul>
-        <ul class="mui-table-view" style="margin-top: 5px">
-            <li class="mui-table-view-cell">
-                <a href="frequent-contact-list.html" class="mui-navigate-right">
-                    <span class="bs-text-gray nav-title">入住人信息</span>
-                </a>
-            </li>
-        </ul>
-        <ul class="mui-table-view" style="margin-top: 5px">
-            <li class="mui-table-view-cell">
-                <a href="invoice-list.html" class="mui-navigate-right">
-                    <span class="bs-text-gray nav-title">发票管理</span>
-                </a>
-            </li>
-        </ul>
-        <ul class="mui-table-view" style="margin-top: 50px" ms-if="isLogin==1" ms-click="logOff">
+        </ul>-->
+<!-- <ul class="mui-table-view" style="margin-top: 50px;margin-bottom: 60px;" ms-if="isLogin==1" ms-click="logOff">
             <li class="mui-table-view-cell">
                 <a class="mui-navigate-right">
                     <span class="bs-text-gray nav-title">退出当前账号</span>
                 </a>
             </li>
-        </ul>
-        <div style="position: fixed; bottom: 0; width: 100%;">
+            <div style="height: 5px;">
+            </div>
+        </ul> -->
+<!--<div style="position: fixed; bottom: 0; width: 100%;">
             <div class="mui-content-padded mui-text-center" style="margin-top: 25px">
                 客服电话： <a ms-attr-href="'tel:'+SERVICECALL">{{SERVICECALL}}</a>
             </div>
+        </div>-->
+<!--     </div>
+</div> -->
+<div id="infoPage" ms-controller="info" class="bs-text-normal">
+    <div class="header bs-bg-white">
+        <a href="#nick" style="display: flex;justify-content: space-between;align-items: center;">
+            <div style="display: flex;justify-content: flex-start;align-items: center;">
+                <div style="width: 44px;height: 44px;margin: 0 16px 0 0;" class="photo circle" ms-css-background-image="'url('+urlAPINet + headImg+')'">
+                    &nbsp;
+                </div>
+                <div style="margin-right: 25px;">{{nickname}}</div>
+            </div>
+            <div style="height: 15px;">
+                <img src="../img/icon/right-arrow.svg" class="icon" alt="">
+            </div>
+        </a>
+    </div>
+    <!-- <div class="gradeRank bs-bg-white">
+        <div class="grade">
+            <div style="margin-right: 16px;">会员等级</div>
+            <img src="../img/card/card_No1.svg" style="height: 20px;width: 24px;">
+        </div>
+        <div class="ranking">
+            <div>全区排名</div>
+            <div style="margin-left: 16px;">869</div>
+        </div>
+    </div> -->
+    <div class="assets bs-bg-white">
+        <div style="margin-bottom: 40px;">
+            总资产（时/s）
+        </div>
+        <div class="assets-number bs-text-x-larger">
+            <div style="color: #fcc20f">
+                {{vmUser.TimeCoinBalance}}<span style="padding-left: 6px;">s</span>
+            </div>
+            <!-- <div class="bs-text-444">
+                1000.00 s
+            </div> -->
         </div>
     </div>
+    <!-- <div class="credit bs-bg-white">
+        <canvas ms-attr="{id: 'circleGolden' + el.id}" style="z-index: 2;order: 0;"></canvas>
+    </div> -->
+    <!-- <div class="content bs-bg-white" style="margin: 12px 0;">
+        <a href="../coupon.html">
+            <div>
+                优惠券
+            </div>
+            <div style="height: 15px;">
+                <img src="../img/icon/right-arrow.svg" class="icon" alt="">
+            </div>
+        </a>
+    </div> -->
+    <!-- <div class="content bs-bg-white" style="margin: 12px 0;">
+        <a href="../promotion-detail.html">
+            <div>
+                推广奖励
+            </div>
+            <div style="height: 15px;">
+                <img src="../img/icon/right-arrow.svg" class="icon" alt="">
+            </div>
+        </a>
+    </div>
+    <div class="content bs-bg-white" style="margin: 12px 0;">
+        <a href="../vip-invite.html">
+            <div>
+                邀请好友
+            </div>
+            <div style="height: 15px;">
+                <img src="../img/icon/right-arrow.svg" class="icon" alt="">
+            </div>
+        </a>
+    </div> -->
 </div>
 <div ms-controller="change">
-    <div id="name" class="mui-page" style="position: fixed;z-index: 999;">
-        <div class="mui-page-content">
-            <div class="mui-input-group">
-                <div class="mui-button-row" style="background-color: #efeff4;height: 37px;">
-                    <div class="cancelBtn mui-pull-left" style="padding: 5px 15px;">取消</div>
-                    <div style="padding: 5px 15px;" class="mui-pull-right" ms-class-1="mui-text-danger:isNameChange" ms-class-2="mui-text-gray:!isNameChange" ms-click="save">保存</div>
-                </div>
-                <div class="mui-input-row">
-                    <label>姓名</label>
-                    <input type="text" ms-duplex="newName" autofocus="autofocus" />
-                </div>
-            </div>
-        </div>
-    </div>
     <div id="nick" class="mui-page" style="position: fixed;z-index: 999;">
         <div class="mui-page-content">
             <div class="mui-input-group">
@@ -164,24 +296,21 @@ div ul li {
                     <div class="cancelBtn mui-pull-left" style="padding: 5px 15px;">取消</div>
                     <div style="padding: 5px 15px;" class="mui-pull-right" ms-class-1="mui-text-danger:isNicknameChange" ms-class-2="mui-text-gray:!isNicknameChange" ms-click="save">保存</div>
                 </div>
-                <div class="mui-input-row">
-                    <label>昵称</label>
+                <div class="circle" style="margin: 20px auto;width: 96px;height: 96px;background-size: cover;background-position: center;position:relative;top: 3px;" ms-css-background-image="'url('+urlAPINet + headImg+')'" ms-on-tap="changeImg">
+                    <img src="../img/edit-small.png" style="position: absolute;background: #fff;border-radius: 50%;bottom: 2px;left: 72px;width: 18px;" />
+                </div>
+                <div class="mui-input-row" style="color: #bdbdbd;">
+                    <label>您的名字</label>
                     <input type="text" ms-duplex="newNickname" autofocus="autofocus" />
                 </div>
-            </div>
-        </div>
-    </div>
-    <div id="mobile" class="mui-page" style="position: fixed;z-index: 999;">
-        <div class="mui-page-content">
-            <div class="mui-input-group">
-                <div class="mui-button-row" style="background-color: #efeff4;height: 37px;">
-                    <div class="cancelBtn mui-pull-left" style="padding: 5px 15px;">取消</div>
-                    <div style="padding: 5px 15px;" class="mui-pull-right" ms-class-1="mui-text-danger:isMobileChange" ms-class-2="mui-text-gray:!isMobileChange" ms-click="save">保存</div>
-                </div>
-                <div class="mui-input-row">
-                    <label>手机号</label>
+                <div class="mui-input-row" style="color: #bdbdbd;">
+                    <label>您的手机</label>
                     <input type="text" ms-duplex="newMobile" autofocus="autofocus" />
                 </div>
+                <!-- <div class="mui-input-row" style="color: #bdbdbd;">
+                    <label>您的生日</label>
+                    <input type="text" ms-duplex="newMobile" autofocus="autofocus" />
+                </div> -->
             </div>
         </div>
     </div>

@@ -1,0 +1,71 @@
+6<style>
+.footer {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    bottom: 66px;
+}
+
+.footer-call {
+    padding: 5vw 10vw 5vw 6vw;
+}
+
+.footer-close {
+    padding: 5vw 6vw 5vw 10vw;
+}
+
+.picture {
+    height: 74vw;
+    width: 74vw;
+    background-size: cover;
+}
+
+.pop {
+    height: 100%;
+    /*padding: 24px 24px 30px;*/
+    padding: 5vw 6vw 7vw;
+}
+
+.serviceName {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 7vw 0 4vw;
+}
+</style>
+<article ms-controller="popService" style="height: 136vw;width: 86vw;">
+    <div class="pop bs-text-444">
+        <div class="picture" ms-css-background-image="url({{urlAPINet + popList.inStoreService.picUrl}})"></div>
+        <div class="serviceName bs-text-18">
+            <div style="margin-right: 4vw;">{{popList.inStoreService.name}}</div>
+            <!-- <div class="bs-text-normal">{{popList.engName}}</div> -->
+        </div>
+        <div class="bs-text-smaller" style="text-align: left">
+            {{popList.inStoreService.intro}}
+        </div>
+    </div>
+    <div class="footer bs-text-normal bs-text-bold">
+        <div class="footer-call" ms-on-tap="callService" >
+            {{reservatename}}
+        </div>
+        <div class="bs-text-gray footer-close" ms-on-tap="closePop">
+            取消
+        </div>
+    </div>
+<!--     <div class="footer bs-text-normal bs-text-bold" ms-if='isReservated==1'>
+        <div class="footer-call" ms-on-tap="affirmService">
+            等待确认
+        </div>
+        <div class="bs-text-gray footer-close" ms-on-tap="closePop">
+            取消
+        </div>
+    </div>
+    <div class="footer bs-text-normal bs-text-bold" ms-if='isReservated==2'>
+        <div class="footer-call" ms-on-tap="expediteService">
+            催一催
+        </div>
+                <div class="bs-text-gray footer-close" ms-on-tap="closePop">
+            取消
+        </div>
+    </div> -->
+</article>

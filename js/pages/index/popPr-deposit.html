@@ -1,0 +1,65 @@
+<style>
+.firstContent{
+    width: 80vw;
+     background-color: white;
+     font-size: 14px;
+     color: #444;
+     text-align: left;
+     height: 130vw;
+}
+.depositImg{
+    background-image: url(../img/deposit.jpg);
+    height: 67vw;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: relative;
+    margin: 0 8vw;
+    background-size: 67vw;
+}
+.depositTitle1{
+    position: absolute;
+    left: 22px;
+    top: 54px;
+    font-size: 20px;
+    color: #fff;
+}
+.depositTitle2{
+    position: absolute;
+    left: 22px;
+    top: 76px;
+    font-size: 20px;
+    color: #fff;
+}
+.depositContent{
+    padding-top: 3vw;
+    padding-left: 8vw;
+    padding-right: 8vw;
+}
+.depositContent2{
+    padding-top: 4vw;
+    padding-left: 8vw;
+    padding-right: 8vw;
+    font-size: 16px;
+    font-weight: bold;
+}
+.secondContent{
+    background-color: #444;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin: 5vw auto;
+}
+</style>
+<article ms-controller="prDeposit" style="height: 130vw;margin-top: -11vw;">
+    <div class="firstContent">
+        <div style="padding-top: 7vw;">
+            <div class="depositImg">
+                <div class="depositTitle1">充值时币</div>
+                <div class="depositTitle2">免押金</div>
+            </div>
+            <div class="depositContent">D&K客房的押金为现金200元，入住前到酒店前台办理即可。</div>
+            <div class="depositContent2">充值时币成为VIP，即可免押金</div>
+        </div>
+    </div>
+    <div class="secondContent" ><img src="../img/icon/icon-tanchuangchacha30_30.svg" style="height: 30px;margin-top: 10px;" ms-on-tap="closePopPr"></div>
+</article>

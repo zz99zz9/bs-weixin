@@ -116,7 +116,7 @@ h5 {
                 <img class="circle photo" ms-attr-src="data.headImg" onerror="javascript:this.src='img/avatar.jpg'" />
             </div>
             <div>
-                <div class="bs-text-smaller bs-text-153" style="text-align: center;">{{data.post}}</div>
+                <div class="bs-text-smaller bs-text-gray" style="text-align: center;">{{data.post}}</div>
             </div>
             <div>
                 <div class="bs-text-smaller" style="text-align: center;">{{data.name}}</div>
@@ -134,13 +134,13 @@ h5 {
     <div class="mui-content space">
         <div class="mui-input-group">
             <div class="display-flex flex1-space">
-                <div class="flex0 bs-text-small bs-text-153">入住房间</div>
+                <div class="flex0 bs-text-small bs-text-gray">入住房间</div>
                 <div class="flex1 bs-text-small bs-text-black">{{data.inHome}}</div>
             </div>
         </div>
         <div class="mui-input-group">
             <div class="display-flex flex1-space">
-                <div class="flex0 bs-text-small bs-text-153">入住时间</div>
+                <div class="flex0 bs-text-small bs-text-gray">入住时间</div>
                 <div class="flex1 bs-text-small bs-text-black">{{data.inTime}}</div>
             </div>
         </div>
@@ -149,7 +149,7 @@ h5 {
         <li class="mui-table-view-cell li">
             <table>
                 <tr ms-repeat="scoreList">
-                    <td class="flex0 bs-text-small bs-text-153" style="padding: 0 0 13.5px 0;">{{el.name}}</td>
+                    <td class="flex0 bs-text-small bs-text-gray" style="padding: 0 0 13.5px 0;">{{el.name}}</td>
                     <td style="position: absolute; right: 20px;">
                         <span style="font-size: 22px;margin-left:5px;" ms-repeat-cl="el.list" ms-class-1="isValid:el.s>(cl-1)" ms-class-2="noValid:el.s<cl" ms-click="click(el.r,cl)">★</span>
                     </td>

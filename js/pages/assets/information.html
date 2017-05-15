@@ -1,0 +1,95 @@
+<style>
+.assets {
+    height: 20vh;
+    padding: 30px 24px;
+}
+
+.btn {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 10vh;
+    border-top: 1px solid #ccc;
+}
+
+.money {
+    margin: 3vh 0 5vh;
+}
+
+.profit {
+    height: 68vh;
+    margin-top: 2vh;
+    padding: 23px 24px;
+}
+
+.profit-block {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-top: 2vh;
+    border-top: 1px solid #ccc;
+}
+
+.profit-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 8vh;
+}
+
+.profit-left {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    height: 10vh;
+    width: 50%;
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+}
+
+.profit-right {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 10vh;
+    width: 50%;
+    border-bottom: 1px solid #ccc;
+}
+
+.unit-spacing {
+    margin-right: 7vw;
+}
+</style>
+<div ms-controller="totalAssets" class="bs-text-normal bs-text-444">
+    <div class="assets bs-bg-white">
+        <div>
+            总资产 (<span class="bs-text-fdd942">时币/s</span>)
+        </div>
+        <div class="bs-text-x-larger money">
+            {{money}}
+        </div>
+    </div>
+    <div class="profit bs-bg-white">
+        <div class="profit-title bs-text-18">
+            <div>
+                累计获得
+            </div>
+            <div class="bs-text-fdd942" ms-on-tap="goDetail">
+                收支明细
+            </div>
+        </div>
+        <div class="profit-block">
+            <div ms-repeat="list" ms-class-1="profit-left: $index%2!=1" ms-class-2="profit-right: $index%2==1">
+                <div class="unit-spacing">
+                    {{el.description}}
+                </div>
+                <div>
+                    {{(el.amount>=0?'+':'-') + ' ' + el.amount}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="btn bs-text-bold bs-text-18 bs-bg-white layout-center" ms-on-tap="goRecharge">
+        充值
+    </div>
+</div>

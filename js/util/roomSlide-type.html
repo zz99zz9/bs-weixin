@@ -1,18 +1,71 @@
+<style>
+.pirce-unit {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    position: absolute;
+    width: auto;
+    background-color: rgba(0, 0, 0, .75);
+    padding: 4px 10px;
+    bottom: 60px;
+}
+
+.pirce-money {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: auto;
+    margin-right: 5px;
+}
+
+.restCount {
+    position: absolute;
+    right: 0;
+    top: 10px;
+    height: 24px;
+    width: 60px;
+    padding: 0;
+    line-height: 24px;
+    background-color: rgba(0, 0, 0, 0.75);
+}
+
+.guestFull {
+    position: absolute;
+    right: 60px;
+    top: 10px;
+    height: 24px;
+    width: 60px;
+    padding: 0;
+    line-height: 24px;
+    background-color: rgba(253, 217, 66, 0.75);
+}
+</style>
 <div class="swiper-slide-item">
-    <a href="###" ms-on-tap="goRoom(el.id)">
-        <div ms-css-background-image="url({{urlAPINet + el.coverUrl}})">
-            <label style="display: inline-block;width: 115px;">
+    <div ms-on-tap="goRoom(el.id)">
+        <div ms-css-background-image="url({{urlAPINet + el.coverUrl}})" style="height: 225px; background-size: cover;">
+            <!-- <label style="display: inline-block;width: 120px;">
                 <span style="position: relative;top: -6px;right: -3px;color: #999;">￥</span>
-                <span class="slide-price">{{type?round(el.minPrice*6):el.minPrice}}</span>
-                <span>/{{type==1?"3小时":"晚起"}}</span>
+                <span class="slide-price">{{type==1?round(el.minPrice*6):el.minPrice}}</span>
+                <span>{{type==1?"/3小时":(type==0?"/ 晚起":"午夜特价")}}</span>
                 <span class="roomtype">{{el.name}}</span>
-            </label>
-            <span ms-if="typeof el.restRoomCount != 'undefined'" class="bs-text-white bs-bg-black" style="position: absolute;right:0;top:15px;display: inline-block; padding: 4px 5px 4px 10px;border-bottom-left-radius: 20px;border-top-left-radius: 20px;">
-                <span class="bs-text-larger bs-text-bolder">剩余{{el.restRoomCount}}间</span>
-            </span>
+            </label> -->
+            <div class="pirce-unit bs-text-white bs-text-x-smaller">
+                <div class="pirce-money layout-center">
+                    <div class="bs-text-small bs-text-bold" style="border-bottom: 1px solid #999;">{{el.minPrice}}元</div>
+                    <div class="bs-text-fdd942 bs-text-small bs-text-bold">{{el.minTimeCoin}}时币</div>
+                </div>
+                <div>/ 晚起</div>
+            </div>
+            <!-- <span ms-if="typeof el.restRoomCount != 'undefined'" class="bs-text-white bs-bg-black" style="position: absolute;right:0;top:15px;display: inline-block; padding: 4px 5px 4px 10px;border-bottom-left-radius: 20px;border-top-left-radius: 20px;">
+                <span class="bs-text-larger bs-text-bolder" ms-if="el.restRoomCount">剩余{{el.restRoomCount}}间</span>
+                <span class="bs-text-larger bs-text-bolder" ms-if="!el.restRoomCount">满房</span>
+            </span> -->
+            <div class="guestFull bs-text-smaller bs-text-444 bs-text-bold layout-center">{{el.name}}</div>
+            <div ms-if="el.restRoomCount==0" class="restCount bs-text-white bs-text-smaller layout-center">满&emsp;房</div>
+            <div ms-if="el.restRoomCount!=0" class="restCount bs-text-white bs-text-smaller layout-center">仅剩{{el.restRoomCount}}间</div>
         </div>
-    </a>
-    <div class="swiper-container swiper3 hotel-room-amenity bs-bg-white" style="border-bottom: 0.5px solid #ccc">
+    </div>
+    <div class="swiper-container swiper3 hotel-room-amenity bs-bg-white" style="margin-bottom: 12px;">
         <div class="swiper-wrapper" style="padding-left: 0;">
             <div class="swiper-slide hotel-room-amenity-item" ms-repeat-cl="el.amenityList" ms-if-loop="cl.isShow" data-repeat-rendered="swiper3Render">
                 <img ms-attr-src="urlAPINet + cl.ico" ms-attr-alt="cl.name" style="width: 22px;height: 22px;margin-left: 5px" />

@@ -1,0 +1,99 @@
+<style>
+.all {
+    padding: 24px;
+    height: 100%;
+    background-color: white;
+}
+
+.block-brief {}
+
+.block-content {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.block-img {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: 58px;
+    width: 58px;
+    margin: 0 10px -8px;
+    border: 1px solid #bdbdbd;
+    border-radius: 50%;
+}
+
+.block-title {
+    margin: 8px 0 48px;
+}
+
+.block-unit {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 40px;
+}
+
+.block-unit-img {
+    height: 100%;
+}
+
+.btn-over {
+    width: 120px;
+    height: 32px;
+    margin: 18px auto 56px;
+    border: 1px solid #fdd942;
+}
+
+.btn-word {
+    line-height: 32px;
+}
+
+.header-title {
+    background-position: center;
+    height: 21px;
+    background-repeat: no-repeat;
+    width: 66%;
+    margin: 24px auto 48px;
+}
+
+.select {
+    border: 1px solid #fdd942;
+}
+
+.selectCheck {
+    visibility: visible !important;
+    position: relative;
+    top: -12px;
+    float: right;
+    right: -20px;
+}
+
+</style>
+<div ms-controller="serviceProcess" class="all">
+    <div class="header-title bs-text-bold layout-center" ms-css-background-image="url({{headerUrl}})">
+    </div>
+    <div ms-repeat="list" class="bs-text-normal">
+        <div class="block-title layout-center">
+            {{el.preService.serviceProblem}}
+        </div>
+        <div class="block-content">
+            <div class="block-unit layout-center" ms-repeat-cl="el.preService.serviceReplyContentList" ms-on-tap="select(el.sid, cl.id, $outer.$index,$index,cl.serviceContent)" ms-class="selectPic: $index==el.selectIndex">
+                <div ms-attr-id="{{cl.id}}" class="block-img" ms-class="select: $index==el.selectIndex">
+                    <img class="block-unit-img" ms-attr-src="urlAPINet + cl.imgUrl">
+                    </img>
+                </div>
+                    <img src="../img/icon/select-check.svg" alt="选" style="visibility: hidden;" ms-class="selectCheck: $index==el.selectIndex">
+
+                <div class="bs-text-smaller bs-text-444">
+                    {{cl.serviceReply}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="btn-over layout-center">
+        <div class="btn-word bs-text-smaller" ms-on-tap="over">
+            完成
+        </div>
+    </div>
+</div>

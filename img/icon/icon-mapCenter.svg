@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="28px" height="42px" viewBox="0 0 28 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 43.2 (39069) - http://www.bohemiancoding.com/sketch -->
+    <title>Group 2</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <filter x="-14.6%" y="-6.6%" width="129.2%" height="118.4%" filterUnits="objectBoundingBox" id="filter-1">
+            <feOffset dx="0" dy="1" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="1" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.24 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="SourceGraphic"></feMergeNode>
+            </feMerge>
+        </filter>
+        <circle id="path-2" cx="12" cy="12" r="12"></circle>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="酒店地图-copy" transform="translate(-173.000000, -406.000000)">
+            <g id="Group-2" filter="url(#filter-1)" transform="translate(175.000000, 407.000000)">
+                <ellipse id="Oval" fill="#B2B2B2" cx="12" cy="36.75" rx="2" ry="1.25"></ellipse>
+                <g id="Oval-8">
+                    <use fill="#FDD942" fill-rule="evenodd" xlink:href="#path-2"></use>
+                    <circle stroke="#444444" stroke-width="7" cx="12" cy="12" r="8.5"></circle>
+                </g>
+                <path d="M11,22.495904 C11,22.2220238 11.214035,22 11.5046844,22 L12.4953156,22 C12.7740451,22 13,22.2250777 13,22.4940408 L13,25.2849786 C13,25.5578298 13,26.012084 13,26.2840117 L13,26.025329 C13,26.3011937 13,26.7396357 13,27.0156901 L13,36.5027872 C13,36.7773902 12.785965,37 12.4953156,37 L11.5046844,37 C11.2259549,37 11,36.779258 11,36.5036077 L11,27.0321661 C11,26.7615168 11,26.315569 11,26.0482257 L11,26.2729058 C11,26.0001399 11,25.5577051 11,25.2711077 L11,22.495904 Z" id="Combined-Shape" fill="#444444"></path>
+            </g>
+        </g>
+    </g>
+</svg>

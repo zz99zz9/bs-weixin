@@ -64,6 +64,22 @@ var Storage = {
         }
     }
 };
+
+var positionIniData = {
+    mode: {
+        value: 1,
+        city: 1,
+        center: 2,
+        nearby: 3
+    },
+    center: {
+        name: '盘古创业',
+        lng: 121.516546,
+        lat: 31.217467
+    },
+    city: { name: '上海市', cid: 803 }
+};
+
 //获取参数
 function getParam(paramName) {
     var paramList = location.search.replace("?", "").split("&");
@@ -72,6 +88,29 @@ function getParam(paramName) {
             return decodeURI(paramList[i].substring(paramList[i].indexOf("=") + 1, paramList[i].length));
     }
     return "";
+}
+
+//获取入住人id类信息
+function getGuest() {
+    var oid = getParam("oid"),
+        rid = getParam("rid"),
+        orid = getParam("orid");
+    if (oid != '') { //优先取链接的id
+        Storage.set('guest', { oid: oid, orid: orid, rid: rid });
+    } else { //其次storage中找
+        var guest = Storage.get("guest");
+        console.log(guest);
+        if (guest) {
+            oid = guest.oid;
+            rid = guest.rid;
+            orid = guest.orid;
+        } else {  //链接、storage均没有，
+            if (location.pathname.indexOf("service/orderList")<0) {
+                location.href = "../index.html";
+            }
+        }
+    }
+    return { oid: oid, orid: orid, rid: rid };
 }
 
 //获取连接令牌
@@ -100,13 +139,19 @@ function ajaxJsonp(param) {
             param.data.openId = openid;
 
             $.ajax({
-                type: "get",
+                type: "post",
                 async: param.async || true,
                 // url: param.url + "?accessToken=" + token + "&openId=" + openid,
                 url: param.url,
-                dataType: "jsonp",
-                jsonp: "jsonpcallback",
+                dataType: "json",
+                // dataType: "jsonp",
+                // jsonp: "jsonpcallback",
                 data: param.data,
+                beforeSend: function() {
+                    if (param.data.loading) {
+                        console.log(123);
+                    }
+                },
                 success: function(json) {
                     if (json.status === -1) {
                         if (!param.noSkip) {
@@ -139,11 +184,41 @@ var controlCore = {
     }
 }
 
+function dateAdd(date, strInterval, number) {
+    switch (strInterval) {
+        case 's':
+            return new Date(Date.parse(date) + (1000 * number));
+        case 'n':
+            return new Date(Date.parse(date) + (60000 * number));
+        case 'h':
+            return new Date(Date.parse(date) + (3600000 * number));
+        case 'd':
+            return new Date(Date.parse(date) + (86400000 * number));
+        case 'w':
+            return new Date(Date.parse(date) + ((86400000 * 7) * number));
+        case 'q':
+            return new Date(date.getFullYear(), (date.getMonth()) + number * 3, date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds());
+        case 'm':
+            return new Date(date.getFullYear(), (date.getMonth()) + number, date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds());
+        case 'y':
+            return new Date((date.getFullYear() + number), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds());
+    }
+}
+
 //传入完整时间，返回 MM月DD日
 function formatDate(str) {
     var date = new Date(str.replace(/-/g, "/"));
 
     return (date.getMonth() + 1) + "月" + date.getDate() + "日";
+}
+
+function formatDateObj(date, type) {
+    switch (type) {
+        case 'yyyy-mm-dd hh:00':
+            return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + ' ' + date.getHours() + ':00';
+        case 'yyyy-mm-dd':
+            return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+    }
 }
 
 //传入完整时间，返回 hh:mm
@@ -421,7 +496,7 @@ function getDateByDays(date, days) {
     return year + "-" + month + "-" + day;
 }
 
-//时租房的本地数据读取呈现
+//时租房的本地数据读取呈现-老的
 function loadSessionPartTime() {
     var index, number;
 
@@ -444,30 +519,28 @@ function loadSessionPartTime() {
 
 //获取入住时间
 function getStartTime(type) {
-    if (type) {
-        //if (newOrder.partTime.start) {
-            var today = new Date();
-            return today.getFullYear() + "-" + ((today.getMonth() + 1) < 10 ? ('0' + (today.getMonth() + 1)) : (today.getMonth() + 1)) + "-" + today.getDate() + " " + vmPart.partTimeStart;
-        //} else {
-        //    return '';
-        //}
-    } else {
-        return getDate(vmCalendar.startIndex);
+    if (type == 1) {
+        var today = new Date();
+        return today.getFullYear() + "-" + ((today.getMonth() + 1) < 10 ? ('0' + (today.getMonth() + 1)) : (today.getMonth() + 1)) + "-" + today.getDate() + " " + vmPart.partTimeStart;
+    } else if (type == 0) {
+        return getDate(vmCalendar.startIndex) + ' ' + clockObj.getStartHour() + ":00";;
+    } else if (type == 2) {
+        return getToday();
     }
 }
 
 //获取退房时间
 function getEndTime(type) {
-    if (type) {
-        //if (vmPart.partTimeEnd) {
-            var today = new Date();
-            return today.getFullYear() + "-" + ((today.getMonth() + 1) < 10 ? ('0' + (today.getMonth() + 1)) : (today.getMonth() + 1)) + "-" + today.getDate() + " " + vmPart.partTimeEnd;
-        //} else {
-        //    return '';
-        //}
-    } else {
+    var today = new Date(),
+        date = today.getFullYear() + "-" + ((today.getMonth() + 1) < 10 ? ('0' + (today.getMonth() + 1)) : (today.getMonth() + 1)) + "-" + today.getDate();
+
+    if (type == 1) {
+        return date + " " + vmPart.partTimeEnd;
+    } else if (type == 0) {
         //夜房默认退房时间
-        return getDate(vmCalendar.endIndex) + " 14:00";
+        return getDate(vmCalendar.endIndex) + ' ' + clockObj.getEndHour() + ":00";
+    } else if (type == 2) {
+        return date + " 14:00";
     }
 }
 
@@ -477,7 +550,7 @@ function getDate(index) {
     if (index == -1) {
         return "";
     } else {
-        date = vmCalendar.calendar[index];
+        date = vmCalendar.calendarDates[index];
         return date.year + '-' + (date.month < 10 ? ('0' + date.month) : date.month) + '-' + (date.day < 10 ? ('0' + date.day) : date.day);
     }
 }
@@ -506,6 +579,12 @@ function getHourIndex() {
     }
 
     return index;
+}
+
+function isSameDay(a, b) {
+    return a.getFullYear() == b.getFullYear() &&
+        a.getMonth() == b.getMonth() &&
+        a.getDate() == b.getDate();
 }
 
 //注册导航接口
@@ -642,3 +721,100 @@ function modalShow(url, type, callback) {
 function modalClose() {
     $('.mask').hide();
 }
+
+var Observer = (function() {
+    var _message = {};
+    return {
+        regist: function(type, fn) {
+            if (typeof _message[type] === 'undefined') {
+                _message[type] = [fn];
+            } else {
+                _message[type].push(fn);
+            }
+        },
+        fire: function(type, args) {
+            if (!_message[type])
+                return;
+            var events = {
+                    type: type,
+                    args: args || {}
+                },
+                i = 0,
+                len = _message[type].length;
+
+            for (; i < len; i++) {
+                _message[type][i].call(this, events);
+            }
+        },
+        remove: function(type, fn) {
+            if (_message[type] instanceof Array) {
+                var i = _message[type].length - 1;
+                for (; i >= 0; i--) {
+                    _message[type][i] === fn && _message[type].splice(i, 1);
+                }
+            }
+        }
+    }
+})();
+
+//初始化时间
+var iniOrderTime = function() {
+    var order = Storage.get('newOrder');
+    if (!newOrder) {
+        var now = new Date(),
+            h1 = now.getHours(), 
+            interval = 3;
+        if (23 - h1 < 3) {
+            interval = 23 - h1;
+        }
+
+        order = {
+            day: {
+                start: formatDateObj(now, 'yyyy-mm-dd hh:00'), //yyyy-mm-dd hh:mm
+                end: formatDateObj(dateAdd(now, 'd', 1), 'yyyy-mm-dd') + ' 12:00', //yyyy-mm-dd hh:mm
+                startHour: now.getHours(),
+                endHour: 12
+            },
+            partTime: {
+                start: formatDateObj(now, 'yyyy-mm-dd hh:00'), //yyyy-mm-dd hh:mm
+                end: formatDateObj(dateAdd(now, 'h', 3), 'yyyy-mm-dd hh:00'), //yyyy-mm-dd hh:mm
+                startHour: h1,
+                endHour: h1 + interval,
+                amount: interval
+            }
+        }
+        Storage.set('newOrder', order);
+    }
+    return order;
+}
+
+// ajaxJsonp({  //测试所用，默认登录该账号
+//     url: urlAPI + '/web/usr/user/loginPwd',
+//     data: {
+//         username: 18321958468,
+//         password: 123456
+//     },
+//     successCallback: function(json) {
+//         if (json.status !== 1) {
+//             alert(json.message);
+//             vmLogin.isDisabled = false;
+//         } else {
+//             var user = {
+//                 uid: json.data.id,
+//                 mobile: json.data.mobile,
+//                 openId: json.data.openId,
+//                 name: json.data.name,
+//                 nickname: json.data.nickname,
+//                 headImg: json.data.headUrl,
+//                 logState: 1,
+//                 accessToken: json.data.accessToken,
+//                 idUrl: json.data.idUrl,
+//                 idNo: json.data.idNo,
+//                 authStatus: json.data.authStatus,
+//                 invoiceMoney: json.data.invoiceMoney
+//             };
+//             Storage.setLocal('user', user);
+//             //location.replace('../index.html');
+//         }
+//     }
+// });
