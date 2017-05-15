@@ -28,7 +28,7 @@ var vmRechargeFriend = avalon.define({
                             wx.onMenuShareTimeline({
                                 title: '成为D&K会员', // 分享标题
                                 link: vmRechargeFriend.url, // 分享链接
-                                imgUrl: urlWeixin + '/img/logo.jpg', // 分享图标
+                                imgUrl: urlWeixin + '/img/icon/logo.svg', // 分享图标
                                 success: function() {
                                     // 用户确认分享后执行的回调函数
                                     mui.alert('分享成功', function() {
@@ -44,7 +44,7 @@ var vmRechargeFriend = avalon.define({
                                 title: 'D&K会员邀请', // 分享标题
                                 desc: vmRechargeFriend.inviterName + '邀请您成为D&K客房的会员，点击立即前往', // 分享描述
                                 link: vmRechargeFriend.url, // 分享链接
-                                imgUrl: urlWeixin + '/img/logo.jpg', // 分享图标
+                                imgUrl: urlWeixin + '/img/icon/logo.svg', // 分享图标
                                 type: '', // 分享类型,music、video或link，不填默认为link
                                 dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
                                 success: function() {
