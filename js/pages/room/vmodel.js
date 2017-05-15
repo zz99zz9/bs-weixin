@@ -101,9 +101,10 @@ vmRoom = avalon.define({
             }
         });
     },
-    openTimePanel: function() {
+    openTimePanel: function(e) {
         stopSwipeSkip.do(function() {
             modalShow('./util/calendar.html', 1, function() {
+                e.stopPropagation();
                 vmCalendar.iniCalendarModal(roomTypeId);
             });
         });
@@ -338,34 +339,30 @@ if (bensue) {
 }
 vmRoom.type = roomType;
 
-newOrder = Storage.get("newOrder");
-if (newOrder) {
-    //显示本地时间数据
-    if (newOrder.day) {
-        sessionToDateData();
-    }
+newOrder = iniOrderTime();
 
-    //本地有入住人信息优先使用本地数据
-    //没有的话就读接口查询是否设置过默认入住人
-    if (newOrder.contact && newOrder.contact.length > 0) {
-        vmRoom.checkinList = newOrder.contact;
-    } else {
-        newOrder.contact = [];
-    }
+//本地有入住人信息优先使用本地数据
+//没有的话就读接口查询是否设置过默认入住人
+if (newOrder.contact && newOrder.contact.length > 0) {
+    vmRoom.checkinList = newOrder.contact;
 } else {
-    newOrder = {
-        room: {},
-        hotel: {},
-        day: {
-            filter: []
-        },
-        partTime: {
-            filter: []
-        },
-        contact: []
-    };
+    newOrder.contact = [];
 }
 
+if(!newOrder.day.startShow) {
+    newOrder.day.startShow = formatDate(newOrder.day.start) + '<br><br>' + newOrder.day.startHour + ":00";
+    newOrder.day.endShow = formatDate(newOrder.day.end) + '<br><br>' + newOrder.day.endHour + ":00";
+    newOrder.day.timeSpan = getTimeSpan(newOrder.day.start, newOrder.day.end);
+}
+if(!newOrder.partTime.startShow){
+    newOrder.partTime.startShow = "今日<br><br>" + newOrder.partTime.startHour + ":00";
+    newOrder.partTime.endShow = "今日<br><br>" + newOrder.partTime.endHour + ":00";
+    newOrder.partTime.timeSpan = getTimeSpan(newOrder.partTime.start, newOrder.partTime.end);
+}
+
+Storage.set("newOrder", newOrder);
+
+sessionToDateData();
 room_init();
 
 /*
@@ -548,3 +545,23 @@ function registerWeixinConfig() {
 vmRoom.$watch('type', function(a) {
     room_init();
 });
+
+function getTimeSpan(start, end) {
+    var startDate, endDate, day, hour, timeSpan;
+    startDate = new Date(start.replace(/-/g, "/"));
+    endDate = new Date(end.replace(/-/g, "/"));
+    day = Math.floor((Date.parse(endDate) - Date.parse(startDate)) / 86400000);
+    hour = Math.floor((Date.parse(endDate) - Date.parse(startDate)) / 3600000) % 24;
+
+    if (day) {
+        if (hour) {
+            timeSpan = day + "天 " + hour + "小时";
+        } else {
+            timeSpan = day + "天 ";
+        }
+    } else {
+        timeSpan = hour + "小时";
+    }
+
+    return timeSpan;
+}

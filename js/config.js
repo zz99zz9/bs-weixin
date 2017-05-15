@@ -212,6 +212,15 @@ function formatDate(str) {
     return (date.getMonth() + 1) + "月" + date.getDate() + "日";
 }
 
+function formatDateObj(date, type) {
+    switch (type) {
+        case 'yyyy-mm-dd hh:00':
+            return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + ' ' + date.getHours() + ':00';
+        case 'yyyy-mm-dd':
+            return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+    }
+}
+
 //传入完整时间，返回 hh:mm
 function getHourTime(date) {
     return date.slice(11, 16);
@@ -572,6 +581,12 @@ function getHourIndex() {
     return index;
 }
 
+function isSameDay(a, b) {
+    return a.getFullYear() == b.getFullYear() &&
+        a.getMonth() == b.getMonth() &&
+        a.getDate() == b.getDate();
+}
+
 //注册导航接口
 function registerWeixinConfig(callback) {
     ajaxJsonp({
@@ -741,6 +756,37 @@ var Observer = (function() {
         }
     }
 })();
+
+//初始化时间
+var iniOrderTime = function() {
+    var order = Storage.get('newOrder');
+    if (!newOrder) {
+        var now = new Date(),
+            h1 = now.getHours(), 
+            interval = 3;
+        if (23 - h1 < 3) {
+            interval = 23 - h1;
+        }
+
+        order = {
+            day: {
+                start: formatDateObj(now, 'yyyy-mm-dd hh:00'), //yyyy-mm-dd hh:mm
+                end: formatDateObj(dateAdd(now, 'd', 1), 'yyyy-mm-dd') + ' 12:00', //yyyy-mm-dd hh:mm
+                startHour: now.getHours(),
+                endHour: 12
+            },
+            partTime: {
+                start: formatDateObj(now, 'yyyy-mm-dd hh:00'), //yyyy-mm-dd hh:mm
+                end: formatDateObj(dateAdd(now, 'h', 3), 'yyyy-mm-dd hh:00'), //yyyy-mm-dd hh:mm
+                startHour: h1,
+                endHour: h1 + interval,
+                amount: interval
+            }
+        }
+        Storage.set('newOrder', order);
+    }
+    return order;
+}
 
 // ajaxJsonp({  //测试所用，默认登录该账号
 //     url: urlAPI + '/web/usr/user/loginPwd',

@@ -92,9 +92,9 @@ var vmCity = avalon.define({
             slidesPerView: 1,
             width: window.innerWidth - 30,
             spaceBetween: 10,
-            freeMode: true,
-            freeModeSticky: true,
-            freeModeMomentumRatio: 0.4,
+            freeMode: false,
+            // freeModeSticky: true,
+            // freeModeMomentumRatio: 0.4,
             onSlideChangeEnd: function(swiper) {
                 var marker = hotelMarkersOnMap[swiper.activeIndex];
                 marker.setTop(true);
@@ -251,8 +251,8 @@ var vmCity = avalon.define({
             }
         });
     },
-    bottomBartStartTime: '',
-    bottomBartEndTime: '',
+    bottomBarStartTime: '',
+    bottomBarEndTime: '',
     setBottomBarTime: function() {
         var newOrder = Storage.get('newOrder'),
             start = '', 
@@ -278,12 +278,12 @@ var vmCity = avalon.define({
                 end = '今日 ' + newOrder.partTime.endHour + ':00';
             } else {
                 start = '今日 ' + now.getHours() + ':00';
-                end = '今日 ' + now.getHours()+3>=24?((now.getHours()+3-24) + ':00'):((now.getHours()+3) + ':00');
+                end = '今日 ' + (now.getHours()+3>=24?((now.getHours()+3-24) + ':00'):((now.getHours()+3) + ':00'));
             }
         }
 
-        vmCity.bottomBartStartTime = start;
-        vmCity.bottomBartEndTime = end;
+        vmCity.bottomBarStartTime = start;
+        vmCity.bottomBarEndTime = end;
     }
 });
 
@@ -330,14 +330,7 @@ if (bensue && bensue.type) {
     Storage.set("bensue", bensue);
 }
 
-newOrder = Storage.get("newOrder");
-if (!newOrder) {
-    newOrder = {
-        day: { start: '', end: '', filter: [] },
-        partTime: { start: '', end: '', filter: [] }
-    };
-    Storage.set("newOrder", newOrder);
-}
+newOrder = iniOrderTime();
 
 positionInStorage = Storage.get("position");
 if(!positionInStorage) {
@@ -349,11 +342,13 @@ switch(positionInStorage.mode.value) {
     case positionInStorage.mode.nearby:
         mapOption = {
             zoom: 12,
+            features: ['bg','road','point']
         };
         break;
     case positionInStorage.mode.center:
         mapOption = {
             zoom: 12,
+            features: ['bg','road','point'],
             center: [positionInStorage.center.lng, positionInStorage.center.lat]
         }
         break;
@@ -527,23 +522,6 @@ function updateData() {
     vmCity.position = positionInStorage.name;
     vmCity.lng = positionInStorage.lng;
     vmCity.lat = positionInStorage.lat;
-}
-
-//保存到本地
-function saveStorage() {
-    if (vmCity.type) {
-        $.extend(newOrder.partTime, {
-            start: getStartTime(vmCity.type),
-            end: getEndTime(vmCity.type),
-        });
-    } else {
-        $.extend(newOrder.day, {
-            start: getStartTime(vmCity.type),
-            end: getEndTime(vmCity.type),
-        });
-    }
-
-    Storage.set("newOrder", newOrder);
 }
 
 //遍历高德的点标注

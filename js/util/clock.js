@@ -523,24 +523,13 @@ var clock = function(roomTypeId) {
         ctx.font = "21px serif";
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
-        var dayNum = Math.floor((Date.parse(t2) - Date.parse(t1)) / 86400000);
-        h = 0;
-
-        if (dayNum > 0) {
-            h = (dayNum * 24 + h2 - h1) % 24;
-        } else {
-            // h = Math.floor((Date.parse(t2) - Date.parse(t1)) / 3600000);
-
-            h = h2 - h1;
-            if (h <= 0) {
-                h = 24 + h;
-            }
-        }
+        var day = Math.floor((Date.parse(t2) - Date.parse(t1)) / 86400000),
+            hour = Math.floor((Date.parse(t2) - Date.parse(t1)) / 3600000) % 24;
 
         if (price == 0) {
-            drawTime(dayNum, h, 0, 0)
+            drawTime(day, hour, 0, 0)
         } else {
-            drawTime(dayNum, h, 0, -10)
+            drawTime(day, hour, 0, -10)
             ctx.fillText(price + "元", 0, 20);
         }
 
@@ -558,20 +547,20 @@ var clock = function(roomTypeId) {
         ctx.stroke();
     }
 
-    function drawTime(dayNum, h, x, y) {
-        if (dayNum > 0) {
-            // circleColor = colorArray[dayNum < 10 ? dayNum : 9];
-            if (h) {
-                ctx.fillText(dayNum + "天 " + h + "小时", x, y);
-                timeSpan = dayNum + "天 " + h + "小时";
+    function drawTime(day, hour, x, y) {
+        if (day > 0) {
+            // circleColor = colorArray[day < 10 ? day : 9];
+            if (hour) {
+                ctx.fillText(day + "天 " + hour + "小时", x, y);
+                timeSpan = day + "天 " + hour + "小时";
             } else {
-                ctx.fillText(dayNum + "天 ", x, y);
-                timeSpan = dayNum + "天 ";
+                ctx.fillText(day + "天 ", x, y);
+                timeSpan = day + "天 ";
             }
         } else {
             // circleColor = colorArray[0];
-            ctx.fillText(h + "小时", x, y);
-            timeSpan = h + "小时";
+            ctx.fillText(hour + "小时", x, y);
+            timeSpan = hour + "小时";
         }
     }
 
@@ -675,20 +664,6 @@ var clock = function(roomTypeId) {
         return isChange;
     }
 
-    function isSameDay(a, b) {
-        return a.getFullYear() == b.getFullYear() &&
-            a.getMonth() == b.getMonth() &&
-            a.getDate() == b.getDate();
-    }
-
-    function formatDate(date, type) {
-        switch (type) {
-            case 'yyyy-mm-dd hh:00':
-                return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + ' ' + date.getHours() + ':00';
-            case 'yyyy-mm-dd':
-                return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
-        }
-    }
 
     function getNowHour() {
         var date = new Date();
@@ -701,8 +676,8 @@ var clock = function(roomTypeId) {
                 url: urls.getRoomPrice,
                 data: {
                     tid: tid,
-                    startTime: formatDate(t1, 'yyyy-mm-dd hh:00'),
-                    endTime: formatDate(t2, 'yyyy-mm-dd hh:00'),
+                    startTime: formatDateObj(t1, 'yyyy-mm-dd hh:00'),
+                    endTime: formatDateObj(t2, 'yyyy-mm-dd hh:00'),
                     isPartTime: status.key == status.partTimeClock ? 1 : 0,
                 },
                 successCallback: function(json) {
@@ -781,10 +756,10 @@ var clock = function(roomTypeId) {
             return t2.getHours();
         },
         getStart: function() {
-            return formatDate(t1, 'yyyy-mm-dd hh:00');
+            return formatDateObj(t1, 'yyyy-mm-dd hh:00');
         },
         getEnd: function() {
-            return formatDate(t2, 'yyyy-mm-dd hh:00');
+            return formatDateObj(t2, 'yyyy-mm-dd hh:00');
         },
         setStartHour: function(hour) {
             t1.setHours(hour);
@@ -808,10 +783,10 @@ var clock = function(roomTypeId) {
             return timeSpan;
         },
         getStartShow: function() {
-            return (t1.getMonth() + 1) + '月' + t1.getDate() + '日' + '<br>' + t1.getHours() + ':00<br>' + getWeekday(formatDate(t1, 'yyyy-mm-dd'));
+            return (t1.getMonth() + 1) + '月' + t1.getDate() + '日' + '<br>' + t1.getHours() + ':00';
         },
         getEndShow: function() {
-            return (t2.getMonth() + 1) + '月' + t2.getDate() + '日' + '<br>' + t2.getHours() + ':00<br>' + getWeekday(formatDate(t2, 'yyyy-mm-dd'));
+            return (t2.getMonth() + 1) + '月' + t2.getDate() + '日' + '<br>' + t2.getHours() + ':00';
         },
         getCoord: function(index) {
             return hourCoord[index];

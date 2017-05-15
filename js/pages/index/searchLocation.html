@@ -100,7 +100,7 @@
         <section style="text-align: left;">
             <div class="bs-text-small bs-text-gray" style="font-size: 12px;margin-bottom: 24px;padding-left: 24px;">开放城市</div>
             <div style="display: flex;flex-wrap: wrap;justify-content: flex-start;padding: 0 24px;">
-                <div class="bs-text-small bs-text-black hot-hotel-recommend" ms-repeat="openCityList" ms-on-tap="selectSearchCity($index, el.name, el.cid)">
+                <div class="bs-text-small bs-text-black hot-hotel-recommend" ms-repeat="openCityList" ms-on-tap="selectSearchCity($index, el.name, el.cid)" ms-if-loop="el.status">
                     <img src="../img/icon/icon-geo.svg" style="width: 16px;height: 16px;position: relative;top: 3px;" ms-if="searchCityIndex==$index">
                     {{el.name}}
                 </div>
