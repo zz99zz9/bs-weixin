@@ -26,14 +26,14 @@
     <div class="distance bs-text-white bs-text-x-smaller layout-center">{{round(el.distance/1000)}}km</div>
     <!-- <label class="hotel-price-lable" style="height: 35px;padding-right: 15px;padding-left: 10px;bottom: 15px;background: rgba(0,0,0,.5);">
         <span class="bs-text-18" style="font-weight: bold;">￥{{type?round(el.minPrice*6):el.minPrice}}</span>
-        <span>{{type==0?"/晚起":(type==1?"/3小时起":"")}}</span>
+        <span>{{type==0?"/ 晚起":(type==1?"/3小时起":"")}}</span>
     </label> -->
     <div class="pirce-unit bs-text-white bs-text-x-smaller">
         <div class="pirce-money layout-center">
             <div class="bs-text-small bs-text-bold" style="border-bottom: 1px solid #999;">{{el.minPrice}}元</div>
             <div class="bs-text-fdd942 bs-text-small bs-text-bold">{{el.minTimeCoin}}时币</div>
         </div>
-        <div>/晚起</div>
+        <div>/ 晚起</div>
     </div>
 </div>
 <div class="bs-bg-white" style="height: 100px;padding: 16px 0 16px;">

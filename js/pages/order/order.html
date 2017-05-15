@@ -5,7 +5,10 @@
     border-radius: 5px;
     box-shadow: 0px 1px 3px 0px #bdbdbd;
 }
+
+
 /*订单页的order-item不要阴影*/
+
 .order-list .order-item {
     box-shadow: none;
 }
@@ -65,8 +68,9 @@ input[type=checkbox] {
 .info-left {
     display: inline-block;
     margin-bottom: 8px;
-    width: 60px; 
+    width: 60px;
 }
+
 .info-right {
     display: inline-block;
 }
@@ -77,6 +81,7 @@ input[type=checkbox] {
     bottom: 0;
     box-shadow: 0px 1px 3px 0px #bdbdbd;*/
 }
+
 .order-btn {
     width: 45vw;
     border: none;
@@ -88,9 +93,11 @@ input[type=checkbox] {
 .visible-hidden {
     visibility: hidden;
 }
+
 .payTypeRow {
     margin-bottom: 17px;
 }
+
 .check-icon {
     background-size: cover;
     top: -4px;
@@ -108,7 +115,6 @@ input[type=checkbox] {
                 </p>
             </div>
         </div>
-
         <ul class="order-list">
             <li class="order-item" ms-repeat="data.orderRoomList" ms-data-index="$index" ms-on-tap="selectRoom($index, el.status)" style="padding: 8px 0 8px 10px;">
                 <div class="hiddenbox">
@@ -134,7 +140,7 @@ input[type=checkbox] {
                     <!-- 是否评论 -->
                     <span class="bs-text-large bs-text-black" style="float: left; margin-top: 20px;" ms-if="(el.status==3||el.status==4)&&(el.isComment)">已评价</span>
                     <!-- 操作按钮 -->
-                    <button class="bs-text-smaller bs-bg-black bs-text-yellow" type="button" ms-on-tap="orderRoomAction(el.id, el.status,el.customerStatus)" ms-if="el.status>=2&&el.status<=4&&!el.isComment" style="float: left;margin: 0px;margin-top: 12px;">{{showActionText(el.status,el.customerStatus)}}</button>
+                    <button class="bs-text-smaller bs-bg-black bs-text-yellow" type="button" ms-on-tap="orderRoomAction(el.id, el.status,el.customerStatus,data.id,el.rid)" ms-if="el.status>=2&&el.status<=4&&!el.isComment" style="float: left;margin: 0px;margin-top: 12px;">{{showActionText(el.status,el.customerStatus)}}</button>
                     <!-- 房间价格 -->
                     <span class="bs-text-large bs-text-black" style="float: right; margin: 20px 15px 0 0;">{{el.amount}}元 / {{el.amountTimeCoin}}时币</</span>
                 </h5>
@@ -169,7 +175,6 @@ input[type=checkbox] {
                 <span class="info-left">订单总额:</span>
                 <span class="info-right bs-text-black">{{round(needAmount)}}元</span>
             </div>
-
             <!-- 支付时的优惠金额显示 -->
             <div ms-if="fund>0&&fund<9999">
                 <span class="info-left">优惠券:</span>
@@ -180,7 +185,6 @@ input[type=checkbox] {
                 <span class="info-right bs-text-black">
                 - {{round((needAmount-fund)*(1-discount))}}元</span>
             </div>
-
             <!-- 支付成功后的优惠金额显示 -->
             <div ms-if="data.fundAmount">
                 <span class="info-left">优惠券:</span>
@@ -190,7 +194,6 @@ input[type=checkbox] {
                 <span class="info-left">VIP折扣:</span>
                 <span class="info-right bs-text-black">- {{data.discountAmount}}元</span>
             </div>
-
             <div>
                 <span class="info-left">支付方式:</span>
                 <span class="info-right bs-text-black">{{getPayType(payType, data.payType)}}</span>
@@ -203,7 +206,6 @@ input[type=checkbox] {
             </div>
         </div>
     </div>
-
     <div class="order-info bs-text-small" ms-if="data.status==1">
         <div class="order-panel bs-text-small bs-text-444">
             <div class="order-panel-title bs-text-larger">支付方式</div>
@@ -233,35 +235,33 @@ input[type=checkbox] {
             </div>
         </div>
     </div>
-
     <!-- 操作面板 -->
     <div id="roomSheet" class="mui-popover mui-popover-bottom mui-popover-action bs-text-large" style="right: 0;">
         <!-- 可选择菜单 -->
         <ul class="mui-table-view">
-          <li class="mui-table-view-cell" ms-repeat="data.orderRoomList" ms-on-tap="sheetClick(el.id, el.status, el.name)" ms-visible="isShowSheet(el.status, sheetType)">
-            <a href="#">{{el.name}}<!-- 全天房 -->
+            <li class="mui-table-view-cell" ms-repeat="data.orderRoomList" ms-on-tap="sheetClick(el.id, el.status, el.name)" ms-visible="isShowSheet(el.status, sheetType)">
+                <a href="#">{{el.name}}<!-- 全天房 -->
                 <span ms-if="!data.isPartTime">{{formatDate(el.startTime)}} - {{formatDate(el.endTime)}}
                 </span>
                 <!-- 时租房 -->
                 <span ms-if="data.isPartTime">{{getHourTime(el.startTime)}} - {{getHourTime(el.endTime)}} 
                 </span>
             </a>
-          </li>
+            </li>
         </ul>
         <!-- 取消菜单 -->
         <ul class="mui-table-view">
-          <li class="mui-table-view-cell">
-            <a href="#roomSheet"><b>取消</b></a>
-          </li>
+            <li class="mui-table-view-cell">
+                <a href="#roomSheet"><b>取消</b></a>
+            </li>
         </ul>
     </div>
-
     <div class="orderBar" ms-if="btn1Text!=''||btn2Text!=''">
         <div style="display: flex;justify-content: space-around;">
             <button type="button" class="order-btn bs-text-444 bs-text-larger" ms-on-tap="btn1Click" ms-if="btn1Text!=''" ms-attr-disabled="btn1Disabled" ms-class-1="bs-bg-bd:data.status==1||data.status==2" ms-class-2="bs-bg-gold:data.status==3||data.staus==4">{{btn1Text}}
             </button>
             <button type="button" class="order-btn bs-text-yellow bs-text-larger bs-bg-black" ms-on-tap="btn2Click" ms-if="btn2Text!=''" ms-attr-disabled="btn2Disabled">{{btn2Text}}</button>
-        <!--  ms-class="visible-hidden:btn1Text==''
+            <!--  ms-class="visible-hidden:btn1Text==''
             ms-class="visible-hidden:btn2Text==''" -->
         </div>
     </div>

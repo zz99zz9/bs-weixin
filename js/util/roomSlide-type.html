@@ -46,7 +46,7 @@
             <!-- <label style="display: inline-block;width: 120px;">
                 <span style="position: relative;top: -6px;right: -3px;color: #999;">￥</span>
                 <span class="slide-price">{{type==1?round(el.minPrice*6):el.minPrice}}</span>
-                <span>{{type==1?"/3小时":(type==0?"/晚起":"午夜特价")}}</span>
+                <span>{{type==1?"/3小时":(type==0?"/ 晚起":"午夜特价")}}</span>
                 <span class="roomtype">{{el.name}}</span>
             </label> -->
             <div class="pirce-unit bs-text-white bs-text-x-smaller">
@@ -54,7 +54,7 @@
                     <div class="bs-text-small bs-text-bold" style="border-bottom: 1px solid #999;">{{el.minPrice}}元</div>
                     <div class="bs-text-fdd942 bs-text-small bs-text-bold">{{el.minTimeCoin}}时币</div>
                 </div>
-                <div>/晚起</div>
+                <div>/ 晚起</div>
             </div>
             <!-- <span ms-if="typeof el.restRoomCount != 'undefined'" class="bs-text-white bs-bg-black" style="position: absolute;right:0;top:15px;display: inline-block; padding: 4px 5px 4px 10px;border-bottom-left-radius: 20px;border-top-left-radius: 20px;">
                 <span class="bs-text-larger bs-text-bolder" ms-if="el.restRoomCount">剩余{{el.restRoomCount}}间</span>

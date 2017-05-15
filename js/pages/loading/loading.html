@@ -54,45 +54,126 @@
     
     @keyframes warn {
         0% {
-            transform: scale(0);
-            opacity: 0.3;
-            background-image: url('../img/loading1.jpg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-        }
-        25% {
-            transform: scale(0.2);
-            opacity: 0.6;
-            background-image: url('../img/loading1.jpg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-        }
-        50% {
-            transform: scale(0.4);
-            opacity: 0.9;
-            background-image: url('../img/loading1.jpg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-        }
-        75% {
-            transform: scale(0.7);
-            opacity: 0.7;
-            background-image: url('../img/loading1.jpg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-        }
-        100% {
-            transform: scale(1);
             opacity: 0.5;
             background-image: url('../img/loading1.jpg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
+            transform: scale(1);
         }
+        8% {
+            opacity: 0.8;
+            background-image: url('../img/loading1.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            transform: scale(1.2);
+        }
+        16% {
+            opacity: 1;
+            background-image: url('../img/loading1.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            transform: scale(1.4);
+        }
+        24% {
+            opacity: 0.8;
+            background-image: url('../img/loading1.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            transform: scale(1.6);
+        }
+        33% {
+            opacity: 0.5;
+            background-image: url('../img/loading1.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            transform: scale(1.8);
+        }
+        33.000001% {
+            opacity: 0.5;
+            background-image: url('../img/loading2.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            transform: scale(1);
+        }
+        41% {
+            opacity: 0.8;
+            background-image: url('../img/loading2.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            transform: scale(1.2);
+        }
+        49% {
+            opacity: 1;
+            background-image: url('../img/loading2.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            transform: scale(1.4);
+        }
+        57% {
+            opacity: 0.8;
+            background-image: url('../img/loading2.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            transform: scale(1.6);
+        }
+        66% {
+            opacity: 0.5;
+            background-image: url('../img/loading2.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            transform: scale(1.8);
+        }
+        66.000001% {
+            opacity: 0.5;
+            background-image: url('../img/loading3.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            transform: scale(1);
+        }
+        74% {
+            opacity: 0.8;
+            background-image: url('../img/loading3.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            transform: scale(1.2);
+        }
+        83% {
+            opacity: 1;
+            background-image: url('../img/loading3.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            transform: scale(1.4);
+        }
+        90% {
+            opacity: 0.8;
+            background-image: url('../img/loading3.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            transform: scale(1.6);
+        }
+        100% {
+            opacity: 0.5;
+            background-image: url('../img/loading3.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            transform: scale(1.8);
+        }
+
     }
     
     .container {
@@ -108,13 +189,13 @@
         height: 100%;
         z-index: 1;
         opacity: 0;
-        -webkit-animation: warn 5s linear;
-        -moz-animation: warn 5s linear;
-        animation: warn 5s linear;
+        -webkit-animation: warn 15s linear;
+        -moz-animation: warn 15s linear;
+        animation: warn 15s linear;
         -webkit-animation-iteration-count: infinite;
         -moz-animation-iteration-count: infinite;
         animation-iteration-count: infinite;
-        background-size: cover;
+        background-size: contain;
         background-position: center;
         background-repeat: no-repeat;
     }
@@ -171,24 +252,24 @@
     var img2 = "../img/loading2.jpg";
     var img3 = "../img/loading3.jpg";
     avalon.ready(function() {
-        // for (var i = 0; i < 3; i++) {
-        //     setInterval(function() {
-        //         switch(i) {
-        //             case 1:
-        //                 img = img1;
-        //                 break; 
-        //             case 2:
-        //                 img = img2;
-        //                 break; 
-        //             case 3:
-        //                 img = img3;
-        //                 break; 
-        //             default: 
-        //                 img = img1;
-        //                 break;
-        //         }
-        //     }, 3000);
-        // }
+        for (var i = 0; i < 3; i++) {
+            setInterval(function() {
+                switch(i) {
+                    case 1:
+                        img = img1;
+                        break; 
+                    case 2:
+                        img = img2;
+                        break; 
+                    case 3:
+                        img = img3;
+                        break; 
+                    default: 
+                        img = img1;
+                        break;
+                }
+            }, 3000);
+        }
 
         setTimeout(function() {
             if (url) {

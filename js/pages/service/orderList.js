@@ -55,7 +55,7 @@ var vmServiceOrderList = avalon.define({
                 vmServiceOrderList.oid = oid;
                 vmServiceOrderList.orid = orid;
                 vmServiceOrderList.rid = rid;
-                Storage.set('guest', { oid: oid, orid: id, rid: rid });
+                Storage.set('guest', { oid: oid, orid: orid, rid: rid });
                 if (vmServiceOrderList.isSend === 0) {
                     vmServiceOrderList.isSend = 1;
                 } else {
@@ -85,7 +85,7 @@ registerWeixinConfig(function() {
         wx.onMenuShareTimeline({
             title: '发送订单', // 分享标题
             link: location.href + "?oid=" + vmServiceOrderList.oid + "&orid=" + vmServiceOrderList.orid + "&rid=" + vmServiceOrderList.rid, // 分享链接
-            imgUrl: urlWeixin + '/img/logo.jpg', // 分享图标
+            imgUrl: urlWeixin + '/img/icon/logo.svg', // 分享图标
             success: function() {
                 // 用户确认分享后执行的回调函数
                 mui.alert("感谢您的厚爱与支持");
@@ -99,7 +99,7 @@ registerWeixinConfig(function() {
             title: '发送订单', // 分享标题
             desc: '分享住房呀', // 分享描述
             link: location.href + "?oid=" + vmServiceOrderList.oid + "&orid=" + vmServiceOrderList.orid + "&rid=" + vmServiceOrderList.rid, // 分享链接
-            imgUrl: urlWeixin + '/img/logo.jpg', // 分享图标
+            imgUrl: urlWeixin + '/img/icon/logo.svg', // 分享图标
             type: '', // 分享类型,music、video或link，不填默认为link
             dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
             success: function() {
